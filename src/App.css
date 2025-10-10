@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ludoGrayDark: #232930;
+  --color-ludoGrayLight: #323B44;
+  --color-ludoGraySoft: #D9D9D9;
+
+  --color-ludoYellow: #FFF887;
+
+}
