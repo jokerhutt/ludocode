@@ -2,9 +2,54 @@
 
 @theme {
   --color-ludoGrayDark: #232930;
-  --color-ludoGrayLight: #323B44;
-  --color-ludoGraySoft: #D9D9D9;
+  --color-ludoGrayLight: #323b44;
+  --color-ludoGraySoft: #d9d9d9;
 
-  --color-ludoYellow: #FFF887;
+  --color-ludoYellow: #fff887;
+}
 
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMMono";
+  src: url("/fonts/DMMono-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+body {
+  font-family: "DMMono", monospace;
 }
