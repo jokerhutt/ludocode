@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ExercisePrompt } from "./AnswerField";
 import { PotentialOptionButton } from "./PotentialOptionButton";
+import { SubmitButton } from "./SubmitButton";
 
 export function ExercisePage() {
   const options = ["let", "=", "1"];
@@ -16,6 +17,10 @@ export function ExercisePage() {
       return copy;
     });
   };
+
+  const allFilled = userAnswer.every((slot) => slot.trim() !== "");
+  const allValid = userAnswer.every((slot) => options.includes(slot.trim()));
+  const canSubmit = allFilled && allValid;
 
   const addAnswer = (value: string) => {
   setUserAnswer(prev => {
@@ -42,7 +47,7 @@ export function ExercisePage() {
           <div className="w-full h-80 rounded-4xl bg-ludoGrayLight">
             <div className="w-full h-10 rounded-t-4xl bg-ludoYellow"></div>
             <div className="w-full h-full p-6">
-              <ExercisePrompt prompt={prompt} userAnswer={userAnswer} setAnswerAt={setAnswerAt}/>
+              <ExercisePrompt options={options} prompt={prompt} userAnswer={userAnswer} setAnswerAt={setAnswerAt}/>
             </div>
           </div>
           <div className="w-full flex justify-center items-center gap-8">
@@ -58,9 +63,7 @@ export function ExercisePage() {
       <footer className="col-span-full grid grid-cols-12 min-h-24 bg-ludoGrayLight">
         <div className="flex w-full justify-between h-full py-2 items-center col-start-1 col-end-12 lg:col-start-3 lg:col-end-11">
           <div></div>
-          <div className="border py-2 px-4 rounded-xl border-ludoYellow">
-            <p className="text-ludoYellow text-2xl">Submit ⌘+⏎</p>
-          </div>
+          <SubmitButton canSubmit={canSubmit}/>  
         </div>
       </footer>
     </div>
