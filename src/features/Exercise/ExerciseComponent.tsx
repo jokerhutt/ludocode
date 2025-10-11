@@ -1,22 +1,19 @@
-import { ExerciseAnswerField } from "./ExerciseAnswerField";
 import { ClickableOption } from "./ClickableOption";
-import { SubmitButton } from "./SubmitButton";
-import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
-import { SegmentedProgress } from "./Progress/SegmentedProgress";
+import { ExerciseAnswerField } from "./ExerciseAnswerField";
 
-export function ExercisePage() {
-  const { options, prompt, userResponses, setAnswerAt, addAnswer, canSubmit } =
-    useExerciseState();
+type ExerciseComponentProps = {
 
-  return (
-    <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
-      <nav className="col-span-full grid grid-cols-12 min-h-16 bg-ludoGrayLight"> 
+    options: string[];
+    prompt: string;
+    userResponses: string[];
+    setAnswerAt: (index: number, value: string) => void;
+    addAnswer: (option: string) => void;
 
-        <div className="flex h-full items-center justify-center col-start-1 col-end-12 lg:col-start-3 lg:col-end-11">
-          <SegmentedProgress total={10} completed={5} />
-        </div>
+}
 
-      </nav>
+export function ExerciseComponent ({options, prompt, userResponses, setAnswerAt, addAnswer}: ExerciseComponentProps) {
+
+    return (
 
       <main className="col-span-full grid grid-cols-12">
         <div className="col-span-1 lg:col-span-2" />
@@ -50,12 +47,7 @@ export function ExercisePage() {
         <div className="col-span-1 lg:col-span-2" />
       </main>
 
-      <footer className="col-span-full grid grid-cols-12 min-h-24 bg-ludoGrayLight">
-        <div className="flex w-full justify-between h-full py-2 items-center col-start-1 col-end-12 lg:col-start-3 lg:col-end-11">
-          <div></div>
-          <SubmitButton canSubmit={canSubmit} />
-        </div>
-      </footer>
-    </div>
-  );
+    )
+
+
 }

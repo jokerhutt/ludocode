@@ -1,11 +1,10 @@
 import "./App.css";
-import { ExercisePage } from "./features/Exercise/ExercisePage";
+import { TutorialPage } from "./features/Tutorial/TutorialPage";
 
 function App() {
-
   return (
     <div className="w-dvw h-dvh bg-ludoGrayDark">
-    <ExercisePage/>
+      <TutorialPage />
     </div>
   );
 }
