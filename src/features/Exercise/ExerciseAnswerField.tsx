@@ -2,21 +2,22 @@ import { Fragment, useMemo } from "react";
 import { splitPromptGaps } from "./util";
 import { OptionInputField } from "./SelectionOptionButton";
 import { useInputAssistance } from "../../Hooks/Input/useInputAssistance";
+import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
 
 type ExerciseAnswerFieldProps = {
-  prompt: string;
-  options: string[];
+  answerField: string;
+  options: LudoExerciseOption[];
   userResponses: string[];
   setAnswerAt: (index: number, value: string) => void;
 };
 
 export function ExerciseAnswerField({
-  prompt,
+  answerField,
   options,
   userResponses: userResponses,
   setAnswerAt,
 }: ExerciseAnswerFieldProps) {
-  const parts = useMemo(() => splitPromptGaps(prompt, "___"), [prompt]);
+  const parts = useMemo(() => splitPromptGaps(answerField, "___"), [answerField]);
 
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
@@ -33,7 +34,7 @@ export function ExerciseAnswerField({
           <span>{part}</span>
           {index < parts.length - 1 && (
             <OptionInputField
-              value={userResponses[index]}
+              value={userResponses[index] ?? ""}
               onChange={(value) => handleChange(index, value)}
               ref={(el: HTMLInputElement) => (refs.current[index] = el)}
               onBackspaceIfEmpty={() => focusPrev(index)}

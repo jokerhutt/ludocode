@@ -1,8 +1,9 @@
 import { useCallback, useRef, type RefObject } from "react";
 import { findNextEmptyIndex } from "../../features/Exercise/util";
+import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
 
 type Args = {
-  options: string[];
+  options: LudoExerciseOption[];
   userResponses: string[];
 };
 
@@ -17,6 +18,9 @@ export function useInputAssistance({
   options,
   userResponses,
 }: Args): useInputAssistanceResponse {
+
+  const optionPrompts = options.map((option) => option.content)
+
   const refs = useRef<HTMLInputElement[]>([]);
 
   const focusPrev = useCallback((index: number) => {
@@ -26,19 +30,19 @@ export function useInputAssistance({
 
   const focusNextEmptyAfter = useCallback(
     (index: number) => {
-      const nextEmptyIndex = findNextEmptyIndex(index, options);
+      const nextEmptyIndex = findNextEmptyIndex(index, optionPrompts);
       if (nextEmptyIndex !== -1)
         requestAnimationFrame(() =>
           refs.current[nextEmptyIndex]?.focus({ preventScroll: true })
         );
     },
-    [options]
+    [options, optionPrompts]
   );
 
   const jumpOnValidWord = (index: number, value: string) => {
     const trimmed = value.trim();
 
-    if (options.includes(trimmed)) {
+    if (optionPrompts.includes(trimmed)) {
       const nextIndex = findNextEmptyIndex(index, userResponses);
       if (nextIndex !== -1) {
         refs.current[nextIndex]?.focus({ preventScroll: true });

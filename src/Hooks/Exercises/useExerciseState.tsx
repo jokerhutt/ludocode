@@ -1,10 +1,32 @@
 import { useCallback, useState } from "react";
+import { mockExercises, mockLessons } from "../../Types/mockData/mockExercises";
+import type { LudoTutorial } from "../../Types/Exercise/LudoTutorial";
+import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 
 export function useExerciseState() {
-  const options = ["let", "=", "1"];
-  const prompt = "___ score ___ ___";
+  const lesson: LudoTutorial[] = mockLessons;
+  const exercises: LudoExercise[] = mockExercises;
+
+  const clearAnswers = (length: number) =>
+    setUserResponses(Array(length).fill(""));
 
   const [userResponses, setUserResponses] = useState<string[]>(["", "", ""]);
+
+  const [currentPosition, setCurrentPosition] = useState(0);
+  const currentExercise = exercises[currentPosition];
+
+  const goToNextExercise = useCallback(() => {
+    if (currentPosition < exercises.length) {
+      const newPosition = currentPosition + 1;
+      const nextExercise = exercises[newPosition];
+
+      const gapCount =
+        (nextExercise.answerField ?? nextExercise.prompt).split("___").length -
+        1;
+      setUserResponses(Array(gapCount).fill(""));
+      setCurrentPosition(newPosition);
+    }
+  }, [currentPosition, exercises, clearAnswers]);
 
   const setAnswerAt = useCallback((index: number, value: string) => {
     const trimmed = value.trim();
@@ -26,8 +48,21 @@ export function useExerciseState() {
     });
   }, []);
   const allFilled = userResponses.every((slot) => slot.trim() !== "");
-  const allValid = userResponses.every((slot) => options.includes(slot.trim()));
+  const allValid = userResponses.every((slot) =>
+    currentExercise.options
+      .map((option) => option.content)
+      .includes(slot.trim())
+  );
   const canSubmit = allFilled && allValid;
 
-  return { options, prompt, userResponses, setAnswerAt, addAnswer, canSubmit };
+  return {
+    currentExercise,
+    exercises,
+    currentPosition,
+    userResponses,
+    setAnswerAt,
+    addAnswer,
+    canSubmit,
+    goToNextExercise,
+  };
 }

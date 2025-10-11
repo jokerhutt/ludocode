@@ -34,7 +34,7 @@ export const mockExercises: LudoExercise[] = [
       {
         id: 3,
         exerciseId: 1,
-        content: "let",
+        content: "1",
       },
     ],
   },
