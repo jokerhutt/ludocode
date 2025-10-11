@@ -19,8 +19,6 @@ export function useInputAssistance({
 }: Args): useInputAssistanceResponse {
   const refs = useRef<HTMLInputElement[]>([]);
 
-
-
   const focusPrev = useCallback((index: number) => {
     const prev = index - 1;
     if (prev >= 0) refs.current[prev]?.focus({ preventScroll: true });

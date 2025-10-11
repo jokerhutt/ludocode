@@ -2,6 +2,7 @@ import { ExerciseAnswerField } from "./ExerciseAnswerField";
 import { ClickableOption } from "./ClickableOption";
 import { SubmitButton } from "./SubmitButton";
 import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
+import { SegmentedProgress } from "./Progress/SegmentedProgress";
 
 export function ExercisePage() {
   const { options, prompt, userResponses, setAnswerAt, addAnswer, canSubmit } =
@@ -9,7 +10,13 @@ export function ExercisePage() {
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
-      <nav className="col-span-full flex min-h-16 bg-ludoGrayLight" />
+      <nav className="col-span-full grid grid-cols-12 min-h-16 bg-ludoGrayLight"> 
+
+        <div className="flex h-full items-center justify-center col-start-1 col-end-12 lg:col-start-3 lg:col-end-11">
+          <SegmentedProgress total={10} completed={5} />
+        </div>
+
+      </nav>
 
       <main className="col-span-full grid grid-cols-12">
         <div className="col-span-1 lg:col-span-2" />
