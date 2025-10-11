@@ -1,5 +1,5 @@
-import { ExercisePrompt } from "./AnswerField";
-import { PotentialOptionButton } from "./PotentialOptionButton";
+import { ExerciseAnswerField } from "./ExerciseAnswerField";
+import { ClickableOption } from "./ClickableOption";
 import { SubmitButton } from "./SubmitButton";
 import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
 
@@ -21,7 +21,7 @@ export function ExercisePage() {
           <div className="w-full h-80 rounded-4xl bg-ludoGrayLight">
             <div className="w-full h-10 rounded-t-4xl bg-ludoYellow"></div>
             <div className="w-full h-full p-6">
-              <ExercisePrompt
+              <ExerciseAnswerField
                 options={options}
                 prompt={prompt}
                 userResponses={userResponses}
@@ -31,7 +31,7 @@ export function ExercisePage() {
           </div>
           <div className="w-full flex justify-center items-center gap-8">
             {options.map((option) => (
-              <PotentialOptionButton
+              <ClickableOption
                 addSelection={addAnswer}
                 option={option}
                 userSelections={userResponses}

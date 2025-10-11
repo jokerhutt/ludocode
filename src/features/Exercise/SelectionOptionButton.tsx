@@ -1,7 +1,7 @@
 import { useImperativeHandle } from "react";
 import { useAutoWidth } from "../../Hooks/Input/useAutoInputWidth";
 
-type SelectionOptionButton = {
+type OptionInputFieldProps = {
   value: string;
   onChange: (value: string) => void;
   onBackspaceIfEmpty?: () => void;
@@ -9,13 +9,13 @@ type SelectionOptionButton = {
   ref: any;
 };
 
-export function SelectionOptionButton({
+export function OptionInputField({
   value,
   onChange,
   onBackspaceIfEmpty,
   onTokenFinished,
   ref,
-}: SelectionOptionButton) {
+}: OptionInputFieldProps) {
   const { spanRef, inputRef } = useAutoWidth(value);
 
   useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
@@ -32,7 +32,10 @@ export function SelectionOptionButton({
       <input
         ref={inputRef}
         value={value}
-        onChange={ (e) => {onChange(e.target.value); onTokenFinished?.()} }
+        onChange={(e) => {
+          onChange(e.target.value);
+          onTokenFinished?.();
+        }}
         onKeyDown={handleKeyDown}
         className="bg-ludoGrayDark rounded-lg text-white text-xl text-center px-1 outline-none"
       />

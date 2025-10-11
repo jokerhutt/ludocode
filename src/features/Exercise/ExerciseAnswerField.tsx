@@ -1,23 +1,21 @@
 import { Fragment, useMemo } from "react";
 import { splitPromptGaps } from "./util";
-import { SelectionOptionButton } from "./SelectionOptionButton";
-import { PromptAnswerField } from "./PromptAnswerField";
+import { OptionInputField } from "./SelectionOptionButton";
 import { useInputAssistance } from "../../Hooks/Input/useInputAssistance";
 
-type ExercisePrompt = {
+type ExerciseAnswerFieldProps = {
   prompt: string;
   options: string[];
   userResponses: string[];
   setAnswerAt: (index: number, value: string) => void;
 };
 
-export function ExercisePrompt({
+export function ExerciseAnswerField({
   prompt,
   options,
   userResponses: userResponses,
   setAnswerAt,
-}: ExercisePrompt) {
-
+}: ExerciseAnswerFieldProps) {
   const parts = useMemo(() => splitPromptGaps(prompt, "___"), [prompt]);
 
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
@@ -34,15 +32,13 @@ export function ExercisePrompt({
         <Fragment key={index}>
           <span>{part}</span>
           {index < parts.length - 1 && (
-            <PromptAnswerField>
-              <SelectionOptionButton
-                value={userResponses[index]}
-                onChange={(value) => handleChange(index, value)}
-                ref={(el: HTMLInputElement) => (refs.current[index] = el)}
-                onBackspaceIfEmpty={() => focusPrev(index)}
-                onTokenFinished={() => focusNextEmptyAfter(index)}
-              />
-            </PromptAnswerField>
+            <OptionInputField
+              value={userResponses[index]}
+              onChange={(value) => handleChange(index, value)}
+              ref={(el: HTMLInputElement) => (refs.current[index] = el)}
+              onBackspaceIfEmpty={() => focusPrev(index)}
+              onTokenFinished={() => focusNextEmptyAfter(index)}
+            />
           )}
         </Fragment>
       ))}
