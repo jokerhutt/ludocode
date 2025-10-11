@@ -2,8 +2,15 @@ import { useCallback, useState } from "react";
 import { mockExercises, mockLessons } from "../../Types/mockData/mockExercises";
 import type { LudoTutorial } from "../../Types/Exercise/LudoTutorial";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
+import { router } from "../../routes/router";
 
-export function useExerciseState() {
+type Args = {
+  exercisePosition: number;
+  tutorialId: string;
+}
+
+export function useExerciseState({exercisePosition, tutorialId}: Args) {
+  
   const lesson: LudoTutorial[] = mockLessons;
   const exercises: LudoExercise[] = mockExercises;
 
@@ -12,21 +19,25 @@ export function useExerciseState() {
 
   const [userResponses, setUserResponses] = useState<string[]>(["", "", ""]);
 
-  const [currentPosition, setCurrentPosition] = useState(0);
-  const currentExercise = exercises[currentPosition];
+  const currentExercise = exercises[exercisePosition];
 
   const goToNextExercise = useCallback(() => {
-    if (currentPosition < exercises.length) {
-      const newPosition = currentPosition + 1;
+    if (exercisePosition < exercises.length) {
+      const newPosition = exercisePosition + 1;
       const nextExercise = exercises[newPosition];
 
       const gapCount =
         (nextExercise.answerField ?? nextExercise.prompt).split("___").length -
         1;
       setUserResponses(Array(gapCount).fill(""));
-      setCurrentPosition(newPosition);
+
+      router.navigate({
+        to: `/tutorial/$tutorialId/exercise/$position`,
+        params: {tutorialId, position: String(newPosition)}
+      })
+
     }
-  }, [currentPosition, exercises, clearAnswers]);
+  }, [exercisePosition, exercises, clearAnswers]);
 
   const setAnswerAt = useCallback((index: number, value: string) => {
     const trimmed = value.trim();
@@ -58,7 +69,6 @@ export function useExerciseState() {
   return {
     currentExercise,
     exercises,
-    currentPosition,
     userResponses,
     setAnswerAt,
     addAnswer,

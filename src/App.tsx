@@ -1,10 +1,12 @@
+import { RouterProvider } from "@tanstack/react-router";
 import "./App.css";
 import { TutorialPage } from "./features/Tutorial/TutorialPage";
+import { router } from "./routes/router";
 
 function App() {
   return (
     <div className="w-dvw h-dvh bg-ludoGrayDark">
-      <TutorialPage />
+      <RouterProvider router={router}/>
     </div>
   );
 }

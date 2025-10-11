@@ -2,15 +2,25 @@ import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
 import { ExerciseComponent } from "../Exercise/ExerciseComponent";
 import { TutorialHeader } from "./TutorialHeader";
 import { TutorialFooter } from "./TutorialFooter";
+import { tutorialRoute } from "../../routes/router";
 
 export function TutorialPage() {
-  const { currentExercise, exercises, currentPosition, userResponses, setAnswerAt, addAnswer, canSubmit, goToNextExercise } =
-    useExerciseState();
+  const { tutorialId, position } = tutorialRoute.useParams();
+  const exercisePosition = Number(position);
+
+  const {
+    currentExercise,
+    exercises,
+    userResponses,
+    setAnswerAt,
+    addAnswer,
+    canSubmit,
+    goToNextExercise,
+  } = useExerciseState({ exercisePosition, tutorialId });
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
-
-      <TutorialHeader total={exercises.length} position={currentPosition} />
+      <TutorialHeader total={exercises.length} position={exercisePosition} />
 
       <ExerciseComponent
         exercise={currentExercise}
@@ -20,7 +30,6 @@ export function TutorialPage() {
       />
 
       <TutorialFooter submitAnswer={goToNextExercise} canSubmit={canSubmit} />
-      
     </div>
   );
 }
