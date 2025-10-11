@@ -7,31 +7,29 @@ export function ExercisePage() {
   const options = ["let", "=", "1"];
   const prompt = "___ score ___ ___";
 
-  const [userAnswer, setUserAnswer] = useState<string[]>(["", "", ""]);
-  const answerSlots = 3;
+  const [userResponses, setUserResponses] = useState<string[]>(["", "", ""]);
 
   const setAnswerAt = (index: number, value: string) => {
-    setUserAnswer((prev) => {
+    setUserResponses((prev) => {
       const copy = [...prev];
       copy[index] = value;
       return copy;
     });
   };
 
-  const allFilled = userAnswer.every((slot) => slot.trim() !== "");
-  const allValid = userAnswer.every((slot) => options.includes(slot.trim()));
+  const allFilled = userResponses.every((slot) => slot.trim() !== "");
+  const allValid = userResponses.every((slot) => options.includes(slot.trim()));
   const canSubmit = allFilled && allValid;
 
   const addAnswer = (value: string) => {
-  setUserAnswer(prev => {
-    const tempArray = [...prev];
-    const firstSlot = tempArray.findIndex(slot => slot === "");
-    if (firstSlot === -1) return tempArray;
-    tempArray[firstSlot] = value;
-    return tempArray;
-  });
-
-  }
+    setUserResponses((prev) => {
+      const tempArray = [...prev];
+      const firstSlot = tempArray.findIndex((slot) => slot === "");
+      if (firstSlot === -1) return tempArray;
+      tempArray[firstSlot] = value;
+      return tempArray;
+    });
+  };
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
@@ -47,12 +45,21 @@ export function ExercisePage() {
           <div className="w-full h-80 rounded-4xl bg-ludoGrayLight">
             <div className="w-full h-10 rounded-t-4xl bg-ludoYellow"></div>
             <div className="w-full h-full p-6">
-              <ExercisePrompt options={options} prompt={prompt} userAnswer={userAnswer} setAnswerAt={setAnswerAt}/>
+              <ExercisePrompt
+                options={options}
+                prompt={prompt}
+                userResponses={userResponses}
+                setAnswerAt={setAnswerAt}
+              />
             </div>
           </div>
           <div className="w-full flex justify-center items-center gap-8">
             {options.map((option) => (
-                <PotentialOptionButton addSelection={addAnswer} option={option} userSelections={userAnswer}/>
+              <PotentialOptionButton
+                addSelection={addAnswer}
+                option={option}
+                userSelections={userResponses}
+              />
             ))}
           </div>
         </div>
@@ -63,7 +70,7 @@ export function ExercisePage() {
       <footer className="col-span-full grid grid-cols-12 min-h-24 bg-ludoGrayLight">
         <div className="flex w-full justify-between h-full py-2 items-center col-start-1 col-end-12 lg:col-start-3 lg:col-end-11">
           <div></div>
-          <SubmitButton canSubmit={canSubmit}/>  
+          <SubmitButton canSubmit={canSubmit} />
         </div>
       </footer>
     </div>

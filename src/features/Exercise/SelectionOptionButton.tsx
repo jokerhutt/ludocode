@@ -1,5 +1,5 @@
 import { useImperativeHandle } from "react";
-import { useAutoWidth } from "../../Hooks/Exercise/useAutoInputWidth";
+import { useAutoWidth } from "../../Hooks/Input/useAutoInputWidth";
 
 type SelectionOptionButton = {
   value: string;
