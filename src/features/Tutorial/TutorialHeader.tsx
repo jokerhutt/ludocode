@@ -8,7 +8,7 @@ type TutorialHeaderProps = {
 
 export function TutorialHeader({ total, position }: TutorialHeaderProps) {
 
-  const completed = position + 1;  
+  const completed = position + 1; 
 
   return (
     <CommonHeader>
