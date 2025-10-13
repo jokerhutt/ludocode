@@ -1,36 +1,40 @@
 import { CommonFooter } from "../../components/Footer/CommonFooter";
 import { CommonHeader } from "../../components/Header/CommonHeader";
+import { CourseCard } from "./CourseCard";
 
-type CourseType = {
+export type CourseType = {
   name: string;
   description: string;
   imgSrc: string;
+  courseBg: string;
 };
 
 export function HomePage() {
   const courses: CourseType[] = [
     {
-      name: "JavaScript",
+      name: "Python",
       description: "something",
       imgSrc:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/500px-JavaScript-logo.png",
+      courseBg: "/Images/CourseBg/pythonbg.png",
+      },
+    {
+      name: "",
+      description: "something",
+      imgSrc: "",
+      courseBg: "",
     },
     {
-      name: "C#",
+      name: "",
       description: "something",
-      imgSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/b/bd/Logo_C_sharp.svg",
+      imgSrc: "",
+      courseBg: "",
     },
     {
-      name: "Java",
+      name: "",
       description: "something",
-      imgSrc: "https://img.icons8.com/color/512/java-coffee-cup-logo--v2.png",
-    },
-    {
-      name: "Typescript",
-      description: "something",
-      imgSrc:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1024px-Typescript_logo_2020.svg.png",
+      imgSrc: "",
+      courseBg: "",
     },
   ];
 
@@ -46,9 +50,7 @@ export function HomePage() {
         <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
           <div className="grid grid-cols-2 grid-rows-2 gap-4">
             {courses.map((course) => (
-              <div className="flex flex-col items-center w-full min-h-60 rounded-4xl bg-ludoGrayLight justify-center">
-                <h2 className="text-white text-xl">{course.name}</h2>
-              </div>
+              <CourseCard course={course} />
             ))}
           </div>
         </div>

@@ -17,5 +17,10 @@ export const tutorialRoute = createRoute({
     component: TutorialPage
 })
 
+export const UnitsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: `/course/$courseName/unit/$position`
+})
+
 const routeTree = rootRoute.addChildren([indexRoute, tutorialRoute])
 export const router = createRouter({routeTree})
