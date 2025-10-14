@@ -5,8 +5,8 @@ import { router } from "./routes/router";
 
 function App() {
   return (
-    <div className="w-dvw h-dvh bg-ludoGrayDark">
-      <RouterProvider router={router}/>
+    <div className="w-dvw h-dvh [scrollbar-gutter:stable_right]  overflow-auto scrollbar-ludoYellow  bg-ludoGrayDark">
+      <RouterProvider router={router} />
     </div>
   );
 }

@@ -2,10 +2,21 @@
 
 @theme {
   --color-ludoGrayDark: #232930;
-  --color-ludoGrayLight: #323b44;
+  --color-ludoGrayLight: #364153;
   --color-ludoGraySoft: #d9d9d9;
-
   --color-ludoYellow: #fff887;
+
+  --color-ludoGrayLightShadow: #1F2328;
+
+
+  --shadow-buttonShadow: 0 10px 0 #1F2328;
+
+  --color-ludoBlueGray: #323b44;
+
+  --color-pythonYellow: #FFD140;
+  --color-pythonBlue: #376F9E;
+
+
 }
 
 @font-face {
@@ -48,6 +59,36 @@
   src: url("/fonts/DMMono-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
+}
+
+@layer utilities {
+  .scrollbar-ludoYellow {
+    scrollbar-width: thin;
+    scrollbar-color: #FFD140 transparent;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-thumb {
+    background-color: #FFD140;
+    border-radius: 4px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {

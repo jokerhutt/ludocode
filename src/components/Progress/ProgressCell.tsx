@@ -14,7 +14,7 @@ export function ProgressCell({index, safeCompleted, safeTotal}: ProgressCellProp
       key={index}
       className={[
         "h-3",
-        done ? "bg-ludoYellow" : "bg-ludoGrayDark",
+        done ? "bg-pythonYellow" : "bg-ludoGrayDark",
         isFirst ? "rounded-l-full" : "",
         isLast ? "rounded-r-full" : "",
       ].join(" ")}
