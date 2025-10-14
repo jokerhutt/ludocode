@@ -10,6 +10,6 @@ export function PathRow({ children, index }: PathRowProps) {
   const position = index % 2 == 0 ? "justify-end" : "justify-start"
 
   return (
-    <div className={`w-full flex items-center ${position}`}>{children}</div>
+    <div className={`w-full min-w-0 flex items-center ${position}`}>{children}</div>
   );
 }

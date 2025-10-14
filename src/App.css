@@ -61,6 +61,36 @@
   font-style: italic;
 }
 
+@layer utilities {
+  .scrollbar-ludoYellow {
+    scrollbar-width: thin;
+    scrollbar-color: #FFD140 transparent;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-thumb {
+    background-color: #FFD140;
+    border-radius: 4px;
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 body {
   font-family: "DMMono", monospace;
 }
