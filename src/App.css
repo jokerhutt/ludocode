@@ -2,7 +2,7 @@
 
 @theme {
   --color-ludoGrayDark: #232930;
-  --color-ludoGrayLight: #323b44;
+  --color-ludoGrayLight: #364153;
   --color-ludoGraySoft: #d9d9d9;
   --color-ludoYellow: #fff887;
 
@@ -10,6 +10,8 @@
 
 
   --shadow-buttonShadow: 0 10px 0 #1F2328;
+
+  --color-ludoBlueGray: #323b44;
 
   --color-pythonYellow: #FFD140;
   --color-pythonBlue: #376F9E;
