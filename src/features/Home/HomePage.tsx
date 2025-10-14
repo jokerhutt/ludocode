@@ -1,3 +1,4 @@
+import { Logo } from "../../components/Brand/Logo";
 import { CommonFooter } from "../../components/Footer/CommonFooter";
 import { CommonHeader } from "../../components/Header/CommonHeader";
 import { CourseCard } from "./CourseCard";
@@ -17,13 +18,20 @@ export function HomePage() {
       imgSrc:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/500px-JavaScript-logo.png",
       courseBg: "/Images/CourseBg/pythonbg.png",
-      },
+    },
   ];
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
       <CommonHeader>
-        <div></div>
+        <div className="col-span-1 flex items-center justify-center lg:col-span-2">
+            <Logo/>
+        </div>
+
+        <div className="col-span-10 lg:col-span-8 flex items-center justify-center">
+        </div>
+
+        <div className="col-span-1 lg:col-span-2"></div>
       </CommonHeader>
 
       <div className="grid col-span-full grid-cols-12">
