@@ -6,7 +6,7 @@ export function CoursePage() {
   const mockLessons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
+    <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen bg-ludoGrayDark">
       <CommonHeader>
         <div></div>
       </CommonHeader>
