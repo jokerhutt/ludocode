@@ -1,1 +1,3 @@
-export type ExerciseType = "CLOZE" | "MCQ"
+export type ExerciseType = "CLOZE" | "ANALYZE" | "TRIVIA"
+
+

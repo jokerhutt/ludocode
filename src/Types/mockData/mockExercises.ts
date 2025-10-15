@@ -88,4 +88,35 @@ export const mockExercises: LudoExercise[] = [
       },
     ],
   },
+  {
+    id: 4,
+    tutorialId: 1,
+    prompt:
+      "What will the following code return",
+    answerField: `const score = 4 + 4;`,
+    orderIndex: 1,
+    type: "ANALYZE",
+    options: [
+      {
+        id: 10,
+        exerciseId: 4,
+        content: "8",
+      },
+      {
+        id: 11,
+        exerciseId: 4,
+        content: "'8'",
+      },
+      {
+        id: 12,
+        exerciseId: 4,
+        content: "undefined",
+      },
+      {
+        id: 13,
+        exerciseId: 4,
+        content: "NaN",
+      },
+    ],
+  },
 ];

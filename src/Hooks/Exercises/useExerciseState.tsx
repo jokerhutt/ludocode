@@ -50,6 +50,8 @@ export function useExerciseState({ exercisePosition, tutorialId }: Args) {
     });
   }, []);
 
+
+
   const addAnswer = useCallback((value: string) => {
     const trimmed = value.trim();
     setUserResponses((prev) => {
@@ -60,6 +62,7 @@ export function useExerciseState({ exercisePosition, tutorialId }: Args) {
       return tempArray;
     });
   }, []);
+  
   const allFilled = userResponses.every((slot) => slot.trim() !== "");
   const allValid = userResponses.every((slot) =>
     currentExercise.options
