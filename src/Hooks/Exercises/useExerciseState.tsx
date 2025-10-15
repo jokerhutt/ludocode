@@ -7,35 +7,37 @@ import { router } from "../../routes/router";
 type Args = {
   exercisePosition: number;
   tutorialId: string;
-}
+};
 
-export function useExerciseState({exercisePosition, tutorialId}: Args) {
-  
+export function useExerciseState({ exercisePosition, tutorialId }: Args) {
   const lesson: LudoTutorial[] = mockLessons;
   const exercises: LudoExercise[] = mockExercises;
 
   const clearAnswers = (length: number) =>
     setUserResponses(Array(length).fill(""));
 
-  const [userResponses, setUserResponses] = useState<string[]>(["", "", ""]);
+  const getGapCount = (exercise: LudoExercise) => {
+    return (exercise.answerField ?? exercise.prompt).split("___").length -
+        1;
+  }
+
 
   const currentExercise = exercises[exercisePosition];
+
+  const [userResponses, setUserResponses] = useState<string[]>(Array(getGapCount(currentExercise)).fill(""));
 
   const goToNextExercise = useCallback(() => {
     if (exercisePosition < exercises.length) {
       const newPosition = exercisePosition + 1;
       const nextExercise = exercises[newPosition];
 
-      const gapCount =
-        (nextExercise.answerField ?? nextExercise.prompt).split("___").length -
-        1;
+      const gapCount = getGapCount(nextExercise);
       setUserResponses(Array(gapCount).fill(""));
 
       router.navigate({
         to: `/tutorial/$tutorialId/exercise/$position`,
-        params: {tutorialId, position: String(newPosition)}
-      })
-
+        params: { tutorialId, position: String(newPosition) },
+      });
     }
   }, [exercisePosition, exercises, clearAnswers]);
 

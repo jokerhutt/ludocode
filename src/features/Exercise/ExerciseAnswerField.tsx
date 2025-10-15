@@ -3,6 +3,7 @@ import { splitPromptGaps } from "./util";
 import { OptionInputField } from "./SelectionOptionButton";
 import { useInputAssistance } from "../../Hooks/Input/useInputAssistance";
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
+import { InlineCode } from "./InlineCode";
 
 type ExerciseAnswerFieldProps = {
   answerField: string;
@@ -17,7 +18,10 @@ export function ExerciseAnswerField({
   userResponses: userResponses,
   setAnswerAt,
 }: ExerciseAnswerFieldProps) {
-  const parts = useMemo(() => splitPromptGaps(answerField, "___"), [answerField]);
+  const parts = useMemo(
+    () => splitPromptGaps(answerField, "___"),
+    [answerField]
+  );
 
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
@@ -28,10 +32,10 @@ export function ExerciseAnswerField({
   };
 
   return (
-    <p className="text-white text-xl leading-loose font-light">
+    <p className="text-white text-xl text-left leading-loose font-light">
       {parts.map((part, index) => (
         <Fragment key={index}>
-          <span>{part}</span>
+          <InlineCode code={part} />
           {index < parts.length - 1 && (
             <OptionInputField
               value={userResponses[index] ?? ""}

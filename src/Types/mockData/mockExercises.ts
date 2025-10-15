@@ -16,25 +16,20 @@ export const mockExercises: LudoExercise[] = [
   {
     id: 1,
     tutorialId: 1,
-    prompt: "Create a new variable called score and set its value to 1",
-    answerField: "___ score ___ ___",
+    prompt: "Complete the expression",
+    answerField: "let sum = ___ + 4",
     orderIndex: 1,
     type: "CLOZE",
     options: [
       {
-        id: 1,
-        exerciseId: 1,
-        content: "let",
-      },
-      {
         id: 2,
         exerciseId: 1,
-        content: "=",
+        content: `"4"`,
       },
       {
         id: 3,
         exerciseId: 1,
-        content: "1",
+        content: "4",
       },
     ],
   },
@@ -67,7 +62,7 @@ export const mockExercises: LudoExercise[] = [
     id: 3,
     tutorialId: 1,
     prompt: "Fill in the gaps to print the message",
-    answerField: `console. ___ ___ "Hello World!" ___ ___`,
+    answerField: `console.log("Hello World!") ___`,
     orderIndex: 1,
     type: "CLOZE",
     options: [
