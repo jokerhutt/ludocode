@@ -91,8 +91,7 @@ export const mockExercises: LudoExercise[] = [
   {
     id: 4,
     tutorialId: 1,
-    prompt:
-      "What will the following code return",
+    prompt: "What will the following code return",
     answerField: `const score = 4 + 4;`,
     orderIndex: 1,
     type: "ANALYZE",
@@ -116,6 +115,37 @@ export const mockExercises: LudoExercise[] = [
         id: 13,
         exerciseId: 4,
         content: "NaN",
+      },
+    ],
+  },
+  {
+    id: 5,
+    tutorialId: 1,
+    prompt:
+      "Which of the following declares a variable that can not be reassigned",
+    answerField: ``,
+    orderIndex: 1,
+    type: "TRIVIA",
+    options: [
+      {
+        id: 14,
+        exerciseId: 5,
+        content: "let",
+      },
+      {
+        id: 15,
+        exerciseId: 5,
+        content: "const",
+      },
+      {
+        id: 16,
+        exerciseId: 5,
+        content: "var",
+      },
+      {
+        id: 17,
+        exerciseId: 5,
+        content: "if",
       },
     ],
   },
