@@ -11,7 +11,6 @@ type TriviaExerciseProps = {
 };
 
 export function TriviaExercise({
-  answerField,
   options,
   userResponses,
   setAnswerAt,

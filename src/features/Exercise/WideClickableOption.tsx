@@ -5,7 +5,7 @@ type WideClickableOptionProps = {
   isCorrect? : boolean;
 };
 
-export function WideClickableOption({option, userSelections, setAnswerAt, isCorrect}: WideClickableOptionProps) {
+export function WideClickableOption({option, userSelections, setAnswerAt}: WideClickableOptionProps) {
 
     const isSelected = userSelections[0] == option;
 

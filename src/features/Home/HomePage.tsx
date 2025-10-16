@@ -1,5 +1,4 @@
 import { Logo } from "../../components/Brand/Logo";
-import { CommonFooter } from "../../components/Footer/CommonFooter";
 import { CommonHeader } from "../../components/Header/CommonHeader";
 import { CourseCard } from "./CourseCard";
 
