@@ -29,6 +29,7 @@ export const defaultSectionRoute = createRoute({
 const courseRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: "/",
+  staticData: { headerTitle: 'Courses' },
   component: CoursePage,
 });
 
