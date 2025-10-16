@@ -1,6 +1,5 @@
-import { createRouter, createRouterConfig, createRoute, Outlet, createRootRoute } from '@tanstack/react-router'
+import { createRouter, createRoute, createRootRoute } from '@tanstack/react-router'
 import { TutorialPage } from '../features/Tutorial/TutorialPage'
-import { ExerciseComponent } from '../features/Exercise/ExerciseComponent'
 import { HomePage } from '../features/Home/HomePage'
 import { CoursePage } from '../features/Course/CoursePage'
 
