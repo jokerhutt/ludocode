@@ -2,13 +2,12 @@ import { Bars3Icon, FireIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { CommonHeader } from "../../../components/Header/CommonHeader";
 import {
   CommitIcon,
-  PythonIcon,
 } from "../../../components/HeroIcons/CustomIcon";
 import { HeaderStatIcon } from "./HeaderStatIcon";
 
-type CourseHeaderProps = {};
+type ModuleHeaderProps = {};
 
-export function CourseHeader({}: CourseHeaderProps) {
+export function ModuleHeader({}: ModuleHeaderProps) {
   return (
     <CommonHeader>
       <div className="col-start-2 col-end-12 flex py-2 gap-2 flex-col items-center justify-center">
@@ -24,7 +23,7 @@ export function CourseHeader({}: CourseHeaderProps) {
           </HeaderStatIcon>
         </div>
         <HeaderStatIcon text={"Python"}>
-            <Bars3Icon className="h-7 text-white"/>
+          <Bars3Icon className="h-7 text-white" />
         </HeaderStatIcon>
       </div>
     </CommonHeader>
