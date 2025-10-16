@@ -5,9 +5,7 @@ import { GlobalFooter } from "../components/Footer/GlobalFooter";
 export function SiteLayout() {
   return (
     <div className="grid h-dvh grid-rows-[1fr_auto]">
-      <main className="min-h-0 overflow-auto">
-        <Outlet />
-      </main>
+      <Outlet/>
       <GlobalFooter />
     </div>
   );

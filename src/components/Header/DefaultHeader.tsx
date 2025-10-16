@@ -2,11 +2,9 @@
 export function DefaultHeader() {
   return (
     <nav
-      className={`col-span-full top-0 z-2 sticky grid grid-cols-12 min-h-16 bg-ludoGrayLight`}
+      className={`col-span-full grid grid-cols-12 border-b-2 border-b-pythonYellow min-h-18 bg-ludoGrayLight`}
     >
-        <div className="w-full flex items-center justify-center">
-
-        </div>
+        <div></div>
     </nav>
   );
 }
