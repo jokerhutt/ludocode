@@ -24,10 +24,10 @@ export function HomePage() {
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
       <CommonHeader>
         <div className="col-span-1 flex items-center justify-center lg:col-span-2">
-            <Logo/>
         </div>
 
         <div className="col-span-10 lg:col-span-8 flex items-center justify-center">
+          <h1 className="text-white text-2xl font-bold">Courses</h1>
         </div>
 
         <div className="col-span-1 lg:col-span-2"></div>
@@ -36,7 +36,7 @@ export function HomePage() {
       <div className="grid col-span-full grid-cols-12">
         <div className="col-span-1 lg:col-span-2" />
 
-        <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
+        <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-16 items-stretch justify-start h-full min-w-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {courses.map((course) => (
               <CourseCard course={course} />

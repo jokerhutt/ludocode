@@ -8,7 +8,7 @@ export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED"
 
 export function PathButton() {
 
-      const goToLesson = () => {
+  const goToLesson = () => {
     router.navigate({
       to: `/tutorial/$tutorialId/exercise/$position`,
       params: { tutorialId: 1, position: 0 },
@@ -22,7 +22,7 @@ export function PathButton() {
         onClick={() => goToLesson()}
       className="relative inline-flex items-center justify-center
                  w-20 h-20 rounded-3xl bg-ludoGrayLight overflow-hidden
-                 shadow-[0_10px_0_#1F2328] active:translate-y-2 active:shadow-none"
+                 shadow-[0_10px_0_#262E57] active:translate-y-2 active:shadow-none"
     >
     <CompletionRibbon lessonState={lessonType}/>
     </button>
