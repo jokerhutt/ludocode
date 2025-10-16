@@ -10,6 +10,8 @@ import { ModulePage } from "../features/Module/ModulePage";
 import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
+import { ProfilePage } from "../features/Profile/ProfilePage";
+import { PracticePage } from "../features/Practice/PracticePage";
 
 const rootRoute = createRootRoute();
 
@@ -44,6 +46,37 @@ export const tutorialRoute = createRoute({
   component: TutorialPage,
 });
 
+export const practiceRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: `/practice`,
+  staticData: { headerTitle: "Practice" },
+  component: PracticePage,
+});
+
+export const profileMeRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: "/profile",
+  loader: async ({ location }) => {
+    const userId = "1";
+    const target = `/profile/${userId}`;
+    if (location.pathname !== target) {
+      throw redirect({
+        to: "/profile/$userId",
+        params: { userId },
+        replace: true,
+      });
+    }
+    return null;
+  },
+});
+
+export const profileByIdRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: "/profile/$userId",
+  staticData: { headerTitle: "Profile" },
+  component: ProfilePage,
+});
+
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: "/modules",
@@ -71,9 +104,9 @@ export const moduleRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   siteRoute.addChildren([
-    defaultSectionRoute.addChildren([courseRoute]),
+    defaultSectionRoute.addChildren([courseRoute, practiceRoute, profileMeRoute, profileByIdRoute]),
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
-  tutorialRoute, 
-])
+  tutorialRoute,
+]);
 export const router = createRouter({ routeTree });

@@ -19,9 +19,11 @@ export function GlobalFooter() {
     },
     {
       name: "Practice",
+      onClick: () => router.navigate({to: "/practice"}),
     },
     {
       name: "Profile",
+      onClick: () => router.navigate({to: "/profile"})
     },
   ];
 
