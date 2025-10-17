@@ -14,6 +14,9 @@ import { HollowSlot } from "./HollowSlot";
 type ModuleHeaderProps = {};
 
 export function ModuleHeader({}: ModuleHeaderProps) {
+
+  
+
   return (
     <CommonHeader>
       <div className="col-start-2 col-end-12 flex py-2 items-center justify-between">

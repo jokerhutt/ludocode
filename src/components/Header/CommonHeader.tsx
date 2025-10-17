@@ -17,7 +17,7 @@ export function CommonHeader({
 
   return (
     <nav
-      className={`col-span-full ${visibility} grid border-b-2 border-b-pythonYellow grid-cols-12 min-h-18 ${bgColor}`}
+      className={`col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-18 ${bgColor}`}
     >
       {children}
     </nav>
