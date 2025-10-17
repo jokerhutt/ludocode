@@ -12,7 +12,16 @@ import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 import { ProfilePage } from "../features/Profile/ProfilePage";
 import { PracticePage } from "../features/Practice/PracticePage";
-import { RP_COURSE, RP_LESSON, RP_ME, RP_MODULE, RP_MODULE_REDIRECT, RP_PRACTICE, RP_PROFILE } from "./routePaths";
+import {
+  RP_COURSE,
+  RP_LESSON,
+  RP_ME,
+  RP_MODULE,
+  RP_MODULE_REDIRECT,
+  RP_PRACTICE,
+  RP_PROFILE,
+} from "./routePaths";
+import { LessonLayout } from "../Layouts/LessonLayout";
 
 const rootRoute = createRootRoute();
 
@@ -97,20 +106,31 @@ export const moduleRoute = createRoute({
   component: ModulePage,
 });
 
-export const lessonRoute = createRoute({
+export const lessonSectionRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: "lessonSection",
+  component: LessonLayout,
+});
+
+export const lessonRoute = createRoute({
+  getParentRoute: () => lessonSectionRoute,
   path: RP_LESSON,
   validateSearch: (s) => ({
     exercise: Number(s.exercise) || 1,
   }),
   component: TutorialPage,
-})
+});
 
 const routeTree = rootRoute.addChildren([
   siteRoute.addChildren([
-    defaultSectionRoute.addChildren([courseRoute, practiceRoute, profileMeRoute, profileByIdRoute]),
+    defaultSectionRoute.addChildren([
+      courseRoute,
+      practiceRoute,
+      profileMeRoute,
+      profileByIdRoute,
+    ]),
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
-  lessonRoute,
+  lessonSectionRoute.addChildren([lessonRoute])
 ]);
 export const router = createRouter({ routeTree });

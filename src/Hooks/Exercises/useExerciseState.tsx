@@ -10,7 +10,7 @@ type Args = {
   lessonId: string;
 };
 
-export function useExerciseState({ exercisePosition, lessonId }: Args) {
+export function useExerciseState({ exercisePosition, lessonId }: Args): useExerciseStateReturn {
   const lesson: LudoTutorial[] = mockLessons;
   const exercises: LudoExercise[] = mockExercises;
 
@@ -78,4 +78,14 @@ export function useExerciseState({ exercisePosition, lessonId }: Args) {
     canSubmit,
     goToNextExercise,
   };
+}
+
+export type useExerciseStateReturn = {
+  currentExercise: LudoExercise;
+  exercises: LudoExercise[];
+  userResponses: string[];
+  setAnswerAt: (index: number, value: string) => void;
+  addAnswer: (value: string) => void;
+  canSubmit: boolean;
+  goToNextExercise: () => void;
 }

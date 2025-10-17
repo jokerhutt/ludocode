@@ -26,7 +26,7 @@ export function ExerciseComponent({
   const ExerciseBody = exerciseBodyMap[exercise.type];
 
   return (
-    <main className="col-span-full grid grid-cols-12">
+    <>
       <div className="col-span-1 lg:col-span-2" />
 
       <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
@@ -42,6 +42,6 @@ export function ExerciseComponent({
       </div>
 
       <div className="col-span-1 lg:col-span-2" />
-    </main>
+    </>
   );
 }
