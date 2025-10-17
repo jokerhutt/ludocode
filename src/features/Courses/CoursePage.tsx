@@ -1,5 +1,3 @@
-import { Logo } from "../../components/Brand/Logo";
-import { CommonHeader } from "../../components/Header/CommonHeader";
 import type { IconName } from "../../components/HeroIcons/CustomIcon";
 import { CourseCard } from "./CourseCard";
 

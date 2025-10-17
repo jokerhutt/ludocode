@@ -40,12 +40,6 @@ const courseRoute = createRoute({
   component: CoursePage,
 });
 
-export const tutorialRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: `/tutorial/$tutorialId/exercise/$position`,
-  component: TutorialPage,
-});
-
 export const practiceRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: `/practice`,
@@ -102,11 +96,20 @@ export const moduleRoute = createRoute({
   component: ModulePage,
 });
 
+export const lessonRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/course/$courseName/lesson/$lessonId',
+  validateSearch: (s) => ({
+    exercise: Number(s.exercise) || 1,
+  }),
+  component: TutorialPage,
+})
+
 const routeTree = rootRoute.addChildren([
   siteRoute.addChildren([
     defaultSectionRoute.addChildren([courseRoute, practiceRoute, profileMeRoute, profileByIdRoute]),
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
-  tutorialRoute,
+  lessonRoute,
 ]);
 export const router = createRouter({ routeTree });

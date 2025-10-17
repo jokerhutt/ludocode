@@ -2,11 +2,12 @@ import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
 import { ExerciseComponent } from "../Exercise/ExerciseComponent";
 import { TutorialHeader } from "./TutorialHeader";
 import { TutorialFooter } from "./TutorialFooter";
-import { tutorialRoute } from "../../routes/router";
+import { lessonRoute } from "../../routes/router";
 
 export function TutorialPage() {
-  const { tutorialId, position } = tutorialRoute.useParams();
-  const exercisePosition = Number(position);
+  const { lessonId } = lessonRoute.useParams();
+  const { exercise } = lessonRoute.useSearch();
+  const exercisePosition = Number(exercise);
 
   const {
     currentExercise,
@@ -16,7 +17,7 @@ export function TutorialPage() {
     addAnswer,
     canSubmit,
     goToNextExercise,
-  } = useExerciseState({ exercisePosition, tutorialId });
+  } = useExerciseState({ exercisePosition, lessonId });
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">

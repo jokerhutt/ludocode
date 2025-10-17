@@ -67,7 +67,7 @@
 @layer utilities {
   .scrollbar-ludoYellow {
     scrollbar-width: thin;
-    scrollbar-color: #FFD140 transparent;
+    scrollbar-color: #303966 transparent;
   }
 
   .scrollbar-blue::-webkit-scrollbar {
@@ -76,7 +76,7 @@
   }
 
   .scrollbar-blue::-webkit-scrollbar-thumb {
-    background-color: #FFD140;
+    background-color: #303966;
     border-radius: 4px;
   }
 

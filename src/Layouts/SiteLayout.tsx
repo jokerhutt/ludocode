@@ -1,5 +1,4 @@
 import { Outlet } from "@tanstack/react-router";
-import { LessonFooter } from "../components/Footer/LessonFooter";
 import { GlobalFooter } from "../components/Footer/GlobalFooter";
 
 export function SiteLayout() {
