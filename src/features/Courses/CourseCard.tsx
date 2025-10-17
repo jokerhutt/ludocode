@@ -1,4 +1,5 @@
 import { CustomIcon, PythonIcon } from "../../components/HeroIcons/CustomIcon";
+import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
 import type { CourseType } from "./CoursePage";
 
@@ -7,15 +8,10 @@ type CourseCardProps = {
 };
 
 export function CourseCard({ course }: CourseCardProps) {
-  const goToCourse = () => {
-    router.navigate({
-      to: `/course/$courseName/module/$position`,
-      params: { courseName: course.name, position: 1 },
-    });
-  };
-
   const { name, iconName } = course;
-
+  const goToCourse = () => {
+    router.navigate(ludoNavigation.module(name, 1));
+  };
   return (
     <button
       onClick={() => goToCourse()}

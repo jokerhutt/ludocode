@@ -3,6 +3,7 @@ import { mockExercises, mockLessons } from "../../Types/mockData/mockExercises";
 import type { LudoTutorial } from "../../Types/Exercise/LudoTutorial";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 import { router } from "../../routes/router";
+import { ludoNavigation } from "../../routes/ludoNavigation";
 
 type Args = {
   exercisePosition: number;
@@ -20,7 +21,9 @@ export function useExerciseState({ exercisePosition, lessonId }: Args) {
     return (exercise.answerField ?? exercise.prompt).split("___").length - 1;
   };
 
-  const currentExercise = exercises[exercisePosition];
+  const exerciseIndex = exercisePosition - 1;
+
+  const currentExercise = exercises[exerciseIndex];
 
   const [userResponses, setUserResponses] = useState<string[]>(
     Array(getGapCount(currentExercise)).fill("")
@@ -34,11 +37,7 @@ export function useExerciseState({ exercisePosition, lessonId }: Args) {
       const gapCount = getGapCount(nextExercise);
       setUserResponses(Array(gapCount).fill(""));
 
-      router.navigate({
-        to: "/course/$courseName/lesson/$lessonId",
-        params: { courseName: "Python", lessonId: "1" },
-        search: { exercise: newPosition },
-      });
+      router.navigate(ludoNavigation.lesson("Python", Number(lessonId), newPosition));
     }
   }, [exercisePosition, exercises, clearAnswers]);
 

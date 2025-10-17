@@ -21,7 +21,7 @@ export function TutorialPage() {
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
-      <TutorialHeader total={exercises.length} position={exercisePosition} />
+      <TutorialHeader total={exercises.length} position={exercisePosition - 1} />
 
       <ExerciseComponent
         exercise={currentExercise}

@@ -1,3 +1,4 @@
+import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
 import { CompletionRibbon } from "./CompletionRibbon";
 
@@ -5,11 +6,7 @@ export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 
 export function PathButton() {
   const goToLesson = () => {
-    router.navigate({
-      to: "/course/$courseName/lesson/$lessonId",
-      params: { courseName: "Python", lessonId: "1" },
-      search: { exercise: 0 },
-    });
+    router.navigate(ludoNavigation.lesson("Python", 1, 0));
   };
 
   const lessonType: LessonCompletion = "COMPLETE";

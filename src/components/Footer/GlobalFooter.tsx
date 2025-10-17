@@ -1,5 +1,5 @@
+import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
-import { LessonFooter } from "./LessonFooter";
 
 type NavIcon = {
   name: string;
@@ -11,19 +11,19 @@ export function GlobalFooter() {
   const icons: NavIcon[] = [
     {
       name: "Courses",
-      onClick: () => router.navigate({ to: "/" }),
+      onClick: () => router.navigate(ludoNavigation.courseRoot()),
     },
     {
       name: "Learn",
-      onClick: () => router.navigate({ to: "/modules" }),
+      onClick: () => router.navigate(ludoNavigation.moduleRedirect()),
     },
     {
       name: "Practice",
-      onClick: () => router.navigate({to: "/practice"}),
+      onClick: () => router.navigate(ludoNavigation.practice()),
     },
     {
       name: "Profile",
-      onClick: () => router.navigate({to: "/profile"})
+      onClick: () => router.navigate(ludoNavigation.me())
     },
   ];
 
