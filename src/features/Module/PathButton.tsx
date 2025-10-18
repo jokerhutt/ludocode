@@ -14,7 +14,7 @@ export function PathButton() {
   return (
     <button
       onClick={() => goToLesson()}
-      className="relative inline-flex items-center justify-center
+      className="relative hover:cursor-pointer inline-flex items-center justify-center
                  w-20 h-20 rounded-3xl bg-ludoGrayLight overflow-hidden
                  shadow-[0_10px_0_#262E57] active:translate-y-2 active:shadow-none"
     >
