@@ -3,7 +3,7 @@ import {
   RP_LESSON,
   RP_MODULE,
   RP_PROFILE,
-  RP_PRACTICE,
+  RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
 } from "../constants/routePaths";
@@ -13,7 +13,7 @@ export const ludoNavigation = {
 
   moduleRedirect: () => ({ to: RP_MODULE_REDIRECT }),
 
-  practice: () => ({ to: RP_PRACTICE }),
+  build: () => ({ to: RP_BUILD }),
 
   me: () => ({ to: RP_ME }),
 

@@ -11,14 +11,14 @@ import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 import { ProfilePage } from "../features/Profile/ProfilePage";
-import { PracticePage } from "../features/Practice/PracticePage";
+import { BuilderPage } from "../features/Practice/BuilderPage";
 import {
   RP_COURSE,
   RP_LESSON,
   RP_ME,
   RP_MODULE,
   RP_MODULE_REDIRECT,
-  RP_PRACTICE,
+  RP_BUILD,
   RP_PROFILE,
 } from "../constants/routePaths";
 import { LessonLayout } from "../Layouts/LessonLayout";
@@ -50,11 +50,11 @@ const courseRoute = createRoute({
   component: CoursePage,
 });
 
-export const practiceRoute = createRoute({
+export const buildRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
-  path: RP_PRACTICE,
-  staticData: { headerTitle: "Practice" },
-  component: PracticePage,
+  path: RP_BUILD,
+  staticData: { headerTitle: "Build" },
+  component: BuilderPage,
 });
 
 export const profileMeRoute = createRoute({
@@ -125,7 +125,7 @@ const routeTree = rootRoute.addChildren([
   siteRoute.addChildren([
     defaultSectionRoute.addChildren([
       courseRoute,
-      practiceRoute,
+      buildRoute,
       profileMeRoute,
       profileByIdRoute,
     ]),

@@ -5,5 +5,5 @@ type MainContentWrapperProps = {
 };
 
 export function MainContentWrapper({ children }: MainContentWrapperProps) {
-  return <main className="min-h-0 overflow-auto">{children}</main>;
+  return <main className="min-h-0 [scrollbar-gutter:stable_right] overflow-auto">{children}</main>;
 }
