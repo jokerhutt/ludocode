@@ -1,11 +1,10 @@
 import { RouterProvider } from "@tanstack/react-router";
 import "./App.css";
-import { router } from "./routes/router";
+import { queryClient, router } from "./routes/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "./constants/env";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
 
 function App() {
   return (
