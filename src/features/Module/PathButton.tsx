@@ -1,12 +1,19 @@
 import { ludoNavigation } from "../../routes/ludoNavigation";
-import { router } from "../../routes/router";
+import { moduleRoute, router } from "../../routes/router";
+import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 import { CompletionRibbon } from "./CompletionRibbon";
 
 export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 
-export function PathButton() {
+type PathButtonProps = {
+  lesson: LudoLesson;
+};
+
+export function PathButton({ lesson }: PathButtonProps) {
+  const { courseId } = moduleRoute.useParams();
+
   const goToLesson = () => {
-    router.navigate(ludoNavigation.lesson("Python", 1, 0));
+    router.navigate(ludoNavigation.lesson("Python", lesson.id, 0));
   };
 
   const lessonType: LessonCompletion = "COMPLETE";

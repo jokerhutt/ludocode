@@ -17,17 +17,17 @@ export const ludoNavigation = {
 
   me: () => ({ to: RP_ME }),
 
-  module: (courseName: string, position: number) => ({
+  module: (courseId: string, position: number) => ({
     to: RP_MODULE,
-    params: { courseName, position },
+    params: { courseId, position },
   }),
 
-  startLesson: (courseName: string, lessonId: number) =>
-    ludoNavigation.lesson(courseName, lessonId, 0),
+  startLesson: (courseId: string, lessonId: string) =>
+    ludoNavigation.lesson(courseId, lessonId, 0),
 
-  lesson: (courseName: string, lessonId: number, exercise: number) => ({
+  lesson: (courseId: string, lessonId: string, exercise: number) => ({
     to: RP_LESSON,
-    params: { courseName, lessonId },
+    params: { courseId, lessonId },
     search: { exercise },
   }),
 };

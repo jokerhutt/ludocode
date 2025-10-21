@@ -1,5 +1,5 @@
 import type { QueryClient } from "@tanstack/react-query";
-import { fetchCourseTree } from "./fetchSectionTree";
+import { fetchCourseTree } from "./fetchCourseTree";
 import type { CourseTree } from "../../../Types/Catalog/CourseTree";
 import { qk } from "../../../constants/qk";
 

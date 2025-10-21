@@ -1,3 +1,4 @@
+import { useCourseTree } from "../../Hooks/Queries/Tree/useCourseTree";
 import { ModuleAsideLeft } from "./ModuleAsideLeft";
 import { ModuleAsideRight } from "./ModuleAsideRight";
 import { PathButton } from "./PathButton";
@@ -5,6 +6,7 @@ import { PathRow } from "./PathRow";
 
 export function ModulePage() {
   const mockLessons = [1, 2, 3, 4, 5, 6, 7, 8];
+
 
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">

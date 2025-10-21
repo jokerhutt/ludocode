@@ -1,4 +1,5 @@
 import type { IconName } from "../../components/HeroIcons/CustomIcon";
+import { useAllCourses } from "../../Hooks/Queries/useAllCourses";
 import { CourseCard } from "./CourseCard";
 
 export type CourseType = {
@@ -9,22 +10,10 @@ export type CourseType = {
 };
 
 export function CoursePage() {
-  const courses: CourseType[] = [
-    {
-      name: "Python",
-      description: "something",
-      iconName: "Python",
-      courseBg: "/Images/CourseBg/pythonbg.png",
-    },
-    {
-      name: "Swift",
-      description: "something",
-      iconName: "Swift",
-      courseBg: "/Images/CourseBg/pythonbg.png",
-    },
-  ];
 
-  return (
+  const {data: courses} = useAllCourses()
+
+  if (courses) return (
     <div className="grid col-span-full grid-cols-12">
       <div className="col-span-1 lg:col-span-2" />
 

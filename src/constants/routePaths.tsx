@@ -12,6 +12,6 @@ export const RP_PROFILE = `/profile/$userId`;
 
 export const RP_MODULE_REDIRECT = `/modules`;
 
-export const RP_MODULE = `/course/$courseName/module/$position`;
+export const RP_MODULE = `/course/$courseId/module/$position`;
 
-export const RP_LESSON = `/course/$courseName/lesson/$lessonId`;
+export const RP_LESSON = `/course/$courseId/lesson/$lessonId`;

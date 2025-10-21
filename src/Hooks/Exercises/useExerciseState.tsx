@@ -37,7 +37,7 @@ export function useExerciseState({ exercisePosition, lessonId }: Args): useExerc
       const gapCount = getGapCount(nextExercise);
       setUserResponses(Array(gapCount).fill(""));
 
-      router.navigate(ludoNavigation.lesson("Python", Number(lessonId), newPosition));
+      router.navigate(ludoNavigation.lesson(courseId, lessonId, newPosition));
     }
   }, [exercisePosition, exercises, clearAnswers]);
 
