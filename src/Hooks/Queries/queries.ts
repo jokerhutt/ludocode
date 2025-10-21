@@ -1,10 +1,12 @@
 import { queryOptions } from "@tanstack/react-query";
 import { qk } from "../../constants/qk";
 import { fetchCourseProgress } from "./useCourseProgress";
-import { fetchCourseTree } from "./Tree/fetchCourseTree";
 import { fetchAllCourses } from "./useAllCourses";
-import { moduleBatcher } from "./Batcher/batchers";
+import { lessonBatcher, moduleBatcher } from "./Batcher/batchers";
 import { fetchCurrentUser } from "./useCurrentUser";
+import { fetchFlatTree } from "./Tree/useFlatTree";
+import type { LudoModule } from "../../Types/Catalog/LudoModule";
+import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 
 export const qo = {
   currentUser: () =>
@@ -17,10 +19,13 @@ export const qo = {
     queryOptions({ queryKey: qk.courseProgress(courseId), queryFn: () => fetchCourseProgress(courseId), staleTime: 60_000 }),
 
   courseTree: (courseId: string) =>
-    queryOptions({ queryKey: qk.courseTree(courseId), queryFn: () => fetchCourseTree(courseId), staleTime: 5 * 60_000 }),
+    queryOptions({ queryKey: qk.courseTree(courseId), queryFn: () => fetchFlatTree(courseId), staleTime: 5 * 60_000 }),
+
+  lesson: (lessonId: string) =>
+    queryOptions<LudoLesson>({queryKey: qk.lesson(lessonId), queryFn: () => lessonBatcher.fetch(lessonId), staleTime: 60_000}),
 
   module: (moduleId: string) =>
-    queryOptions({ queryKey: qk.module(moduleId), queryFn: () => moduleBatcher.fetch(moduleId), staleTime: 60_000 }),
+    queryOptions<LudoModule>({ queryKey: qk.module(moduleId), queryFn: () => moduleBatcher.fetch(moduleId), staleTime: 60_000 }),
 
 
 };

@@ -30,7 +30,7 @@ export const GOOGLE_LOGIN = API_PATH + `/auth/google-login`;
 
 export const AUTH_ME = API_PATH + `/auth/me`;
 
-export const GET_COURSE_PROGRESS = (courseId: string) => API_PATH + `progress/course/${courseId}`
+export const GET_COURSE_PROGRESS = (courseId: string) => API_PATH + `/progress/course/${courseId}`
 
 export const GET_USERS_FROM_IDS = (userIds: string) =>
   API_PATH + `/users/ids?${userIds}`;

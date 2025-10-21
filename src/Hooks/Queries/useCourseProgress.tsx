@@ -14,7 +14,7 @@ export function useCourseProgress(courseId: string) {
 }
 
 export async function fetchCourseProgress(courseId: string): Promise<CourseProgress> {
-    const res = await fetch(GET_COURSE_PROGRESS(courseId))
+    const res = await fetch(GET_COURSE_PROGRESS(courseId), {credentials: "include"})
     if (!res.ok) throw new Error("Failed to get course progress");
     return (await res.json()) as CourseProgress
 }

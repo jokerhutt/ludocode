@@ -1,11 +1,12 @@
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
+import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { mockModules } from "../../Types/mockData/mockExercises";
 
-type ModulesListProps = {};
+type ModulesListProps = {modules: LudoModule[]};
 
-export function ModulesList({}: ModulesListProps) {
-  const modules = mockModules;
+export function ModulesList({modules}: ModulesListProps) {
+
 
   return (
     <div className="border rounded-xl border-ludoGrayLight flex flex-col items-center">

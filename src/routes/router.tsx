@@ -31,6 +31,9 @@ import type { LudoUser } from "../Types/User/LudoUser";
 import type { CourseTree } from "../Types/Catalog/CourseTree";
 import type { ModuleNode } from "../Types/Catalog/ModuleNode";
 import type { CourseProgress } from "../Types/Progress/CourseProgress";
+import type { FlatCourseTree } from "../Types/Catalog/FlatCourseTree";
+import { qo } from "../Hooks/Queries/queries";
+import { ensureTreeData } from "./routerEnsures";
 
 export const queryClient = new QueryClient();
 
@@ -55,8 +58,6 @@ export const siteRoute = createRoute({
   id: "site",
   component: SiteLayout,
 });
-
-
 
 export const defaultSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
@@ -118,26 +119,26 @@ export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE_REDIRECT,
   loader: async ({ location }) => {
+    const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
 
-    const user : LudoUser = await queryClient.ensureQueryData({
-      queryKey: qk.currentUser()
-    })
+    if (!user.currentCourse) {
+      throw redirect({
+        to: RP_AUTH,
+        replace: true,
+      });
+    }
 
-    const courseProgress : CourseProgress = await queryClient.ensureQueryData({
-      queryKey: qk.courseProgress(user.currentCourse!)
-    })
+    console.log("CURRENT COURSE IS " + user.currentCourse);
 
-    const currentCourseId = courseProgress.courseId
+    const courseProgress: CourseProgress = await queryClient.ensureQueryData(
+      qo.courseProgress(user.currentCourse)
+    );
 
-    const tree : CourseTree = await queryClient.ensureQueryData({
-      queryKey: qk.courseTree(currentCourseId)
-    })
+    const currentCourseId = courseProgress.courseId;
+    const modulePosition = courseProgress.moduleId;
 
-    const moduleNode : ModuleNode = await queryClient.ensureQueryData({
-      queryKey: qk.module(courseProgress.moduleId)
-    })
+    console.log("CURRENT COURSE ID IS " + currentCourseId);
 
-    const modulePosition = moduleNode.module.orderIndex
     const target = `/course/${currentCourseId}/module/${modulePosition}`;
 
     if (location.pathname !== target) {
@@ -148,13 +149,17 @@ export const modulesRedirectRoute = createRoute({
       });
     }
 
-    return { tree, moduleNode, user, courseProgress };
+    return null;
   },
 });
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE,
+  loader: async ({ params }) => {
+    const tree = await ensureTreeData(params.courseId, queryClient);
+    return { tree };
+  },
   component: ModulePage,
 });
 
@@ -175,16 +180,16 @@ export const lessonRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
-  siteRoute.addChildren([
-    defaultSectionRoute.addChildren([
-      courseRoute,
-      buildRoute,
-      profileMeRoute,
-      profileByIdRoute,
+    siteRoute.addChildren([
+      defaultSectionRoute.addChildren([
+        courseRoute,
+        buildRoute,
+        profileMeRoute,
+        profileByIdRoute,
+      ]),
+      moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
-    moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
-  ]),
-  lessonSectionRoute.addChildren([lessonRoute]),
+    lessonSectionRoute.addChildren([lessonRoute]),
   ]),
   authRoute,
 ]);
