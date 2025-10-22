@@ -25,8 +25,8 @@ import {
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
-import { qk } from "../constants/qk";
 import { modulePageLoader, modulesRedirectLoader } from "./Loaders/modulesLoader";
+import { qo } from "../Hooks/Queries/queries";
 
 export const queryClient = new QueryClient();
 
@@ -36,12 +36,10 @@ const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authed",
   beforeLoad: async () => {
+    console.log("Checking user")
     const user = await queryClient
-      .ensureQueryData({
-        queryKey: qk.currentUser(),
-      })
+      .ensureQueryData(qo.currentUser())
       .catch(() => null);
-
     if (!user) throw redirect({ to: RP_AUTH });
   },
 });

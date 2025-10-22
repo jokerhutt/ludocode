@@ -30,15 +30,27 @@ export function useChangeCourse() {
       const data = (await res.json()) as ChangeCourseType;
       return data;
     },
-    onSuccess: (updatedCourse: ChangeCourseType) => {
-      const updatedUser = updatedCourse.user;
-      const newCourseProgress = updatedCourse.courseProgress;
-      qc.setQueryData(qk.user(updatedUser.id), updatedUser);
-      qc.setQueryData(qk.courseProgress(newCourseProgress.courseId), newCourseProgress)
-      qc.setQueryData(qk.currentUser(), updatedUser);
+    onSuccess: (payload: ChangeCourseType) => {
+      try {
+        const updatedUser = payload.user;
+        const newCourseProgress = payload.courseProgress;
 
-      router.navigate(ludoNavigation.moduleRedirect())
+        if (!updatedUser || !newCourseProgress) {
+          throw new Error("Malformed ChangeCourseType");
+        }
 
+        qc.setQueryData(qk.user(updatedUser.id), updatedUser);
+        qc.setQueryData(
+          qk.courseProgress(newCourseProgress.courseId),
+          newCourseProgress
+        );
+        qc.setQueryData(qk.currentUser(), updatedUser);
+
+      } catch (e) {
+        console.error("onSuccess error:", e);
+      } finally {
+        router.navigate(ludoNavigation.moduleRedirect());
+      }
     },
   });
 }

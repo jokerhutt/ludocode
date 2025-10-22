@@ -1,8 +1,6 @@
 import type { IconName } from "../../components/HeroIcons/CustomIcon";
 import { useChangeCourse } from "../../Hooks/Queries/Mutations/useChangeCourse";
 import { useAllCourses } from "../../Hooks/Queries/useAllCourses";
-import { ludoNavigation } from "../../routes/ludoNavigation";
-import { router } from "../../routes/router";
 import { CourseCard } from "./CourseCard";
 
 export type CourseType = {
@@ -31,7 +29,7 @@ export function CoursePage() {
       <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-16 items-stretch justify-start h-full min-w-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {courses.map((course) => (
-            <CourseCard onClick={() => handleSelectCourse(course.id)} course={course} />
+            <CourseCard key={course.id} onClick={() => handleSelectCourse(course.id)} course={course} />
           ))}
         </div>
       </div>

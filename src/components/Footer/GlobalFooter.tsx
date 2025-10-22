@@ -11,7 +11,7 @@ export function GlobalFooter() {
     >
       <div className="col-start-2 col-end-12 flex justify-between items-center">
         {icons.map((icon) => (
-          <div>
+          <div key={icon.name}>
             <p className="text-white" onClick={() => !!icon.onClick && icon.onClick()}>{icon.name}</p>
           </div>
         ))}

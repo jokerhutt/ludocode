@@ -41,7 +41,7 @@ export function ModulePage() {
       <ModuleAsideLeft />
       <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
         {lessons.map((lesson: LudoLesson, i: number) => (
-          <PathRow key={i} index={i}>
+          <PathRow key={lesson.id} index={i}>
             <PathButton lesson={lesson} />
           </PathRow>
         ))}

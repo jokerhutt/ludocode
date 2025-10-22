@@ -14,7 +14,7 @@ export function DesktopHeader({}: DesktopHeaderProps) {
       <div className="col-start-2 col-end-12 flex items-center justify-between">
         <div className="flex gap-4 items-center">
           {icons.map((icon) => (
-            <HollowSlot>
+            <HollowSlot key={icon.name}>
               <p onClick={() => !!icon.onClick && icon.onClick()} className="text-white">{icon.name}</p>
             </HollowSlot>
           ))}

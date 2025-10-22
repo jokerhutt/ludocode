@@ -1,8 +1,5 @@
-import { CustomIcon, PythonIcon, type IconName } from "../../components/HeroIcons/CustomIcon";
-import { ludoNavigation } from "../../routes/ludoNavigation";
-import { router } from "../../routes/router";
+import { CustomIcon, type IconName } from "../../components/HeroIcons/CustomIcon";
 import type { LudoCourse } from "../../Types/Catalog/LudoCourse";
-import type { CourseType } from "./CoursePage";
 
 type CourseCardProps = {
   course: LudoCourse;
