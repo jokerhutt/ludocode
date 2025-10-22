@@ -34,6 +34,7 @@ export function useChangeCourse() {
       try {
         const updatedUser = payload.user;
         const newCourseProgress = payload.courseProgress;
+        const newEnrolled = payload.enrolled;
 
         if (!updatedUser || !newCourseProgress) {
           throw new Error("Malformed ChangeCourseType");
@@ -45,7 +46,7 @@ export function useChangeCourse() {
           newCourseProgress
         );
         qc.setQueryData(qk.currentUser(), updatedUser);
-
+        qc.setQueryData(qk.enrolled(), newEnrolled);
       } catch (e) {
         console.error("onSuccess error:", e);
       } finally {
