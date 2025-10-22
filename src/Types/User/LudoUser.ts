@@ -6,4 +6,5 @@ export type LudoUser = {
     email: string,
     createdAt: string,
     currentCourse: string | null
+    enrolledCourses: string[]
 }

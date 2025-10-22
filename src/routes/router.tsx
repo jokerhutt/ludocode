@@ -71,11 +71,13 @@ export const courseRoute = createRoute({
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => {
     const allCourses = await queryClient.ensureQueryData(qo.allCourses());
+    const enrolled = await queryClient.ensureQueryData(qo.enrolled());
+
     await Promise.all(
-      allCourses.map((c) => queryClient.ensureQueryData(qo.courseProgress(c.id)))
+      enrolled.map((enrolledId) => queryClient.ensureQueryData(qo.courseProgress(enrolledId)))
     );
 
-    return {allCourses};
+    return {allCourses, enrolled};
   },
   component: CoursePage,
 });

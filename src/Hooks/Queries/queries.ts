@@ -11,6 +11,7 @@ import { fetchCurrentUser } from "./useCurrentUser";
 import { fetchFlatTree } from "./Tree/useFlatTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
+import { fetchEnrolledCourseIds } from "./fetchEnrolled";
 
 export const qo = {
   currentUser: () =>
@@ -32,6 +33,13 @@ export const qo = {
       queryKey: qk.courses(),
       queryFn: () => fetchAllCourses(),
       staleTime: 60_000,
+    }),
+
+  enrolled: () =>
+    queryOptions({
+      queryKey: qk.enrolled(),
+      queryFn: () => fetchEnrolledCourseIds(),
+      staleTime: 60_000
     }),
 
   courseProgress: (courseId: string) =>

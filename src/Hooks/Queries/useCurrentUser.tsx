@@ -14,9 +14,6 @@ export function useCurrentUser() {
     staleTime: 60 * 1000,
     retry: false,
   });
-  
-
-
 }
 
 export async function fetchCurrentUser() {

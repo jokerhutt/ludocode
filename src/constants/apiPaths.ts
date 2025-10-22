@@ -36,3 +36,5 @@ export const GET_USERS_FROM_IDS = (userIds: string) =>
   API_PATH + `/users/ids?${userIds}`;
 
 export const GET_COURSE_PROGRESS_FROM_IDS = (courseIds: string) => API_PATH + `/progress/course/ids?${courseIds}`
+
+export const GET_ENROLLED_IDS = API_PATH + `/progress/course/enrolled`
