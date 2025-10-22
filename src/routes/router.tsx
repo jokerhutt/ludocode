@@ -25,7 +25,10 @@ import {
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
-import { modulePageLoader, modulesRedirectLoader } from "./Loaders/modulesLoader";
+import {
+  modulePageLoader,
+  modulesRedirectLoader,
+} from "./Loaders/modulesLoader";
 import { qo } from "../Hooks/Queries/queries";
 
 export const queryClient = new QueryClient();
@@ -36,7 +39,7 @@ const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authed",
   beforeLoad: async () => {
-    console.log("Checking user")
+    console.log("Checking user");
     const user = await queryClient
       .ensureQueryData(qo.currentUser())
       .catch(() => null);
@@ -62,10 +65,18 @@ export const moduleSectionRoute = createRoute({
   component: ModuleSectionLayout,
 });
 
-const courseRoute = createRoute({
+export const courseRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
+  loader: async ({}) => {
+    const allCourses = await queryClient.ensureQueryData(qo.allCourses());
+    await Promise.all(
+      allCourses.map((c) => queryClient.ensureQueryData(qo.courseProgress(c.id)))
+    );
+
+    return {allCourses};
+  },
   component: CoursePage,
 });
 

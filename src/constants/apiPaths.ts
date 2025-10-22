@@ -34,3 +34,5 @@ export const GET_COURSE_PROGRESS = (courseId: string) => API_PATH + `/progress/c
 
 export const GET_USERS_FROM_IDS = (userIds: string) =>
   API_PATH + `/users/ids?${userIds}`;
+
+export const GET_COURSE_PROGRESS_FROM_IDS = (courseIds: string) => API_PATH + `/progress/course/ids?${courseIds}`

@@ -1,8 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { FlatCourseTree } from "../Types/Catalog/FlatCourseTree";
 import { qo } from "../Hooks/Queries/queries";
-import { qk } from "../constants/qk";
-import type { LudoUser } from "../Types/User/LudoUser";
 
 export async function ensureTreeData(
   courseId: string,
