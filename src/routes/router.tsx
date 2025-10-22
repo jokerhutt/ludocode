@@ -31,6 +31,7 @@ import {
 } from "./Loaders/modulesLoader";
 import { qo } from "../Hooks/Queries/queries";
 import type { LudoUser } from "../Types/User/LudoUser";
+import type { LudoExercise } from "../Types/Exercise/LudoExercise";
 
 export const queryClient = new QueryClient();
 
@@ -137,6 +138,14 @@ export const moduleRoute = createRoute({
   loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModulePage,
 });
+
+export const getGapCount = (exercise: LudoExercise) => {
+  if (exercise.exerciseType != "CLOZE") {
+    return 1;
+  } else {
+    return (exercise.prompt ?? exercise.title).split("___").length - 1;
+  }
+};
 
 export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,

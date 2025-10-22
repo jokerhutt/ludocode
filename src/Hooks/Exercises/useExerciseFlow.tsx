@@ -5,18 +5,12 @@ import type {
   ExerciseAttempt,
   ExerciseSubmission,
 } from "../../Types/Exercise/LessonSubmissionTypes";
-import { getGapCount } from "./useExerciseState";
-import {
-  areAllFilled,
-  areAllValid,
-  checkCorrect,
-  findLastAttempt,
-} from "./exerciseHelpers";
+import { areAllFilled, areAllValid, checkCorrect } from "./exerciseHelpers";
 import {
   useAttemptBuffer,
   type AttemptBufferResponse,
 } from "./useAttemptBuffer";
-import { router } from "../../routes/router";
+import { getGapCount, router } from "../../routes/router";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 
 type Args = {
@@ -34,10 +28,12 @@ export function useExerciseFlow({
     ExerciseSubmission[]
   >([]);
 
+  const index = position - 1;
+
   const [submissionBuffer, setSubmissionBuffer] =
     useState<ExerciseAttempt | null>(null);
 
-  const currentExercise = exercises[position]; // derive, not state
+  const currentExercise = exercises[index];
   const gapCount = getGapCount(currentExercise);
 
   const bufferState = useAttemptBuffer({
@@ -90,6 +86,7 @@ export function useExerciseFlow({
   }, [submissionBuffer, addAttempt, lesson.id, position, clear]);
 
   return {
+    currentExercise,
     bufferState,
     submitAttemptBuffer,
     commitAttempt,
@@ -98,6 +95,7 @@ export function useExerciseFlow({
 }
 
 export type ExerciseFlowResponse = {
+    currentExercise: LudoExercise;
   bufferState: AttemptBufferResponse;
   submitAttemptBuffer: () => void;
   commitAttempt: () => void;

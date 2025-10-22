@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-import type { useExerciseStateReturn } from "../../Hooks/Exercises/useExerciseState";
+import type { ExerciseFlowResponse } from "../../Hooks/Exercises/useExerciseFlow";
 
-export const LessonContext = createContext<useExerciseStateReturn | null>(null);
+export const LessonContext = createContext<ExerciseFlowResponse | null>(null);
 
 export function useLessonContext() {
   const ctx = useContext(LessonContext);

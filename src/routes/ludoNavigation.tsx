@@ -31,7 +31,7 @@ export const ludoNavigation = {
   }),
 
   startLesson: (courseId: string, lessonId: string) =>
-    ludoNavigation.lesson(courseId, lessonId, 0),
+    ludoNavigation.lesson(courseId, lessonId, 1),
 
   lesson: (courseId: string, lessonId: string, exercise: number) => ({
     to: RP_LESSON,
