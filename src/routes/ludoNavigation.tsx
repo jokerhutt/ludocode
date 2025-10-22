@@ -7,11 +7,19 @@ import {
   RP_MODULE_REDIRECT,
   RP_ME,
 } from "../constants/routePaths";
+import { lessonRoute } from "./router";
 
 export const ludoNavigation = {
   courseRoot: () => ({ to: RP_COURSE }),
 
   moduleRedirect: () => ({ to: RP_MODULE_REDIRECT }),
+
+  nextExercise: (lessonId: string, current: number) => ({
+  to: lessonRoute.to,
+  params: { lessonId },
+  search: { exercise: current + 1 },
+  replace: true
+  }),
 
   build: () => ({ to: RP_BUILD }),
 

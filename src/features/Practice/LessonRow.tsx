@@ -1,10 +1,9 @@
-import type { LudoTutorial } from "../../Types/Exercise/LudoTutorial";
+import type { LudoLesson } from "../../Types/Exercise/LudoLesson";
 
-type LessonRowProps = { lesson: LudoTutorial; isSelected: boolean };
+type LessonRowProps = { lesson: LudoLesson; isSelected: boolean };
 
-export function LessonRow({lesson, isSelected}: LessonRowProps) {
-
-  const selectedStyle = isSelected ? "bg-green-200/30" : ""
+export function LessonRow({ lesson, isSelected }: LessonRowProps) {
+  const selectedStyle = isSelected ? "bg-green-200/30" : "";
 
   return (
     <div className={`p-2 flex flex-col ${selectedStyle} border-b`}>

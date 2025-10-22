@@ -1,9 +1,9 @@
 import type { LudoModule } from "../Catalog/LudoModule";
 import type { LudoExercise } from "../Exercise/LudoExercise";
 import type { LudoExerciseOption } from "../Exercise/LudoExerciseOption";
-import type { LudoTutorial } from "../Exercise/LudoTutorial";
+import type { LudoLesson } from "../Exercise/LudoLesson";
 
-export const mockLessons: LudoTutorial[] = [
+export const mockLessons: LudoLesson[] = [
   {
     id: 1,
     unitId: 1,

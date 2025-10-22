@@ -12,6 +12,14 @@ type Args = {
   lesson: LudoLesson[];
 };
 
+export const getGapCount = (exercise: LudoExercise) => {
+  if (exercise.exerciseType != "CLOZE") {
+    return 1;
+  } else {
+    return (exercise.prompt ?? exercise.title).split("___").length - 1;
+  }
+};
+
 export function useExerciseState({
   exercisePosition,
   lessonId,
@@ -20,10 +28,6 @@ export function useExerciseState({
 }: Args): useExerciseStateReturn {
   const clearAnswers = (length: number) =>
     setUserResponses(Array(length).fill(""));
-
-  const getGapCount = (exercise: LudoExercise) => {
-    return (exercise.prompt ?? exercise.title).split("___").length - 1;
-  };
 
   const exerciseIndex = exercisePosition - 1;
 

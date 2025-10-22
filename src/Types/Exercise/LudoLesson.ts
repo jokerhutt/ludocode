@@ -1,4 +1,4 @@
-export type LudoTutorial = {
+export type LudoLesson = {
   id: number;
   unitId: number;
   orderIndex: number;
