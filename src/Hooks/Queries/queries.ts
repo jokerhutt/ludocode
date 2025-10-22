@@ -12,6 +12,7 @@ import { fetchFlatTree } from "./Tree/useFlatTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 import { fetchEnrolledCourseIds } from "./fetchEnrolled";
+import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 
 export const qo = {
   currentUser: () =>
@@ -43,7 +44,7 @@ export const qo = {
     }),
 
   courseProgress: (courseId: string) =>
-    queryOptions({
+    queryOptions<CourseProgress>({
       queryKey: qk.courseProgress(courseId),
       queryFn: () => courseProgressBatcher.fetch(courseId),
       staleTime: 60_000,

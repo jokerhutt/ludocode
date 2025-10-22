@@ -5,6 +5,8 @@ import { useAllCourses } from "../../Hooks/Queries/useAllCourses";
 import { CourseCard } from "./CourseCard";
 import { courseRoute } from "../../routes/router";
 import type { LudoCourse } from "../../Types/Catalog/LudoCourse";
+import { useSuspenseQueries } from "@tanstack/react-query";
+import { qo } from "../../Hooks/Queries/queries";
 
 export type CourseType = {
   name: string;
@@ -15,7 +17,13 @@ export type CourseType = {
 
 export function CoursePage() {
 
-  const { allCourses } = useLoaderData({ from: courseRoute.id });
+  const { allCourses, enrolled} = useLoaderData({ from: courseRoute.id });
+
+  const progressQueries = useSuspenseQueries({
+    queries: enrolled.map((enrolled: string) => qo.courseProgress(enrolled))
+  })
+
+  const progressList = progressQueries.map((progressQuery) => progressQuery.data)
 
   const changeCourseMutation = useChangeCourse()
 
@@ -25,7 +33,7 @@ export function CoursePage() {
     )
   }
 
-  if (allCourses) return (
+  return (
     <div className="grid col-span-full grid-cols-12">
       <div className="col-span-1 lg:col-span-2" />
 

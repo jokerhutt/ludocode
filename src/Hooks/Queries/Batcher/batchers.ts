@@ -1,5 +1,5 @@
 import { create, windowScheduler } from "@yornaath/batshit";
-import { GET_COURSE_PROGRESS_FROM_IDS, GET_LESSONS_FROM_IDS, GET_MODULES_FROM_IDS, GET_USERS_FROM_IDS, TEST_USER_ID } from "../../../constants/apiPaths";
+import { GET_COURSE_PROGRESS_FROM_IDS, GET_LESSONS_FROM_IDS, GET_MODULES_FROM_IDS, GET_USERS_FROM_IDS } from "../../../constants/apiPaths";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { makeIdBatcher } from "./batcherFactory";
 import type { LudoModule } from "../../../Types/Catalog/LudoModule";

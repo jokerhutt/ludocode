@@ -7,16 +7,20 @@ export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 
 type PathButtonProps = {
   lesson: LudoLesson;
+  isCurrent: boolean;
 };
 
-export function PathButton({ lesson }: PathButtonProps) {
+export function PathButton({ lesson, isCurrent }: PathButtonProps) {
   const { courseId } = moduleRoute.useParams();
+
+  const isCompleted = lesson.isCompleted
+
+  const lessonType: LessonCompletion = isCurrent ? "COMPLETE" : isCompleted ? "MASTERED" : "DEFAULT"
 
   const goToLesson = () => {
     router.navigate(ludoNavigation.lesson("Python", lesson.id, 0));
   };
 
-  const lessonType: LessonCompletion = "COMPLETE";
 
   return (
     <button

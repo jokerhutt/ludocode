@@ -37,7 +37,7 @@ export async function modulesRedirectLoader(location: { pathname: string }, quer
     });
   }
 
-  return null;
+  return {courseProgress};
 }
 
 export async function modulePageLoader(

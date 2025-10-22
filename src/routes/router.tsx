@@ -30,6 +30,7 @@ import {
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
 import { qo } from "../Hooks/Queries/queries";
+import type { LudoUser } from "../Types/User/LudoUser";
 
 export const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ export const courseRoute = createRoute({
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => {
+    const currentUser : LudoUser = await queryClient.ensureQueryData(qo.currentUser())
     const allCourses = await queryClient.ensureQueryData(qo.allCourses());
     const enrolled = await queryClient.ensureQueryData(qo.enrolled());
 
@@ -77,7 +79,7 @@ export const courseRoute = createRoute({
       enrolled.map((enrolledId) => queryClient.ensureQueryData(qo.courseProgress(enrolledId)))
     );
 
-    return {allCourses, enrolled};
+    return {allCourses, enrolled, currentUser};
   },
   component: CoursePage,
 });
