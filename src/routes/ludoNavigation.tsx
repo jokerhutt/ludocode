@@ -10,32 +10,33 @@ import {
 import { lessonRoute } from "./router";
 
 export const ludoNavigation = {
+  //SIMPLE
   courseRoot: () => ({ to: RP_COURSE }),
-
-  moduleRedirect: () => ({ to: RP_MODULE_REDIRECT }),
-
-  nextExercise: (lessonId: string, current: number) => ({
-    to: lessonRoute.to,
-    params: { lessonId },
-    search: { exercise: current + 1 },
-    replace: true,
-  }),
-
   build: () => ({ to: RP_BUILD }),
-
   me: () => ({ to: RP_ME }),
 
-  module: (courseId: string, moduleId: string) => ({
-    to: RP_MODULE,
-    params: { courseId, moduleId },
-  }),
+  lesson: {
+    start: (courseId: string, lessonId: string) =>
+      ludoNavigation.lesson.toLesson(courseId, lessonId, 1),
+    toLesson: (courseId: string, lessonId: string, exercise: number) => ({
+      to: RP_LESSON,
+      params: { courseId, lessonId },
+      search: { exercise },
+    }),
+    toNextExercise: (lessonId: string, current: number) => ({
+      to: lessonRoute.to,
+      params: { lessonId },
+      search: { exercise: current + 1 },
+      replace: true,
+    }),
+  },
 
-  startLesson: (courseId: string, lessonId: string) =>
-    ludoNavigation.lesson(courseId, lessonId, 1),
+  module: {
+    toCurrent: () => ({ to: RP_MODULE_REDIRECT }),
+    toModule: (courseId: string, moduleId: string) => ({
+      to: RP_MODULE,
+      params: { courseId, moduleId },
+    }),
+  },
 
-  lesson: (courseId: string, lessonId: string, exercise: number) => ({
-    to: RP_LESSON,
-    params: { courseId, lessonId },
-    search: { exercise },
-  }),
 };

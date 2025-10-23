@@ -50,7 +50,7 @@ export function useChangeCourse() {
       } catch (e) {
         console.error("onSuccess error:", e);
       } finally {
-        router.navigate(ludoNavigation.moduleRedirect());
+        router.navigate(ludoNavigation.module.toCurrent());
       }
     },
   });

@@ -84,7 +84,7 @@ export function useExerciseFlow({
 
     if (submissionBuffer.isCorrect) {
       setSubmissionBuffer(null);
-      router.navigate(ludoNavigation.nextExercise(lesson.id, position));
+      router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
     } else {
       setSubmissionBuffer(null);
       clear();
