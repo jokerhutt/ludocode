@@ -15,19 +15,19 @@ export const ludoNavigation = {
   moduleRedirect: () => ({ to: RP_MODULE_REDIRECT }),
 
   nextExercise: (lessonId: string, current: number) => ({
-  to: lessonRoute.to,
-  params: { lessonId },
-  search: { exercise: current + 1 },
-  replace: true
+    to: lessonRoute.to,
+    params: { lessonId },
+    search: { exercise: current + 1 },
+    replace: true,
   }),
 
   build: () => ({ to: RP_BUILD }),
 
   me: () => ({ to: RP_ME }),
 
-  module: (courseId: string, position: number) => ({
+  module: (courseId: string, moduleId: string) => ({
     to: RP_MODULE,
-    params: { courseId, position },
+    params: { courseId, moduleId },
   }),
 
   startLesson: (courseId: string, lessonId: string) =>

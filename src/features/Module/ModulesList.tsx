@@ -18,7 +18,7 @@ export function ModulesList({ modules }: ModulesListProps) {
           key={module.id}
           onClick={() =>
             router.navigate(
-              ludoNavigation.module(module.courseId, module.orderIndex)
+              ludoNavigation.module(module.courseId, module.id)
             )
           }
           className="text-white hover:cursor-pointer hover:bg-ludoGrayLight/20 w-full px-2 py-4 text-lg border-b border-b-ludoGrayLight"

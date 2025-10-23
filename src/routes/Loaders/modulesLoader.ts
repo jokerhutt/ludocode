@@ -23,16 +23,16 @@ export async function modulesRedirectLoader(location: { pathname: string }, quer
   );
 
   const currentCourseId = courseProgress.courseId;
-  const modulePosition = courseProgress.moduleId;
+  const moduleId = courseProgress.moduleId;
 
   console.log("CURRENT COURSE ID IS " + currentCourseId);
 
-  const target = `/course/${currentCourseId}/module/${modulePosition}`;
+  const target = `/course/${currentCourseId}/module/${moduleId}`;
 
   if (location.pathname !== target) {
     throw redirect({
       to: RP_MODULE,
-      params: { courseId: currentCourseId, position: modulePosition },
+      params: { courseId: currentCourseId, moduleId: moduleId },
       replace: true,
     });
   }
@@ -41,17 +41,17 @@ export async function modulesRedirectLoader(location: { pathname: string }, quer
 }
 
 export async function modulePageLoader(
-  params: {courseId: string; position: string},
+  params: {courseId: string; moduleId: string},
   queryClient: QueryClient
 ) {
-  const { courseId, position } = params
+  const { courseId, moduleId } = params
 
   if (!courseId) {
     throw redirect({ to: RP_AUTH, replace: true })
   }
 
   const tree = await ensureTreeData(courseId, queryClient)
-  return { tree, courseId, position }
+  return { tree, courseId, moduleId }
 }
 
 

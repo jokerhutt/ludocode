@@ -13,14 +13,14 @@ import type {
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 
 export function ModulePage() {
-  const { courseId, position } = moduleRoute.useParams();
+  const { courseId, moduleId } = moduleRoute.useParams();
 
   const { tree } = moduleRoute.useLoaderData()
 
   const {data: courseProgress} = useSuspenseQuery(qo.courseProgress(courseId))
 
   const moduleMetaData: FlatModule = tree.modules.find(
-    (module: FlatModule) => module.id == position
+    (module: FlatModule) => module.id == moduleId
   );
 
   const moduleQueries = useSuspenseQueries({
