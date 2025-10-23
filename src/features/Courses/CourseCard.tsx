@@ -1,4 +1,4 @@
-import { CustomIcon, type IconName } from "../../components/HeroIcons/CustomIcon";
+import { CustomIcon, type IconName } from "../../components/Atoms/Icons/CustomIcon.tsx";
 import type { LudoCourse } from "../../Types/Catalog/LudoCourse";
 
 type CourseCardProps = {

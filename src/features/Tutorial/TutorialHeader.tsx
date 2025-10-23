@@ -1,5 +1,5 @@
 import { CommonHeader } from "../../components/Header/CommonHeader";
-import { SegmentedProgress } from "../../components/Progress/SegmentedProgress";
+import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 
 type TutorialHeaderProps = {
   total: number;

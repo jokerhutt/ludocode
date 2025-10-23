@@ -21,7 +21,7 @@ import {
   RP_BUILD,
   RP_PROFILE,
   RP_AUTH,
-} from "../constants/routePaths";
+} from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";

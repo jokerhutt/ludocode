@@ -1,7 +1,7 @@
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
-import { ClickableOptionRow } from "./ClickableOptionWrapper";
+import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
 import { ExerciseAnswerField } from "./ExerciseAnswerField";
-import { ExerciseCodeContainer } from "./ExerciseCodeContainer";
+import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
 import { WideClickableOption } from "./WideClickableOption";
 
 type AnalyzeExerciseProps = {
@@ -20,16 +20,16 @@ export function AnalyzeExercise({
 }: AnalyzeExerciseProps) {
   return (
     <>
-      <ExerciseCodeContainer>
+      <CodeBoxWrapper>
         <ExerciseAnswerField
           options={options}
           answerField={answerField}
           userResponses={userResponses}
           setAnswerAt={setAnswerAt}
         />
-      </ExerciseCodeContainer>
+      </CodeBoxWrapper>
 
-      <ClickableOptionRow type="COLUMN">
+      <OptionListWrapper type="COLUMN">
         {options.map((option) => (
           <WideClickableOption
             setAnswerAt={setAnswerAt}
@@ -37,7 +37,7 @@ export function AnalyzeExercise({
             userSelections={userResponses}
           />
         ))}
-      </ClickableOptionRow>
+      </OptionListWrapper>
     </>
   );
 }

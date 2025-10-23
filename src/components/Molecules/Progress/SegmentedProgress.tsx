@@ -1,4 +1,4 @@
-import { ProgressCell } from "./ProgressCell";
+import { ProgressCell } from "../../Atoms/Progress/ProgressCell.tsx";
 
 export function SegmentedProgress({
   total,

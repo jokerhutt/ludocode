@@ -6,7 +6,7 @@ import {
   RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
-} from "../constants/routePaths";
+} from "../constants/routes.ts";
 import { lessonRoute } from "./router";
 
 export const ludoNavigation = {

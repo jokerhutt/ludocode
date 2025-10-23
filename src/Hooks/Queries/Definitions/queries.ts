@@ -19,7 +19,7 @@ import {
   GET_COURSE_TREE,
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
-} from "../../../constants/apiPaths";
+} from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 

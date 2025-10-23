@@ -1,8 +1,8 @@
 import { FireIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { CommonHeader } from "../components/Header/CommonHeader";
-import { navIcons } from "../constants/navIcons";
-import { HollowSlot } from "../features/Module/Header/HollowSlot";
-import { CommitIcon } from "../components/HeroIcons/CustomIcon";
+import { navIcons } from "../constants/navIcons.ts";
+import { HollowSlot } from "../components/Atoms/Slot/HollowSlot.tsx";
+import { CommitIcon } from "../components/Atoms/Icons/CustomIcon.tsx";
 
 type DesktopHeaderProps = {};
 

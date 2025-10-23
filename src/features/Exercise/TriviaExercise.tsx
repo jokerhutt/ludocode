@@ -1,5 +1,5 @@
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
-import { ClickableOptionRow } from "./ClickableOptionWrapper";
+import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
 import { WideClickableOption } from "./WideClickableOption";
 
 type TriviaExerciseProps = {
@@ -16,7 +16,7 @@ export function TriviaExercise({
   setAnswerAt,
 }: TriviaExerciseProps) {
   return (
-    <ClickableOptionRow type="COLUMN">
+    <OptionListWrapper type="COLUMN">
       {options.map((option) => (
         <WideClickableOption
           setAnswerAt={setAnswerAt}
@@ -24,6 +24,6 @@ export function TriviaExercise({
           userSelections={userResponses}
         />
       ))}
-    </ClickableOptionRow>
+    </OptionListWrapper>
   );
 }

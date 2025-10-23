@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
-type ExerciseCodeContainerProps = {
+type CodeBoxWrapperProps = {
   children: ReactNode;
 };
 
-export function ExerciseCodeContainer({
+export function CodeBoxWrapper({
   children,
-}: ExerciseCodeContainerProps) {
+}: CodeBoxWrapperProps) {
   return (
     <div className="w-full min-h-40 lg:min-h-66 rounded-3xl bg-ludoGrayLight">
       <div className="w-full h-6 rounded-t-3xl bg-pythonYellow"></div>

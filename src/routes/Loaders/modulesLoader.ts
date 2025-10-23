@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { LudoUser } from "../../Types/User/LudoUser";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
-import { RP_AUTH, RP_MODULE } from "../../constants/routePaths";
+import { RP_AUTH, RP_MODULE } from "../../constants/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { moduleRoute } from "../router";

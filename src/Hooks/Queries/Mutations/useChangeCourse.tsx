@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../../../constants/qk";
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
-import { CHANGE_COURSE } from "../../../constants/apiPaths";
+import { CHANGE_COURSE } from "../../../constants/pathConstants.ts";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
 

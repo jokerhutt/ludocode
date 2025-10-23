@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
-type ClickableOptionRowProps = {
+type OptionListWrapperProps = {
   children: ReactNode;
   type: "ROW" | "COLUMN";
 };
 
-export function ClickableOptionRow({children, type}: ClickableOptionRowProps) {
+export function OptionListWrapper({children, type}: OptionListWrapperProps) {
 
   const rowStyle = "flex justify-center items-center gap-8";
   const colStyle = "flex flex-col items-center gap-6";

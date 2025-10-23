@@ -1,8 +1,8 @@
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
 import { ClickableOption } from "./ClickableOption";
-import { ClickableOptionRow } from "./ClickableOptionWrapper";
+import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
 import { ExerciseAnswerField } from "./ExerciseAnswerField";
-import { ExerciseCodeContainer } from "./ExerciseCodeContainer";
+import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
 
 type ClozeExerciseProps = {
   answerField: string;
@@ -21,16 +21,16 @@ export function ClozeExercise({
 }: ClozeExerciseProps) {
   return (
     <>
-      <ExerciseCodeContainer>
+      <CodeBoxWrapper>
         <ExerciseAnswerField
           options={options}
           answerField={answerField}
           userResponses={userResponses}
           setAnswerAt={setAnswerAt}
         />
-      </ExerciseCodeContainer>
+      </CodeBoxWrapper>
 
-      <ClickableOptionRow type="ROW">
+      <OptionListWrapper type="ROW">
         {options.map((option) => (
           <ClickableOption
             addSelection={addSelection}
@@ -38,7 +38,7 @@ export function ClozeExercise({
             userSelections={userResponses}
           />
         ))}
-      </ClickableOptionRow>
+      </OptionListWrapper>
     </>
   );
 }

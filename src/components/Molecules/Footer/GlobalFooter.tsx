@@ -1,4 +1,4 @@
-import { navIcons } from "../../constants/navIcons";
+import { navIcons } from "../../../constants/navIcons.ts";
 
 
 export function GlobalFooter() {

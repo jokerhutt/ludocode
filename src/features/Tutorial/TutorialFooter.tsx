@@ -1,4 +1,4 @@
-import { LessonFooter } from "../../components/Footer/LessonFooter";
+import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter.tsx";
 import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes";
 import { SubmitButton } from "../Exercise/SubmitButton";
 

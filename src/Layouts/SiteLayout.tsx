@@ -1,5 +1,5 @@
 import { Outlet } from "@tanstack/react-router";
-import { GlobalFooter } from "../components/Footer/GlobalFooter";
+import { GlobalFooter } from "../components/Molecules/Footer/GlobalFooter";
 import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 import { DesktopHeader } from "./DesktopHeader";
 import { useUserStats } from "../Hooks/Queries/useUserStats";

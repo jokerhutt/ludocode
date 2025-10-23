@@ -4,7 +4,7 @@ import {
   GET_LESSONS_FROM_IDS,
   GET_MODULES_FROM_IDS,
   GET_USERS_FROM_IDS,
-} from "../../../constants/apiPaths";
+} from "../../../constants/pathConstants.ts";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { makeIdBatcher } from "./batcherFactory";
 import type { LudoModule } from "../../../Types/Catalog/LudoModule";

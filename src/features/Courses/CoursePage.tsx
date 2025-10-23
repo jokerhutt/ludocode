@@ -1,5 +1,5 @@
 import { useLoaderData } from "@tanstack/react-router";
-import type { IconName } from "../../components/HeroIcons/CustomIcon";
+import type { IconName } from "../../components/Atoms/Icons/CustomIcon.tsx";
 import { useChangeCourse } from "../../Hooks/Queries/Mutations/useChangeCourse";
 import { CourseCard } from "./CourseCard";
 import { courseRoute } from "../../routes/router";

@@ -1,8 +1,4 @@
 import type { ReactNode } from "react";
-import {
-  HeroIcon,
-  type IconName,
-} from "../../../components/HeroIcons/HeroIcon";
 
 type HollowSlotProps = {
   children: ReactNode;

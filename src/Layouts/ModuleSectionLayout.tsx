@@ -1,5 +1,5 @@
 import { Outlet } from "@tanstack/react-router";
-import { ModuleHeader } from "../features/Module/Header/ModuleHeader";
+import { ModuleHeader } from "../features/Module/Header/ModuleHeader.tsx";
 import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
 import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
 

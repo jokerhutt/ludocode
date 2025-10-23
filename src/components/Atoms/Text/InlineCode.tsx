@@ -7,7 +7,7 @@ export function InlineCode({ code, lang = "js" }:{
   return (
     <SyntaxHighlighter
       language={lang}
-      style={theme}        // keep this to retain colors
+      style={theme}
       PreTag="span"
       CodeTag="span"
       customStyle={{
@@ -19,7 +19,7 @@ export function InlineCode({ code, lang = "js" }:{
         fontSize: "20px",
         lineHeight: "28px",
       }}
-      codeTagProps={{ style: { font: "inherit" } }} // inherit from customStyle
+      codeTagProps={{ style: { font: "inherit" } }}
     >
       {code}
     </SyntaxHighlighter>
