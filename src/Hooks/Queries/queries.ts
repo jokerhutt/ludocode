@@ -13,6 +13,8 @@ import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 import { fetchEnrolledCourseIds } from "./fetchEnrolled";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
+import { fetchExercises } from "./fetchExercises";
+import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 
 export const qo = {
   currentUser: () =>
@@ -48,6 +50,13 @@ export const qo = {
       queryKey: qk.courseProgress(courseId),
       queryFn: () => courseProgressBatcher.fetch(courseId),
       staleTime: 60_000,
+    }),
+
+  exercises: (lessonId: string) => 
+    queryOptions<LudoExercise[]>({
+      queryKey: qk.exercises(lessonId),
+      queryFn: () => fetchExercises(lessonId),
+      staleTime: 60_000
     }),
 
   courseTree: (courseId: string) =>

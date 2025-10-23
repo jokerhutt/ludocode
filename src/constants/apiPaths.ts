@@ -32,6 +32,8 @@ export const AUTH_ME = API_PATH + `/auth/me`;
 
 export const GET_COURSE_PROGRESS = (courseId: string) => API_PATH + `/progress/course/${courseId}`
 
+export const GET_EXERCISES_FROM_LESSON = (lessonId: string) => API_PATH + `/catalog/exercises/${lessonId}`
+
 export const GET_USERS_FROM_IDS = (userIds: string) =>
   API_PATH + `/users/ids?${userIds}`;
 

@@ -13,7 +13,7 @@ export function ClickableOptionRow({children, type}: ClickableOptionRowProps) {
   const style = type == "ROW" ? rowStyle : colStyle
 
   return (
-      <div className={`w-full ${style}`}>
+      <div className={`w-full hover:cursor-pointer ${style}`}>
         {children}
       </div>  
   );

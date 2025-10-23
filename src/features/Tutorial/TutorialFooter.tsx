@@ -1,20 +1,40 @@
 import { LessonFooter } from "../../components/Footer/LessonFooter";
+import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes";
 import { SubmitButton } from "../Exercise/SubmitButton";
 
 type TutorialFooterProps = {
   canSubmit: boolean;
-  submitAnswer: () => void;
+  commit: () => void;
+  stage: () => void;
+  staged: ExerciseAttempt | null;
 };
 
+export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT"
+
+
 export function TutorialFooter({
+  staged,
   canSubmit,
-  submitAnswer,
+  stage,
+  commit,
 }: TutorialFooterProps) {
+
+  const hasStaged = staged != null;
+
+  const handleSubmit = () => {
+    if (!canSubmit) return;
+    hasStaged ? commit() : stage();
+  };
+
+  const phase : ExercisePhase = !hasStaged ? "DEFAULT" : staged.isCorrect ? "CORRECT" : "INCORRECT"
+
+  const style = !hasStaged ? "" : staged.isCorrect ? " border-t border-t-green-300" : "border-t border-t-red-600"
+
   return (
-    <LessonFooter>
-      <div className="flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11">
+    <LessonFooter phase={phase}>
+      <div className={`flex w-full justify-between ${style} py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}>
         <div></div>
-        <SubmitButton submitAnswer={submitAnswer} canSubmit={canSubmit} />
+        <SubmitButton phase={phase} submitAnswer={handleSubmit} canSubmit={canSubmit} />
       </div>
     </LessonFooter>
   );

@@ -19,22 +19,23 @@ export function ExerciseComponent({
 }: ExerciseComponentProps) {
   const exerciseBodyMap: any = {
     CLOZE: ClozeExercise,
+    INFO: ClozeExercise,
     ANALYZE: AnalyzeExercise,
     TRIVIA: TriviaExercise,
   };
 
-  const ExerciseBody = exerciseBodyMap[exercise.type];
+  const ExerciseBody = exerciseBodyMap[exercise.exerciseType];
 
   return (
     <>
       <div className="col-span-1 lg:col-span-2" />
 
       <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
-        <ExercisePrompt prompt={exercise.prompt} />
+        <ExercisePrompt prompt={exercise.title} />
 
         <ExerciseBody
-          options={exercise.options}
-          answerField={exercise.answerField}
+          options={exercise.exerciseOptions}
+          answerField={exercise.prompt}
           userResponses={userResponses}
           setAnswerAt={setAnswerAt}
           addSelection={addAnswer}

@@ -2,11 +2,10 @@ import type { ExerciseType } from "./ExerciseType";
 import type { LudoExerciseOption } from "./LudoExerciseOption";
 
 export type LudoExercise = {
-    id: number;
-    tutorialId: number;
-    prompt: string;
-    answerField: string;
-    orderIndex: number;
-    type: ExerciseType;
-    options: LudoExerciseOption[];
-}
+  id: string;
+  lessonId: string;
+  title: string;
+  prompt?: string;
+  exerciseType: ExerciseType;
+  exerciseOptions: LudoExerciseOption[];
+};

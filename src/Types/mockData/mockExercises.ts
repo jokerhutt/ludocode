@@ -1,9 +1,9 @@
 import type { LudoModule } from "../Catalog/LudoModule";
 import type { LudoExercise } from "../Exercise/LudoExercise";
 import type { LudoExerciseOption } from "../Exercise/LudoExerciseOption";
-import type { LudoTutorial } from "../Exercise/LudoTutorial";
+import type { LudoLesson } from "../Exercise/LudoLesson";
 
-export const mockLessons: LudoTutorial[] = [
+export const mockLessons: LudoLesson[] = [
   {
     id: 1,
     unitId: 1,
@@ -13,50 +13,48 @@ export const mockLessons: LudoTutorial[] = [
   },
 ];
 
-export const mockModules : LudoModule[] = [
+export const mockModules: LudoModule[] = [
   {
     id: "1",
     courseId: "Python",
     orderIndex: 1,
-    title: "Variables and Data Types"
+    title: "Variables and Data Types",
   },
-    {
+  {
     id: "2",
     courseId: "Python",
     orderIndex: 2,
-    title: "Conditionals"
+    title: "Conditionals",
   },
-    {
+  {
     id: "3",
     courseId: "Python",
     orderIndex: 3,
-    title: "Loops"
+    title: "Loops",
   },
-    {
+  {
     id: "4",
     courseId: "Python",
     orderIndex: 4,
-    title: "Lists"
+    title: "Lists",
   },
-    {
+  {
     id: "5",
     courseId: "Python",
     orderIndex: 5,
-    title: "Functions"
+    title: "Functions",
   },
-
-
-]
+];
 
 export const mockExercises: LudoExercise[] = [
   {
     id: 1,
-    tutorialId: 1,
-    prompt: "Complete the expression",
-    answerField: "let sum = ___ + 4",
+    lessonId: 1,
+    title: "Complete the expression",
+    prompt: "let sum = ___ + 4",
     orderIndex: 1,
     type: "CLOZE",
-    options: [
+    exerciseOptions: [
       {
         id: 2,
         exerciseId: 1,
@@ -71,12 +69,12 @@ export const mockExercises: LudoExercise[] = [
   },
   {
     id: 2,
-    tutorialId: 1,
-    prompt: `Create a variable with a value of "House"`,
-    answerField: "const ___ = ___",
+    lessonId: 1,
+    title: `Create a variable with a value of "House"`,
+    prompt: "const ___ = ___",
     orderIndex: 2,
     type: "CLOZE",
-    options: [
+    exerciseOptions: [
       {
         id: 4,
         exerciseId: 2,
@@ -96,12 +94,12 @@ export const mockExercises: LudoExercise[] = [
   },
   {
     id: 3,
-    tutorialId: 1,
-    prompt: "Fill in the gaps to print the message",
-    answerField: `console.log("Hello World!") ___`,
+    lessonId: 1,
+    title: "Fill in the gaps to print the message",
+    prompt: `console.log("Hello World!") ___`,
     orderIndex: 1,
     type: "CLOZE",
-    options: [
+    exerciseOptions: [
       {
         id: 6,
         exerciseId: 3,
@@ -126,12 +124,12 @@ export const mockExercises: LudoExercise[] = [
   },
   {
     id: 4,
-    tutorialId: 1,
-    prompt: "What will the following code return",
-    answerField: `const score = 4 + 4;`,
+    lessonId: 1,
+    title: "What will the following code return",
+    prompt: `const score = 4 + 4;`,
     orderIndex: 1,
     type: "ANALYZE",
-    options: [
+    exerciseOptions: [
       {
         id: 10,
         exerciseId: 4,
@@ -156,13 +154,13 @@ export const mockExercises: LudoExercise[] = [
   },
   {
     id: 5,
-    tutorialId: 1,
-    prompt:
+    lessonId: 1,
+    title:
       "Which of the following declares a variable that can not be reassigned",
-    answerField: ``,
+    prompt: ``,
     orderIndex: 1,
     type: "TRIVIA",
-    options: [
+    exerciseOptions: [
       {
         id: 14,
         exerciseId: 5,
