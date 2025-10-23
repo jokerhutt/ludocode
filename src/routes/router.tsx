@@ -29,7 +29,7 @@ import {
   modulePageLoader,
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
-import { qo } from "../Hooks/Queries/queries";
+import { qo } from "../Hooks/Queries/Definitions/queries";
 import type { LudoUser } from "../Types/User/LudoUser";
 import type { LudoExercise } from "../Types/Exercise/LudoExercise";
 
@@ -76,7 +76,7 @@ export const courseRoute = createRoute({
       qo.currentUser()
     );
     const allCourses = await queryClient.ensureQueryData(qo.allCourses());
-    const enrolled = await queryClient.ensureQueryData(qo.enrolled());
+    const enrolled: string[] = await queryClient.ensureQueryData(qo.enrolled());
 
     await Promise.all(
       enrolled.map((enrolledId) =>
@@ -151,9 +151,13 @@ export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_LESSON,
   loader: async ({ params }) => {
-    const exercises = await queryClient.ensureQueryData(qo.exercises(params.lessonId));
-    const lesson = await queryClient.ensureQueryData(qo.lesson(params.lessonId))
-    return {exercises, lesson};
+    const exercises = await queryClient.ensureQueryData(
+      qo.exercises(params.lessonId)
+    );
+    const lesson = await queryClient.ensureQueryData(
+      qo.lesson(params.lessonId)
+    );
+    return { exercises, lesson };
   },
   component: LessonLayout,
 });

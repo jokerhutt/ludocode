@@ -1,12 +1,14 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { FlatCourseTree } from "../Types/Catalog/FlatCourseTree";
-import { qo } from "../Hooks/Queries/queries";
+import { qo } from "../Hooks/Queries/Definitions/queries";
 
 export async function ensureTreeData(
   courseId: string,
   queryClient: QueryClient
 ) {
-  const tree: FlatCourseTree = await queryClient.ensureQueryData(qo.courseTree(courseId));
+  const tree: FlatCourseTree = await queryClient.ensureQueryData(
+    qo.courseTree(courseId)
+  );
 
   await Promise.all([
     ...tree.modules.map((m) => queryClient.ensureQueryData(qo.module(m.id))),
@@ -15,6 +17,5 @@ export async function ensureTreeData(
     ),
   ]);
 
-  return tree
-
+  return tree;
 }

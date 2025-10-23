@@ -3,12 +3,14 @@ import type { LudoUser } from "../../Types/User/LudoUser";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
 import { RP_AUTH, RP_MODULE } from "../../constants/routePaths";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
-import { qo } from "../../Hooks/Queries/queries";
+import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { moduleRoute } from "../router";
 import { ensureTreeData } from "../routerEnsures";
 
-
-export async function modulesRedirectLoader(location: { pathname: string }, queryClient: QueryClient) {
+export async function modulesRedirectLoader(
+  location: { pathname: string },
+  queryClient: QueryClient
+) {
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
 
   if (!user.currentCourse) {
@@ -37,21 +39,19 @@ export async function modulesRedirectLoader(location: { pathname: string }, quer
     });
   }
 
-  return {courseProgress};
+  return { courseProgress };
 }
 
 export async function modulePageLoader(
-  params: {courseId: string; moduleId: string},
+  params: { courseId: string; moduleId: string },
   queryClient: QueryClient
 ) {
-  const { courseId, moduleId } = params
+  const { courseId, moduleId } = params;
 
   if (!courseId) {
-    throw redirect({ to: RP_AUTH, replace: true })
+    throw redirect({ to: RP_AUTH, replace: true });
   }
 
-  const tree = await ensureTreeData(courseId, queryClient)
-  return { tree, courseId, moduleId }
+  const tree = await ensureTreeData(courseId, queryClient);
+  return { tree, courseId, moduleId };
 }
-
-
