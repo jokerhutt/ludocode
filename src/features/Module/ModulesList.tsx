@@ -1,7 +1,6 @@
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
-import { mockModules } from "../../Types/mockData/mockExercises";
 
 type ModulesListProps = { modules: LudoModule[] };
 
@@ -18,7 +17,7 @@ export function ModulesList({ modules }: ModulesListProps) {
           key={module.id}
           onClick={() =>
             router.navigate(
-              ludoNavigation.module(module.courseId, module.id)
+              ludoNavigation.module.toModule(module.courseId, module.id)
             )
           }
           className="text-white hover:cursor-pointer hover:bg-ludoGrayLight/20 w-full px-2 py-4 text-lg border-b border-b-ludoGrayLight"

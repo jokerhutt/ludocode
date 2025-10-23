@@ -19,7 +19,7 @@ export function PathButton({ lesson, isCurrent }: PathButtonProps) {
   const lessonType: LessonCompletion = isCurrent ? "COMPLETE" : isCompleted ? "MASTERED" : "DEFAULT"
 
   const goToLesson = () => {
-    router.navigate(ludoNavigation.lesson("Python", lesson.id, 0));
+    router.navigate(ludoNavigation.lesson.start("Python", lesson.id));
   };
 
 

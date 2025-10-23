@@ -21,7 +21,7 @@ import {
   GET_EXERCISES_FROM_LESSON,
 } from "../../../constants/apiPaths";
 import type { LudoUser } from "../../../Types/User/LudoUser";
-import type { CourseTree } from "../../../Types/Catalog/CourseTree";
+import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 
 export const qo = {
   user: (userId: string) =>
@@ -85,7 +85,7 @@ export const qo = {
   courseTree: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseTree(courseId),
-      queryFn: () => ludoGet<CourseTree>(GET_COURSE_TREE(courseId), true),
+      queryFn: () => ludoGet<FlatCourseTree>(GET_COURSE_TREE(courseId), true),
       staleTime: 5 * 60_000,
     }),
 };

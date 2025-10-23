@@ -14,7 +14,7 @@ export const navIcons: NavIcon[] = [
   },
   {
     name: "Learn",
-    onClick: () => router.navigate(ludoNavigation.moduleRedirect()),
+    onClick: () => router.navigate(ludoNavigation.module.toCurrent()),
   },
   {
     name: "Build",

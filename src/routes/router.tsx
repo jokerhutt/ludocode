@@ -32,6 +32,7 @@ import {
 import { qo } from "../Hooks/Queries/Definitions/queries";
 import type { LudoUser } from "../Types/User/LudoUser";
 import type { LudoExercise } from "../Types/Exercise/LudoExercise";
+import { coursesLoader } from "./Loaders/coursesLoader";
 
 export const queryClient = new QueryClient();
 
@@ -71,21 +72,7 @@ export const courseRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
-  loader: async ({}) => {
-    const currentUser: LudoUser = await queryClient.ensureQueryData(
-      qo.currentUser()
-    );
-    const allCourses = await queryClient.ensureQueryData(qo.allCourses());
-    const enrolled: string[] = await queryClient.ensureQueryData(qo.enrolled());
-
-    await Promise.all(
-      enrolled.map((enrolledId) =>
-        queryClient.ensureQueryData(qo.courseProgress(enrolledId))
-      )
-    );
-
-    return { allCourses, enrolled, currentUser };
-  },
+  loader: async ({}) => coursesLoader(queryClient),
   component: CoursePage,
 });
 

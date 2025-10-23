@@ -30,7 +30,7 @@ export const ludoNavigation = {
       replace: true,
     }),
   },
-
+  
   module: {
     toCurrent: () => ({ to: RP_MODULE_REDIRECT }),
     toModule: (courseId: string, moduleId: string) => ({
@@ -38,5 +38,4 @@ export const ludoNavigation = {
       params: { courseId, moduleId },
     }),
   },
-
 };
