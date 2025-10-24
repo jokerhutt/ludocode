@@ -20,3 +20,5 @@ export const RP_LESSON = `/course/$courseId/lesson/$lessonId`;
 export const RP_SYNC = '/lesson/$lessonId/sync';
 
 export const RP_LESSON_COMPLETE = `/lesson/$lessonId/complete`
+
+export const RP_LESSON_COMPLETE_STREAK_INCREASE = `/lesson/$lessonId/complete/streak/$oldCount/$newCount`
