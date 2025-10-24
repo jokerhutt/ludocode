@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 
-
 import { areAllFilled, areAllValid, checkCorrect } from "./exerciseHelpers";
 import {
   useAttemptBuffer,
   type AttemptBufferResponse,
 } from "./useAttemptBuffer";
-import type { ExerciseAttempt, ExerciseSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
+import type {
+  ExerciseAttempt,
+  ExerciseSubmission,
+} from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { getGapCount, router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
-
 
 type Args = {
   exercises: LudoExercise[];
@@ -75,7 +76,7 @@ export function useExerciseFlow({
       exerciseId: currentExercise.id,
       isCorrect,
       answer: [...buffer],
-    });
+    })
   }, [allSlotsValid, buffer, currentExercise]);
 
   const commitAttempt = useCallback(() => {
@@ -84,7 +85,9 @@ export function useExerciseFlow({
 
     if (submissionBuffer.isCorrect) {
       setSubmissionBuffer(null);
-      router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
+      router.navigate(
+        ludoNavigation.lesson.toNextExercise(lesson.id, position)
+      );
     } else {
       setSubmissionBuffer(null);
       clear();

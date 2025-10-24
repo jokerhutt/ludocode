@@ -1,4 +1,4 @@
-import { CommonHeader } from "../../components/Header/CommonHeader";
+import { CommonHeader } from "../../components/Molecules/Header/CommonHeader";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 
 type TutorialHeaderProps = {

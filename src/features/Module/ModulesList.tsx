@@ -1,3 +1,4 @@
+import { ListContainer } from "../../components/Molecules/List/ListContainer";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
@@ -6,12 +7,7 @@ type ModulesListProps = { modules: LudoModule[] };
 
 export function ModulesList({ modules }: ModulesListProps) {
   return (
-    <div className="border rounded-xl border-ludoGrayLight flex flex-col items-center">
-      <div className="border-b rounded-t-xl bg-ludoGrayLight border-ludoGrayLight w-full">
-        <p className="text-white text-xl font-bold p-2 text-center">
-          Python Developer
-        </p>
-      </div>
+    <ListContainer title="Python" rounded="MD">
       {modules.map((module) => (
         <div
           key={module.id}
@@ -27,6 +23,6 @@ export function ModulesList({ modules }: ModulesListProps) {
           </p>
         </div>
       ))}
-    </div>
+    </ListContainer>
   );
 }

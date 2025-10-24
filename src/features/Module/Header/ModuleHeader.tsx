@@ -4,12 +4,12 @@ import {
   FireIcon,
   HeartIcon,
 } from "@heroicons/react/24/solid";
-import { CommonHeader } from "../../../components/Header/CommonHeader.tsx";
 import {
   CommitIcon,
   PythonIcon,
 } from "../../../components/Atoms/Icons/CustomIcon.tsx";
 import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot.tsx";
+import { CommonHeader } from "../../../components/Molecules/Header/CommonHeader.tsx";
 
 type ModuleHeaderProps = {};
 

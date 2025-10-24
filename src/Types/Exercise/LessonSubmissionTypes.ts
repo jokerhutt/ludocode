@@ -1,4 +1,6 @@
 export type LessonSubmission = {
+  id: string;
+  moduleId: string;
   lessonId: string;
   submissions: ExerciseSubmission[];
 };
@@ -9,7 +11,7 @@ export type ExerciseSubmission = {
 };
 
 export type ExerciseAttempt = {
-    exerciseId: string;
+  exerciseId: string;
   isCorrect: boolean;
   answer: string[];
 };

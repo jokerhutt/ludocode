@@ -1,7 +1,7 @@
 import { Outlet, useMatches } from "@tanstack/react-router";
-import { DefaultHeader } from "../components/Header/DefaultHeader";
 import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
 import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
+import { DefaultHeader } from "../components/Molecules/Header/DefaultHeader";
 
 export function DefaultSectionLayout() {
   const matches = useMatches();
