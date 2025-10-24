@@ -3,6 +3,7 @@ import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionT
 import type { SyncState } from "../../../routes/Packets/SyncState";
 import { useSubmitLesson } from "../../../Hooks/Queries/Mutations/useSubmitLesson";
 import { useEffect } from "react";
+import { ClipLoader, PropagateLoader } from "react-spinners";
 
 type SyncingPageProps = {};
 
@@ -11,20 +12,25 @@ function isSyncState(s: any): s is SyncState {
 }
 
 export function SyncingPage({}: SyncingPageProps) {
+    
+  const { state } = useLocation();
+  if (!isSyncState(state)) throw new Error("Missing submission");
+  const { submission } = state;
 
-//   const { state } = useLocation();
-//   const submission = isSyncState(state) ? state.submission : undefined;
+  const submitLessonMutation = useSubmitLesson();
 
-//   const submitLessonMutation = useSubmitLesson()
-
-//   useEffect(() => {
-//     if (!submission) return
-//     submitLessonMutation.mutate(submission)
-//   }, [])
+  useEffect(() => {
+    submitLessonMutation.mutate(submission);
+  }, []);
 
   return (
     <>
-      <p>SyncingPage</p>
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-8">
+          <h1 className="text-2xl text-white">Syncing your progress</h1>
+          <PropagateLoader color="white" />
+        </div>
+      </div>
     </>
   );
 }
