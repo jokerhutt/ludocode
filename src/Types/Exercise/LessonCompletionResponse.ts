@@ -1,6 +1,6 @@
+import type { LudoLesson } from "../Catalog/LudoLesson";
 import type { CourseProgress } from "../Progress/CourseProgress";
 import type { LudoStats } from "../User/LudoStats";
-import type { LudoLesson } from "./LudoLesson";
 
 export type LessonCompletionStatus = "OK" | "COURSE_COMPLETE" | "DUPLICATE"
 

@@ -22,6 +22,7 @@ import {
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
+import type { LudoStats } from "../../../Types/User/LudoStats.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -65,6 +66,13 @@ export const qo = {
       queryKey: qk.courses(),
       queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
       staleTime: 60_000,
+    }),
+
+  stats: (userId: string) => 
+    queryOptions({
+      queryKey: qk.userStats(userId),
+      queryFn: () => ludoGet<LudoStats>(""),
+      staleTime: 60_000
     }),
 
   enrolled: () =>

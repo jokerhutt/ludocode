@@ -10,7 +10,11 @@ export const GET_COURSE_TREE = (courseId: string) => {
   return API_PATH + `/catalog/courses/${courseId}/tree`;
 };
 
+export const SUBMIT_LESSON =API_PATH + `/progress/completion/submit`
+
 export const GET_ALL_COURSES = API_PATH + `/catalog/courses/all`
+
+export const GET_USER_STATS = API_PATH + `/progress/stats/{userId}`
 
 export const GET_LESSONS_FROM_IDS = (lessonIds: string) =>
   API_PATH + `/catalog/lessons/ids?${lessonIds}`;
