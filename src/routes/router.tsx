@@ -22,6 +22,7 @@ import {
   RP_PROFILE,
   RP_AUTH,
   RP_SYNC,
+  RP_LESSON_COMPLETE,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -33,6 +34,7 @@ import {
 import { qo } from "../Hooks/Queries/Definitions/queries";
 import { coursesLoader } from "./Loaders/coursesLoader";
 import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
+import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -149,6 +151,13 @@ export const syncRoute = createRoute({
   component: SyncingPage,
 });
 
+export const completeRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_LESSON_COMPLETE,
+  component: LessonCompletionPage
+
+})
+
 export const lessonRoute = createRoute({
   getParentRoute: () => lessonSectionRoute,
   path: "/",
@@ -170,7 +179,8 @@ const routeTree = rootRoute.addChildren([
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),
-    syncRoute
+    syncRoute,
+    completeRoute
   ]),
   authRoute,
 ]);
