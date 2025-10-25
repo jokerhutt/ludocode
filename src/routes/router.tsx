@@ -21,6 +21,9 @@ import {
   RP_BUILD,
   RP_PROFILE,
   RP_AUTH,
+  RP_SYNC,
+  RP_LESSON_COMPLETE,
+  RP_LESSON_COMPLETE_STREAK_INCREASE,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -30,9 +33,11 @@ import {
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
 import { qo } from "../Hooks/Queries/Definitions/queries";
-import type { LudoUser } from "../Types/User/LudoUser";
-import type { LudoExercise } from "../Types/Exercise/LudoExercise";
 import { coursesLoader } from "./Loaders/coursesLoader";
+import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
+import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
+import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
+import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 
 export const queryClient = new QueryClient();
 
@@ -53,6 +58,11 @@ const authedRoute = createRoute({
 export const siteRoute = createRoute({
   getParentRoute: () => authedRoute,
   id: "site",
+  loader: async ({}) => {
+    const currentUser = await queryClient.ensureQueryData(qo.currentUser())
+    const userStats = await queryClient.ensureQueryData(qo.stats(currentUser.id))
+    return {userStats}
+  },
   component: SiteLayout,
 });
 
@@ -126,13 +136,7 @@ export const moduleRoute = createRoute({
   component: ModulePage,
 });
 
-export const getGapCount = (exercise: LudoExercise) => {
-  if (exercise.exerciseType != "CLOZE") {
-    return 1;
-  } else {
-    return (exercise.prompt ?? exercise.title).split("___").length - 1;
-  }
-};
+
 
 export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,
@@ -148,6 +152,34 @@ export const lessonSectionRoute = createRoute({
   },
   component: LessonLayout,
 });
+
+export const syncRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_SYNC,
+  loader: async ({}) => {
+    const currentUser = await queryClient.ensureQueryData(
+      qo.currentUser()
+    )
+    const userStats = await queryClient.ensureQueryData(
+      qo.stats(currentUser.id)
+    )
+    const oldStreak = userStats.streak
+    return {oldStreak}
+  },
+  component: SyncingPage,
+});
+
+export const completeRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_LESSON_COMPLETE,
+  component: LessonCompletionPage
+})
+
+export const streakIncreaseRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_LESSON_COMPLETE_STREAK_INCREASE,
+  component: StreakIncreasePage
+})
 
 export const lessonRoute = createRoute({
   getParentRoute: () => lessonSectionRoute,
@@ -170,6 +202,9 @@ const routeTree = rootRoute.addChildren([
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),
+    syncRoute,
+    completeRoute,
+    streakIncreaseRoute
   ]),
   authRoute,
 ]);
@@ -180,3 +215,9 @@ export const router = createRouter({
     queryClient,
   },
 });
+
+declare module '@tanstack/react-router' {
+  interface HistoryState {
+    submission?: LessonSubmission;
+  }
+}

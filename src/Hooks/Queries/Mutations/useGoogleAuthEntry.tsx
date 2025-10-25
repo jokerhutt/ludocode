@@ -2,8 +2,9 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
 import { GOOGLE_LOGIN } from "../../../constants/pathConstants.ts";
 import { qk } from "../../../constants/qk";
-import type { LudoUser } from "../../../Types/User/LudoUser";
 import { router } from "../../../routes/router";
+import type { LoginUserResponse } from "../../../Types/User/LoginUserResponse.ts";
+import { ludoPost } from "../Fetcher/ludoPost.ts";
 
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
@@ -13,16 +14,15 @@ export function useGoogleAuthEntry() {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
 
-      const res = await fetch(GOOGLE_LOGIN, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: codeResponse.code }),
-        credentials: "include",
-      });
+      const {user, userStats}: LoginUserResponse = await ludoPost(
+        GOOGLE_LOGIN,
+        codeResponse.code,
+        true
+      )
 
-      const user: LudoUser = await res.json();
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
+      queryClient.setQueryData(qk.userStats(userStats.id), userStats)
 
       router.navigate({ to: "/" });
     },

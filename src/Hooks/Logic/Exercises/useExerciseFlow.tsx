@@ -1,6 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
-
-import { areAllFilled, areAllValid, checkCorrect } from "./exerciseHelpers";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import {
+  areAllFilled,
+  areAllValid,
+  checkCorrect,
+  getGapCount,
+  mergeAttempt,
+} from "./exerciseHelpers";
 import {
   useAttemptBuffer,
   type AttemptBufferResponse,
@@ -8,11 +14,13 @@ import {
 import type {
   ExerciseAttempt,
   ExerciseSubmission,
+  LessonSubmission,
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
-import { getGapCount, router } from "../../../routes/router";
+import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
+import { useCommitAttempt } from "./useCommitAttempt";
 
 type Args = {
   exercises: LudoExercise[];
@@ -25,14 +33,18 @@ export function useExerciseFlow({
   lesson,
   position,
 }: Args): ExerciseFlowResponse {
-  const [exerciseSubmissions, setExerciseSubmissions] = useState<
-    ExerciseSubmission[]
-  >([]);
-
   const index = position - 1;
 
   const [submissionBuffer, setSubmissionBuffer] =
     useState<ExerciseAttempt | null>(null);
+
+  const [exerciseSubmissions, setExerciseSubmissions] = useState<
+    ExerciseSubmission[]
+  >([]);
+
+  const clearSubmissionBuffer = () => setSubmissionBuffer(null);
+  const mergeExerciseSubmissions = (merged: ExerciseSubmission[]) =>
+    setExerciseSubmissions(merged);
 
   const currentExercise = exercises[index];
   const gapCount = getGapCount(currentExercise);
@@ -45,54 +57,29 @@ export function useExerciseFlow({
 
   const { buffer, clear } = bufferState;
 
-  const addAttempt = useCallback((attempt: ExerciseAttempt) => {
-    const exerciseId = attempt.exerciseId;
-    setExerciseSubmissions((prev) => {
-      const existing = prev.find((s) => s.exerciseId === exerciseId);
-      if (!existing) {
-        return [...prev, { exerciseId, attempts: [attempt] }];
-      }
-      return prev.map((s) =>
-        s.exerciseId === exerciseId
-          ? { ...s, attempts: [...s.attempts, attempt] }
-          : s
-      );
-    });
-  }, []);
-
   const allSlotsFilled = areAllFilled(buffer);
   const allSlotsValid = allSlotsFilled && areAllValid(buffer, currentExercise);
 
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
-    console.log("Buffer: " + JSON.stringify(buffer));
-    console.log(
-      "EXERCISEOPTS: " + JSON.stringify(currentExercise.exerciseOptions)
-    );
-
-    console.log("IS CORRECT" + isCorrect);
     setSubmissionBuffer({
       exerciseId: currentExercise.id,
       isCorrect,
       answer: [...buffer],
-    })
+    });
   }, [allSlotsValid, buffer, currentExercise]);
 
-  const commitAttempt = useCallback(() => {
-    if (!submissionBuffer) return;
-    addAttempt(submissionBuffer);
-
-    if (submissionBuffer.isCorrect) {
-      setSubmissionBuffer(null);
-      router.navigate(
-        ludoNavigation.lesson.toNextExercise(lesson.id, position)
-      );
-    } else {
-      setSubmissionBuffer(null);
-      clear();
-    }
-  }, [submissionBuffer, addAttempt, lesson.id, position, clear]);
+  const { commitAttempt } = useCommitAttempt({
+    position,
+    exercises,
+    lesson,
+    clear,
+    submissionBuffer,
+    clearSubmissionBuffer,
+    exerciseSubmissions,
+    mergeExerciseSubmissions,
+  });
 
   return {
     currentExercise,

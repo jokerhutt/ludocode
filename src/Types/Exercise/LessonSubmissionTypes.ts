@@ -1,6 +1,5 @@
 export type LessonSubmission = {
   id: string;
-  moduleId: string;
   lessonId: string;
   submissions: ExerciseSubmission[];
 };

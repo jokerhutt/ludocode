@@ -1,3 +1,4 @@
+import { ActionButton } from "../../components/Atoms/Button/ActionButton";
 import type { ExercisePhase } from "../Tutorial/TutorialFooter";
 
 type SubmitButtonProps = {
@@ -7,11 +8,6 @@ type SubmitButtonProps = {
 };
 
 export function SubmitButton({ canSubmit, submitAnswer, phase }: SubmitButtonProps) {
-  const activeStyle = "border-ludoYellow text-ludoYellow";
-  const disabledStyle = "border-ludoYellow/50 text-ludoYellow/50";
-
-  const style = canSubmit ? activeStyle : disabledStyle;
-  
   const text = phase == "DEFAULT" ? "Submit ⌘+⏎" : "Continue"
 
   const trySubmit = () => {
@@ -20,11 +16,6 @@ export function SubmitButton({ canSubmit, submitAnswer, phase }: SubmitButtonPro
   };
 
   return (
-    <div
-      onClick={() => trySubmit()}
-      className={`border hover:cursor-pointer py-2 px-4 rounded-xl ${style}`}
-    >
-      <p className="text-2xl">{text}</p>
-    </div>
+    <ActionButton text={text} variant="yellow" active={canSubmit} onClick={() => trySubmit()}/>
   );
 }

@@ -5,4 +5,5 @@ export type CourseProgress = {
     courseId: string;
     currentLessonId: string;
     moduleId: string;
+    isComplete: boolean;
 }

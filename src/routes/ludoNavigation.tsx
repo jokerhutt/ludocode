@@ -7,7 +7,14 @@ import {
   RP_MODULE_REDIRECT,
   RP_ME,
 } from "../constants/routes.ts";
-import { lessonRoute } from "./router";
+import type { HistoryState } from '@tanstack/react-router'
+import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
+import {
+  completeRoute,
+  lessonRoute,
+  streakIncreaseRoute,
+  syncRoute,
+} from "./router";
 
 export const ludoNavigation = {
   //SIMPLE
@@ -29,8 +36,30 @@ export const ludoNavigation = {
       search: { exercise: current + 1 },
       replace: true,
     }),
+    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
+      to: syncRoute.to,
+      params: { lessonId },
+      state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
+      replace: true
+    }),
   },
-  
+
+  completion: {
+    toComplete: (
+      coins: number,
+      accuracy: number,
+      oldStreak: number,
+      newStreak: number
+    ) => ({
+      to: completeRoute.to,
+      params: { coins, accuracy, oldStreak, newStreak },
+    }),
+    toStreakIncrease: (oldStreak: number, newStreak: number) => ({
+      to: streakIncreaseRoute.to,
+      params: { oldStreak, newStreak },
+    }),
+  },
+
   module: {
     toCurrent: () => ({ to: RP_MODULE_REDIRECT }),
     toModule: (courseId: string, moduleId: string) => ({

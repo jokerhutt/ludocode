@@ -2,7 +2,6 @@ import { useCallback, useRef, type RefObject } from "react";
 import type { LudoExerciseOption } from "../../../Types/Exercise/LudoExerciseOption";
 import { findNextEmptyIndex } from "../../../features/Exercise/util";
 
-
 type Args = {
   options: LudoExerciseOption[];
   userResponses: string[];
@@ -19,8 +18,7 @@ export function useInputAssistance({
   options,
   userResponses,
 }: Args): useInputAssistanceResponse {
-
-  const optionPrompts = options.map((option) => option.content)
+  const optionPrompts = options.map((option) => option.content);
 
   const refs = useRef<HTMLInputElement[]>([]);
 
