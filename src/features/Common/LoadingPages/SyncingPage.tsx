@@ -15,14 +15,10 @@ export function SyncingPage({}: SyncingPageProps) {
   const { state } = useLocation();
   const { oldStreak } = syncRoute.useLoaderData();
   const submitLesson = useSubmitLesson({ oldStreak });
-  const firedRef = useRef(false);
 
   useEffect(() => {
-    if (firedRef.current) return;
-    if (isSyncState(state)) {
-      firedRef.current = true;
+    if (!isSyncState(state) || submitLesson.isPending || submitLesson.isSuccess) return;
       submitLesson.mutate(state.submission);
-    }
   }, [state, submitLesson]);
 
   return (

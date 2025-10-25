@@ -5,9 +5,7 @@ import { CHANGE_COURSE } from "../../../constants/pathConstants.ts";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
 
-interface ChangeCourseVariables {
-  newCourseId: string;
-}
+
 
 export function useChangeCourse() {
   const qc = useQueryClient();

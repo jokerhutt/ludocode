@@ -5,38 +5,22 @@ import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionT
 import { qk } from "../../../constants/qk";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
+import { mutations } from "../Definitions/mutations";
 
 type Args = {
   oldStreak: number;
 };
 
-export function useSubmitLesson({ oldStreak }: Args) {
+export function useSubmitLesson({ oldStreak }: { oldStreak: number }) {
   const qc = useQueryClient();
 
-  return useMutation<LessonCompletionPacket, Error, LessonSubmission>({
-    mutationFn: async (
-      variables: LessonSubmission
-    ): Promise<LessonCompletionPacket> => {
-      const { id, lessonId, submissions } = variables;
+  return useMutation({
+    ...mutations.submitLesson(oldStreak),
+    onSuccess: (payload) => {
+      if (payload.status === "DUPLICATE") return;
 
-      const res = await fetch(SUBMIT_LESSON, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, lessonId, submissions }),
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error("Failed to submit completion");
-
-      const data = (await res.json()) as LessonCompletionPacket;
-      return data;
-    },
-    onSuccess: (payload: LessonCompletionPacket) => {
-      const status = payload.status;
-      if (status == "DUPLICATE") return;
-
-      const content = payload.content;
-      const { newStats, newCourseProgress, updatedCompletedLesson } = content;
+      const { newStats, newCourseProgress, updatedCompletedLesson, accuracy } =
+        payload.content;
 
       qc.setQueryData(
         qk.lesson(updatedCompletedLesson.id),
@@ -48,9 +32,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
       );
       qc.setQueryData(qk.userStats(newStats.userId), newStats);
 
-      const { accuracy } = content;
       const { coins, streak } = newStats;
-
       router.navigate(
         ludoNavigation.completion.toComplete(coins, accuracy, oldStreak, streak)
       );
