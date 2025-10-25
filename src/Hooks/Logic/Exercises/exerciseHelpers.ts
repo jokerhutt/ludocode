@@ -1,6 +1,8 @@
-import type { ExerciseAttempt, ExerciseSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
+import type {
+  ExerciseAttempt,
+  ExerciseSubmission,
+} from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
-
 
 export function findLastAttempt(
   submissions: ExerciseSubmission[],
@@ -14,6 +16,18 @@ export function findLastAttempt(
       .reverse()
       .find((a) => a.isCorrect) ?? null
   );
+}
+
+export function mergeAttempt(
+  subs: ExerciseSubmission[],
+  attempt: ExerciseAttempt
+): ExerciseSubmission[] {
+  const i = subs.findIndex((s) => s.exerciseId === attempt.exerciseId);
+  if (i === -1)
+    return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt] }];
+  const next = subs.slice();
+  next[i] = { ...next[i], attempts: [...next[i].attempts, attempt] };
+  return next;
 }
 
 export const getGapCount = (exercise: LudoExercise) => {
