@@ -1,6 +1,6 @@
 export async function ludoPost<TResponse, TBody = unknown>(
   path: string,
-  body: TBody,
+  body: TBody | null,
   credentials = false
 ): Promise<TResponse> {
   const res = await fetch(path, {

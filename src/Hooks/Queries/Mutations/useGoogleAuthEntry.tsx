@@ -16,7 +16,7 @@ export function useGoogleAuthEntry() {
 
       const {user, userStats}: LoginUserResponse = await ludoPost(
         GOOGLE_LOGIN,
-        codeResponse.code,
+        { code: codeResponse.code },
         true
       )
 

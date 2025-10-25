@@ -11,6 +11,7 @@ import type {
   FlatModule,
 } from "../../Types/Catalog/FlatCourseTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
+import { useResetCourseProgress } from "../../Hooks/Queries/Mutations/useResetCourseProgress";
 
 export function ModulePage() {
   const { courseId, moduleId } = moduleRoute.useParams();
@@ -40,6 +41,8 @@ export function ModulePage() {
     (lessonQuery) => lessonQuery.data!
   );
 
+
+
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">
       <ModuleAsideLeft />
@@ -53,7 +56,7 @@ export function ModulePage() {
           </PathRow>
         ))}
       </div>
-      <ModuleAsideRight modules={modules as LudoModule[]} />
+      <ModuleAsideRight modules={modules as LudoModule[]} courseId={courseId} />
     </div>
   );
 }
