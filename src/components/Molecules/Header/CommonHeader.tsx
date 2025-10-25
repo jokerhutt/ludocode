@@ -1,5 +1,4 @@
-import { useRouterState } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { RouterBar } from "../../Atoms/Progress/RouterBar";
 import { useRouterBar } from "../../../Hooks/UI/useRouterBar";
 
@@ -17,8 +16,7 @@ export function CommonHeader({
   bgColor = "bg-ludoGrayLight",
   device = "Mobile",
 }: CommonHeaderProps) {
-
-  const {barState} = useRouterBar()
+  const { barState } = useRouterBar();
 
   const visibility =
     device == "Both"
@@ -32,7 +30,7 @@ export function CommonHeader({
       className={`relative col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-18 ${bgColor}`}
     >
       {children}
-    <RouterBar barState={barState}/>
+      <RouterBar barState={barState} />
     </nav>
   );
 }
