@@ -41,7 +41,13 @@ import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.t
 
 export const queryClient = new QueryClient();
 
-const rootRoute = createRootRoute();
+const rootRoute = createRootRoute({
+  beforeLoad: async () => {
+    await sleep(300); // apply to all routes
+  },
+});
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -59,9 +65,11 @@ export const siteRoute = createRoute({
   getParentRoute: () => authedRoute,
   id: "site",
   loader: async ({}) => {
-    const currentUser = await queryClient.ensureQueryData(qo.currentUser())
-    const userStats = await queryClient.ensureQueryData(qo.stats(currentUser.id))
-    return {userStats}
+    const currentUser = await queryClient.ensureQueryData(qo.currentUser());
+    const userStats = await queryClient.ensureQueryData(
+      qo.stats(currentUser.id)
+    );
+    return { userStats };
   },
   component: SiteLayout,
 });
@@ -136,8 +144,6 @@ export const moduleRoute = createRoute({
   component: ModulePage,
 });
 
-
-
 export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_LESSON,
@@ -157,14 +163,12 @@ export const syncRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_SYNC,
   loader: async ({}) => {
-    const currentUser = await queryClient.ensureQueryData(
-      qo.currentUser()
-    )
+    const currentUser = await queryClient.ensureQueryData(qo.currentUser());
     const userStats = await queryClient.ensureQueryData(
       qo.stats(currentUser.id)
-    )
-    const oldStreak = userStats.streak
-    return {oldStreak}
+    );
+    const oldStreak = userStats.streak;
+    return { oldStreak };
   },
   component: SyncingPage,
 });
@@ -172,14 +176,14 @@ export const syncRoute = createRoute({
 export const completeRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_LESSON_COMPLETE,
-  component: LessonCompletionPage
-})
+  component: LessonCompletionPage,
+});
 
 export const streakIncreaseRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_LESSON_COMPLETE_STREAK_INCREASE,
-  component: StreakIncreasePage
-})
+  component: StreakIncreasePage,
+});
 
 export const lessonRoute = createRoute({
   getParentRoute: () => lessonSectionRoute,
@@ -204,7 +208,7 @@ const routeTree = rootRoute.addChildren([
     lessonSectionRoute.addChildren([lessonRoute]),
     syncRoute,
     completeRoute,
-    streakIncreaseRoute
+    streakIncreaseRoute,
   ]),
   authRoute,
 ]);
@@ -216,7 +220,7 @@ export const router = createRouter({
   },
 });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface HistoryState {
     submission?: LessonSubmission;
   }

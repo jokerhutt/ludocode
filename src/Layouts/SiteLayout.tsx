@@ -6,8 +6,7 @@ import { StatsContext } from "../features/Common/StatsContext";
 import { siteRoute } from "../routes/router";
 
 export function SiteLayout() {
-
-const { userStats } = siteRoute.useLoaderData()
+  const { userStats } = siteRoute.useLoaderData();
 
   return (
     <StatsContext.Provider value={userStats}>

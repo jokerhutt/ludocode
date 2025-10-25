@@ -4,6 +4,7 @@ import { HollowSlot } from "../components/Atoms/Slot/HollowSlot.tsx";
 import { CommitIcon } from "../components/Atoms/Icons/CustomIcon.tsx";
 import { CommonHeader } from "../components/Molecules/Header/CommonHeader.tsx";
 import { useStatsContext } from "../features/Common/StatsContext.tsx";
+import { useRouterState } from "@tanstack/react-router";
 
 type DesktopHeaderProps = {};
 

@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+import { useRouterState } from "@tanstack/react-router";
+import { useEffect, useState, type ReactNode } from "react";
+import { RouterBar } from "../../Atoms/Progress/RouterBar";
+import { useRouterBar } from "../../../Hooks/UI/useRouterBar";
 
 type CommonHeaderProps = {
   children: ReactNode;
@@ -7,19 +10,29 @@ type CommonHeaderProps = {
   device?: "Mobile" | "Desktop" | "Both";
 };
 
+export type BarState = "idle" | "loading" | "loadingDone";
+
 export function CommonHeader({
   children,
   bgColor = "bg-ludoGrayLight",
-  device = "Mobile"
+  device = "Mobile",
 }: CommonHeaderProps) {
 
-  const visibility = device == "Both" ? "grid" : device == "Desktop" ? "hidden lg:grid" : "lg:hidden";
+  const {barState} = useRouterBar()
+
+  const visibility =
+    device == "Both"
+      ? "grid"
+      : device == "Desktop"
+      ? "hidden lg:grid"
+      : "lg:hidden";
 
   return (
     <nav
-      className={`col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-18 ${bgColor}`}
+      className={`relative col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-18 ${bgColor}`}
     >
       {children}
+    <RouterBar barState={barState}/>
     </nav>
   );
 }
