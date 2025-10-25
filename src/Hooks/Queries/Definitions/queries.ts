@@ -5,6 +5,7 @@ import {
   lessonBatcher,
   moduleBatcher,
   userBatcher,
+  userStatsBatcher,
 } from "../Batcher/batchers";
 
 import type { LudoModule } from "../../../Types/Catalog/LudoModule";
@@ -72,7 +73,7 @@ export const qo = {
   stats: (userId: string) => 
     queryOptions({
       queryKey: qk.userStats(userId),
-      queryFn: () => ludoGet<LudoStats>(GET_USER_STATS(userId)),
+      queryFn: () => userStatsBatcher.fetch(userId),
       staleTime: 60_000
     }),
 

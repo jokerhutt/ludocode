@@ -1,5 +1,5 @@
 export type LudoStats = {
-  userId: string;
+  id: string;
   coins: number;
   streak: number;
 };

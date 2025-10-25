@@ -58,6 +58,11 @@ const authedRoute = createRoute({
 export const siteRoute = createRoute({
   getParentRoute: () => authedRoute,
   id: "site",
+  loader: async ({}) => {
+    const currentUser = await queryClient.ensureQueryData(qo.currentUser())
+    const userStats = await queryClient.ensureQueryData(qo.stats(currentUser.id))
+    return {userStats}
+  },
   component: SiteLayout,
 });
 

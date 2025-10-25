@@ -10,12 +10,12 @@ import {
 } from "../../../components/Atoms/Icons/CustomIcon.tsx";
 import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot.tsx";
 import { CommonHeader } from "../../../components/Molecules/Header/CommonHeader.tsx";
+import { useStatsContext } from "../../Common/StatsContext.tsx";
 
 type ModuleHeaderProps = {};
 
 export function ModuleHeader({}: ModuleHeaderProps) {
-
-  
+  const { coins, streak } = useStatsContext();
 
   return (
     <CommonHeader>
@@ -28,16 +28,12 @@ export function ModuleHeader({}: ModuleHeaderProps) {
         </div>
         <div className="flex w-full text-white justify-end gap-2 items-center">
           <HollowSlot>
-            <HeartIcon className="h-7 text-red-400" />
-            <p>2</p>
-          </HollowSlot>
-          <HollowSlot>
             <CommitIcon className="h-7 text-pythonYellow" />
-            <p>2</p>
+            <p>{coins}</p>
           </HollowSlot>
           <HollowSlot>
             <FireIcon className="h-7 text-orange-400" />
-            <p>2</p>
+            <p>{streak}</p>
           </HollowSlot>
         </div>
       </div>

@@ -1,7 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { LessonCompletionPacket } from "../../../Types/Exercise/LessonCompletionResponse";
-import { SUBMIT_LESSON } from "../../../constants/pathConstants";
-import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
 import { qk } from "../../../constants/qk";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
@@ -30,7 +27,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
         qk.courseProgress(newCourseProgress.id),
         newCourseProgress
       );
-      qc.setQueryData(qk.userStats(newStats.userId), newStats);
+      qc.setQueryData(qk.userStats(newStats.id), newStats);
 
       const { coins, streak } = newStats;
       router.navigate(
