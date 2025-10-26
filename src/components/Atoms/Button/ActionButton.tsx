@@ -1,6 +1,6 @@
 type ActionButtonProps = {
   text: string;
-  variant?: "yellow";
+  variant?: "yellow" | "default" 
   fill?: boolean;
   active?: boolean;
   onClick?: () => void;
@@ -11,11 +11,15 @@ const variants = {
     default: "border-ludoYellow/50 text-ludoYellow/50",
     active: "border-ludoYellow text-ludoYellow",
   },
+  default: {
+    default: "bg-ludoLightPurple/50 text-black/50",
+    active: "bg-ludoLightPurple text-black font-bold"
+  }
 } as const;
 
 export function ActionButton({
   text,
-  variant = "yellow",
+  variant = "default",
   fill = false,
   active = false,
   onClick,

@@ -16,6 +16,6 @@ export function SubmitButton({ canSubmit, submitAnswer, phase }: SubmitButtonPro
   };
 
   return (
-    <ActionButton text={text} variant="yellow" active={canSubmit} onClick={() => trySubmit()}/>
+    <ActionButton text={text} variant="default" active={canSubmit} onClick={() => trySubmit()}/>
   );
 }
