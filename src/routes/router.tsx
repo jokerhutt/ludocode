@@ -11,7 +11,6 @@ import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 import { ProfilePage } from "../features/Profile/ProfilePage";
-import { BuilderPage } from "../features/Practice/BuilderPage";
 import {
   RP_COURSE,
   RP_LESSON,
@@ -38,6 +37,8 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
+import { BuilderLayout } from "../features/Builder/BuilderLayout.tsx";
+import { ensureTreeData } from "./routerEnsures.ts";
 
 export const queryClient = new QueryClient();
 
@@ -101,10 +102,13 @@ export const authRoute = createRoute({
 });
 
 export const buildRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_BUILD,
-  staticData: { headerTitle: "Build" },
-  component: BuilderPage,
+  loader: async ({params}) => {
+    const tree = await ensureTreeData(params.courseId, queryClient)
+    return {tree}
+  },
+  component: BuilderLayout,
 });
 
 export const profileMeRoute = createRoute({
@@ -199,11 +203,11 @@ const routeTree = rootRoute.addChildren([
     siteRoute.addChildren([
       defaultSectionRoute.addChildren([
         courseRoute,
-        buildRoute,
         profileMeRoute,
         profileByIdRoute,
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+      buildRoute,
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),
     syncRoute,

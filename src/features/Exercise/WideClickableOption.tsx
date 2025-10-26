@@ -9,7 +9,7 @@ export function WideClickableOption({option, userSelections, setAnswerAt}: WideC
 
     const isSelected = userSelections[0] == option;
 
-    const stateStyle = isSelected ? `border-pythonYellow` : 'border-ludoBlueGray'
+    const stateStyle = isSelected ? `border-ludoLightPurple` : 'border-ludoGrayLight'
 
     const handleChange = () => {
         if (isSelected) return;
@@ -17,7 +17,7 @@ export function WideClickableOption({option, userSelections, setAnswerAt}: WideC
     }
   
     return (
-        <div onClick={() => handleChange()} className={`w-full ${stateStyle} border px-6 py-2 bg-ludoGrayLight rounded-lg `}>
+        <div onClick={() => handleChange()} className={`w-full ${stateStyle} border-2 px-6 py-2 bg-ludoGrayLight rounded-lg `}>
             <p className="text-left text-white">{option}</p>
         </div>
   );

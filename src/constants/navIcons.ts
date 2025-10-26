@@ -4,7 +4,7 @@ import { ludoNavigation } from "../routes/ludoNavigation";
 export type NavIcon = {
   name: string;
   icon?: string;
-  onClick?: () => void;
+  onClick?: (id?: string) => void;
 };
 
 export const navIcons: NavIcon[] = [
@@ -18,7 +18,10 @@ export const navIcons: NavIcon[] = [
   },
   {
     name: "Build",
-    onClick: () => router.navigate(ludoNavigation.build()),
+    onClick: (id) => {
+      if (!id) return
+      router.navigate(ludoNavigation.build.to(id))
+    },
   },
   {
     name: "Profile",

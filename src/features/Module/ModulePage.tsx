@@ -11,37 +11,18 @@ import type {
   FlatModule,
 } from "../../Types/Catalog/FlatCourseTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
-import { useResetCourseProgress } from "../../Hooks/Queries/Mutations/useResetCourseProgress";
+import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
 
 export function ModulePage() {
   const { courseId, moduleId } = moduleRoute.useParams();
 
   const { tree } = moduleRoute.useLoaderData();
 
-  const { data: courseProgress } = useSuspenseQuery(
-    qo.courseProgress(courseId)
-  );
-
-  const moduleMetaData: FlatModule = tree.modules.find(
-    (module: FlatModule) => module.id == moduleId
-  );
-
-  const moduleQueries = useSuspenseQueries({
-    queries: tree.modules.map((module: FlatModule) => qo.module(module.id)),
+  const { courseProgress, modules, lessons } = useTreeData({
+    tree,
+    courseId,
+    moduleId,
   });
-
-  const lessonQueries = useSuspenseQueries({
-    queries: moduleMetaData.lessons.map((lesson: FlatLesson) =>
-      qo.lesson(lesson.id)
-    ),
-  });
-
-  const modules = moduleQueries.map((moduleQuery) => moduleQuery.data);
-  const lessons: LudoLesson[] = lessonQueries.map(
-    (lessonQuery) => lessonQuery.data!
-  );
-
-
 
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">

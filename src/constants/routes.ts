@@ -2,8 +2,7 @@ export const RP_INDEX = `/`;
 
 export const RP_COURSE = `/`;
 
-export const RP_BUILD = `/build`;
-
+export const RP_BUILD = `/build/$courseId`;
 
 export const RP_AUTH = `/auth`
 

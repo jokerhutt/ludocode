@@ -10,6 +10,7 @@ import {
 import type { HistoryState } from '@tanstack/react-router'
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 import {
+  buildRoute,
   completeRoute,
   lessonRoute,
   streakIncreaseRoute,
@@ -19,8 +20,14 @@ import {
 export const ludoNavigation = {
   //SIMPLE
   courseRoot: () => ({ to: RP_COURSE }),
-  build: () => ({ to: RP_BUILD }),
   me: () => ({ to: RP_ME }),
+
+  build: {
+    to: (courseId: string) => ({
+      to: buildRoute.to,
+      params: {courseId},
+    })
+  },
 
   lesson: {
     start: (courseId: string, lessonId: string) =>
