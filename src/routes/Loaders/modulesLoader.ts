@@ -43,37 +43,19 @@ export async function modulesRedirectLoader(
 }
 
 export async function buildRedirectLoader(
-  location: { pathname: string },
-  queryClient: QueryClient
+  _location: { pathname: string },
+  qc: QueryClient
 ) {
-  const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
+  const user = await qc.ensureQueryData(qo.currentUser());
+  if (!user.currentCourse) throw redirect({ to: RP_AUTH, replace: true });
 
-  if (!user.currentCourse) {
-    throw redirect({
-      to: RP_AUTH,
-      replace: true,
-    });
-  }
+  const cp = await qc.ensureQueryData(qo.courseProgress(user.currentCourse));
 
-  const courseProgress: CourseProgress = await queryClient.ensureQueryData(
-    qo.courseProgress(user.currentCourse)
-  );
-
-  const currentCourseId = courseProgress.courseId;
-  const moduleId = courseProgress.moduleId;
-
-  console.log("CURRENT COURSE ID IS " + currentCourseId);
-
-  const target = `/build/course/${currentCourseId}/module/${moduleId}`;
-
-  if (location.pathname !== target) {
-    throw redirect({
-      to: RP_BUILD,
-      params: { courseId: currentCourseId, moduleId: moduleId },
-      replace: true,
-    });
-  }
-
+  throw redirect({
+    to: RP_BUILD,
+    params: { courseId: cp.courseId, moduleId: cp.moduleId },
+    replace: true,
+  });
 }
 
 export async function modulePageLoader(

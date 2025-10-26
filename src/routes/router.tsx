@@ -212,6 +212,7 @@ const routeTree = rootRoute.addChildren([
         profileByIdRoute,
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+      buildRedirectRoute,
       buildRoute,
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),

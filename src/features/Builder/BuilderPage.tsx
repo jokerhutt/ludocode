@@ -2,19 +2,22 @@ import { useSuspenseQueries } from "@tanstack/react-query";
 import { ListContainer } from "../../components/Molecules/List/ListContainer";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import { AsideComponent } from "../../Layouts/Aside/AsideComponent";
-import { buildRoute } from "../../routes/router";
+import { buildRoute, router } from "../../routes/router";
 import type { FlatModule } from "../../Types/Catalog/FlatCourseTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
+import { ListRow } from "../../components/Atoms/Row/ListRow";
+import { ludoNavigation } from "../../routes/ludoNavigation";
+import { BuilderAsideModules } from "./BuilderAsideModules";
 
 type BuilderPageProps = {};
 
 export function BuilderPage({}: BuilderPageProps) {
-  const { courseId, moduleId } = buildRoute.useParams();
 
+  const { courseId, moduleId } = buildRoute.useParams();
   const { tree } = buildRoute.useLoaderData();
 
-  const { modules, lessons } = useTreeData({
+  const { courseProgress, modules, lessons } = useTreeData({
     tree,
     courseId,
     moduleId,
@@ -22,22 +25,7 @@ export function BuilderPage({}: BuilderPageProps) {
 
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">
-      <AsideComponent orientation="LEFT">
-        <div className="flex flex-col p-6">
-          <ListContainer title="Modules">
-            {modules.map((module) => (
-              <div
-                key={module.id}
-                className="text-white hover:cursor-pointer hover:bg-ludoGrayLight/20 w-full px-2 py-4 text-lg border-b border-b-ludoGrayLight"
-              >
-                <p>
-                  {module.orderIndex}.{module.title}
-                </p>
-              </div>
-            ))}
-          </ListContainer>
-        </div>
-      </AsideComponent>
+      <BuilderAsideModules modules={modules} moduleId={moduleId} courseId={courseId}/>
       <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0"></div>
       <AsideComponent orientation="RIGHT">
         <div></div>
