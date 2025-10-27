@@ -5,12 +5,15 @@ import { CommitIcon } from "../components/Atoms/Icons/CustomIcon.tsx";
 import { CommonHeader } from "../components/Molecules/Header/CommonHeader.tsx";
 import { useStatsContext } from "../features/Common/StatsContext.tsx";
 import { useRouterState } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "../Hooks/Queries/Definitions/queries.ts";
 
 type DesktopHeaderProps = {};
 
 export function DesktopHeader({}: DesktopHeaderProps) {
   const icons = navIcons;
 
+  const currentUserQuery = useSuspenseQuery(qo.currentUser())
   const { coins, streak } = useStatsContext();
 
   return (

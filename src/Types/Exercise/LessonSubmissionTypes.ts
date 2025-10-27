@@ -7,6 +7,7 @@ export type LessonSubmission = {
 export type ExerciseSubmission = {
   exerciseId: string;
   attempts: ExerciseAttempt[];
+  version: number;
 };
 
 export type ExerciseAttempt = {

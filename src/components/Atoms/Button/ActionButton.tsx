@@ -2,6 +2,7 @@ type ActionButtonProps = {
   text: string;
   variant?: "yellow" | "default" 
   fill?: boolean;
+  orientation?: "start" | "center" | "end"
   active?: boolean;
   onClick?: () => void;
 };
@@ -22,17 +23,24 @@ export function ActionButton({
   variant = "default",
   fill = false,
   active = false,
+  orientation = "start",
   onClick,
 }: ActionButtonProps) {
 
   const style = active ? variants[variant].active : variants[variant].default  
+  const orientationStyle = {
+    start: "text-start",
+    center: "text-center",
+    end: "text-end"
+  }
+  const shadowStyle = active ? `shadow-ludoDarkPurpleShadow ` : `shadow-ludoDarkPurpleShadow/50` 
 
   return (
     <div
       onClick={() => onClick?.()}
-      className={`border hover:cursor-pointer py-2 px-4 rounded-xl ${style}`}
+      className={`hover:cursor-pointer py-2 ${shadowStyle} px-4 rounded-xl active:shadow-none active:translate-y-[6px] ${style}`}
     >
-      <p className="text-2xl">{text}</p>
+      <p className={`text-2xl ${orientationStyle[orientation]}`}>{text}</p>
     </div>
   );
 }

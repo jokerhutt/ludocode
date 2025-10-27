@@ -8,4 +8,5 @@ export type LudoExercise = {
   prompt?: string;
   exerciseType: ExerciseType;
   exerciseOptions: LudoExerciseOption[];
+  version: number
 };

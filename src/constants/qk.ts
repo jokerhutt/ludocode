@@ -17,6 +17,8 @@ export const qk = {
   
   userStats: (userId: string) => ["stats", userId] as const,
 
+  courseSnapshot: (courseId: string) => ["snapshot", courseId] as const,
+
   enrolled: () => ["enrolled"] as const,
   user: (userId: string) => ["user", userId] as const,
   currentUser: () => ["currentUser"] as const,

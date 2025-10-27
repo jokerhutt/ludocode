@@ -6,10 +6,13 @@ import {
   RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
+  RP_BUILD_REDIRECT,
 } from "../constants/routes.ts";
-import type { HistoryState } from '@tanstack/react-router'
+import type { HistoryState } from "@tanstack/react-router";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 import {
+  buildRedirectRoute,
+  buildRoute,
   completeRoute,
   lessonRoute,
   streakIncreaseRoute,
@@ -19,8 +22,17 @@ import {
 export const ludoNavigation = {
   //SIMPLE
   courseRoot: () => ({ to: RP_COURSE }),
-  build: () => ({ to: RP_BUILD }),
   me: () => ({ to: RP_ME }),
+
+  build: {
+    redirect: () => ({
+      to: RP_BUILD_REDIRECT,
+    }),
+    toBuilder: (courseId: string, moduleId: string) => ({
+      to: RP_BUILD,
+      params: { courseId, moduleId },
+    }),
+  },
 
   lesson: {
     start: (courseId: string, lessonId: string) =>
@@ -40,7 +52,7 @@ export const ludoNavigation = {
       to: syncRoute.to,
       params: { lessonId },
       state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
-      replace: true
+      replace: true,
     }),
   },
 

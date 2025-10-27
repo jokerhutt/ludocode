@@ -17,12 +17,14 @@ import type { LudoCourse } from "../../../Types/Catalog/LudoCourse";
 import {
   AUTH_ME,
   GET_ALL_COURSES,
+  GET_COURSE_SNAPSHOT,
   GET_COURSE_TREE,
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
+import type { ModuleSnapshot } from "../../../Types/Snapshot/SnapshotTypes.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -59,6 +61,13 @@ export const qo = {
       queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
       staleTime: 60_000,
       retry: false,
+    }),
+
+  courseSnapshot: (courseId: string) =>
+    queryOptions({
+      queryKey: qk.courseSnapshot(courseId),
+      queryFn: () => ludoGet<ModuleSnapshot[]>(GET_COURSE_SNAPSHOT(courseId)),
+      staleTime: 60_000 * 10
     }),
 
   allCourses: () =>

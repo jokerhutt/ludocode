@@ -20,11 +20,12 @@ export function findLastAttempt(
 
 export function mergeAttempt(
   subs: ExerciseSubmission[],
-  attempt: ExerciseAttempt
+  attempt: ExerciseAttempt,
+  version: number
 ): ExerciseSubmission[] {
   const i = subs.findIndex((s) => s.exerciseId === attempt.exerciseId);
   if (i === -1)
-    return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt] }];
+    return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt], version}];
   const next = subs.slice();
   next[i] = { ...next[i], attempts: [...next[i].attempts, attempt] };
   return next;

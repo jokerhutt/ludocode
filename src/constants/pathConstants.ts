@@ -34,3 +34,5 @@ export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
   API_PATH + `/catalog/exercises/${lessonId}`;
 
 export const GET_ENROLLED_IDS = API_PATH + `/progress/course/enrolled`;
+
+export const GET_COURSE_SNAPSHOT = (courseId: string) => API_PATH + `/snapshot/${courseId}`

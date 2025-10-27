@@ -8,7 +8,7 @@ export function RouterBar({barState}: RouterBarProps) {
   return (
     <div
       className={`
-    absolute bottom-0 left-0 h-[3px] bg-pythonYellow/80
+    absolute bottom-0 left-0 h-[3px] bg-ludoLightPurple/80
     ${
       barState === "idle"
         ? "w-0 opacity-0 transition-none"

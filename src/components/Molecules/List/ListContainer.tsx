@@ -32,7 +32,7 @@ export function ListContainer({
   };
 
   return (
-    <div className="border rounded-xl border-ludoGrayLight flex flex-col items-center">
+    <div className="border w-full rounded-xl border-ludoGrayLight flex flex-col items-center">
       <ListHeader
         show={!!title}
         rounding={containerStyle[rounded].headerRounding}

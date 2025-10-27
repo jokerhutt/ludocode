@@ -20,6 +20,7 @@ type Args = {
   clearSubmissionBuffer: () => void;
   exerciseSubmissions: ExerciseSubmission[];
   mergeExerciseSubmissions: (merged: ExerciseSubmission[]) => void;
+  version: number
 };
 
 export function useCommitAttempt({
@@ -31,12 +32,13 @@ export function useCommitAttempt({
   clearSubmissionBuffer,
   exerciseSubmissions,
   mergeExerciseSubmissions,
+  version
 }: Args) {
   const commitAttempt = useCallback(() => {
     if (!submissionBuffer) return;
 
     const isLast = position === exercises.length;
-    const merged = mergeAttempt(exerciseSubmissions, submissionBuffer);
+    const merged = mergeAttempt(exerciseSubmissions, submissionBuffer, version);
     mergeExerciseSubmissions(merged);
 
     clearSubmissionBuffer();

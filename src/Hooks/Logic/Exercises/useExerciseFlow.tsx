@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   areAllFilled,
   areAllValid,
   checkCorrect,
   getGapCount,
-  mergeAttempt,
 } from "./exerciseHelpers";
 import {
   useAttemptBuffer,
@@ -14,12 +12,9 @@ import {
 import type {
   ExerciseAttempt,
   ExerciseSubmission,
-  LessonSubmission,
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
-import { router } from "../../../routes/router";
-import { ludoNavigation } from "../../../routes/ludoNavigation";
 import { useCommitAttempt } from "./useCommitAttempt";
 
 type Args = {
@@ -47,6 +42,7 @@ export function useExerciseFlow({
     setExerciseSubmissions(merged);
 
   const currentExercise = exercises[index];
+  const version = currentExercise.version
   const gapCount = getGapCount(currentExercise);
 
   const bufferState = useAttemptBuffer({
@@ -79,6 +75,7 @@ export function useExerciseFlow({
     clearSubmissionBuffer,
     exerciseSubmissions,
     mergeExerciseSubmissions,
+    version
   });
 
   return {

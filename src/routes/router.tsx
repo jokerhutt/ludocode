@@ -11,7 +11,6 @@ import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 import { ProfilePage } from "../features/Profile/ProfilePage";
-import { BuilderPage } from "../features/Practice/BuilderPage";
 import {
   RP_COURSE,
   RP_LESSON,
@@ -24,11 +23,14 @@ import {
   RP_SYNC,
   RP_LESSON_COMPLETE,
   RP_LESSON_COMPLETE_STREAK_INCREASE,
+  RP_BUILD_REDIRECT,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
+  builderPageLoader,
+  buildRedirectLoader,
   modulePageLoader,
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
@@ -38,12 +40,14 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
+import { BuilderLayout } from "../features/Builder/BuilderLayout.tsx";
+import { ensureTreeData } from "./routerEnsures.ts";
 
 export const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute({
   beforeLoad: async () => {
-    await sleep(300); // apply to all routes
+    await sleep(300);
   },
 });
 
@@ -100,13 +104,6 @@ export const authRoute = createRoute({
   component: AuthPage,
 });
 
-export const buildRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
-  path: RP_BUILD,
-  staticData: { headerTitle: "Build" },
-  component: BuilderPage,
-});
-
 export const profileMeRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_ME,
@@ -135,6 +132,19 @@ export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE_REDIRECT,
   loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
+});
+
+export const buildRoute = createRoute({
+  getParentRoute: () => siteRoute,
+  path: RP_BUILD,
+  loader: async ({ params }) => builderPageLoader(params, queryClient),
+  component: BuilderLayout,
+});
+
+export const buildRedirectRoute = createRoute({
+  getParentRoute: () => siteRoute,
+  path: RP_BUILD_REDIRECT,
+  loader: async ({ location }) => buildRedirectLoader(location, queryClient),
 });
 
 export const moduleRoute = createRoute({
@@ -199,11 +209,12 @@ const routeTree = rootRoute.addChildren([
     siteRoute.addChildren([
       defaultSectionRoute.addChildren([
         courseRoute,
-        buildRoute,
         profileMeRoute,
         profileByIdRoute,
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+      buildRedirectRoute,
+      buildRoute,
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),
     syncRoute,

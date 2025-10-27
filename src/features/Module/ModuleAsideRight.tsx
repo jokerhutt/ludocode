@@ -18,7 +18,7 @@ export function ModuleAsideRight({ modules, courseId }: ModuleAsideRightProps) {
     <AsideComponent orientation="RIGHT" paddingX="pl-6">
       <ModulesList modules={modules} />
       <div className="mt-6">
-        <ActionButton onClick={() => handleResetCourse(courseId)} active={true} text="RESET PROGRESS" />
+        <ActionButton onClick={() => handleResetCourse(courseId)} orientation="center" active={true} text="Reset" />
       </div>
     </AsideComponent>
   );

@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { LudoUser } from "../../Types/User/LudoUser";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
-import { RP_AUTH, RP_MODULE } from "../../constants/routes.ts";
+import { RP_AUTH, RP_BUILD, RP_MODULE } from "../../constants/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { moduleRoute } from "../router";
@@ -42,6 +42,22 @@ export async function modulesRedirectLoader(
   return { courseProgress };
 }
 
+export async function buildRedirectLoader(
+  _location: { pathname: string },
+  qc: QueryClient
+) {
+  const user = await qc.ensureQueryData(qo.currentUser());
+  if (!user.currentCourse) throw redirect({ to: RP_AUTH, replace: true });
+
+  const cp = await qc.ensureQueryData(qo.courseProgress(user.currentCourse));
+
+  throw redirect({
+    to: RP_BUILD,
+    params: { courseId: cp.courseId, moduleId: cp.moduleId },
+    replace: true,
+  });
+}
+
 export async function modulePageLoader(
   params: { courseId: string; moduleId: string },
   queryClient: QueryClient
@@ -54,4 +70,20 @@ export async function modulePageLoader(
 
   const tree = await ensureTreeData(courseId, queryClient);
   return { tree, courseId, moduleId };
+}
+
+export async function builderPageLoader(
+  params: {courseId: string; moduleId: string},
+  queryClient: QueryClient
+) {
+
+  const { courseId, moduleId } = params;
+
+  if (!courseId) {
+    throw redirect({ to: RP_AUTH, replace: true });
+  }
+
+  const snapshots = await queryClient.ensureQueryData(qo.courseSnapshot(courseId))
+  return {snapshots, moduleId, courseId}
+
 }
