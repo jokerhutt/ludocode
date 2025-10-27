@@ -13,8 +13,8 @@ const variants = {
     active: "border-ludoYellow text-ludoYellow",
   },
   default: {
-    default: "bg-ludoLightPurple/50 text-ludoGrayLight/50",
-    active: "bg-ludoLightPurple text-ludoGrayLight font-bold"
+    default: "bg-ludoLightPurple/50 text-black/50",
+    active: "bg-ludoLightPurple text-black font-bold"
   }
 } as const;
 
