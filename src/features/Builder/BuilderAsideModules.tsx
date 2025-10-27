@@ -10,8 +10,8 @@ type BuilderAsideModulesProps = {modules: ModuleSnapshot[], moduleId: string, co
 
 export function BuilderAsideModules({modules, moduleId, courseId}: BuilderAsideModulesProps) {
   return (
-      <AsideComponent orientation="LEFT">
-        <div className="flex flex-col p-6">
+      <AsideComponent customSpan="col-start-1 col-end-4" orientation="LEFT">
+        <div className="flex flex-col py-6">
           <ListContainer title="Modules">
             {modules.map((module: ModuleSnapshot) => (
               <ListRow

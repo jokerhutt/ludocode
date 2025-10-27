@@ -15,7 +15,7 @@ export function ListRow({hover, children, active, onClick, alignment = "start", 
 
   const hoverStyle = hover ? "hover:bg-ludoGrayLight/20" : ""
   const activeStyle = active ? "bg-white/30" : ""
-  const bg = fill ? "bg-ludoGrayLight" : ""
+  const bg = fill ? "bg-ludoGrayLight border-b-ludoGrayDark" : "border-b-ludoGrayLight"
 
   const orientation = {
     start: "justify-start",
@@ -26,7 +26,7 @@ export function ListRow({hover, children, active, onClick, alignment = "start", 
   return (
     <div
       onClick={() => onClick?.()}
-      className={`text-white ${hoverStyle} flex items-center ${bg} ${orientation[alignment]} ${activeStyle} hover:cursor-pointer w-full ${py} ${px} text-lg border-b border-b-ludoGrayLight`}
+      className={`text-white ${hoverStyle} flex items-center ${bg} ${orientation[alignment]} ${activeStyle} hover:cursor-pointer w-full ${py} ${px} text-lg border-b `}
     >
       <p>
         {children}

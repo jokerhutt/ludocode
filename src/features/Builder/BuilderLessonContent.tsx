@@ -16,7 +16,7 @@ export function BuilderLessonContent({
   changeSelectedLesson,
 }: BuilderLessonContentProps) {
   return (
-    <div className="col-start-5 col-end-9 overflow-auto flex flex-col gap-10 lg:gap-8 items-center px-14 py-14 min-w-0">
+    <div className="col-start-4 col-end-8 overflow-auto flex flex-col gap-10 lg:gap-8 items-center px-8 py-14 min-w-0">
       <ListContainer title="Lessons">
         {lessons.map((lesson) => (
           <ListRow
