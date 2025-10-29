@@ -32,15 +32,15 @@ export const ExerciseForm = withForm({
     if (li < 0 || !lessons[li]) return null;
 
     return (
-      <form.Field
+      <form.AppField
         name={`modules[${mi}].lessons[${li}].exercises`}
+        key={`ex-list-${mi}-${li}`}
         mode="array"
         children={(fieldArray) => (
           <AsideComponent
             customSpan="col-start-8 col-end-13"
             orientation="RIGHT"
           >
-            {lessonId && (
               <div className="flex flex-col px-6 py-8 gap-4">
                 <ExerciseSubForm
                   key={`ex-${mi}-${li}-${currentIndex}`}
@@ -62,7 +62,6 @@ export const ExerciseForm = withForm({
                   ))}
                 </div>
               </div>
-            )}
           </AsideComponent>
         )}
       />

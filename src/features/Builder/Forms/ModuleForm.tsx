@@ -26,8 +26,9 @@ export const ModuleForm = withForm({
           <AsideComponent customSpan="col-start-1 col-end-4" orientation="LEFT">
             <div className="flex flex-col py-6">
               <ListContainer title="Modules">
-                {fieldArray.state.value.map((_, index) => (
-                  <form.Field
+                {fieldArray.state.value.map((m, index) => (
+                  <form.AppField
+                    key={m.moduleId}
                     name={`modules[${index}]`}
                     children={(subField) => (
                       <ListRow
@@ -35,20 +36,13 @@ export const ModuleForm = withForm({
                         py="py-0"
                         px="px-0"
                         alignment="start"
-                        key={subField.state.value.moduleId}
                         active={moduleId === subField.state.value.moduleId}
                       >
                         <div className=" w-full flex gap-2 flex-col p-4">
-                          <form.Field
+                          <form.AppField
                             name={`modules[${index}].title`}
-                            children={(subFieldTitle) => (
-                              <input
-                                placeholder={subFieldTitle.state.value}
-                                value={subFieldTitle.state.value}
-                                onChange={(e) =>
-                                  subFieldTitle.handleChange(e.target.value)
-                                }
-                              />
+                            children={(field) => (
+                              <field.TitleField deletable={true} />
                             )}
                           />
                           <OrderSelector
