@@ -5,7 +5,8 @@ import {
   formOptions,
 } from "@tanstack/react-form";
 import type { ModuleSnapshot } from "../Types/Snapshot/SnapshotTypes";
-import TitleField from "../features/Builder/FormComponents/TitleField";
+import TitleField from "../features/Builder/Fields/TitleField";
+import { AddExerciseFieldButton } from "../features/Builder/Fields/AddExerciseFieldButton";
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();
@@ -14,6 +15,7 @@ export const { useAppForm, withForm } = createFormHook({
   formContext,
   fieldComponents: {
     TitleField,
+    AddExerciseFieldButton
   },
   formComponents: {},
 });

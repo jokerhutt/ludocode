@@ -1,3 +1,4 @@
+import { uuid } from "@tanstack/react-form";
 import { ListRow } from "../../../components/Atoms/Row/ListRow";
 import { ListContainer } from "../../../components/Molecules/List/ListContainer";
 import {
@@ -36,7 +37,6 @@ export const ModuleForm = withForm({
                     const thisId = m.moduleId;
                     const isCurrent = moduleId === thisId;
 
-                    // choose neighbor excluding current index
                     const nextId =
                       mods[index + 1]?.moduleId ??
                       mods[index - 1]?.moduleId ??
@@ -50,7 +50,6 @@ export const ModuleForm = withForm({
                       );
                     }
 
-                    // defer removal so LessonForm unmounts on route change
                     queueMicrotask(() => fa.removeValue(index));
                   };
 
@@ -98,7 +97,11 @@ export const ModuleForm = withForm({
                   );
                 })}
 
-                <ListRow alignment="center" fill py="py-2">
+                <ListRow alignment="center" fill py="py-2" onClick={() => fa.pushValue({
+                    moduleId: uuid(),
+                    title: "",
+                    lessons: []
+                })}>
                   <p className="text-center text-xl font-bold">+</p>
                 </ListRow>
               </ListContainer>

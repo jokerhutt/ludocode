@@ -9,6 +9,7 @@ type ListRowProps = {
   fill?: boolean;
   py?: string;
   px?: string;
+  stretch?: string;
 };
 
 export function ListRow({
@@ -20,6 +21,7 @@ export function ListRow({
   fill,
   py = "py-4",
   px = "px-2",
+  stretch = "items-stretch"
 }: ListRowProps) {
   const hoverStyle = hover ? "hover:bg-ludoGrayLight/20 hover:cursor-pointer" : "";
   const activeStyle = active ? "bg-white/5" : "";
@@ -37,7 +39,7 @@ export function ListRow({
   return (
     <div
       onClick={() => onClick?.()}
-      className={`text-white ${hoverStyle} flex items-stretch ${bg} ${orientation[alignment]} ${activeStyle} w-full ${py} ${px} text-lg border-b `}
+      className={`text-white ${hoverStyle} flex ${stretch} ${bg} ${orientation[alignment]} ${activeStyle} w-full ${py} ${px} text-lg border-b `}
     >
       {children}
     </div>

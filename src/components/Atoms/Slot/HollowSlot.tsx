@@ -15,7 +15,7 @@ export function HollowSlot({ children, gap = "gap-2", hover = true, padding = "p
   const activeStyle = active ? "bg-ludoLightPurple/60" : "bg-ludoGrayDark"
 
   return (
-    <div onClick={() => onClick?.()} className={`flex h-full ${gap} ${hoverStyle} ${padding} ${activeStyle} rounded-lg  justify-center items-center`}>
+    <div onClick={() => onClick?.()} className={`flex ${gap} ${hoverStyle} ${padding} ${activeStyle} rounded-lg  justify-center items-center`}>
       {children}
     </div>
   );

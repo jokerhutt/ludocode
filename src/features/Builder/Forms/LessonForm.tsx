@@ -5,8 +5,9 @@ import { ludoNavigation } from "../../../routes/ludoNavigation";
 import { buildRoute, router } from "../../../routes/router";
 import { OrderSelector } from "../UI/OrderSelector";
 import { SelectionSideTab } from "../UI/SelectionSideTab";
-import TitleField from "../FormComponents/TitleField";
+import TitleField from "../Fields/TitleField";
 import { useEffect } from "react";
+import { uuid } from "@tanstack/react-form";
 
 export const LessonForm = withForm({
   ...courseFormOpts,
@@ -25,7 +26,7 @@ export const LessonForm = withForm({
         mode="array"
       >
         {(fa) => (
-          <div className="col-start-4 col-end-8 overflow-auto flex flex-col gap-10 lg:gap-8 items-center px-8 py-14 min-w-0">
+          <div className="col-start-4 col-end-8 flex flex-col gap-10 lg:gap-8 items-center px-8 py-14 min-w-0">
             <ListContainer title="Lessons">
               {fa.state.value.map((lesson, index) => {
                 if (!lesson) return null;
@@ -89,6 +90,22 @@ export const LessonForm = withForm({
                   </ListRow>
                 );
               })}
+              <ListRow
+                alignment="center"
+                fill
+                py="py-2"
+                onClick={() =>
+                  fa.pushValue({
+                    id: null,
+                    tempId: uuid(),
+                    title: "",
+                    orderIndex: fa.state.value.length,
+                    exercises: [],
+                  })
+                }
+              >
+                <p className="text-center text-xl font-bold">+</p>
+              </ListRow>
             </ListContainer>
           </div>
         )}

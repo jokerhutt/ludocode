@@ -1,4 +1,3 @@
-import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "../../../form/formKit";
 
 export default function TitleField({
@@ -10,7 +9,6 @@ export default function TitleField({
 }) {
   const field = useFieldContext<string>();
 
-  const errors = useStore(field.store, (state) => state.meta.errors);
   const isEmpty = !(field.state.value ?? "").trim();
   return (
     <>
