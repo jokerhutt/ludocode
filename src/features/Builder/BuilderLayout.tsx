@@ -16,6 +16,7 @@ import { BuilderAsideModules } from "./BuilderAsideModules";
 import { BuilderLessonContent } from "./BuilderLessonContent";
 import { BuilderExerciseColumn } from "./BuilderExerciseColumn";
 import { useState } from "react";
+import { LessonForm } from "./Forms/LessonForm";
 
 type BuilderLayoutProps = {};
 
@@ -41,11 +42,12 @@ export function BuilderLayout({}: BuilderLayoutProps) {
     (lesson) => lesson.orderIndex == 1
   );
 
-  const [selectedLesson, setSelectedLesson] = useState<LessonSnap>(
-    initialLesson!
+  const [selectedLesson, setSelectedLesson] = useState<string>(
+    initialLesson!.id!
   );
-  const changeSelectedLesson = (lesson: LessonSnap) =>
-    setSelectedLesson(lesson);
+  const changeSelectedLesson = (lessonId: string | null) => {
+    if (lessonId && lessonId.length > 0) setSelectedLesson(lessonId);
+  }
 
   return (
     <form.AppForm>
@@ -53,13 +55,8 @@ export function BuilderLayout({}: BuilderLayoutProps) {
         <MainContentWrapper>
           <div className="grid grid-cols-12 bg-ludoGrayDark">
             <ModuleForm form={form} moduleId={moduleId} courseId={courseId} />
-            <BuilderLessonContent
-              changeSelectedLesson={changeSelectedLesson}
-              currentLesson={selectedLesson}
-              lessons={currentModuleLessons}
-              moduleId={moduleId}
-            />
-            <BuilderExerciseColumn currentLesson={selectedLesson} />
+            <LessonForm form={form} moduleId={moduleId} currentLessonId={selectedLesson} changeSelectedLesson={changeSelectedLesson} />
+            {/* <BuilderExerciseColumn currentLesson={selectedLesson} /> */}
           </div>
         </MainContentWrapper>
         <LessonFooter phase="DEFAULT">

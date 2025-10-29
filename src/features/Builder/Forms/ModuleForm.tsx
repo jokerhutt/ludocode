@@ -8,6 +8,8 @@ import {
 import { AsideComponent } from "../../../Layouts/Aside/AsideComponent";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
 import { router } from "../../../routes/router";
+import { OrderSelector } from "../UI/OrderSelector";
+import { SelectionSideTab } from "../UI/SelectionSideTab";
 
 export const ModuleForm = withForm({
   ...courseFormOpts,
@@ -29,35 +31,46 @@ export const ModuleForm = withForm({
                     name={`modules[${index}]`}
                     children={(subField) => (
                       <ListRow
-                        alignment="between"
-                        onClick={() =>
-                          router.navigate(
-                            ludoNavigation.build.toBuilder(
-                              courseId,
-                              subField.state.value.moduleId
-                            )
-                          )
-                        }
+                        hover={false}
+                        py="py-0"
+                        px="px-0"
+                        alignment="start"
                         key={subField.state.value.moduleId}
                         active={moduleId === subField.state.value.moduleId}
-                        px="px-2"
                       >
-                        <div className=" w-full flex gap-2 flex-col">
-                          <p>{subField.state.value.title}</p>
-                          <select
-                            className="border-ludoLightPurple border-2 rounded-md w-20"
-                            value={`${index}`}
-                            onChange={(e) =>
-                              fieldArray.moveValue(index, Number(e.target.value))
+                        <div className=" w-full flex gap-2 flex-col p-4">
+                          <form.Field
+                            name={`modules[${index}].title`}
+                            children={(subFieldTitle) => (
+                              <input
+                                placeholder={subFieldTitle.state.value}
+                                value={subFieldTitle.state.value}
+                                onChange={(e) =>
+                                  subFieldTitle.handleChange(e.target.value)
+                                }
+                              />
+                            )}
+                          />
+                          <OrderSelector
+                            index={index}
+                            count={fieldArray.state.value.length}
+                            onChange={(newIndex) =>
+                              fieldArray.moveValue(index, newIndex)
                             }
-                          >
-                            {fieldArray.state.value.map((_, index) => (
-                              <option key={index} value={`${index}`}>
-                                # {index}
-                              </option>
-                            ))}
-                          </select>
+                            className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
+                          />
                         </div>
+                        <SelectionSideTab
+                          active={moduleId == subField.state.value.moduleId}
+                          onClick={() =>
+                            router.navigate(
+                              ludoNavigation.build.toBuilder(
+                                courseId,
+                                subField.state.value.moduleId
+                              )
+                            )
+                          }
+                        />
                       </ListRow>
                     )}
                   />
