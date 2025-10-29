@@ -1,0 +1,71 @@
+import { uuid } from "@tanstack/react-form";
+import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot";
+import { courseFormOpts, withForm } from "../../../form/formKit";
+import { AsideComponent } from "../../../Layouts/Aside/AsideComponent";
+import { ExerciseSubForm } from "./ExerciseSubForm";
+import { buildRoute } from "../../../routes/router";
+
+export const ExerciseForm = withForm({
+  ...courseFormOpts,
+  props: {
+    moduleId: "" as string,
+    currentIndex: 0 as number,
+    changeCurrentIndex: ((index: number) => {}) as (id: number) => void,
+  },
+  render: ({
+    form,
+    moduleId,
+    currentIndex,
+    changeCurrentIndex,
+  }) => {
+
+    const { lessonId } = buildRoute.useSearch();
+
+    const mods = form.state.values.modules;
+    const mi = mods.findIndex((m) => m.moduleId === moduleId);
+    if (mi < 0) return null;
+
+    const lessons = mods[mi].lessons;
+    const li = lessonId
+      ? lessons.findIndex((l) => (l.id ?? l.tempId) === lessonId)
+      : 0;
+    if (li < 0 || !lessons[li]) return null;
+
+    return (
+      <form.Field
+        name={`modules[${mi}].lessons[${li}].exercises`}
+        mode="array"
+        children={(fieldArray) => (
+          <AsideComponent
+            customSpan="col-start-8 col-end-13"
+            orientation="RIGHT"
+          >
+            {lessonId && (
+              <div className="flex flex-col px-6 py-8 gap-4">
+                <ExerciseSubForm
+                  key={`ex-${mi}-${li}-${currentIndex}`}
+                  form={form}
+                  moduleIndex={mi}
+                  lessonIndex={li}
+                  currentExerciseIndex={currentIndex}
+                />
+                <div className="w-full py-2 px-4 rounded-3xl flex bg-ludoGrayLight items-center gap-4">
+                  {fieldArray.state.value.map((_, index) => (
+                    <HollowSlot
+                      key={uuid()}
+                      onClick={() => changeCurrentIndex(index)}
+                      active={currentIndex == index}
+                      padding="px-6 py-1"
+                    >
+                      <p className="text-white">{index}</p>
+                    </HollowSlot>
+                  ))}
+                </div>
+              </div>
+            )}
+          </AsideComponent>
+        )}
+      />
+    );
+  },
+});

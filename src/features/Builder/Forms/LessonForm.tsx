@@ -1,17 +1,22 @@
 import { ListRow } from "../../../components/Atoms/Row/ListRow";
 import { ListContainer } from "../../../components/Molecules/List/ListContainer";
 import { courseFormOpts, withForm } from "../../../form/formKit";
+import { ludoNavigation } from "../../../routes/ludoNavigation";
+import { buildRoute, router } from "../../../routes/router";
 import { OrderSelector } from "../UI/OrderSelector";
 import { SelectionSideTab } from "../UI/SelectionSideTab";
 
 export const LessonForm = withForm({
   ...courseFormOpts,
   props: {
+    courseId: "" as string,
     moduleId: "" as string,
-    currentLessonId: "" as string,
-    changeSelectedLesson: ((lessonId: string) => {}) as (id: string) => void,
   },
-  render: ({ form, moduleId, currentLessonId, changeSelectedLesson }) => {
+  render: ({ form, moduleId, courseId }) => {
+
+
+    const { lessonId } = buildRoute.useSearch() 
+
     const modules = form.state.values.modules;
     const mi = modules.findIndex((m) => m.moduleId === moduleId);
     if (mi < 0) return null;
@@ -30,6 +35,7 @@ export const LessonForm = withForm({
                     <ListRow px="0" py="0" hover={false}>
                       <div className="w-full p-4 flex gap-4 items-center">
                         <form.Field
+                          key={`tit-"${mi}-${moduleId}`}  
                           name={`modules[${mi}].lessons[${index}].title`}
                           children={(subFieldTitle) => (
                             <input
@@ -52,9 +58,9 @@ export const LessonForm = withForm({
                         />
                       </div>
                       <SelectionSideTab
-                        active={currentLessonId == subField.state.value.id}
+                        active={lessonId == subField.state.value.id}
                         onClick={() =>
-                          changeSelectedLesson(subField.state.value.id ?? "")
+                          router.navigate(ludoNavigation.build.toBuilder(courseId, moduleId, subField.state.value.id ?? undefined))
                         }
                       />
                     </ListRow>

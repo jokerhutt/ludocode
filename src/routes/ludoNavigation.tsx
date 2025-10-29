@@ -28,9 +28,14 @@ export const ludoNavigation = {
     redirect: () => ({
       to: RP_BUILD_REDIRECT,
     }),
-    toBuilder: (courseId: string, moduleId: string) => ({
+    toBuilder: (
+      courseId: string,
+      moduleId: string,
+      lessonId?: string
+    ) => ({
       to: RP_BUILD,
       params: { courseId, moduleId },
+      search: lessonId ? { lessonId } : undefined,
     }),
   },
 

@@ -137,6 +137,9 @@ export const modulesRedirectRoute = createRoute({
 export const buildRoute = createRoute({
   getParentRoute: () => siteRoute,
   path: RP_BUILD,
+  validateSearch: (s: Record<string, unknown>) => ({
+    lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
+  }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
   component: BuilderLayout,
 });

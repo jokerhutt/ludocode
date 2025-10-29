@@ -6,17 +6,11 @@ import type {
   LessonSnap,
   ModuleSnapshot,
 } from "../../Types/Snapshot/SnapshotTypes";
-import { BuilderPage } from "./BuilderPage";
 import { courseFormOpts, useAppForm } from "../../form/formKit";
-import { ListContainer } from "../../components/Molecules/List/ListContainer";
-import { ListRow } from "../../components/Atoms/Row/ListRow";
-import { ludoNavigation } from "../../routes/ludoNavigation";
 import { ModuleForm } from "./Forms/ModuleForm";
-import { BuilderAsideModules } from "./BuilderAsideModules";
-import { BuilderLessonContent } from "./BuilderLessonContent";
-import { BuilderExerciseColumn } from "./BuilderExerciseColumn";
 import { useState } from "react";
 import { LessonForm } from "./Forms/LessonForm";
+import { ExerciseForm } from "./Forms/ExerciseForm";
 
 type BuilderLayoutProps = {};
 
@@ -29,25 +23,12 @@ export function BuilderLayout({}: BuilderLayoutProps) {
 
   const form = useAppForm({
     ...courseFormOpts,
-    defaultValues: { courseId, modules: snapshots }, // async data
+    defaultValues: { courseId, modules: snapshots },
     onSubmit: () => {},
   });
 
-  const modules: ModuleSnapshot[] = snapshots;
-
-  const currentModule = modules.find((module) => module.moduleId == moduleId);
-  const currentModuleLessons = currentModule!.lessons;
-
-  const initialLesson = currentModuleLessons.find(
-    (lesson) => lesson.orderIndex == 1
-  );
-
-  const [selectedLesson, setSelectedLesson] = useState<string>(
-    initialLesson!.id!
-  );
-  const changeSelectedLesson = (lessonId: string | null) => {
-    if (lessonId && lessonId.length > 0) setSelectedLesson(lessonId);
-  }
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0)
+  const changeCurrentExerciseIndex = (index: number) => setCurrentExerciseIndex(index)
 
   return (
     <form.AppForm>
@@ -55,8 +36,8 @@ export function BuilderLayout({}: BuilderLayoutProps) {
         <MainContentWrapper>
           <div className="grid grid-cols-12 bg-ludoGrayDark">
             <ModuleForm form={form} moduleId={moduleId} courseId={courseId} />
-            <LessonForm form={form} moduleId={moduleId} currentLessonId={selectedLesson} changeSelectedLesson={changeSelectedLesson} />
-            {/* <BuilderExerciseColumn currentLesson={selectedLesson} /> */}
+            <LessonForm form={form} moduleId={moduleId} courseId={courseId}/>
+            <ExerciseForm changeCurrentIndex={changeCurrentExerciseIndex} form={form} moduleId={moduleId} currentIndex={currentExerciseIndex}/>
           </div>
         </MainContentWrapper>
         <LessonFooter phase="DEFAULT">
