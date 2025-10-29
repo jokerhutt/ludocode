@@ -1,3 +1,4 @@
+import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "../../../form/formKit";
 
 export default function TitleField({
@@ -12,8 +13,8 @@ export default function TitleField({
   const isEmpty = !(field.state.value ?? "").trim();
   return (
     <>
-      <input
-        className="pl-2 rounded-lg border-2 border-ludoLightPurple py-0.5"
+      <Textarea
+        className="pl-2 text-white min-h-6 rounded-lg border-2 border-ludoLightPurple py-0.5"
         placeholder={field.state.value}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}

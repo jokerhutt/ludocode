@@ -3,6 +3,8 @@ import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot";
 import { ListContainer } from "../../../components/Molecules/List/ListContainer";
 import { courseFormOpts, withForm } from "../../../form/formKit";
 import { ExerciseOptionInputField } from "../Fields/ExerciseOptionInputField";
+import TitleField from "../Fields/TitleField";
+import { ExerciseTitlesForm } from "./ExerciseTitlesForm";
 
 export const ExerciseSubForm = withForm({
   ...courseFormOpts,
@@ -20,19 +22,8 @@ export const ExerciseSubForm = withForm({
 
           return (
             <ListContainer title={fieldArray.state.value.title}>
-              <ListRow hover={false} alignment="center">
-                <p>{exercise.exerciseType}</p>
-              </ListRow>
-              <ListRow hover={false} px="px-4">
-                <div className="w-full flex flex-col items-start">
-                  <p>T: {exercise.title}</p>
-                </div>
-              </ListRow>
-              <ListRow hover={false} px="px-4">
-                <div className="w-full flex flex-col items-start">
-                  <p>P: {exercise.prompt}</p>
-                </div>
-              </ListRow>
+              <ExerciseTitlesForm form={form} moduleIndex={moduleIndex} lessonIndex={lessonIndex} currentExerciseIndex={currentExerciseIndex}/>
+
               <form.Field
                 name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options`}
                 mode="array"
