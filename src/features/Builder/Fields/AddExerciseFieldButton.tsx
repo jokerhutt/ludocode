@@ -9,10 +9,11 @@ export function AddExerciseFieldButton() {
       onClick={() => {
         field.pushValue({
           id: null,
-          title: "",
+          title: "Default Title",
           prompt: "Sample Prompt",
           exerciseType: "CLOZE",
-          options: [],
+          correctOptions: [{answerOrder: 1, content: "Correct"}],
+          distractors: [{answerOrder: null, content: "Distractor"}]
         });
       }}
       className="border-ludoLightPurple text-white text-center hover:cursor-pointer border-2 rounded-md w-20"

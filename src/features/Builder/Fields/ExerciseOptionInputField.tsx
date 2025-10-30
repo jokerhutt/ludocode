@@ -1,5 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "../../../form/formKit";
+import { Select, SelectItem } from "@radix-ui/react-select";
 
 type ExerciseOptionInputFieldProps = { onEmpty: () => void };
 
@@ -12,16 +13,16 @@ export function ExerciseOptionInputField({
   const ph = "…";
 
   return (
-    <Textarea
-      placeholder={ph}
-      value={val}
-      onChange={(e) => field.handleChange(e.target.value)}
-      onBlur={() => {
-        if (!val.trim()) {
-          onEmpty();
-        }
-      }}
-      className="w-full resize-none min-h-8 overflow-hidden"
-    />
+      <Textarea
+        placeholder={ph}
+        value={val}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={() => {
+          if (!val.trim()) {
+            onEmpty();
+          }
+        }}
+        className="w-full resize-none border-none min-h-8 overflow-hidden"
+      />
   );
 }

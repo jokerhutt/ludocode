@@ -1,3 +1,4 @@
+import { Select, SelectItem } from "@radix-ui/react-select";
 import { ListRow } from "../../../components/Atoms/Row/ListRow";
 import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot";
 import { ListContainer } from "../../../components/Molecules/List/ListContainer";
@@ -5,6 +6,7 @@ import { courseFormOpts, withForm } from "../../../form/formKit";
 import { ExerciseOptionInputField } from "../Fields/ExerciseOptionInputField";
 import TitleField from "../Fields/TitleField";
 import { ExerciseTitlesForm } from "./ExerciseTitlesForm";
+import { OrderSelector } from "../UI/OrderSelector";
 
 export const ExerciseSubForm = withForm({
   ...courseFormOpts,
@@ -19,6 +21,7 @@ export const ExerciseSubForm = withForm({
         name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}]`}
         children={(exerciseField) => {
           const exercise = exerciseField.state.value;
+          if (!exercise || !exercise.title) return null; 
 
           return (
             <ListContainer title={exerciseField.state.value.title}>
@@ -45,21 +48,32 @@ export const ExerciseSubForm = withForm({
                       mode="array"
                       children={(correctOptionsArray) => (
                         <>
-                          {correctOptionsArray.state.value.map(
-                            (_, index) => (
-                              <form.AppField
-                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions[${index}].content`}
-                              >
-                                {() => (
+                          {correctOptionsArray.state.value.map((_, index) => (
+                            <form.AppField
+                              name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions[${index}].content`}
+                            >
+                              {() => (
+                                <div className="flex items-center gap-2 border-ludoLightPurple border-2 rounded-lg">
                                   <ExerciseOptionInputField
                                     onEmpty={() =>
                                       correctOptionsArray.removeValue(index)
                                     }
                                   />
-                                )}
-                              </form.AppField>
-                            )
-                          )}
+                                  <OrderSelector
+                                    index={index}
+                                    count={correctOptionsArray.state.value.length}
+                                    prefix=""
+                                    onChange={(newIndex) =>
+                                      correctOptionsArray.moveValue(
+                                        index,
+                                        newIndex
+                                      )
+                                    }
+                                  />
+                                </div>
+                              )}
+                            </form.AppField>
+                          ))}
                         </>
                       )}
                     />
@@ -83,21 +97,21 @@ export const ExerciseSubForm = withForm({
                       mode="array"
                       children={(distractorsArray) => (
                         <>
-                          {distractorsArray.state.value.map(
-                            (_, index) => (
-                              <form.AppField
-                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors[${index}].content`}
-                              >
-                                {() => (
+                          {distractorsArray.state.value.map((_, index) => (
+                            <form.AppField
+                              name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors[${index}].content`}
+                            >
+                              {() => (
+                                <div className="flex items-center gap-2 border-ludoLightPurple border-2 rounded-lg">
                                   <ExerciseOptionInputField
                                     onEmpty={() =>
                                       distractorsArray.removeValue(index)
                                     }
                                   />
-                                )}
-                              </form.AppField>
-                            )
-                          )}
+                                </div>
+                              )}
+                            </form.AppField>
+                          ))}
                         </>
                       )}
                     />
@@ -140,7 +154,6 @@ export const ExerciseSubForm = withForm({
                       </button>
                     )}
                   />
-
                 </div>
               </ListRow>
             </ListContainer>

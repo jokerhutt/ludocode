@@ -3,6 +3,7 @@ type OrderSelectorProps = {
   count: number;
   onChange: (newIndex: number) => void;
   className?: string;
+  prefix?: string;
 };
 
 export function OrderSelector({
@@ -10,6 +11,7 @@ export function OrderSelector({
   count,
   onChange,
   className,
+  prefix = "#"
 }: OrderSelectorProps) {
   return (
     <select
@@ -21,7 +23,7 @@ export function OrderSelector({
     >
       {Array.from({ length: count }).map((_, i) => (
         <option key={i} value={String(i)}>
-          # {i}
+          {prefix} {i}
         </option>
       ))}
     </select>
