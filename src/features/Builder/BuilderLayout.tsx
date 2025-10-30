@@ -11,22 +11,38 @@ import { ModuleForm } from "./Forms/ModuleForm";
 import { useEffect, useState } from "react";
 import { LessonForm } from "./Forms/LessonForm";
 import { ExerciseForm } from "./Forms/ExerciseForm";
+import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
+import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
+import { useQueryClient } from "@tanstack/react-query";
+import { qk } from "@/constants/qk";
+import { ActionButton } from "@/components/Atoms/Button/ActionButton";
 
 type BuilderLayoutProps = {};
 
 export function BuilderLayout({}: BuilderLayoutProps) {
-  const { courseSnapshot } = buildRoute.useLoaderData()
-  const typedSnapshot : CourseSnap = courseSnapshot
+  const { courseSnapshot } = buildRoute.useLoaderData();
+  const typedSnapshot: CourseSnap = courseSnapshot;
 
-  const courseId = typedSnapshot.courseId
-  const modules = typedSnapshot.modules
+  const qc = useQueryClient();
+
+  const courseId = typedSnapshot.courseId;
+  const modules = typedSnapshot.modules;
 
   const { moduleId } = buildRoute.useParams();
 
   const form = useAppForm({
     ...courseFormOpts,
     defaultValues: { courseId, modules },
-    onSubmit: () => {},
+    onSubmit: async ({ value }) => {
+      const fresh = await ludoPost<CourseSnap>(
+        SUBMIT_COURSE_SNAPSHOT,
+        value,
+        true
+      );
+
+      qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
+      form.reset();
+    },
   });
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
@@ -55,7 +71,9 @@ export function BuilderLayout({}: BuilderLayoutProps) {
         <LessonFooter phase="DEFAULT">
           <div
             className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
-          ></div>
+          >
+            <ActionButton text="submit" active={true} onClick={() => form.handleSubmit()}/>
+          </div>
         </LessonFooter>
       </div>
     </form.AppForm>

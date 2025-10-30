@@ -1,3 +1,4 @@
+import { uuid } from "@tanstack/react-form";
 import { useFieldContext } from "../../../form/formKit";
 import type { ExerciseSnap } from "../../../Types/Snapshot/SnapshotTypes";
 
@@ -8,7 +9,7 @@ export function AddExerciseFieldButton() {
     <div
       onClick={() => {
         field.pushValue({
-          id: null,
+          id: uuid(),
           title: "Default Title",
           prompt: "Sample Prompt",
           exerciseType: "CLOZE",
