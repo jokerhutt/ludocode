@@ -24,7 +24,7 @@ import {
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
-import type { CourseSnap, ModuleSnapshot } from "../../../Types/Snapshot/SnapshotTypes.ts";
+import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 
 export const qo = {
   user: (userId: string) =>

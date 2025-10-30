@@ -4,16 +4,16 @@ import { AsideComponent } from "../../Layouts/Aside/AsideComponent";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
-import type { ModuleSnapshot } from "../../Types/Snapshot/SnapshotTypes";
+import type { ModuleSnap } from "../../Types/Snapshot/SnapshotTypes";
 
-type BuilderAsideModulesProps = {modules: ModuleSnapshot[], moduleId: string, courseId: string};
+type BuilderAsideModulesProps = {modules: ModuleSnap[], moduleId: string, courseId: string};
 
 export function BuilderAsideModules({modules, moduleId, courseId}: BuilderAsideModulesProps) {
   return (
       <AsideComponent customSpan="col-start-1 col-end-4" orientation="LEFT">
         <div className="flex flex-col py-6">
           <ListContainer title="Modules">
-            {modules.map((module: ModuleSnapshot) => (
+            {modules.map((module: ModuleSnap) => (
               <ListRow
                 onClick={() => router.navigate(ludoNavigation.build.toBuilder(courseId, module.tempId))}
                 key={module.moduleId}

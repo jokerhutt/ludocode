@@ -24,7 +24,7 @@ export const ExerciseSubForm = withForm({
           if (!exercise) return null;
 
           return (
-            <ListContainer title={exerciseField.state.value.title}>
+            <ListContainer title={exerciseField.state.value.title ?? ""}>
               <ExerciseTitlesForm
                 form={form}
                 moduleIndex={moduleIndex}
