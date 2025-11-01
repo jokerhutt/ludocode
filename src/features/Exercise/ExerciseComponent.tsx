@@ -2,6 +2,7 @@ import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 import { AnalyzeExercise } from "./AnalyzeExercise";
 import { ClozeExercise } from "./ClozeExercise";
 import { ExercisePrompt } from "./ExercisePrompt";
+import { InfoExercise } from "./InfoExercise";
 import { TriviaExercise } from "./TriviaExercise";
 
 type ExerciseComponentProps = {
@@ -19,7 +20,7 @@ export function ExerciseComponent({
 }: ExerciseComponentProps) {
   const exerciseBodyMap: any = {
     CLOZE: ClozeExercise,
-    INFO: ClozeExercise,
+    INFO: InfoExercise,
     ANALYZE: AnalyzeExercise,
     TRIVIA: TriviaExercise,
   };

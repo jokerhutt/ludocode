@@ -13,6 +13,7 @@ import { ludoNavigation } from "../../../routes/ludoNavigation";
 
 type Args = {
   position: number;
+  exerciseId: string;
   exercises: LudoExercise[];
   lesson: LudoLesson;
   clear: () => void;
@@ -20,10 +21,11 @@ type Args = {
   clearSubmissionBuffer: () => void;
   exerciseSubmissions: ExerciseSubmission[];
   mergeExerciseSubmissions: (merged: ExerciseSubmission[]) => void;
-  version: number
+  version: number;
 };
 
 export function useCommitAttempt({
+  exerciseId,
   position,
   exercises,
   lesson,
@@ -32,58 +34,90 @@ export function useCommitAttempt({
   clearSubmissionBuffer,
   exerciseSubmissions,
   mergeExerciseSubmissions,
-  version
+  version,
 }: Args) {
-  const commitAttempt = useCallback(() => {
-    if (!submissionBuffer) return;
+  const commitAttempt = useCallback(
+    (info?: boolean) => {
+      if (info) {
+        const isLast = position === exercises.length;
+        const infoSubmission: ExerciseAttempt = {
+          exerciseId: exerciseId,
+          isCorrect: true,
+          answer: ["I"],
+        };
+        const merged = mergeAttempt(
+          exerciseSubmissions,
+          infoSubmission,
+          version
+        );
+        mergeExerciseSubmissions(merged);
 
-    const isLast = position === exercises.length;
-    const merged = mergeAttempt(exerciseSubmissions, submissionBuffer, version);
-    mergeExerciseSubmissions(merged);
+        if (isLast) {
+          handleLastExercise(merged);
+          return;
+        }
 
-    clearSubmissionBuffer();
+        //CORRECT -> NAVIGATE TO NEXT EXERCISE
+        handleCorrectAttempt();
+        return;
+      }
 
-    //INCORRECT -> NO NAVIGATION
-    if (!submissionBuffer.isCorrect) {
-      handleIncorrectAttempt()
+      if (!submissionBuffer) return;
+
+      const isLast = position === exercises.length;
+      const merged = mergeAttempt(
+        exerciseSubmissions,
+        submissionBuffer,
+        version
+      );
+      mergeExerciseSubmissions(merged);
+
+      clearSubmissionBuffer();
+
+      //INCORRECT -> NO NAVIGATION
+      if (!submissionBuffer.isCorrect) {
+        handleIncorrectAttempt();
+        return;
+      }
+
+      //LAST -> CONSTRUCT AND NAVIGATE TO SYNC
+      if (isLast) {
+        handleLastExercise(merged);
+        return;
+      }
+
+      //CORRECT -> NAVIGATE TO NEXT EXERCISE
+      handleCorrectAttempt();
       return;
-    }
-
-    //LAST -> CONSTRUCT AND NAVIGATE TO SYNC
-    if (isLast) {
-      handleLastExercise(merged)
-      return;
-    }
-
-    //CORRECT -> NAVIGATE TO NEXT EXERCISE
-    handleCorrectAttempt()
-    return;
-
-  }, [
-    submissionBuffer,
-    exerciseSubmissions,
-    position,
-    exercises.length,
-    lesson.id,
-    clear,
-    mergeExerciseSubmissions,
-    clearSubmissionBuffer,
-  ]);
+    },
+    [
+      submissionBuffer,
+      exerciseId,
+      exerciseSubmissions,
+      position,
+      exercises.length,
+      lesson.id,
+      clear,
+      mergeExerciseSubmissions,
+      clearSubmissionBuffer,
+    ]
+  );
 
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
-      const lessonSubmission: LessonSubmission = {
-        id: uuidv4(),
-        lessonId: lesson.id,
-        submissions: merged,
-      };
-      router.navigate(
-        ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
-      );
-  }
+    const lessonSubmission: LessonSubmission = {
+      id: uuidv4(),
+      lessonId: lesson.id,
+      submissions: merged,
+    };
+    router.navigate(
+      ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
+    );
+  };
 
-  const handleIncorrectAttempt = () => clear()
+  const handleIncorrectAttempt = () => clear();
 
-  const handleCorrectAttempt = () => router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position))
+  const handleCorrectAttempt = () =>
+    router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
 
   return { commitAttempt };
 }

@@ -4,9 +4,10 @@ import { SubmitButton } from "../Exercise/SubmitButton";
 
 type TutorialFooterProps = {
   canSubmit: boolean;
-  commit: () => void;
+  commit: (info?: boolean) => void;
   stage: () => void;
   staged: ExerciseAttempt | null;
+  isInfo: boolean;
 };
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT"
@@ -17,13 +18,14 @@ export function TutorialFooter({
   canSubmit,
   stage,
   commit,
+  isInfo
 }: TutorialFooterProps) {
 
   const hasStaged = staged != null;
 
   const handleSubmit = () => {
     if (!canSubmit) return;
-    hasStaged ? commit() : stage();
+    isInfo ? commit(true) : hasStaged ? commit() : stage();
   };
 
   const phase : ExercisePhase = !hasStaged ? "DEFAULT" : staged.isCorrect ? "CORRECT" : "INCORRECT"

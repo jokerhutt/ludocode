@@ -23,11 +23,15 @@ export function useTreeData({ tree, courseId, moduleId }: Args) {
     queries: tree.modules.map((module: FlatModule) => qo.module(module.id)),
   });
 
+  console.log(JSON.stringify(moduleMetaData))
+
   const lessonQueries = useSuspenseQueries({
     queries: moduleMetaData!.lessons.map((lesson: FlatLesson) =>
       qo.lesson(lesson.id)
     ),
   });
+
+  console.log(JSON.stringify(lessonQueries))
 
   const modules = moduleQueries.map((moduleQuery) => moduleQuery.data);
   const lessons: LudoLesson[] = lessonQueries.map(

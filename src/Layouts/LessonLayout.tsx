@@ -14,7 +14,7 @@ export function LessonLayout() {
 
   const state = useExerciseFlow({ exercises, lesson, position });
 
-  const { canSubmit, submitAttemptBuffer, commitAttempt, submissionBuffer } =
+  const { currentExercise, canSubmit, submitAttemptBuffer, commitAttempt, submissionBuffer } =
     state;
 
   return (
@@ -32,6 +32,7 @@ export function LessonLayout() {
           stage={submitAttemptBuffer}
           commit={commitAttempt}
           canSubmit={canSubmit}
+          isInfo={currentExercise.exerciseType == "INFO"}
         />
       </MainGridWrapper>
     </LessonContext.Provider>
