@@ -1,11 +1,11 @@
-import type { ComponentType, JSX } from 'react';
+import type { ComponentType, JSX } from "react";
 
 type IconProps = { className?: string };
 
 const Icons = {
   Commit: CommitIcon,
   Python: PythonIcon,
-  Swift: SwiftIcon
+  Swift: SwiftIcon,
 } as const satisfies Record<string, ComponentType<IconProps>>;
 
 export type IconName = keyof typeof Icons; // "Commit" | "Python"
@@ -14,7 +14,7 @@ type CustomIconProps = IconProps & { iconName: IconName };
 
 export function CustomIcon({ iconName, className }: CustomIconProps) {
   const Icon = Icons[iconName];
-  return <Icon className={className ?? 'h-6 w-6'} />;
+  return <Icon className={className ?? "h-6 w-6"} />;
 }
 
 export function CommitIcon({ className }: IconProps): JSX.Element {
@@ -26,6 +26,23 @@ export function CommitIcon({ className }: IconProps): JSX.Element {
       fill="currentColor"
     >
       <path d="M448,224H380a128,128,0,0,0-247.9,0H64a32,32,0,0,0,0,64h68.05A128,128,0,0,0,380,288H448a32,32,0,0,0,0-64ZM256,320a64,64,0,1,1,64-64A64.07,64.07,0,0,1,256,320Z" />
+    </svg>
+  );
+}
+
+export function LockIcon({ className }: IconProps): JSX.Element {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M5.25 10.0546V8C5.25 4.27208 8.27208 1.25 12 1.25C15.7279 1.25 18.75 4.27208 18.75 8V10.0546C19.8648 10.1379 20.5907 10.348 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.40931 10.348 4.13525 10.1379 5.25 10.0546ZM6.75 8C6.75 5.10051 9.10051 2.75 12 2.75C14.8995 2.75 17.25 5.10051 17.25 8V10.0036C16.867 10 16.4515 10 16 10H8C7.54849 10 7.13301 10 6.75 10.0036V8Z"
+      />
     </svg>
   );
 }
