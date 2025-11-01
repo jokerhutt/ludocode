@@ -16,6 +16,7 @@ import type {
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { useCommitAttempt } from "./useCommitAttempt";
+import { playSound } from "@/Sounds/soundManager";
 
 type Args = {
   exercises: LudoExercise[];
@@ -59,6 +60,13 @@ export function useExerciseFlow({
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
+    if (isCorrect) {
+      playSound("correct")
+    } else {
+      playSound("wrong")
+    } 
+
+
     setSubmissionBuffer({
       exerciseId: currentExercise.id,
       isCorrect,
