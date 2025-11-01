@@ -62,7 +62,11 @@ export const LessonForm = withForm({
                         name={`modules[${mi}].lessons[${index}].title`}
                       >
                         {(f) => (
-                          <f.TitleField arrayLength={fa.state.value.length} deletable onDelete={handleDelete} />
+                          <f.TitleField
+                            arrayLength={fa.state.value.length}
+                            deletable
+                            onDelete={handleDelete}
+                          />
                         )}
                       </form.AppField>
 
@@ -74,17 +78,26 @@ export const LessonForm = withForm({
                       />
                     </div>
 
-                    <SelectionSideTab
-                      active={isActive}
-                      onClick={() =>
-                        router.navigate(
-                          ludoNavigation.build.toBuilder(
-                            courseId,
-                            moduleId,
-                            thisKey || undefined
-                          )
-                        )
-                      }
+                    <form.AppField
+                      name={`modules[${mi}].lessons[${index}].exercises`}
+                      children={(subField) => {
+                        const hasError = subField.state.meta.errors?.[0]?.message
+                        return (
+                          <SelectionSideTab
+                            active={isActive}
+                            hasError={hasError}
+                            onClick={() =>
+                              router.navigate(
+                                ludoNavigation.build.toBuilder(
+                                  courseId,
+                                  moduleId,
+                                  thisKey || undefined
+                                )
+                              )
+                            }
+                          />
+                        );
+                      }}
                     />
                   </ListRow>
                 );

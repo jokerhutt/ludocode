@@ -24,7 +24,7 @@ export const ExerciseSubForm = withForm({
           if (!exercise) return null;
 
           return (
-            <ListContainer title={exerciseField.state.value.title}>
+            <ListContainer title={exerciseField.state.value.title ?? ""}>
               <ExerciseTitlesForm
                 form={form}
                 moduleIndex={moduleIndex}
@@ -32,22 +32,31 @@ export const ExerciseSubForm = withForm({
                 currentExerciseIndex={currentExerciseIndex}
               />
               {/* CORRECT */}
-              <ListRow hover={false} fill px="px-4" py="py-2">
-                <div className="flex flex-col w-full">
-                  <p>Correct:</p>
-                  <div
-                    className={`w-full py-2 px-4 grid ${
-                      exercise.exerciseType == "CLOZE"
-                        ? "grid-cols-3 auto-rows-auto"
-                        : "grid-cols-1"
-                    } gap-2 items-start`}
-                  >
-                    <form.Field
-                      name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions`}
-                      key={`correctOptions-${exercise.id}`}
-                      mode="array"
-                      children={(correctOptionsArray) => (
-                        <>
+
+              <form.Field
+                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions`}
+                key={`correctOptions-${exercise.id}`}
+                mode="array"
+                children={(correctOptionsArray) => {
+                  const hasError =
+                    correctOptionsArray.state.meta.errors?.[0]?.message;
+                  return (
+                    <ListRow hover={false} fill px="px-4" py="py-2">
+                      <div className="flex flex-col w-full">
+                        <p
+                          className={`${
+                            hasError ? "text-red-500 font-bold" : ""
+                          }`}
+                        >
+                          Correct:
+                        </p>
+                        <div
+                          className={`w-full py-2 px-4 grid ${
+                            exercise.exerciseType == "CLOZE"
+                              ? "grid-cols-3 auto-rows-auto"
+                              : "grid-cols-1"
+                          } gap-2 items-start`}
+                        >
                           {correctOptionsArray.state.value.map((_, index) => (
                             <form.AppField
                               name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions[${index}].content`}
@@ -76,50 +85,60 @@ export const ExerciseSubForm = withForm({
                               )}
                             </form.AppField>
                           ))}
-                        </>
-                      )}
-                    />
-                  </div>
-                </div>
-              </ListRow>
+                        </div>
+                      </div>
+                    </ListRow>
+                  );
+                }}
+              />
 
-              <ListRow hover={false} fill px="px-4" py="py-2">
-                <div className="flex flex-col w-full">
-                  <p>Distractors:</p>
-                  <div
-                    className={`w-full py-2 px-4 grid ${
-                      exercise.exerciseType == "CLOZE"
-                        ? "grid-cols-3 auto-rows-auto"
-                        : "grid-cols-1"
-                    } gap-2 items-start`}
-                  >
-                    <form.Field
-                      name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors`}
-                      key={`distractors-${exercise.id}`}
-                      mode="array"
-                      children={(distractorsArray) => (
-                        <>
-                          {distractorsArray.state.value.map((_, index) => (
-                            <form.AppField
-                              name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors[${index}].content`}
-                            >
-                              {() => (
-                                <div className="flex items-center gap-2 border-ludoLightPurple border-2 rounded-lg">
-                                  <ExerciseOptionInputField
-                                    onEmpty={() =>
-                                      distractorsArray.removeValue(index)
-                                    }
-                                  />
-                                </div>
-                              )}
-                            </form.AppField>
-                          ))}
-                        </>
-                      )}
-                    />
-                  </div>
-                </div>
-              </ListRow>
+              <form.Field
+                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors`}
+                key={`distractors-${exercise.id}`}
+                mode="array"
+                children={(distractorsArray) => {
+                  const hasError =
+                    distractorsArray.state.meta.errors?.[0]?.message;
+                  return (
+                    <ListRow hover={false} fill px="px-4" py="py-2">
+                      <div className={`flex flex-col w-full`}>
+                        <p
+                          className={`${
+                            hasError ? "text-red-500 font-bold" : ""
+                          }`}
+                        >
+                          Distractors:
+                        </p>
+                        <div
+                          className={`w-full py-2 px-4 grid ${
+                            exercise.exerciseType == "CLOZE"
+                              ? "grid-cols-3 auto-rows-auto"
+                              : "grid-cols-1"
+                          } gap-2 items-start`}
+                        >
+                          <>
+                            {distractorsArray.state.value.map((_, index) => (
+                              <form.AppField
+                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].distractors[${index}].content`}
+                              >
+                                {() => (
+                                  <div className="flex items-center gap-2 border-ludoLightPurple border-2 rounded-lg">
+                                    <ExerciseOptionInputField
+                                      onEmpty={() =>
+                                        distractorsArray.removeValue(index)
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </form.AppField>
+                            ))}
+                          </>
+                        </div>
+                      </div>
+                    </ListRow>
+                  );
+                }}
+              />
 
               <ListRow hover={false} px="px-0" py="py-0">
                 <div className="bg-ludoGrayLight w-full px-6 py-4 flex justify-between rounded-b-2xl">

@@ -1,35 +1,11 @@
 import type { ExerciseType } from "../Exercise/ExerciseType";
+import type { CourseSnapSchema } from "../Zod/CourseSnapSchema";
+import type { ExerciseSnapSchema } from "../Zod/ExerciseSnapSchema";
+import type { LessonSnapSchema } from "../Zod/LessonSnapSchema";
+import type { ModuleSnapshotSchema } from "../Zod/ModuleSnapshotSchema";
+import {z} from "zod"
 
-export type OptionSnap = {
-  content: string;
-  answerOrder: number | null;
-};
-
-export type CourseSnap = {
-  courseId: string;
-  modules: ModuleSnapshot[];
-};
-
-export type ModuleSnapshot = {
-  moduleId: string | null;
-  tempId: string;
-  title: string;
-  lessons: LessonSnap[];
-};
-
-export type ExerciseSnap = {
-  id: string | null; // UUID string or null
-  title: string;
-  prompt: string;
-  exerciseType: ExerciseType; // your existing enum
-  correctOptions: OptionSnap[];
-  distractors: OptionSnap[];
-};
-
-export type LessonSnap = {
-  id: string | null; // UUID string or null
-  tempId: string; // UUID string
-  title: string;
-  orderIndex: number;
-  exercises: ExerciseSnap[];
-};
+export type ExerciseSnap = z.infer<typeof ExerciseSnapSchema>;
+export type LessonSnap   = z.infer<typeof LessonSnapSchema>;
+export type ModuleSnap   = z.infer<typeof ModuleSnapshotSchema>;
+export type CourseSnap   = z.infer<typeof CourseSnapSchema>;

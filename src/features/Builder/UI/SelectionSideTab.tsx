@@ -1,13 +1,22 @@
 type SelectionSideTabProps = {
   active: boolean;
   onClick: () => void;
+  hasError?: string;
 };
 
-export function SelectionSideTab({ active, onClick }: SelectionSideTabProps) {
+export function SelectionSideTab({
+  active,
+  onClick,
+  hasError,
+}: SelectionSideTabProps) {
   return (
     <div
       className={`w-4 hover:cursor-pointer self-stretch flex ${
-        active ? "bg-ludoLightPurple" : "bg-ludoLightPurple/20"
+        hasError
+          ? "bg-red-500"
+          : active
+          ? "bg-ludoLightPurple"
+          : "bg-ludoLightPurple/20"
       }`}
       onClick={onClick}
     >
