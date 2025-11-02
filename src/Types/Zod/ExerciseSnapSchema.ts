@@ -9,6 +9,7 @@ const OptionSnap = z.object({
 const Base = z.object({
   id: z.string().uuid().optional(),
   title: z.string().optional().nullable(),
+  subtitle: z.string().optional().nullable(),
   prompt: z.string().optional().nullable(),
   correctOptions: z.array(OptionSnap),
   distractors: z.array(OptionSnap),

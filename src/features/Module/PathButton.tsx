@@ -27,6 +27,7 @@ export function PathButton({ lesson, isCurrent }: PathButtonProps) {
     : "DEFAULT";
 
   const goToLesson = () => {
+    if (isLocked) return;
     router.navigate(ludoNavigation.lesson.start("Python", lesson.id));
   };
 
