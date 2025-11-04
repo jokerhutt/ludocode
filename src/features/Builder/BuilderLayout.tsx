@@ -11,7 +11,7 @@ import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { useQueryClient } from "@tanstack/react-query";
 import { qk } from "@/constants/qk";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
-import { CourseSnapSchema } from "@/Types/Zod/CourseSnapSchema";
+import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 
 type BuilderLayoutProps = {};
@@ -29,24 +29,25 @@ export function BuilderLayout({}: BuilderLayoutProps) {
   const form = useAppForm({
     ...courseFormOpts,
     defaultValues: { courseId, modules },
-  onSubmit: async ({ value }) => {
-    try {
-      console.log("1")
-      const fresh = await ludoPost<CourseSnap>(
-        SUBMIT_COURSE_SNAPSHOT,
-        value,
-        true
-      );
-      console.log("2")
+    onSubmit: async ({ value }) => {
+      try {
+        console.log("1");
+        const fresh = await ludoPost<CourseSnap>(
+          SUBMIT_COURSE_SNAPSHOT,
+          value,
+          true
+        );
+        console.log("2");
 
-      qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
-      form.update({ defaultValues: fresh });
-      form.reset();
-    } catch (err) {
-      console.log("Error")
-      console.error("❌ Submission failed:", err);
-    }}
-});
+        qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
+        form.update({ defaultValues: fresh });
+        form.reset();
+      } catch (err) {
+        console.log("Error");
+        console.error("❌ Submission failed:", err);
+      }
+    },
+  });
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
   const changeCurrentExerciseIndex = (index: number) =>
@@ -78,9 +79,9 @@ export function BuilderLayout({}: BuilderLayoutProps) {
               text="submit"
               active={true}
               onClick={async () => {
-              console.log( "hi" )
+                console.log("hi");
                 const result = await form.validate("submit");
-                console.log(JSON.stringify(result))
+                console.log(JSON.stringify(result));
 
                 form.handleSubmit();
               }}

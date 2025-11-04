@@ -6,7 +6,7 @@ import { ExerciseSubForm } from "./ExerciseSubForm";
 import { buildRoute } from "../../../routes/router";
 import { AddExerciseFieldButton } from "../Fields/AddExerciseFieldButton";
 import { ExerciseIndexSlot } from "../UI/ExerciseIndexSlot";
-import { ExerciseSnapSchema } from "@/Types/Zod/ExerciseSnapSchema";
+import { ExerciseSnapSchema } from "@/Types/Zod/SnapshotSchema/ExerciseSnapSchema";
 import { ListRow } from "@/components/Atoms/Row/ListRow";
 import { OrderSelector } from "../UI/OrderSelector";
 
@@ -25,9 +25,7 @@ export const ExerciseForm = withForm({
     if (mi < 0) return null;
 
     const lessons = mods[mi].lessons;
-    const li = lessonId
-      ? lessons.findIndex((l) => (l.id) === lessonId)
-      : 0;
+    const li = lessonId ? lessons.findIndex((l) => l.id === lessonId) : 0;
     if (li < 0 || !lessons[li]) return null;
 
     return (
@@ -50,15 +48,15 @@ export const ExerciseForm = withForm({
               />
               <ListRow>
                 <div className="w-full">
-                    <OrderSelector
-                      index={currentIndex}
-                      count={fieldArray.state.value.length}
-                      onChange={(newIndex) => {
-                        fieldArray.moveValue(currentIndex, newIndex)
-                        changeCurrentIndex(newIndex)
-                      }}
-                      className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
-                    />
+                  <OrderSelector
+                    index={currentIndex}
+                    count={fieldArray.state.value.length}
+                    onChange={(newIndex) => {
+                      fieldArray.moveValue(currentIndex, newIndex);
+                      changeCurrentIndex(newIndex);
+                    }}
+                    className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
+                  />
                 </div>
               </ListRow>
 

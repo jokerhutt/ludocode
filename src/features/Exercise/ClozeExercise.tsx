@@ -6,7 +6,8 @@ import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrappe
 
 type ClozeExerciseProps = {
   answerField: string;
-  options: LudoExerciseOption[];
+  correctOptions: LudoExerciseOption[];
+  distractors: LudoExerciseOption[];
   userResponses: string[];
   setAnswerAt: (index: number, value: string) => void;
   addSelection: (option: string) => void;
@@ -14,7 +15,8 @@ type ClozeExerciseProps = {
 
 export function ClozeExercise({
   answerField,
-  options,
+  correctOptions,
+  distractors,
   userResponses,
   setAnswerAt,
   addSelection,

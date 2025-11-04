@@ -28,27 +28,6 @@ export const CourseSnapSchema = z
       seen.add(id);
     }
 
-    // --- check duplicates within tempIds only ---
-    const temps = c.modules.map((m) => m.tempId);
-    const dupTemp = (() => {
-      const seen = new Set<string>();
-      for (const t of temps) {
-        if (seen.has(t)) return t;
-        seen.add(t);
-      }
-      return null;
-    })();
-    if (dupTemp) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["modules"],
-        message: `Duplicate module tempId: ${dupTemp}`,
-      });
-    }
-
-    // 🟢 remove old “collision” check:
-    // don't flag if a tempId matches an existing moduleId
-    // (expected during sync between new and persisted)
   });
 
 export function validateCourseSnapshot(payload: unknown) {
