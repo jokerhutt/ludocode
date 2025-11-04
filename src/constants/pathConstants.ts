@@ -25,11 +25,13 @@ export const GET_COURSE_PROGRESS_FROM_IDS = (courseIds: string) =>
 export const GET_USER_STATS_FROM_USER_IDS = (userIds: string) =>
   API_PATH + `/progress/stats/ids?${userIds}`;
 
-export const CHANGE_COURSE = API_PATH + `/users/update/course`;
+export const CHANGE_COURSE = API_PATH + `/progress/course/update/course`;
 
 export const GOOGLE_LOGIN = API_PATH + `/auth/google-login`;
 
 export const AUTH_ME = API_PATH + `/auth/me`;
+
+export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`
 
 export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
   API_PATH + `/catalog/exercises/${lessonId}`;

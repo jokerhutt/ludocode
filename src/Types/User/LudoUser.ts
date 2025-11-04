@@ -5,5 +5,4 @@ export type LudoUser = {
     pfpSrc: string,
     email: string,
     createdAt: string,
-    currentCourse: string | null
 }

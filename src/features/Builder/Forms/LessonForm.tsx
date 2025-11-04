@@ -16,7 +16,7 @@ export const LessonForm = withForm({
     const { lessonId } = buildRoute.useSearch();
 
     const modules = form.state.values.modules;
-    const mi = modules.findIndex((m) => m.tempId === moduleId);
+    const mi = modules.findIndex((m) => m.moduleId === moduleId);
     if (mi < 0) return null;
 
     return (
@@ -29,8 +29,8 @@ export const LessonForm = withForm({
           <div className="col-start-4 col-end-8 flex flex-col gap-10 lg:gap-8 items-center px-8 py-14 min-w-0">
             <ListContainer title="Lessons">
               {fa.state.value.map((lesson, index) => {
-                const key = lesson.id ?? lesson.tempId ?? `i-${index}`;
-                const thisKey = lesson.id ?? lesson.tempId ?? "";
+                const key = lesson.id ??`i-${index}`;
+                const thisKey = lesson.id ?? "";
                 const isActive = (lessonId ?? "") === thisKey;
 
                 const handleDelete = (e?: React.MouseEvent) => {
@@ -39,11 +39,9 @@ export const LessonForm = withForm({
                   const arr = fa.state.value;
                   const nextKey =
                     arr[index + 1]?.id ??
-                    arr[index + 1]?.tempId ??
-                    arr[index - 1]?.id ??
-                    arr[index - 1]?.tempId;
+                    arr[index - 1]?.id
 
-                  if (isActive) {
+                  if (isActive && nextKey) {
                     router.navigate(
                       ludoNavigation.build.toBuilder(
                         courseId,
@@ -108,8 +106,7 @@ export const LessonForm = withForm({
                 py="py-2"
                 onClick={() =>
                   fa.pushValue({
-                    id: null,
-                    tempId: uuid(),
+                    id: uuid(),
                     title: "",
                     orderIndex: fa.state.value.length,
                     exercises: [],

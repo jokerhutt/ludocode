@@ -29,21 +29,19 @@ export const ModuleForm = withForm({
                 {fa.state.value.map((m, index) => {
                   console.log(m);
                   if (!m) return null;
-                  const thisId = m.tempId;
+                  const thisId = m.moduleId;
 
                   const handleDelete = (e?: React.MouseEvent) => {
                     e?.preventDefault?.();
                     e?.stopPropagation?.();
 
                     const mods = fa.state.value;
-                    const thisId = m.tempId;
+                    const thisId = m.moduleId
                     const isCurrent = moduleId === thisId;
 
                     const nextId =
                       mods[index + 1]?.moduleId ??
-                      mods[index + 1]?.tempId ??
-                      mods[index - 1]?.moduleId ??
-                      mods[index - 1]?.tempId;
+                      mods[index - 1]?.moduleId
 
                     if (isCurrent) {
                       router.navigate(
@@ -91,7 +89,7 @@ export const ModuleForm = withForm({
                             active={moduleId === thisId}
                             onClick={() =>
                               router.navigate(
-                                ludoNavigation.build.toBuilder(courseId, thisId)
+                                ludoNavigation.build.toBuilder(courseId, thisId!!)
                               )
                             }
                           />
@@ -107,8 +105,7 @@ export const ModuleForm = withForm({
                   py="py-2"
                   onClick={() =>
                     fa.pushValue({
-                      moduleId: null,
-                      tempId: uuid(),
+                      moduleId: uuid(),
                       title: "",
                       lessons: [],
                     })

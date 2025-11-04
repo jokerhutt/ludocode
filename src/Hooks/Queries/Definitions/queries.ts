@@ -19,6 +19,7 @@ import {
   GET_ALL_COURSES,
   GET_COURSE_SNAPSHOT,
   GET_COURSE_TREE,
+  GET_CURRENT_COURSE_ID,
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
 } from "../../../constants/pathConstants.ts";
@@ -46,6 +47,14 @@ export const qo = {
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
       staleTime: 60_000,
+    }),
+
+  currentCourseId: () =>
+    queryOptions<string>({
+      queryKey: qk.currentCourseId(),
+      queryFn: () => ludoGet<string>(GET_CURRENT_COURSE_ID, true),
+      staleTime: 60_000,
+      retry: false,
     }),
 
   module: (moduleId: string) =>

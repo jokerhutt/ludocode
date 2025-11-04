@@ -12,8 +12,11 @@ export async function modulesRedirectLoader(
   queryClient: QueryClient
 ) {
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
+  const currentCourseId: string = await queryClient.ensureQueryData(
+    qo.currentCourseId()
+  );
 
-  if (!user.currentCourse) {
+  if (!currentCourseId || !user) {
     throw redirect({
       to: RP_AUTH,
       replace: true,
@@ -21,10 +24,9 @@ export async function modulesRedirectLoader(
   }
 
   const courseProgress: CourseProgress = await queryClient.ensureQueryData(
-    qo.courseProgress(user.currentCourse)
+    qo.courseProgress(currentCourseId)
   );
 
-  const currentCourseId = courseProgress.courseId;
   const moduleId = courseProgress.moduleId;
 
   console.log("CURRENT COURSE ID IS " + currentCourseId);
@@ -47,9 +49,13 @@ export async function buildRedirectLoader(
   qc: QueryClient
 ) {
   const user = await qc.ensureQueryData(qo.currentUser());
-  if (!user.currentCourse) throw redirect({ to: RP_AUTH, replace: true });
+  const currentCourseId: string = await qc.ensureQueryData(
+    qo.currentCourseId()
+  );
 
-  const cp = await qc.ensureQueryData(qo.courseProgress(user.currentCourse));
+  if (!currentCourseId || !user) throw redirect({ to: RP_AUTH, replace: true });
+
+  const cp = await qc.ensureQueryData(qo.courseProgress(currentCourseId));
 
   throw redirect({
     to: RP_BUILD,
@@ -73,18 +79,18 @@ export async function modulePageLoader(
 }
 
 export async function builderPageLoader(
-  params: {courseId: string; moduleId: string},
+  params: { courseId: string; moduleId: string },
   queryClient: QueryClient
 ) {
-
   const { courseId, moduleId } = params;
 
   if (!courseId) {
     throw redirect({ to: RP_AUTH, replace: true });
   }
 
-  const courseSnapshot = await queryClient.ensureQueryData(qo.courseSnapshot(courseId))
-  console.log(JSON.stringify(courseSnapshot.modules))
-  return {courseSnapshot}
-
+  const courseSnapshot = await queryClient.ensureQueryData(
+    qo.courseSnapshot(courseId)
+  );
+  console.log(JSON.stringify(courseSnapshot.modules));
+  return { courseSnapshot };
 }

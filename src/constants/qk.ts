@@ -2,6 +2,7 @@ export const qk = {
   courses: () => ["courses"] as const,
 
   courseTree: (courseId: string) => ["courseTree", courseId] as const,
+  currentCourseId: () => ["currentCourseId"] as const,
   course: (courseId: string) => ["course", courseId] as const,
   module: (moduleId: string) => ["module", moduleId] as const,
   lesson: (lessonId: string) => ["lesson", lessonId] as const,

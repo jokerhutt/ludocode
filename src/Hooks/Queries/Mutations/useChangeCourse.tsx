@@ -11,20 +11,18 @@ export function useChangeCourse() {
   return useMutation({
     ...mutations.changeCourse(),
     onSuccess: (payload: ChangeCourseType) => {
-      const updatedUser = payload.user;
       const newCourseProgress = payload.courseProgress;
       const newEnrolled = payload.enrolled;
 
-      if (!updatedUser || !newCourseProgress) {
+      if (!newCourseProgress) {
         throw new Error("Malformed ChangeCourseType");
       }
 
-      qc.setQueryData(qk.user(updatedUser.id), updatedUser);
       qc.setQueryData(
         qk.courseProgress(newCourseProgress.courseId),
         newCourseProgress
       );
-      qc.setQueryData(qk.currentUser(), updatedUser);
+      qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId)
       qc.setQueryData(qk.enrolled(), newEnrolled);
       router.navigate(ludoNavigation.module.toCurrent());
     },

@@ -6,30 +6,16 @@ const nonEmpty = z.string().trim().min(1, "Required");
 export const ModuleSnapshotSchema = z
   .object({
     moduleId: z.string().uuid().nullable(), // backend ID
-    tempId: z.string().uuid(), // always required
     title: nonEmpty,
     lessons: z
       .array(LessonSnapSchema)
       .min(1, "Module must contain at least one lesson"),
   })
   .superRefine((m, ctx) => {
-    // --- ID consistency ---
-    if (m.moduleId && m.tempId !== m.moduleId) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["tempId"],
-        message: "For existing modules, tempId must equal moduleId",
-      });
-    }
+
 
     // --- Lesson ID and tempId uniqueness ---
     const ids = m.lessons.map((l) => l.id).filter(Boolean) as string[];
-    const tempIds = m.lessons.map((l) => l.tempId);
-
-    // Allow overlap where id === tempId (same lesson)
-    const normalizedTempIds = tempIds.filter(
-      (t) => !ids.includes(t) // ignore identical pairs
-    );
 
     const dup = (arr: string[]) => {
       const seen = new Set<string>();
@@ -48,13 +34,6 @@ export const ModuleSnapshotSchema = z
         message: `Duplicate lesson id: ${dupId}`,
       });
 
-    const dupTemp = dup(normalizedTempIds);
-    if (dupTemp)
-      ctx.addIssue({
-        code: "custom",
-        path: ["lessons"],
-        message: `Duplicate lesson tempId: ${dupTemp}`,
-      });
   });
 
 export function validateModuleSnapshot(payload: unknown) {

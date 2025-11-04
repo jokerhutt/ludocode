@@ -8,6 +8,8 @@ export type LudoExercise = {
   subtitle?: string;
   prompt?: string;
   exerciseType: ExerciseType;
-  exerciseOptions: LudoExerciseOption[];
-  version: number
+  correctOptions: LudoExerciseOption[];
+  distractors: LudoExerciseOption[];
+  version: number;
+  orderIndex: number;
 };

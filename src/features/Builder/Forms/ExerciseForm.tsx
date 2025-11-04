@@ -21,12 +21,12 @@ export const ExerciseForm = withForm({
     const { lessonId } = buildRoute.useSearch();
 
     const mods = form.state.values.modules;
-    const mi = mods.findIndex((m) => m.tempId === moduleId);
+    const mi = mods.findIndex((m) => m.moduleId === moduleId);
     if (mi < 0) return null;
 
     const lessons = mods[mi].lessons;
     const li = lessonId
-      ? lessons.findIndex((l) => (l.id ?? l.tempId) === lessonId)
+      ? lessons.findIndex((l) => (l.id) === lessonId)
       : 0;
     if (li < 0 || !lessons[li]) return null;
 
