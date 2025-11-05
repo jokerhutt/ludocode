@@ -1,13 +1,10 @@
-import type { StepProps } from "@/Types/Onboarding/OnboardingSteps";
 import { useOnboardingContext } from "../OnboardingContext";
 
-
 export function CourseChoiceStep() {
-  
-  const {content, hook} = useOnboardingContext();
-  const {selectedCareer, selectedCourse, chooseCourse} = hook;
+  const { content, hook } = useOnboardingContext();
+  const { selectedCourse, chooseCourse } = hook;
 
-  const isSelected = (courseId: string) => courseId == selectedCourse
+  const isSelected = (courseId: string) => courseId == selectedCourse;
 
   return (
     <>
@@ -18,7 +15,7 @@ export function CourseChoiceStep() {
         {content.courseContent.map((cContent) => (
           <div
             onClick={() => chooseCourse(cContent.courseId)}
-            className={`p-6 ${
+            className={`p-6 hover:cursor-pointer ${
               isSelected(cContent.courseId)
                 ? "border-2 border-ludoLightPurple"
                 : ""

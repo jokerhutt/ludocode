@@ -29,4 +29,14 @@ export const onboardingContent: OnboardingFormContent = {
       topPath: "Swift",
     },
   ],
+  previousExperienceContent: [
+    {
+      content: "No, i've never programmed before",
+      value: false,
+    },
+    {
+      content: "Yes, I have programmed before",
+      value: true,
+    },
+  ],
 };

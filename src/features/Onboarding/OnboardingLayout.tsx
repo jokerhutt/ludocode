@@ -2,7 +2,6 @@ import { MainContentWrapper } from "@/Layouts/LayoutWrappers/MainContentWrapper"
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
 import { TutorialHeader } from "../Tutorial/TutorialHeader";
 import { Outlet, useParams } from "@tanstack/react-router";
-import type { OnboardingFormContent } from "@/Types/Onboarding/OnboardingCourse";
 import { type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import {
   OnboardingContext,
@@ -12,8 +11,6 @@ import { useOnboardingFlow } from "./useOnboardingFlow";
 import { onboardingStageRoute } from "@/routes/router";
 import { OnboardingFooter } from "./OnboardingFooter";
 import { onboardingContent } from "./onboardingMocks";
-
-
 
 export function OnboardingLayout() {
   const { stage } = useParams({ from: onboardingStageRoute.id }) as {

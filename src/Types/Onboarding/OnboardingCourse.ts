@@ -1,6 +1,7 @@
 export type OnboardingFormContent = {
     courseContent: OnboardingCourseType[]
     careerContent: OnboardingCareerType[]
+    previousExperienceContent: PreviousExperienceType[]
 }
 
 export type OnboardingCourseType = {
@@ -10,6 +11,11 @@ export type OnboardingCourseType = {
 }
 
 export type CareerType = "Data Science" | "IOS DEVELOPER"
+
+export type PreviousExperienceType = {
+    content: string;
+    value: boolean
+}
 
 export type OnboardingCareerType = {
     courseId: string;
