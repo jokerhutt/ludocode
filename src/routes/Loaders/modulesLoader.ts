@@ -11,10 +11,12 @@ export async function modulesRedirectLoader(
   location: { pathname: string },
   queryClient: QueryClient
 ) {
+  console.log("M0")
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
   const currentCourseId: string = await queryClient.ensureQueryData(
     qo.currentCourseId()
   );
+   console.log("M1")
 
   if (!currentCourseId || !user) {
     throw redirect({
@@ -23,6 +25,7 @@ export async function modulesRedirectLoader(
     });
   }
 
+  console.log("M2")
   const courseProgress: CourseProgress = await queryClient.ensureQueryData(
     qo.courseProgress(currentCourseId)
   );

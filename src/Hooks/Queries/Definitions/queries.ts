@@ -22,10 +22,12 @@ import {
   GET_CURRENT_COURSE_ID,
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
+  GET_USER_PREFERENCES,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
+import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -40,6 +42,13 @@ export const qo = {
       queryKey: qk.courseProgress(courseId),
       queryFn: () => courseProgressBatcher.fetch(courseId),
       staleTime: 60_000,
+    }),
+
+  preferences: () =>
+    queryOptions<UserPreferences>({
+      queryKey: qk.preferences(),
+      queryFn: () => ludoGet<UserPreferences>(GET_USER_PREFERENCES, true),
+      staleTime: 60_000
     }),
 
   lesson: (lessonId: string) =>

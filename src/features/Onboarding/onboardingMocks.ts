@@ -3,28 +3,28 @@ import type { OnboardingFormContent } from "@/Types/Onboarding/OnboardingCourse"
 export const onboardingContent: OnboardingFormContent = {
   courseContent: [
     {
-      courseId: "1",
+      courseId: "7441852b-f392-49a5-a397-1558322385b2",
       title: "Python",
       description: "Python is a simple programming language",
     },
     {
-      courseId: "2",
+      courseId: "85f9dc0b-0511-4301-8374-dee51dbd11a9",
       title: "Swift",
       description: "Swift is by apple",
     },
   ],
   careerContent: [
     {
-      courseId: "1",
+      courseId: "7441852b-f392-49a5-a397-1558322385b2",
       title: "Data science",
-      careerType: "Data Science",
+      careerType: "DATA",
       description: "Data scientists",
       topPath: "Python",
     },
     {
-      courseId: "2",
+      courseId: "85f9dc0b-0511-4301-8374-dee51dbd11a9",
       title: "IOS Developer",
-      careerType: "IOS DEVELOPER",
+      careerType: "IOS",
       description: "Ios Developer",
       topPath: "Swift",
     },

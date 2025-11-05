@@ -4,7 +4,7 @@ export function HasExperienceStep() {
   const { content, hook } = useOnboardingContext();
   const { hasProgrammingExperience, chooseProgrammingExperience } = hook;
 
-  const isSelected = (value: boolean) => value == hasProgrammingExperience;
+  const isSelected = (value: boolean) => value === hasProgrammingExperience;
 
   return (
     <>

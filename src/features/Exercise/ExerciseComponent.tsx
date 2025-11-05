@@ -35,7 +35,7 @@ export function ExerciseComponent({
         <ExercisePrompt prompt={exercise.title} />
 
         <ExerciseBody
-          options={exercise.exerciseOptions}
+          options={exercise.correctOptions}
           answerField={exercise.prompt}
           userResponses={userResponses}
           setAnswerAt={setAnswerAt}

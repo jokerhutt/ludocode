@@ -6,9 +6,12 @@ import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
   SUBMIT_LESSON,
+  SUBMIT_ONBOARDING,
 } from "../../../constants/pathConstants";
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
+import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";
+import type { OnboardingCourseType, OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -21,6 +24,18 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<LessonCompletionPacket, LessonSubmission>(
           SUBMIT_LESSON,
+          variables,
+          true
+        ),
+    });
+  },
+
+  submitOnboarding: () => {
+    return mutationOptions<OnboardingResponse, Error, OnboardingSubmission>({
+      mutationKey: ["submitOnboarding"],
+      mutationFn: (variables) =>
+        ludoPost<OnboardingResponse, OnboardingSubmission>(
+          SUBMIT_ONBOARDING,
           variables,
           true
         ),

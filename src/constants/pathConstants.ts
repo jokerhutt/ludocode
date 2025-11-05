@@ -33,12 +33,14 @@ export const AUTH_ME = API_PATH + `/auth/me`;
 
 export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`
 
+export const GET_USER_PREFERENCES = API_PATH + `/users/preferences`
+
 export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
   API_PATH + `/catalog/exercises/${lessonId}`;
 
 export const GET_ENROLLED_IDS = API_PATH + `/progress/course/enrolled`;
 
-export const SUBMIT_ONBOARDING = API_PATH + `/user/onboarding/submit`
+export const SUBMIT_ONBOARDING = API_PATH + `/users/onboarding/submit`
 
 export const GET_COURSE_SNAPSHOT = (courseId: string) =>
   API_PATH + `/snapshot/${courseId}`;

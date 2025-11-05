@@ -1,4 +1,8 @@
-import type { CareerType } from "@/Types/Onboarding/OnboardingCourse";
+import { useSubmitOnboarding } from "@/Hooks/Queries/Mutations/useSubmitOnboarding";
+import type {
+  CareerType,
+  OnboardingSubmission,
+} from "@/Types/Onboarding/OnboardingCourse";
 import { stepOrder, type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
@@ -27,6 +31,8 @@ export type OnboardingPosition = {
 export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   const nav = useNavigate();
 
+  const submitOnboardingMutation = useSubmitOnboarding();
+
   const idx = stepOrder.indexOf(stage);
   const atFirst = idx <= 0;
   const atLast = idx >= stepOrder.length - 1;
@@ -36,10 +42,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     [nav]
   );
 
-  const next = useCallback(() => {
-    if (!canAdvance) return;
-    if (!atLast) goto(stepOrder[idx + 1]);
-  }, [atLast, goto, idx]);
+
 
   const prev = useCallback(() => {
     if (!atFirst) goto(stepOrder[idx - 1]);
@@ -74,6 +77,37 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     current: idx,
     total: stepOrder.length,
   };
+
+  const next = useCallback(() => {
+    if (!canAdvance) return;
+    if (!atLast) goto(stepOrder[idx + 1]);
+    if (atLast) {
+      console.log("CH1");
+      console.log("CAREER: " + JSON.stringify(selectedCareer));
+      console.log("COURSE: " + JSON.stringify(selectedCourse));
+      console.log("EXP: " + hasProgrammingExperience);
+      if (
+        selectedCareer != null &&
+        selectedCourse != null &&
+        hasProgrammingExperience != null
+      ) {
+        console.log("CH2");
+        const submission: OnboardingSubmission = {
+          chosenPath: selectedCareer,
+          chosenCourse: selectedCourse,
+          hasProgrammingExperience: hasProgrammingExperience,
+        };
+        submitOnboardingMutation.mutate(submission);
+      }
+    }
+  }, [    atLast,
+    goto,
+    idx,
+    canAdvance,                    // depends on state already
+    selectedCareer,
+    selectedCourse,
+    hasProgrammingExperience,
+    submitOnboardingMutation,]);
 
   return {
     goto,
