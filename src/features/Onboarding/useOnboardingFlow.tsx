@@ -7,6 +7,7 @@ type Args = { stage: StageKey };
 
 export type UseOnboardingFlowReturn = {
   goto: (s: StageKey) => void;
+  position: OnboardingPosition;
   next: () => void;
   prev: () => void;
   canAdvance: () => boolean;
@@ -16,6 +17,11 @@ export type UseOnboardingFlowReturn = {
   chooseCareer: (careerType: CareerType) => void;
   chooseCourse: (courseId: string) => void;
   chooseProgrammingExperience: (experience: boolean) => void;
+};
+
+export type OnboardingPosition = {
+  current: number;
+  total: number;
 };
 
 export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
@@ -64,8 +70,14 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     setHasProgrammingExperience(hasExperience);
   }, []);
 
+  const position: OnboardingPosition = {
+    current: idx,
+    total: stepOrder.length,
+  };
+
   return {
     goto,
+    position,
     next,
     prev,
     canAdvance,
