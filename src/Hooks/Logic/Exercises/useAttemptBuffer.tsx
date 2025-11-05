@@ -30,7 +30,7 @@ export function useAttemptBuffer({
     changeBufferExercise();
   }, [changeBufferExercise]);
 
-  const addAnswer = useCallback((value: string) => {
+ const addAnswer = useCallback((value: string) => {
     const trimmed = value.trim();
     setBuffer((prev) => {
       const tempArray = [...prev];

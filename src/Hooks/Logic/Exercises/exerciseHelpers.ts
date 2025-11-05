@@ -31,46 +31,42 @@ export function mergeAttempt(
   return next;
 }
 
-export const getGapCount = (exercise: LudoExercise) => {
-  if (exercise.exerciseType != "CLOZE") {
-    return 1;
-  } else {
-    return (exercise.prompt ?? exercise.title).split("___").length - 1;
-  }
-};
+
+type Opt = { content: string; answerOrder: number | null | undefined };
+
+const norm = (s: string) => (s ?? "").trim();
+
+export const getGapCount = (exercise: LudoExercise) =>
+  exercise.exerciseType === "CLOZE"
+    ? ((exercise.prompt ?? exercise.title ?? "").match(/___/g) ?? []).length
+    : exercise.exerciseType === "INFO"
+    ? 0
+    : 1;
 
 export function areAllFilled(buffer: string[]) {
-  return buffer.every((slot) => slot.trim() !== "");
+  return buffer.every((slot) => norm(slot) !== "");
 }
 
 export function areAllValid(buffer: string[], exercise: LudoExercise) {
-  return buffer.every((slot) => {
-    return exercise.exerciseOptions
-      .map((option) => option.content)
-      .includes(slot.trim());
-  });
+  const allowed = new Set(
+    [...exercise.correctOptions, ...exercise.distractors].map((o) =>
+      norm(o.content)
+    )
+  );
+  return buffer.every((slot) => allowed.has(norm(slot)));
 }
 
-export function checkCorrect(
-  buffer: string[],
-  exercise: LudoExercise
-): boolean {
-  const correctOptions = exercise.exerciseOptions.filter(
-    (o) => o.answerOrder !== null
-  );
+export function checkCorrect(buffer: string[], exercise: LudoExercise): boolean {
+  const correct = exercise.correctOptions
+    .slice()
+    .sort((a: Opt, b: Opt) => (a.answerOrder ?? 0) - (b.answerOrder ?? 0))
+    .map((o) => norm(o.content));
 
-  const expected = correctOptions
-    .sort((a, b) => a.answerOrder! - b.answerOrder!)
-    .map((o) => o.content.trim());
+  const candidate = buffer.map(norm);
 
-  const candidate = buffer.map((s) => (s ?? "").trim());
-
-  if (candidate.length !== expected.length) return false;
-
-  if (candidate.some((s) => s === "")) return false;
-
-  const correctContents = new Set(correctOptions.map((o) => o.content.trim()));
-  if (candidate.some((s) => !correctContents.has(s))) return false;
-
-  return candidate.every((s, i) => s === expected[i]);
+  if (candidate.length !== correct.length) return false;
+  for (let i = 0; i < candidate.length; i++) {
+    if (candidate[i] !== correct[i]) return false;
+  }
+  return true;
 }
