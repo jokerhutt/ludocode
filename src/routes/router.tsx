@@ -25,6 +25,7 @@ import {
   RP_LESSON_COMPLETE_STREAK_INCREASE,
   RP_BUILD_REDIRECT,
   RP_ONBOARDING,
+  RP_ONBOARDING_START,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -73,7 +74,7 @@ const authedRoute = createRoute({
       .ensureQueryData(qo.currentCourseId())
       .catch(() => null);
 
-    if (!currentCourseId) throw redirect({ to: RP_ONBOARDING });
+    if (!currentCourseId) throw redirect({ to: RP_ONBOARDING_START });
   },
 });
 

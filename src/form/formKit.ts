@@ -25,8 +25,7 @@ export const { useAppForm, withForm } = createFormHook({
 export const courseFormOpts = {
   defaultValues: { courseId: "" as string, modules: [] as ModuleSnap[] },
   validators: {
-    onSubmit: CourseSnapSchema, // full validation on submit
-    // or onChange: CourseSnapSchema for live validation
+    onSubmit: CourseSnapSchema,
   },
 };
 export const onboardingFormOpts = {

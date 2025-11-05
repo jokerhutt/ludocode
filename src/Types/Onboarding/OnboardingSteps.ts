@@ -14,4 +14,4 @@ export const steps = {
   career: CareerChoiceStep,
 } as const satisfies Record<StageKey, React.ComponentType<StepProps>>;
 
-export const stepOrder: StageKey[] = ["course", "career"];
+export const stepOrder: StageKey[] = ["career", "course"];

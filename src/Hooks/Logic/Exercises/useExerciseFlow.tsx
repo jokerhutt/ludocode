@@ -43,7 +43,7 @@ export function useExerciseFlow({
     setExerciseSubmissions(merged);
 
   const currentExercise = exercises[index];
-  const version = currentExercise.version
+  const version = currentExercise.version;
   const gapCount = getGapCount(currentExercise);
 
   const bufferState = useAttemptBuffer({
@@ -55,18 +55,18 @@ export function useExerciseFlow({
   const { buffer, clear } = bufferState;
 
   const allSlotsFilled = areAllFilled(buffer);
-  const allSlotsValid = (currentExercise.exerciseType == "INFO") || allSlotsFilled && areAllValid(buffer, currentExercise);
+  const allSlotsValid =
+    currentExercise.exerciseType == "INFO" ||
+    (allSlotsFilled && areAllValid(buffer, currentExercise));
 
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
     if (isCorrect) {
-      playSound("correct")
+      playSound("correct");
     } else {
-      playSound("wrong")
-    } 
-
-
+      playSound("wrong");
+    }
     setSubmissionBuffer({
       exerciseId: currentExercise.id,
       isCorrect,
@@ -84,7 +84,7 @@ export function useExerciseFlow({
     clearSubmissionBuffer,
     exerciseSubmissions,
     mergeExerciseSubmissions,
-    version
+    version,
   });
 
   return {

@@ -10,6 +10,8 @@ export const RP_AUTH = `/auth`
 
 export const RP_ONBOARDING = `/onboarding`
 
+export const RP_ONBOARDING_START = `/onboarding/career`
+
 export const RP_ME = `/profile`;
 
 export const RP_PROFILE = `/profile/$userId`;

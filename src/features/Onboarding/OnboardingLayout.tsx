@@ -1,24 +1,20 @@
 import { MainContentWrapper } from "@/Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
 import { TutorialHeader } from "../Tutorial/TutorialHeader";
-import { LessonFooter } from "@/components/Molecules/Footer/LessonFooter";
-import { onboardingFormOpts, useAppForm } from "@/form/formKit";
-import { Outlet, useNavigate, useParams } from "@tanstack/react-router";
-import { useState } from "react";
-import type {
-  OnboardingCareerType,
-  OnboardingCourseType,
-  OnboardingFormContent,
-} from "@/Types/Onboarding/OnboardingCourse";
+import { Outlet, useParams } from "@tanstack/react-router";
+import type { OnboardingFormContent } from "@/Types/Onboarding/OnboardingCourse";
+import { stepOrder, type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import {
-  stepOrder,
-  steps,
-  type StageKey,
-} from "@/Types/Onboarding/OnboardingSteps";
+  OnboardingContext,
+  type OnboardingContextType,
+} from "./OnboardingContext";
+import {
+  useOnboardingFlow,
+  type UseOnboardingFlowReturn,
+} from "./useOnboardingFlow";
 import { onboardingRoute, onboardingStageRoute } from "@/routes/router";
-import { OnboardingContext } from "./OnboardingContext";
-
-type OnboardingLayoutProps = {};
+import { useEffect } from "react";
+import { OnboardingFooter } from "./OnboardingFooter";
 
 const onboardingContent: OnboardingFormContent = {
   courseContent: [
@@ -51,10 +47,21 @@ const onboardingContent: OnboardingFormContent = {
   ],
 };
 
-
 export function OnboardingLayout() {
+
+
+  const { stage } = useParams({ from: onboardingStageRoute.id }) as {
+    stage: StageKey;
+  };
+  
+  const content = onboardingContent;
+  const contextValue: OnboardingContextType = {
+    content: content,
+    hook: useOnboardingFlow({ stage }),
+  };
+
   return (
-    <OnboardingContext.Provider value={onboardingContent}>
+    <OnboardingContext.Provider value={contextValue}>
       <MainGridWrapper gridRows="FULL">
         <TutorialHeader total={stepOrder.length} position={1} />
         <MainContentWrapper>
@@ -64,9 +71,7 @@ export function OnboardingLayout() {
             </div>
           </div>
         </MainContentWrapper>
-        <LessonFooter phase="DEFAULT">
-          <div className="flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11" />
-        </LessonFooter>
+        <OnboardingFooter />
       </MainGridWrapper>
     </OnboardingContext.Provider>
   );
