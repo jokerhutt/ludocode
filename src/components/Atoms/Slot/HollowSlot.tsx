@@ -11,11 +11,11 @@ type HollowSlotProps = {
 
 export function HollowSlot({ children, gap = "gap-2", hover = true, padding = "px-3 py-2", active, onClick}: HollowSlotProps) {
 
-  const hoverStyle = hover && active ? "hover:bg-ludoLightPurple/80 hover:cursor-pointer" : hover ? "hover:cursor-pointer hover:bg-ludoGrayDark/50" : "";
-  const activeStyle = active ? "bg-ludoLightPurple/60" : "bg-ludoLightGray"
+  const hoverStyle = hover ? "hover:cursor-pointer hover:bg-ludoGrayDark/50" : "";
+  const activeStyle = active ? "border-2 border-ludoLightPurple" : ""
 
   return (
-    <div onClick={() => onClick?.()} className={`flex ${gap} ${hoverStyle} ${padding} ${activeStyle} rounded-lg  justify-center items-center`}>
+    <div onClick={() => onClick?.()} className={`flex ${gap} ${hoverStyle} ${padding} bg-ludoGrayDark ${activeStyle} rounded-lg  justify-center items-center`}>
       {children}
     </div>
   );
