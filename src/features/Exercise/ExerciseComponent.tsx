@@ -36,6 +36,12 @@ export function ExerciseComponent({
         <ExercisePrompt prompt={exercise.title} />
         {exercise.subtitle && <ExercisePrompt prompt={exercise.subtitle} />}
 
+        {exercise.exerciseMedia && (
+          <div className="w-full items-center py-10 flex justify-center">
+            <img className="max-h-60 w-auto" src={exercise.exerciseMedia} />
+          </div>
+        )}
+
         <ExerciseBody
           options={[...exercise.correctOptions, ...exercise.distractors]}
           answerField={exercise.prompt}

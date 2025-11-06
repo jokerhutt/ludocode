@@ -6,7 +6,7 @@ export type LudoExercise = {
   lessonId: string;
   title: string;
   subtitle?: string;
-  media?: string;
+  exerciseMedia?: string;
   prompt?: string;
   exerciseType: ExerciseType;
   correctOptions: LudoExerciseOption[];

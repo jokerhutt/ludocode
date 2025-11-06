@@ -9,6 +9,8 @@ type HollowSlotProps = {
   onClick?: () => void;
 };
 
+
+
 export function HollowSlot({ children, gap = "gap-2", hover = true, padding = "px-3 py-2", active, onClick}: HollowSlotProps) {
 
   const hoverStyle = hover && active ? "hover:bg-ludoLightPurple/80 hover:cursor-pointer" : hover ? "hover:cursor-pointer hover:bg-ludoGrayDark/50" : "";
