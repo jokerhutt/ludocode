@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ActionButton } from "../../components/Atoms/Button/ActionButton";
 import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
-import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter";
+import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
@@ -13,20 +13,17 @@ import { ludoNavigation } from "../../routes/ludoNavigation";
 import { completeRoute, router } from "../../routes/router";
 
 export function LessonCompletionPage() {
-
-
-
   const currentUser = useSuspenseQuery(qo.currentUser());
 
-  const {coins, accuracy, oldStreak, newStreak} = completeRoute.useParams()
-  const hasStreakIncreased = oldStreak < newStreak
+  const { coins, accuracy, oldStreak, newStreak } = completeRoute.useParams();
+  const hasStreakIncreased = oldStreak < newStreak;
 
   const animationData = useLottie("/Animations/LC_CONFETTI.json");
   const altAnimation = useLottie("/Animations/LC_TROPHY.json");
 
   const handleContinue = () => {
-    router.navigate(ludoNavigation.module.toCurrent())
-  }
+    router.navigate(ludoNavigation.module.toCurrent());
+  };
 
   return (
     <MainGridWrapper gridRows="SITE_INVERSE">
@@ -44,13 +41,17 @@ export function LessonCompletionPage() {
           </div>
         </div>
       </MainContentWrapper>
-      <LessonFooter phase="DEFAULT">
+      <DefaultFooter phase="DEFAULT">
         <div
           className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
         >
-          <ActionButton onClick={() => handleContinue()} text="Continue" active={true} />
+          <ActionButton
+            onClick={() => handleContinue()}
+            text="Continue"
+            active={true}
+          />
         </div>
-      </LessonFooter>
+      </DefaultFooter>
     </MainGridWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter";
+import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { buildRoute, router } from "../../routes/router";
 import { courseFormOpts, useAppForm } from "../../form/formKit";
@@ -71,7 +71,7 @@ export function BuilderLayout({}: BuilderLayoutProps) {
             />
           </div>
         </MainContentWrapper>
-        <LessonFooter phase="DEFAULT">
+        <DefaultFooter phase="DEFAULT">
           <div
             className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
           >
@@ -87,7 +87,7 @@ export function BuilderLayout({}: BuilderLayoutProps) {
               }}
             />
           </div>
-        </LessonFooter>
+        </DefaultFooter>
       </div>
     </form.AppForm>
   );

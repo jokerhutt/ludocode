@@ -1,8 +1,6 @@
 import { navIcons } from "../../../constants/navIcons.ts";
 
-
-export function GlobalFooter() {
-
+export function DefaultMobileFooter() {
   const icons = navIcons;
 
   return (
@@ -12,7 +10,12 @@ export function GlobalFooter() {
       <div className="col-start-2 col-end-12 flex justify-between items-center">
         {icons.map((icon) => (
           <div key={icon.name}>
-            <p className="text-white" onClick={() => !!icon.onClick && icon.onClick()}>{icon.name}</p>
+            <p
+              className="text-white"
+              onClick={() => !!icon.onClick && icon.onClick()}
+            >
+              {icon.name}
+            </p>
           </div>
         ))}
       </div>

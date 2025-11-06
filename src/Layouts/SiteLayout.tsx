@@ -1,5 +1,5 @@
 import { Outlet } from "@tanstack/react-router";
-import { GlobalFooter } from "../components/Molecules/Footer/GlobalFooter";
+import { DefaultMobileFooter } from "../components/Molecules/Footer/DefaultMobileFooter";
 import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 import { DesktopHeader } from "./DesktopHeader";
 import { StatsContext } from "../features/Common/StatsContext";
@@ -13,7 +13,7 @@ export function SiteLayout() {
       <MainGridWrapper gridRows={"SITE"}>
         <DesktopHeader />
         <Outlet />
-        <GlobalFooter />
+        <DefaultMobileFooter />
       </MainGridWrapper>
     </StatsContext.Provider>
   );

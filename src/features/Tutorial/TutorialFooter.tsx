@@ -1,6 +1,6 @@
-import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter.tsx";
+import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter.tsx";
 import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes";
-import { SubmitButton } from "../Exercise/SubmitButton";
+import { LessonSubmitButton } from "../Exercise/LessonSubmitButton.tsx";
 
 type TutorialFooterProps = {
   canSubmit: boolean;
@@ -10,17 +10,15 @@ type TutorialFooterProps = {
   isInfo: boolean;
 };
 
-export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT"
-
+export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
 export function TutorialFooter({
   staged,
   canSubmit,
   stage,
   commit,
-  isInfo
+  isInfo,
 }: TutorialFooterProps) {
-
   const hasStaged = staged != null;
 
   const handleSubmit = () => {
@@ -28,15 +26,24 @@ export function TutorialFooter({
     isInfo ? commit(true) : hasStaged ? commit() : stage();
   };
 
-  const phase : ExercisePhase = !hasStaged ? "DEFAULT" : staged.isCorrect ? "CORRECT" : "INCORRECT"
-
+  const phase: ExercisePhase = !hasStaged
+    ? "DEFAULT"
+    : staged.isCorrect
+    ? "CORRECT"
+    : "INCORRECT";
 
   return (
-    <LessonFooter phase={phase}>
-      <div className={`flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}>
+    <DefaultFooter phase={phase}>
+      <div
+        className={`flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
+      >
         <div></div>
-        <SubmitButton phase={phase} submitAnswer={handleSubmit} canSubmit={canSubmit} />
+        <LessonSubmitButton
+          phase={phase}
+          submitAnswer={handleSubmit}
+          canSubmit={canSubmit}
+        />
       </div>
-    </LessonFooter>
+    </DefaultFooter>
   );
 }

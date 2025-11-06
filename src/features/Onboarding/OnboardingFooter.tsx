@@ -1,20 +1,24 @@
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
-import { LessonFooter } from "@/components/Molecules/Footer/LessonFooter";
+import { DefaultFooter } from "@/components/Molecules/Footer/DefaultFooter";
 import { useOnboardingContext } from "./OnboardingContext";
 
 type OnboardingFooterProps = {};
 
 export function OnboardingFooter({}: OnboardingFooterProps) {
-
-  const {hook} = useOnboardingContext()
-  const {canAdvance, next} = hook;
+  const { hook } = useOnboardingContext();
+  const { canAdvance, next } = hook;
 
   return (
-    <LessonFooter phase="DEFAULT">
+    <DefaultFooter phase="DEFAULT">
       <div className="flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11">
         <div />
-        <ActionButton text="Continue" onClick={() => next()}  active={canAdvance()} variant="default" />
+        <ActionButton
+          text="Continue"
+          onClick={() => next()}
+          active={canAdvance()}
+          variant="default"
+        />
       </div>
-    </LessonFooter>
+    </DefaultFooter>
   );
 }

@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { ActionButton } from "../../components/Atoms/Button/ActionButton";
-import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter";
+import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
@@ -30,13 +30,13 @@ export function StreakIncreasePage({}: StreakIncreasePageProps) {
           </div>
         </div>
       </MainContentWrapper>
-      <LessonFooter phase="DEFAULT">
+      <DefaultFooter phase="DEFAULT">
         <div
           className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
         >
           <ActionButton text="Continue" active={true} />
         </div>
-      </LessonFooter>
+      </DefaultFooter>
     </MainGridWrapper>
   );
 }

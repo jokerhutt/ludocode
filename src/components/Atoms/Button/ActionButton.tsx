@@ -1,8 +1,8 @@
 type ActionButtonProps = {
   text: string;
-  variant?: "yellow" | "default" 
+  variant?: "yellow" | "default";
   fill?: boolean;
-  orientation?: "start" | "center" | "end"
+  orientation?: "start" | "center" | "end";
   active?: boolean;
   onClick?: () => void;
 };
@@ -14,8 +14,8 @@ const variants = {
   },
   default: {
     default: "bg-ludoLightPurple/50 text-black/50",
-    active: "bg-ludoLightPurple text-black font-bold"
-  }
+    active: "bg-ludoLightPurple text-black font-bold",
+  },
 } as const;
 
 export function ActionButton({
@@ -26,14 +26,15 @@ export function ActionButton({
   orientation = "start",
   onClick,
 }: ActionButtonProps) {
-
-  const style = active ? variants[variant].active : variants[variant].default  
+  const style = active ? variants[variant].active : variants[variant].default;
   const orientationStyle = {
     start: "text-start",
     center: "text-center",
-    end: "text-end"
-  }
-  const shadowStyle = active ? `shadow-ludoDarkPurpleShadow ` : `shadow-ludoDarkPurpleShadow/50` 
+    end: "text-end",
+  };
+  const shadowStyle = active
+    ? `shadow-ludoDarkPurpleShadow `
+    : `shadow-ludoDarkPurpleShadow/50`;
 
   return (
     <div
