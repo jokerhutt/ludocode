@@ -34,6 +34,7 @@ export function ExerciseComponent({
 
       <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
         <ExercisePrompt prompt={exercise.title} />
+        {exercise.subtitle && <ExercisePrompt prompt={exercise.subtitle} />}
 
         <ExerciseBody
           options={[...exercise.correctOptions, ...exercise.distractors]}
