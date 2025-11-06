@@ -31,7 +31,15 @@ export const ExerciseSubForm = withForm({
                 lessonIndex={lessonIndex}
                 currentExerciseIndex={currentExerciseIndex}
               />
-              {/* CORRECT */}
+              {exercise.media && (
+                <ListRow>
+                  <div className="flex items-center justify-center w-full">
+                    {exercise.media && exercise.media.length > 0 && (
+                      <img src={exercise.media} />
+                    )}
+                  </div>
+                </ListRow>
+              )}
 
               <form.Field
                 name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions`}

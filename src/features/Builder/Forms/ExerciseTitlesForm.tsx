@@ -42,6 +42,14 @@ export const ExerciseTitlesForm = withForm({
             children={(field) => <field.TitleField arrayLength={0} />}
           />
         </ListRow>
+
+        <ListRow hover={false} px="px-4">
+          <p className="mr-4">Media: </p>
+          <form.AppField
+            name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].media`}
+            children={(field) => <field.TitleField arrayLength={0} />}
+          />
+        </ListRow>
       </>
     );
   },

@@ -3,11 +3,13 @@ import { useFieldContext } from "../../../form/formKit";
 
 export default function TitleField({
   deletable,
+  placeHolder = "Enter Title",
   arrayLength,
   onDelete,
 }: {
   arrayLength: number;
   deletable?: boolean;
+  placeHolder?: string;
   onDelete?: () => void;
 }) {
   const field = useFieldContext<string>();
@@ -22,7 +24,7 @@ export default function TitleField({
         className={`pl-2 text-white min-h-6 py-2 rounded-lg border-2 ${
           error ? "border-red-500" : "border-ludoLightPurple"
         }`}
-        placeholder="Enter title"
+        placeholder={placeHolder}
         value={value}
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}
