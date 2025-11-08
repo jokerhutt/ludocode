@@ -13,6 +13,10 @@ export function CourseCard({ course, onClick }: CourseCardProps) {
   const courseIcons: Record<string, IconName> = {
     Python: "Python",
     Swift: "Swift",
+    CSharp: "CSharp",
+    Golang: "Golang",
+    Lua: "Lua"
+
   };
 
   return (

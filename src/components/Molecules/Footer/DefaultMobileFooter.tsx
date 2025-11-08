@@ -5,7 +5,7 @@ export function DefaultMobileFooter() {
 
   return (
     <footer
-      className={`lg:hidden col-span-full grid grid-cols-12 min-h-18 border-t-2 border-t-pythonYellow bg-ludoGrayLight`}
+      className={`lg:hidden col-span-full grid grid-cols-12 min-h-18 border-t-2 border-t-ludoLightPurple bg-ludoGrayLight`}
     >
       <div className="col-start-2 col-end-12 flex justify-between items-center">
         {icons.map((icon) => (
