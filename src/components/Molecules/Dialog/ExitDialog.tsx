@@ -4,16 +4,17 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { DialogWrapper } from "./DialogWrapper";
 
 type ExitDialogProps = { open: boolean; close: () => void };
 
 export function ExitDialog({ open, close }: ExitDialogProps) {
-
-  const navigateToModule = () => router.navigate(ludoNavigation.module.toCurrent())
+  const navigateToModule = () =>
+    router.navigate(ludoNavigation.module.toCurrent());
 
   return (
     <Dialog open={open} onOpenChange={() => close()}>
-      <DialogContent className="bg-ludoGrayLight border-ludoLightPurple">
+      <DialogWrapper>
         <DialogTitle className="text-white">
           Are you sure you want to exit?
         </DialogTitle>
@@ -26,7 +27,7 @@ export function ExitDialog({ open, close }: ExitDialogProps) {
           orientation="center"
           text="Yes"
         />
-      </DialogContent>
+      </DialogWrapper>
     </Dialog>
   );
 }
