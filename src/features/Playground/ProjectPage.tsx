@@ -3,16 +3,41 @@ import { ProjectEditor } from "./Editor/ProjectEditor";
 import { ProjectFileTree } from "./FileTree/ProjectFileTree";
 import { useProject } from "@/Hooks/Logic/Playground/useProject";
 import * as monaco from "monaco-editor";
+import { ProjectWinbar } from "./ProjectWinbar";
+import { LudoPopover } from "@/components/Molecules/Popover/LudoPopover";
+import { PlusIcon, TrashIcon } from "lucide-react";
+import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
+import { useRunner } from "@/Hooks/Logic/Playground/useRunner";
 
 type ProjectPageProps = {};
 
-
 export function ProjectPage({}: ProjectPageProps) {
-  const { files, current, active, setCurrent, updateContent } = useProject();
+  const {
+    files,
+    current,
+    active,
+    setCurrent,
+    updateContent,
+    addFile,
+    addFileChoices,
+  } = useProject();
+
+  const { outputLog, clearOutput } = useRunner();
 
   return (
     <div className="grid col-span-full h-full grid-cols-12">
-      <div className="col-span-1 px-6 py-4 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-3">
+      <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-3">
+        <ProjectWinbar>
+          <div className="flex h-full text-white justify-between items-center">
+            <p>Files</p>
+
+            <LudoPopover content={addFileChoices} addFile={addFile}>
+              <div className="p-0.5 hover:cursor-pointer hover:bg-ludoLightPurple/80 rounded-full">
+                <PlusIcon className="h-4 w-4" />
+              </div>
+            </LudoPopover>
+          </div>
+        </ProjectWinbar>
         <ProjectFileTree
           projects={files}
           current={current}
@@ -20,16 +45,40 @@ export function ProjectPage({}: ProjectPageProps) {
         />
       </div>
 
-      <div className="col-span-10 lg:col-span-7 flex flex-col gap-8 items-stretch justify-start min-w-0">
+      <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
+        <ProjectWinbar>
+          <div className="flex h-full pt-2 px-6 items-center">
+            {current !== null && current !== undefined && (
+              <div className=" h-full px-8 flex items-center border hover:cursor-pointer border-ludoLightPurple border-b-ludoGrayLight bg-ludoGrayDark">
+                <p className="text-white text-center">
+                  {stripFileName(files[current].path)}
+                </p>
+              </div>
+            )}
+          </div>
+        </ProjectWinbar>
         <ProjectEditor
           path={active.path}
           language={active.language}
           value={active.content}
           onChange={updateContent}
         />
+        <div className="absolute z-10 hover:cursor-pointer rounded-lg py-0.5 px-8 border-ludoLightPurple border-2 text-ludoLightPurple bottom-10 right-10 flex items-center justify-center">
+          <p className="font-bold text-lg">Run</p>
+        </div>
       </div>
 
-      <div className="col-span-1 bg-ludoGrayLight lg:col-span-2" />
+      <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
+        <ProjectWinbar>
+          <div className="flex h-full text-white justify-between items-center">
+            <p className="">Output</p>
+            <div onClick={() => clearOutput()} className="p-0.5 hover:cursor-pointer hover:bg-ludoLightPurple/80 rounded-full">
+              <TrashIcon className="h-4" />
+            </div>
+          </div>
+        </ProjectWinbar>
+        <div></div>
+      </div>
     </div>
   );
 }

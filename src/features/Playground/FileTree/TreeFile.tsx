@@ -1,4 +1,5 @@
 import { CustomIcon, PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
+import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
 
 type TreeFileProps = {
   fileName: string;
@@ -23,7 +24,7 @@ export function TreeFile({
       }`}
     >
       <CustomIcon iconName="Python" color="white" className="h-4 w-4" />
-      <p className="text-sm">{fileName}</p>
+      <p className="text-sm">{stripFileName(fileName)}</p>
     </div>
   );
 }

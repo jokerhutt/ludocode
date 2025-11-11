@@ -41,7 +41,7 @@ export function ProjectEditor({
       options={{
         minimap: { enabled: false },
         fontSize: 16,
-        padding: { top: 16, bottom: 16 },
+        padding: { bottom: 16 },
         scrollBeyondLastLine: false,
         cursorSurroundingLines: 8,
         cursorSurroundingLinesStyle: "all",
