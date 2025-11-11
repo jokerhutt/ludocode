@@ -8,6 +8,8 @@ import { LudoPopover } from "@/components/Molecules/Popover/LudoPopover";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
 import { useRunner } from "@/Hooks/Logic/Playground/useRunner";
+import { RunnerWinbar } from "./Runner/RunnerWinbar";
+import { EditorWinbar } from "./Editor/EditorWinbar";
 
 type ProjectPageProps = {};
 
@@ -46,17 +48,7 @@ export function ProjectPage({}: ProjectPageProps) {
       </div>
 
       <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
-        <ProjectWinbar>
-          <div className="flex h-full pt-2 px-6 items-center">
-            {current !== null && current !== undefined && (
-              <div className=" h-full px-8 flex items-center border hover:cursor-pointer border-ludoLightPurple border-b-ludoGrayLight bg-ludoGrayDark">
-                <p className="text-white text-center">
-                  {stripFileName(files[current].path)}
-                </p>
-              </div>
-            )}
-          </div>
-        </ProjectWinbar>
+        <EditorWinbar current={current} files={files}/>
         <ProjectEditor
           path={active.path}
           language={active.language}
@@ -69,14 +61,7 @@ export function ProjectPage({}: ProjectPageProps) {
       </div>
 
       <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
-        <ProjectWinbar>
-          <div className="flex h-full text-white justify-between items-center">
-            <p className="">Output</p>
-            <div onClick={() => clearOutput()} className="p-0.5 hover:cursor-pointer hover:bg-ludoLightPurple/80 rounded-full">
-              <TrashIcon className="h-4" />
-            </div>
-          </div>
-        </ProjectWinbar>
+        <RunnerWinbar clearOutput={() => clearOutput}/>
         <div></div>
       </div>
     </div>
