@@ -2,7 +2,8 @@ import { z } from "zod";
 
 const OptionSnap = z.object({
   content: z.string().min(1),
-  answerOrder: z.number().int().positive().nullable().optional(), // present => correct, null/undefined => distractor
+  answerOrder: z.number().int().positive().nullable().optional(),
+  exerciseOptionId: z.string()
 });
 
 const Base = z.object({

@@ -13,8 +13,8 @@ export function AddExerciseFieldButton() {
           title: "Default Title",
           prompt: "Sample Prompt",
           exerciseType: "CLOZE",
-          correctOptions: [{answerOrder: 1, content: "Correct"}],
-          distractors: [{answerOrder: null, content: "Distractor"}]
+          correctOptions: [{answerOrder: 1, content: "Correct", exerciseOptionId: uuid()}],
+          distractors: [{answerOrder: null, content: "Distractor", exerciseOptionId: uuid()}],
         });
       }}
       className="border-ludoLightPurple text-white text-center hover:cursor-pointer border-2 rounded-md w-20"
