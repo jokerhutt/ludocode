@@ -25,6 +25,27 @@ export function useProject({ project }: Args) {
 
   const [current, setCurrent] = useState(0);
 
+  const deleteFile = useCallback((path: string) => {
+    setFiles((prev) => {
+      const idx = prev.findIndex((f) => f.path === path);
+      if (idx === -1) return prev;
+
+      const next = prev.slice();
+      next.splice(idx, 1);
+
+      setCurrent((cur) => {
+        if (next.length === 0) return 0;
+        if (cur < idx) return cur;
+        if (cur === idx) return Math.max(0, cur - 1);
+        return Math.max(0, cur - 1);
+      });
+
+      return next;
+    });
+  }, []);
+
+  const renameFile = useCallback(() => {}, []);
+
   const updateContent = useCallback(
     (val: string) => {
       setFiles((fs) => {
@@ -61,6 +82,7 @@ export function useProject({ project }: Args) {
     setCurrent,
     addFileChoices,
     updateContent,
+    deleteFile,
     addFile,
   };
 }

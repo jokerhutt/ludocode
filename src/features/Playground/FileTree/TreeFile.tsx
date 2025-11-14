@@ -1,11 +1,16 @@
 import { CustomIcon, PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
+import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
+import { FileActionsPopover } from "@/components/Molecules/Popover/FileActionsPopover";
 import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
+import { FileWrapper } from "./FileWrapper";
+import { FileInfoRow } from "@/components/Molecules/Popover/FileInfoRow";
 
 type TreeFileProps = {
   fileName: string;
   fileType: "Python";
   index: number;
   isSelected: boolean;
+  deleteFile: (path: string) => void;
   onClick: () => void;
 };
 
@@ -13,18 +18,15 @@ export function TreeFile({
   fileName,
   fileType,
   index,
+  deleteFile,
   isSelected,
   onClick,
 }: TreeFileProps) {
   return (
-    <div
-      onClick={onClick}
-      className={`flex gap-4 px-2 py-1 rounded-lg hover:cursor-pointer items-center ${
-        isSelected ? "bg-ludoLightPurple/70" : "hover:bg-ludoLightPurple/50"
-      }`}
-    >
-      <CustomIcon iconName="Python" color="white" className="h-4 w-4" />
-      <p className="text-sm">{stripFileName(fileName)}</p>
-    </div>
+    <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
+      <FileInfoRow deleteFile={deleteFile} includeOptions={true} fileName={fileName}>
+        <CustomIcon color="white" className="h-4" iconName="Python"/>
+      </FileInfoRow>
+    </FileWrapper>
   );
 }

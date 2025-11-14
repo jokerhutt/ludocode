@@ -4,7 +4,7 @@ import { ProjectFileTree } from "./FileTree/ProjectFileTree";
 import { useProject } from "@/Hooks/Logic/Playground/useProject";
 import * as monaco from "monaco-editor";
 import { ProjectWinbar } from "./ProjectWinbar";
-import { LudoPopover } from "@/components/Molecules/Popover/LudoPopover";
+import { NewFilePopover } from "@/components/Molecules/Popover/NewFilePopover";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
 import { useRunner } from "@/Hooks/Logic/Playground/useRunner";
@@ -23,6 +23,7 @@ export function ProjectPage({}: ProjectPageProps) {
     files,
     current,
     active,
+    deleteFile,
     setCurrent,
     updateContent,
     addFile,
@@ -40,17 +41,18 @@ export function ProjectPage({}: ProjectPageProps) {
           <div className="flex h-full text-white justify-between items-center">
             <p>Files</p>
 
-            <LudoPopover content={addFileChoices} addFile={addFile}>
+            <NewFilePopover content={addFileChoices} addFile={addFile}>
               <div className="p-0.5 hover:cursor-pointer hover:bg-ludoLightPurple/80 rounded-full">
                 <PlusIcon className="h-4 w-4" />
               </div>
-            </LudoPopover>
+            </NewFilePopover>
           </div>
         </ProjectWinbar>
         <ProjectFileTree
           projects={files}
           current={current}
           changeFile={setCurrent}
+          deleteFile={deleteFile}
         />
       </div>
 

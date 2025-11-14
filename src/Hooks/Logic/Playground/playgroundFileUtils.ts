@@ -12,6 +12,22 @@ function fileName(p: string) {
   return p.split("/").pop()!;
 }
 
+
+export function normalizeFileName(raw: string, lang: LanguageType): string {
+  const ext = extFor(lang);
+  let name = raw.trim();
+
+  if (!name) {
+    return `untitled${ext}`;
+  }
+
+  if (!name.endsWith(ext)) {
+    name += ext;
+  }
+
+  return name;
+}
+
 export function nextName(files: ProjectFile[], base: string, ext: string) {
   const has = (n: string) => files.some((f) => fileName(f.path) === n);
 

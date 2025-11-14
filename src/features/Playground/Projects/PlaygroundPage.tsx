@@ -13,9 +13,8 @@ import { qo } from "@/Hooks/Queries/Definitions/queries";
 type PlaygroundPageProps = {};
 
 export function PlaygroundPage({}: PlaygroundPageProps) {
-
-  const { data: projectsPacket } = useSuspenseQuery(qo.allProjects())
-  const allProjects = projectsPacket.projects
+  const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
+  const allProjects = projectsPacket.projects;
 
   const {
     modalOpen: createProjectOpen,
