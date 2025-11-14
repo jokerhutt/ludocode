@@ -35,7 +35,7 @@ export function nextName(files: ProjectFile[], base: string, ext: string) {
   if (!has(first)) return first;
 
   let i = 1;
-  while (has(`${base}-${i}${ext}`)) i++;
+  while (has(`${base}_${i}${ext}`)) i++;
 
-  return `${base}-${i}${ext}`;
+  return `${base}_${i}${ext}`;
 }
