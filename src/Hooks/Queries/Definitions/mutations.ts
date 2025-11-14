@@ -5,6 +5,7 @@ import { ludoPost } from "../Fetcher/ludoPost";
 import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
+  SUBMIT_CREATE_PROJECT,
   SUBMIT_LESSON,
   SUBMIT_ONBOARDING,
 } from "../../../constants/pathConstants";
@@ -12,6 +13,8 @@ import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
 import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";
 import type { OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
+import { type ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
+import { type CreateProjectRequest } from "@/Types/Playground/CreateProjectRequest";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -28,6 +31,18 @@ export const mutations = {
           true
         ),
     });
+  },
+
+  createProject: () => {
+    return mutationOptions<ProjectSnapshot[], Error, CreateProjectRequest>({
+      mutationKey: ["createProject"],
+      mutationFn: (variables) =>
+        ludoPost<ProjectSnapshot[], CreateProjectRequest>(
+          SUBMIT_CREATE_PROJECT,
+          variables,
+          true
+        )
+    })
   },
 
   submitOnboarding: () => {

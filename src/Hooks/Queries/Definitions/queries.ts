@@ -23,11 +23,13 @@ import {
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
   GET_USER_PREFERENCES,
+  GET_USER_PROJECTS,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
+import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -48,7 +50,7 @@ export const qo = {
     queryOptions<UserPreferences>({
       queryKey: qk.preferences(),
       queryFn: () => ludoGet<UserPreferences>(GET_USER_PREFERENCES, true),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
   lesson: (lessonId: string) =>
@@ -85,7 +87,7 @@ export const qo = {
     queryOptions({
       queryKey: qk.courseSnapshot(courseId),
       queryFn: () => ludoGet<CourseSnap>(GET_COURSE_SNAPSHOT(courseId)),
-      staleTime: 60_000 * 10
+      staleTime: 60_000 * 10,
     }),
 
   allCourses: () =>
@@ -94,12 +96,19 @@ export const qo = {
       queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
       staleTime: 60_000,
     }),
+  
+  allProjects: () =>
+    queryOptions({
+      queryKey: qk.projects(),
+      queryFn: () => ludoGet<ProjectSnapshot[]>(GET_USER_PROJECTS, true),
+      staleTime: 60_000
+    }),
 
-  stats: (userId: string) => 
+  stats: (userId: string) =>
     queryOptions({
       queryKey: qk.userStats(userId),
       queryFn: () => userStatsBatcher.fetch(userId),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
   enrolled: () =>
