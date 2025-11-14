@@ -26,6 +26,8 @@ import {
   RP_BUILD_REDIRECT,
   RP_ONBOARDING,
   RP_ONBOARDING_START,
+  RP_PLAYGROUND,
+  RP_PROJECT,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -50,6 +52,9 @@ import {
   type StageKey,
 } from "@/Types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
+import { ProjectPage } from "@/features/Playground/ProjectPage.tsx";
+import { PlaygroundPage } from "@/features/Playground/Projects/PlaygroundPage.tsx";
+import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 
 export const queryClient = new QueryClient();
 
@@ -125,6 +130,20 @@ export const authRoute = createRoute({
   path: RP_AUTH,
   component: AuthPage,
 });
+
+export const playgroundRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: RP_PLAYGROUND,
+  loader: async ({}) => playgroundLoader(queryClient),
+  component: PlaygroundPage 
+})
+
+export const projectRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: RP_PROJECT,
+  loader: async ({params}) => projectLoader(params, queryClient),
+  component: ProjectPage
+})
 
 
 export const onboardingRoute = createRoute({
@@ -255,7 +274,9 @@ const routeTree = rootRoute.addChildren([
       defaultSectionRoute.addChildren([
         courseRoute,
         profileMeRoute,
+        playgroundRoute,
         profileByIdRoute,
+        projectRoute
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
       buildRedirectRoute,

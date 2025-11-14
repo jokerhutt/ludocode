@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CustomIcon,
   type IconName,
@@ -21,22 +20,17 @@ export function CourseCard({ course, onClick }: CourseCardProps) {
     Lua: "Lua",
   };
 
-
   return (
     <button
       onClick={() => onClick()}
-      className="flex active:shadow-none hover:cursor-pointer shadow-buttonShadow items-center w-full rounded-2xl bg-ludoGrayLight justify-center"
+      className="flex active:shadow-none active:translate-y-2 hover:cursor-pointer shadow-buttonShadow items-center w-full rounded-2xl bg-ludoGrayLight justify-center"
     >
-      <div className="w-full flex items-center p-4 justify-center">
+      <div className="w-full flex items-center px-4 py-2 justify-center">
         <div className="w-full">
-          <h1
-            className="text-white font-bold text-2xl"
-          >
-            {title}
-          </h1>
+          <h1 className="text-white font-bold text-xl">{title}</h1>
         </div>
 
-        <CustomIcon iconName={courseIcons[title]} className="h-10" />
+        <CustomIcon iconName={courseIcons[title]} className="h-8" />
       </div>
     </button>
   );

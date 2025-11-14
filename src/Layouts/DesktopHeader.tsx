@@ -46,7 +46,7 @@ export function DesktopHeader({}: DesktopHeaderProps) {
             <HollowSlot active={isActive(icon.path)} key={icon.name}>
               <p
                 onClick={() => !!icon.onClick && icon.onClick()}
-                className="text-white"
+                className="text-white text-sm"
               >
                 {icon.name}
               </p>
@@ -56,12 +56,12 @@ export function DesktopHeader({}: DesktopHeaderProps) {
 
         <div className="flex w-full text-white justify-end gap-2 items-center">
           <HollowSlot onClick={() => openCoins()}>
-            <CommitIcon className="h-7 text-pythonYellow" />
-            <p className="text-white">{coins}</p>
+            <CommitIcon className="h-5 text-pythonYellow" />
+            <p className="text-white text-sm">{coins}</p>
           </HollowSlot>
           <HollowSlot onClick={() => openStreak()}>
-            <FireIcon className="h-7 text-orange-400" />
-            <p>{streak}</p>
+            <FireIcon className="h-5 text-orange-400" />
+            <p className="text-sm">{streak}</p>
           </HollowSlot>
         </div>
       </div>

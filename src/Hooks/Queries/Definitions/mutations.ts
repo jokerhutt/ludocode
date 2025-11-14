@@ -5,13 +5,19 @@ import { ludoPost } from "../Fetcher/ludoPost";
 import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
+  SUBMIT_CREATE_PROJECT,
   SUBMIT_LESSON,
   SUBMIT_ONBOARDING,
+  SUBMIT_SAVE_PROJECT,
 } from "../../../constants/pathConstants";
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
 import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";
-import type { OnboardingCourseType, OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
+import type { OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
+import { type ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
+import { type CreateProjectRequest } from "@/Types/Playground/CreateProjectRequest";
+import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse";
+import type { SaveProjectPayload } from "@/Types/Playground/SaveProjectPayload";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -24,6 +30,30 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<LessonCompletionPacket, LessonSubmission>(
           SUBMIT_LESSON,
+          variables,
+          true
+        ),
+    });
+  },
+
+  createProject: () => {
+    return mutationOptions<ProjectListResponse, Error, CreateProjectRequest>({
+      mutationKey: ["createProject"],
+      mutationFn: (variables) =>
+        ludoPost<ProjectListResponse, CreateProjectRequest>(
+          SUBMIT_CREATE_PROJECT,
+          variables,
+          true
+        ),
+    });
+  },
+
+  saveProject: (projectId: string) => {
+    return mutationOptions<ProjectSnapshot, Error, ProjectSnapshot>({
+      mutationKey: ["saveProject"],
+      mutationFn: (variables) =>
+        ludoPost<ProjectSnapshot, ProjectSnapshot>(
+          SUBMIT_SAVE_PROJECT(projectId),
           variables,
           true
         ),

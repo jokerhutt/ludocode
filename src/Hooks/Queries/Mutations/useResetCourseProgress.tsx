@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "../Definitions/mutations";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
-import { qo } from "../Definitions/queries";
 import { qk } from "../../../constants/qk";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";

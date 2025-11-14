@@ -1,8 +1,6 @@
 import {
   ArrowsRightLeftIcon,
-  Bars3Icon,
   FireIcon,
-  HeartIcon,
 } from "@heroicons/react/24/solid";
 import {
   CommitIcon,

@@ -9,6 +9,8 @@ export const qk = {
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,
 
+  projects: () => ["projects"] as const,
+
   courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
 
   modulesBySection: (courseId: string) =>
@@ -16,7 +18,7 @@ export const qk = {
 
   lessonsByModule: (moduleId: string) =>
     ["modules", moduleId, "lessons"] as const,
-  
+
   userStats: (userId: string) => ["stats", userId] as const,
 
   courseSnapshot: (courseId: string) => ["snapshot", courseId] as const,
