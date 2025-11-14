@@ -8,9 +8,8 @@ import type { QueryClient } from "@tanstack/react-query";
 export async function playgroundLoader (queryClient: QueryClient) {
 
     const projectsPacket = await queryClient.ensureQueryData(qo.allProjects());
-    const allProjects = projectsPacket.projects
 
-    return { allProjects };
+    return { projectsPacket };
 
 }
 

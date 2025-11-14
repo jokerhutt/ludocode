@@ -7,23 +7,21 @@ import { CreateProjectDialog } from "@/components/Molecules/Dialog/CreateProject
 import { uuid } from "@tanstack/react-form";
 import { useLoaderData } from "@tanstack/react-router";
 import { RP_PLAYGROUND } from "@/constants/routes";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/Hooks/Queries/Definitions/queries";
 
 type PlaygroundPageProps = {};
 
 export function PlaygroundPage({}: PlaygroundPageProps) {
 
-
-  const { allProjects } = useLoaderData({ from: playgroundRoute.id })
+  const { data: projectsPacket } = useSuspenseQuery(qo.allProjects())
+  const allProjects = projectsPacket.projects
 
   const {
     modalOpen: createProjectOpen,
     openModal: openCreateProject,
     closeModal: closeCreateProject,
   } = useModal();
-
-  const iconName = {
-    python: "Python",
-  };
 
   return (
     <>
