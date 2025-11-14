@@ -9,6 +9,10 @@ const Icons = {
   CSharp: CSharpIcon,
   Golang: GoIcon,
   Lua: LuaIcon,
+  CloudError: CloudErrorIcon,
+  CloudLoad: CloudLoadIcon,
+  CloudYes: CloudYesIcon
+
 } as const satisfies Record<string, ComponentType<IconProps>>;
 
 export type IconName = keyof typeof Icons;
@@ -29,6 +33,73 @@ export function CommitIcon({ className, color }: IconProps): JSX.Element {
       fill={color ?? "currentColor"}
     >
       <path d="M448,224H380a128,128,0,0,0-247.9,0H64a32,32,0,0,0,0,64h68.05A128,128,0,0,0,380,288H448a32,32,0,0,0,0-64ZM256,320a64,64,0,1,1,64-64A64.07,64.07,0,0,1,256,320Z" />
+    </svg>
+  );
+}
+
+export function CloudLoadIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke={color ?? "currentColor"}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* cloud outline */}
+      <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
+
+      {/* loading arrow (like the original) */}
+      <path d="M11 11v3h3" />
+    </svg>
+  );
+}
+
+
+export function CloudYesIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke={color ?? "currentColor"}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* cloud outline */}
+      <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
+
+      {/* checkmark */}
+      <path d="M15 11l-4 4-2-2" />
+    </svg>
+  );
+}
+
+export function CloudErrorIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke={color ?? "currentColor"}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* cloud outline */}
+      <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
+
+      {/* dot */}
+      <circle cx="12" cy="15.5" r="1.25" />
+
+      {/* vertical error line */}
+      <path d="M12 12V9" />
     </svg>
   );
 }

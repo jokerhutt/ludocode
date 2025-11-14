@@ -135,16 +135,15 @@ export const playgroundRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_PLAYGROUND,
   loader: async ({}) => playgroundLoader(queryClient),
-  component: PlaygroundPage 
-})
+  component: PlaygroundPage,
+});
 
 export const projectRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
+  getParentRoute: () => authedRoute,
   path: RP_PROJECT,
-  loader: async ({params}) => projectLoader(params, queryClient),
-  component: ProjectPage
-})
-
+  loader: async ({ params }) => projectLoader(params, queryClient),
+  component: ProjectPage,
+});
 
 export const onboardingRoute = createRoute({
   getParentRoute: () => authedRoute,
@@ -276,12 +275,12 @@ const routeTree = rootRoute.addChildren([
         profileMeRoute,
         playgroundRoute,
         profileByIdRoute,
-        projectRoute
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
       buildRedirectRoute,
       buildRoute,
     ]),
+    projectRoute,
     lessonSectionRoute.addChildren([lessonRoute]),
     syncRoute,
     completeRoute,

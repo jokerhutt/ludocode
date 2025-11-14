@@ -8,16 +8,26 @@ import type { ProjectFile } from "./useProject";
 
 type Args = {
   project: ProjectSnapshot;
-  files: ProjectFileSnapshot[]
+  files: ProjectFileSnapshot[];
   debounceMs: number;
 };
 
-export function useAutoSaveProject({ project, files, debounceMs = 1000 }: Args) {
+export function useAutoSaveProject({
+  project,
+  files,
+  debounceMs = 1000,
+}: Args) {
   const lastPayloadRef = useRef<string | null>(null);
+  const lastSavedAtRef = useRef<Date | null>(null);
 
   const projectId = project.projectId;
 
-  const saveMutation = useMutation(mutations.saveProject(projectId));
+  const saveMutation = useMutation({
+    ...mutations.saveProject(projectId),
+    onSuccess: () => {
+      lastSavedAtRef.current = new Date();
+    },
+  });
 
   useEffect(() => {
     if (!projectId) return;
@@ -28,9 +38,21 @@ export function useAutoSaveProject({ project, files, debounceMs = 1000 }: Args) 
     lastPayloadRef.current = payloadString;
 
     const timeoutId = setTimeout(() => {
-      saveMutation.mutate({projectId: project.projectId, projectLanguage: project.projectLanguage, projectName: project.projectName, files: files});
+      saveMutation.mutate({
+        projectId: project.projectId,
+        projectLanguage: project.projectLanguage,
+        projectName: project.projectName,
+        files: files,
+      });
     }, debounceMs);
 
     return () => clearTimeout(timeoutId);
   }, [projectId, files, debounceMs, saveMutation]);
+
+  return {
+    isSaving: saveMutation.isPending,
+    isSaved: saveMutation.isSuccess,
+    error: saveMutation.error,
+    lastSavedAt: lastSavedAtRef.current,
+  };
 }
