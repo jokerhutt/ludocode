@@ -5,6 +5,7 @@ import { ludoPost } from "../Fetcher/ludoPost";
 import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
+  RUN_CODE,
   SUBMIT_CREATE_PROJECT,
   SUBMIT_LESSON,
   SUBMIT_ONBOARDING,
@@ -18,6 +19,7 @@ import { type ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { type CreateProjectRequest } from "@/Types/Playground/CreateProjectRequest";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse";
 import type { SaveProjectPayload } from "@/Types/Playground/SaveProjectPayload";
+import type { RunnerResult } from "@/Types/Playground/RunnerResult";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -34,6 +36,18 @@ export const mutations = {
           true
         ),
     });
+  },
+
+  runCode: () => {
+    return mutationOptions<RunnerResult, Error, ProjectSnapshot>({
+      mutationKey: ["runCode"],
+      mutationFn: (variables) =>
+        ludoPost<RunnerResult, ProjectSnapshot>(
+          RUN_CODE,
+          variables,
+          true
+        )
+    })
   },
 
   createProject: () => {

@@ -13,6 +13,7 @@ import { EditorWinbar } from "./Editor/EditorWinbar";
 import { useLoaderData } from "@tanstack/react-router";
 import { projectRoute } from "@/routes/router";
 import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject";
+import { ProjectRunner } from "./Runner/ProjectRunner";
 
 type ProjectPageProps = {};
 
@@ -32,7 +33,10 @@ export function ProjectPage({}: ProjectPageProps) {
 
   useAutoSaveProject({ project, files, debounceMs: 1000 });
 
-  const { outputLog, clearOutput } = useRunner();
+  const { outputLog, clearOutput, runCode, isRunning } = useRunner({
+    project,
+    files,
+  });
 
   return (
     <div className="grid col-span-full h-full grid-cols-12">
@@ -64,14 +68,17 @@ export function ProjectPage({}: ProjectPageProps) {
           value={active.content}
           onChange={updateContent}
         />
-        <div className="absolute z-10 hover:cursor-pointer rounded-lg py-0.5 px-8 border-ludoLightPurple border-2 text-ludoLightPurple bottom-10 right-10 flex items-center justify-center">
+        <div
+          onClick={() => runCode()}
+          className="absolute z-10 hover:cursor-pointer rounded-lg py-0.5 px-8 border-ludoLightPurple border-2 text-ludoLightPurple bottom-10 right-10 flex items-center justify-center"
+        >
           <p className="font-bold text-lg">Run</p>
         </div>
       </div>
 
       <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
         <RunnerWinbar clearOutput={() => clearOutput} />
-        <div></div>
+        <ProjectRunner output={outputLog} />
       </div>
     </div>
   );
