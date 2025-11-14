@@ -28,7 +28,7 @@ export function useAutoSaveProject({ project, files, debounceMs = 1000 }: Args) 
     lastPayloadRef.current = payloadString;
 
     const timeoutId = setTimeout(() => {
-      saveMutation.mutate({projectId: project.projectId, projectName: project.projectName, files: files});
+      saveMutation.mutate({projectId: project.projectId, projectLanguage: project.projectLanguage, projectName: project.projectName, files: files});
     }, debounceMs);
 
     return () => clearTimeout(timeoutId);

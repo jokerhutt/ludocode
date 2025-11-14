@@ -14,6 +14,7 @@ export const SUBMIT_CREATE_PROJECT = API_PATH + `/project/create`
 
 export const SUBMIT_SAVE_PROJECT = (pid: string) => API_PATH +`/project/${pid}/save`
 
+export const RUN_CODE = API_PATH + `/project/run`
 
 export const GET_USER_PROJECTS = API_PATH + `/project/get-projects`
 

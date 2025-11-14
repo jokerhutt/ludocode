@@ -27,7 +27,7 @@ export function CommonHeader({
 
   return (
     <nav
-      className={`relative col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-18 ${bgColor}`}
+      className={`relative col-span-full ${visibility} grid border-b-2 border-b-ludoGrayLightShadow grid-cols-12 min-h-14 ${bgColor}`}
     >
       {children}
       <RouterBar barState={barState} />
