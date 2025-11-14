@@ -109,7 +109,7 @@ export function ProjectPage({}: ProjectPageProps) {
         </div>
 
         <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
-          <RunnerWinbar clearOutput={() => clearOutput} />
+          <RunnerWinbar clearOutput={clearOutput} />
           <ProjectRunner output={outputLog} />
         </div>
       </div>
