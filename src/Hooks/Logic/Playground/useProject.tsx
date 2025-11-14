@@ -1,5 +1,4 @@
-import * as monaco from "monaco-editor";
-import { useState, useEffect, useCallback } from "react";
+import { useState,  useCallback } from "react";
 import { extFor, nextName, type Lang } from "./playgroundFileUtils";
 
 export type ProjectFile = { path: string; language: string; content: string };
@@ -39,7 +38,6 @@ export function useProject() {
         content: "",
       };
       const next = [...fs, file];
-      // select the new file
       setCurrent(next.length - 1);
       return next;
     });

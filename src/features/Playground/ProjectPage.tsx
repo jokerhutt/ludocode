@@ -48,7 +48,7 @@ export function ProjectPage({}: ProjectPageProps) {
       </div>
 
       <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
-        <EditorWinbar current={current} files={files}/>
+        <EditorWinbar current={current} files={files} />
         <ProjectEditor
           path={active.path}
           language={active.language}
@@ -61,7 +61,7 @@ export function ProjectPage({}: ProjectPageProps) {
       </div>
 
       <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
-        <RunnerWinbar clearOutput={() => clearOutput}/>
+        <RunnerWinbar clearOutput={() => clearOutput} />
         <div></div>
       </div>
     </div>

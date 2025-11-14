@@ -11,7 +11,7 @@ import {
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
 import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";
-import type { OnboardingCourseType, OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
+import type { OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
