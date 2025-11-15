@@ -36,18 +36,20 @@ export const ModuleForm = withForm({
                     e?.stopPropagation?.();
 
                     const mods = fa.state.value;
-                    const thisId = m.moduleId
+                    const thisId = m.moduleId;
                     const isCurrent = moduleId === thisId;
 
                     const nextId =
-                      mods[index + 1]?.moduleId ??
-                      mods[index - 1]?.moduleId
+                      mods[index + 1]?.moduleId ?? mods[index - 1]?.moduleId;
 
                     if (isCurrent) {
                       router.navigate(
                         nextId
-                          ? ludoNavigation.build.toBuilder(courseId, nextId)
-                          : ludoNavigation.build.redirect()
+                          ? ludoNavigation.build.toBuilderModule(
+                              courseId,
+                              nextId
+                            )
+                          : ludoNavigation.build.toSelectCourse()
                       );
                     }
 
@@ -89,7 +91,10 @@ export const ModuleForm = withForm({
                             active={moduleId === thisId}
                             onClick={() =>
                               router.navigate(
-                                ludoNavigation.build.toBuilder(courseId, thisId!!)
+                                ludoNavigation.build.toBuilder(
+                                  courseId,
+                                  thisId!!
+                                )
                               )
                             }
                           />

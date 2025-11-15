@@ -1,6 +1,13 @@
 import { router } from "../routes/router";
 import { ludoNavigation } from "../routes/ludoNavigation";
-import { RP_BUILD_REDIRECT, RP_COURSE, RP_ME, RP_MODULE, RP_MODULE_REDIRECT, RP_PLAYGROUND } from "./routes";
+import {
+  RP_BUILD_SELECTION,
+  RP_COURSE,
+  RP_ME,
+  RP_MODULE,
+  RP_MODULE_REDIRECT,
+  RP_PLAYGROUND,
+} from "./routes";
 
 export type NavIcon = {
   name: string;
@@ -25,13 +32,13 @@ export const navIcons: NavIcon[] = [
   {
     name: "Playground",
     path: RP_PLAYGROUND,
-    onClick: () => router.navigate(ludoNavigation.playground.toPlayground())
+    onClick: () => router.navigate(ludoNavigation.playground.toPlayground()),
   },
   {
     name: "Build",
     path: "/build",
-    redirectPath: RP_BUILD_REDIRECT,
-    onClick: () => router.navigate(ludoNavigation.build.redirect()),
+    redirectPath: RP_BUILD_SELECTION,
+    onClick: () => router.navigate(ludoNavigation.build.toSelectCourse()),
   },
   {
     name: "Profile",
