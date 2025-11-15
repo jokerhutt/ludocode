@@ -59,6 +59,7 @@ import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/RedirectPage/BuilderRedirectPage.tsx";
+import { NewBuilderLayout } from "@/features/NewBuilder/NewBuilderLayout.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -198,13 +199,13 @@ export const modulesRedirectRoute = createRoute({
 });
 
 export const buildRoute = createRoute({
-  getParentRoute: () => siteRoute,
+  getParentRoute: () => authedRoute,
   path: RP_BUILD,
   validateSearch: (s: Record<string, unknown>) => ({
     lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
   }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
-  component: BuilderLayout,
+  component: NewBuilderLayout,
 });
 
 export const buildSelectionRoute = createRoute({

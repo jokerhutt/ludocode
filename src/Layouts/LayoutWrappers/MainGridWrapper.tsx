@@ -14,6 +14,6 @@ export function MainGridWrapper({ children, gridRows }: MainGridWrapperProps) {
   };
 
   return (
-    <div className={`grid ${rows[gridRows]} min-h-0 h-dvh`}>{children}</div>
+    <div className={`grid bg-ludoGrayDark ${rows[gridRows]} min-h-0 h-dvh`}>{children}</div>
   );
 }
