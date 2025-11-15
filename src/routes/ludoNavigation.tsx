@@ -6,13 +6,14 @@ import {
   RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
-  RP_BUILD_REDIRECT,
+  RP_BUILD_SELECTION,
   RP_PLAYGROUND,
+  RP_BUILD_REDIRECT,
 } from "../constants/routes.ts";
 import type { HistoryState } from "@tanstack/react-router";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 import {
-  buildRedirectRoute,
+  buildSelectionRoute,
   buildRoute,
   completeRoute,
   lessonRoute,
@@ -28,10 +29,23 @@ export const ludoNavigation = {
   me: () => ({ to: RP_ME }),
 
   build: {
-    redirect: () => ({
-      to: RP_BUILD_REDIRECT,
+    toSelectCourse: () => ({
+      to: RP_BUILD_SELECTION,
     }),
-    toBuilder: (courseId: string, moduleId: string, lessonId?: string) => ({
+    toRedirect: (courseId: string) => ({
+      to: RP_BUILD_REDIRECT,
+      params: { courseId },
+    }),
+    toBuilder: (courseId: string, lessonId?: string) => ({
+      to: RP_BUILD,
+      params: { courseId },
+      search: lessonId ? { lessonId } : undefined,
+    }),
+    toBuilderModule: (
+      courseId: string,
+      moduleId: string,
+      lessonId?: string
+    ) => ({
       to: RP_BUILD,
       params: { courseId, moduleId },
       search: lessonId ? { lessonId } : undefined,
@@ -62,7 +76,10 @@ export const ludoNavigation = {
 
   playground: {
     toPlayground: () => ({ to: RP_PLAYGROUND }),
-    toProject: (projectId: string) => ({to: projectRoute.to, params: {projectId}})
+    toProject: (projectId: string) => ({
+      to: projectRoute.to,
+      params: { projectId },
+    }),
   },
 
   completion: {

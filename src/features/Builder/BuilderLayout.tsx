@@ -8,18 +8,21 @@ import { LessonForm } from "./Forms/LessonForm";
 import { ExerciseForm } from "./Forms/ExerciseForm";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { qk } from "@/constants/qk";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
 import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
+import { qo } from "@/Hooks/Queries/Definitions/queries";
 
 type BuilderLayoutProps = {};
 
 export function BuilderLayout({}: BuilderLayoutProps) {
-  const { courseSnapshot } = buildRoute.useLoaderData();
+  const { courseId } = buildRoute.useParams();
+  const { data: courseSnapshot } = useSuspenseQuery(
+    qo.courseSnapshot(courseId)
+  );
   const typedSnapshot = CourseSnapSchema.parse(courseSnapshot);
-  const courseId: string = typedSnapshot.courseId;
   const modules: ModuleSnap[] = typedSnapshot.modules;
 
   const qc = useQueryClient();

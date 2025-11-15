@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { LudoUser } from "../../Types/User/LudoUser";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
-import { RP_AUTH, RP_BUILD, RP_MODULE } from "../../constants/routes.ts";
+import { RP_AUTH, RP_BUILD, RP_BUILD_SELECTION, RP_MODULE } from "../../constants/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { moduleRoute } from "../router";
@@ -11,12 +11,12 @@ export async function modulesRedirectLoader(
   location: { pathname: string },
   queryClient: QueryClient
 ) {
-  console.log("M0")
+  console.log("M0");
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
   const currentCourseId: string = await queryClient.ensureQueryData(
     qo.currentCourseId()
   );
-   console.log("M1")
+  console.log("M1");
 
   if (!currentCourseId || !user) {
     throw redirect({
@@ -25,7 +25,7 @@ export async function modulesRedirectLoader(
     });
   }
 
-  console.log("M2")
+  console.log("M2");
   const courseProgress: CourseProgress = await queryClient.ensureQueryData(
     qo.courseProgress(currentCourseId)
   );
@@ -47,24 +47,37 @@ export async function modulesRedirectLoader(
   return { courseProgress };
 }
 
-export async function buildRedirectLoader(
+
+export async function buildSectionLoader(
   _location: { pathname: string },
   qc: QueryClient
 ) {
   const user = await qc.ensureQueryData(qo.currentUser());
-  const currentCourseId: string = await qc.ensureQueryData(
-    qo.currentCourseId()
-  );
+  if (!user) throw redirect({ to: RP_AUTH, replace: true });
 
-  if (!currentCourseId || !user) throw redirect({ to: RP_AUTH, replace: true });
+  qc.ensureQueryData(qo.allCourses())
 
-  const cp = await qc.ensureQueryData(qo.courseProgress(currentCourseId));
+}
 
+export async function buildRedirectLoader(
+   params: { courseId: string},
+  qc: QueryClient
+) {
+  const {courseId} = params
+  const user = await qc.ensureQueryData(qo.currentUser());
+  if (!user) throw redirect({ to: RP_AUTH, replace: true });
+
+  qc.ensureQueryData(qo.allCourses())
+  const courseSnapshot = await qc.ensureQueryData(qo.courseSnapshot(courseId))
+  const firstModuleId = courseSnapshot.modules[0].moduleId
+
+  if (!firstModuleId) throw redirect({to: RP_BUILD_SELECTION})
+    
   throw redirect({
     to: RP_BUILD,
-    params: { courseId: cp.courseId, moduleId: cp.moduleId },
-    replace: true,
-  });
+    params: {courseId: courseId, moduleId: firstModuleId}
+  })  
+
 }
 
 export async function modulePageLoader(
@@ -85,7 +98,7 @@ export async function builderPageLoader(
   params: { courseId: string; moduleId: string },
   queryClient: QueryClient
 ) {
-  const { courseId, moduleId } = params;
+  const { courseId} = params;
 
   if (!courseId) {
     throw redirect({ to: RP_AUTH, replace: true });

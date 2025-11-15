@@ -23,11 +23,12 @@ import {
   RP_SYNC,
   RP_LESSON_COMPLETE,
   RP_LESSON_COMPLETE_STREAK_INCREASE,
-  RP_BUILD_REDIRECT,
+  RP_BUILD_SELECTION as RP_BUILD_SELECTION,
   RP_ONBOARDING,
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
   RP_PROJECT,
+  RP_BUILD_REDIRECT,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -35,6 +36,8 @@ import { AuthPage } from "../features/Auth/AuthPage";
 import {
   builderPageLoader,
   buildRedirectLoader,
+  buildSectionLoader,
+  buildRedirectLoader as buildSelectionLoader,
   modulePageLoader,
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
@@ -55,6 +58,7 @@ import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.t
 import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
+import { BuilderRedirectPage } from "@/features/Builder/RedirectPage/BuilderRedirectPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -203,10 +207,17 @@ export const buildRoute = createRoute({
   component: BuilderLayout,
 });
 
+export const buildSelectionRoute = createRoute({
+  getParentRoute: () => siteRoute,
+  path: RP_BUILD_SELECTION,
+  loader: async ({ location }) => buildSectionLoader(location, queryClient),
+  component: BuilderRedirectPage,
+});
+
 export const buildRedirectRoute = createRoute({
   getParentRoute: () => siteRoute,
   path: RP_BUILD_REDIRECT,
-  loader: async ({ location }) => buildRedirectLoader(location, queryClient),
+  loader: async ({ params }) => buildRedirectLoader(params, queryClient),
 });
 
 export const moduleRoute = createRoute({
@@ -277,6 +288,7 @@ const routeTree = rootRoute.addChildren([
         profileByIdRoute,
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+      buildSelectionRoute,
       buildRedirectRoute,
       buildRoute,
     ]),
