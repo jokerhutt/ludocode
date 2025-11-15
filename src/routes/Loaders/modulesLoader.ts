@@ -1,7 +1,12 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { LudoUser } from "../../Types/User/LudoUser";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
-import { RP_AUTH, RP_BUILD, RP_BUILD_SELECTION, RP_MODULE } from "../../constants/routes.ts";
+import {
+  RP_AUTH,
+  RP_BUILD,
+  RP_BUILD_SELECTION,
+  RP_MODULE,
+} from "../../constants/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { moduleRoute } from "../router";
@@ -47,7 +52,6 @@ export async function modulesRedirectLoader(
   return { courseProgress };
 }
 
-
 export async function buildSectionLoader(
   _location: { pathname: string },
   qc: QueryClient
@@ -55,29 +59,27 @@ export async function buildSectionLoader(
   const user = await qc.ensureQueryData(qo.currentUser());
   if (!user) throw redirect({ to: RP_AUTH, replace: true });
 
-  qc.ensureQueryData(qo.allCourses())
-
+  qc.ensureQueryData(qo.allCourses());
 }
 
 export async function buildRedirectLoader(
-   params: { courseId: string},
+  params: { courseId: string },
   qc: QueryClient
 ) {
-  const {courseId} = params
+  const { courseId } = params;
   const user = await qc.ensureQueryData(qo.currentUser());
   if (!user) throw redirect({ to: RP_AUTH, replace: true });
 
-  qc.ensureQueryData(qo.allCourses())
-  const courseSnapshot = await qc.ensureQueryData(qo.courseSnapshot(courseId))
-  const firstModuleId = courseSnapshot.modules[0].moduleId
+  qc.ensureQueryData(qo.allCourses());
+  const courseSnapshot = await qc.ensureQueryData(qo.courseSnapshot(courseId));
+  const firstModuleId = courseSnapshot.modules[0].moduleId;
 
-  if (!firstModuleId) throw redirect({to: RP_BUILD_SELECTION})
-    
+  if (!firstModuleId) throw redirect({ to: RP_BUILD_SELECTION });
+
   throw redirect({
     to: RP_BUILD,
-    params: {courseId: courseId, moduleId: firstModuleId}
-  })  
-
+    params: { courseId: courseId, moduleId: firstModuleId },
+  });
 }
 
 export async function modulePageLoader(
@@ -95,18 +97,14 @@ export async function modulePageLoader(
 }
 
 export async function builderPageLoader(
-  params: { courseId: string; moduleId: string },
+  params: { courseId: string },
   queryClient: QueryClient
 ) {
-  const { courseId} = params;
+  const { courseId } = params;
 
   if (!courseId) {
     throw redirect({ to: RP_AUTH, replace: true });
   }
 
-  const courseSnapshot = await queryClient.ensureQueryData(
-    qo.courseSnapshot(courseId)
-  );
-  console.log(JSON.stringify(courseSnapshot.modules));
-  return { courseSnapshot };
+  await queryClient.ensureQueryData(qo.courseSnapshot(courseId));
 }

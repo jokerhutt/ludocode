@@ -22,7 +22,7 @@ export function BuilderRedirectPage({}: BuilderRedirectPageProps) {
             </div>
             <Button
               onClick={() =>
-                router.navigate(ludoNavigation.build.toRedirect(course.id))
+                router.navigate(ludoNavigation.build.toBuilder(course.id))
               }
             >
               Edit Course

@@ -2,7 +2,11 @@ export const RP_INDEX = `/`;
 
 export const RP_COURSE = `/`;
 
-export const RP_BUILD = `/build/course/$courseId/module/$moduleId`;
+export const RP_BUILD = `/build/course/$courseId`;
+
+export const RP_BUILD_MODULE = `${RP_BUILD}/module/$moduleId`
+
+export const RP_BUILD_MODULE_LESSON = `${RP_BUILD_MODULE}/lesson/$lessonId`
 
 export const RP_BUILD_SELECTION = `/builder/select`;
 

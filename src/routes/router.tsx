@@ -198,10 +198,12 @@ export const modulesRedirectRoute = createRoute({
   loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
+
 export const buildRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_BUILD,
   validateSearch: (s: Record<string, unknown>) => ({
+    moduleId: typeof s.moduleId === "string" ? s.moduleId : undefined,
     lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
   }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
@@ -215,11 +217,6 @@ export const buildSelectionRoute = createRoute({
   component: BuilderRedirectPage,
 });
 
-export const buildRedirectRoute = createRoute({
-  getParentRoute: () => siteRoute,
-  path: RP_BUILD_REDIRECT,
-  loader: async ({ params }) => buildRedirectLoader(params, queryClient),
-});
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
@@ -290,7 +287,6 @@ const routeTree = rootRoute.addChildren([
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
       buildSelectionRoute,
-      buildRedirectRoute,
       buildRoute,
     ]),
     projectRoute,

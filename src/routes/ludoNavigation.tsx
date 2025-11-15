@@ -9,6 +9,8 @@ import {
   RP_BUILD_SELECTION,
   RP_PLAYGROUND,
   RP_BUILD_REDIRECT,
+  RP_BUILD_MODULE,
+  RP_BUILD_MODULE_LESSON,
 } from "../constants/routes.ts";
 import type { HistoryState } from "@tanstack/react-router";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
@@ -24,31 +26,34 @@ import {
 } from "./router";
 
 export const ludoNavigation = {
-  //SIMPLE
   courseRoot: () => ({ to: RP_COURSE }),
+
   me: () => ({ to: RP_ME }),
 
   build: {
     toSelectCourse: () => ({
       to: RP_BUILD_SELECTION,
     }),
-    toRedirect: (courseId: string) => ({
-      to: RP_BUILD_REDIRECT,
-      params: { courseId },
-    }),
-    toBuilder: (courseId: string, lessonId?: string) => ({
+
+    toBuilder: (courseId: string) => ({
       to: RP_BUILD,
       params: { courseId },
-      search: lessonId ? { lessonId } : undefined,
     }),
-    toBuilderModule: (
+
+    toBuilderModule: (courseId: string, moduleId: string) => ({
+      to: RP_BUILD,
+      params: { courseId },
+      search: { moduleId },
+    }),
+
+    toBuilderLesson: (
       courseId: string,
       moduleId: string,
-      lessonId?: string
+      lessonId: string
     ) => ({
       to: RP_BUILD,
-      params: { courseId, moduleId },
-      search: lessonId ? { lessonId } : undefined,
+      params: { courseId },
+      search: { moduleId, lessonId },
     }),
   },
 

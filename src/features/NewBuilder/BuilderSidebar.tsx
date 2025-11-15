@@ -34,7 +34,7 @@ export function BuilderSidebar({ courseSnapshot }: BuilderSidebarProps) {
           <SidebarGroupContent className="text-white pl-2 py-4 group-data-[collapsible=icon]:opacity-0 transition-[margin,opacity] duration-200 ease-linear">
             <SidebarMenu>
               {modules.map((item) => (
-                <ModuleNode moduleSnapshot={item} />
+                <ModuleNode courseId={courseSnapshot.courseId} moduleSnapshot={item} />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
