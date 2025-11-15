@@ -7,8 +7,10 @@ import {
   RESET_COURSE_PROGRESS,
   RUN_CODE,
   SUBMIT_CREATE_PROJECT,
+  SUBMIT_DELETE_PROJECT,
   SUBMIT_LESSON,
   SUBMIT_ONBOARDING,
+  SUBMIT_RENAME_PROJECT,
   SUBMIT_SAVE_PROJECT,
 } from "../../../constants/pathConstants";
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
@@ -20,6 +22,7 @@ import { type CreateProjectRequest } from "@/Types/Playground/CreateProjectReque
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse";
 import type { SaveProjectPayload } from "@/Types/Playground/SaveProjectPayload";
 import type { RunnerResult } from "@/Types/Playground/RunnerResult";
+import type { RenameProjectRequest } from "@/Types/Playground/RenameProjectRequest";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -42,12 +45,8 @@ export const mutations = {
     return mutationOptions<RunnerResult, Error, ProjectSnapshot>({
       mutationKey: ["runCode"],
       mutationFn: (variables) =>
-        ludoPost<RunnerResult, ProjectSnapshot>(
-          RUN_CODE,
-          variables,
-          true
-        )
-    })
+        ludoPost<RunnerResult, ProjectSnapshot>(RUN_CODE, variables, true),
+    });
   },
 
   createProject: () => {
@@ -56,6 +55,30 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<ProjectListResponse, CreateProjectRequest>(
           SUBMIT_CREATE_PROJECT,
+          variables,
+          true
+        ),
+    });
+  },
+
+  deleteProject: (pid: string) => {
+    return mutationOptions<ProjectListResponse, Error, null>({
+      mutationKey: ["deleteProject"],
+      mutationFn: (variables) =>
+        ludoPost<ProjectListResponse, null>(
+          SUBMIT_DELETE_PROJECT(pid),
+          variables,
+          true
+        ),
+    });
+  },
+
+  reameProject: () => {
+    return mutationOptions<ProjectListResponse, Error, RenameProjectRequest>({
+      mutationKey: ["deleteProject"],
+      mutationFn: (variables) =>
+        ludoPost<ProjectListResponse, RenameProjectRequest>(
+          SUBMIT_RENAME_PROJECT,
           variables,
           true
         ),

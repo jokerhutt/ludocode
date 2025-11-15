@@ -12,6 +12,10 @@ export const GET_ALL_COURSES = API_PATH + `/catalog/courses/all`;
 
 export const SUBMIT_CREATE_PROJECT = API_PATH + `/project/create`
 
+export const SUBMIT_DELETE_PROJECT = (pid: string) => API_PATH + `/project/${pid}/delete`
+
+export const SUBMIT_RENAME_PROJECT = API_PATH + `/project/rename`
+
 export const SUBMIT_SAVE_PROJECT = (pid: string) => API_PATH +`/project/${pid}/save`
 
 export const RUN_CODE = API_PATH + `/project/run`

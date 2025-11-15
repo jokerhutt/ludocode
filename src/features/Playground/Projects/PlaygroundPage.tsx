@@ -11,12 +11,15 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { ProjectCard } from "./ProjectCard";
 import { Button } from "@/components/ui/button";
+import { PlaygroundHero } from "../PlaygroundHero";
+import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject";
 
 type PlaygroundPageProps = {};
 
 export function PlaygroundPage({}: PlaygroundPageProps) {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
   const allProjects = projectsPacket.projects;
+
 
   const {
     modalOpen: createProjectOpen,
@@ -29,13 +32,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
       <div className="grid col-span-full p-8 h-full grid-cols-12">
         <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-          <div className="pb-2 flex flex-col gap-2 text-white">
-            <h1 className="text-2xl">Your Projects</h1>
-            <div className="flex items-center justify-between">
-              <p>Here you will see an overview of your projects</p>
-              <Button onClick={() => openCreateProject()}>Add Project</Button>
-            </div>
-          </div>
+          <PlaygroundHero openCreateProject={openCreateProject}/>  
 
           <div className="flex flex-col gap-8 pb-8">
             {allProjects.map((project: ProjectSnapshot) => (
