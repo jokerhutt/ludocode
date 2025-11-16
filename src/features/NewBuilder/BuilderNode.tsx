@@ -15,7 +15,6 @@ export function BuilderNode({
   title,
   onSelect,
   isSelected,
-  status,
   onStatusClick,
   onEditClick,
 }: BuilderNodeProps) {

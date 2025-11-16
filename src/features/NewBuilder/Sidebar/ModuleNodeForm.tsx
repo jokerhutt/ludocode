@@ -22,6 +22,7 @@ export const ModuleNodeForm = withForm({
     currentModuleId,
     currentLessonId,
   }) => {
+    
     return (
       <form.Field name={`modules[${index}]`}>
         {(field) => {

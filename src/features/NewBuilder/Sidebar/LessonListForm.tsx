@@ -5,6 +5,7 @@ import { TreeItem } from "../TreeItem";
 import { BuilderNode } from "../BuilderNode";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
+import { Button } from "@/components/ui/button";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -33,6 +34,16 @@ export const LessonListForm = withForm({
       <form.Field name={`modules[${moduleIndex}].lessons`} mode="array">
         {(fieldArray) => {
           const lessons = fieldArray.state.value;
+
+          const addLesson = () => {
+            fieldArray.pushValue({
+              id: crypto.randomUUID(),
+              title: `Lesson ${lessons.length}`,
+              exercises: [],
+              orderIndex: lessons.length,
+            });
+          };
+
           return (
             <div className={`ml-6 ${isExpanded ? "flex" : "hidden"} flex-col`}>
               {lessons.map((lesson, index) => (
@@ -47,6 +58,9 @@ export const LessonListForm = withForm({
                   />
                 </TreeItem>
               ))}
+              <TreeItem>
+                <Button className="h-8 mt-2" onClick={() => addLesson()}>Add Lesson</Button>
+              </TreeItem>
             </div>
           );
         }}

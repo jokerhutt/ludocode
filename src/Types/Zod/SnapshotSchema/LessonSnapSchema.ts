@@ -5,7 +5,7 @@ const nonEmpty = z.string().trim().min(1, "Required");
 
 export const LessonSnapSchema = z
   .object({
-    id: z.string().uuid(),
+    id: z.string(),
     title: nonEmpty,
     exercises: z.array(ExerciseSnapSchema),
     orderIndex: z.number().int().positive(),
