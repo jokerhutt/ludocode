@@ -47,7 +47,6 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
-import { BuilderLayout } from "../features/Builder/BuilderLayout.tsx";
 import { ensureTreeData } from "./routerEnsures.ts";
 import { OnboardingLayout } from "@/features/Onboarding/OnboardingLayout.tsx";
 import {

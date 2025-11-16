@@ -19,7 +19,8 @@ export const { useAppForm, withForm } = createFormHook({
     TitleField,
     AddExerciseFieldButton,
   },
-  formComponents: {},
+  formComponents: {
+  },
 });
 
 export const courseFormOpts = {

@@ -7,12 +7,15 @@ import {
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
 import { buildRoute } from "@/routes/router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderSidebar } from "./BuilderSidebar";
 
-import type { ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
+import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { useEffect, useState } from "react";
-import { useBuilderForm } from "./TanstackForm/useBuilderForm";
+import { courseFormOpts, useAppForm } from "@/form/formKit";
+import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
+import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
+import { qk } from "@/constants/qk";
 
 type NewBuilderLayoutProps = {};
 
@@ -24,24 +27,48 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
 
   const modules: ModuleSnap[] = courseSnapshot.modules;
 
-  const { moduleId } = buildRoute.useParams();
-  const { lessonId } = buildRoute.useSearch();
+  const qc = useQueryClient();
+  const { moduleId: currentModuleId, lessonId: currentLessonId } =
+    buildRoute.useSearch();
 
-  const form = useBuilderForm({courseSnapshot, modules})
+  const form = useAppForm({
+    ...courseFormOpts,
+    defaultValues: { courseId, modules },
+    onSubmit: async ({ value }) => {
+      try {
+        console.log("1");
+        const fresh = await ludoPost<CourseSnap>(
+          SUBMIT_COURSE_SNAPSHOT,
+          value,
+          true
+        );
+        console.log("2");
 
-
+        qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
+        form.update({ defaultValues: fresh });
+        form.reset();
+      } catch (err) {
+        console.log("Error");
+        console.error("❌ Submission failed:", err);
+      }
+    },
+  });
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
   const changeCurrentExerciseIndex = (index: number) =>
     setCurrentExerciseIndex(index);
   useEffect(() => {
     setCurrentExerciseIndex(0);
-  }, [moduleId, lessonId]);
+  }, [currentModuleId, currentLessonId]);
 
   return (
     <form.AppForm>
       <SidebarProvider>
-        <BuilderSidebar courseSnapshot={courseSnapshot} />
+        <BuilderSidebar
+          currentLessonId={currentLessonId}
+          currentModuleId={currentModuleId}
+          form={form}
+        />
         <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
           <p>Builder</p>
         </div>

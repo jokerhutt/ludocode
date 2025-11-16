@@ -5,8 +5,9 @@ const nonEmpty = z.string().trim().min(1, "Required");
 
 export const ModuleSnapshotSchema = z
   .object({
-    moduleId: z.string().uuid().nullable(), // backend ID
+    moduleId: z.string().uuid(),
     title: nonEmpty,
+    isExpanded: z.boolean(),
     lessons: z
       .array(LessonSnapSchema)
       .min(1, "Module must contain at least one lesson"),

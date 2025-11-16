@@ -11,8 +11,11 @@ export function BuilderNodeContainer({
   onClick,
   isSelected,
 }: BuilderNodeContainerProps) {
+
+  const style = isSelected ? "bg-ludoLightPurple/60 hover:bg-ludoLightPurple/60" : "hover:bg-ludoLightPurple/20"
+
   return (
-    <div onClick={() => onClick()} className="w-full hover:cursor-pointer rounded-xl hover:bg-ludoLightPurple/20 flex justify-between items-center px-3 py-2 ">
+    <div onClick={() => onClick()} className={`w-full hover:cursor-pointer rounded-xl ${style} flex justify-between items-center px-3 py-2`}>
       {children}
     </div>
   );

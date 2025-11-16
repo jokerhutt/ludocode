@@ -2,7 +2,7 @@ import type { ComponentType, JSX } from "react";
 
 type IconProps = { className?: string; color?: string };
 
-const Icons = {
+export const Icons = {
   Commit: CommitIcon,
   Python: PythonIcon,
   Swift: SwiftIcon,
@@ -11,8 +11,7 @@ const Icons = {
   Lua: LuaIcon,
   CloudError: CloudErrorIcon,
   CloudLoad: CloudLoadIcon,
-  CloudYes: CloudYesIcon
-
+  CloudYes: CloudYesIcon,
 } as const satisfies Record<string, ComponentType<IconProps>>;
 
 export type IconName = keyof typeof Icons;
@@ -21,6 +20,10 @@ type CustomIconProps = IconProps & { iconName: IconName; color?: string };
 
 export function CustomIcon({ iconName, className, color }: CustomIconProps) {
   const Icon = Icons[iconName];
+  if (!Icon) {
+    console.error("❌ CUSTOM ICON FAILED:", iconName, "is not in Icons map");
+    return null; // defensive so React stops exploding
+  }
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
 }
 
@@ -57,7 +60,6 @@ export function CloudLoadIcon({ className, color }: IconProps): JSX.Element {
     </svg>
   );
 }
-
 
 export function CloudYesIcon({ className, color }: IconProps): JSX.Element {
   return (
