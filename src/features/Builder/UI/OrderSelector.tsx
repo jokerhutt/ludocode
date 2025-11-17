@@ -1,31 +1,37 @@
+import { Select, SelectContent, SelectItem } from "@/components/ui/select";
+import { SelectGroup } from "@radix-ui/react-select";
+import type { ReactNode } from "react";
+
 type OrderSelectorProps = {
   index: number;
   count: number;
-  onChange: ((oldIndex: number, newIndex: number) => void) | null
-  className?: string;
+  children: ReactNode;
+  onChange: ((oldIndex: number, newIndex: number) => void) | null;
   prefix?: string;
 };
 
 export function OrderSelector({
   index,
   count,
+  children,
   onChange,
-  className,
-  prefix = "#"
+  prefix = "#",
 }: OrderSelectorProps) {
   return (
-    <select
-      className={className}
-      value={index}
-      onChange={(e) => onChange?.(index, Number(e.target.value))}
-      onClick={(e) => e.stopPropagation()}
-      aria-label="Reorder"
+    <Select
+      value={String(index)}
+      onValueChange={(value) => onChange?.(index, Number(value))}
     >
-      {Array.from({ length: count }).map((_, i) => (
-        <option key={i} value={String(i)}>
-          {prefix} {i}
-        </option>
-      ))}
-    </select>
+      {children}
+      <SelectContent className="bg-ludoGrayLight">
+        <SelectGroup>
+          {Array.from({ length: count }).map((_, i) => (
+            <SelectItem className="border-2 border-ludoLightPurple hover:cursor-pointer bg-ludoGrayDark my-2 text-white" key={i} value={String(i)}>
+              {prefix} {i}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }

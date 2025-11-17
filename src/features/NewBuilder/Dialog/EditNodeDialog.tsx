@@ -12,6 +12,8 @@ import {
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { OrderSelector } from "@/features/Builder/UI/OrderSelector";
+import { TrashIcon } from "lucide-react";
+import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
 
 export const EditNodeDialog = withForm({
   ...courseFormOpts,
@@ -45,23 +47,35 @@ export const EditNodeDialog = withForm({
           <DialogTrigger asChild>{children}</DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit {type}</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done.
-              </DialogDescription>
-              <form.AppField name={name}>
-                {(f) => <f.FormTitleField />}
-              </form.AppField>
-              <OrderSelector
-                onChange={updateOrder}
-                index={currentIndex}
-                count={arrayLength}
-              />
+              <div className="flex justify-between mb-2">
+                <DialogTitle>Edit {type}</DialogTitle>
+                <TrashIcon className="h-4 w-4" />
+              </div>
+              <div className="grid grid-cols-[1fr_2fr] gap-4">
+                <h2>{type} Title</h2>
+                <form.AppField name={name}>
+                  {(f) => <f.FormTitleField />}
+                </form.AppField>
+                <h2>Order Index</h2>
+                <OrderSelector
+                  onChange={updateOrder}
+                  index={currentIndex}
+                  count={arrayLength}
+                >
+                  <SelectTrigger
+                    className="border-ludoLightPurple border-2 rounded-md"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                </OrderSelector>
+              </div>
             </DialogHeader>
             <div className="grid gap-4"></div>
             <DialogFooter>
-              <Button type="submit">Close</Button>
+              <DialogClose asChild>
+                <Button type="submit">Close</Button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </form>
