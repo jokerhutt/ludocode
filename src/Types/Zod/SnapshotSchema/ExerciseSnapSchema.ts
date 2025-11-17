@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-const OptionSnap = z.object({
+export const OptionSnap = z.object({
   content: z.string().min(1),
   answerOrder: z.number().int().positive().nullable().optional(),
   exerciseOptionId: z.string()
 });
 
 const Base = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().uuid(),
   title: z.string().optional().nullable(),
   subtitle: z.string().optional().nullable(),
   media: z.string().optional().nullable(),

@@ -10,12 +10,17 @@ import { buildRoute } from "@/routes/router";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderSidebar } from "./BuilderSidebar";
 
-import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
+import type {
+  CourseSnap,
+  ModuleSnap,
+  OptionSnap,
+} from "@/Types/Snapshot/SnapshotTypes";
 import { useEffect, useState } from "react";
 import { courseFormOpts, useAppForm } from "@/form/formKit";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
+import { ExerciseNodeForm } from "./Sidebar/ExerciseNodeForm";
 
 type NewBuilderLayoutProps = {};
 
@@ -28,8 +33,11 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
   const modules: ModuleSnap[] = courseSnapshot.modules;
 
   const qc = useQueryClient();
-  const { moduleId: currentModuleId, lessonId: currentLessonId } =
-    buildRoute.useSearch();
+  const {
+    moduleId: currentModuleId,
+    lessonId: currentLessonId,
+    exerciseId: currentExerciseId,
+  } = buildRoute.useSearch();
 
   const form = useAppForm({
     ...courseFormOpts,
@@ -54,13 +62,6 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
     },
   });
 
-  const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
-  const changeCurrentExerciseIndex = (index: number) =>
-    setCurrentExerciseIndex(index);
-  useEffect(() => {
-    setCurrentExerciseIndex(0);
-  }, [currentModuleId, currentLessonId]);
-
   return (
     <form.AppForm>
       <SidebarProvider>
@@ -75,8 +76,14 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
               <p>Builder</p>
             </div>
             <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
-              <div className="col-start-3 col-end-11">
-                <p>Hello</p>
+              <div className="col-start-3 py-8 h-full flex items-end justify-center col-end-11">
+                <ExerciseNodeForm
+                  courseId={courseId}
+                  currentModuleId={currentModuleId}
+                  currentLessonId={currentLessonId}
+                  exerciseId={currentExerciseId}
+                  form={form}
+                />
               </div>
             </div>
           </MainGridWrapper>

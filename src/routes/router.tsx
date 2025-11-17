@@ -197,13 +197,13 @@ export const modulesRedirectRoute = createRoute({
   loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
-
 export const buildRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_BUILD,
   validateSearch: (s: Record<string, unknown>) => ({
     moduleId: typeof s.moduleId === "string" ? s.moduleId : undefined,
     lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
+    exerciseId: typeof s.exerciseId === "string" ? s.exerciseId : undefined,
   }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
   component: NewBuilderLayout,
@@ -215,7 +215,6 @@ export const buildSelectionRoute = createRoute({
   loader: async ({ location }) => buildSectionLoader(location, queryClient),
   component: BuilderRedirectPage,
 });
-
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,

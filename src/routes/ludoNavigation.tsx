@@ -55,6 +55,18 @@ export const ludoNavigation = {
       params: { courseId },
       search: { moduleId, lessonId },
     }),
+
+    toBuilderExercise: (
+      courseId: string,
+      moduleId: string,
+      lessonId: string,
+      exerciseId: string
+    ) => ({
+      to: RP_BUILD,
+      params: {courseId},
+      search: {moduleId, lessonId, exerciseId}
+    })
+
   },
 
   lesson: {
