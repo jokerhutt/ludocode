@@ -18,6 +18,7 @@ import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
 export const EditNodeDialog = withForm({
   ...courseFormOpts,
   props: {
+    removeItem: null as (() => void) | null,
     updateOrder: null as ((oldIndex: number, newIndex: number) => void) | null,
     type: "module" as "module" | "lesson",
     arrayLength: 0 as number,
@@ -28,6 +29,7 @@ export const EditNodeDialog = withForm({
   render: ({
     form,
     updateOrder,
+    removeItem,
     arrayLength,
     children,
     type,
@@ -49,7 +51,7 @@ export const EditNodeDialog = withForm({
             <DialogHeader>
               <div className="flex justify-between mb-2">
                 <DialogTitle>Edit {type}</DialogTitle>
-                <TrashIcon className="h-4 w-4" />
+                <TrashIcon onClick={() => removeItem?.()} className="h-4 hover:cursor-pointer w-4" />
               </div>
               <div className="grid grid-cols-[1fr_2fr] gap-4">
                 <h2>{type} Title</h2>

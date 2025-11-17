@@ -10,6 +10,7 @@ import { EditNodeDialog } from "../Dialog/EditNodeDialog";
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
   props: {
+    removeModule: null as ((thisId: string, index: number) => void) | null,
     updateOrder: null as ((oldIndex: number, newIndex: number) => void) | null,
     courseId: "" as string,
     moduleId: "" as string,
@@ -21,6 +22,7 @@ export const ModuleNodeForm = withForm({
   render: ({
     form,
     updateOrder,
+    removeModule,
     courseId,
     moduleId,
     modulesLength,
@@ -54,7 +56,15 @@ export const ModuleNodeForm = withForm({
                   title={module.title}
                   status
                 >
-                  <EditNodeDialog updateOrder={updateOrder} arrayLength={modulesLength} moduleIndex={index} lessonIndex={0} type="module" form={form}>
+                  <EditNodeDialog
+                    removeItem={() => removeModule?.(moduleId, index)}
+                    updateOrder={updateOrder}
+                    arrayLength={modulesLength}
+                    moduleIndex={index}
+                    lessonIndex={0}
+                    type="module"
+                    form={form}
+                  >
                     <Button className="h-6">Edit</Button>
                   </EditNodeDialog>
                 </BuilderNode>

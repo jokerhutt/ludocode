@@ -49,6 +49,23 @@ export const LessonListForm = withForm({
             });
           };
 
+          const removeLesson = (thisId: string, index: number) => {
+            const lessons = fieldArray.state.value;
+            const isCurrent = currentLessonId === thisId;
+
+            const nextId = lessons[index + 1]?.id ?? lessons[index - 1]?.id;
+
+            if (isCurrent) {
+              router.navigate(
+                nextId
+                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
+                  : ludoNavigation.build.toSelectCourse()
+              );
+            }
+
+            queueMicrotask(() => fieldArray.removeValue(index));
+          };
+
           return (
             <div className={`ml-6 ${isExpanded ? "flex" : "hidden"} flex-col`}>
               {lessons.map((lesson, index) => (
@@ -62,6 +79,7 @@ export const LessonListForm = withForm({
                     status
                   >
                     <EditNodeDialog
+                      removeItem={() => removeLesson?.(lesson.id, index)}
                       updateOrder={rearrangeLesson}
                       arrayLength={lessons.length}
                       lessonIndex={index}

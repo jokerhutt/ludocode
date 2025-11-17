@@ -3,6 +3,8 @@ import { courseFormOpts, withForm } from "@/form/formKit";
 import { ModuleNodeForm } from "./ModuleNodeForm";
 import { Button } from "@/components/ui/button";
 import { uuidv4 } from "zod";
+import { router } from "@/routes/router";
+import { ludoNavigation } from "@/routes/ludoNavigation";
 
 export const ModuleListForm = withForm({
   ...courseFormOpts,
@@ -27,8 +29,26 @@ export const ModuleListForm = withForm({
           };
 
           const rearrangeModule = (oldIndex: number, newIndex: number) => {
-            fieldArray.moveValue(oldIndex, newIndex)
-          }
+            fieldArray.moveValue(oldIndex, newIndex);
+          };
+
+          const removeModule = (thisId: string, index: number) => {
+            const mods = fieldArray.state.value;
+            const isCurrent = currentModuleId === thisId;
+
+            const nextId =
+              mods[index + 1]?.moduleId ?? mods[index - 1]?.moduleId;
+
+            if (isCurrent) {
+              router.navigate(
+                nextId
+                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
+                  : ludoNavigation.build.toSelectCourse()
+              );
+            }
+
+            queueMicrotask(() => fieldArray.removeValue(index));
+          };
 
           return (
             <div className="flex gap-4 flex-col">
@@ -40,6 +60,7 @@ export const ModuleListForm = withForm({
                   <ModuleNodeForm
                     key={module.moduleId}
                     updateOrder={rearrangeModule}
+                    removeModule={removeModule}
                     modulesLength={modules.length}
                     currentLessonId={currentLessonId}
                     currentModuleId={currentModuleId}
