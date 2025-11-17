@@ -32,11 +32,10 @@ export const EditNodeDialog = withForm({
     moduleIndex,
     lessonIndex,
   }) => {
-    const base = {
-      module: `modules[${moduleIndex}]`,
-      lesson: `modules[${moduleIndex}].lessons[${lessonIndex}]`,
-    };
-    const formKey = base[type];
+    const name =
+      type === "module"
+        ? (`modules[${moduleIndex}].title` as const)
+        : (`modules[${moduleIndex}].lessons[${lessonIndex}].title` as const);
 
     const currentIndex = type == "module" ? moduleIndex : lessonIndex;
 
@@ -51,14 +50,18 @@ export const EditNodeDialog = withForm({
                 Make changes to your profile here. Click save when you&apos;re
                 done.
               </DialogDescription>
-                <OrderSelector onChange={updateOrder} index={currentIndex} count={arrayLength} />
+              <form.AppField name={name}>
+                {(f) => <f.FormTitleField />}
+              </form.AppField>
+              <OrderSelector
+                onChange={updateOrder}
+                index={currentIndex}
+                count={arrayLength}
+              />
             </DialogHeader>
             <div className="grid gap-4"></div>
             <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">Close</Button>
             </DialogFooter>
           </DialogContent>
         </form>
