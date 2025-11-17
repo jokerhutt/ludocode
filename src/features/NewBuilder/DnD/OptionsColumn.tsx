@@ -41,7 +41,7 @@ export function OptionsColumn({
         ${
           !isLocked && isOver
             ? "border-ludoLightPurple bg-ludoLightPurple/20"
-            : "border-transparent"
+            : "border-ludoLightPurple"
         }`}
     >
       <div className="flex items-center justify-between mb-4">
@@ -66,7 +66,7 @@ export function OptionsColumn({
           </Button>
         </div>
 
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-ludoAltText">
           {isLocked ? "Edit mode" : "Reorder mode"}
         </span>
       </div>

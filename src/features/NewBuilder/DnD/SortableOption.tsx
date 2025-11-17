@@ -43,13 +43,13 @@ export function SortableOption({
         opacity: isDragging ? 0.5 : 1,
       }}
       {...(!isLocked ? { ...attributes, ...listeners } : {})}
-      className={`p-4 bg-white rounded shadow select-none
-        ${isLocked ? "cursor-text" : "cursor-grab active:cursor-grabbing"}`}
+      className={` border-ludoLightPurple border rounded-md shadow select-none
+        ${isLocked ? " cursor-text" : "p-2 cursor-grab active:cursor-grabbing"}`}
     >
       {isLocked ? (
         <div className="flex items-center gap-2">
           <Textarea
-            className="w-full bg-transparent border-b border-gray-300 text-black focus:outline-none"
+            className="w-full min-h-8 bg-transparent border-b border-gray-300 text-white focus:outline-none"
             value={item.content}
             onChange={(e) => onEdit?.(id, columnType, e.target.value)}
           />
@@ -58,7 +58,7 @@ export function SortableOption({
           )}
         </div>
       ) : (
-        <div className="text-black">{item.content}</div>
+        <div className="text-white text-sm">{item.content}</div>
       )}
     </div>
   );

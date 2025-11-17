@@ -51,7 +51,7 @@ export function ExerciseOptionsDnDContainer({
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-ludoGrayDark">
+          <span className="text-xs text-ludoAltText">
             {isLocked ? "Edit options" : "Drag to reorder / move"}
           </span>
           <Button
@@ -86,7 +86,7 @@ export function ExerciseOptionsDnDContainer({
 
       <DragOverlay>
         {draggingItem && (
-          <div className="p-4 bg-white rounded-lg shadow-2xl cursor-grabbing opacity-95">
+          <div className="p-2 border-ludoLightPurple border rounded-md text-white shadow-2xl cursor-grabbing opacity-95">
             {draggingItem.content}
           </div>
         )}
