@@ -76,7 +76,7 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
               <p>Builder</p>
             </div>
             <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
-              <div className="col-start-3 py-8 h-full flex items-end justify-center col-end-11">
+              <div className="col-start-2 py-8 h-full flex items-center justify-center col-end-12">
                 <ExerciseNodeForm
                   courseId={courseId}
                   currentModuleId={currentModuleId}

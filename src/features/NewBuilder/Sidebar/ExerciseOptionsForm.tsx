@@ -1,6 +1,7 @@
 import { courseFormOpts, withForm } from "@/form/formKit";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { ExerciseOptionsDnDContainer } from "../DnD/ExerciseOptionsDnDContainer";
+import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
 
 export const ExerciseOptionsForm = withForm({
   ...courseFormOpts,
@@ -40,6 +41,20 @@ export const ExerciseOptionsForm = withForm({
                 }
               };
 
+              const handleEdit = (
+                id: string,
+                column: ColumnType,
+                value: string
+              ) => {
+                const field = column === "correct" ? correctFA : distrFA;
+
+                const updated = field.state.value.map((opt) =>
+                  opt.exerciseOptionId === id ? { ...opt, content: value } : opt
+                );
+
+                field.setValue(updated);
+              };
+
               const removeValue = (
                 index: number,
                 type: "correct" | "distractor"
@@ -53,6 +68,7 @@ export const ExerciseOptionsForm = withForm({
 
               return (
                 <ExerciseOptionsDnDContainer
+                  onEdit={handleEdit}
                   addValue={addValue}
                   removeValue={removeValue}
                   correct={correct}

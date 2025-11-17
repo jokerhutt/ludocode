@@ -1,7 +1,12 @@
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { OptionsColumn } from "./OptionsColumn";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
-import { useOptionsDragAndDrop } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+import {
+  useOptionsDragAndDrop,
+  type ColumnType,
+} from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 type ExerciseOptionsDnDContainerProps = {
   removeValue: (index: number, type: "correct" | "distractor") => void;
@@ -11,6 +16,7 @@ type ExerciseOptionsDnDContainerProps = {
   }) => void;
   correct: OptionSnap[];
   distractors: OptionSnap[];
+  onEdit?: (id: string, column: ColumnType, value: string) => void;
 };
 
 export function ExerciseOptionsDnDContainer({
@@ -18,14 +24,23 @@ export function ExerciseOptionsDnDContainer({
   distractors,
   removeValue,
   addValue,
+  onEdit,
 }: ExerciseOptionsDnDContainerProps) {
+  const [isLocked, setIsLocked] = useState(true);
+
   const {
     sensors,
     handleDragStart,
     handleDragEnd,
     handleDragCancel,
     draggingItem,
-  } = useOptionsDragAndDrop({ correct, distractors, removeValue, addValue });
+  } = useOptionsDragAndDrop({
+    correct,
+    distractors,
+    removeValue,
+    addValue,
+    isLocked,
+  });
 
   return (
     <DndContext
@@ -34,9 +49,39 @@ export function ExerciseOptionsDnDContainer({
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <div className="grid grid-cols-2 gap-8">
-        <OptionsColumn columnType="correct" items={correct} />
-        <OptionsColumn columnType="distractor" items={distractors} />
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-ludoGrayDark">
+            {isLocked ? "Edit options" : "Drag to reorder / move"}
+          </span>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() => setIsLocked((v) => !v)}
+          >
+            {isLocked ? "Unlock order" : "Lock order"}
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-8">
+          <OptionsColumn
+            addValue={addValue}
+            onEdit={onEdit}
+            columnType="correct"
+            items={correct}
+            removeValue={removeValue}
+            isLocked={isLocked}
+          />
+          <OptionsColumn
+            addValue={addValue}
+            onEdit={onEdit}
+            columnType="distractor"
+            items={distractors}
+            removeValue={removeValue}
+            isLocked={isLocked}
+          />
+        </div>
       </div>
 
       <DragOverlay>
