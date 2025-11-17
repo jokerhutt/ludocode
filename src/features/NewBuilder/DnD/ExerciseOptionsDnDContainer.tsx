@@ -19,6 +19,9 @@ type ExerciseOptionsDnDContainerProps = {
   onEdit?: (id: string, column: ColumnType, value: string) => void;
 };
 
+// ExerciseOptionsDnDContainer.tsx
+export type FormEditMode = "Arrange" | "Rename" | "Lock" | "Delete";
+
 export function ExerciseOptionsDnDContainer({
   correct,
   distractors,
@@ -26,7 +29,7 @@ export function ExerciseOptionsDnDContainer({
   addValue,
   onEdit,
 }: ExerciseOptionsDnDContainerProps) {
-  const [isLocked, setIsLocked] = useState(true);
+  const [editMode, setEditMode] = useState<FormEditMode>("Lock");
 
   const {
     sensors,
@@ -39,58 +42,67 @@ export function ExerciseOptionsDnDContainer({
     distractors,
     removeValue,
     addValue,
-    isLocked,
   });
+
+  const isArrange = editMode === "Arrange";
+
+  const editModeOptions: FormEditMode[] = [
+    "Arrange",
+    "Rename",
+    "Delete",
+    "Lock",
+  ];
 
   return (
     <DndContext
       sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
+      onDragStart={isArrange ? handleDragStart : undefined}
+      onDragEnd={isArrange ? handleDragEnd : undefined}
+      onDragCancel={isArrange ? handleDragCancel : undefined}
     >
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-ludoAltText">
-            {isLocked ? "Edit options" : "Drag to reorder / move"}
-          </span>
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            onClick={() => setIsLocked((v) => !v)}
-          >
-            {isLocked ? "Unlock order" : "Lock order"}
-          </Button>
+        <div className="flex items-center justify-end gap-2">
+          {editModeOptions.map((option) => (
+            <Button
+              key={option}
+              onClick={() => setEditMode(option)}
+              type="button"
+              size="sm"
+              variant={editMode === option ? "default" : "outline"}
+              className="hover:cursor-pointer"
+            >
+              {option}
+            </Button>
+          ))}
         </div>
 
         <div className="grid grid-cols-2 gap-8">
           <OptionsColumn
+            editMode={editMode}
             addValue={addValue}
             onEdit={onEdit}
             columnType="correct"
             items={correct}
             removeValue={removeValue}
-            isLocked={isLocked}
           />
           <OptionsColumn
+            editMode={editMode}
             addValue={addValue}
             onEdit={onEdit}
             columnType="distractor"
             items={distractors}
             removeValue={removeValue}
-            isLocked={isLocked}
           />
         </div>
       </div>
 
-      <DragOverlay>
-        {draggingItem && (
+      {isArrange && draggingItem && (
+        <DragOverlay>
           <div className="p-2 border-ludoLightPurple border rounded-md text-white shadow-2xl cursor-grabbing opacity-95">
             {draggingItem.content}
           </div>
-        )}
-      </DragOverlay>
+        </DragOverlay>
+      )}
     </DndContext>
   );
 }

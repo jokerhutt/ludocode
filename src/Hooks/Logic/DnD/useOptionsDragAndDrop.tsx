@@ -15,52 +15,41 @@ type Args = {
   distractors: OptionSnap[];
   removeValue: (index: number, type: ColumnType) => void;
   addValue: (payload: { item: OptionSnap; type: ColumnType }) => void;
-  isLocked: boolean;
 };
 
+// useOptionsDragAndDrop.ts (back to your version)
 export function useOptionsDragAndDrop({
   correct,
   distractors,
   addValue,
   removeValue,
-  isLocked,
 }: Args) {
   const sensors = useSensors(useSensor(PointerSensor));
-
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const handleDragStart = useCallback(
-    (event: DragStartEvent) => {
-      if (isLocked) return; // ignore drag when locked
-      setActiveId(event.active.id as string);
-    },
-    [isLocked]
-  );
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  }, []);
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      if (isLocked) return; // ignore drag when locked
-
       const { active, over } = event;
       if (!over || !active.id) return;
 
       const draggedId = active.id as string;
       const overId = over.id as string;
 
-      const fromCorrect = correct.some(
-        (o) => o.exerciseOptionId === draggedId
-      );
+      const fromCorrect = correct.some((o) => o.exerciseOptionId === draggedId);
       const from = fromCorrect ? correct : distractors;
-      const fromType: ColumnType = fromCorrect ? "correct" : "distractor";
+      const fromType = fromCorrect ? "correct" : ("distractor" as const);
 
-      const oldIndex = from.findIndex(
-        (o) => o.exerciseOptionId === draggedId
-      );
+      const oldIndex = from.findIndex((o) => o.exerciseOptionId === draggedId);
       if (oldIndex === -1) return;
 
-      // if you drop on the column area itself, over.id is "correct"/"distractor"
       const toColumnDrop = overId === "correct" || overId === "distractor";
-      const toType: ColumnType = toColumnDrop ? (overId as ColumnType) : fromType;
+      const toType: ColumnType = toColumnDrop
+        ? (overId as ColumnType)
+        : fromType;
 
       const item = from[oldIndex]!;
       removeValue(oldIndex, fromType);
@@ -68,12 +57,8 @@ export function useOptionsDragAndDrop({
 
       setActiveId(null);
     },
-    [correct, distractors, removeValue, addValue, isLocked]
+    [correct, distractors, removeValue, addValue]
   );
-
-  const handleDragCancel = useCallback(() => {
-    setActiveId(null);
-  }, []);
 
   const draggingItem = useMemo(() => {
     if (!activeId) return null;
@@ -83,6 +68,10 @@ export function useOptionsDragAndDrop({
       ) ?? null
     );
   }, [activeId, correct, distractors]);
+
+  const handleDragCancel = useCallback(() => {
+    setActiveId(null);
+  }, []);
 
   return {
     sensors,

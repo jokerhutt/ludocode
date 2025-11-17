@@ -57,7 +57,7 @@ export const ExerciseNodesList = ({
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="flex justify-between items-center pb-1">
-        <span className="text-xs text-ludoGrayDark">
+        <span className="text-xs text-ludoAltText">
           {isLocked ? "Click to select" : "Drag to reorder"}
         </span>
         <Button
