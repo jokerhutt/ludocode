@@ -79,11 +79,11 @@ export const Analyze = Base.extend({
 export const Trivia = Base.extend({
   exerciseType: z.literal("TRIVIA"),
 }).superRefine((v, ctx) => {
-  if (!v.prompt)
+  if (!v.title)
     ctx.addIssue({
       code: "custom",
-      path: ["prompt"],
-      message: "Prompt required",
+      path: ["title"],
+      message: "Title Required",
     });
   if (v.correctOptions.length !== 1)
     ctx.addIssue({

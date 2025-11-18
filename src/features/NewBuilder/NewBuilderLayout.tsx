@@ -21,6 +21,7 @@ import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
 import { ExerciseNodeForm } from "./Sidebar/ExerciseNodeForm";
+import { Button } from "@/components/ui/button";
 
 type NewBuilderLayoutProps = {};
 
@@ -44,14 +45,11 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
     defaultValues: { courseId, modules },
     onSubmit: async ({ value }) => {
       try {
-        console.log("1");
         const fresh = await ludoPost<CourseSnap>(
           SUBMIT_COURSE_SNAPSHOT,
           value,
           true
         );
-        console.log("2");
-
         qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
         form.update({ defaultValues: fresh });
         form.reset();
@@ -74,6 +72,17 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
           <MainGridWrapper gridRows="SITE">
             <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
               <p>Builder</p>
+              <Button
+                onClick={async () => {
+                  console.log("hi");
+                  const result = await form.validate("submit");
+                  console.log(JSON.stringify(result));
+
+                  form.handleSubmit();
+                }}
+              >
+                Submit Snapshot{" "}
+              </Button>
             </div>
             <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
               <div className="col-start-2 py-8 h-full flex items-center justify-center col-end-12">
