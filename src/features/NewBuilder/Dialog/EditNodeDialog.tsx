@@ -42,6 +42,11 @@ export const EditNodeDialog = withForm({
         : (`modules[${moduleIndex}].lessons[${lessonIndex}].title` as const);
 
     const currentIndex = type == "module" ? moduleIndex : lessonIndex;
+    const canRemoveItem = arrayLength > 1;
+    const handleRemoveItem = () => {
+      if (!canRemoveItem) return;
+      removeItem?.();
+    };
 
     return (
       <Dialog>
@@ -51,7 +56,10 @@ export const EditNodeDialog = withForm({
             <DialogHeader>
               <div className="flex justify-between mb-2">
                 <DialogTitle>Edit {type}</DialogTitle>
-                <TrashIcon onClick={() => removeItem?.()} className="h-4 hover:cursor-pointer w-4" />
+                <TrashIcon
+                  onClick={() => handleRemoveItem()}
+                  className={`h-4 ${canRemoveItem ? "hover:cursor-pointer" : "hover:cursor-not-allowed"} w-4`}
+                />
               </div>
               <div className="grid grid-cols-[1fr_2fr] gap-4">
                 <h2>{type} Title</h2>
