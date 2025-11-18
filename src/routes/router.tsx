@@ -47,7 +47,6 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
-import { ensureTreeData } from "./routerEnsures.ts";
 import { OnboardingLayout } from "@/features/Onboarding/OnboardingLayout.tsx";
 import {
   stepOrder,
@@ -86,10 +85,8 @@ const authedRoute = createRoute({
       .ensureQueryData(qo.preferences())
       .catch(() => null);
 
-    // allow onboarding pages
     if (location.pathname.startsWith(RP_ONBOARDING)) return;
 
-    // not onboarded and not on onboarding → send to start
     if (!currentCourseId || !userPreferences) {
       throw redirect({ to: RP_ONBOARDING_START, replace: true });
     }
@@ -155,7 +152,6 @@ export const onboardingRoute = createRoute({
   component: OnboardingLayout,
 });
 
-// child
 export const onboardingStageRoute = createRoute({
   getParentRoute: () => onboardingRoute,
   path: "$stage",
