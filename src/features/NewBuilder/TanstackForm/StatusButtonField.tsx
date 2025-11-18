@@ -1,8 +1,6 @@
 import {
-  StatusButton,
   type ValidationButtonStatus,
 } from "@/components/Atoms/Button/StatusButton";
-import { useFieldContext } from "@/form/formKit";
 
 type StatusButtonProps = { hasError: boolean };
 
@@ -15,7 +13,7 @@ export function StatusButtonField({ hasError }: StatusButtonProps) {
     error: "bg-red-400",
   };
 
-  console.log(hasError)
+  console.log(hasError);
 
   return (
     <div

@@ -52,19 +52,23 @@ export const EditNodeDialog = withForm({
       <Dialog>
         <form>
           <DialogTrigger asChild>{children}</DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent showCloseButton={false} className="sm:max-w-[425px]">
             <DialogHeader>
               <div className="flex justify-between mb-2">
                 <DialogTitle>Edit {type}</DialogTitle>
                 <TrashIcon
                   onClick={() => handleRemoveItem()}
-                  className={`h-4 ${canRemoveItem ? "hover:cursor-pointer" : "hover:cursor-not-allowed"} w-4`}
+                  className={`h-4 ${
+                    canRemoveItem
+                      ? "hover:cursor-pointer"
+                      : "hover:cursor-not-allowed"
+                  } w-4`}
                 />
               </div>
               <div className="grid grid-cols-[1fr_2fr] gap-4">
                 <h2>{type} Title</h2>
                 <form.AppField name={name}>
-                  {(f) => <f.FormTitleField />}
+                  {(f) => <f.FormTitleField className="text-black"/>}
                 </form.AppField>
                 <h2>Order Index</h2>
                 <OrderSelector

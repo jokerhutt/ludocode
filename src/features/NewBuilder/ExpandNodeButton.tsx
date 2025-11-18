@@ -9,7 +9,13 @@ export function ExpandNodeButton({
   return (
     <button
       type="button"
-      onClick={() => onClick?.()}
+      onMouseDown={(e) => {
+        e.stopPropagation();
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.();
+      }}
       className="flex h-6 w-6 items-center hover:cursor-pointer justify-center rounded hover:bg-ludoGrayLight/60"
     >
       <ChevronRightIcon

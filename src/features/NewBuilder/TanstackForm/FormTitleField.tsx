@@ -1,7 +1,16 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "@/form/formKit";
+import { cn } from "@/lib/utils";
 
-export default function FormTitleField({name}: {name?: string}) {
+type FormTitleFieldProps = {
+  name?: string;
+  className?: string; // ← optional cn override
+};
+
+export default function FormTitleField({
+  name,
+  className,
+}: FormTitleFieldProps) {
   const field = useFieldContext<string>();
   const value = field.state.value ?? "";
   const error = field.state.meta.errors?.[0]?.message;
@@ -9,10 +18,13 @@ export default function FormTitleField({name}: {name?: string}) {
   return (
     <div className="flex flex-col w-full">
       {name && <p className="text-sm text-ludoAltText pb-0.5">{name}</p>}
+
       <Textarea
-        className={`pl-2 text-white min-h-6 py-2 rounded-lg border-2 ${
-          error ? "border-red-500" : "border-ludoLightPurple"
-        }`}
+        className={cn(
+          "pl-2 text-white min-h-6 py-2 rounded-lg border-2",
+          error ? "border-red-500" : "border-ludoLightPurple",
+          className
+        )}
         value={value}
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}

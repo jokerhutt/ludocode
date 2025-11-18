@@ -4,15 +4,10 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import type { CourseSnap } from "@/Types/Snapshot/SnapshotTypes";
-import { ModuleNode } from "./ModuleNode";
 import { courseFormOpts, withForm } from "@/form/formKit";
 import { ModuleListForm } from "./Sidebar/ModuleListForm";
-import { Button } from "@/components/ui/button";
-type BuilderSidebarProps = { courseSnapshot: CourseSnap };
 
 export const BuilderSidebar = withForm({
   ...courseFormOpts,
@@ -27,7 +22,7 @@ export const BuilderSidebar = withForm({
     return (
       <Sidebar
         collapsible="icon"
-        className="[--sidebar-width:36rem] border-r-ludoLightPurple"
+        className="[--sidebar-width:46rem] border-r-ludoLightPurple"
       >
         <div className="w-full h-14 px-2 bg-ludoLightPurple flex items-center justify-start">
           <SidebarTrigger className=" hover:cursor-pointer text-black" />

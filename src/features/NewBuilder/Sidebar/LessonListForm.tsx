@@ -73,10 +73,15 @@ export const LessonListForm = withForm({
                     isSelected={
                       !!currentLessonId && lesson.id == currentLessonId
                     }
-                    onSelect={() => selectLesson(lesson.id)}
                     title={lesson.title}
                     status
                   >
+                    <Button
+                      onClick={() => selectLesson(lesson.id)}
+                      className="h-6"
+                    >
+                      Select
+                    </Button>
                     <EditNodeDialog
                       removeItem={() => removeLesson?.(lesson.id, index)}
                       updateOrder={rearrangeLesson}

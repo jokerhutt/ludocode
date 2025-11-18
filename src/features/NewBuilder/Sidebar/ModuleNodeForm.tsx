@@ -35,6 +35,7 @@ export const ModuleNodeForm = withForm({
     return (
       <form.Field name={`modules[${index}]`}>
         {(field) => {
+          const modules = form.state.values.modules
           const module = field.state.value;
 
           const isExpanded = module.isExpanded;
@@ -44,8 +45,12 @@ export const ModuleNodeForm = withForm({
 
           const selectModule = () => {
             console.log("MID " + JSON.stringify(moduleId));
+            const newModuleIndex = modules.findIndex((module) => module.moduleId == moduleId)
+            if (newModuleIndex < 0) return;
+            const firstLessonOfNewModule = modules[newModuleIndex].lessons[0]
+            if (!firstLessonOfNewModule) return;
             router.navigate(
-              ludoNavigation.build.toBuilderModule(courseId, moduleId)
+              ludoNavigation.build.toBuilderLesson(courseId, moduleId, firstLessonOfNewModule.id)
             );
           };
 
@@ -54,10 +59,12 @@ export const ModuleNodeForm = withForm({
               <div className="flex items-center gap-4 pr-4">
                 <BuilderNode
                   isSelected={isSelected}
-                  onSelect={() => selectModule()}
                   title={module.title}
                   status
                 >
+                  <Button onClick={() => selectModule()} className="h-6">
+                    Select
+                  </Button>
                   <EditNodeDialog
                     removeItem={() => removeModule?.(moduleId, index)}
                     updateOrder={updateOrder}
