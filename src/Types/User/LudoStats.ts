@@ -1,5 +1,1 @@
-export type LudoStats = {
-  id: string;
-  coins: number;
-  streak: number;
-};
+export type LudoStats = {coins: number, streak: number}

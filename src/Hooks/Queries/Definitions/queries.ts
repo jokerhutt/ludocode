@@ -5,7 +5,7 @@ import {
   lessonBatcher,
   moduleBatcher,
   userBatcher,
-  userStatsBatcher,
+  userCoinsBatcher,
 } from "../Batcher/batchers";
 
 import type { LudoModule } from "../../../Types/Catalog/LudoModule";
@@ -24,6 +24,7 @@ import {
   GET_EXERCISES_FROM_LESSON,
   GET_USER_PREFERENCES,
   GET_USER_PROJECTS,
+  GET_USER_STREAK,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
@@ -31,6 +32,7 @@ import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse.ts";
+import { type UserStreak } from "@/Types/Progress/UserStreak.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -58,6 +60,13 @@ export const qo = {
     queryOptions<LudoLesson>({
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
+      staleTime: 60_000,
+    }),
+
+  streak: (userId: string) =>
+    queryOptions<UserStreak>({
+      queryKey: qk.streak(userId),
+      queryFn: () => ludoGet<UserStreak>(GET_USER_STREAK, true),
       staleTime: 60_000,
     }),
 
@@ -97,18 +106,18 @@ export const qo = {
       queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
       staleTime: 60_000,
     }),
-  
+
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
       queryFn: () => ludoGet<ProjectListResponse>(GET_USER_PROJECTS, true),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
-  stats: (userId: string) =>
+  coins: (userId: string) =>
     queryOptions({
-      queryKey: qk.userStats(userId),
-      queryFn: () => userStatsBatcher.fetch(userId),
+      queryKey: qk.userCoins(userId),
+      queryFn: () => userCoinsBatcher.fetch(userId),
       staleTime: 60_000,
     }),
 

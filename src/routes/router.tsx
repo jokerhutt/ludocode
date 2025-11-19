@@ -99,9 +99,16 @@ export const siteRoute = createRoute({
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
     const userStats = await queryClient.ensureQueryData(
-      qo.stats(currentUser.id)
+      qo.coins(currentUser.id)
     );
-    return { userStats };
+    const userStreak = await queryClient.ensureQueryData(
+      qo.streak(currentUser.id)
+    );
+
+    if (!userStats || !userStreak || !currentUser)
+      throw redirect({ to: RP_AUTH, replace: true });
+
+    return { userStats, userStreak };
   },
   component: SiteLayout,
 });
@@ -240,7 +247,7 @@ export const syncRoute = createRoute({
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
     const userStats = await queryClient.ensureQueryData(
-      qo.stats(currentUser.id)
+      qo.coins(currentUser.id)
     );
     const oldStreak = userStats.streak;
     return { oldStreak };

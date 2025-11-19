@@ -1,6 +1,6 @@
 import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
 import type { LessonStats } from "../../Types/Exercise/LessonStats";
-import type { LudoStats } from "../../Types/User/LudoStats";
+import type { UserCoins } from "../../Types/User/UserCoins";
 
 type CompletionStatsRowProps = { userStats: LessonStats };
 

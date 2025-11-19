@@ -16,8 +16,13 @@ export function useSubmitLesson({ oldStreak }: Args) {
     onSuccess: (payload) => {
       if (payload.status === "DUPLICATE") return;
 
-      const { newStats, newCourseProgress, updatedCompletedLesson, accuracy } =
-        payload.content;
+      const {
+        newCoins,
+        newStreak,
+        newCourseProgress,
+        updatedCompletedLesson,
+        accuracy,
+      } = payload.content;
 
       qc.setQueryData(
         qk.lesson(updatedCompletedLesson.id),
@@ -27,11 +32,19 @@ export function useSubmitLesson({ oldStreak }: Args) {
         qk.courseProgress(newCourseProgress.id),
         newCourseProgress
       );
-      qc.setQueryData(qk.userStats(newStats.id), newStats);
+      qc.setQueryData(qk.userCoins(newCoins.id), newCoins);
+      qc.setQueryData(qk.streak(newCoins.id), newStreak);
 
-      const { coins, streak } = newStats;
+      const { coins } = newCoins;
+      const { current } = newStreak;
+
       router.navigate(
-        ludoNavigation.completion.toComplete(coins, accuracy, oldStreak, streak)
+        ludoNavigation.completion.toComplete(
+          coins,
+          accuracy,
+          oldStreak,
+          current
+        )
       );
     },
   });
