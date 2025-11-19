@@ -3,14 +3,25 @@ import { Button } from "@/components/ui/button";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 
-type LeaveUnsavedButtonProps = {};
+type LeaveUnsavedButtonProps = { variant: any; enabled: boolean };
 
-export function LeaveUnsavedButton({}: LeaveUnsavedButtonProps) {
+export function LeaveUnsavedButton({
+  variant,
+  enabled,
+}: LeaveUnsavedButtonProps) {
+  if (!enabled) {
+    return (
+      <Button variant={variant} >
+        Quit
+      </Button>
+    );
+  }
+
   return (
     <LeaveUnsavedDialogWithTrigger
       onClick={() => router.navigate(ludoNavigation.build.toSelectCourse())}
     >
-      <Button> Quit </Button>
+      <Button variant={variant}> Quit </Button>
     </LeaveUnsavedDialogWithTrigger>
   );
 }

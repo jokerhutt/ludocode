@@ -8,6 +8,7 @@ import { ExpandCollapsibleButtonProps } from "@/components/Atoms/Button/ExpandCo
 import { LessonListForm } from "../Lesson/LessonListForm";
 import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";
 import { SelectModuleButton } from "../../UI/Button/SelectModuleButton";
+import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -35,6 +36,7 @@ export const ModuleNodeForm = withForm({
     return (
       <form.Field name={`modules[${index}]`}>
         {(field) => {
+          
           const modules = form.state.values.modules;
           const module = field.state.value;
           const isExpanded = module.isExpanded;
@@ -59,24 +61,13 @@ export const ModuleNodeForm = withForm({
 
           return (
             <div className="flex flex-col">
-              <div className="flex items-center gap-4 pr-4">
+              <BuilderNodeWrapper>
                 <BuilderNode
+                  onSelect={() => selectModule()}
                   isSelected={isSelected}
                   title={module.title}
                   status
                 >
-                  <SelectModuleButton selectModule={selectModule} />
-                  <EditNodeDialog
-                    removeItem={() => removeModule?.(moduleId, index)}
-                    updateOrder={updateOrder}
-                    arrayLength={modulesLength}
-                    moduleIndex={index}
-                    lessonIndex={0}
-                    type="module"
-                    form={form}
-                  >
-                    <Button className="h-6">Edit</Button>
-                  </EditNodeDialog>
                   <form.AppField name={`modules[${index}]`}>
                     {(moduleField) => {
                       const hasError =
@@ -85,13 +76,24 @@ export const ModuleNodeForm = withForm({
                     }}
                   </form.AppField>
                 </BuilderNode>
+                <EditNodeDialog
+                  removeItem={() => removeModule?.(moduleId, index)}
+                  updateOrder={updateOrder}
+                  arrayLength={modulesLength}
+                  moduleIndex={index}
+                  lessonIndex={0}
+                  type="module"
+                  form={form}
+                >
+                  <Button className="h-6">Edit</Button>
+                </EditNodeDialog>
                 <ExpandCollapsibleButtonProps
                   isExpanded={module.isExpanded}
                   onClick={() =>
                     field.handleChange({ ...module, isExpanded: !isExpanded })
                   }
                 />
-              </div>
+              </BuilderNodeWrapper>
 
               <LessonListForm
                 form={form}

@@ -1,6 +1,5 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "../../form/formKit";
-import { Select, SelectItem } from "@radix-ui/react-select";
 
 type ExerciseOptionInputFieldProps = { onEmpty: () => void };
 

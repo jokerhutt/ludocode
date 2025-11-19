@@ -9,6 +9,7 @@ import { newLesson } from "../../Util/NewExerciseTemplates";
 import { StatusButtonField } from "../../../../components/Atoms/Status/StatusButtonField";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";
 import { SelectLessonButton } from "../../UI/Button/SelectLessonButton";
+import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -34,7 +35,11 @@ export const LessonListForm = withForm({
     };
 
     return (
-      <form.Field name={`modules[${moduleIndex}].lessons`} mode="array">
+      <form.Field
+        key={currentLessonId}
+        name={`modules[${moduleIndex}].lessons`}
+        mode="array"
+      >
         {(fieldArray) => {
           const lessons = fieldArray.state.value;
 
@@ -48,37 +53,40 @@ export const LessonListForm = withForm({
           };
 
           const removeLesson = (thisId: string, index: number) => {
-            const lessons = fieldArray.state.value;
             const isCurrent = currentLessonId === thisId;
-
-            const nextId = lessons[index + 1]?.id ?? lessons[index - 1]?.id;
-
+            fieldArray.removeValue(index);
             if (isCurrent) {
               router.navigate(
-                nextId
-                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
-                  : ludoNavigation.build.toSelectCourse()
+                ludoNavigation.build.toBuilderModule(courseId, moduleId)
               );
             }
-
-            queueMicrotask(() => fieldArray.removeValue(index));
           };
 
           return (
             <div className={`ml-6 ${isExpanded ? "flex" : "hidden"} flex-col`}>
               {lessons.map((lesson, index) => (
                 <TreeItem key={lesson.id}>
-                  <BuilderNode
-                    isSelected={
-                      !!currentLessonId && lesson.id == currentLessonId
-                    }
-                    title={lesson.title}
-                    status
-                  >
-                    <SelectLessonButton
-                      selectLesson={selectLesson}
-                      lessonId={lesson.id}
-                    />
+                  <BuilderNodeWrapper>
+                    <BuilderNode
+                      key={lesson.id}
+                      onSelect={() => selectLesson(lesson.id)}
+                      isSelected={
+                        !!currentLessonId && lesson.id == currentLessonId
+                      }
+                      title={lesson.title}
+                      status
+                    >
+                      <form.AppField
+                        key={lesson.id}
+                        name={`modules[${moduleIndex}].lessons[${index}]`}
+                      >
+                        {(lessonField) => {
+                          const hasError =
+                            lessonField.state.meta.errors?.[0]?.message;
+                          return <StatusButtonField hasError={!!hasError} />;
+                        }}
+                      </form.AppField>
+                    </BuilderNode>
                     <EditNodeDialog
                       removeItem={() => removeLesson?.(lesson.id, index)}
                       updateOrder={rearrangeLesson}
@@ -90,17 +98,7 @@ export const LessonListForm = withForm({
                     >
                       <Button className="h-6">Edit</Button>
                     </EditNodeDialog>
-
-                    <form.AppField
-                      name={`modules[${moduleIndex}].lessons[${index}]`}
-                    >
-                      {(lessonField) => {
-                        const hasError =
-                          lessonField.state.meta.errors?.[0]?.message;
-                        return <StatusButtonField hasError={!!hasError} />;
-                      }}
-                    </form.AppField>
-                  </BuilderNode>
+                  </BuilderNodeWrapper>
                 </TreeItem>
               ))}
               <AddLessonRow addLesson={() => addLesson()} />
