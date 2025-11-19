@@ -12,16 +12,13 @@ type LudoSidebarProps = { title: string; children: ReactNode };
 
 export function LudoSidebar({ title, children }: LudoSidebarProps) {
   return (
-    <Sidebar
-      collapsible="icon"
-      className="border-r-ludoLightPurple"
-    >
-      <div className="w-full h-14 px-2 bg-ludoLightPurple flex items-center justify-start">
-        <SidebarTrigger className=" hover:cursor-pointer text-black" />
+    <Sidebar collapsible="icon" className="border-r-ludoLightPurple">
+      <div className="w-full h-14 px-2 bg-ludoGrayLight flex items-center justify-start">
+        <SidebarTrigger className=" hover:cursor-pointer text-white" />
       </div>
       <SidebarContent
         data-state="expanded"
-        className="bg-ludoGrayLight p-2 text-white"
+        className="bg-ludoGrayDark p-2 text-white"
       >
         <SidebarGroup>
           <SidebarGroupLabel className="text-lg text-white">

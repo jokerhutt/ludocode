@@ -18,7 +18,7 @@ export function BuilderNode({
   return (
     <div
       onClick={() => onSelect?.()}
-      className="w-full py-1.5 my-2 hover:cursor-pointer px-4 border rounded-md flex justify-between"
+      className={`w-full py-1.5 ${isSelected ? "border-ludoLightPurple" : "border-ludoLightPurple/30"} my-2 hover:cursor-pointer px-4 border rounded-md flex justify-between`}
     >
       <p className="text-lg">{title}</p>
       <div className="flex items-center gap-4">{children}</div>
