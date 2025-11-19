@@ -35,7 +35,11 @@ export const LessonListForm = withForm({
     };
 
     return (
-      <form.Field name={`modules[${moduleIndex}].lessons`} mode="array">
+      <form.Field
+        key={currentLessonId}
+        name={`modules[${moduleIndex}].lessons`}
+        mode="array"
+      >
         {(fieldArray) => {
           const lessons = fieldArray.state.value;
 
@@ -49,20 +53,13 @@ export const LessonListForm = withForm({
           };
 
           const removeLesson = (thisId: string, index: number) => {
-            const lessons = fieldArray.state.value;
             const isCurrent = currentLessonId === thisId;
-
-            const nextId = lessons[index + 1]?.id ?? lessons[index - 1]?.id;
-
+            fieldArray.removeValue(index);
             if (isCurrent) {
               router.navigate(
-                nextId
-                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
-                  : ludoNavigation.build.toSelectCourse()
+                ludoNavigation.build.toBuilderModule(courseId, moduleId)
               );
             }
-
-            queueMicrotask(() => fieldArray.removeValue(index));
           };
 
           return (
@@ -71,6 +68,7 @@ export const LessonListForm = withForm({
                 <TreeItem key={lesson.id}>
                   <BuilderNodeWrapper>
                     <BuilderNode
+                      key={lesson.id}
                       onSelect={() => selectLesson(lesson.id)}
                       isSelected={
                         !!currentLessonId && lesson.id == currentLessonId
@@ -79,6 +77,7 @@ export const LessonListForm = withForm({
                       status
                     >
                       <form.AppField
+                        key={lesson.id}
                         name={`modules[${moduleIndex}].lessons[${index}]`}
                       >
                         {(lessonField) => {

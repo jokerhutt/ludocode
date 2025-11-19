@@ -1,4 +1,3 @@
-import { BuilderNodeContainer } from "../../Molecules/Sidebar/BuilderNodeContainer";
 import type { ReactNode } from "react";
 
 type BuilderNodeProps = {

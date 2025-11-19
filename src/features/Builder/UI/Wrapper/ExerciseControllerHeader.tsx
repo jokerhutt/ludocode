@@ -17,13 +17,16 @@ export function ExerciseControllerHeader({
   currentLesson,
   currentModule,
   currentLessonIndex,
-  currentModuleIndex
+  currentModuleIndex,
 }: ExerciseControllerHeaderProps) {
   const headerDisplay = exerciseType ?? "None Selected";
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center text-white">
-        <h2>Module #{currentModuleIndex + 1}: {currentModule.title} | Lesson #{currentLessonIndex + 1}: {currentLesson.title}</h2>
+        <h2>
+          Module #{currentModuleIndex + 1}: {currentModule.title} | Lesson #
+          {currentLessonIndex + 1}: {currentLesson.title}
+        </h2>
       </div>
       <div className="w-full gap-4 flex items-center font-bold text-white py-2">
         <h2>Exercise Type: {headerDisplay}</h2>

@@ -26,12 +26,14 @@ export const ExerciseNodeForm = withForm({
     exerciseId,
   }) => {
     const modules = form.state.values.modules;
+    if (!modules) return null;
     const moduleIndex = modules.findIndex(
       (m) => m.moduleId === currentModuleId
     );
     if (moduleIndex < 0) return null;
 
     const lessons = modules[moduleIndex].lessons;
+    if (!lessons) return null;
     const lessonIndex = lessons.findIndex((l) => l.id === currentLessonId);
     if (lessonIndex < 0) return null;
 
@@ -50,6 +52,7 @@ export const ExerciseNodeForm = withForm({
           {(fieldArray) => {
             const exercises = fieldArray.state.value;
 
+            if (!exercises) return null;
             const canRemoveExercises = exercises.length > 1;
 
             const exerciseIndex = exercises.findIndex(
