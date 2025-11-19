@@ -14,7 +14,7 @@ export function LudoSidebar({ title, children }: LudoSidebarProps) {
   return (
     <Sidebar
       collapsible="icon"
-      className="[--sidebar-width:46rem] border-r-ludoLightPurple"
+      className="border-r-ludoLightPurple"
     >
       <div className="w-full h-14 px-2 bg-ludoLightPurple flex items-center justify-start">
         <SidebarTrigger className=" hover:cursor-pointer text-black" />

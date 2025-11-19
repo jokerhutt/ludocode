@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
-import { buildRoute, router } from "@/routes/router";
+import { buildRoute } from "@/routes/router";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { courseFormOpts, useAppForm } from "@/form/formKit";
@@ -9,8 +9,6 @@ import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
 import { Button } from "@/components/ui/button";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { LeaveUnsavedDialogWithTrigger } from "@/components/Molecules/Dialog/LeaveUnsavedDialogWithTrigger";
 import { ExerciseNodeForm } from "./Form/Exercise/ExerciseNodeForm";
 import { ModuleListForm } from "./Form/Module/ModuleListForm";
 import { LudoSidebar } from "@/components/Molecules/Sidebar/LudoSidebar";
