@@ -112,11 +112,12 @@ export const ludoNavigation = {
     toStreakIncrease: (oldStreak: number, newStreak: number) => ({
       to: streakIncreaseRoute.to,
       params: { oldStreak, newStreak },
+      replace: true
     }),
   },
 
   module: {
-    toCurrent: () => ({ to: RP_MODULE_REDIRECT }),
+    toCurrent: (replace = false) => ({ to: RP_MODULE_REDIRECT, replace: replace }),
     toModule: (courseId: string, moduleId: string) => ({
       to: RP_MODULE,
       params: { courseId, moduleId },

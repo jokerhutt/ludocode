@@ -22,7 +22,7 @@ export function LessonCompletionPage() {
   const altAnimation = useLottie("/Animations/LC_TROPHY.json");
 
   const handleContinue = () => {
-    router.navigate(ludoNavigation.module.toCurrent());
+    router.navigate(ludoNavigation.module.toCurrent(true));
   };
 
   return (

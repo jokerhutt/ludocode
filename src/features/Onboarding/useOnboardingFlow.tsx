@@ -42,8 +42,6 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     [nav]
   );
 
-
-
   const prev = useCallback(() => {
     if (!atFirst) goto(stepOrder[idx - 1]);
   }, [atFirst, goto, idx]);
@@ -100,14 +98,16 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
         submitOnboardingMutation.mutate(submission);
       }
     }
-  }, [    atLast,
+  }, [
+    atLast,
     goto,
     idx,
-    canAdvance,                    // depends on state already
+    canAdvance,
     selectedCareer,
     selectedCourse,
     hasProgrammingExperience,
-    submitOnboardingMutation,]);
+    submitOnboardingMutation,
+  ]);
 
   return {
     goto,

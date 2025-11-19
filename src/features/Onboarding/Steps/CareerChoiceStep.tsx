@@ -23,7 +23,10 @@ export function CareerChoiceStep() {
             )} min-h-40 flex flex-col items-center gap-2 justify-center rounded-2xl bg-ludoGrayLight`}
           >
             <h1 className="text-white text-xl font-bold">{cContent.title}</h1>
-            <p className="text-white">Top languages: <span className="font-bold">{cContent.topPath}</span></p>
+            <p className="text-white">
+              Top languages:{" "}
+              <span className="font-bold">{cContent.topPath}</span>
+            </p>
           </div>
         ))}
       </div>

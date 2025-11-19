@@ -57,7 +57,6 @@ export function useCommitAttempt({
           return;
         }
 
-        //CORRECT -> NAVIGATE TO NEXT EXERCISE
         handleCorrectAttempt();
         return;
       }
