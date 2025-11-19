@@ -35,6 +35,11 @@ export const ExerciseNodeForm = withForm({
     const lessonIndex = lessons.findIndex((l) => l.id === currentLessonId);
     if (lessonIndex < 0) return null;
 
+    const currentLesson = lessons[lessonIndex];
+    const currentModule = modules[moduleIndex];
+
+    if (currentLesson == null || currentModule == null) return null;
+
     return (
       <div className="w-full rounded-md flex flex-col space-y-4">
         <form.AppField
@@ -109,7 +114,13 @@ export const ExerciseNodeForm = withForm({
             return (
               <>
                 <div className="w-full flex rounded-md bg-ludoGrayLight p-4 flex-col gap-2">
-                  <ExerciseControllerHeader exerciseType={exerciseType} />
+                  <ExerciseControllerHeader
+                    currentLessonIndex={lessonIndex}
+                    currentModuleIndex={moduleIndex}
+                    currentModule={currentModule}
+                    currentLesson={currentLesson}
+                    exerciseType={exerciseType}
+                  />
                   <ExerciseNodesList
                     exercises={exercises}
                     currentExerciseId={exerciseId}
