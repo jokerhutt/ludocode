@@ -14,15 +14,16 @@ export function useGoogleAuthEntry() {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
 
-      const {user, userStats}: LoginUserResponse = await ludoPost(
+      const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
         GOOGLE_LOGIN,
         { code: codeResponse.code },
         true
-      )
+      );
 
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
-      queryClient.setQueryData(qk.userStats(userStats.id), userStats)
+      queryClient.setQueryData(qk.userCoins(userCoins.id), userCoins);
+      queryClient.setQueryData(qk.streak(user.id), userStreak);
 
       router.navigate({ to: "/" });
     },

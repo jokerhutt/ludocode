@@ -1,5 +1,7 @@
 import { createContext, useContext } from "react";
-import type { LudoStats } from "../../Types/User/LudoStats";
+import type { UserCoins } from "../../Types/User/UserCoins";
+import type { LudoStats } from "@/Types/User/LudoStats";
+
 
 export const StatsContext = createContext<LudoStats | null>(null);
 

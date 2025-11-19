@@ -6,7 +6,7 @@ import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrap
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
-import type { LudoStats } from "../../Types/User/LudoStats";
+import type { UserCoins } from "../../Types/User/UserCoins";
 import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { ludoNavigation } from "../../routes/ludoNavigation";
