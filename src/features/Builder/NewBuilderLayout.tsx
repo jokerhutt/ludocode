@@ -8,11 +8,10 @@ import { courseFormOpts, useAppForm } from "@/form/formKit";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
-import { Button } from "@/components/ui/button";
 import { ExerciseNodeForm } from "./Form/Exercise/ExerciseNodeForm";
 import { ModuleListForm } from "./Form/Module/ModuleListForm";
 import { LudoSidebar } from "@/components/Molecules/Sidebar/LudoSidebar";
-import { LeaveUnsavedButton } from "./UI/Button/LeaveUnsavedButton";
+import { NewBuilderHeader } from "./UI/NewBuilderHeader";
 
 type NewBuilderLayoutProps = {};
 
@@ -68,16 +67,9 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
             form={form}
           />
         </LudoSidebar>
-
         <SidebarInset>
           <MainGridWrapper gridRows="SITE">
-            <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
-              <LeaveUnsavedButton />
-              <p>Builder</p>
-              <Button onClick={() => handleFormSubmission()}>
-                Submit Snapshot
-              </Button>
-            </div>
+            <NewBuilderHeader handleFormSubmission={handleFormSubmission} />
             <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
               <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 <ExerciseNodeForm
