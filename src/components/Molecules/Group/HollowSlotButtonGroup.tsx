@@ -1,12 +1,15 @@
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
-type HollowSlotGroupProps = {
+type HollowSlotButtonGroupProps = {
   className?: string;
   children: ReactNode;
 };
 
-export function HollowSlotGroup({ children, className }: HollowSlotGroupProps) {
+export function HollowSlotButtonGroup({
+  children,
+  className,
+}: HollowSlotButtonGroupProps) {
   return (
     <div className={cn("flex gap-4 text-white items-center", className)}>
       {children}

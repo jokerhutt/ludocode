@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ActionButton } from "../../components/Atoms/Button/ActionButton";
-import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
+import { HollowSlotButton } from "../../components/Atoms/Button/HollowSlotButton";
 import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";

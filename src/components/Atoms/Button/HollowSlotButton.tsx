@@ -1,30 +1,31 @@
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
-type HollowSlotProps = {
+type HollowSlotButtonProps = {
   children: ReactNode;
   active?: boolean;
   onClick?: () => void;
   className?: string;
 };
 
-export function HollowSlot({
+export function HollowSlotButton({
   children,
   active = false,
   onClick,
   className,
-}: HollowSlotProps) {
+}: HollowSlotButtonProps) {
   return (
-    <div
+    <Button
       onClick={onClick}
       className={cn(
-        "flex items-center justify-center gap-2 px-3 py-2 rounded-lg",
+        "flex items-center text-white justify-center gap-2",
         "bg-ludoGrayDark hover:cursor-pointer hover:bg-ludoGrayDark/50",
         active && "border-2 border-ludoLightPurple",
         className
       )}
     >
       {children}
-    </div>
+    </Button>
   );
 }
