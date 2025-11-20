@@ -39,7 +39,7 @@ export const ModuleNodeForm = withForm({
           
           const modules = form.state.values.modules;
           const module = field.state.value;
-          const isExpanded = module.isExpanded;
+          const isExpanded = !!module.isExpanded;
           const isSelected =
             currentModuleId != null && currentModuleId == moduleId;
 
@@ -88,7 +88,7 @@ export const ModuleNodeForm = withForm({
                   <Button className="h-6">Edit</Button>
                 </EditNodeDialog>
                 <ExpandCollapsibleButtonProps
-                  isExpanded={module.isExpanded}
+                  isExpanded={isExpanded}
                   onClick={() =>
                     field.handleChange({ ...module, isExpanded: !isExpanded })
                   }

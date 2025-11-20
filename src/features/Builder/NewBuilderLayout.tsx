@@ -52,8 +52,10 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
 
   async function handleFormSubmission() {
     const result = await form.validate("submit");
-    console.log(JSON.stringify(result));
-    form.handleSubmit();
+    console.log("Result: " + JSON.stringify(result));
+    console.log("Can submit?", form.state.canSubmit);
+    console.log("Full state:", form.state);
+    await form.handleSubmit();
   }
 
   return (
