@@ -1,6 +1,4 @@
-import {
-  type ValidationButtonStatus,
-} from "@/components/Atoms/Button/StatusButton";
+import { type ValidationButtonStatus } from "@/components/Atoms/Button/StatusButton";
 
 type StatusButtonProps = { hasError: boolean };
 
@@ -12,8 +10,6 @@ export function StatusButtonField({ hasError }: StatusButtonProps) {
     ok: "bg-green-400",
     error: "bg-red-400",
   };
-
-  console.log(hasError);
 
   return (
     <div

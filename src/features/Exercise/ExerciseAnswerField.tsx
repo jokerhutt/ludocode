@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useMemo } from "react";
 import { splitPromptGaps } from "./util";
 import { OptionInputField } from "./SelectionOptionButton";
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
-import { InlineCode } from "../../components/Atoms/Text/InlineCode.tsx";
+import { InlineCode } from "../../components/Atoms/Code/InlineCode.tsx";
 import { useInputAssistance } from "../../Hooks/Logic/Input/useInputAssistance";
 import type { AnswerToken } from "@/Hooks/Logic/Exercises/useExerciseFlow.tsx";
 
@@ -19,7 +19,6 @@ export function ExerciseAnswerField({
   userResponses,
   setAnswerAt,
 }: ExerciseAnswerFieldProps) {
-
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
 

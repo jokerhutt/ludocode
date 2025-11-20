@@ -1,6 +1,6 @@
+import { YellowRibbon } from "@/components/Atoms/Ribbon/YellowRibbon";
 import { BlueRibbon } from "./BlueRibbon";
-import type { LessonCompletion } from "./PathButton";
-import { YellowRibbon } from "./YellowRibbon";
+import type { LessonCompletion } from "@/features/Module/PathButton";
 
 type CompletionRibbonProps = {
   lessonState: LessonCompletion;

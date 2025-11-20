@@ -4,7 +4,7 @@ import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 import { ModuleAsideLeft } from "./ModuleAsideLeft";
 import { ModuleAsideRight } from "./ModuleAsideRight";
 import { PathButton } from "./PathButton";
-import { PathRow } from "./PathRow";
+import { PathRow } from "../../components/Atoms/Row/PathRow";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type {
   FlatLesson,

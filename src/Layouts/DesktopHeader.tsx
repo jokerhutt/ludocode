@@ -8,6 +8,7 @@ import { useLocation } from "@tanstack/react-router";
 import { useModal } from "@/Hooks/UI/useModal.tsx";
 import { CoinsDialog } from "@/components/Molecules/Dialog/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/components/Molecules/Dialog/StreakStatsDialog.tsx";
+import { HollowSlotGroup } from "@/components/Molecules/Group/HollowSlotGroup.tsx";
 
 type DesktopHeaderProps = {};
 
@@ -41,7 +42,7 @@ export function DesktopHeader({}: DesktopHeaderProps) {
   return (
     <CommonHeader device="Desktop">
       <div className="col-start-2 col-end-12 flex items-center justify-between">
-        <div className="flex gap-4 items-center">
+        <HollowSlotGroup>
           {icons.map((icon) => (
             <HollowSlot active={isActive(icon.path)} key={icon.name}>
               <p
@@ -52,9 +53,9 @@ export function DesktopHeader({}: DesktopHeaderProps) {
               </p>
             </HollowSlot>
           ))}
-        </div>
+        </HollowSlotGroup>
 
-        <div className="flex w-full text-white justify-end gap-2 items-center">
+        <HollowSlotGroup>
           <HollowSlot onClick={() => openCoins()}>
             <CommitIcon className="h-5 text-pythonYellow" />
             <p className="text-white text-sm">{coins}</p>
@@ -63,7 +64,7 @@ export function DesktopHeader({}: DesktopHeaderProps) {
             <FireIcon className="h-5 text-orange-400" />
             <p className="text-sm">{streak}</p>
           </HollowSlot>
-        </div>
+        </HollowSlotGroup>
       </div>
       <CoinsDialog open={coinsOpen} close={closeCoins} />
       <StreakStatsDialog open={streakOpen} close={closeStreak} />

@@ -1,8 +1,7 @@
-export type ValidationButtonStatus = "default" | "ok" | "error"
+export type ValidationButtonStatus = "default" | "ok" | "error";
 type StatusButtonProps = { status: ValidationButtonStatus };
 
 export function StatusButton({ status }: StatusButtonProps) {
-
   const statusColor = {
     default: "bg-ludoGrayDark",
     ok: "bg-green-400",
