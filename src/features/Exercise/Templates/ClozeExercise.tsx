@@ -22,7 +22,6 @@ export function ClozeExercise({
   setAnswerAt,
   addSelection,
 }: ClozeExerciseProps) {
-
   return (
     <>
       <CodeBoxWrapper>

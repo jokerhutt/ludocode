@@ -3,7 +3,6 @@ import { ActionButton } from "../../components/Atoms/Button/ActionButton";
 import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
-import { CompletionStatsRow } from "./CompletionStatsRow";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { streakIncreaseRoute } from "../../routes/router";
 

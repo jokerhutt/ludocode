@@ -1,8 +1,11 @@
+import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
+import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
 import type {
   ExerciseSnap,
   LessonSnap,
   ModuleSnap,
+  OptionSnap,
 } from "@/Types/Snapshot/SnapshotTypes";
 
 export const newLesson = (orderIndex: number): LessonSnap => {
@@ -20,6 +23,17 @@ export const newModule = (orderIndex: number): ModuleSnap => {
     moduleId: crypto.randomUUID(),
     isExpanded: false,
     lessons: [newLesson(1)],
+  };
+};
+
+export const newOptionSnap = (
+  columnType: ColumnType,
+  itemsLength: number
+): OptionSnap => {
+  return {
+    content: "Replace me",
+    exerciseOptionId: crypto.randomUUID(),
+    answerOrder: columnType === "correct" ? itemsLength : null,
   };
 };
 

@@ -1,12 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ActionButton } from "../../components/Atoms/Button/ActionButton";
-import { HollowSlotButton } from "../../components/Atoms/Button/HollowSlotButton";
-import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
-import type { UserCoins } from "../../Types/User/UserCoins";
 import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { ludoNavigation } from "../../routes/ludoNavigation";

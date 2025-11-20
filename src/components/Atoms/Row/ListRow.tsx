@@ -19,7 +19,6 @@ export function ListRow({
   fill = false,
   alignment = "start",
 }: ListRowProps) {
-
   const alignmentClass = {
     start: "justify-start",
     center: "justify-center",

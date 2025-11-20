@@ -8,7 +8,6 @@ import { EditNodeDialog } from "../../../../components/Molecules/Dialog/EditNode
 import { newLesson } from "../../Util/NewExerciseTemplates";
 import { StatusButtonField } from "../../../../components/Atoms/Status/StatusButtonField";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";
-import { SelectLessonButton } from "../../UI/Button/SelectLessonButton";
 import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
 
 export const LessonListForm = withForm({

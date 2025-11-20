@@ -1,5 +1,5 @@
-import { YellowRibbon } from "@/components/Atoms/Ribbon/YellowRibbon";
-import { BlueRibbon } from "./BlueRibbon";
+import { InnerRibbon } from "@/components/Atoms/Ribbon/InnerRibbon";
+import { OuterRibbon } from "./OuterRibbon";
 import type { LessonCompletion } from "@/features/Module/PathButton";
 
 type CompletionRibbonProps = {
@@ -12,8 +12,8 @@ export function CompletionRibbon({ lessonState }: CompletionRibbonProps) {
 
   return (
     <>
-      {showComplete && <YellowRibbon />}
-      {showMastered && <BlueRibbon />}
+      {showComplete && <InnerRibbon className="bg-pythonYellow"/>}
+      {showMastered && <OuterRibbon className="bg-pythonBlue"/>}
     </>
   );
 }
