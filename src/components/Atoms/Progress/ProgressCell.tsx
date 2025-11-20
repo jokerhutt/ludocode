@@ -4,20 +4,17 @@ type ProgressCellProps = {
   safeTotal: number;
 };
 
-export function ProgressCell({index, safeCompleted, safeTotal}: ProgressCellProps) {
+export function ProgressCell({
+  index,
+  safeCompleted,
+  safeTotal,
+}: ProgressCellProps) {
   const done = index < safeCompleted;
   const isFirst = index === 0;
   const isLast = index === safeTotal - 1;
 
-  return (
-    <div
-      key={index}
-      className={[
-        "h-3",
-        done ? "bg-ludoLightPurple" : "bg-ludoGrayDark",
-        isFirst ? "rounded-l-full" : "",
-        isLast ? "rounded-r-full" : "",
-      ].join(" ")}
-    />
-  );
+  const rounding = isFirst ? "rounded-l-full" : isLast ? "rounded-r-full" : "";
+  const color = done ? "bg-ludoLightPurple" : "bg-ludoGrayDark";
+
+  return <div key={index} className={["h-3", color, rounding].join(" ")} />;
 }
