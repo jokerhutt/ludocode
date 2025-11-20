@@ -22,7 +22,7 @@ export function useGoogleAuthEntry() {
 
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
-      queryClient.setQueryData(qk.userCoins(userCoins.id), userCoins);
+      queryClient.setQueryData(qk.userCoins(user.id), userCoins);
       queryClient.setQueryData(qk.streak(user.id), userStreak);
 
       router.navigate({ to: "/" });
