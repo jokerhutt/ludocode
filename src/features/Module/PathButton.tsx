@@ -1,8 +1,8 @@
-import { CustomIcon, LockIcon } from "@/components/Atoms/Icons/CustomIcon";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { moduleRoute, router } from "../../routes/router";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
-import { CompletionRibbon } from "./CompletionRibbon";
+import { PathButtonTrigger } from "./PathButtonTrigger";
+import { PathButtonPopover } from "./PathButtonPopover";
 
 export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 
@@ -32,16 +32,8 @@ export function PathButton({ lesson, isCurrent }: PathButtonProps) {
   };
 
   return (
-    <button
-      onClick={() => goToLesson()}
-      className={`relative hover:cursor-pointer inline-flex items-center justify-center
-                 w-16 h-16 rounded-3xl bg-ludoGrayLight  overflow-hidden
-                 shadow-[0_10px_0_#262E57] active:translate-y-2 active:shadow-none`}
-    >
-      {lessonType == "LOCKED" && (
-        <LockIcon className="absolute text-ludoGrayDark h-10 w-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10" />
-      )}
-      <CompletionRibbon lessonState={lessonType} />
-    </button>
+    <PathButtonPopover goToLesson={goToLesson} lesson={lesson} lessonType={lessonType}>
+      <PathButtonTrigger lessonType={lessonType} />
+    </PathButtonPopover>
   );
 }
