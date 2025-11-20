@@ -1,10 +1,11 @@
 import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 import { AnalyzeExercise } from "./Templates/AnalyzeExercise";
-import { ExercisePrompt } from "./ExercisePrompt";
+import { ExercisePrompt } from "./UI/ExercisePrompt";
 import { InfoExercise } from "./Templates/InfoExercise";
 import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
+import { ExerciseMedia } from "./UI/ExerciseMedia";
 
 type ExerciseComponentProps = {
   exercise: LudoExercise;
@@ -34,12 +35,11 @@ export function ExerciseComponent({
 
       <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
         <ExercisePrompt prompt={exercise.title} />
+
         {exercise.subtitle && <ExercisePrompt prompt={exercise.subtitle} />}
 
         {exercise.exerciseMedia && (
-          <div className="w-full items-center py-10 flex justify-center">
-            <img className="max-h-60 w-auto" src={exercise.exerciseMedia} />
-          </div>
+          <ExerciseMedia media={exercise.exerciseMedia} />
         )}
 
         <ExerciseBody

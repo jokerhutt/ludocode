@@ -48,10 +48,6 @@ export function ExerciseAnswerField({
     [options, setAnswerAt, jumpOnValidWord]
   );
 
-  useEffect(() => {
-    console.log("User responses" + JSON.stringify(userResponses));
-  }, [userResponses]);
-
   return (
     <p className="text-white text-xl text-left leading-loose font-light">
       {parts.map((part, index) => (
