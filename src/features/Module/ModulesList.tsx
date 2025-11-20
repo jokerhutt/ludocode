@@ -3,7 +3,6 @@ import { ListContainer } from "../../components/Molecules/List/ListContainer";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { moduleRoute, router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
-import { boolean } from "zod";
 
 type ModulesListProps = { modules: LudoModule[] };
 

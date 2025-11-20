@@ -17,6 +17,7 @@ export function PathButtonPopover({
   children,
   lessonType,
 }: PathButtonPopoverProps) {
+  
   const popoverStyle = {
     LOCKED: {
       text: "Locked",
