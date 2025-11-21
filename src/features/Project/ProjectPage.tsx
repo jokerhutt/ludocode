@@ -12,6 +12,7 @@ import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
+import ChatBotDemo from "../Chatbot/ChatBotDemo.tsx";
 
 type ProjectPageProps = {};
 
@@ -42,10 +43,10 @@ export function ProjectPage({}: ProjectPageProps) {
   });
 
   return (
-    <MainGridWrapper gridRows="SITE">
+    <MainGridWrapper className="max-h-dvh" gridRows="SITE">
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
-      <div className="grid col-span-full h-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-3">
+      <div className="grid col-span-full grid-cols-12">
+        <div className="col-span-1 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_auto_1fr] border-r-ludoGrayLight lg:col-span-3">
           <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
           <ProjectFileTree
             renameFile={renameFile}
@@ -54,6 +55,7 @@ export function ProjectPage({}: ProjectPageProps) {
             changeFile={setCurrent}
             deleteFile={deleteFile}
           />
+          <ChatBotDemo/>
         </div>
 
         <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
