@@ -1,7 +1,7 @@
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useRouterState } from "@tanstack/react-router";
 import type { SyncState } from "../../../routes/Packets/SyncState";
 import { useSubmitLesson } from "../../../Hooks/Queries/Mutations/useSubmitLesson";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PropagateLoader } from "react-spinners";
 import { syncRoute } from "../../../routes/router";
 
@@ -17,9 +17,8 @@ export function SyncingPage({}: SyncingPageProps) {
   const submitLesson = useSubmitLesson({ oldStreak });
 
   useEffect(() => {
-    if (!isSyncState(state) || submitLesson.isPending || submitLesson.isSuccess)
-      return;
-    submitLesson.mutate(state.submission);
+    if (!isSyncState(state) || submitLesson.isPending || submitLesson.isSuccess) return;
+      submitLesson.mutate(state.submission);
   }, [state, submitLesson]);
 
   return (

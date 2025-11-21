@@ -22,7 +22,7 @@ export function CustomIcon({ iconName, className, color }: CustomIconProps) {
   const Icon = Icons[iconName];
   if (!Icon) {
     console.error("❌ CUSTOM ICON FAILED:", iconName, "is not in Icons map");
-    return null;
+    return null; // defensive so React stops exploding
   }
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
 }
@@ -52,8 +52,10 @@ export function CloudLoadIcon({ className, color }: IconProps): JSX.Element {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
+      {/* cloud outline */}
       <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
 
+      {/* loading arrow (like the original) */}
       <path d="M11 11v3h3" />
     </svg>
   );
@@ -71,8 +73,10 @@ export function CloudYesIcon({ className, color }: IconProps): JSX.Element {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
+      {/* cloud outline */}
       <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
 
+      {/* checkmark */}
       <path d="M15 11l-4 4-2-2" />
     </svg>
   );
@@ -90,10 +94,13 @@ export function CloudErrorIcon({ className, color }: IconProps): JSX.Element {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
+      {/* cloud outline */}
       <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
 
+      {/* dot */}
       <circle cx="12" cy="15.5" r="1.25" />
 
+      {/* vertical error line */}
       <path d="M12 12V9" />
     </svg>
   );

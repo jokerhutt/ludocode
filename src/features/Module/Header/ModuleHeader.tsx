@@ -1,9 +1,12 @@
-import { ArrowsRightLeftIcon, FireIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowsRightLeftIcon,
+  FireIcon,
+} from "@heroicons/react/24/solid";
 import {
   CommitIcon,
   PythonIcon,
 } from "../../../components/Atoms/Icons/CustomIcon.tsx";
-import { HollowSlotButton } from "../../../components/Atoms/Button/HollowSlotButton.tsx";
+import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot.tsx";
 import { CommonHeader } from "../../../components/Molecules/Header/CommonHeader.tsx";
 import { useStatsContext } from "../../Common/StatsContext.tsx";
 
@@ -16,20 +19,20 @@ export function ModuleHeader({}: ModuleHeaderProps) {
     <CommonHeader>
       <div className="col-start-2 col-end-12 flex py-2 items-center justify-between">
         <div>
-          <HollowSlotButton>
+          <HollowSlot gap="gap-4">
             <PythonIcon className="h-6" />
             <ArrowsRightLeftIcon className="h-6 text-white" />
-          </HollowSlotButton>
+          </HollowSlot>
         </div>
         <div className="flex w-full text-white justify-end gap-2 items-center">
-          <HollowSlotButton>
+          <HollowSlot>
             <CommitIcon className="h-7 text-pythonYellow" />
             <p>{coins}</p>
-          </HollowSlotButton>
-          <HollowSlotButton>
+          </HollowSlot>
+          <HollowSlot>
             <FireIcon className="h-7 text-orange-400" />
             <p>{streak}</p>
-          </HollowSlotButton>
+          </HollowSlot>
         </div>
       </div>
     </CommonHeader>

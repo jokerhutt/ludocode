@@ -8,7 +8,6 @@ import { SortableOption } from "./SortableOption";
 import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
 import { Button } from "@/components/ui/button";
 import type { FormEditMode } from "./ExerciseOptionsDnDContainer";
-import { newOptionSnap } from "../../Util/NewExerciseTemplates";
 
 type OptionsColumnProps = {
   items?: OptionSnap[];
@@ -58,11 +57,15 @@ export function OptionsColumn({
               type="button"
               onClick={() =>
                 addValue({
-                  item: newOptionSnap(columnType, items.length),
+                  item: {
+                    content: "Replace me",
+                    exerciseOptionId: crypto.randomUUID(),
+                    answerOrder: columnType === "correct" ? items.length : null,
+                  },
                   type: columnType,
                 })
               }
-              className="h-6"
+              className="h-6 hover:cursor-pointer"
             >
               Add
             </Button>

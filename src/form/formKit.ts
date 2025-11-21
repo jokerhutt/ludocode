@@ -4,12 +4,12 @@ import {
   createFormHookContexts,
   formOptions,
 } from "@tanstack/react-form";
+import { AddExerciseFieldButton } from "../components/FormField/AddExerciseFieldButton";
 import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { OnboardingSnapSchema } from "@/Types/Zod/OnboardingSchema/OnboardingSnapSchema";
+import FormTitleField from "@/components/FormField/FormTitleField";
 import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";
-import { AddExerciseFieldButton } from "./Fields/AddExerciseFieldButton";
-import FormTitleField from "./Fields/FormTitleField";
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();
@@ -33,6 +33,6 @@ export const courseFormOpts = {
 export const onboardingFormOpts = {
   defaultValues: {},
   validators: {
-    onSubmit: OnboardingSnapSchema,
+    onSubmit: OnboardingSnapSchema, // validate only when submitting
   },
 };

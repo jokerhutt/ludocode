@@ -1,4 +1,4 @@
-import { InlineCode } from "@/components/Atoms/Code/InlineCode";
+import { InlineCode } from "@/components/Atoms/Text/InlineCode";
 import { CodeBoxWrapper } from "@/components/Molecules/Wrapper/CodeBoxWrapper";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { Fragment } from "react/jsx-runtime";

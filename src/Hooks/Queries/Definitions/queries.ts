@@ -23,13 +23,14 @@ import {
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
   GET_USER_PREFERENCES,
-  GET_MY_PROJECTS,
+  GET_USER_PROJECTS,
   GET_USER_STREAK,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
+import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse.ts";
 import { type UserStreak } from "@/Types/Progress/UserStreak.ts";
 
@@ -109,7 +110,7 @@ export const qo = {
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(GET_MY_PROJECTS, true),
+      queryFn: () => ludoGet<ProjectListResponse>(GET_USER_PROJECTS, true),
       staleTime: 60_000,
     }),
 

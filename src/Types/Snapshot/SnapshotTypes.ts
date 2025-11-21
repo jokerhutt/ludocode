@@ -1,4 +1,5 @@
 import type { Info } from "lucide-react";
+import type { ExerciseType } from "../Exercise/ExerciseType";
 import type { CourseSnapSchema } from "../Zod/SnapshotSchema/CourseSnapSchema";
 import type {
     Analyze,

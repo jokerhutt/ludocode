@@ -1,8 +1,10 @@
 import { mutations } from "@/Hooks/Queries/Definitions/mutations";
 import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
+import type { SaveProjectPayload } from "@/Types/Playground/SaveProjectPayload";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
+import type { ProjectFile } from "./useProject";
 
 type Args = {
   project: ProjectSnapshot;
@@ -15,13 +17,13 @@ export type SaveStatusType = {
   isSaved: boolean;
   error: Error | null;
   lastSavedAt: Date | null;
-};
+}
 
 export function useAutoSaveProject({
   project,
   files,
   debounceMs = 1000,
-}: Args): SaveStatusType {
+}: Args) : SaveStatusType {
   const lastPayloadRef = useRef<string | null>(null);
   const lastSavedAtRef = useRef<Date | null>(null);
 

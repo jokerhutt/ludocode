@@ -24,7 +24,7 @@ export const SUBMIT_SAVE_PROJECT = (pid: string) =>
 
 export const RUN_CODE = API_PATH + `/project/run`;
 
-export const GET_MY_PROJECTS = API_PATH + `/project/my-projects`;
+export const GET_USER_PROJECTS = API_PATH + `/project/get-projects`;
 
 export const GET_LESSONS_FROM_IDS = (lessonIds: string) =>
   API_PATH + `/catalog/lessons/ids?${lessonIds}`;
@@ -42,9 +42,9 @@ export const GET_USER_COINS_FROM_USER_IDS = (userIds: string) =>
   API_PATH + `/progress/coins/ids?${userIds}`;
 
 export const GOOGLE_LOGIN = API_PATH + `/auth/google-login`;
-export const GET_PROJECT = (pid: string) => API_PATH + `/project/${pid}/get`;
 
 export const AUTH_ME = API_PATH + `/auth/me`;
+
 export const GET_USER_STREAK = API_PATH + `/progress/streak/get`;
 export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`;
 

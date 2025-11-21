@@ -1,41 +1,24 @@
-import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
-import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
-import type {
-  ExerciseSnap,
-  LessonSnap,
-  ModuleSnap,
-  OptionSnap,
-} from "@/Types/Snapshot/SnapshotTypes";
+import type { ExerciseSnap, LessonSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 
-export const newLesson = (orderIndex: number): LessonSnap => {
-  return {
+
+export const newLesson = (orderIndex: number) : LessonSnap => {
+    return {
     id: crypto.randomUUID(),
     title: `Lesson ${orderIndex}`,
     orderIndex: orderIndex,
     exercises: [newExercises.INFO()],
-  };
-};
+    }
+}
 
-export const newModule = (orderIndex: number): ModuleSnap => {
-  return {
-    title: `Module ${orderIndex}`,
-    moduleId: crypto.randomUUID(),
-    isExpanded: false,
-    lessons: [newLesson(1)],
-  };
-};
-
-export const newOptionSnap = (
-  columnType: ColumnType,
-  itemsLength: number
-): OptionSnap => {
-  return {
-    content: "Replace me",
-    exerciseOptionId: crypto.randomUUID(),
-    answerOrder: columnType === "correct" ? itemsLength : null,
-  };
-};
+export const newModule = (orderIndex: number) : ModuleSnap => {
+    return {
+        title: `Module ${orderIndex}`,
+        moduleId: crypto.randomUUID(),
+        isExpanded: false,
+        lessons: [newLesson(0)]
+    }
+}
 
 type ExerciseFactoryMap = {
   [K in ExerciseType]: () => Extract<ExerciseSnap, { exerciseType: K }>;

@@ -1,8 +1,8 @@
-import type { LudoExerciseOption } from "../../../Types/Exercise/LudoExerciseOption.ts";
-import { OptionListWrapper } from "../../../components/Molecules/Wrapper/OptionListWrapper.tsx";
-import { ExerciseAnswerField } from "../ExerciseAnswerField.tsx";
-import { CodeBoxWrapper } from "../../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
-import { WideClickableOption } from "../../../components/Atoms/CodeOption/WideClickableOption.tsx";
+import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
+import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
+import { ExerciseAnswerField } from "./ExerciseAnswerField";
+import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
+import { WideClickableOption } from "./WideClickableOption";
 import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
 
 type AnalyzeExerciseProps = {

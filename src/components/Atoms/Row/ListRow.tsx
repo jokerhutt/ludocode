@@ -1,44 +1,45 @@
-import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 type ListRowProps = {
-  children: ReactNode;
-  onClick?: () => void;
-  className?: string;
   hover?: boolean;
+  children: ReactNode;
   active?: boolean;
-  fill?: boolean;
+  onClick?: () => void;
   alignment?: "start" | "center" | "end" | "between";
+  fill?: boolean;
+  py?: string;
+  px?: string;
+  stretch?: string;
 };
+
 export function ListRow({
-  children,
-  onClick,
-  className,
   hover = true,
-  active = false,
-  fill = false,
+  children,
+  active,
+  onClick,
   alignment = "start",
+  fill,
+  py = "py-4",
+  px = "px-2",
+  stretch = "items-stretch"
 }: ListRowProps) {
-  const alignmentClass = {
+  const hoverStyle = hover ? "hover:bg-ludoGrayLight/20 hover:cursor-pointer" : "";
+  const activeStyle = active ? "bg-white/5" : "";
+  const bg = fill
+    ? "bg-ludoGrayLight border-b-ludoGrayDark"
+    : "border-b-ludoGrayLight";
+
+  const orientation = {
     start: "justify-start",
     center: "justify-center",
     end: "justify-end",
     between: "justify-between",
-  }[alignment];
+  };
 
   return (
     <div
-      onClick={onClick}
-      className={cn(
-        "flex w-full text-white hover:cursor-pointer text-lg border-b items-stretch px-2 py-4",
-        alignmentClass,
-        fill
-          ? "bg-ludoGrayLight border-b-ludoGrayDark"
-          : "border-b-ludoGrayLight",
-        hover && "hover:bg-ludoGrayLight/20 hover:cursor-pointer",
-        active && "bg-ludoGrayLight/70 hover:bg-ludoGrayLight/40",
-        className
-      )}
+      onClick={() => onClick?.()}
+      className={`text-white ${hoverStyle} flex ${stretch} ${bg} ${orientation[alignment]} ${activeStyle} w-full ${py} ${px} text-lg border-b `}
     >
       {children}
     </div>

@@ -9,10 +9,12 @@ export const CourseSnapSchema = z
       .min(1, "Course must contain at least one module"),
   })
   .superRefine((c, ctx) => {
+    // filter out nulls (new modules)
     const ids = c.modules
       .map((m) => m.moduleId)
       .filter((x): x is string => typeof x === "string");
 
+    // --- check duplicate moduleIds ---
     const seen = new Set<string>();
     for (const id of ids) {
       if (seen.has(id)) {

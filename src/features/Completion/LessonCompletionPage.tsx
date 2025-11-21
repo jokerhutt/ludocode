@@ -1,13 +1,16 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { ActionButton } from "../../components/Atoms/Button/ActionButton";
+import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
+import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
+import type { UserCoins } from "../../Types/User/UserCoins";
 import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { completeRoute, router } from "../../routes/router";
-import { LessonCompletionFooter } from "./LessonCompletionFooter";
 
 export function LessonCompletionPage() {
   const currentUser = useSuspenseQuery(qo.currentUser());
@@ -26,7 +29,7 @@ export function LessonCompletionPage() {
     <MainGridWrapper gridRows="SITE_INVERSE">
       <MainContentWrapper>
         <div className="col-span-full grid grid-cols-12 h-full">
-          <div className="text-white col-span-full px-4 lg:px-0 lg:col-start-5 lg:col-end-9 flex flex-col items-stretch gap-4 justify-center min-w-0">
+          <div className="text-white col-start-5 col-end-9 flex flex-col items-stretch gap-4 justify-center min-w-0">
             <Lottie
               animationData={altAnimation}
               loop={false}
@@ -38,7 +41,17 @@ export function LessonCompletionPage() {
           </div>
         </div>
       </MainContentWrapper>
-      <LessonCompletionFooter handleContinue={handleContinue} />
+      <DefaultFooter phase="DEFAULT">
+        <div
+          className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
+        >
+          <ActionButton
+            onClick={() => handleContinue()}
+            text="Continue"
+            active={true}
+          />
+        </div>
+      </DefaultFooter>
     </MainGridWrapper>
   );
 }

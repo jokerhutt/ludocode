@@ -7,7 +7,7 @@ export const ModuleSnapshotSchema = z
   .object({
     moduleId: z.string(),
     title: nonEmpty,
-    isExpanded: z.boolean().optional().nullable(),
+    isExpanded: z.boolean(),
     lessons: z
       .array(LessonSnapSchema)
       .min(1, "Module must contain at least one lesson"),

@@ -1,7 +1,7 @@
 import { useImperativeHandle } from "react";
-import { useAutoWidth } from "../../../Hooks/Logic/Input/useAutoInputWidth";
+import { useAutoWidth } from "../../Hooks/Logic/Input/useAutoInputWidth";
 
-type OptionInputSlotProps = {
+type OptionInputFieldProps = {
   value: string;
   onChange: (value: string) => void;
   onBackspaceIfEmpty?: () => void;
@@ -9,13 +9,13 @@ type OptionInputSlotProps = {
   ref: any;
 };
 
-export function OptionInputSlot({
+export function OptionInputField({
   value,
   onChange,
   onBackspaceIfEmpty,
   onTokenFinished,
   ref,
-}: OptionInputSlotProps) {
+}: OptionInputFieldProps) {
   const { spanRef, inputRef } = useAutoWidth(value);
 
   useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
