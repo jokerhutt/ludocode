@@ -13,6 +13,7 @@ import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
 import ChatBotDemo from "../Chatbot/ChatBotDemo.tsx";
+import { useState } from "react";
 
 type ProjectPageProps = {};
 
@@ -43,10 +44,10 @@ export function ProjectPage({}: ProjectPageProps) {
   });
 
   return (
-    <MainGridWrapper className="max-h-dvh" gridRows="SITE">
+    <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
-      <div className="grid col-span-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_auto_1fr] border-r-ludoGrayLight lg:col-span-3">
+      <div className="grid col-span-full min-h-0 grid-cols-12">
+        <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_auto_1fr] border-r-ludoGrayLight lg:col-span-3">
           <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
           <ProjectFileTree
             renameFile={renameFile}

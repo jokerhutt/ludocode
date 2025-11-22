@@ -39,6 +39,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "embla-carousel-react": "^8.6.0",
+    "event-source-polyfill": "^1.0.31",
     "howler": "^2.2.4",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.548.0",
