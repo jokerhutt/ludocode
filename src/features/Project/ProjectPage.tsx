@@ -49,7 +49,7 @@ export function ProjectPage({}: ProjectPageProps) {
     <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
       <div className="grid col-span-full min-h-0 grid-cols-12">
-        <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_auto_1fr] border-r-ludoGrayLight lg:col-span-3">
+        <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludoGrayLight lg:col-span-3">
           <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
           <ProjectFileTree
             renameFile={renameFile}
