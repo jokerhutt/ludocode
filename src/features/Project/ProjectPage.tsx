@@ -12,9 +12,8 @@ import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
-import ChatBotWindow from "../Chatbot/ChatbotWindow.tsx";
-import { useState } from "react";
-import type { ProjectSidebarTab } from "@/Types/Playground/ProjectSidebarTab.ts";
+import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
+import { ChatBotAccordion } from "@/components/Molecules/Chatbot/ChatBotAccordion.tsx";
 
 type ProjectPageProps = {};
 
@@ -46,8 +45,6 @@ export function ProjectPage({}: ProjectPageProps) {
     files,
   });
 
-  const [fileTreeTab, setFileTreeTab] = useState<ProjectSidebarTab>("TREE");
-
   return (
     <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
@@ -61,7 +58,11 @@ export function ProjectPage({}: ProjectPageProps) {
             changeFile={setCurrent}
             deleteFile={deleteFile}
           />
-          <ChatBotWindow currentFile={currentFileId} />
+          <div className="min-h-0 w-full h-full flex flex-col justify-end">
+            <ChatBotAccordion>
+              <ChatBotWindow currentFile={currentFileId} />
+            </ChatBotAccordion>
+          </div>
         </div>
 
         <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">

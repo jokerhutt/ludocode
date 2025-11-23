@@ -30,30 +30,19 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
   return (
     <PromptInput
       onSubmit={clearInputAndSubmit}
-      className="mt-4"
+      className="mt-4 px-4"
       globalDrop
       multiple
     >
-      <PromptInputHeader>
-        <PromptInputAttachments>
-          {(attachment) => <PromptInputAttachment data={attachment} />}
-        </PromptInputAttachments>
-      </PromptInputHeader>
       <PromptInputBody>
         <PromptInputTextarea
+          placeholder="Ask your question here."
           onChange={(e) => setInput(e.target.value)}
           value={input}
         />
       </PromptInputBody>
       <PromptInputFooter>
-        <PromptInputTools>
-          <PromptInputActionMenu>
-            <PromptInputActionMenuTrigger />
-            <PromptInputActionMenuContent>
-              <PromptInputActionAddAttachments />
-            </PromptInputActionMenuContent>
-          </PromptInputActionMenu>
-        </PromptInputTools>
+        <PromptInputTools/>
         <PromptInputSubmit disabled={!input && !status} />
       </PromptInputFooter>
     </PromptInput>
