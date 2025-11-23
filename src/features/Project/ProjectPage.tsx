@@ -12,8 +12,7 @@ import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
-import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
-import { useState } from "react";
+import ChatBotWindow from "../Chatbot/ChatbotWindow.tsx";
 
 type ProjectPageProps = {};
 
