@@ -7,7 +7,7 @@ export function useAutoWidth(value: string) {
 
   useLayoutEffect(() => {
     if (!spanRef.current || !inputRef.current) return;
-    const width = Math.max(spanRef.current.offsetWidth + 10, 32);
+    const width = Math.max(spanRef.current.offsetWidth + 5, 32);
     inputRef.current.style.width = `${width}px`;
   }, [value]);
 

@@ -3,5 +3,5 @@ type ExercisePromptProps = {
 }
 
 export function ExercisePrompt({prompt}: ExercisePromptProps) {
-  return <p className="text-white text-lg">{prompt}</p>;
+  return <p className="text-white text-center text-lg">{prompt}</p>;
 }

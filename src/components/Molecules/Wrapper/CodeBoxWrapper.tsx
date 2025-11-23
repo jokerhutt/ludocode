@@ -17,11 +17,11 @@ export function CodeBoxWrapper({
   return (
     <div
       className={cn(
-        "w-full min-h-40 lg:min-h-66 rounded-3xl bg-ludoGrayLight",
+        "w-full min-h-40 rounded-3xl bg-ludoGrayLight",
         className
       )}
     >
-      {header && <div className="w-full h-6 rounded-t-3xl bg-ludoDarkPurple" />}
+      {header && <div className="w-full h-2 rounded-t-3xl bg-ludoDarkPurple" />}
       <div className={cn("w-full h-full p-6", innerClassName)}>
         {children}
       </div>
