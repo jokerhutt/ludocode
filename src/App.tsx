@@ -3,7 +3,7 @@ import "./App.css";
 import { queryClient, router } from "./routes/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "./constants/env";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   return (
@@ -18,7 +18,3 @@ function App() {
 }
 
 export default App;
-
-//TODO
-//send option UUIDS
-//change the update course to /course and progresswithenrolled
