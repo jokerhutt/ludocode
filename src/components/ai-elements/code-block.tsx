@@ -61,12 +61,12 @@ export async function highlightCode(
   return await Promise.all([
     codeToHtml(code, {
       lang: language,
-      theme: "one-light",
+      theme: "catppuccin-macchiato",
       transformers,
     }),
     codeToHtml(code, {
       lang: language,
-      theme: "one-dark-pro",
+      theme: "catppuccin-macchiato",
       transformers,
     }),
   ]);
@@ -87,7 +87,7 @@ export const CodeBlock = ({
   useEffect(() => {
     highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
       if (!mounted.current) {
-        setHtml(light);
+        setHtml(dark);
         setDarkHtml(dark);
         mounted.current = true;
       }
@@ -102,7 +102,7 @@ export const CodeBlock = ({
     <CodeBlockContext.Provider value={{ code }}>
       <div
         className={cn(
-          "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
+          "group relative w-full  overflow-hidden rounded-md border bg-background text-foreground",
           className
         )}
         {...props}

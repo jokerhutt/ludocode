@@ -8,8 +8,6 @@ import {
   Message,
   MessageContent,
   MessageResponse,
-  MessageActions,
-  MessageAction,
 } from "@/components/ai-elements/message";
 import {
   PromptInput,
@@ -28,25 +26,30 @@ import {
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
 import { useState } from "react";
-import { CopyIcon, RefreshCcwIcon } from "lucide-react";
 import { Loader } from "@/components/ai-elements/loader";
 import { useAIStream } from "@/Hooks/Logic/AI/useAIStream";
 import { AI_STREAM_PROMPT } from "@/constants/pathConstants";
-import type { ChatMessage } from "@/Types/AI/AIMessagePart";
 import { ChatMessageActions } from "@/components/Molecules/Chatbot/ChatMessageActions";
+type ChatBotProps = {
+  currentFile: string | null;
+};
 
-const ChatBotDemo = () => {
+const ChatBotWindow = ({ currentFile }: ChatBotProps) => {
   const [input, setInput] = useState("");
   const [url, setUrl] = useState<string | null>(null);
 
-  const { messages } = useAIStream(url);
+  const { messages, addUserMessage } = useAIStream(url);
+
+  const clearInput = () => setInput("");
 
   const handleSubmit = (message: PromptInputMessage) => {
-    setUrl(AI_STREAM_PROMPT(message.text));
+    clearInput();
+    addUserMessage(message.text);
+    setUrl(AI_STREAM_PROMPT(message.text, currentFile));
   };
 
   return (
-    <div className="max-w-4xl w-full min-h-0 text-white mx-auto p-6 relative h-full">
+    <div className="min-h-0 w-full text-white mx-auto p-6 relative h-full">
       <div className="flex flex-col h-full">
         <div className="flex-1 min-h-0 overflow-y-auto">
           <Conversation className="">
@@ -61,8 +64,15 @@ const ChatBotDemo = () => {
                             key={`${message.id}-${i}`}
                             from={message.role}
                           >
-                            <MessageContent>
-                              <MessageResponse className="text-white">
+                            <MessageContent className="group-[.is-user]:bg-ludoGrayLight">
+                              <MessageResponse
+                                shikiTheme={[
+                                  "catppuccin-macchiato",
+                                  "catppuccin-macchiato",
+                                ]}
+                                parseIncompleteMarkdown
+                                className="text-white chatbot-content"
+                              >
                                 {part.text}
                               </MessageResponse>
                             </MessageContent>
@@ -117,4 +127,4 @@ const ChatBotDemo = () => {
     </div>
   );
 };
-export default ChatBotDemo;
+export default ChatBotWindow;

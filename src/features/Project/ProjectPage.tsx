@@ -12,7 +12,7 @@ import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
-import ChatBotDemo from "../Chatbot/ChatBotDemo.tsx";
+import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
 import { useState } from "react";
 
 type ProjectPageProps = {};
@@ -31,6 +31,8 @@ export function ProjectPage({}: ProjectPageProps) {
     addFile,
     addFileChoices,
   } = useProject({ project });
+
+  const currentFileId: string | null = files[current].id ?? null;
 
   const saveStatus = useAutoSaveProject({
     project,
@@ -56,7 +58,7 @@ export function ProjectPage({}: ProjectPageProps) {
             changeFile={setCurrent}
             deleteFile={deleteFile}
           />
-          <ChatBotDemo/>
+          <ChatBotWindow currentFile={currentFileId} />
         </div>
 
         <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">

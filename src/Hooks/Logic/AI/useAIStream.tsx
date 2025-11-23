@@ -1,58 +1,89 @@
 import { useEffect, useRef, useState } from "react";
-// @ts-ignore
+//@ts-ignore
 import { EventSourcePolyfill } from "event-source-polyfill";
 import type { ChatMessage } from "@/Types/AI/AIMessagePart";
 
 export function useAIStream(url: string | null) {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-  const [streamingMessage, setStreamingMessage] = useState<ChatMessage | null>(null);
-
-  // ref to ALWAYS hold latest message
+  const [streamingMessage, setStreamingMessage] = useState<ChatMessage | null>(
+    null
+  );
   const streamingRef = useRef<ChatMessage | null>(null);
 
   useEffect(() => {
     if (!url) return;
 
-    setStreamingMessage(null);
     streamingRef.current = null;
+    setStreamingMessage(null);
 
     const es = new EventSourcePolyfill(url, { withCredentials: true });
 
-    es.onmessage = (e: any) => {
-      const chunk = JSON.parse(e.data);
+    es.onmessage = (e: MessageEvent) => {
+      if (!e.data || e.data === "[DONE]") return;
 
-      setStreamingMessage((prev) => {
-        const next: ChatMessage =
-          prev === null
-            ? { id: chunk.id, role: chunk.role, parts: [chunk.part] }
-            : prev.id === chunk.id
-            ? { ...prev, parts: [...prev.parts, chunk.part] }
-            : { id: chunk.id, role: chunk.role, parts: [chunk.part] };
+      const incoming: ChatMessage = JSON.parse(e.data);
 
-        streamingRef.current = next; // IMPORTANT
+      if (!streamingRef.current || streamingRef.current.id !== incoming.id) {
+        streamingRef.current = { ...incoming, parts: incoming.parts ?? [] };
+        setStreamingMessage(streamingRef.current);
+        return;
+      }
 
-        return next;
+      const current = streamingRef.current;
+
+      const mergedParts = current.parts.map((part) => {
+        if (part.type !== "text") return part;
+
+        const incomingTextPart = incoming.parts.find((p) => p.type === "text");
+        if (!incomingTextPart || incomingTextPart.type !== "text") return part;
+
+        return {
+          ...part,
+          text: part.text + incomingTextPart.text,
+        };
       });
+
+      const newNonTextParts = incoming.parts.filter(
+        (p) =>
+          p.type !== "text" && !current.parts.some((cp) => cp.type === p.type)
+      );
+
+      const nextMessage: ChatMessage = {
+        ...current,
+        parts: [...mergedParts, ...newNonTextParts],
+      };
+
+      streamingRef.current = nextMessage;
+      setStreamingMessage(nextMessage);
     };
 
     es.onerror = () => {
       es.close();
-
       const final = streamingRef.current;
       if (final) {
         setChatHistory((prev) => [...prev, final]);
       }
-
       streamingRef.current = null;
       setStreamingMessage(null);
     };
 
-    return () => es.close();
+    return () => {
+      es.close();
+    };
   }, [url]);
 
   const messages = streamingMessage
     ? [...chatHistory, streamingMessage]
     : chatHistory;
 
-  return { messages };
+  const addUserMessage = (text: string) => {
+    const userMessage: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "user",
+      parts: [{ type: "text", text }],
+    };
+    setChatHistory((prev) => [...prev, userMessage]);
+  };
+
+  return { messages, addUserMessage };
 }
