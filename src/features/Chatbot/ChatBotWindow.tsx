@@ -2,7 +2,7 @@
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { useState } from "react";
 import { useAIStream } from "@/Hooks/Logic/AI/useAIStream";
-import { AI_STREAM_PROMPT } from "@/constants/pathConstants";
+import { AI_PROJECT_STREAM_PROMPT } from "@/constants/pathConstants";
 import { useAutoScrollDown } from "@/Hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./ChatBotConversation";
 import { ChatBotInput } from "./ChatBotInput";
@@ -20,7 +20,7 @@ const ChatBotWindow = ({ currentFile, className }: ChatBotProps) => {
 
   const handleSubmit = (message: PromptInputMessage) => {
     addUserMessage(message.text);
-    setUrl(AI_STREAM_PROMPT(message.text, currentFile));
+    setUrl(AI_PROJECT_STREAM_PROMPT(message.text, currentFile));
   };
 
   return (
