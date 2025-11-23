@@ -28,8 +28,8 @@ export const AI_PROJECT_STREAM_PROMPT = (
 
 export const AI_LESSON_STREAM_PROMPT = (prompt: string, exerciseId: string) => {
   const base =
-    API_PATH + `/ai/lesson/send-prompt?prompt=${encodeURIComponent(prompt)}`;
-  return base + `&fileId=${encodeURIComponent(exerciseId)}`;
+    API_PATH + `/ai/exercise/send-prompt?prompt=${encodeURIComponent(prompt)}`;
+  return base + `&exerciseId=${encodeURIComponent(exerciseId)}`;
 };
 
 export const SUBMIT_RENAME_PROJECT = API_PATH + `/project/rename`;

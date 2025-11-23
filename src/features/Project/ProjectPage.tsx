@@ -60,7 +60,7 @@ export function ProjectPage({}: ProjectPageProps) {
           />
           <div className="min-h-0 w-full h-full flex flex-col justify-end">
             <ChatBotAccordion>
-              <ChatBotWindow currentFile={currentFileId} />
+              <ChatBotWindow type="PROJECT" targetId={currentFileId} />
             </ChatBotAccordion>
           </div>
         </div>
