@@ -1,7 +1,8 @@
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
-type EditorTabGroupProps = { children: ReactNode };
+type EditorTabGroupProps = { children: ReactNode, className?: string };
 
-export function EditorTabGroup({ children }: EditorTabGroupProps) {
-  return <div className="flex h-full pt-2 px-6 items-center">{children}</div>;
+export function EditorTabGroup({ children, className }: EditorTabGroupProps) {
+  return <div className={cn("flex h-full gap-4 pt-2 px-6 items-center", className)}>{children}</div>;
 }

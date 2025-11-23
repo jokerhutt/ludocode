@@ -13,6 +13,8 @@ import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
 import ChatBotWindow from "../Chatbot/ChatbotWindow.tsx";
+import { useState } from "react";
+import type { ProjectSidebarTab } from "@/Types/Playground/ProjectSidebarTab.ts";
 
 type ProjectPageProps = {};
 
@@ -43,6 +45,8 @@ export function ProjectPage({}: ProjectPageProps) {
     project,
     files,
   });
+
+  const [fileTreeTab, setFileTreeTab] = useState<ProjectSidebarTab>("TREE");
 
   return (
     <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
