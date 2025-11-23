@@ -6,6 +6,8 @@ import { InfoExercise } from "./Templates/InfoExercise";
 import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/ExerciseMedia";
+import ChatBotWindow from "../Chatbot/ChatBotWindow";
+import { MinusIcon, XIcon } from "lucide-react";
 
 type ExerciseComponentProps = {
   exercise: LudoExercise;
@@ -31,7 +33,20 @@ export function ExerciseComponent({
 
   return (
     <>
-      <div className="col-span-1 lg:col-span-4" />
+      <div className="col-span-1 lg:col-span-4 h-full min-h-0">
+        <div className="h-full w-full py-6 pl-6 pr-30">
+          <div className="h-full min-h-0 flex flex-col border-2 border-ludoGrayLight rounded-lg">
+            <div className="h-10 border-b border-b-ludoGrayDark w-full text-white rounded-t-md flex items-center justify-between px-4 bg-ludoGrayLight">
+              <p>Ludo Tutor</p>
+              <MinusIcon className="h-4 w-4" />
+            </div>
+            <ChatBotWindow
+              className="h-full bg-ludoGrayDark pb-4 rounded-xl max-h-full"
+              currentFile={null}
+            />
+          </div>
+        </div>
+      </div>
 
       <div className="col-span-10 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
         <ExercisePrompt prompt={exercise.title} />

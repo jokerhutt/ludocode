@@ -24,7 +24,7 @@ export function LessonLayout() {
 
   return (
     <LessonContext.Provider value={state}>
-      <MainGridWrapper gridRows="FULL">
+      <MainGridWrapper className="max-h-dvh" gridRows="FULL">
         <TutorialHeader
           total={exercises.length}
           position={exercisePosition - 1}

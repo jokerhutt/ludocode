@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button.tsx";
 import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter.tsx";
 import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes";
 import { LessonSubmitButton } from "../Exercise/LessonSubmitButton.tsx";
@@ -35,9 +36,10 @@ export function TutorialFooter({
   return (
     <DefaultFooter phase={phase}>
       <div
-        className={`flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
+        className={`flex w-full justify-between py-2 px-6 items-center col-start-2 col-end-12 lg:col-start-1 lg:col-end-12`}
       >
-        <div></div>
+        <div>
+        </div>
         <LessonSubmitButton
           phase={phase}
           submitAnswer={handleSubmit}
