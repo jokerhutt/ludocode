@@ -1,9 +1,13 @@
-import ChatBotWindow from "@/features/Chatbot/ChatBotWindow";
+import ChatBotWindow, { type ChatBotChatType } from "@/features/Chatbot/ChatBotWindow";
 import { cn } from "@/lib/utils";
 
-type FloatingChatBotWindowProps = {outerClassName?: string};
+type FloatingChatBotWindowProps = { chatType: ChatBotChatType; targetId: string | null; outerClassName?: string };
 
-export function FloatingChatBotWindow({outerClassName}: FloatingChatBotWindowProps) {
+export function FloatingChatBotWindow({
+  outerClassName,
+  targetId,
+  chatType
+}: FloatingChatBotWindowProps) {
   return (
     <div className={cn("h-full w-full py-6 ", outerClassName)}>
       <div className="h-full min-h-0 flex flex-col border-2 border-ludoGrayLight rounded-lg">
@@ -11,8 +15,9 @@ export function FloatingChatBotWindow({outerClassName}: FloatingChatBotWindowPro
           <p>Ludo Tutor</p>
         </div>
         <ChatBotWindow
+          type={chatType}  
           className="h-full bg-ludoGrayDark pb-4 rounded-xl max-h-full"
-          currentFile={null}
+          targetId={targetId}
         />
       </div>
     </div>

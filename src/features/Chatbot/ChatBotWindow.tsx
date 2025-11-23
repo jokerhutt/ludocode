@@ -2,17 +2,24 @@
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { useState } from "react";
 import { useAIStream } from "@/Hooks/Logic/AI/useAIStream";
-import { AI_STREAM_PROMPT } from "@/constants/pathConstants";
+import {
+  AI_LESSON_STREAM_PROMPT,
+  AI_PROJECT_STREAM_PROMPT,
+} from "@/constants/pathConstants";
 import { useAutoScrollDown } from "@/Hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./ChatBotConversation";
 import { ChatBotInput } from "./ChatBotInput";
 import { cn } from "@/lib/utils";
 type ChatBotProps = {
   className?: string;
-  currentFile: string | null;
+  type: ChatBotChatType
+  targetId: string | null;
 };
 
-const ChatBotWindow = ({ currentFile, className }: ChatBotProps) => {
+
+export type ChatBotChatType = "LESSON" | "PROJECT"
+
+const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
   const [url, setUrl] = useState<string | null>(null);
 
   const { messages, addUserMessage } = useAIStream(url);
@@ -20,7 +27,17 @@ const ChatBotWindow = ({ currentFile, className }: ChatBotProps) => {
 
   const handleSubmit = (message: PromptInputMessage) => {
     addUserMessage(message.text);
-    setUrl(AI_STREAM_PROMPT(message.text, currentFile));
+    switch (type) {
+      case "LESSON":
+        if (targetId != null) {
+          setUrl(AI_LESSON_STREAM_PROMPT(message.text, targetId));
+        }
+      break;
+      case "PROJECT":
+        setUrl(AI_PROJECT_STREAM_PROMPT(message.text, targetId));
+      break;
+    }
+    
   };
 
   return (

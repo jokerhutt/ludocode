@@ -17,9 +17,19 @@ export const SUBMIT_DELETE_PROJECT = (pid: string) =>
 
 export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshot/course/create`;
 
-export const AI_STREAM_PROMPT = (prompt: string, filePath: string | null) => {
-  const base = API_PATH + `/ai/send-prompt?prompt=${encodeURIComponent(prompt)}`;
+export const AI_PROJECT_STREAM_PROMPT = (
+  prompt: string,
+  filePath: string | null
+) => {
+  const base =
+    API_PATH + `/ai/project/send-prompt?prompt=${encodeURIComponent(prompt)}`;
   return filePath ? base + `&fileId=${encodeURIComponent(filePath)}` : base;
+};
+
+export const AI_LESSON_STREAM_PROMPT = (prompt: string, exerciseId: string) => {
+  const base =
+    API_PATH + `/ai/exercise/send-prompt?prompt=${encodeURIComponent(prompt)}`;
+  return base + `&exerciseId=${encodeURIComponent(exerciseId)}`;
 };
 
 export const SUBMIT_RENAME_PROJECT = API_PATH + `/project/rename`;
