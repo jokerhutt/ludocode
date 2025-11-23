@@ -49,10 +49,10 @@ export function ExerciseAnswerField({
   );
 
   return (
-    <p className="text-white text-xl text-left leading-loose font-light">
+    <p className="text-white text-lg text-left leading-loose font-light">
       {parts.map((part, index) => (
         <Fragment key={index}>
-          <InlineCode lineHeight="20px" code={part} />
+          <InlineCode lineHeight="26px" code={part} />
           {index < parts.length - 1 && (
             <OptionInputSlot
               value={responses[index].value}

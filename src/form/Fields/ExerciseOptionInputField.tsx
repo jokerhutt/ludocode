@@ -21,7 +21,7 @@ export function ExerciseOptionInputField({
           onEmpty();
         }
       }}
-      className="w-full resize-none border-none min-h-8 overflow-hidden"
+      className="w-full resize-none border-none min-h-6 overflow-hidden"
     />
   );
 }

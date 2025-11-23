@@ -20,7 +20,7 @@ export function ProjectFileTree({
 }: ProjectFileTreeProps) {
   return (
     <>
-      <div className="flex px-4 py-2 overflow-y-auto min-h-0 h-full bg-ludoGrayDark gap-2 text-white flex-col w-full">
+      <div className="flex px-4 py-3 overflow-y-auto min-h-0 h-full bg-ludoGrayDark gap-2 text-white flex-col w-full">
         {projects.map((project, index) => (
           <TreeFile
             renameFile={renameFile}

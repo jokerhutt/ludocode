@@ -6,6 +6,7 @@ import { InfoExercise } from "./Templates/InfoExercise";
 import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/ExerciseMedia";
+import { FloatingChatBotWindow } from "@/components/Molecules/Chatbot/FloatingChatBotWindow";
 
 type ExerciseComponentProps = {
   exercise: LudoExercise;
@@ -31,11 +32,12 @@ export function ExerciseComponent({
 
   return (
     <>
-      <div className="col-span-1 lg:col-span-2" />
+      <div className="col-span-1 lg:col-span-4 h-full min-h-0">
+        <FloatingChatBotWindow outerClassName="pl-6 pr-30" />
+      </div>
 
-      <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
+      <div className="col-span-10 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
         <ExercisePrompt prompt={exercise.title} />
-
         {exercise.subtitle && <ExercisePrompt prompt={exercise.subtitle} />}
 
         {exercise.exerciseMedia && (
@@ -51,7 +53,7 @@ export function ExerciseComponent({
         />
       </div>
 
-      <div className="col-span-1 lg:col-span-2" />
+      <div className="col-span-1 lg:col-span-4" />
     </>
   );
 }

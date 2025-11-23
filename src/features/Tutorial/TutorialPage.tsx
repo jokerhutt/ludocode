@@ -7,7 +7,7 @@ export function TutorialPage() {
   const { buffer, addAnswer, replaceAnswer } = bufferState;
 
   return (
-    <div className="grid col-span-full grid-cols-12">
+    <div className="grid col-span-full h-full grid-cols-12">
       <ExerciseComponent
         exercise={currentExercise}
         userResponses={buffer}

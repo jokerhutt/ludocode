@@ -17,11 +17,11 @@ export function TutorialHeader({
   const completed = position + 1;
 
   return (
-    <CommonHeader device="Both">
-      <div className="col-start-1 col-end-3 flex justify-center items-center h-full">
+    <CommonHeader className="px-4" device="Both">
+      <div className="col-start-1 col-end-2 flex items-center h-full">
         <ExitButton onClick={() => onExit?.()} />
       </div>
-      <div className="flex items-center justify-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11">
+      <div className="flex items-center justify-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10">
         <SegmentedProgress total={total} completed={completed} />
       </div>
     </CommonHeader>
