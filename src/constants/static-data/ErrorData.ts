@@ -9,7 +9,7 @@ export type ErrorStatus = 404 | 500
 
 type ErrorMap = Record<ErrorStatus, ErrorEntry>;
 
-const errorMap: ErrorMap = {
+export const errorMap: ErrorMap = {
   404: {
     status: 404,
     title: "The page you are looking for couldn't be found",
