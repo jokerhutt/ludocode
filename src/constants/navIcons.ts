@@ -40,9 +40,9 @@ export const navIcons: NavIcon[] = [
     redirectPath: RP_BUILD_SELECTION,
     onClick: () => router.navigate(ludoNavigation.build.toSelectCourse()),
   },
-  {
-    name: "Profile",
-    path: RP_ME,
-    onClick: () => router.navigate(ludoNavigation.me()),
-  },
+  // {
+  //   name: "Profile",
+  //   path: RP_ME,
+  //   onClick: () => router.navigate(ludoNavigation.me()),
+  // },
 ];

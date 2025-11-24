@@ -1,7 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import type { BarState } from "../../components/Molecules/Header/CommonHeader";
-
+import type { BarState } from "../../components/Molecules/Header/HeaderWithBar";
 
 export function useRouterBar() {
   const { status } = useRouterState();
@@ -16,6 +15,5 @@ export function useRouterBar() {
     }
   }, [status]);
 
-  return {barState}
-
+  return { barState };
 }

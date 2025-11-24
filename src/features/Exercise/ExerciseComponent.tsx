@@ -32,11 +32,15 @@ export function ExerciseComponent({
 
   return (
     <>
-      <div className="col-span-1 lg:col-span-4 h-full min-h-0">
-        <FloatingChatBotWindow chatType="LESSON" targetId={exercise.id} outerClassName="pl-6 pr-30" />
+      <div className="col-span-0 hidden lg:block lg:col-span-4 h-full min-h-0">
+        <FloatingChatBotWindow
+          chatType="LESSON"
+          targetId={exercise.id}
+          outerClassName="pl-6 pr-30"
+        />
       </div>
 
-      <div className="col-span-10 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
+      <div className="col-span-full px-8 lg:px-0 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
         <ExercisePrompt prompt={exercise.title} />
         {exercise.subtitle && <ExercisePrompt prompt={exercise.subtitle} />}
 
@@ -53,7 +57,7 @@ export function ExerciseComponent({
         />
       </div>
 
-      <div className="col-span-1 lg:col-span-4" />
+      <div className="col-span-0 lg:col-span-4" />
     </>
   );
 }

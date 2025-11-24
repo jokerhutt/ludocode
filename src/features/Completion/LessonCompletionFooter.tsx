@@ -1,5 +1,5 @@
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
-import { DefaultFooter } from "@/components/Molecules/Footer/DefaultFooter";
+import { AppFooter } from "@/components/Molecules/Footer/AppFooter";
 
 type LessonCompletionFooterProps = { handleContinue: () => void };
 
@@ -7,7 +7,7 @@ export function LessonCompletionFooter({
   handleContinue,
 }: LessonCompletionFooterProps) {
   return (
-    <DefaultFooter phase="DEFAULT">
+    <AppFooter phase="DEFAULT">
       <div
         className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
       >
@@ -17,6 +17,6 @@ export function LessonCompletionFooter({
           active={true}
         />
       </div>
-    </DefaultFooter>
+    </AppFooter>
   );
 }

@@ -7,7 +7,7 @@ type OptionListWrapperProps = {
 
 export function OptionListWrapper({children, type}: OptionListWrapperProps) {
 
-  const rowStyle = "flex justify-center items-center gap-8";
+  const rowStyle = "flex justify-center flex-wrap items-center gap-4";
   const colStyle = "flex flex-col items-center gap-6";
 
   const style = type == "ROW" ? rowStyle : colStyle

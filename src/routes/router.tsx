@@ -8,18 +8,15 @@ import {
 import { LessonPage } from "../features/Lesson/LessonPage.tsx";
 import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
-import { SiteLayout } from "../Layouts/SiteLayout";
+import { SiteLayout } from "../Layouts/App/SiteLayout.tsx";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
-import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
-import { ProfilePage } from "../features/Profile/ProfilePage";
+import { ModuleSectionLayout } from "../Layouts/App/ModuleSectionLayout.tsx";
 import {
   RP_COURSE,
   RP_LESSON,
-  RP_ME,
   RP_MODULE,
   RP_MODULE_REDIRECT,
   RP_BUILD,
-  RP_PROFILE,
   RP_AUTH,
   RP_SYNC,
   RP_LESSON_COMPLETE,
@@ -29,16 +26,13 @@ import {
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
   RP_PROJECT,
-  RP_BUILD_REDIRECT,
 } from "../constants/routes.ts";
-import { LessonLayout } from "../Layouts/LessonLayout";
+import { LessonSectionLayout } from "../Layouts/LessonSectionLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
   builderPageLoader,
-  buildRedirectLoader,
   buildSectionLoader,
-  buildRedirectLoader as buildSelectionLoader,
   modulePageLoader,
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
@@ -61,7 +55,6 @@ import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx"
 import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
-import { MobileFallbackPage } from "@/features/Error/MobileFallbackPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -104,7 +97,7 @@ export const desktopGuardRoute = createRoute({
 });
 
 export const siteRoute = createRoute({
-  getParentRoute: () => desktopGuardRoute,
+  getParentRoute: () => authedRoute,
   id: "site",
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
@@ -180,29 +173,29 @@ export const onboardingStageRoute = createRoute({
   component: OnboardingStagePage,
 });
 
-export const profileMeRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
-  path: RP_ME,
-  loader: async ({ location }) => {
-    const userId = "1";
-    const target = `/profile/${userId}`;
-    if (location.pathname !== target) {
-      throw redirect({
-        to: RP_PROFILE,
-        params: { userId },
-        replace: true,
-      });
-    }
-    return null;
-  },
-});
+// export const profileMeRoute = createRoute({
+//   getParentRoute: () => defaultSectionRoute,
+//   path: RP_ME,
+//   loader: async ({ location }) => {
+//     const userId = "1";
+//     const target = `/profile/${userId}`;
+//     if (location.pathname !== target) {
+//       throw redirect({
+//         to: RP_PROFILE,
+//         params: { userId },
+//         replace: true,
+//       });
+//     }
+//     return null;
+//   },
+// });
 
-export const profileByIdRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
-  path: RP_PROFILE,
-  staticData: { headerTitle: "Profile" },
-  component: ProfilePage,
-});
+// export const profileByIdRoute = createRoute({
+//   getParentRoute: () => defaultSectionRoute,
+//   path: RP_PROFILE,
+//   staticData: { headerTitle: "Profile" },
+//   component: ProfilePage,
+// });
 
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
@@ -211,7 +204,7 @@ export const modulesRedirectRoute = createRoute({
 });
 
 export const buildRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_BUILD,
   validateSearch: (s: Record<string, unknown>) => ({
     moduleId: typeof s.moduleId === "string" ? s.moduleId : undefined,
@@ -223,7 +216,7 @@ export const buildRoute = createRoute({
 });
 
 export const buildSelectionRoute = createRoute({
-  getParentRoute: () => siteRoute,
+  getParentRoute: () => defaultSectionRoute,
   path: RP_BUILD_SELECTION,
   loader: async ({ location }) => buildSectionLoader(location, queryClient),
   component: BuilderRedirectPage,
@@ -237,7 +230,7 @@ export const moduleRoute = createRoute({
 });
 
 export const lessonSectionRoute = createRoute({
-  getParentRoute: () => desktopGuardRoute,
+  getParentRoute: () => authedRoute,
   path: RP_LESSON,
   loader: async ({ params }) => {
     const exercises = await queryClient.ensureQueryData(
@@ -248,11 +241,11 @@ export const lessonSectionRoute = createRoute({
     );
     return { exercises, lesson };
   },
-  component: LessonLayout,
+  component: LessonSectionLayout,
 });
 
 export const syncRoute = createRoute({
-  getParentRoute: () => desktopGuardRoute,
+  getParentRoute: () => authedRoute,
   path: RP_SYNC,
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
@@ -266,13 +259,13 @@ export const syncRoute = createRoute({
 });
 
 export const completeRoute = createRoute({
-  getParentRoute: () => desktopGuardRoute,
+  getParentRoute: () => authedRoute,
   path: RP_LESSON_COMPLETE,
   component: LessonCompletionPage,
 });
 
 export const streakIncreaseRoute = createRoute({
-  getParentRoute: () => desktopGuardRoute,
+  getParentRoute: () => authedRoute,
   path: RP_LESSON_COMPLETE_STREAK_INCREASE,
   component: StreakIncreasePage,
 });
@@ -289,24 +282,19 @@ export const lessonRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
     onboardingRoute.addChildren([onboardingStageRoute]),
-    desktopGuardRoute.addChildren([
-      siteRoute.addChildren([
-        defaultSectionRoute.addChildren([
-          courseRoute,
-          profileMeRoute,
-          playgroundRoute,
-          profileByIdRoute,
-        ]),
-        moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+    siteRoute.addChildren([
+      defaultSectionRoute.addChildren([
+        courseRoute,
+        playgroundRoute,
         buildSelectionRoute,
-        buildRoute,
       ]),
-      projectRoute,
-      lessonSectionRoute.addChildren([lessonRoute]),
-      syncRoute,
-      completeRoute,
-      streakIncreaseRoute,
+      moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
+    desktopGuardRoute.addChildren([projectRoute, buildRoute]),
+    lessonSectionRoute.addChildren([lessonRoute]),
+    syncRoute,
+    completeRoute,
+    streakIncreaseRoute,
   ]),
   authRoute,
 ]);

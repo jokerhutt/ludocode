@@ -1,5 +1,5 @@
-import { MainContentWrapper } from "@/Layouts/LayoutWrappers/MainContentWrapper";
-import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
+import { MainContentWrapper } from "@/Layouts/Grids/MainContentWrapper";
+import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper";
 import { LessonHeader } from "../Lesson/LessonHeader";
 import { Outlet, useParams } from "@tanstack/react-router";
 import { type StageKey } from "@/Types/Onboarding/OnboardingSteps";

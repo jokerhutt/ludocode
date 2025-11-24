@@ -1,5 +1,5 @@
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
-import { DefaultFooter } from "@/components/Molecules/Footer/DefaultFooter";
+import { AppFooter } from "@/components/Molecules/Footer/AppFooter";
 import { useOnboardingContext } from "./OnboardingContext";
 
 type OnboardingFooterProps = {};
@@ -9,7 +9,7 @@ export function OnboardingFooter({}: OnboardingFooterProps) {
   const { canAdvance, next } = hook;
 
   return (
-    <DefaultFooter phase="DEFAULT">
+    <AppFooter phase="DEFAULT">
       <div className="flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11">
         <div />
         <ActionButton
@@ -19,6 +19,6 @@ export function OnboardingFooter({}: OnboardingFooterProps) {
           variant="default"
         />
       </div>
-    </DefaultFooter>
+    </AppFooter>
   );
 }

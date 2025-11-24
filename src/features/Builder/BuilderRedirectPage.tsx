@@ -7,6 +7,7 @@ import { BuilderRedirectHero } from "./BuilderRedirectHero";
 import { CreateCourseDialog } from "@/components/Molecules/Dialog/CreateCourseDialog";
 import { useModal } from "@/Hooks/UI/useModal";
 import { uuid } from "@tanstack/react-form";
+import { BuilderCourseCard } from "./BuilderCourseCard";
 
 type BuilderRedirectPageProps = {};
 
@@ -21,29 +22,21 @@ export function BuilderRedirectPage({}: BuilderRedirectPageProps) {
 
   return (
     <>
-      <div className="grid col-span-full p-8 h-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
+      <div className="grid col-span-full min-h-0 overflow-y-auto p-8 h-full grid-cols-12">
+        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <BuilderRedirectHero openCreateCourse={() => openCreateCourse()} />
           {courses.map((course) => (
-            <div className="w-full text-white rounded-2xl p-6 flex items-center justify-between border-ludoGrayLight border-2">
-              <div className="flex flex-col gap-2">
-                <h2>{course.title}</h2>
-                <p>{course.id}</p>
-              </div>
-              <Button
-                onClick={() =>
-                  router.navigate(ludoNavigation.build.toBuilder(course.id))
-                }
-              >
-                Edit Course
-              </Button>
-            </div>
+            <BuilderCourseCard id={course.id} title={course.title} />
           ))}
         </div>
-        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
       </div>
-      <CreateCourseDialog hash={uuid()} open={createCourseOpen} close={closeCreateCourse} />
+      <CreateCourseDialog
+        hash={uuid()}
+        open={createCourseOpen}
+        close={closeCreateCourse}
+      />
     </>
   );
 }

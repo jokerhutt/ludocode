@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
-import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
+import { MainContentWrapper } from "../../Layouts/Grids/MainContentWrapper";
+import { MainGridWrapper } from "../../Layouts/Grids/MainGridWrapper";
 import { CompletionStatsRow } from "./CompletionStatsRow";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import Lottie from "lottie-react";

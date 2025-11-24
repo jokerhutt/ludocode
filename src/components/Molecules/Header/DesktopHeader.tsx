@@ -1,32 +1,20 @@
 import { FireIcon } from "@heroicons/react/24/solid";
-import { navIcons } from "../constants/navIcons.ts";
-import { HollowSlotButton } from "../components/Atoms/Button/HollowSlotButton.tsx";
-import { CommitIcon } from "../components/Atoms/Icons/CustomIcon.tsx";
-import { CommonHeader } from "../components/Molecules/Header/CommonHeader.tsx";
-import { useStatsContext } from "../features/Common/StatsContext.tsx";
+import { navIcons } from "../../../constants/navIcons.ts";
+import { HollowSlotButton } from "../../Atoms/Button/HollowSlotButton.tsx";
+import { CommitIcon } from "../../Atoms/Icons/CustomIcon.tsx";
+import { HeaderWithBar } from "./HeaderWithBar.tsx";
+import { useStatsContext } from "../../../features/Common/StatsContext.tsx";
 import { useLocation } from "@tanstack/react-router";
 import { useModal } from "@/Hooks/UI/useModal.tsx";
 import { CoinsDialog } from "@/components/Molecules/Dialog/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/components/Molecules/Dialog/StreakStatsDialog.tsx";
 import { HollowSlotButtonGroup } from "@/components/Molecules/Group/HollowSlotButtonGroup.tsx";
+import { NavigationIconGroup } from "@/components/Organisms/NavigationIconGroup.tsx";
 
 type DesktopHeaderProps = {};
 
 export function DesktopHeader({}: DesktopHeaderProps) {
-  const icons = navIcons;
-
   const { coins, streak } = useStatsContext();
-
-  const location = useLocation();
-
-  const isActive = (iconPath: string, altPath?: string): boolean => {
-    if (iconPath === "/") return location.pathname === "/";
-
-    return (
-      location.pathname.startsWith(iconPath) ||
-      (!!altPath && location.pathname.startsWith(altPath))
-    );
-  };
 
   const {
     modalOpen: coinsOpen,
@@ -40,20 +28,9 @@ export function DesktopHeader({}: DesktopHeaderProps) {
   } = useModal();
 
   return (
-    <CommonHeader device="Desktop">
+    <HeaderWithBar device="Desktop">
       <div className="col-start-2 col-end-12 flex items-center justify-between">
-        <HollowSlotButtonGroup>
-          {icons.map((icon) => (
-            <HollowSlotButton active={isActive(icon.path)} key={icon.name}>
-              <p
-                onClick={() => !!icon.onClick && icon.onClick()}
-                className="text-white text-sm"
-              >
-                {icon.name}
-              </p>
-            </HollowSlotButton>
-          ))}
-        </HollowSlotButtonGroup>
+        <NavigationIconGroup />
 
         <HollowSlotButtonGroup>
           <HollowSlotButton onClick={() => openCoins()}>
@@ -68,6 +45,6 @@ export function DesktopHeader({}: DesktopHeaderProps) {
       </div>
       <CoinsDialog open={coinsOpen} close={closeCoins} />
       <StreakStatsDialog open={streakOpen} close={closeStreak} />
-    </CommonHeader>
+    </HeaderWithBar>
   );
 }

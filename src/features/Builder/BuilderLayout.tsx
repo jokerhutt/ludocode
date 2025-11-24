@@ -1,6 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
-import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
+import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper";
 import { buildRoute } from "@/routes/router";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
