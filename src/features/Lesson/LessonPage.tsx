@@ -1,7 +1,7 @@
 import { ExerciseComponent } from "../Exercise/ExerciseComponent";
 import { useLessonContext } from "./useLessonContext";
 
-export function TutorialPage() {
+export function LessonPage() {
   const { bufferState, currentExercise } = useLessonContext();
 
   const { buffer, addAnswer, replaceAnswer } = bufferState;

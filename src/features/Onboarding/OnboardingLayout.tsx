@@ -1,6 +1,6 @@
 import { MainContentWrapper } from "@/Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
-import { TutorialHeader } from "../Tutorial/TutorialHeader";
+import { LessonHeader } from "../Lesson/LessonHeader";
 import { Outlet, useParams } from "@tanstack/react-router";
 import { type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import {
@@ -28,7 +28,7 @@ export function OnboardingLayout() {
   return (
     <OnboardingContext.Provider value={contextValue}>
       <MainGridWrapper gridRows="FULL">
-        <TutorialHeader total={total} position={current} />
+        <LessonHeader total={total} position={current} />
         <MainContentWrapper>
           <div className="grid col-span-full grid-cols-12">
             <div className="col-start-2 col-end-11 lg:col-start-3 lg:col-end-11 py-6 min-w-0">

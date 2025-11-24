@@ -1,19 +1,14 @@
-import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { CommonHeader } from "../../components/Molecules/Header/CommonHeader";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 import { ExitButton } from "@/components/Atoms/Button/ExitButton";
 
-type TutorialHeaderProps = {
+type LessonHeaderProps = {
   total: number;
   position: number;
   onExit?: () => void;
 };
 
-export function TutorialHeader({
-  total,
-  position,
-  onExit,
-}: TutorialHeaderProps) {
+export function LessonHeader({ total, position, onExit }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (

@@ -11,12 +11,11 @@ import { qk } from "@/constants/qk";
 import { ExerciseNodeForm } from "./Form/Exercise/ExerciseNodeForm";
 import { ModuleListForm } from "./Form/Module/ModuleListForm";
 import { LudoSidebar } from "@/components/Molecules/Sidebar/LudoSidebar";
-import { NewBuilderHeader } from "./UI/NewBuilderHeader";
+import { BuilderHeader } from "./UI/BuilderHeader";
 
-//TODO rename these
-type NewBuilderLayoutProps = {};
+type BuilderLayoutProps = {};
 
-export function NewBuilderLayout({}: NewBuilderLayoutProps) {
+export function BuilderLayout({}: BuilderLayoutProps) {
   const { courseId } = buildRoute.useParams();
   const { data: courseSnapshot } = useSuspenseQuery(
     qo.courseSnapshot(courseId)
@@ -72,7 +71,7 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
         </LudoSidebar>
         <SidebarInset>
           <MainGridWrapper className="max-h-dvh" gridRows="SITE">
-            <NewBuilderHeader handleFormSubmission={handleFormSubmission} />
+            <BuilderHeader handleFormSubmission={handleFormSubmission} />
             <div className="grid col-span-full overflow-y-auto h-full grid-cols-12 bg-ludoGrayDark">
               <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 <ExerciseNodeForm

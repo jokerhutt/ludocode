@@ -4,7 +4,7 @@ import {
   createRootRoute,
   redirect,
 } from "@tanstack/react-router";
-import { TutorialPage } from "../features/Tutorial/TutorialPage";
+import { LessonPage } from "../features/Lesson/LessonPage.tsx";
 import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
 import { SiteLayout } from "../Layouts/SiteLayout";
@@ -57,7 +57,7 @@ import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
-import { NewBuilderLayout } from "@/features/Builder/NewBuilderLayout.tsx";
+import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -209,7 +209,7 @@ export const buildRoute = createRoute({
     exerciseId: typeof s.exerciseId === "string" ? s.exerciseId : undefined,
   }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
-  component: NewBuilderLayout,
+  component: BuilderLayout,
 });
 
 export const buildSelectionRoute = createRoute({
@@ -273,7 +273,7 @@ export const lessonRoute = createRoute({
   validateSearch: (s) => ({
     exercise: Number(s.exercise) || 1,
   }),
-  component: TutorialPage,
+  component: LessonPage,
 });
 
 const routeTree = rootRoute.addChildren([

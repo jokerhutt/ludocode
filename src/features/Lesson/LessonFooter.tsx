@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button.tsx";
 import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter.tsx";
-import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes";
+import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes.ts";
 import { LessonSubmitButton } from "../Exercise/LessonSubmitButton.tsx";
 
-type TutorialFooterProps = {
+type LessonFooterProps = {
   canSubmit: boolean;
   commit: (info?: boolean) => void;
   stage: () => void;
@@ -13,13 +12,13 @@ type TutorialFooterProps = {
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
-export function TutorialFooter({
+export function LessonFooter({
   staged,
   canSubmit,
   stage,
   commit,
   isInfo,
-}: TutorialFooterProps) {
+}: LessonFooterProps) {
   const hasStaged = staged != null;
 
   const handleSubmit = () => {
@@ -38,8 +37,7 @@ export function TutorialFooter({
       <div
         className={`flex w-full justify-between py-2 px-6 items-center col-start-2 col-end-12 lg:col-start-1 lg:col-end-12`}
       >
-        <div>
-        </div>
+        <div></div>
         <LessonSubmitButton
           phase={phase}
           submitAnswer={handleSubmit}

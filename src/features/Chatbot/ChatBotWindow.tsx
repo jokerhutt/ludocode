@@ -9,12 +9,11 @@ type ChatBotProps = {
   type: ChatBotChatType;
   targetId: string | null;
 };
-import { useChatbot } from "../Common/ChatbotContext";
+import { useChatbot } from "../Common/ChatBotContext";
 
 export type ChatBotChatType = "LESSON" | "PROJECT";
 
 const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
-
   const { messages, sendMessage, status } = useChatbot();
 
   const handleSubmit = (message: PromptInputMessage) => {

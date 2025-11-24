@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ExercisePhase } from "../../../features/Tutorial/TutorialFooter.tsx";
+import type { ExercisePhase } from "../../../features/Lesson/LessonFooter.tsx";
 
 type DefaultFooterProps = {
   children: ReactNode;

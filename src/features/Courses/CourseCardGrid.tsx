@@ -1,5 +1,3 @@
-import type { LudoCourse } from "@/Types/Catalog/LudoCourse";
-import { CourseCard } from "./CourseCard";
 import type { ReactNode } from "react";
 
 type CourseCardGridProps = {

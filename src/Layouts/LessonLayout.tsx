@@ -1,8 +1,8 @@
 import { Outlet } from "@tanstack/react-router";
-import { TutorialHeader } from "../features/Tutorial/TutorialHeader";
+import { LessonHeader } from "../features/Lesson/LessonHeader";
 import { lessonRoute, lessonSectionRoute } from "../routes/router";
-import { LessonContext } from "../features/Tutorial/useLessonContext";
-import { TutorialFooter } from "../features/Tutorial/TutorialFooter";
+import { LessonContext } from "../features/Lesson/useLessonContext";
+import { LessonFooter } from "../features/Lesson/LessonFooter";
 import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 import { useExerciseFlow } from "../Hooks/Logic/Exercises/useExerciseFlow";
@@ -17,15 +17,24 @@ export function LessonLayout() {
 
   const state = useExerciseFlow({ exercises, lesson, position });
 
-  const {modalOpen: exitOpen, openModal: openExit, closeModal: closeExit} = useModal()
+  const {
+    modalOpen: exitOpen,
+    openModal: openExit,
+    closeModal: closeExit,
+  } = useModal();
 
-  const { currentExercise, canSubmit, submitAttemptBuffer, commitAttempt, submissionBuffer } =
-    state;
+  const {
+    currentExercise,
+    canSubmit,
+    submitAttemptBuffer,
+    commitAttempt,
+    submissionBuffer,
+  } = state;
 
   return (
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
-        <TutorialHeader
+        <LessonHeader
           total={exercises.length}
           position={exercisePosition - 1}
           onExit={() => openExit()}
@@ -33,7 +42,7 @@ export function LessonLayout() {
         <MainContentWrapper>
           <Outlet />
         </MainContentWrapper>
-        <TutorialFooter
+        <LessonFooter
           staged={submissionBuffer}
           stage={submitAttemptBuffer}
           commit={commitAttempt}
@@ -42,8 +51,7 @@ export function LessonLayout() {
         />
       </MainGridWrapper>
 
-      <ExitDialog close={() => closeExit()} open={exitOpen}/>
-
+      <ExitDialog close={() => closeExit()} open={exitOpen} />
     </LessonContext.Provider>
   );
 }

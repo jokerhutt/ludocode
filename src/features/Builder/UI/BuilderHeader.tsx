@@ -2,11 +2,9 @@ import { Button } from "@/components/ui/button";
 import { LeaveUnsavedButton } from "./Button/LeaveUnsavedButton";
 import { act, useState } from "react";
 
-type NewBuilderHeaderProps = { handleFormSubmission: () => Promise<void> };
+type BuilderHeaderProps = { handleFormSubmission: () => Promise<void> };
 
-export function NewBuilderHeader({
-  handleFormSubmission,
-}: NewBuilderHeaderProps) {
+export function BuilderHeader({ handleFormSubmission }: BuilderHeaderProps) {
   const [actionsEnabled, setActionsEnabled] = useState<boolean>(true);
   const text = actionsEnabled ? "Lock" : "Unlock";
   const variant = actionsEnabled ? "default" : ("disabled" as const);
