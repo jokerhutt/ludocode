@@ -3,6 +3,7 @@ import {
   createRoute,
   createRootRoute,
   redirect,
+  NotFoundRoute,
 } from "@tanstack/react-router";
 import { LessonPage } from "../features/Lesson/LessonPage.tsx";
 import { CoursePage } from "../features/Courses/CoursePage";
@@ -58,6 +59,7 @@ import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
 import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
+import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -303,6 +305,9 @@ export const router = createRouter({
   routeTree,
   context: {
     queryClient,
+  },
+  defaultNotFoundComponent: () => {
+    return <ErrorPage errorCode={404}/>;
   },
 });
 
