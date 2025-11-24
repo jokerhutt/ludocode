@@ -60,6 +60,8 @@ import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
 import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
+import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
+import { MobileFallbackPage } from "@/features/Error/MobileFallbackPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -95,8 +97,14 @@ const authedRoute = createRoute({
   },
 });
 
-export const siteRoute = createRoute({
+export const desktopGuardRoute = createRoute({
   getParentRoute: () => authedRoute,
+  id: "desktopguard",
+  component: DesktopOnlyPage,
+});
+
+export const siteRoute = createRoute({
+  getParentRoute: () => desktopGuardRoute,
   id: "site",
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
@@ -149,7 +157,7 @@ export const playgroundRoute = createRoute({
 });
 
 export const projectRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_PROJECT,
   loader: async ({ params }) => projectLoader(params, queryClient),
   component: ProjectPage,
@@ -229,7 +237,7 @@ export const moduleRoute = createRoute({
 });
 
 export const lessonSectionRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_LESSON,
   loader: async ({ params }) => {
     const exercises = await queryClient.ensureQueryData(
@@ -244,7 +252,7 @@ export const lessonSectionRoute = createRoute({
 });
 
 export const syncRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_SYNC,
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
@@ -258,13 +266,13 @@ export const syncRoute = createRoute({
 });
 
 export const completeRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_LESSON_COMPLETE,
   component: LessonCompletionPage,
 });
 
 export const streakIncreaseRoute = createRoute({
-  getParentRoute: () => authedRoute,
+  getParentRoute: () => desktopGuardRoute,
   path: RP_LESSON_COMPLETE_STREAK_INCREASE,
   component: StreakIncreasePage,
 });
@@ -281,22 +289,24 @@ export const lessonRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
     onboardingRoute.addChildren([onboardingStageRoute]),
-    siteRoute.addChildren([
-      defaultSectionRoute.addChildren([
-        courseRoute,
-        profileMeRoute,
-        playgroundRoute,
-        profileByIdRoute,
+    desktopGuardRoute.addChildren([
+      siteRoute.addChildren([
+        defaultSectionRoute.addChildren([
+          courseRoute,
+          profileMeRoute,
+          playgroundRoute,
+          profileByIdRoute,
+        ]),
+        moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+        buildSelectionRoute,
+        buildRoute,
       ]),
-      moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
-      buildSelectionRoute,
-      buildRoute,
+      projectRoute,
+      lessonSectionRoute.addChildren([lessonRoute]),
+      syncRoute,
+      completeRoute,
+      streakIncreaseRoute,
     ]),
-    projectRoute,
-    lessonSectionRoute.addChildren([lessonRoute]),
-    syncRoute,
-    completeRoute,
-    streakIncreaseRoute,
   ]),
   authRoute,
 ]);
@@ -307,7 +317,7 @@ export const router = createRouter({
     queryClient,
   },
   defaultNotFoundComponent: () => {
-    return <ErrorPage errorCode={404}/>;
+    return <ErrorPage errorCode={404} />;
   },
 });
 

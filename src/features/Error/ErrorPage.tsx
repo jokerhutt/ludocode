@@ -4,7 +4,8 @@ import { errorMap, type ErrorStatus } from "@/constants/static-data/ErrorData";
 type ErrorPageProps = { errorCode: ErrorStatus };
 
 export function ErrorPage({ errorCode }: ErrorPageProps) {
-  const { status, title, suggestion, actionText, fallbackAction } = errorMap[errorCode];
+  const { status, title, suggestion, actionText, fallbackAction } =
+    errorMap[errorCode];
 
   return (
     <div className="w-dvw h-dvh flex flex-col gap-4 items-center justify-center bg-ludoGrayDark">

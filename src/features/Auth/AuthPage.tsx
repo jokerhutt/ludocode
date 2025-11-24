@@ -12,7 +12,7 @@ export function AuthPage({}: AuthPageProps) {
     <MainGridWrapper gridRows="ONE">
       <MainContentWrapper>
         <div className="col-span-full flex items-center justify-center h-full">
-          <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col bg-ludoGrayLight rounded-2xl w-1/3">
+          <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col bg-ludoGrayLight rounded-2xl lg:w-1/3">
             <Button
               onClick={() => googleLogin()}
               className="font-bold hover:cursor-pointer"
