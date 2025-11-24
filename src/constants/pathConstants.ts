@@ -17,6 +17,8 @@ export const SUBMIT_DELETE_PROJECT = (pid: string) =>
 
 export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshot/course/create`;
 
+export const SUBMIT_AI_PROMPT = API_PATH + `/ai/send-prompt`
+
 export const AI_PROJECT_STREAM_PROMPT = (
   prompt: string,
   filePath: string | null

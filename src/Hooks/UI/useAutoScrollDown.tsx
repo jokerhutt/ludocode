@@ -1,7 +1,8 @@
 import type { ChatMessage } from "@/Types/AI/AIMessagePart";
+import type { UIDataTypes, UIMessage, UITools } from "ai";
 import { useEffect, useRef } from "react";
 
-type Args = { messages: ChatMessage[] | null };
+type Args = { messages: UIMessage<unknown, UIDataTypes, UITools>[] };
 
 export function useAutoScrollDown({ messages }: Args) {
   const scrollRef = useRef<HTMLDivElement>(null);

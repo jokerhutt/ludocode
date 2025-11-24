@@ -9,10 +9,12 @@ import {
   MessageResponse,
 } from "@/components/ai-elements/message";
 import { ChatMessageActions } from "@/components/Molecules/Chatbot/ChatMessageActions";
-import type { ChatMessage } from "@/Types/AI/AIMessagePart";
+import type { UIDataTypes, UIMessage, UITools } from "ai";
 import { Loader } from "lucide-react";
 
-type ChatBotConversationProps = { messages: ChatMessage[] };
+type ChatBotConversationProps = {
+  messages: UIMessage<unknown, UIDataTypes, UITools>[];
+};
 
 export function ChatBotConversation({ messages }: ChatBotConversationProps) {
   return (

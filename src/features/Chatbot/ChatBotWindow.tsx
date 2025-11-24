@@ -1,44 +1,41 @@
 "use client";
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
-import { useState } from "react";
-import { useAIStream } from "@/Hooks/Logic/AI/useAIStream";
-import {
-  AI_LESSON_STREAM_PROMPT,
-  AI_PROJECT_STREAM_PROMPT,
-} from "@/constants/pathConstants";
+
+import { SUBMIT_AI_PROMPT } from "@/constants/pathConstants";
 import { useAutoScrollDown } from "@/Hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./ChatBotConversation";
 import { ChatBotInput } from "./ChatBotInput";
 import { cn } from "@/lib/utils";
 type ChatBotProps = {
   className?: string;
-  type: ChatBotChatType
+  type: ChatBotChatType;
   targetId: string | null;
 };
+import { useChat } from "@ai-sdk/react";
+import { TextStreamChatTransport } from "ai";
 
-
-export type ChatBotChatType = "LESSON" | "PROJECT"
+export type ChatBotChatType = "LESSON" | "PROJECT";
 
 const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
-  const [url, setUrl] = useState<string | null>(null);
-
-  const { messages, addUserMessage } = useAIStream(url);
-  const { scrollRef } = useAutoScrollDown({ messages });
+  const { messages, sendMessage, status } = useChat({
+    transport: new TextStreamChatTransport({
+      api: SUBMIT_AI_PROMPT,
+      credentials: "include",
+    }),
+  });
 
   const handleSubmit = (message: PromptInputMessage) => {
-    addUserMessage(message.text);
-    switch (type) {
-      case "LESSON":
-        if (targetId != null) {
-          setUrl(AI_LESSON_STREAM_PROMPT(message.text, targetId));
-        }
-      break;
-      case "PROJECT":
-        setUrl(AI_PROJECT_STREAM_PROMPT(message.text, targetId));
-      break;
-    }
-    
+    sendMessage({
+      role: "user",
+      parts: [{ type: "text", text: message.text }],
+      metadata: {
+        chatType: type,
+        targetId: targetId,
+      },
+    });
   };
+
+  const { scrollRef } = useAutoScrollDown({ messages });
 
   return (
     <div
