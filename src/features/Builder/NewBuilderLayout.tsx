@@ -13,6 +13,7 @@ import { ModuleListForm } from "./Form/Module/ModuleListForm";
 import { LudoSidebar } from "@/components/Molecules/Sidebar/LudoSidebar";
 import { NewBuilderHeader } from "./UI/NewBuilderHeader";
 
+//TODO rename these
 type NewBuilderLayoutProps = {};
 
 export function NewBuilderLayout({}: NewBuilderLayoutProps) {
@@ -70,9 +71,9 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
           />
         </LudoSidebar>
         <SidebarInset>
-          <MainGridWrapper gridRows="SITE">
+          <MainGridWrapper className="max-h-dvh" gridRows="SITE">
             <NewBuilderHeader handleFormSubmission={handleFormSubmission} />
-            <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
+            <div className="grid col-span-full overflow-y-auto h-full grid-cols-12 bg-ludoGrayDark">
               <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 <ExerciseNodeForm
                   courseId={courseId}
