@@ -22,7 +22,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
   return (
     <>
       <div className="grid col-span-full p-8 h-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <PlaygroundHero openCreateProject={openCreateProject} />
 
@@ -32,7 +32,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
             ))}
           </div>
         </div>
-        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
       </div>
       <CreateProjectDialog
         hash={uuid()}

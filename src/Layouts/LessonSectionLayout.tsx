@@ -2,15 +2,14 @@ import { Outlet } from "@tanstack/react-router";
 import { LessonHeader } from "../features/Lesson/LessonHeader";
 import { lessonRoute, lessonSectionRoute } from "../routes/router";
 import { LessonContext } from "../features/Lesson/useLessonContext";
-import { LessonFooter } from "../features/Lesson/LessonFooter";
-import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
-import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
+import { LessonFooter } from "../components/Molecules/Footer/LessonFooter";
+import { MainContentWrapper } from "./Grids/MainContentWrapper";
+import { MainGridWrapper } from "./Grids/MainGridWrapper";
 import { useExerciseFlow } from "../Hooks/Logic/Exercises/useExerciseFlow";
-import { useState } from "react";
 import { ExitDialog } from "@/components/Molecules/Dialog/ExitDialog";
 import { useModal } from "@/Hooks/UI/useModal";
 
-export function LessonLayout() {
+export function LessonSectionLayout() {
   const { exercises, lesson } = lessonSectionRoute.useLoaderData();
   const { exercise: position } = lessonRoute.useSearch();
   const exercisePosition = Number(position ?? 1);

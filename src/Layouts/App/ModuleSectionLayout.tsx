@@ -1,7 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
-import { ModuleHeader } from "../features/Module/Header/ModuleHeader.tsx";
-import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
-import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
+import { ModuleHeader } from "../../features/Module/Header/MobileModuleHeader.tsx";
+import { MainContentWrapper } from "../Grids/MainContentWrapper.tsx";
+import { SubGridWrapper } from "../Grids/SubGridWrapper.tsx";
 
 type ModuleSectionLayoutProps = {};
 

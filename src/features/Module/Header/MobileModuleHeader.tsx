@@ -4,7 +4,7 @@ import {
   PythonIcon,
 } from "../../../components/Atoms/Icons/CustomIcon.tsx";
 import { HollowSlotButton } from "../../../components/Atoms/Button/HollowSlotButton.tsx";
-import { CommonHeader } from "../../../components/Molecules/Header/CommonHeader.tsx";
+import { HeaderWithBar } from "../../../components/Molecules/Header/HeaderWithBar.tsx";
 import { useStatsContext } from "../../Common/StatsContext.tsx";
 
 type ModuleHeaderProps = {};
@@ -13,7 +13,7 @@ export function ModuleHeader({}: ModuleHeaderProps) {
   const { coins, streak } = useStatsContext();
 
   return (
-    <CommonHeader>
+    <HeaderWithBar device="Mobile">
       <div className="col-start-2 col-end-12 flex py-2 items-center justify-between">
         <div>
           <HollowSlotButton>
@@ -32,6 +32,6 @@ export function ModuleHeader({}: ModuleHeaderProps) {
           </HollowSlotButton>
         </div>
       </div>
-    </CommonHeader>
+    </HeaderWithBar>
   );
 }

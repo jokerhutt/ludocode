@@ -1,6 +1,6 @@
-import { DefaultFooter } from "../../components/Molecules/Footer/DefaultFooter.tsx";
-import type { ExerciseAttempt } from "../../Types/Exercise/LessonSubmissionTypes.ts";
-import { LessonSubmitButton } from "../Exercise/LessonSubmitButton.tsx";
+import type { ExerciseAttempt } from "../../../Types/Exercise/LessonSubmissionTypes.ts";
+import { LessonSubmitButton } from "../../../features/Exercise/LessonSubmitButton.tsx";
+import { AppFooter } from "./AppFooter.tsx";
 
 type LessonFooterProps = {
   canSubmit: boolean;
@@ -32,10 +32,17 @@ export function LessonFooter({
     ? "CORRECT"
     : "INCORRECT";
 
+  const feedbackStyle =
+    phase == "DEFAULT"
+      ? "border-t-2 border-t-ludoGrayLight"
+      : phase == "CORRECT"
+      ? " border-t-2 border-t-green-300"
+      : "border-t-2 border-t-red-600";
+
   return (
-    <DefaultFooter phase={phase}>
+    <AppFooter className={feedbackStyle}>
       <div
-        className={`flex w-full justify-between py-2 px-6 items-center col-start-2 col-end-12 lg:col-start-1 lg:col-end-12`}
+        className={`flex w-full justify-between py-2 px-4 lg:px-0 items-center col-start-1 col-end-13 lg:col-end-12`}
       >
         <div></div>
         <LessonSubmitButton
@@ -44,6 +51,6 @@ export function LessonFooter({
           canSubmit={canSubmit}
         />
       </div>
-    </DefaultFooter>
+    </AppFooter>
   );
 }

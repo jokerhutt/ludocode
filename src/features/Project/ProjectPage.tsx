@@ -8,7 +8,7 @@ import { useLoaderData } from "@tanstack/react-router";
 import { projectRoute } from "@/routes/router.tsx";
 import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject.tsx";
 import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
-import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
+import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";

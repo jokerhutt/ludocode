@@ -1,5 +1,5 @@
 import { ActionButton } from "../../components/Atoms/Button/ActionButton";
-import type { ExercisePhase } from "../Lesson/LessonFooter";
+import type { ExercisePhase } from "../../components/Molecules/Footer/LessonFooter";
 
 type LessonSubmitButtonProps = {
   canSubmit: boolean;

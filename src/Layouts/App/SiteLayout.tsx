@@ -1,8 +1,8 @@
 import { Outlet } from "@tanstack/react-router";
-import { DefaultMobileFooter } from "../components/Molecules/Footer/DefaultMobileFooter";
-import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
-import { DesktopHeader } from "./DesktopHeader";
-import { StatsContext } from "../features/Common/StatsContext";
+import { NavigationFooter } from "../../components/Molecules/Footer/NavigationFooter";
+import { MainGridWrapper } from "../Grids/MainGridWrapper";
+import { DesktopHeader } from "../../components/Molecules/Header/DesktopHeader";
+import { StatsContext } from "../../features/Common/StatsContext";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 
@@ -19,7 +19,7 @@ export function SiteLayout() {
       <MainGridWrapper gridRows={"SITE"}>
         <DesktopHeader />
         <Outlet />
-        <DefaultMobileFooter />
+        <NavigationFooter />
       </MainGridWrapper>
     </StatsContext.Provider>
   );

@@ -1,10 +1,10 @@
-import type { BarState } from "../../Molecules/Header/CommonHeader";
+import type { BarState } from "../../Molecules/Header/HeaderWithBar";
 
 type RouterBarProps = {
   barState: BarState;
 };
 
-export function RouterBar({barState}: RouterBarProps) {
+export function RouterBar({ barState }: RouterBarProps) {
   return (
     <div
       className={`

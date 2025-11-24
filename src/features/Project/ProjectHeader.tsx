@@ -1,6 +1,6 @@
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
-import { CommonHeader } from "@/components/Molecules/Header/CommonHeader";
+import { HeaderWithBar } from "@/components/Molecules/Header/HeaderWithBar";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 import { SaveStatusIcon } from "./Editor/SaveStatusIcon";
@@ -19,7 +19,7 @@ export function ProjectHeader({ projectName, saveStatus }: ProjectHeaderProps) {
   };
 
   return (
-    <CommonHeader device="Desktop">
+    <HeaderWithBar device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
         <HollowSlotButton className="h-8" onClick={() => goToPlayground()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
@@ -35,6 +35,6 @@ export function ProjectHeader({ projectName, saveStatus }: ProjectHeaderProps) {
         />
       </div>
       <div className="col-span-1 text-white lg:col-span-3"></div>
-    </CommonHeader>
+    </HeaderWithBar>
   );
 }

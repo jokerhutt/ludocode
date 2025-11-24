@@ -1,7 +1,7 @@
 import { Outlet, useMatches } from "@tanstack/react-router";
-import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
-import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
-import { DefaultHeader } from "../components/Molecules/Header/DefaultHeader";
+import { MainContentWrapper } from "./Grids/MainContentWrapper";
+import { SubGridWrapper } from "./Grids/SubGridWrapper";
+import { StaticHeader } from "../components/Molecules/Header/StaticHeader";
 
 export function DefaultSectionLayout() {
   const matches = useMatches();
@@ -11,7 +11,7 @@ export function DefaultSectionLayout() {
 
   return (
     <SubGridWrapper>
-      <DefaultHeader title={title} />
+      <StaticHeader title={title} />
       <MainContentWrapper>
         <Outlet />
       </MainContentWrapper>

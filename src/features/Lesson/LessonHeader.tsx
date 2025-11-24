@@ -1,4 +1,4 @@
-import { CommonHeader } from "../../components/Molecules/Header/CommonHeader";
+import { HeaderWithBar } from "../../components/Molecules/Header/HeaderWithBar";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 import { ExitButton } from "@/components/Atoms/Button/ExitButton";
 
@@ -12,13 +12,13 @@ export function LessonHeader({ total, position, onExit }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (
-    <CommonHeader className="px-4" device="Both">
+    <HeaderWithBar className="px-4" device="Both">
       <div className="col-start-1 col-end-2 flex items-center h-full">
         <ExitButton onClick={() => onExit?.()} />
       </div>
-      <div className="flex items-center justify-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10">
+      <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
         <SegmentedProgress total={total} completed={completed} />
       </div>
-    </CommonHeader>
+    </HeaderWithBar>
   );
 }
