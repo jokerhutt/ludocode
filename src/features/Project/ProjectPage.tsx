@@ -14,6 +14,7 @@ import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
 import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
 import { ChatBotAccordion } from "@/components/Molecules/Chatbot/ChatBotAccordion.tsx";
+import { ChatBotProvider } from "../Common/ChatbotContext.tsx";
 
 type ProjectPageProps = {};
 
@@ -59,9 +60,11 @@ export function ProjectPage({}: ProjectPageProps) {
             deleteFile={deleteFile}
           />
           <div className="min-h-0 w-full h-full flex flex-col justify-end">
-            <ChatBotAccordion>
-              <ChatBotWindow type="PROJECT" targetId={currentFileId} />
-            </ChatBotAccordion>
+            <ChatBotProvider targetId={currentFileId} type="PROJECT">
+              <ChatBotAccordion>
+                <ChatBotWindow type="PROJECT" targetId={currentFileId} />
+              </ChatBotAccordion>
+            </ChatBotProvider>
           </div>
         </div>
 

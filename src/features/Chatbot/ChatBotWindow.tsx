@@ -1,7 +1,5 @@
 "use client";
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
-
-import { SUBMIT_AI_PROMPT } from "@/constants/pathConstants";
 import { useAutoScrollDown } from "@/Hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./ChatBotConversation";
 import { ChatBotInput } from "./ChatBotInput";
@@ -11,18 +9,13 @@ type ChatBotProps = {
   type: ChatBotChatType;
   targetId: string | null;
 };
-import { useChat } from "@ai-sdk/react";
-import { TextStreamChatTransport } from "ai";
+import { useChatbot } from "../Common/ChatbotContext";
 
 export type ChatBotChatType = "LESSON" | "PROJECT";
 
 const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
-  const { messages, sendMessage, status } = useChat({
-    transport: new TextStreamChatTransport({
-      api: SUBMIT_AI_PROMPT,
-      credentials: "include",
-    }),
-  });
+
+  const { messages, sendMessage, status } = useChatbot();
 
   const handleSubmit = (message: PromptInputMessage) => {
     sendMessage({
