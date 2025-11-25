@@ -1,16 +1,16 @@
 import { MainContentWrapper } from "@/Layouts/Grids/MainContentWrapper";
 import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper";
-import { LessonHeader } from "../Lesson/LessonHeader";
+import { HeaderWithProgress } from "../features/Lesson/HeaderWithProgress";
 import { Outlet, useParams } from "@tanstack/react-router";
 import { type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import {
   OnboardingContext,
   type OnboardingContextType,
-} from "./OnboardingContext";
-import { useOnboardingFlow } from "./useOnboardingFlow";
+} from "../features/Onboarding/OnboardingContext";
+import { useOnboardingFlow } from "../features/Onboarding/useOnboardingFlow";
 import { onboardingStageRoute } from "@/routes/router";
-import { OnboardingFooter } from "./OnboardingFooter";
-import { onboardingContent } from "./onboardingMocks";
+import { OnboardingFooter } from "../features/Onboarding/OnboardingFooter";
+import { onboardingContent } from "../features/Onboarding/onboardingMocks";
 
 export function OnboardingLayout() {
   const { stage } = useParams({ from: onboardingStageRoute.id }) as {
@@ -25,10 +25,11 @@ export function OnboardingLayout() {
 
   const { current, total } = contextValue.hook.position;
 
+  //TODO check this subgrid? Do i need?
   return (
     <OnboardingContext.Provider value={contextValue}>
       <MainGridWrapper gridRows="FULL">
-        <LessonHeader total={total} position={current} />
+        <HeaderWithProgress total={total} position={current} />
         <MainContentWrapper>
           <div className="grid col-span-full grid-cols-12">
             <div className="col-start-2 col-end-11 lg:col-start-3 lg:col-end-11 py-6 min-w-0">

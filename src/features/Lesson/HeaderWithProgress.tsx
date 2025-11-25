@@ -2,13 +2,17 @@ import { HeaderWithBar } from "../../components/Molecules/Header/HeaderWithBar";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 import { ExitButton } from "@/components/Atoms/Button/ExitButton";
 
-type LessonHeaderProps = {
+type HeaderWithProgressProps = {
   total: number;
   position: number;
   onExit?: () => void;
 };
 
-export function LessonHeader({ total, position, onExit }: LessonHeaderProps) {
+export function HeaderWithProgress({
+  total,
+  position,
+  onExit,
+}: HeaderWithProgressProps) {
   const completed = position + 1;
 
   return (

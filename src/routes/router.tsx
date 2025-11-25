@@ -6,9 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
-import { SiteLayout } from "../Layouts/App/SiteLayout.tsx";
-import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
-import { ModuleSectionLayout } from "../Layouts/App/ModuleSectionLayout.tsx";
+import { SiteLayout } from "../Layouts/SiteLayout.tsx";
 import {
   RP_COURSE,
   RP_LESSON,
@@ -25,7 +23,7 @@ import {
   RP_PLAYGROUND,
   RP_PROJECT,
 } from "../constants/routes.ts";
-import { LessonSectionLayout } from "../Layouts/LessonSectionLayout.tsx";
+import { LessonLayout } from "../Layouts/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
@@ -40,7 +38,7 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
-import { OnboardingLayout } from "@/features/Onboarding/OnboardingLayout.tsx";
+import { OnboardingLayout } from "@/Layouts/OnboardingLayout.tsx";
 import {
   stepOrder,
   type StageKey,
@@ -50,7 +48,7 @@ import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
-import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
+import { BuilderLayout } from "@/Layouts/BuilderLayout.tsx";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/ExerciseComponent.tsx";
@@ -115,20 +113,8 @@ export const siteRoute = createRoute({
   component: SiteLayout,
 });
 
-export const defaultSectionRoute = createRoute({
-  getParentRoute: () => siteRoute,
-  id: "defaultsection",
-  component: DefaultSectionLayout,
-});
-
-export const moduleSectionRoute = createRoute({
-  getParentRoute: () => siteRoute,
-  id: "modulesection",
-  component: ModuleSectionLayout,
-});
-
 export const courseRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => coursesLoader(queryClient),
@@ -142,8 +128,9 @@ export const authRoute = createRoute({
 });
 
 export const playgroundRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_PLAYGROUND,
+  staticData: { headerTitle: "Playground" },
   loader: async ({}) => playgroundLoader(queryClient),
   component: PlaygroundPage,
 });
@@ -197,8 +184,9 @@ export const onboardingStageRoute = createRoute({
 // });
 
 export const modulesRedirectRoute = createRoute({
-  getParentRoute: () => moduleSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_MODULE_REDIRECT,
+  staticData: { headerTitle: "Modules" },
   loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
@@ -215,15 +203,17 @@ export const buildRoute = createRoute({
 });
 
 export const buildSelectionRoute = createRoute({
-  getParentRoute: () => defaultSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_BUILD_SELECTION,
+  staticData: { headerTitle: "Builder " },
   loader: async ({ location }) => buildSectionLoader(location, queryClient),
   component: BuilderRedirectPage,
 });
 
 export const moduleRoute = createRoute({
-  getParentRoute: () => moduleSectionRoute,
+  getParentRoute: () => siteRoute,
   path: RP_MODULE,
+  staticData: { headerTitle: "Modules" },
   loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModulePage,
 });
@@ -240,7 +230,7 @@ export const lessonSectionRoute = createRoute({
     );
     return { exercises, lesson };
   },
-  component: LessonSectionLayout,
+  component: LessonLayout,
 });
 
 export const syncRoute = createRoute({
@@ -282,12 +272,11 @@ const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
     onboardingRoute.addChildren([onboardingStageRoute]),
     siteRoute.addChildren([
-      defaultSectionRoute.addChildren([
-        courseRoute,
-        playgroundRoute,
-        buildSelectionRoute,
-      ]),
-      moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+      courseRoute,
+      playgroundRoute,
+      buildSelectionRoute,
+      modulesRedirectRoute,
+      moduleRoute,
     ]),
     desktopGuardRoute.addChildren([projectRoute, buildRoute]),
     lessonSectionRoute.addChildren([lessonRoute]),

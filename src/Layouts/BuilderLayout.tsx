@@ -8,10 +8,10 @@ import { courseFormOpts, useAppForm } from "@/form/formKit";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
-import { ExerciseNodeForm } from "./Form/Exercise/ExerciseNodeForm";
-import { ModuleListForm } from "./Form/Module/ModuleListForm";
+import { ExerciseNodeForm } from "../features/Builder/Form/Exercise/ExerciseNodeForm";
+import { ModuleListForm } from "../features/Builder/Form/Module/ModuleListForm";
 import { LudoSidebar } from "@/components/Molecules/Sidebar/LudoSidebar";
-import { BuilderHeader } from "./UI/BuilderHeader";
+import { BuilderHeader } from "../features/Builder/UI/BuilderHeader";
 
 type BuilderLayoutProps = {};
 
