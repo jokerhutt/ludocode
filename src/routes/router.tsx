@@ -3,9 +3,7 @@ import {
   createRoute,
   createRootRoute,
   redirect,
-  NotFoundRoute,
 } from "@tanstack/react-router";
-import { LessonPage } from "../features/Lesson/LessonPage.tsx";
 import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
 import { SiteLayout } from "../Layouts/App/SiteLayout.tsx";
@@ -55,6 +53,7 @@ import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx"
 import { BuilderLayout } from "@/features/Builder/BuilderLayout.tsx";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
+import { LessonPage } from "@/features/Exercise/ExerciseComponent.tsx";
 
 export const queryClient = new QueryClient();
 

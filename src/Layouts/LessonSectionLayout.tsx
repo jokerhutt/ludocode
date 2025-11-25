@@ -32,7 +32,9 @@ export function LessonSectionLayout() {
           onExit={() => openExit()}
         />
         <MainContentWrapper>
-          <Outlet />
+          <div className="grid col-span-full h-full grid-cols-12">
+            <Outlet />
+          </div>
         </MainContentWrapper>
         <LessonFooter />
       </MainGridWrapper>
