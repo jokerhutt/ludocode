@@ -4,9 +4,9 @@ import { ludoNavigation } from "../../routes/ludoNavigation";
 import { moduleRoute, router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 
-type ModulesListProps = { modules: LudoModule[] };
+type ModulesListProps = { courseName: string; modules: LudoModule[] };
 
-export function ModulesList({ modules }: ModulesListProps) {
+export function ModulesList({ courseName, modules }: ModulesListProps) {
   const { courseId, moduleId } = moduleRoute.useParams();
 
   const selectModule = (selectedModuleId: string, isSelected: boolean) => {
@@ -15,7 +15,7 @@ export function ModulesList({ modules }: ModulesListProps) {
   };
 
   return (
-    <ListContainer title="Python" rounded="MD">
+    <ListContainer title={courseName} rounded="MD">
       {modules.map((module, index) => {
         const isSelected = moduleId == module.id;
         const isLast = index >= modules.length - 1;
