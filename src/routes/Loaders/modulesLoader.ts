@@ -9,7 +9,6 @@ import {
 } from "../../constants/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
-import type { moduleRoute } from "../router";
 import { ensureTreeData } from "../routerEnsures";
 
 export async function modulesRedirectLoader(
@@ -18,6 +17,9 @@ export async function modulesRedirectLoader(
 ) {
   console.log("M0");
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
+
+  await queryClient.ensureQueryData(qo.allCourses())
+
   const currentCourseId: string = await queryClient.ensureQueryData(
     qo.currentCourseId()
   );
