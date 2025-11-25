@@ -1,6 +1,7 @@
 import { useLessonContext } from "@/features/Lesson/useLessonContext.tsx";
 import { LessonSubmitButton } from "../../../features/Exercise/LessonSubmitButton.tsx";
 import { AppFooter } from "./AppFooter.tsx";
+import { useHotkeys } from "@/Hooks/UI/useHotkeys.tsx";
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
@@ -21,6 +22,10 @@ export function LessonFooter() {
     if (!canSubmit) return;
     isInfo ? commit(true) : hasStaged ? commit() : stage();
   };
+
+  useHotkeys({
+    EXECUTE_ACTION: handleSubmit,
+  });
 
   const feedbackStyle =
     phase == "DEFAULT"

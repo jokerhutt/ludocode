@@ -22,6 +22,7 @@ export function LessonSectionLayout() {
     closeModal: closeExit,
   } = useModal();
 
+  //TODO move exit dialog
   return (
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
