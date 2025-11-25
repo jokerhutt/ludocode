@@ -62,14 +62,14 @@ export function FileActionsPopover({
         </PopoverContent>
       </Popover>
       <DeleteDialog
-        key={targetName}
+        key={targetId}
         targetName={targetName}
         open={deleteOpen}
         close={closeDelete}
         onClick={deleteItem}
       />
       <RenameDialog
-        key={targetName}
+        key={targetId}
         open={renameOpen}
         close={closeRename}
         itemName={targetName}

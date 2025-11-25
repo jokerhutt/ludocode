@@ -7,16 +7,19 @@ export function ProjectRunner({ output }: ProjectRunnerProps) {
 
   return (
     <div className="flex flex-col p-4">
-      {output.map((log) => (
+      {output.map((log, logIdx) => (
         <div
+          key={logIdx}
           className={`w-full flex flex-col py-4 border-b-2 ${
             isError(log.status)
               ? "text-red-400 border-b-red-400"
               : "text-white border-b-white"
           } `}
         >
-          {log.output.map((line) => (
-            <p className="text-sm">{line}</p>
+          {log.output.map((line, lineIdx) => (
+            <p key={`${logIdx}-${lineIdx}-${line}`} className="text-sm">
+              {line}
+            </p>
           ))}
         </div>
       ))}

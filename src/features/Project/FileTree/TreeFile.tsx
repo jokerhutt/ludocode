@@ -10,6 +10,7 @@ import {
 type TreeFileProps = {
   fileName: string;
   language: LanguageType;
+  id: string;
   index: number;
   isSelected: boolean;
   deleteFile: (path: string) => void;
@@ -21,6 +22,7 @@ export function TreeFile({
   fileName,
   language,
   renameFile,
+  id,
   deleteFile,
   isSelected,
   onClick,
@@ -33,6 +35,7 @@ export function TreeFile({
         <CustomIcon color="white" className="h-4" iconName={iconName} />
       </FileInfoRow>
       <FileActionsButton
+        targetId={id}
         fileName={fileName}
         deleteFile={deleteFile}
         renameFile={renameFile}
