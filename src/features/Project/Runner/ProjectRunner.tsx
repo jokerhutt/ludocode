@@ -1,13 +1,12 @@
-import type { OutputPacket } from "@/Types/Playground/OutputPacket.ts";
+import { useCodeRunnerContext } from "../CodeRunnerContext";
 
-type ProjectRunnerProps = { output: OutputPacket[] };
-
-export function ProjectRunner({ output }: ProjectRunnerProps) {
+export function ProjectRunner() {
   const isError = (status: number) => status != 0;
-
+  const { outputInfo } = useCodeRunnerContext();
+  const { outputLog } = outputInfo;
   return (
     <div className="flex flex-col p-4">
-      {output.map((log, logIdx) => (
+      {outputLog.map((log, logIdx) => (
         <div
           key={logIdx}
           className={`w-full flex flex-col py-4 border-b-2 ${

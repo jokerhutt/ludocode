@@ -1,41 +1,34 @@
-import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot.ts";
 import { TreeFile } from "./TreeFile.tsx";
+import { useProjectContext } from "../ProjectContext.tsx";
 
-type ProjectFileTreeProps = {
-  files: ProjectFileSnapshot[];
-  current: number;
-  changeFile: (index: number) => void;
-  renameFile: (oldPath: string, newPath: string) => void;
-  deleteFile: (path: string) => void;
-};
+export function ProjectFileTree() {
+  const { files, current, setCurrent } = useProjectContext();
 
-export function ProjectFileTree({
-  files,
-  renameFile,
-  current,
-  deleteFile,
-  changeFile,
-}: ProjectFileTreeProps) {
+  console.log(
+    "files ids",
+    files.map((f) => f.id)
+  );
+  console.log(
+    "files keys",
+    files.map((f) => f.id ?? f.tempId)
+  );
+
   return (
-    <>
-      <div className="flex px-4 py-3 overflow-y-auto min-h-0 h-full bg-ludoGrayDark gap-2 text-white flex-col w-full">
-        {files.map((file, index) => {
-          const key = file.id ?? file.tempId!;
-          return (
-            <TreeFile
-              renameFile={renameFile}
-              key={key}
-              id={key}
-              onClick={() => changeFile(index)}
-              fileName={file.path}
-              language={file.language}
-              index={index}
-              deleteFile={deleteFile}
-              isSelected={current == index}
-            />
-          );
-        })}
-      </div>
-    </>
+    <div className="flex px-4 py-3 overflow-y-auto min-h-0 h-full bg-ludoGrayDark gap-2 text-white flex-col w-full">
+      {files.map((file, index) => {
+        const key = file.id ?? file.tempId!;
+        return (
+          <TreeFile
+            key={key}
+            id={key}
+            onClick={() => setCurrent(index)}
+            fileName={file.path}
+            language={file.language}
+            index={index}
+            isSelected={current == index}
+          />
+        );
+      })}
+    </div>
   );
 }

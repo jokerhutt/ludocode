@@ -1,12 +1,12 @@
 import { ProjectWinbar } from "../ProjectWinbar.tsx";
 import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils.ts";
-import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot.ts";
 import { EditorTab } from "@/components/Atoms/Tab/EditorTab.tsx";
 import { EditorTabGroup } from "@/components/Molecules/Group/EditorTabGroup.tsx";
+import { useProjectContext } from "../ProjectContext.tsx";
 
-type EditorWinbarProps = { current: number; files: ProjectFileSnapshot[] };
+export function EditorWinbar() {
+  const { current, files } = useProjectContext();
 
-export function EditorWinbar({ current, files }: EditorWinbarProps) {
   return (
     <ProjectWinbar>
       <EditorTabGroup>

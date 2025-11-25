@@ -1,32 +1,30 @@
-import { FileWrapper } from "@/components/Molecules/File/FileWrapper.tsx";
 import { FileActionsPopover } from "./FileActionsPopover";
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 
 type FileActionsButtonProps = {
   fileName: string;
   targetId: string;
-  deleteFile: (path: string) => void;
-  renameFile: (oldPath: string, newPath: string) => void;
-  variant?: "main" | "secondary"
+  variant?: "main" | "secondary";
+  renameItem: (oldName: string, newName: string) => void;
+  deleteItem: (name: string) => void;
 };
 
 export function FileActionsButton({
   fileName,
   targetId,
-  deleteFile,
-  renameFile,
-  variant = "main"
+  variant = "main",
+  renameItem,
+  deleteItem,
 }: FileActionsButtonProps) {
-
   const style = {
     main: "p-1 rounded-full hover:cursor-pointer hover:bg-ludoLightPurple/80",
-    secondary: "hover:cursor-pointer hover:text-ludoLightPurple"
-  }
+    secondary: "hover:cursor-pointer hover:text-ludoLightPurple",
+  };
 
   return (
     <FileActionsPopover
-      renameItem={renameFile}
-      deleteItem={() => deleteFile(fileName)}
+      renameItem={renameItem}
+      deleteItem={() => deleteItem(fileName)}
       targetId={targetId}
       targetName={fileName}
     >

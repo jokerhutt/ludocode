@@ -4,15 +4,18 @@ import { HeaderWithBar } from "@/components/Molecules/Header/HeaderWithBar";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 import { SaveStatusIcon } from "./Editor/SaveStatusIcon";
-import type { SaveStatusType } from "@/Hooks/Logic/Playground/useAutoSaveProject";
+import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject";
+import { useProjectContext } from "./ProjectContext";
 
-type ProjectHeaderProps = {
-  projectName: string;
-  saveStatus: SaveStatusType;
-};
+export function ProjectHeader() {
+  const { project, files } = useProjectContext();
+  const { projectName } = project;
 
-export function ProjectHeader({ projectName, saveStatus }: ProjectHeaderProps) {
-  const { isSaved, isSaving, error, lastSavedAt } = saveStatus;
+  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
+    project,
+    files,
+    debounceMs: 1000,
+  });
 
   const goToPlayground = () => {
     router.navigate(ludoNavigation.playground.toPlayground());

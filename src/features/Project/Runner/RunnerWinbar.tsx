@@ -1,10 +1,12 @@
-import { TrashIcon } from "lucide-react";
 import { ProjectWinbar } from "../ProjectWinbar.tsx";
 import { CircleIconButton } from "@/components/Atoms/Button/CircleIconButton.tsx";
+import { useCodeRunnerContext } from "../CodeRunnerContext.tsx";
 
-type RunnerWinbarProps = { clearOutput: () => void };
+export function RunnerWinbar() {
 
-export function RunnerWinbar({ clearOutput }: RunnerWinbarProps) {
+  const {outputInfo} = useCodeRunnerContext()
+  const {clearOutput} = outputInfo
+
   return (
     <ProjectWinbar>
       <div className="flex h-full text-white justify-between items-center">

@@ -17,9 +17,10 @@ type Args = {
   project: ProjectSnapshot;
 };
 
-export function useProject({ project }: Args) {
-  const [files, setFiles] = useState<ProjectFileSnapshot[]>(project.files);
-
+export function useProject({ project }: Args): UseProjectResponse {
+  const [files, setFiles] = useState<ProjectFileSnapshot[]>(() =>
+    project.files.map((f) => ({ ...f }))
+  );
   const { fileTemplate, fileExtension } = LANGUAGE_MAP[project.projectLanguage];
   const { lang, base } = fileTemplate;
 
@@ -101,10 +102,15 @@ export function useProject({ project }: Args) {
     });
   }, []);
 
+  const active = files[current];
+  const currentFileId: string | null = active.id ?? null;
+
   return {
+    project,
     files,
     current,
-    active: files[current],
+    currentFileId,
+    active: active,
     setCurrent,
     updateContent,
     deleteFile,
@@ -112,3 +118,16 @@ export function useProject({ project }: Args) {
     addFile,
   };
 }
+
+export type UseProjectResponse = {
+  project: ProjectSnapshot;
+  files: ProjectFileSnapshot[];
+  current: number;
+  currentFileId: string | null;
+  active: ProjectFileSnapshot;
+  setCurrent: (index: number) => void;
+  updateContent: (value: string) => void;
+  deleteFile: (path: string) => void;
+  renameFile: (oldPath: string, newNameRaw: string) => void;
+  addFile: () => void;
+};

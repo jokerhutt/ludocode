@@ -52,6 +52,7 @@ import { BuilderLayout } from "@/Layouts/BuilderLayout.tsx";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/ExerciseComponent.tsx";
+import { ProjectLayout } from "@/Layouts/ProjectLayout.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -139,7 +140,7 @@ export const projectRoute = createRoute({
   getParentRoute: () => desktopGuardRoute,
   path: RP_PROJECT,
   loader: async ({ params }) => projectLoader(params, queryClient),
-  component: ProjectPage,
+  component: ProjectLayout,
 });
 
 export const onboardingRoute = createRoute({

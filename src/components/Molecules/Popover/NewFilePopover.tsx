@@ -11,19 +11,18 @@ import {
 import type { ReactNode } from "react";
 import { FileInfoRow } from "../File/FileInfoRow.tsx";
 import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon";
+import { useProjectContext } from "@/features/Project/ProjectContext.tsx";
 
 type NewFilePopoverProps = {
   children: ReactNode;
-  addFile: (lang: LanguageType, base: string) => void;
-  language: LanguageType;
 };
 
 export function NewFilePopover({
   children,
-  addFile,
-  language,
 }: NewFilePopoverProps) {
-  const { fileTemplate: choice, iconName } = LANGUAGE_MAP[language];
+  const {project, addFile} = useProjectContext()
+
+  const { fileTemplate: choice, iconName } = LANGUAGE_MAP[project.projectLanguage];
 
   return (
     <Popover>
@@ -33,7 +32,7 @@ export function NewFilePopover({
       <PopoverContent className="text-white bg-ludoGrayLight">
         <FileWrapper
           isSelected={false}
-          onClick={() => addFile(choice.lang, choice.base)}
+          onClick={() => addFile()}
         >
           <FileInfoRow fileName={choice.name}>
             <CustomIcon color="white" className="h-4" iconName={iconName} />

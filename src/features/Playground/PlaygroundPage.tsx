@@ -28,7 +28,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
 
           <div className="flex flex-col gap-8 pb-8">
             {allProjects.map((project: ProjectSnapshot) => (
-              <ProjectCard project={project} />
+              <ProjectCard key={project.projectId} project={project} />
             ))}
           </div>
         </div>
