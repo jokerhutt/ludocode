@@ -2,9 +2,10 @@ import { useMonacoTheme } from "@/Hooks/UI/useMonacoTheme";
 import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
 import { LudoSpinner } from "@/components/Molecules/Progress/LudoSpinner";
+import type { LanguageType } from "@/Types/Playground/LanguageType";
 type ProjectEditorProps = {
   path: string;
-  language: string;
+  language: LanguageType;
   value: string;
   onChange: (v: string) => void;
   runCode: () => void;

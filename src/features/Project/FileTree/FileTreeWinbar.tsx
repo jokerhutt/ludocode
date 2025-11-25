@@ -1,24 +1,20 @@
 import { NewFilePopover } from "@/components/Molecules/Popover/NewFilePopover";
 import { ProjectWinbar } from "../ProjectWinbar";
-import type { ProjectFileChoice } from "@/Hooks/Logic/Playground/useProject";
-import type { LanguageType } from "@/Types/Playground/LanguageType";
 import { CircleIconButton } from "@/components/Atoms/Button/CircleIconButton";
+import type { LanguageType } from "@/Types/Playground/LanguageType";
 
 type FileTreeWinbarProps = {
-  addFileChoices: ProjectFileChoice[];
-  addFile: (lang: LanguageType, base?: string) => void;
+  addFile: () => void;
+  language: LanguageType;
 };
 
-export function FileTreeWinbar({
-  addFileChoices,
-  addFile,
-}: FileTreeWinbarProps) {
+export function FileTreeWinbar({ addFile, language }: FileTreeWinbarProps) {
   return (
     <ProjectWinbar>
       <div className="flex h-full text-white justify-between items-center">
         <p>Files</p>
-        <NewFilePopover content={addFileChoices} addFile={addFile}>
-            <CircleIconButton iconName="PlusIcon" />
+        <NewFilePopover language={language} addFile={addFile}>
+          <CircleIconButton iconName="PlusIcon" />
         </NewFilePopover>
       </div>
     </ProjectWinbar>
