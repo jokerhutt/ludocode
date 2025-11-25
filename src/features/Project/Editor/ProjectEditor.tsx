@@ -1,6 +1,7 @@
 import { useMonacoTheme } from "@/Hooks/UI/useMonacoTheme";
 import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
+import { LudoSpinner } from "@/components/Molecules/Progress/LudoSpinner";
 type ProjectEditorProps = {
   path: string;
   language: string;
@@ -41,6 +42,13 @@ export function ProjectEditor({
       value={value}
       onChange={(v) => onChange(v ?? "")}
       beforeMount={beforeMount}
+      loading={
+        <LudoSpinner
+          className="text-ludoLightPurple"
+          spinnerClassName="h-10 w-10"
+          wide
+        />
+      }
       onMount={handleMount}
       language={language}
       options={editorOptions}
