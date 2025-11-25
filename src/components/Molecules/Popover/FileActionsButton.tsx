@@ -4,6 +4,7 @@ import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 
 type FileActionsButtonProps = {
   fileName: string;
+  targetId: string;
   deleteFile: (path: string) => void;
   renameFile: (oldPath: string, newPath: string) => void;
   variant?: "main" | "secondary"
@@ -11,6 +12,7 @@ type FileActionsButtonProps = {
 
 export function FileActionsButton({
   fileName,
+  targetId,
   deleteFile,
   renameFile,
   variant = "main"
@@ -25,7 +27,7 @@ export function FileActionsButton({
     <FileActionsPopover
       renameItem={renameFile}
       deleteItem={() => deleteFile(fileName)}
-      targetId={fileName}
+      targetId={targetId}
       targetName={fileName}
     >
       <div onClick={(e) => e.stopPropagation()} className={style[variant]}>

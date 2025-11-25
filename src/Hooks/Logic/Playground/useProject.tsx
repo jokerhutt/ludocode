@@ -7,12 +7,6 @@ import {
   type LanguageType,
 } from "@/Types/Playground/LanguageType";
 
-export type ProjectFile = {
-  path: string;
-  language: LanguageType;
-  content: string;
-};
-
 export type ProjectFileChoice = {
   name: string;
   lang: LanguageType;
@@ -96,6 +90,7 @@ export function useProject({ project }: Args) {
     setFiles((fs) => {
       const name = nextName(fs, base, fileExtension);
       const file: ProjectFileSnapshot = {
+        tempId: crypto.randomUUID(),
         path: `${name}`,
         language: lang,
         content: "",

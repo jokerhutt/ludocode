@@ -1,4 +1,4 @@
-import type { ProjectFile } from "./useProject";
+import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
 
 export const stripFileName = (fileName: string) =>
   fileName.replace("inmem:///", "");
@@ -7,7 +7,7 @@ function fileName(p: string) {
   return p.split("/").pop()!;
 }
 
-export function nextName(files: ProjectFile[], base: string, ext: string) {
+export function nextName(files: ProjectFileSnapshot[], base: string, ext: string) {
   const has = (n: string) => files.some((f) => fileName(f.path) === n);
 
   const first = `${base}${ext}`;
