@@ -1,6 +1,6 @@
 import { uuid } from "@tanstack/react-form";
-import { useFieldContext } from "../../form/formKit";
-import type { ExerciseSnap } from "../../Types/Snapshot/SnapshotTypes";
+import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
+import { useFieldContext } from "@/form/formKit";
 
 export function AddExerciseFieldButton() {
   const field = useFieldContext<ExerciseSnap[]>();

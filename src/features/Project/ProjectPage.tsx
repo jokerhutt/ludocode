@@ -10,11 +10,11 @@ import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject.
 import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
 import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
-import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
 import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
 import { ChatBotAccordion } from "@/components/Molecules/Chatbot/ChatBotAccordion.tsx";
-import { ChatBotProvider } from "../Common/ChatbotContext.tsx";
+import { ChatBotProvider } from "../Common/ChatBotContext.tsx";
+import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
 
 type ProjectPageProps = {};
 
@@ -71,12 +71,13 @@ export function ProjectPage({}: ProjectPageProps) {
         <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <EditorWinbar current={current} files={files} />
           <ProjectEditor
+            runCode={runCode}
             path={active.path}
             language={active.language}
             value={active.content}
             onChange={updateContent}
           />
-          <RunProjectButton runCode={runCode} />
+          <RunCodeButton runCode={runCode} />
         </div>
 
         <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">

@@ -8,8 +8,9 @@ import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { OnboardingSnapSchema } from "@/Types/Zod/OnboardingSchema/OnboardingSnapSchema";
 import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";
-import { AddExerciseFieldButton } from "./Fields/AddExerciseFieldButton";
-import FormTitleField from "./Fields/FormTitleField";
+import FormTitleField from "@/Hooks/form/Fields/FormTitleField";
+import { AddExerciseFieldButton } from "@/Hooks/form/Fields/AddExerciseFieldButton";
+
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();
