@@ -1,6 +1,5 @@
 import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
 import { PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
-import { HollowSlotButtonGroup } from "@/components/Molecules/Group/HollowSlotButtonGroup";
 import { cn } from "@/lib/utils";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";

@@ -1,14 +1,18 @@
-type ListHeaderProps = {
-  show: boolean;
-  title?: string;
-  rounding: string;
+import { cn } from "@/lib/utils";
+
+export type ListHeaderProps = {
+  title: string;
+  onClick?: () => void;
+  className?: string;
 };
 
-export function ListHeader({ show, rounding, title }: ListHeaderProps) {
-  if (!show) return null;
+export function ListHeader({ title, className }: ListHeaderProps) {
   return (
     <div
-      className={`border-b ${rounding} bg-ludoGrayLight border-ludoGrayLight w-full`}
+      className={cn(
+        `border-b bg-ludoGrayLight rounded-t-lg border-ludoGrayLight w-full`,
+        className
+      )}
     >
       <p className="text-white text-xl font-bold p-2 text-center">{title}</p>
     </div>
