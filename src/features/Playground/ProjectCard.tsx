@@ -38,8 +38,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           targetId={projectId}
           variant="secondary"
           fileName={projectName}
-          renameFile={handleRenameProject}
-          deleteFile={handleDeleteProject}
+          renameItem={handleRenameProject}
+          deleteItem={handleDeleteProject}
         />
       </div>
     </div>

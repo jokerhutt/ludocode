@@ -1,7 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { router } from "@/routes/router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderRedirectHero } from "./BuilderRedirectHero";
 import { CreateCourseDialog } from "@/components/Molecules/Dialog/CreateCourseDialog";
@@ -27,7 +24,11 @@ export function BuilderRedirectPage({}: BuilderRedirectPageProps) {
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <BuilderRedirectHero openCreateCourse={() => openCreateCourse()} />
           {courses.map((course) => (
-            <BuilderCourseCard id={course.id} title={course.title} />
+            <BuilderCourseCard
+              key={course.id}
+              id={course.id}
+              title={course.title}
+            />
           ))}
         </div>
         <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>

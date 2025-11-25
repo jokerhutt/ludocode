@@ -2,22 +2,14 @@ import { useMonacoTheme } from "@/Hooks/UI/useMonacoTheme";
 import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
 import { LudoSpinner } from "@/components/Molecules/Progress/LudoSpinner";
-import type { LanguageType } from "@/Types/Playground/LanguageType";
-type ProjectEditorProps = {
-  path: string;
-  language: LanguageType;
-  value: string;
-  onChange: (v: string) => void;
-  runCode: () => void;
-};
+import { useCodeRunnerContext } from "../CodeRunnerContext";
+import { useProjectContext } from "../ProjectContext";
 
-export function ProjectEditor({
-  path,
-  language,
-  value,
-  onChange,
-  runCode,
-}: ProjectEditorProps) {
+export function ProjectEditor() {
+  const { active, updateContent } = useProjectContext();
+  const { content, language, path } = active;
+  const { runCode } = useCodeRunnerContext();
+
   const { beforeMount, editorOptions } = useMonacoTheme();
 
   function handleMount(
@@ -40,8 +32,8 @@ export function ProjectEditor({
       path={path}
       height="100%"
       theme="custom-theme"
-      value={value}
-      onChange={(v) => onChange(v ?? "")}
+      value={content}
+      onChange={(v) => updateContent(v ?? "")}
       beforeMount={beforeMount}
       loading={
         <LudoSpinner

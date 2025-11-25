@@ -27,6 +27,7 @@ export function SegmentedProgress({
         {Array.from({ length: safeTotal }).map((_, i) => {
           return (
             <ProgressCell
+              key={i}
               index={i}
               safeCompleted={safeCompleted}
               safeTotal={safeTotal}

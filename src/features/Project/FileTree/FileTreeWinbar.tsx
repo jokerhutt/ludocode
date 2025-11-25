@@ -1,19 +1,13 @@
 import { NewFilePopover } from "@/components/Molecules/Popover/NewFilePopover";
 import { ProjectWinbar } from "../ProjectWinbar";
 import { CircleIconButton } from "@/components/Atoms/Button/CircleIconButton";
-import type { LanguageType } from "@/Types/Playground/LanguageType";
 
-type FileTreeWinbarProps = {
-  addFile: () => void;
-  language: LanguageType;
-};
-
-export function FileTreeWinbar({ addFile, language }: FileTreeWinbarProps) {
+export function FileTreeWinbar() {
   return (
     <ProjectWinbar>
       <div className="flex h-full text-white justify-between items-center">
         <p>Files</p>
-        <NewFilePopover language={language} addFile={addFile}>
+        <NewFilePopover>
           <CircleIconButton iconName="PlusIcon" />
         </NewFilePopover>
       </div>

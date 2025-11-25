@@ -1,8 +1,9 @@
 import { useHotkeys } from "@/Hooks/UI/useHotkeys";
+import { useCodeRunnerContext } from "../CodeRunnerContext";
 
-type RunCodeButtonProps = { runCode: () => void };
+export function RunCodeButton() {
+  const { runCode } = useCodeRunnerContext();
 
-export function RunCodeButton({ runCode }: RunCodeButtonProps) {
   useHotkeys({
     EXECUTE_ACTION: runCode,
   });
