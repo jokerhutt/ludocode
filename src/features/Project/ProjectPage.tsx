@@ -30,7 +30,6 @@ export function ProjectPage({}: ProjectPageProps) {
     setCurrent,
     updateContent,
     addFile,
-    addFileChoices,
   } = useProject({ project });
 
   const currentFileId: string | null = files[current].id ?? null;
@@ -51,10 +50,13 @@ export function ProjectPage({}: ProjectPageProps) {
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
       <div className="grid col-span-full min-h-0 grid-cols-12">
         <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludoGrayLight lg:col-span-3">
-          <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
+          <FileTreeWinbar
+            addFile={addFile}
+            language={project.projectLanguage}
+          />
           <ProjectFileTree
             renameFile={renameFile}
-            projects={files}
+            files={files}
             current={current}
             changeFile={setCurrent}
             deleteFile={deleteFile}

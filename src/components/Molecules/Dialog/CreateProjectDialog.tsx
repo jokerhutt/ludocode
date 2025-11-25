@@ -26,7 +26,7 @@ export function CreateProjectDialog({
 
   const createProjectMutation = useCreateProject(() => close());
 
-  const possibleOptions: LanguageType[] = ["python", "web"];
+  const possibleOptions: LanguageType[] = ["python", "javascript", "lua"];
   const [projectName, setProjectName] = useState<string>("Untitled Project");
   const [projectLanguage, setProjectLanguage] =
     useState<LanguageType>("python");

@@ -2,10 +2,14 @@ import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon.tsx";
 import { FileWrapper } from "../../../components/Molecules/File/FileWrapper.tsx";
 import { FileInfoRow } from "@/components/Molecules/File/FileInfoRow.tsx";
 import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton.tsx";
+import {
+  LANGUAGE_MAP,
+  type LanguageType,
+} from "@/Types/Playground/LanguageType.ts";
 
 type TreeFileProps = {
   fileName: string;
-  fileType: "Python";
+  language: LanguageType;
   index: number;
   isSelected: boolean;
   deleteFile: (path: string) => void;
@@ -15,15 +19,18 @@ type TreeFileProps = {
 
 export function TreeFile({
   fileName,
+  language,
   renameFile,
   deleteFile,
   isSelected,
   onClick,
 }: TreeFileProps) {
+  const { iconName } = LANGUAGE_MAP[language];
+
   return (
     <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
       <FileInfoRow fileName={fileName}>
-        <CustomIcon color="white" className="h-4" iconName="Python" />
+        <CustomIcon color="white" className="h-4" iconName={iconName} />
       </FileInfoRow>
       <FileActionsButton
         fileName={fileName}

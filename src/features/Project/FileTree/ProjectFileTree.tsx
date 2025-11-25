@@ -2,17 +2,15 @@ import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject.tsx";
 import { TreeFile } from "./TreeFile.tsx";
 
 type ProjectFileTreeProps = {
-  projects: ProjectFile[];
+  files: ProjectFile[];
   current: number;
   changeFile: (index: number) => void;
   renameFile: (oldPath: string, newPath: string) => void;
   deleteFile: (path: string) => void;
 };
 
-//TODO make this a container to avoid prop drilling
-
 export function ProjectFileTree({
-  projects,
+  files,
   renameFile,
   current,
   deleteFile,
@@ -21,13 +19,13 @@ export function ProjectFileTree({
   return (
     <>
       <div className="flex px-4 py-3 overflow-y-auto min-h-0 h-full bg-ludoGrayDark gap-2 text-white flex-col w-full">
-        {projects.map((project, index) => (
+        {files.map((file, index) => (
           <TreeFile
             renameFile={renameFile}
-            key={project.path}
+            key={file.path}
             onClick={() => changeFile(index)}
-            fileName={project.path}
-            fileType="Python"
+            fileName={file.path}
+            language={file.language}
             index={index}
             deleteFile={deleteFile}
             isSelected={current == index}

@@ -1,4 +1,4 @@
-import { Dialog, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { DialogWrapper } from "./DialogWrapper";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
 import { useState } from "react";
@@ -25,6 +25,7 @@ export function RenameDialog({
       <DialogWrapper>
         <DialogTitle className="text-white">Rename Project</DialogTitle>
         <Input
+          className="text-ludoAltText"
           value={textBuffer}
           onChange={(e) => setTextBuffer(e.target.value)}
         />

@@ -14,7 +14,7 @@ export function FileWrapper({
   return (
     <div
       onClick={(e) => {
-        e.stopPropagation()
+        e.stopPropagation();
         onClick?.();
       }}
       className={`flex gap-8 px-2 py-1 justify-between rounded-lg hover:cursor-pointer items-center ${

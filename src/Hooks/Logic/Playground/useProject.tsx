@@ -1,10 +1,17 @@
 import { useState, useCallback } from "react";
-import { extFor, nextName } from "./playgroundFileUtils";
+import { nextName } from "./playgroundFileUtils";
 import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
-import type { LanguageType } from "@/Types/Playground/LanguageType";
+import {
+  LANGUAGE_MAP,
+  type LanguageType,
+} from "@/Types/Playground/LanguageType";
 
-export type ProjectFile = { path: string; language: string; content: string };
+export type ProjectFile = {
+  path: string;
+  language: LanguageType;
+  content: string;
+};
 
 export type ProjectFileChoice = {
   name: string;
@@ -19,9 +26,8 @@ type Args = {
 export function useProject({ project }: Args) {
   const [files, setFiles] = useState<ProjectFileSnapshot[]>(project.files);
 
-  const addFileChoices: ProjectFileChoice[] = [
-    { name: "Python", lang: "python", base: "script" },
-  ];
+  const { fileTemplate, fileExtension } = LANGUAGE_MAP[project.projectLanguage];
+  const { lang, base } = fileTemplate;
 
   const [current, setCurrent] = useState(0);
 
@@ -50,7 +56,6 @@ export function useProject({ project }: Args) {
       if (idx === -1) return prev;
 
       const file = prev[idx];
-      const ext = extFor(file.language);
 
       let base = newNameRaw.trim();
       if (!base) return prev;
@@ -58,17 +63,17 @@ export function useProject({ project }: Args) {
       base = base.split("/").pop()!.split("\\").pop()!;
 
       let finalName = base;
-      if (!finalName.endsWith(ext)) {
-        finalName = `${finalName}${ext}`;
+      if (!finalName.endsWith(fileExtension)) {
+        finalName = `${finalName}${fileExtension}`;
       }
 
       const otherFiles = prev.filter((_, i) => i !== idx);
 
-      const bare = finalName.endsWith(ext)
-        ? finalName.slice(0, -ext.length)
+      const bare = finalName.endsWith(fileExtension)
+        ? finalName.slice(0, -fileExtension.length)
         : finalName;
 
-      const uniqueName = nextName(otherFiles, bare, ext);
+      const uniqueName = nextName(otherFiles, bare, fileExtension);
 
       const next = prev.slice();
       next[idx] = { ...file, path: uniqueName };
@@ -87,30 +92,25 @@ export function useProject({ project }: Args) {
     [current]
   );
 
-  const addFile = useCallback(
-    (lang: LanguageType, base: string = "untitled") => {
-      setFiles((fs) => {
-        const ext = extFor(lang);
-        const name = nextName(fs, base, ext);
-        const file: ProjectFileSnapshot = {
-          path: `${name}`,
-          language: lang,
-          content: "",
-        };
-        const next = [...fs, file];
-        setCurrent(next.length - 1);
-        return next;
-      });
-    },
-    []
-  );
+  const addFile = useCallback(() => {
+    setFiles((fs) => {
+      const name = nextName(fs, base, fileExtension);
+      const file: ProjectFileSnapshot = {
+        path: `${name}`,
+        language: lang,
+        content: "",
+      };
+      const next = [...fs, file];
+      setCurrent(next.length - 1);
+      return next;
+    });
+  }, []);
 
   return {
     files,
     current,
     active: files[current],
     setCurrent,
-    addFileChoices,
     updateContent,
     deleteFile,
     renameFile,
