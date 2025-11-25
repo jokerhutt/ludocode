@@ -13,7 +13,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <QueryClientProvider client={queryClient}>
-        <div className="w-dvw h-dvh overflow-auto scrollbar-ludoYellow bg-ludoGrayDark">
+        <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludoYellow bg-ludoGrayDark">
           <RouterProvider router={router} />
         </div>
       </QueryClientProvider>
