@@ -1,8 +1,10 @@
 import ChatBotWindow, {
   type ChatBotChatType,
 } from "@/features/Chatbot/ChatBotWindow";
-import { ChatBotProvider } from "@/features/Common/ChatbotContext";
+import { ChatBotProvider } from "@/features/Common/ChatBotContext";
+import { useHotkeys } from "@/Hooks/UI/useHotkeys";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 type FloatingChatBotWindowProps = {
   chatType: ChatBotChatType;
@@ -15,12 +17,22 @@ export function FloatingChatBotWindow({
   targetId,
   chatType,
 }: FloatingChatBotWindowProps) {
+  const [isOpen, setIsOpen] = useState(true);
+  const toggleIsOpen = () => setIsOpen((open) => !open);
+  const isVisibleStyle = isOpen ? "" : "hidden";
+
+  useHotkeys({
+    TOGGLE_WINDOW: toggleIsOpen,
+  });
+
   return (
-    <div className={cn("h-full w-full py-6 ", outerClassName)}>
-      <ChatBotProvider targetId={targetId} type="LESSON">
+    <ChatBotProvider targetId={targetId} type="LESSON">
+      <div
+        className={cn("h-full w-full py-6 ", isVisibleStyle, outerClassName)}
+      >
         <div className="h-full min-h-0 flex flex-col border-2 border-ludoGrayLight rounded-lg">
           <div className="h-10 border-b border-b-ludoGrayDark w-full text-white rounded-t-md flex items-center justify-between px-4 bg-ludoGrayLight">
-            <p>Ludo Tutor</p>
+            <p>Ludo Tutor (⌘+k)</p>
           </div>
           <ChatBotWindow
             type={chatType}
@@ -28,7 +40,7 @@ export function FloatingChatBotWindow({
             targetId={targetId}
           />
         </div>
-      </ChatBotProvider>
-    </div>
+      </div>
+    </ChatBotProvider>
   );
 }
