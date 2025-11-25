@@ -1,44 +1,38 @@
-import { moduleRoute } from "../../routes/router";
-import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
+import { PathRow } from "@/components/Atoms/Row/PathRow";
 import { ModuleAsideLeft } from "./ModuleAsideLeft";
 import { ModuleAsideRight } from "./ModuleAsideRight";
 import { PathButton } from "./PathButton";
-import { PathRow } from "../../components/Atoms/Row/PathRow";
-import type { LudoModule } from "../../Types/Catalog/LudoModule";
-import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
-import { ModuleSelectionBar } from "./ModuleSelectionBar";
+import type { LudoLesson } from "@/Types/Catalog/LudoLesson";
+import type { CourseProgress } from "@/Types/Progress/CourseProgress";
+import type { LudoModule } from "@/Types/Catalog/LudoModule";
+import type { LudoCourse } from "@/Types/Catalog/LudoCourse";
 
-export function ModulePage() {
-  const { courseId, moduleId } = moduleRoute.useParams();
+type ModulePageProps = {lessons: LudoLesson[]; modules: LudoModule[]; course?: LudoCourse, courseProgress: CourseProgress;};
 
-  const { tree } = moduleRoute.useLoaderData();
+export function ModulePage({lessons, modules, course, courseProgress}: ModulePageProps) {
 
-  const { courseProgress, modules, lessons } = useTreeData({
-    tree,
-    courseId,
-    moduleId,
-  });
+  if (!course) return null;
+
+  const {id: courseId, title: courseTitle} = course  
 
   return (
-    <div className="grid grid-cols-12 lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludoGrayDark">
-      <ModuleSelectionBar className="lg:hidden col-span-full" />
-      <>
-        <ModuleAsideLeft />
-        <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
-          {lessons.map((lesson: LudoLesson, i: number) => (
-            <PathRow key={lesson.id} index={i}>
-              <PathButton
-                isCurrent={lesson.id == courseProgress.currentLessonId}
-                lesson={lesson}
-              />
-            </PathRow>
-          ))}
-        </div>
-        <ModuleAsideRight
-          modules={modules as LudoModule[]}
-          courseId={courseId}
-        />
-      </>
-    </div>
+    <>
+      <ModuleAsideLeft />
+      <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
+        {lessons.map((lesson: LudoLesson, i: number) => (
+          <PathRow key={lesson.id} index={i}>
+            <PathButton
+              isCurrent={lesson.id == courseProgress.currentLessonId}
+              lesson={lesson}
+            />
+          </PathRow>
+        ))}
+      </div>
+      <ModuleAsideRight
+        modules={modules}
+        courseId={courseId}
+        courseName={courseTitle}
+      />
+    </>
   );
 }

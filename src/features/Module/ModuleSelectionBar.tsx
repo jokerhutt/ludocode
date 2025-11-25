@@ -1,28 +1,40 @@
-import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
-import { PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
 import { cn } from "@/lib/utils";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { router } from "@/routes/router";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
+import { HeaderTab } from "./HeaderTab";
+import { useState } from "react";
 
-type ModuleSelectionBarProps = { className?: string };
+type ModuleSelectionBarProps = {
+  activeTab: MobileModuleTabs;
+  changeTab: (tab: MobileModuleTabs) => void;
+  className?: string;
+};
 
-export function ModuleSelectionBar({ className }: ModuleSelectionBarProps) {
+export type MobileModuleTabs = "Path" | "Modules";
+
+export function ModuleSelectionBar({
+  className,
+  activeTab,
+  changeTab,
+}: ModuleSelectionBarProps) {
+  const availableTabs: MobileModuleTabs[] = ["Path", "Modules"];
+
   return (
     <div
       className={cn(
-        "h-12 flex items-center justify-center text-white w-full bg-ludoGrayLight",
+        "h-12 grid grid-cols-[1fr_1fr] border-b-ludoLightPurple border-b text-white w-full bg-ludoGrayLight",
         className
       )}
     >
-      <HollowSlotButton
-        className="w-3/4 h-8 gap-4"
-        onClick={() => router.navigate(ludoNavigation.courseRoot())}
-      >
-        <PythonIcon className="h-6" />
-        <p>Module 1</p>
-        <ArrowsRightLeftIcon className="h-6 text-white" />
-      </HollowSlotButton>
+      <HeaderTab
+        className="border-r border-r-ludoLightPurple"
+        text={availableTabs[0]}
+        onClick={() => changeTab(availableTabs[0])}
+        isActive={activeTab == availableTabs[0]}
+      />
+      <HeaderTab
+        text={availableTabs[1]}
+        onClick={() => changeTab(availableTabs[1])}
+        isActive={activeTab == availableTabs[1]}
+      />
     </div>
   );
 }

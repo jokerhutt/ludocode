@@ -4,10 +4,26 @@ import { ludoNavigation } from "../../routes/ludoNavigation";
 import { moduleRoute, router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import type { ListHeaderProps } from "@/components/Molecules/List/ListHeader";
+import { cn } from "@/lib/utils";
+import type { MobileModuleTabs } from "./ModuleSelectionBar";
 
-type ModulesListProps = { courseName: string; modules: LudoModule[] };
+type ModulesListHeaderProps = {
+  courseName: string;
+};
 
-export function ModulesList({ courseName, modules }: ModulesListProps) {
+type ModulesListProps = {
+  header?: ModulesListHeaderProps;
+  modules: LudoModule[];
+  containerClassName?: string;
+  rowClassName?: string;
+};
+
+export function ModulesList({
+  header,
+  modules,
+  containerClassName,
+  rowClassName,
+}: ModulesListProps) {
   const { courseId, moduleId } = moduleRoute.useParams();
 
   const selectModule = (selectedModuleId: string, isSelected: boolean) => {
@@ -15,16 +31,21 @@ export function ModulesList({ courseName, modules }: ModulesListProps) {
     router.navigate(ludoNavigation.module.toModule(courseId, selectedModuleId));
   };
 
-  const headerContent: ListHeaderProps = { title: courseName };
+  const headerContent: ListHeaderProps | undefined = !!header
+    ? { title: header.courseName }
+    : undefined;
 
   return (
-    <ListContainer header={headerContent}>
+    <ListContainer header={headerContent} className={containerClassName}>
       {modules.map((module, index) => {
         const isSelected = moduleId == module.id;
         const isLast = index >= modules.length - 1;
         return (
           <ListRow
-            className={isLast ? "rounded-b-xl border-b-0" : ""}
+            className={cn(
+              isLast ? "rounded-b-xl border-b-0" : "",
+              rowClassName
+            )}
             hover
             active={isSelected}
             key={module.id}

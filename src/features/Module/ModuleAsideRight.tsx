@@ -6,14 +6,18 @@ import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { ModulesList } from "./ModulesList";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-type ModuleAsideRightProps = { modules: LudoModule[], courseId: string };
+type ModuleAsideRightProps = {
+  modules: LudoModule[];
+  courseId: string;
+  courseName: string;
+};
 
-export function ModuleAsideRight({ modules, courseId }: ModuleAsideRightProps) {
-
+export function ModuleAsideRight({
+  modules,
+  courseId,
+  courseName,
+}: ModuleAsideRightProps) {
   const resetCourseProgressMutation = useResetCourseProgress();
-
-  const {data: courses} = useSuspenseQuery(qo.allCourses())
-  const currentCourse = courses.find((course) => course.id == courseId)
 
   const handleResetCourse = (courseId: string) => {
     resetCourseProgressMutation.mutate(courseId);
@@ -21,9 +25,14 @@ export function ModuleAsideRight({ modules, courseId }: ModuleAsideRightProps) {
 
   return (
     <AsideComponent orientation="RIGHT" paddingX="pl-6">
-      <ModulesList modules={modules} courseName={currentCourse?.title ?? ""}/>
+      <ModulesList modules={modules} header={{ courseName }} />
       <div className="mt-6">
-        <ActionButton onClick={() => handleResetCourse(courseId)} orientation="center" active={true} text="Reset" />
+        <ActionButton
+          onClick={() => handleResetCourse(courseId)}
+          orientation="center"
+          active={true}
+          text="Reset"
+        />
       </div>
     </AsideComponent>
   );

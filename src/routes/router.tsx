@@ -5,7 +5,7 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Courses/CoursePage";
-import { ModulePage } from "../features/Module/ModulePage";
+import { ModuleLayout } from "../Layouts/ModuleLayout.tsx";
 import { SiteLayout } from "../Layouts/SiteLayout.tsx";
 import {
   RP_COURSE,
@@ -215,7 +215,7 @@ export const moduleRoute = createRoute({
   path: RP_MODULE,
   staticData: { headerTitle: "Modules" },
   loader: async ({ params }) => modulePageLoader(params, queryClient),
-  component: ModulePage,
+  component: ModuleLayout,
 });
 
 export const lessonSectionRoute = createRoute({
