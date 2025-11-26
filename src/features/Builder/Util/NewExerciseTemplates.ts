@@ -33,7 +33,7 @@ export const newOptionSnap = (
   return {
     content: "Replace me",
     exerciseOptionId: crypto.randomUUID(),
-    answerOrder: columnType === "correct" ? itemsLength : null,
+    answerOrder: columnType === "correct" ? itemsLength + 1 : null,
   };
 };
 

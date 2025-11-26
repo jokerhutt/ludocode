@@ -17,7 +17,6 @@ type Args = {
   addValue: (payload: { item: OptionSnap; type: ColumnType }) => void;
 };
 
-// useOptionsDragAndDrop.ts (back to your version)
 export function useOptionsDragAndDrop({
   correct,
   distractors,
@@ -51,7 +50,17 @@ export function useOptionsDragAndDrop({
         ? (overId as ColumnType)
         : fromType;
 
-      const item = from[oldIndex]!;
+      let item = { ...from[oldIndex] };
+
+      if (fromType === "correct" && toType === "distractor") {
+        item = { ...item, answerOrder: null };
+      }
+
+      if (fromType === "distractor" && toType === "correct") {
+        const nextOrder = correct.length + 1;
+        item = { ...item, answerOrder: nextOrder };
+      }
+
       removeValue(oldIndex, fromType);
       addValue({ item, type: toType });
 
