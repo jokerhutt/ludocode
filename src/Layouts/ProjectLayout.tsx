@@ -1,4 +1,4 @@
-import { ProjectProvider } from "@/features/Project/ProjectContext";
+import { ProjectProvider } from "@/Hooks/Context/ProjectContext";
 import { ProjectPage } from "@/features/Project/ProjectPage";
 import { Outlet, useLoaderData } from "@tanstack/react-router";
 import { MainGridWrapper } from "./Grids/MainGridWrapper";
@@ -14,7 +14,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
     <ProjectProvider project={project}>
       <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
         <ProjectHeader />
-        <ProjectPage/>
+        <ProjectPage />
       </MainGridWrapper>
     </ProjectProvider>
   );

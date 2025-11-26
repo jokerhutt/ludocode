@@ -1,35 +1,29 @@
 import { CodeBoxWrapper } from "@/components/Molecules/Wrapper/CodeBoxWrapper";
-import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
 import { ExerciseAnswerField } from "../ExerciseAnswerField";
-import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
 import { OptionListWrapper } from "@/components/Molecules/Wrapper/OptionListWrapper";
 import { ClickableOption } from "../../../components/Atoms/CodeOption/ClickableOption";
 import { useSelectOption } from "@/Hooks/Logic/ExerciseOptions/useSelectOption";
+import { useLessonContext } from "@/features/Lesson/useLessonContext";
+import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData";
 
-type ClozeExerciseProps = {
-  answerField: string;
-  options: LudoExerciseOption[];
-  distractors: LudoExerciseOption[];
-  userResponses: AnswerToken[];
-  setAnswerAt: (index: number, value: AnswerToken) => void;
-  addSelection: (option: AnswerToken) => void;
-};
+export function ClozeExercise() {
+  const { currentExercise, inputState } = useLessonContext();
+  const {
+    options,
+    replaceAnswerAt,
+    currentExerciseInputs,
+    setAnswerAt,
+    prompt,
+  } = useExerciseBodyData(currentExercise, inputState);
 
-export function ClozeExercise({
-  answerField,
-  options,
-  userResponses,
-  setAnswerAt,
-  addSelection,
-}: ClozeExerciseProps) {
   return (
     <>
       <CodeBoxWrapper>
         <ExerciseAnswerField
           options={options}
-          answerField={answerField}
-          userResponses={userResponses}
-          setAnswerAt={setAnswerAt}
+          answerField={prompt!}
+          userResponses={currentExerciseInputs}
+          setAnswerAt={replaceAnswerAt}
         />
       </CodeBoxWrapper>
 
@@ -37,8 +31,8 @@ export function ClozeExercise({
         {options.map((option) => {
           const { isSelected, handleClick } = useSelectOption({
             option,
-            userResponses,
-            addSelection,
+            currentExerciseInputs,
+            addSelection: setAnswerAt,
           });
           return (
             <ClickableOption

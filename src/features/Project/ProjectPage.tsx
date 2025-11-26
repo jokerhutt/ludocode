@@ -9,7 +9,7 @@ import { ChatBotAccordion } from "@/components/Molecules/Chatbot/ChatBotAccordio
 import { ChatBotProvider } from "../Common/ChatBotContext.tsx";
 import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "./CodeRunnerContext.tsx";
-import { useProjectContext } from "./ProjectContext.tsx";
+import { useProjectContext } from "../../Hooks/Context/ProjectContext.tsx";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();

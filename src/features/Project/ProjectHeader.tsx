@@ -4,8 +4,8 @@ import { HeaderWithBar } from "@/components/Molecules/Header/HeaderWithBar";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 import { SaveStatusIcon } from "./Editor/SaveStatusIcon";
-import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject";
-import { useProjectContext } from "./ProjectContext";
+import { useAutoSaveProject } from "@/Hooks/Logic/Project/useAutoSaveProject";
+import { useProjectContext } from "../../Hooks/Context/ProjectContext";
 
 export function ProjectHeader() {
   const { project, files } = useProjectContext();

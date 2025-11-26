@@ -1,4 +1,7 @@
-import { useRunner, type useRunnerResponse } from "@/Hooks/Logic/Playground/useRunner";
+import {
+  useRunner,
+  type useRunnerResponse,
+} from "@/Hooks/Logic/Project/useRunner";
 import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { createContext, useContext } from "react";
