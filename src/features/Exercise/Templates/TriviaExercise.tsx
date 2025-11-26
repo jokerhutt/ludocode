@@ -1,28 +1,23 @@
 import { OptionListWrapper } from "@/components/Molecules/Wrapper/OptionListWrapper";
 import { WideClickableOption } from "../../../components/Atoms/CodeOption/WideClickableOption";
-import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
-import type { AnswerToken } from "@/Hooks/Logic/Exercises/useExercise";
+import { useLessonContext } from "@/features/Lesson/useLessonContext";
+import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData";
 
-type TriviaExerciseProps = {
-  answerField: string;
-  options: LudoExerciseOption[];
-  userResponses: AnswerToken[];
-  setAnswerAt: (index: number, value: AnswerToken) => void;
-  addSelection: (option: string) => void;
-};
+export function TriviaExercise() {
+  const { currentExercise, inputState } = useLessonContext();
+  const {
+    options,
+    replaceAnswerAt,
+    currentExerciseInputs,
+  } = useExerciseBodyData(currentExercise, inputState);
 
-export function TriviaExercise({
-  options,
-  userResponses,
-  setAnswerAt,
-}: TriviaExerciseProps) {
   return (
     <OptionListWrapper type="COLUMN">
       {options.map((option) => (
         <WideClickableOption
-          setAnswerAt={setAnswerAt}
+          setAnswerAt={replaceAnswerAt}
           option={option}
-          userSelections={userResponses}
+          userSelections={currentExerciseInputs}
         />
       ))}
     </OptionListWrapper>

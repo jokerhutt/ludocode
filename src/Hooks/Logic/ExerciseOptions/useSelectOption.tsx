@@ -1,20 +1,20 @@
 import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
-import type { AnswerToken } from "../Input/useInputAssistance";
+import type { AnswerToken } from "../Exercises/useExercise";
 
 type Args = {
   option: LudoExerciseOption;
-  userResponses: AnswerToken[];
+  currentExerciseInputs: AnswerToken[];
   addSelection: (option: AnswerToken) => void;
 };
 
 export function useSelectOption({
   option,
-  userResponses,
+  currentExerciseInputs,
   addSelection,
 }: Args) {
   const norm = (s: string) => s.trim();
 
-  const isSelected = userResponses.some(
+  const isSelected = currentExerciseInputs.some(
     (s) => s.id && option.id && norm(s.id) === norm(option.id)
   );
 

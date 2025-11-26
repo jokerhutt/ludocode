@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo } from "react";
+import { Fragment, useCallback, useMemo } from "react";
 import { OptionInputSlot } from "../../components/Atoms/CodeOption/OptionInputSlot.tsx";
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
 import { InlineCode } from "../../components/Atoms/Code/InlineCode.tsx";

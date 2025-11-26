@@ -16,8 +16,11 @@ export function LessonPage() {
   };
 
   const { inputState, currentExercise } = useLessonContext();
-  const { currentExerciseInputs, addClickedAnswer, addKeyboardAnswer } =
-    inputState;
+  const {
+    currentExerciseInputs,
+    setAnswerAt: addClickedAnswer,
+    replaceAnswerAt: addKeyboardAnswer,
+  } = inputState;
 
   const ExerciseBody = exerciseBodyMap[currentExercise.exerciseType];
 

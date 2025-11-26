@@ -1,41 +1,36 @@
-import type { LudoExerciseOption } from "../../../Types/Exercise/LudoExerciseOption.ts";
 import { OptionListWrapper } from "../../../components/Molecules/Wrapper/OptionListWrapper.tsx";
 import { ExerciseAnswerField } from "../ExerciseAnswerField.tsx";
 import { CodeBoxWrapper } from "../../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
 import { WideClickableOption } from "../../../components/Atoms/CodeOption/WideClickableOption.tsx";
-import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
+import { useLessonContext } from "@/features/Lesson/useLessonContext.tsx";
+import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData.tsx";
 
-type AnalyzeExerciseProps = {
-  answerField: string;
-  options: LudoExerciseOption[];
-  userResponses: AnswerToken[];
-  setAnswerAt: (index: number, value: AnswerToken) => void;
-  addSelection: (option: AnswerToken) => void;
-};
+export function AnalyzeExercise() {
+  const { currentExercise, inputState } = useLessonContext();
+  const {
+    options,
+    replaceAnswerAt,
+    currentExerciseInputs,
+    prompt,
+  } = useExerciseBodyData(currentExercise, inputState);
 
-export function AnalyzeExercise({
-  answerField,
-  options,
-  userResponses,
-  setAnswerAt,
-}: AnalyzeExerciseProps) {
   return (
     <>
       <CodeBoxWrapper>
         <ExerciseAnswerField
           options={options}
-          answerField={answerField}
-          userResponses={userResponses}
-          setAnswerAt={setAnswerAt}
+          answerField={prompt!}
+          userResponses={currentExerciseInputs}
+          setAnswerAt={replaceAnswerAt}
         />
       </CodeBoxWrapper>
 
       <OptionListWrapper type="COLUMN">
         {options.map((option) => (
           <WideClickableOption
-            setAnswerAt={setAnswerAt}
+            setAnswerAt={replaceAnswerAt}
             option={option}
-            userSelections={userResponses}
+            userSelections={currentExerciseInputs}
           />
         ))}
       </OptionListWrapper>

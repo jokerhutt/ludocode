@@ -8,8 +8,8 @@ type Args = { currentExercise: LudoExercise };
 
 export type useExerciseInputResponse = {
   currentExerciseInputs: AnswerToken[];
-  addClickedAnswer: (token: AnswerToken) => void;
-  addKeyboardAnswer: (index: number, token: AnswerToken) => void;
+  setAnswerAt: (token: AnswerToken) => void;
+  replaceAnswerAt: (index: number, token: AnswerToken) => void;
   clearExerciseInputs: () => void;
   initializeInputs: (attempt: ExerciseAttempt | null) => void;
 };
@@ -41,7 +41,8 @@ export function useExerciseInput({
     [gapCount]
   );
 
-  const addClickedAnswer = useCallback((token: AnswerToken) => {
+  //TODO these names arent fully correct
+  const setAnswerAt = useCallback((token: AnswerToken) => {
     setCurrentExerciseInputs((prev) => {
       const next = prev.slice();
       const firstEmpty = next.findIndex((slot) => slot.value === "");
@@ -51,7 +52,7 @@ export function useExerciseInput({
     });
   }, []);
 
-  const addKeyboardAnswer = useCallback((index: number, token: AnswerToken) => {
+  const replaceAnswerAt = useCallback((index: number, token: AnswerToken) => {
     setCurrentExerciseInputs((prev) => {
       const next = prev.slice();
       next[index] = { id: token.id, value: token.value };
@@ -65,8 +66,8 @@ export function useExerciseInput({
 
   return {
     currentExerciseInputs,
-    addClickedAnswer,
-    addKeyboardAnswer,
+    setAnswerAt,
+    replaceAnswerAt,
     clearExerciseInputs,
     initializeInputs,
   };
