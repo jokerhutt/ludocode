@@ -23,7 +23,6 @@ export function useAttemptBuffer({
   const changeBufferExercise = useCallback(() => {
     const lastAttempt = findLastAttempt(submissions, exerciseId);
     if (lastAttempt) {
-      // lastAttempt.answer might be strings or tokens; normalize to fresh tokens
       const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
         typeof a === "string"
           ? { id: undefined, value: a }

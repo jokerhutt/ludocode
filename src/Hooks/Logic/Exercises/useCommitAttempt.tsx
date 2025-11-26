@@ -6,7 +6,7 @@ import type {
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
-import { mergeAttempt } from "./exerciseHelpers";
+import { mergeStagedAttemptIntoExerciseSubmissions } from "./exerciseHelpers";
 import { v4 as uuidv4 } from "uuid";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
@@ -43,9 +43,9 @@ export function useCommitAttempt({
         const infoSubmission: ExerciseAttempt = {
           exerciseId: exerciseId,
           isCorrect: true,
-          answer: [{id: uuidv4(), value: "I"}],
+          answer: [{ id: uuidv4(), value: "I" }],
         };
-        const merged = mergeAttempt(
+        const merged = mergeStagedAttemptIntoExerciseSubmissions(
           exerciseSubmissions,
           infoSubmission,
           version
@@ -64,13 +64,12 @@ export function useCommitAttempt({
       if (!submissionBuffer) return;
 
       const isLast = position === exercises.length;
-      const merged = mergeAttempt(
+      const merged = mergeStagedAttemptIntoExerciseSubmissions(
         exerciseSubmissions,
         submissionBuffer,
         version
       );
       mergeExerciseSubmissions(merged);
-
       clearSubmissionBuffer();
 
       //INCORRECT -> NO NAVIGATION

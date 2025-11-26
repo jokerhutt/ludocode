@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   areAllFilled,
   areAllValid,
@@ -34,16 +34,16 @@ export function useExerciseFlow({
 }: Args): ExerciseFlowResponse {
   const index = position - 1;
 
-  const [submissionBuffer, setSubmissionBuffer] =
+  const [stagedAttempt, setStagedAttempt] =
     useState<ExerciseAttempt | null>(null);
 
-  const [exerciseSubmissions, setExerciseSubmissions] = useState<
+  const [commitedExerciseSubmissions, setCommittedExerciseSubmissions] = useState<
     ExerciseSubmission[]
   >([]);
 
-  const clearSubmissionBuffer = () => setSubmissionBuffer(null);
+  const clearStagedAttempt = () => setStagedAttempt(null);
   const mergeExerciseSubmissions = (merged: ExerciseSubmission[]) =>
-    setExerciseSubmissions(merged);
+    setCommittedExerciseSubmissions(merged);
 
   const currentExercise = exercises[index];
   const version = currentExercise.version;
@@ -52,7 +52,7 @@ export function useExerciseFlow({
   const bufferState = useAttemptBuffer({
     exerciseId: currentExercise.id,
     gapCount: gapCount,
-    submissions: exerciseSubmissions,
+    submissions: commitedExerciseSubmissions,
   });
 
   const { buffer, clear } = bufferState;
@@ -70,7 +70,7 @@ export function useExerciseFlow({
     } else {
       playSound("wrong");
     }
-    setSubmissionBuffer({
+    setStagedAttempt({
       exerciseId: currentExercise.id,
       isCorrect,
       answer: [...buffer],
@@ -83,25 +83,28 @@ export function useExerciseFlow({
     exerciseId: currentExercise.id,
     lesson,
     clear,
-    submissionBuffer,
-    clearSubmissionBuffer,
-    exerciseSubmissions,
+    submissionBuffer: stagedAttempt,
+    clearSubmissionBuffer: clearStagedAttempt,
+    exerciseSubmissions: commitedExerciseSubmissions,
     mergeExerciseSubmissions,
     version,
   });
 
-  const hasStaged = submissionBuffer != null;
+  const hasStaged = stagedAttempt != null;
 
   const phase: ExercisePhase = !hasStaged
     ? "DEFAULT"
-    : submissionBuffer.isCorrect
+    : stagedAttempt.isCorrect
     ? "CORRECT"
     : "INCORRECT";
+  const isLocked = stagedAttempt !== null;
 
   return {
     currentExercise,
     bufferState,
-    submissionBuffer,
+    isLocked,
+    clearSubmissionBuffer: clearStagedAttempt,
+    submissionBuffer: stagedAttempt,
     submitAttemptBuffer,
     commitAttempt,
     canSubmit: allSlotsValid,
@@ -112,6 +115,8 @@ export function useExerciseFlow({
 export type ExerciseFlowResponse = {
   currentExercise: LudoExercise;
   bufferState: AttemptBufferResponse;
+  isLocked: boolean;
+  clearSubmissionBuffer: () => void;
   submissionBuffer: ExerciseAttempt | null;
   submitAttemptBuffer: () => void;
   commitAttempt: (info?: boolean) => void;

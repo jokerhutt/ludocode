@@ -7,9 +7,11 @@ export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
 export function LessonFooter() {
   const {
+    isLocked,
     submissionBuffer: staged,
     currentExercise,
     canSubmit,
+    clearSubmissionBuffer,
     submitAttemptBuffer: stage,
     phase,
     commitAttempt: commit,
@@ -20,7 +22,19 @@ export function LessonFooter() {
 
   const handleSubmit = () => {
     if (!canSubmit) return;
-    isInfo ? commit(true) : hasStaged ? commit() : stage();
+
+    if (isInfo) {
+      commit(true);
+      return;
+    }
+
+    if (hasStaged) {
+      staged && clearSubmissionBuffer()
+      commit();
+      return;
+    }
+
+    stage();
   };
 
   useHotkeys({
