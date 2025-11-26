@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
-import type { AnswerToken } from "../useExerciseFlow";
 import type { LudoExercise } from "@/Types/Exercise/LudoExercise";
-import { getGapCount } from "../exerciseHelpers";
+import { getGapCount } from "./Util/inputUtil";
 import type { ExerciseAttempt } from "@/Types/Exercise/LessonSubmissionTypes";
+import type { AnswerToken } from "./useExercise";
 
 type Args = { currentExercise: LudoExercise };
 

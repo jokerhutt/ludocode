@@ -1,13 +1,11 @@
-import { findNextEmptyIndex } from "@/features/Exercise/util";
 import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
 import { useCallback, useMemo, useRef } from "react";
-
-// types
-export type AnswerToken = { id?: string; value: string };
+import type { AnswerToken } from "../Exercises/useExercise";
+import { findNextEmptyIndex } from "../Exercises/Util/inputUtil";
 
 type Args = {
   options: LudoExerciseOption[];
-  userResponses: AnswerToken[]; // was string[]
+  userResponses: AnswerToken[];
 };
 
 type useInputAssistanceResponse = {

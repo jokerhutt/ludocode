@@ -8,7 +8,7 @@ import {
   convertToLessonSubmission,
   createInfoExerciseAttempt,
   mergeStagedAttemptIntoExerciseSubmissions,
-} from "../exerciseHelpers";
+} from "./Util/submissionUtil";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 
@@ -45,12 +45,13 @@ export function useCommittedSubmissions({
 
   const commitStagedAttemptIntoSubmissions = useCallback(
     (staged: ExerciseAttempt | null) => {
-      if (staged == null) return;
+      if (staged == null && currentExercise.exerciseType !== "INFO") return;
 
       // If the answer is info, create a dummy attempt
-      const filteredStagedAttempt = isInfoExercise
-        ? createInfoExerciseAttempt(currentExercise.id)
-        : staged;
+      const filteredStagedAttempt =
+        staged && !isInfoExercise
+          ? staged
+          : createInfoExerciseAttempt(currentExercise.id);
 
       //Convert the attempt into an exercise submission
       //Merge the attempt into the exercise submissions
@@ -68,6 +69,7 @@ export function useCommittedSubmissions({
         handleCorrectAttempt();
       }
 
+      //Clear UI
       clearExerciseInputs();
       clearStaged();
 

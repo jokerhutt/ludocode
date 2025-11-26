@@ -5,16 +5,16 @@ import { LessonContext } from "../features/Lesson/useLessonContext";
 import { LessonFooter } from "../components/Molecules/Footer/LessonFooter";
 import { MainContentWrapper } from "./Grids/MainContentWrapper";
 import { MainGridWrapper } from "./Grids/MainGridWrapper";
-import { useExerciseFlow } from "../Hooks/Logic/Exercises/useExerciseFlow";
 import { ExitDialog } from "@/components/Molecules/Dialog/ExitDialog";
 import { useModal } from "@/Hooks/UI/useModal";
+import { useExercise } from "@/Hooks/Logic/Exercises/useExercise";
 
 export function LessonLayout() {
   const { exercises, lesson } = lessonSectionRoute.useLoaderData();
   const { exercise: position } = lessonRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
 
-  const state = useExerciseFlow({ exercises, lesson, position });
+  const state = useExercise({ exercises, lesson, position });
 
   const {
     modalOpen: exitOpen,

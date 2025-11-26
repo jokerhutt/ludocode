@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
-import { nextName } from "./playgroundFileUtils";
 import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import {
   LANGUAGE_MAP,
   type LanguageType,
 } from "@/Types/Playground/LanguageType";
+import { nextName } from "../../../features/Project/Util/filenameUtil";
 
 export type ProjectFileChoice = {
   name: string;

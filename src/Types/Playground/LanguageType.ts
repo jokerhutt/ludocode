@@ -1,5 +1,5 @@
 import type { IconName } from "@/components/Atoms/Icons/CustomIcon";
-import type { ProjectFileChoice } from "@/Hooks/Logic/Playground/useProject";
+import type { ProjectFileChoice } from "@/Hooks/Logic/Project/useProject";
 
 export type LanguageType = "python" | "javascript" | "lua";
 

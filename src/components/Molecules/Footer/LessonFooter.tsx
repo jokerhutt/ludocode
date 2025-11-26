@@ -7,38 +7,13 @@ export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
 export function LessonFooter() {
   const {
-    isLocked,
-    submissionBuffer: staged,
-    currentExercise,
+    handleExerciseButtonClick,
     canSubmit,
-    clearSubmissionBuffer,
-    submitAttemptBuffer: stage,
     phase,
-    commitAttempt: commit,
   } = useLessonContext();
 
-  const hasStaged = staged != null;
-  const isInfo = currentExercise.exerciseType == "INFO";
-
-  const handleSubmit = () => {
-    if (!canSubmit) return;
-
-    if (isInfo) {
-      commit(true);
-      return;
-    }
-
-    if (hasStaged) {
-      staged && clearSubmissionBuffer()
-      commit();
-      return;
-    }
-
-    stage();
-  };
-
   useHotkeys({
-    EXECUTE_ACTION: handleSubmit,
+    EXECUTE_ACTION: handleExerciseButtonClick,
   });
 
   const feedbackStyle =
@@ -56,7 +31,7 @@ export function LessonFooter() {
         <div></div>
         <LessonSubmitButton
           phase={phase}
-          submitAnswer={handleSubmit}
+          submitAnswer={handleExerciseButtonClick}
           canSubmit={canSubmit}
         />
       </div>

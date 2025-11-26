@@ -1,10 +1,10 @@
 import type { ExerciseAttempt } from "@/Types/Exercise/LessonSubmissionTypes";
 import { useCallback, useState } from "react";
-import type { AnswerToken } from "../useExerciseFlow";
 import type { LudoExercise } from "@/Types/Exercise/LudoExercise";
-import { areAllFilled, areAllValid, checkCorrect } from "../exerciseHelpers";
+import { areAllFilled, areAllValid, checkCorrect } from "./Util/validationUtil";
 import { playSound } from "@/Sounds/soundManager";
 import type { ExercisePhase } from "@/components/Molecules/Footer/LessonFooter";
+import type { AnswerToken } from "./useExercise";
 
 type useStagedAttemptProps = {
   currentExerciseInputs: AnswerToken[];
@@ -12,6 +12,7 @@ type useStagedAttemptProps = {
 };
 
 export type useStagedAttemptResponse = {
+  canSubmit: boolean;
   currentlyStagedAttempt: ExerciseAttempt | null;
   stageAttempt: () => void;
   clearStaged: () => void;
@@ -25,7 +26,7 @@ export function useStagedAttempt({
 }: useStagedAttemptProps): useStagedAttemptResponse {
   const allSlotsFilled = areAllFilled(currentExerciseInputs);
   const allSlotsValid =
-    currentExercise.exerciseType == "INFO" ||
+    currentExercise.exerciseType === "INFO" ||
     (allSlotsFilled && areAllValid(currentExerciseInputs, currentExercise));
 
   const [currentlyStagedAttempt, setCurrentlyStagedAttempt] =
@@ -58,7 +59,10 @@ export function useStagedAttempt({
     ? "CORRECT"
     : "INCORRECT";
 
+  const canSubmit = allSlotsValid;
+
   return {
+    canSubmit,
     currentlyStagedAttempt,
     stageAttempt,
     clearStaged: clearCurrentlyStagedAttempt,

@@ -1,10 +1,11 @@
 import { createContext, useContext } from "react";
-import type { ExerciseFlowResponse } from "../../Hooks/Logic/Exercises/useExerciseFlow";
+import type { useExerciseResponse } from "@/Hooks/Logic/Exercises/useExercise";
 
-export const LessonContext = createContext<ExerciseFlowResponse | null>(null);
+export const LessonContext = createContext<useExerciseResponse | null>(null);
 
 export function useLessonContext() {
   const ctx = useContext(LessonContext);
-  if (!ctx) throw new Error("useLesson must be used inside a LessonContext.Provider");
+  if (!ctx)
+    throw new Error("useLesson must be used inside a LessonContext.Provider");
   return ctx;
 }

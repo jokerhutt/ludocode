@@ -1,7 +1,7 @@
 import {
   useProject,
   type UseProjectResponse,
-} from "@/Hooks/Logic/Playground/useProject";
+} from "@/Hooks/Logic/Project/useProject";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { createContext, useContext, type ReactNode } from "react";
 

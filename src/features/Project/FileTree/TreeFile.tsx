@@ -6,7 +6,7 @@ import {
   LANGUAGE_MAP,
   type LanguageType,
 } from "@/Types/Playground/LanguageType.ts";
-import { useProjectContext } from "../ProjectContext.tsx";
+import { useProjectContext } from "../../../Hooks/Context/ProjectContext.tsx";
 
 type TreeFileProps = {
   fileName: string;
@@ -26,14 +26,19 @@ export function TreeFile({
 }: TreeFileProps) {
   const { iconName } = LANGUAGE_MAP[language];
 
-  const {renameFile, deleteFile} = useProjectContext()
+  const { renameFile, deleteFile } = useProjectContext();
 
   return (
     <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
       <FileInfoRow fileName={fileName}>
         <CustomIcon color="white" className="h-4" iconName={iconName} />
       </FileInfoRow>
-      <FileActionsButton renameItem={renameFile} deleteItem={deleteFile} targetId={id} fileName={fileName} />
+      <FileActionsButton
+        renameItem={renameFile}
+        deleteItem={deleteFile}
+        targetId={id}
+        fileName={fileName}
+      />
     </FileWrapper>
   );
 }

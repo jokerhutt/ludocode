@@ -1,8 +1,6 @@
 import { WideButton } from "@/components/Atoms/Button/WideButton";
-import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
+import type { AnswerToken } from "@/Hooks/Logic/Exercises/useExercise";
 import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
-
-
 
 type WideClickableOptionProps = {
   option: LudoExerciseOption;
@@ -16,7 +14,7 @@ export function WideClickableOption({
   userSelections,
   setAnswerAt,
 }: WideClickableOptionProps) {
-  const isSelected = userSelections[0].id == option.id;
+  const isSelected = userSelections[0] && userSelections[0].id == option.id;
 
   const handleChange = () => {
     if (isSelected) return;
