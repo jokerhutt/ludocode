@@ -22,6 +22,7 @@ import {
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
   RP_PROJECT,
+  RP_DEMO,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
@@ -44,7 +45,6 @@ import {
   type StageKey,
 } from "@/Types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
-import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
@@ -53,6 +53,7 @@ import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/Layouts/ProjectLayout.tsx";
+import { DEMO_LOGIN } from "@/constants/pathConstants.ts";
 
 export const queryClient = new QueryClient();
 
@@ -85,6 +86,21 @@ const authedRoute = createRoute({
     if (!currentCourseId || !userPreferences) {
       throw redirect({ to: RP_ONBOARDING_START, replace: true });
     }
+  },
+});
+
+const demoLoginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: RP_DEMO,
+  beforeLoad: async () => {
+    await fetch(DEMO_LOGIN, {
+      method: "GET",
+      credentials: "include",
+    });
+    await queryClient.invalidateQueries();
+    await queryClient.ensureQueryData(qo.currentUser());
+
+    throw redirect({ to: RP_COURSE });
   },
 });
 
@@ -159,30 +175,6 @@ export const onboardingStageRoute = createRoute({
   }),
   component: OnboardingStagePage,
 });
-
-// export const profileMeRoute = createRoute({
-//   getParentRoute: () => defaultSectionRoute,
-//   path: RP_ME,
-//   loader: async ({ location }) => {
-//     const userId = "1";
-//     const target = `/profile/${userId}`;
-//     if (location.pathname !== target) {
-//       throw redirect({
-//         to: RP_PROFILE,
-//         params: { userId },
-//         replace: true,
-//       });
-//     }
-//     return null;
-//   },
-// });
-
-// export const profileByIdRoute = createRoute({
-//   getParentRoute: () => defaultSectionRoute,
-//   path: RP_PROFILE,
-//   staticData: { headerTitle: "Profile" },
-//   component: ProfilePage,
-// });
 
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => siteRoute,
@@ -270,6 +262,7 @@ export const lessonRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
+  demoLoginRoute,
   authedRoute.addChildren([
     onboardingRoute.addChildren([onboardingStageRoute]),
     siteRoute.addChildren([
