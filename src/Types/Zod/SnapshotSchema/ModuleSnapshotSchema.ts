@@ -26,6 +26,15 @@ export const ModuleSnapshotSchema = z
       return null;
     };
 
+    if (m.title.length <= 0) {
+      hasError = true;
+      ctx.addIssue({
+        code: "custom",
+        path: ["title"],
+        message: `Title for the module must be non-empty`
+      })
+    }
+
     const dupId = dup(ids);
     if (dupId) {
       hasError = true;
@@ -39,6 +48,7 @@ export const ModuleSnapshotSchema = z
     const badLesson = m.lessons.findIndex(
       (lesson) => !LessonSnapSchema.safeParse(lesson).success
     );
+
     if (badLesson !== -1) {
       hasError = true;
       ctx.addIssue({

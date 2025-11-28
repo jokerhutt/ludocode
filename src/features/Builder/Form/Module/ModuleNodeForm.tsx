@@ -7,7 +7,6 @@ import { EditNodeDialog } from "@/components/Molecules/Dialog/EditNodeDialog";
 import { ExpandCollapsibleButtonProps } from "@/components/Atoms/Button/ExpandCollapsibleButton";
 import { LessonListForm } from "../Lesson/LessonListForm";
 import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";
-import { SelectModuleButton } from "../../UI/Button/SelectModuleButton";
 import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
 
 export const ModuleNodeForm = withForm({
@@ -36,7 +35,6 @@ export const ModuleNodeForm = withForm({
     return (
       <form.Field name={`modules[${index}]`}>
         {(field) => {
-          
           const modules = form.state.values.modules;
           const module = field.state.value;
           const isExpanded = !!module.isExpanded;
@@ -72,7 +70,19 @@ export const ModuleNodeForm = withForm({
                     {(moduleField) => {
                       const hasError =
                         moduleField.state.meta.errors?.[0]?.message;
-                      return <StatusButtonField hasError={!!hasError} />;
+                      return (
+                        <form.AppField name={`modules[${index}].lessons`}>
+                          {(lessonsField) => {
+                            const lessonsHaveError =
+                              lessonsField.state.meta.errors?.[0]?.message;
+                            return (
+                              <StatusButtonField
+                                hasError={!!hasError || !!lessonsHaveError}
+                              />
+                            );
+                          }}
+                        </form.AppField>
+                      );
                     }}
                   </form.AppField>
                 </BuilderNode>
