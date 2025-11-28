@@ -4,7 +4,7 @@ import { BuilderNode } from "../../../../components/Atoms/Tree/BuilderNode";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
-import { EditNodeDialog } from "../../../../components/Molecules/Dialog/EditNodeDialog";
+import { EditNodeDialog } from "../../../../components/Molecules/Dialog/Edit/EditNodeDialog";
 import { newLesson } from "../../Util/NewExerciseTemplates";
 import { StatusButtonField } from "../../../../components/Atoms/Status/StatusButtonField";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";

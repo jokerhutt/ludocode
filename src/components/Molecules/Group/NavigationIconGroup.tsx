@@ -1,7 +1,7 @@
 import { navIcons } from "@/constants/navIcons";
-import { HollowSlotButton } from "../Atoms/Button/HollowSlotButton";
-import { HollowSlotButtonGroup } from "../Molecules/Group/HollowSlotButtonGroup";
 import { useLocation } from "@tanstack/react-router";
+import { HollowSlotButtonGroup } from "./HollowSlotButtonGroup";
+import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;

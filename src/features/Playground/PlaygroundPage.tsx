@@ -1,6 +1,6 @@
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 import { useModal } from "@/Hooks/UI/useModal.tsx";
-import { CreateProjectDialog } from "@/components/Molecules/Dialog/CreateProjectDialog.tsx";
+import { CreateProjectDialog } from "@/components/Molecules/Dialog/Create/CreateProjectDialog.tsx";
 import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/Hooks/Queries/Definitions/queries.ts";

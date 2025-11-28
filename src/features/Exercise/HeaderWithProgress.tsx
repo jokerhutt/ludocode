@@ -1,6 +1,8 @@
+import { ludoNavigation } from "@/routes/ludoNavigation";
 import { HeaderWithBar } from "../../components/Molecules/Header/HeaderWithBar";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 import { ExitButton } from "@/components/Atoms/Button/ExitButton";
+import { LeaveUnsavedDialog } from "@/components/Molecules/Dialog/Warning/LeaveUnsavedDialog";
 
 type HeaderWithProgressProps = {
   total: number;
@@ -18,7 +20,9 @@ export function HeaderWithProgress({
   return (
     <HeaderWithBar className="px-4" device="Both">
       <div className="col-start-1 col-end-2 flex items-center h-full">
-        <ExitButton onClick={() => onExit?.()} />
+        <LeaveUnsavedDialog title="Are you sure you want to exit?" subtitle="All unsaved progress will be lost" onClick={() => onExit?.()}>
+          <ExitButton />
+        </LeaveUnsavedDialog>
       </div>
       <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
         <SegmentedProgress total={total} completed={completed} />

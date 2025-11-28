@@ -1,4 +1,4 @@
-import { LeaveUnsavedDialogWithTrigger } from "@/components/Molecules/Dialog/LeaveUnsavedDialogWithTrigger";
+import { LeaveUnsavedDialog } from "@/components/Molecules/Dialog/Warning/LeaveUnsavedDialog";
 import { Button } from "@/components/ui/button";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
@@ -9,19 +9,20 @@ export function LeaveUnsavedButton({
   variant,
   enabled,
 }: LeaveUnsavedButtonProps) {
+  const leaveUnsavedText = `Are you sure you want to exit the builder?`;
+  const leaveUnsavedSubtitle = `ALL unsubmitted changes will be lost. If you want to submit, click Submit Snapshot in the header`;
+
   if (!enabled) {
-    return (
-      <Button variant={variant} >
-        Quit
-      </Button>
-    );
+    return <Button variant={variant}>Quit</Button>;
   }
 
   return (
-    <LeaveUnsavedDialogWithTrigger
+    <LeaveUnsavedDialog
+      title={leaveUnsavedText}
+      subtitle={leaveUnsavedSubtitle}
       onClick={() => router.navigate(ludoNavigation.build.toSelectCourse())}
     >
       <Button variant={variant}> Quit </Button>
-    </LeaveUnsavedDialogWithTrigger>
+    </LeaveUnsavedDialog>
   );
 }

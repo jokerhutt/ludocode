@@ -3,7 +3,7 @@ import { ExerciseAnswerField } from "../ExerciseAnswerField";
 import { OptionListWrapper } from "@/components/Molecules/Wrapper/OptionListWrapper";
 import { ClickableOption } from "../../../components/Atoms/CodeOption/ClickableOption";
 import { useSelectOption } from "@/Hooks/Logic/ExerciseOptions/useSelectOption";
-import { useLessonContext } from "@/features/Lesson/useLessonContext";
+import { useLessonContext } from "@/features/Exercise/useLessonContext";
 import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData";
 
 export function ClozeExercise() {

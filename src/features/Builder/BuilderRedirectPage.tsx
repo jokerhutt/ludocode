@@ -1,7 +1,7 @@
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderRedirectHero } from "./BuilderRedirectHero";
-import { CreateCourseDialog } from "@/components/Molecules/Dialog/CreateCourseDialog";
+import { CreateCourseDialog } from "@/components/Molecules/Dialog/Create/CreateCourseDialog";
 import { useModal } from "@/Hooks/UI/useModal";
 import { uuid } from "@tanstack/react-form";
 import { BuilderCourseCard } from "./BuilderCourseCard";

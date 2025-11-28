@@ -3,7 +3,7 @@ import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
 import { BuilderNode } from "@/components/Atoms/Tree/BuilderNode";
-import { EditNodeDialog } from "@/components/Molecules/Dialog/EditNodeDialog";
+import { EditNodeDialog } from "@/components/Molecules/Dialog/Edit/EditNodeDialog";
 import { ExpandCollapsibleButtonProps } from "@/components/Atoms/Button/ExpandCollapsibleButton";
 import { LessonListForm } from "../Lesson/LessonListForm";
 import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";

@@ -1,1 +1,3 @@
-export type LudoStats = {coins: number, streak: number}
+import type { UserStreak } from "../Progress/UserStreak";
+
+export type LudoStats = { coins: number; userStreak: UserStreak };

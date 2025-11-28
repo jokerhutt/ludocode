@@ -1,11 +1,13 @@
 import { Dialog } from "@radix-ui/react-dialog";
-import { DialogWrapper } from "./DialogWrapper";
+import { DialogWrapper } from "../DialogWrapper";
 import { DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { LanguageType } from "@/Types/Playground/LanguageType";
 import { useState } from "react";
 import { useCreateProject } from "@/Hooks/Queries/Mutations/useCreateProject";
+import { InputWrapper } from "../../Input/InputWrapper";
+import { InputTitle } from "../../Input/InputTitle";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -49,17 +51,17 @@ export function CreateProjectDialog({
           New Project
         </DialogHeader>
 
-        <div className="flex text-white w-full gap-4 items-center">
-          <p>Project Name</p>
+        <InputWrapper>
+          <InputTitle>Project name</InputTitle>
           <Input
             placeholder={projectName}
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
           />
-        </div>
+        </InputWrapper>
 
-        <div className="flex text-white gap-4 items-center">
-          <p>Project Type</p>
+        <InputWrapper>
+          <InputTitle>Project type</InputTitle>
           <div className="flex gap-4">
             {possibleOptions.map((option) => (
               <Button
@@ -74,7 +76,7 @@ export function CreateProjectDialog({
               </Button>
             ))}
           </div>
-        </div>
+        </InputWrapper>
 
         <div className="py-2 flex justify-center items-center">
           <Button onClick={() => submitProject()} className="w-full">

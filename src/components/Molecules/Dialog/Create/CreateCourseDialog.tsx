@@ -1,10 +1,12 @@
 import { Dialog } from "@radix-ui/react-dialog";
 import { useState } from "react";
-import { DialogWrapper } from "./DialogWrapper";
+import { DialogWrapper } from "../DialogWrapper";
 import { DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateCourse } from "@/Hooks/Queries/Mutations/useCreateCourse";
+import { InputWrapper } from "../../Input/InputWrapper";
+import { InputTitle } from "../../Input/InputTitle";
 
 type CreateCourseDialogProps = {
   open: boolean;
@@ -42,14 +44,14 @@ export function CreateCourseDialog({
           New Course
         </DialogHeader>
 
-        <div className="flex text-white w-full gap-4 items-center">
-          <p>Course Name</p>
+        <InputWrapper>
+          <InputTitle>Course Name</InputTitle>
           <Input
             placeholder={courseName}
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
           />
-        </div>
+        </InputWrapper>
 
         <div className="py-2 flex justify-center items-center">
           <Button onClick={() => submitProject()} className="w-full">

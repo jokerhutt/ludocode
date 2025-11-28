@@ -11,7 +11,6 @@ export function SiteLayout() {
   const currentUserId = currentUser.id;
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
   const { data: streakPacket } = useSuspenseQuery(qo.streak(currentUserId));
-  const { current } = streakPacket;
   const { coins } = coinPacket;
 
   const matches = useMatches();
@@ -20,7 +19,7 @@ export function SiteLayout() {
     (active?.staticData as { headerTitle?: string })?.headerTitle ?? "LudoCode";
 
   return (
-    <StatsContext.Provider value={{ coins: coins, streak: current }}>
+    <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
       <MainGridWrapper gridRows={"SITE"}>
         <AppHeader title={title} />
         <Outlet />

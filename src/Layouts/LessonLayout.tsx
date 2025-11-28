@@ -1,13 +1,12 @@
 import { Outlet } from "@tanstack/react-router";
-import { HeaderWithProgress } from "../features/Lesson/HeaderWithProgress";
-import { lessonRoute, lessonSectionRoute } from "../routes/router";
-import { LessonContext } from "../features/Lesson/useLessonContext";
+import { HeaderWithProgress } from "../features/Exercise/HeaderWithProgress";
+import { lessonRoute, lessonSectionRoute, router } from "../routes/router";
+import { LessonContext } from "../features/Exercise/useLessonContext";
 import { LessonFooter } from "../components/Molecules/Footer/LessonFooter";
 import { MainContentWrapper } from "./Grids/MainContentWrapper";
 import { MainGridWrapper } from "./Grids/MainGridWrapper";
-import { ExitDialog } from "@/components/Molecules/Dialog/ExitDialog";
-import { useModal } from "@/Hooks/UI/useModal";
 import { useExercise } from "@/Hooks/Logic/Exercises/useExercise";
+import { ludoNavigation } from "@/routes/ludoNavigation";
 
 export function LessonLayout() {
   const { exercises, lesson } = lessonSectionRoute.useLoaderData();
@@ -16,20 +15,14 @@ export function LessonLayout() {
 
   const state = useExercise({ exercises, lesson, position });
 
-  const {
-    modalOpen: exitOpen,
-    openModal: openExit,
-    closeModal: closeExit,
-  } = useModal();
-
   //TODO move exit dialog
   return (
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
         <HeaderWithProgress
+          onExit={() => router.navigate(ludoNavigation.module.toCurrent())}
           total={exercises.length}
           position={exercisePosition - 1}
-          onExit={() => openExit()}
         />
         <MainContentWrapper>
           <div className="grid col-span-full h-full grid-cols-12">
@@ -38,8 +31,6 @@ export function LessonLayout() {
         </MainContentWrapper>
         <LessonFooter />
       </MainGridWrapper>
-
-      <ExitDialog close={() => closeExit()} open={exitOpen} />
     </LessonContext.Provider>
   );
 }

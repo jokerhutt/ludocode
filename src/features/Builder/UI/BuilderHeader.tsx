@@ -9,6 +9,9 @@ export function BuilderHeader({ handleFormSubmission }: BuilderHeaderProps) {
   const text = actionsEnabled ? "Lock" : "Unlock";
   const variant = actionsEnabled ? "default" : ("disabled" as const);
 
+ 
+  
+
   return (
     <div className="grid grid-cols-12 items-center bg-ludoGrayLight text-white h-14 px-18">
       <div className="flex col-start-9 justify-end items-center col-end-12 gap-4">

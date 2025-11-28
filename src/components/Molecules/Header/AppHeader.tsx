@@ -1,6 +1,6 @@
+import { NavigationIconGroup } from "../Group/NavigationIconGroup.tsx";
 import { HeaderWithBar } from "./HeaderWithBar.tsx";
-import { NavigationIconGroup } from "@/components/Organisms/NavigationIconGroup.tsx";
-import { StatsGroup } from "@/components/Organisms/StatsGroup.tsx";
+import { StatsGroup } from "@/components/Molecules/Group/StatsGroup.tsx";
 
 type AppHeaderProps = { title: string };
 

@@ -10,7 +10,7 @@ export function FileInfoRow({
   children,
 }: FileInfoRowProps) {
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 hover:cursor-pointer items-center">
       {children}
       <p className="text-sm">{fileName}</p>
     </div>

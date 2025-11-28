@@ -34,6 +34,7 @@ export function TreeFile({
         <CustomIcon color="white" className="h-4" iconName={iconName} />
       </FileInfoRow>
       <FileActionsButton
+        itemType={"File"}
         renameItem={renameFile}
         deleteItem={deleteFile}
         targetId={id}

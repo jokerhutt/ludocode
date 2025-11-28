@@ -5,11 +5,13 @@ type FileActionsButtonProps = {
   fileName: string;
   targetId: string;
   variant?: "main" | "secondary";
+  itemType: string;
   renameItem: (oldName: string, newName: string) => void;
   deleteItem: (name: string) => void;
 };
 
 export function FileActionsButton({
+  itemType,
   fileName,
   targetId,
   variant = "main",
@@ -23,6 +25,7 @@ export function FileActionsButton({
 
   return (
     <FileActionsPopover
+    itemType={itemType}
       renameItem={renameItem}
       deleteItem={() => deleteItem(fileName)}
       targetId={targetId}

@@ -1,29 +1,30 @@
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
-import { DialogWrapper } from "./DialogWrapper";
+import { DialogWrapper } from "../DialogWrapper";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 
 type RenameDialogProps = {
   itemName: string;
   onSubmit: (oldPath: string, newPath: string) => void;
-  open: boolean;
-  close: () => void;
+  children: ReactNode;
+  itemCategory: string;
 };
 
 export function RenameDialog({
-  open,
-  close,
   itemName,
+  children,
+  itemCategory,
   onSubmit,
 }: RenameDialogProps) {
   const oldPath = itemName;
   const [textBuffer, setTextBuffer] = useState<string>(itemName);
 
   return (
-    <Dialog open={open} onOpenChange={() => close()}>
+    <Dialog>
+      {children}
       <DialogWrapper>
-        <DialogTitle className="text-white">Rename Project</DialogTitle>
+        <DialogTitle className="text-white">Rename {itemCategory}</DialogTitle>
         <Input
           className="text-ludoAltText"
           value={textBuffer}

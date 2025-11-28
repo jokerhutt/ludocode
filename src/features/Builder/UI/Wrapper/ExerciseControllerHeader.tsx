@@ -1,4 +1,4 @@
-import { DevInfoDialog } from "@/components/Molecules/Dialog/DevInfoDialog";
+import { DevInfoDialog } from "@/components/Molecules/Dialog/Info/DevInfoDialog";
 import { exTypeInfoContent } from "@/lib/infoContent";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
 import type { LessonSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";

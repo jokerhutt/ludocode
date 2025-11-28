@@ -35,6 +35,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </div>
       <div>
         <FileActionsButton
+          itemType="Project"
           targetId={projectId}
           variant="secondary"
           fileName={projectName}

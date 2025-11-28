@@ -2,10 +2,8 @@ import {
   Dialog,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
 } from "@radix-ui/react-dialog";
-import { DialogWrapper } from "./DialogWrapper";
-import { Input } from "@/components/ui/input";
+import { DialogWrapper } from "../DialogWrapper";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
 import type { ReactNode } from "react";
 
@@ -28,7 +26,7 @@ export function WarningDialogWithTrigger({
 }: DeleteDialogWithTriggerProps) {
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      {children}
       <DialogWrapper>
         <DialogTitle className="text-white">{title}</DialogTitle>
         {subtitle && (

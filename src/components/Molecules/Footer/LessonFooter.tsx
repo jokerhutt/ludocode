@@ -1,4 +1,4 @@
-import { useLessonContext } from "@/features/Lesson/useLessonContext.tsx";
+import { useLessonContext } from "@/features/Exercise/useLessonContext.tsx";
 import { LessonSubmitButton } from "../../../features/Exercise/LessonSubmitButton.tsx";
 import { AppFooter } from "./AppFooter.tsx";
 import { useHotkeys } from "@/Hooks/UI/useHotkeys.tsx";
@@ -6,11 +6,7 @@ import { useHotkeys } from "@/Hooks/UI/useHotkeys.tsx";
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
 export function LessonFooter() {
-  const {
-    handleExerciseButtonClick,
-    canSubmit,
-    phase,
-  } = useLessonContext();
+  const { handleExerciseButtonClick, canSubmit, phase } = useLessonContext();
 
   useHotkeys({
     EXECUTE_ACTION: handleExerciseButtonClick,

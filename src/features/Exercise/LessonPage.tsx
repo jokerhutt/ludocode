@@ -5,7 +5,7 @@ import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/ExerciseMedia";
 import { FloatingChatBotWindow } from "@/components/Molecules/Chatbot/FloatingChatBotWindow";
-import { useLessonContext } from "../Lesson/useLessonContext";
+import { useLessonContext } from "./useLessonContext";
 
 export function LessonPage() {
   const exerciseBodyMap: any = {

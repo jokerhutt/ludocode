@@ -1,6 +1,6 @@
 import { MainContentWrapper } from "@/Layouts/Grids/MainContentWrapper";
 import { MainGridWrapper } from "@/Layouts/Grids/MainGridWrapper";
-import { HeaderWithProgress } from "../features/Lesson/HeaderWithProgress";
+import { HeaderWithProgress } from "../features/Exercise/HeaderWithProgress";
 import { Outlet, useParams } from "@tanstack/react-router";
 import { type StageKey } from "@/Types/Onboarding/OnboardingSteps";
 import {

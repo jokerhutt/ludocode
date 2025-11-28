@@ -1,5 +1,5 @@
-import { AddExerciseDialog } from "@/components/Molecules/Dialog/AddExerciseDialog";
-import { DeleteDialogWithTrigger } from "@/components/Molecules/Dialog/DeleteDialogWithTrigger";
+import { AddExerciseDialog } from "@/components/Molecules/Dialog/Create/AddExerciseDialog";
+import { DeleteDialog } from "@/components/Molecules/Dialog/Warning/DeleteDialog";
 import { Button } from "@/components/ui/button";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 
@@ -20,13 +20,13 @@ export function ModifyExerciseRow({
         <Button>Add Exercise</Button>
       </AddExerciseDialog>
 
-      <DeleteDialogWithTrigger
+      <DeleteDialog
         canDelete={canRemoveExercises}
         targetName="Exercise"
         onClick={removeExercise}
       >
         <Button>Delete</Button>
-      </DeleteDialogWithTrigger>
+      </DeleteDialog>
     </div>
   );
 }
