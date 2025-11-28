@@ -28,6 +28,8 @@ This project uses assets from the LottieFiles Community for animations under the
 - Interactive exercise formats.
 - Multiple exercise types (Cloze, MCQ, Trivia, Info).
 - Streaks & coins system.
+- Mobile UI for lessons
+- Interactive context aware AI chatbot in lessons and code projects
 - Onboarding flow for new users.
 - Animations using Lottie framework.
 - In browser editor with autosave & file tree using Monaco Editor.
@@ -38,13 +40,13 @@ This project uses assets from the LottieFiles Community for animations under the
 - Batched fetching using batshit library.
 - Deduplicated mutations using request hashes.
 - Cached server state using Tanstack Query.
+- Demo user authentication.
 - Google Oauth Authentication.
+- Device aware 'Desktop Only' guard for pages such as code editor
 - Form validation using Zod & Tanstack Form.
 
 ## Planned Features
-
 - User dashboard
-- AI chatbot assistant
 
 ## Running the project locally
 
@@ -64,14 +66,8 @@ npm i
 
 The instructions for running the backend can be found at https://github.com/jokerhutt/ludocode-backend
 
-## Known Issues and limitations
+## Known Issues
 
-### AI Chatbot
+### AI chatbot code blocks
 
-One issue with the AI chatbot is codeblocks that have only one line are rendered as blank code blocks in the streamed response.
-
-This happens because the ShadCN AI components (which wrap Streamdown) are tightly coupled to the Vercel AI SDK’s useChat() response format. That hook relies on internal parsing utilities that reconstruct incomplete Markdown (including fenced code blocks) during streaming — but these utilities are not publicly exposed outside Next.js.
-
-Because my backend is not using the Vercel useChat() stream protocol, there is no official way to reproduce their parsing behavior or properly buffer partial code fences. As a result, one-line code blocks cannot be reliably rendered during streaming.
-
-For more info on this please see the upstream feature request at https://github.com/vercel/ai/issues/2341 .
+One issue with the AI chatbot is codeblocks that have only one line are rendered as blank code blocks in the streamed response. This issue seems to be related to the Streamdown library which handles streamed AI responses. I have tried pre-formatting the chunks and modifying the streamdown code block parser to no avail.
