@@ -1,9 +1,13 @@
+import { DEMO_AUTH_TOKEN } from "./env";
+
 export const API_URL = "http://localhost:8080";
 export const API_PREFIX = "/api/v1";
 export const API_PATH = API_URL + API_PREFIX;
 
 export const GET_COURSE_TREE = (courseId: string) =>
   API_PATH + `/catalog/courses/${courseId}/tree`;
+
+export const DEMO_LOGIN = API_PATH + `/auth/demo-login?token=${DEMO_AUTH_TOKEN}`
 
 export const SUBMIT_LESSON = API_PATH + `/progress/completion/submit`;
 export const RESET_COURSE_PROGRESS = (courseId: string) =>

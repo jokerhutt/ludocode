@@ -7,7 +7,7 @@ import {
   userBatcher,
   userCoinsBatcher,
 } from "../Batcher/batchers";
-
+import Cookies from "js-cookie";
 import type { LudoModule } from "../../../Types/Catalog/LudoModule";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
@@ -88,6 +88,7 @@ export const qo = {
     queryOptions({
       queryKey: qk.currentUser(),
       queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
+      enabled: () => Boolean(Cookies.get("jwt")),
       staleTime: 60_000,
       retry: false,
     }),
