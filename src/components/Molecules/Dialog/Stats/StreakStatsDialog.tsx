@@ -1,20 +1,22 @@
 import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { DialogWrapper } from "../DialogWrapper";
 import type { ReactNode } from "react";
-import type { UserStreak } from "@/Types/Progress/UserStreak";
+import type { DailyGoalMet, UserStreak } from "@/Types/Progress/UserStreak";
+import { StreakWeeklyWidget } from "../../Group/StreakWeeklyWidget";
 
-type StreakStatsDialogProps = { children: ReactNode; streak: UserStreak };
+type StreakStatsDialogProps = { children: ReactNode; streak: UserStreak, pastWeekStreak: DailyGoalMet[] };
 
 export function StreakStatsDialog({
   children,
   streak,
+  pastWeekStreak
 }: StreakStatsDialogProps) {
-  
+
   const { current, best } = streak;
 
   return (
     <Dialog>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogWrapper>
         <DialogHeader className="text-white code font-bold text-xl">
           Your Streak
@@ -25,6 +27,7 @@ export function StreakStatsDialog({
           </div>
           <p className="text-start">Best: {best} days</p>
         </div>
+        <StreakWeeklyWidget history={pastWeekStreak}/>
       </DialogWrapper>
     </Dialog>
   );

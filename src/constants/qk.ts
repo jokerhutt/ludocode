@@ -6,6 +6,7 @@ export const qk = {
   course: (courseId: string) => ["course", courseId] as const,
   module: (moduleId: string) => ["module", moduleId] as const,
   streak: (userId: string) => ["streak", userId] as const,
+  streakPastWeek: () => ["pastWeekStreak"] as const,
   lesson: (lessonId: string) => ["lesson", lessonId] as const,
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,

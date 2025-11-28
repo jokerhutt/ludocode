@@ -8,7 +8,7 @@ type CoinsDialogProps = { children: ReactNode; coins: number };
 export function CoinsDialog({ children, coins }: CoinsDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogWrapper>
         <DialogHeader className="text-white code font-bold text-xl">
           Your Commits

@@ -3,3 +3,8 @@ export type UserStreak = {
     best: number;
     lastMet?: string;
 }
+
+export type DailyGoalMet = {
+    date: string;
+    met: boolean;
+}

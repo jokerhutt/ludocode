@@ -67,6 +67,7 @@ export const GET_PROJECT = (pid: string) => API_PATH + `/project/${pid}/get`;
 
 export const AUTH_ME = API_PATH + `/auth/me`;
 export const GET_USER_STREAK = API_PATH + `/progress/streak/get`;
+export const GET_PAST_WEEK_STREAK = API_PATH + `/progress/streak/get/past-week`
 export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`;
 
 export const GET_USER_PREFERENCES = API_PATH + `/users/preferences`;
