@@ -63,10 +63,9 @@ export const ludoNavigation = {
       exerciseId: string
     ) => ({
       to: RP_BUILD,
-      params: {courseId},
-      search: {moduleId, lessonId, exerciseId}
-    })
-
+      params: { courseId },
+      search: { moduleId, lessonId, exerciseId },
+    }),
   },
 
   lesson: {
@@ -88,6 +87,14 @@ export const ludoNavigation = {
       params: { lessonId },
       state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
       replace: true,
+    }),
+    toStreakIncreased: (
+      lessonId: string,
+      oldStreak: number,
+      newStreak: number
+    ) => ({
+      to: streakIncreaseRoute.to,
+      params: { lessonId, oldStreak, newStreak },
     }),
   },
 
@@ -112,12 +119,15 @@ export const ludoNavigation = {
     toStreakIncrease: (oldStreak: number, newStreak: number) => ({
       to: streakIncreaseRoute.to,
       params: { oldStreak, newStreak },
-      replace: true
+      replace: true,
     }),
   },
 
   module: {
-    toCurrent: (replace = false) => ({ to: RP_MODULE_REDIRECT, replace: replace }),
+    toCurrent: (replace = false) => ({
+      to: RP_MODULE_REDIRECT,
+      replace: replace,
+    }),
     toModule: (courseId: string, moduleId: string) => ({
       to: RP_MODULE,
       params: { courseId, moduleId },

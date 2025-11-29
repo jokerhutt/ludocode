@@ -1,16 +1,35 @@
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
+import { cn } from "@/lib/utils";
 import type { DailyGoalMet } from "@/Types/Progress/UserStreak";
-import { FlameIcon } from "lucide-react";
 
-type StreakWeeklyWidgetProps = { history: DailyGoalMet[] };
+type StreakWeeklyWidgetProps = {
+  history: DailyGoalMet[];
+  className?: string;
+  showDates?: boolean;
+  title?: string;
+  innerClassName?: string;
+};
 
-export function StreakWeeklyWidget({ history }: StreakWeeklyWidgetProps) {
+export function StreakWeeklyWidget({
+  history,
+  className,
+  title,
+  showDates = true,
+  innerClassName,
+}: StreakWeeklyWidgetProps) {
   const dates = ["M", "T", "W", "T", "F", "S", "S"];
 
   return (
-    <div className="w-full flex text-ludoAltText flex-col gap-4">
-      <h3 className="text-start">Weekly Stats</h3>
-      <div className="w-full flex gap-4 bg-ludoGrayLight rounded-lg">
+    <div
+      className={cn("w-full flex text-ludoAltText flex-col gap-4", className)}
+    >
+      {title && <h3 className="text-start">{title}</h3>}
+      <div
+        className={cn(
+          "w-full flex gap-4 bg-ludoGrayLight rounded-lg",
+          innerClassName
+        )}
+      >
         {history.map((day, index) => (
           <div className="flex flex-col gap-1">
             <div className="rounded-sm h-7 w-7 bg-ludoGrayDark p-1 flex items-center justify-center">
@@ -22,7 +41,7 @@ export function StreakWeeklyWidget({ history }: StreakWeeklyWidgetProps) {
                 />
               )}
             </div>
-            <p className="">{dates[index]}</p>
+            {showDates && <p className="text-center">{dates[index]}</p>}
           </div>
         ))}
       </div>
