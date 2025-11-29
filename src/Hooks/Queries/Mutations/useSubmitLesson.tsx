@@ -24,12 +24,12 @@ export function useSubmitLesson({ oldStreak }: Args) {
         accuracy,
       } = payload.content;
 
-      const completionStatus = payload.status
+      const completionStatus = payload.status;
 
-      qc.setQueryData(
-        qk.lesson(updatedCompletedLesson.id),
-        updatedCompletedLesson
-      );
+      const courseId = newCourseProgress.id;
+      const lessonId = updatedCompletedLesson.id;
+
+      qc.setQueryData(qk.lesson(lessonId), updatedCompletedLesson);
       qc.setQueryData(
         qk.courseProgress(newCourseProgress.id),
         newCourseProgress
@@ -39,14 +39,13 @@ export function useSubmitLesson({ oldStreak }: Args) {
 
       qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
 
-      const courseId = newCourseProgress.id
-
       const { coins } = newCoins;
       const { current } = newStreak;
 
       router.navigate(
-        ludoNavigation.completion.toComplete(
+        ludoNavigation.completion.toLessonComplete(
           courseId,
+          lessonId,
           coins,
           accuracy,
           oldStreak,

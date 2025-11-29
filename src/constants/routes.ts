@@ -2,7 +2,7 @@ export const RP_INDEX = `/`;
 
 export const RP_COURSE = `/`;
 
-export const RP_DEMO = `/demo`
+export const RP_DEMO = `/demo`;
 
 export const RP_BUILD = `/build/course/$courseId`;
 
@@ -36,8 +36,10 @@ export const RP_LESSON = `/course/$courseId/lesson/$lessonId`;
 
 export const RP_SYNC = "/lesson/$lessonId/sync";
 
+export const RP_COMPLETE = "/completion/$courseId/lesson/$lessonId";
+
 export const RP_LESSON_COMPLETE = `/completion/$courseId/lesson/$lessonId/complete/$coins/$accuracy/$oldStreak/$newStreak/status//$completionStatus`;
 
 export const RP_LESSON_COMPLETE_STREAK_INCREASE = `/completion/$courseId/lesson/$lessonId/complete/streak/$oldStreak/$newStreak/status/$completionStatus`;
 
-export const RP_COURSE_COMPLETE = `/completion/$courseId/course/$courseId/complete`
+export const RP_COURSE_COMPLETE = `/completion/$courseId/course/$courseId/complete`;
