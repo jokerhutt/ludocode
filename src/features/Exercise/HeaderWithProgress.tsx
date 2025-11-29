@@ -1,4 +1,3 @@
-import { ludoNavigation } from "@/routes/ludoNavigation";
 import { HeaderWithBar } from "../../components/Molecules/Header/HeaderWithBar";
 import { SegmentedProgress } from "../../components/Molecules/Progress/SegmentedProgress";
 import { ExitButton } from "@/components/Atoms/Button/ExitButton";
