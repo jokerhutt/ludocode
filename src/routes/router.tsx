@@ -15,15 +15,12 @@ import {
   RP_BUILD,
   RP_AUTH,
   RP_SYNC,
-  RP_LESSON_COMPLETE,
-  RP_LESSON_COMPLETE_STREAK_INCREASE,
   RP_BUILD_SELECTION,
   RP_ONBOARDING,
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
   RP_PROJECT,
   RP_DEMO,
-  RP_COURSE_COMPLETE,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
@@ -37,8 +34,6 @@ import {
 import { qo } from "../Hooks/Queries/Definitions/queries";
 import { coursesLoader } from "./Loaders/coursesLoader";
 import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
-import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
-import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 import { OnboardingLayout } from "@/Layouts/OnboardingLayout.tsx";
 import {
@@ -55,7 +50,8 @@ import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/Layouts/ProjectLayout.tsx";
 import { DEMO_LOGIN } from "@/constants/pathConstants.ts";
-import { CourseCompletePage } from "@/features/Completion/CourseCompletePage.tsx";
+import { CompletionLayout } from "@/Layouts/CompletionLayout.tsx";
+import z from "zod";
 
 export const queryClient = new QueryClient();
 
@@ -245,22 +241,18 @@ export const syncRoute = createRoute({
   component: SyncingPage,
 });
 
-export const completeRoute = createRoute({
+export const completionRoute = createRoute({
   getParentRoute: () => authedRoute,
-  path: RP_LESSON_COMPLETE,
-  component: LessonCompletionPage,
-});
-
-export const streakIncreaseRoute = createRoute({
-  getParentRoute: () => authedRoute,
-  path: RP_LESSON_COMPLETE_STREAK_INCREASE,
-  component: StreakIncreasePage,
-});
-
-export const courseCompleteRoute = createRoute({
-  getParentRoute: () => authedRoute,
-  path: RP_COURSE_COMPLETE,
-  component: CourseCompletePage,
+  path: "/completion/$courseId/lesson/$lessonId",
+  component: CompletionLayout,
+  validateSearch: z.object({
+    step: z.enum(["lesson", "streak", "course"]).default("lesson"),
+    coins: z.number().optional(),
+    accuracy: z.number().optional(),
+    oldStreak: z.number().optional(),
+    newStreak: z.number().optional(),
+    completionStatus: z.string().optional(),
+  }),
 });
 
 export const lessonRoute = createRoute({
@@ -286,9 +278,7 @@ const routeTree = rootRoute.addChildren([
     desktopGuardRoute.addChildren([projectRoute, buildRoute]),
     lessonSectionRoute.addChildren([lessonRoute]),
     syncRoute,
-    completeRoute,
-    streakIncreaseRoute,
-    courseCompleteRoute
+    completionRoute,
   ]),
   authRoute,
 ]);

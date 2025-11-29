@@ -17,3 +17,19 @@ export type LessonCompletionResponse = {
   updatedCompletedLesson: LudoLesson;
   accuracy: number;
 };
+
+export type CompletionState = {
+  courseId: string;
+  courseName: string;
+  lessonId: string;
+  search: CompletionSearch;
+};
+
+export type CompletionSearch = {
+  step: "lesson" | "streak" | "course";
+  coins: number;
+  accuracy: number;
+  oldStreak: number;
+  newStreak: number;
+  completionStatus: LessonCompletionStatus;
+};

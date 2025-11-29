@@ -1,31 +1,21 @@
+import type { HistoryState } from "@tanstack/react-router";
 import {
   RP_COURSE,
   RP_LESSON,
   RP_MODULE,
-  RP_PROFILE,
   RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
   RP_BUILD_SELECTION,
   RP_PLAYGROUND,
-  RP_BUILD_REDIRECT,
-  RP_BUILD_MODULE,
-  RP_BUILD_MODULE_LESSON,
 } from "../constants/routes.ts";
-import type { HistoryState } from "@tanstack/react-router";
-import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 import {
-  buildSelectionRoute,
-  buildRoute,
-  completeRoute,
   lessonRoute,
-  playgroundRoute,
   projectRoute,
-  streakIncreaseRoute,
+  completionRoute,
   syncRoute,
-  courseCompleteRoute,
 } from "./router";
-import type { LessonCompletionStatus } from "@/Types/Exercise/LessonCompletionResponse.ts";
+import type { LessonSubmission } from "@/Types/Exercise/LessonSubmissionTypes.ts";
 
 export const ludoNavigation = {
   courseRoot: () => ({ to: RP_COURSE }),
@@ -95,17 +85,26 @@ export const ludoNavigation = {
   },
 
   completion: {
-    toComplete: (
+    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
+      to: syncRoute.to,
+      params: { lessonId },
+      state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
+      replace: true,
+    }),
+
+    toLessonComplete: (
       courseId: string,
+      lessonId: string,
       coins: number,
       accuracy: number,
       oldStreak: number,
       newStreak: number,
-      completionStatus: LessonCompletionStatus
+      completionStatus: string
     ) => ({
-      to: completeRoute.to,
-      params: {
-        courseId,
+      to: completionRoute.to,
+      params: { courseId, lessonId },
+      search: {
+        step: "lesson",
         coins,
         accuracy,
         oldStreak,
@@ -113,27 +112,21 @@ export const ludoNavigation = {
         completionStatus,
       },
     }),
-    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
-      to: syncRoute.to,
-      params: { lessonId },
-      state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
-      replace: true,
+
+    toStreakIncrease: () => ({
+      to: completionRoute.to,
+      search: (prev: any) => ({
+        ...prev,
+        step: "streak",
+      }),
     }),
-    toStreakIncrease: (
-      courseId: string,
-      lessonId: string,
-      oldStreak: number,
-      newStreak: number,
-      completionStatus: LessonCompletionStatus
-    ) => ({
-      to: streakIncreaseRoute.to,
-      params: { courseId, lessonId, oldStreak, newStreak, completionStatus },
-      replace: true,
-    }),
-    toCourseComplete: (courseId: string) => ({
-      to: courseCompleteRoute.to,
-      params: { courseId },
-      replace: true,
+
+    toCourseComplete: () => ({
+      to: completionRoute.to,
+      search: (prev: any) => ({
+        ...prev,
+        step: "course",
+      }),
     }),
   },
 

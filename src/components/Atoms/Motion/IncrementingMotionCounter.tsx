@@ -1,9 +1,12 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 
-type StreakCountIncrementProps = { oldCount: number; newCount: number };
+type IncrementingMotionCounterProps = { oldCount: number; newCount: number };
 
-export function StreakCountIncrement({ oldCount, newCount }: StreakCountIncrementProps) {
+export function IncrementingMotionCounter({
+  oldCount,
+  newCount,
+}: IncrementingMotionCounterProps) {
   const [displayCount, setDisplayCount] = useState(oldCount);
 
   useEffect(() => {
@@ -22,7 +25,7 @@ export function StreakCountIncrement({ oldCount, newCount }: StreakCountIncremen
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="absolute inset-0"
         >
-        {displayCount} Day Streak!
+          {displayCount}
         </motion.div>
       </AnimatePresence>
     </div>
