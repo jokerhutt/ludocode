@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { WarningDialogWithTrigger } from "./WarningDialogWithTrigger";
-import { DialogTrigger } from "@radix-ui/react-dialog";
-
+import { DialogTrigger } from "@/components/ui/dialog";
 type LeaveUnsavedBuilder = {
   onClick: () => void;
   children: ReactNode;

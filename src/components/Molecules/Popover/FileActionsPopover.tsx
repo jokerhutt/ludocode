@@ -1,15 +1,12 @@
 import { FileWrapper } from "@/components/Molecules/File/FileWrapper.tsx";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
+
 import type { ReactNode } from "react";
 import { FileInfoRow } from "../File/FileInfoRow.tsx";
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { RenameDialog } from "../Dialog/Edit/RenameDialog.tsx";
 import { DeleteDialog } from "../Dialog/Warning/DeleteDialog.tsx";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
+import { DialogTrigger } from "@/components/ui/dialog.tsx";
 
 type FileActionsPopoverProps = {
   children: ReactNode;
@@ -54,7 +51,7 @@ export function FileActionsPopover({
             itemName={targetName}
             onSubmit={renameItem}
           >
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <FileWrapper isSelected={false}>
                 <FileInfoRow fileName={"Rename"}>
                   <HeroIcon iconName="PencilIcon" className="h-4 text-white" />

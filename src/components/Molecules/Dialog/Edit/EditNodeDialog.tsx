@@ -12,7 +12,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { OrderSelector } from "@/components/Atoms/Selection/OrderSelector";
 import { TrashIcon } from "lucide-react";
-import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import { SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const EditNodeDialog = withForm({
   ...courseFormOpts,

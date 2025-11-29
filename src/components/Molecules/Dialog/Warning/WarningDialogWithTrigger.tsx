@@ -1,10 +1,7 @@
-import {
-  Dialog,
-  DialogDescription,
-  DialogTitle,
-} from "@radix-ui/react-dialog";
+
 import { DialogWrapper } from "../DialogWrapper";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
+import { Dialog, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import type { ReactNode } from "react";
 
 type DeleteDialogWithTriggerProps = {

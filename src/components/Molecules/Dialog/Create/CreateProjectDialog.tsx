@@ -1,6 +1,5 @@
-import { Dialog } from "@radix-ui/react-dialog";
 import { DialogWrapper } from "../DialogWrapper";
-import { DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { LanguageType } from "@/Types/Playground/LanguageType";

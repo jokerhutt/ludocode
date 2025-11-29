@@ -1,7 +1,6 @@
-import { Dialog } from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { DialogWrapper } from "../DialogWrapper";
-import { DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateCourse } from "@/Hooks/Queries/Mutations/useCreateCourse";

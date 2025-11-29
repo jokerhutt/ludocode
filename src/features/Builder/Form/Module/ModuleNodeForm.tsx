@@ -95,7 +95,9 @@ export const ModuleNodeForm = withForm({
                   type="module"
                   form={form}
                 >
-                  <Button className="h-6">Edit</Button>
+                  <Button className="h-6" asChild>
+                    <span>Edit</span>
+                  </Button>
                 </EditNodeDialog>
                 <ExpandCollapsibleButtonProps
                   isExpanded={isExpanded}
