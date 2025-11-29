@@ -17,12 +17,13 @@ import {
   RP_SYNC,
   RP_LESSON_COMPLETE,
   RP_LESSON_COMPLETE_STREAK_INCREASE,
-  RP_BUILD_SELECTION as RP_BUILD_SELECTION,
+  RP_BUILD_SELECTION,
   RP_ONBOARDING,
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
   RP_PROJECT,
   RP_DEMO,
+  RP_COURSE_COMPLETE,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
@@ -54,7 +55,7 @@ import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/Layouts/ProjectLayout.tsx";
 import { DEMO_LOGIN } from "@/constants/pathConstants.ts";
-import type { UserStreak } from "@/Types/Progress/UserStreak.ts";
+import { CourseCompletePage } from "@/features/Completion/CourseCompletePage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -256,6 +257,12 @@ export const streakIncreaseRoute = createRoute({
   component: StreakIncreasePage,
 });
 
+export const courseCompleteRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_COURSE_COMPLETE,
+  component: CourseCompletePage,
+});
+
 export const lessonRoute = createRoute({
   getParentRoute: () => lessonSectionRoute,
   path: "/",
@@ -281,6 +288,7 @@ const routeTree = rootRoute.addChildren([
     syncRoute,
     completeRoute,
     streakIncreaseRoute,
+    courseCompleteRoute
   ]),
   authRoute,
 ]);

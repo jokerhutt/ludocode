@@ -34,7 +34,7 @@ export function useCommittedSubmissions({
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
     const lessonSubmission = convertToLessonSubmission(lessonId, merged);
     router.navigate(
-      ludoNavigation.lesson.toSyncPage(lessonId, lessonSubmission)
+      ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission)
     );
   };
   const handleCorrectAttempt = () =>

@@ -5,10 +5,10 @@ import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { completeRoute, router } from "../../routes/router";
-import { LessonCompletionFooter } from "./LessonCompletionFooter";
+import { CompletionFooter } from "./CompletionFooter";
 
 export function LessonCompletionPage() {
-  const { lessonId, coins, accuracy, oldStreak, newStreak } =
+  const { courseId, lessonId, coins, accuracy, oldStreak, newStreak, completionStatus } =
     completeRoute.useParams();
   const hasStreakIncreased = oldStreak < newStreak;
 
@@ -17,7 +17,13 @@ export function LessonCompletionPage() {
   const handleContinue = () => {
     if (hasStreakIncreased) {
       router.navigate(
-        ludoNavigation.lesson.toStreakIncreased(lessonId, oldStreak, newStreak)
+        ludoNavigation.completion.toStreakIncrease(
+          courseId,
+          lessonId,
+          oldStreak,
+          newStreak,
+          completionStatus
+        )
       );
     } else {
       router.navigate(ludoNavigation.module.toCurrent(true));
@@ -40,7 +46,7 @@ export function LessonCompletionPage() {
           </div>
         </div>
       </MainContentWrapper>
-      <LessonCompletionFooter handleContinue={handleContinue} />
+      <CompletionFooter handleContinue={handleContinue} />
     </MainGridWrapper>
   );
 }

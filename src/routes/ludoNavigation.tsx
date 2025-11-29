@@ -23,7 +23,9 @@ import {
   projectRoute,
   streakIncreaseRoute,
   syncRoute,
+  courseCompleteRoute,
 } from "./router";
+import type { LessonCompletionStatus } from "@/Types/Exercise/LessonCompletionResponse.ts";
 
 export const ludoNavigation = {
   courseRoot: () => ({ to: RP_COURSE }),
@@ -82,20 +84,6 @@ export const ludoNavigation = {
       search: { exercise: current + 1 },
       replace: true,
     }),
-    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
-      to: syncRoute.to,
-      params: { lessonId },
-      state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
-      replace: true,
-    }),
-    toStreakIncreased: (
-      lessonId: string,
-      oldStreak: number,
-      newStreak: number
-    ) => ({
-      to: streakIncreaseRoute.to,
-      params: { lessonId, oldStreak, newStreak },
-    }),
   },
 
   playground: {
@@ -108,17 +96,43 @@ export const ludoNavigation = {
 
   completion: {
     toComplete: (
+      courseId: string,
       coins: number,
       accuracy: number,
       oldStreak: number,
-      newStreak: number
+      newStreak: number,
+      completionStatus: LessonCompletionStatus
     ) => ({
       to: completeRoute.to,
-      params: { coins, accuracy, oldStreak, newStreak },
+      params: {
+        courseId,
+        coins,
+        accuracy,
+        oldStreak,
+        newStreak,
+        completionStatus,
+      },
     }),
-    toStreakIncrease: (oldStreak: number, newStreak: number) => ({
+    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
+      to: syncRoute.to,
+      params: { lessonId },
+      state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
+      replace: true,
+    }),
+    toStreakIncrease: (
+      courseId: string,
+      lessonId: string,
+      oldStreak: number,
+      newStreak: number,
+      completionStatus: LessonCompletionStatus
+    ) => ({
       to: streakIncreaseRoute.to,
-      params: { oldStreak, newStreak },
+      params: { courseId, lessonId, oldStreak, newStreak, completionStatus },
+      replace: true,
+    }),
+    toCourseComplete: (courseId: string) => ({
+      to: courseCompleteRoute.to,
+      params: { courseId },
       replace: true,
     }),
   },
