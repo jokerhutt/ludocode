@@ -1,4 +1,4 @@
-import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DialogWrapper } from "../DialogWrapper";
 import type { ReactNode } from "react";
 import type { DailyGoalMet, UserStreak } from "@/Types/Progress/UserStreak";
@@ -18,9 +18,9 @@ export function StreakStatsDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogWrapper>
-        <DialogHeader className="text-white code font-bold text-xl">
+        <DialogTitle className="text-white code font-bold text-xl">
           Your Streak
-        </DialogHeader>
+        </DialogTitle>
         <div className="w-full items-start text-white grid grid-cols-2">
           <div>
             <p className="text-start">Current: {current} days</p>

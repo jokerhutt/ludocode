@@ -1,7 +1,6 @@
-import { Dialog, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { DialogWrapper } from "../DialogWrapper";
 import type { ReactNode } from "react";
-import { DialogTrigger } from "@radix-ui/react-dialog";
 
 type CoinsDialogProps = { children: ReactNode; coins: number };
 
