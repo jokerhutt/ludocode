@@ -36,7 +36,7 @@ export function StreakStatsDialog({
           </div>
           <p className="text-start">Best: {best} days</p>
         </div>
-        <StreakWeeklyWidget history={pastWeekStreak} />
+        <StreakWeeklyWidget title="Weekly Streak" history={pastWeekStreak} />
       </DialogWrapper>
     </Dialog>
   );

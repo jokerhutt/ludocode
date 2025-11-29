@@ -54,6 +54,7 @@ import { DesktopOnlyPage } from "@/Layouts/ErrorPage/DesktopOnlyPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/Layouts/ProjectLayout.tsx";
 import { DEMO_LOGIN } from "@/constants/pathConstants.ts";
+import type { UserStreak } from "@/Types/Progress/UserStreak.ts";
 
 export const queryClient = new QueryClient();
 
@@ -231,10 +232,13 @@ export const syncRoute = createRoute({
   path: RP_SYNC,
   loader: async ({}) => {
     const currentUser = await queryClient.ensureQueryData(qo.currentUser());
-    const userStats = await queryClient.ensureQueryData(
+    const userCoins = await queryClient.ensureQueryData(
       qo.coins(currentUser.id)
     );
-    const oldStreak = userStats.streak;
+    const userStreak = await queryClient.ensureQueryData(
+      qo.streak(currentUser.id)
+    );
+    const oldStreak = userStreak.current;
     return { oldStreak };
   },
   component: SyncingPage,
