@@ -31,8 +31,9 @@ export function NavigationIconGroup({
           className={buttonClassName}
           active={isActive(icon.path)}
           key={icon.name}
+          onClick={() => !!icon.onClick && icon.onClick()}
         >
-          <p onClick={() => !!icon.onClick && icon.onClick()}>{icon.name}</p>
+          <p>{icon.name}</p>
         </HollowSlotButton>
       ))}
     </HollowSlotButtonGroup>
