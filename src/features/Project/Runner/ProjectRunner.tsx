@@ -5,7 +5,7 @@ export function ProjectRunner() {
   const { outputInfo } = useCodeRunnerContext();
   const { outputLog } = outputInfo;
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex overflow-y-auto h-full flex-col p-4">
       {outputLog.map((log, logIdx) => (
         <div
           key={logIdx}

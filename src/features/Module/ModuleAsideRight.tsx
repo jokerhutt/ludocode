@@ -5,6 +5,8 @@ import { AsideComponent } from "../../Layouts/Aside/AsideComponent";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { ModulesList } from "./ModulesList";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
 type ModuleAsideRightProps = {
   modules: LudoModule[];
@@ -20,19 +22,24 @@ export function ModuleAsideRight({
   const resetCourseProgressMutation = useResetCourseProgress();
 
   const handleResetCourse = (courseId: string) => {
+    if (isResettingCourse) return;
     resetCourseProgressMutation.mutate(courseId);
   };
 
+  const isResettingCourse = resetCourseProgressMutation.isPending;
+
   return (
-    <AsideComponent orientation="RIGHT" paddingX="pl-6">
+    <AsideComponent orientation="RIGHT_WIDE" innerClassName="py-6 px-12">
       <ModulesList modules={modules} header={{ courseName }} />
       <div className="mt-6">
-        <ActionButton
+        <Button
+          variant={isResettingCourse ? "disabled" : "default"}
+          className="w-full text-xl"
           onClick={() => handleResetCourse(courseId)}
-          orientation="center"
-          active={true}
-          text="Reset"
-        />
+        >
+          Reset
+          {isResettingCourse && <Spinner className="text-ludoLightPurple" />}
+        </Button>
       </div>
     </AsideComponent>
   );

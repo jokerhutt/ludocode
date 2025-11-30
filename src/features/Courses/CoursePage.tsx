@@ -29,6 +29,7 @@ export function CoursePage() {
   const changeCourseMutation = useChangeCourse();
 
   const handleSelectCourse = (courseId: string) => {
+    if (changeCourseMutation.isPending) return;
     changeCourseMutation.mutate({ newCourseId: courseId });
   };
 

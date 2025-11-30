@@ -4,7 +4,7 @@ type ModuleAsideLeftProps = {};
 
 export function ModuleAsideLeft({}: ModuleAsideLeftProps) {
   return (
-    <AsideComponent orientation="LEFT" paddingX="pl-6">
+    <AsideComponent orientation="LEFT" innerClassName="px-6">
       <div></div>
     </AsideComponent>
   );

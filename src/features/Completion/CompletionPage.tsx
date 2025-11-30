@@ -1,4 +1,5 @@
-import animationData from "../../../public/Animations/LC_CONFETTI_SLOW.json";
+import confettiAnimationData from "../../../public/Animations/LC_CONFETTI_SLOW.json";
+import streakAnimationData from "../../../public/Animations/STR_INCREASE.json";
 import { useTimedLottie } from "@/Hooks/UI/useTimedLottie";
 import Lottie from "lottie-react";
 import { useCompletionContext } from "../Common/CompletionContext";
@@ -36,7 +37,7 @@ export function StreakIncreasePage() {
     <>
       <Lottie
         lottieRef={lottieRef}
-        animationData={animationData}
+        animationData={streakAnimationData}
         autoPlay={false}
         loop={false}
         className="w-full h-80"
@@ -55,7 +56,7 @@ export function CourseCompletePage() {
     <>
       <Lottie
         lottieRef={lottieRef}
-        animationData={animationData}
+        animationData={confettiAnimationData}
         autoPlay={false}
         loop={true}
         className="w-full h-100 border-t border-b mb-4"

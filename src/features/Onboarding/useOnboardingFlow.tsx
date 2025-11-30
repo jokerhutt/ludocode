@@ -77,6 +77,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   };
 
   const next = useCallback(() => {
+    if (!submitOnboardingMutation.isPending) return;
     if (!canAdvance) return;
     if (!atLast) goto(stepOrder[idx + 1]);
     if (atLast) {

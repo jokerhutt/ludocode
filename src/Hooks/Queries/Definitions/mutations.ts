@@ -75,8 +75,6 @@ export const mutations = {
     });
   },
 
-  
-
   deleteProject: (pid: string) => {
     return mutationOptions<ProjectListResponse, Error, null>({
       mutationKey: ["deleteProject"],

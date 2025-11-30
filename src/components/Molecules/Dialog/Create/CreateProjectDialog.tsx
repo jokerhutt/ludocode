@@ -1,5 +1,5 @@
 import { DialogWrapper } from "../DialogWrapper";
-import { Dialog, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { LanguageType } from "@/Types/Playground/LanguageType";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useCreateProject } from "@/Hooks/Queries/Mutations/useCreateProject";
 import { InputWrapper } from "../../Input/InputWrapper";
 import { InputTitle } from "../../Input/InputTitle";
+import { Spinner } from "@/components/ui/spinner";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -33,6 +34,7 @@ export function CreateProjectDialog({
     useState<LanguageType>("python");
 
   const submitProject = () => {
+    if (isSubmitLoading) return;
     if (projectName == null || projectName.length <= 0) return;
     if (projectLanguage == null) return;
 
@@ -43,12 +45,14 @@ export function CreateProjectDialog({
     });
   };
 
+  const isSubmitLoading = createProjectMutation.isPending;
+
   return (
     <Dialog open={open} onOpenChange={() => closeModal()}>
       <DialogWrapper>
-        <DialogHeader className="text-white code font-bold text-xl">
+        <DialogTitle className="text-white code font-bold text-xl">
           New Project
-        </DialogHeader>
+        </DialogTitle>
 
         <InputWrapper>
           <InputTitle>Project name</InputTitle>
@@ -77,9 +81,14 @@ export function CreateProjectDialog({
           </div>
         </InputWrapper>
 
-        <div className="py-2 flex justify-center items-center">
-          <Button onClick={() => submitProject()} className="w-full">
+        <div className="py-2 mt-2 flex gap-2 justify-center items-center">
+          <Button
+            variant={isSubmitLoading ? "disabled" : "default"}
+            onClick={() => submitProject()}
+            className="w-full flex"
+          >
             Create Project
+            {isSubmitLoading && <Spinner className="text-ludoLightPurple" />}
           </Button>
         </div>
       </DialogWrapper>

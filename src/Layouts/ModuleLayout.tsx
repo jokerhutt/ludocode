@@ -12,7 +12,6 @@ import { ModuleSelectionPage } from "@/features/Module/ModuleSelectionPage";
 import { useTab } from "@/Hooks/UI/useTab";
 
 export function ModuleLayout() {
-
   const { courseId, moduleId } = moduleRoute.useParams();
   const { tree } = moduleRoute.useLoaderData();
 

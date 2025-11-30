@@ -7,13 +7,22 @@ import type { CourseProgress } from "@/Types/Progress/CourseProgress";
 import type { LudoModule } from "@/Types/Catalog/LudoModule";
 import type { LudoCourse } from "@/Types/Catalog/LudoCourse";
 
-type ModulePageProps = {lessons: LudoLesson[]; modules: LudoModule[]; course?: LudoCourse, courseProgress: CourseProgress;};
+type ModulePageProps = {
+  lessons: LudoLesson[];
+  modules: LudoModule[];
+  course?: LudoCourse;
+  courseProgress: CourseProgress;
+};
 
-export function ModulePage({lessons, modules, course, courseProgress}: ModulePageProps) {
-
+export function ModulePage({
+  lessons,
+  modules,
+  course,
+  courseProgress,
+}: ModulePageProps) {
   if (!course) return null;
 
-  const {id: courseId, title: courseTitle} = course  
+  const { id: courseId, title: courseTitle } = course;
 
   return (
     <>

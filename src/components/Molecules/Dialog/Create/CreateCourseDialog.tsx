@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useCreateCourse } from "@/Hooks/Queries/Mutations/useCreateCourse";
 import { InputWrapper } from "../../Input/InputWrapper";
 import { InputTitle } from "../../Input/InputTitle";
+import { Spinner } from "@/components/ui/spinner";
 
 type CreateCourseDialogProps = {
   open: boolean;
@@ -36,6 +37,8 @@ export function CreateCourseDialog({
     });
   };
 
+  const isPending = createCourseMutation.isPending;
+
   return (
     <Dialog open={open} onOpenChange={() => closeModal()}>
       <DialogWrapper>
@@ -53,8 +56,13 @@ export function CreateCourseDialog({
         </InputWrapper>
 
         <div className="py-2 flex justify-center items-center">
-          <Button onClick={() => submitProject()} className="w-full">
+          <Button
+            variant={isPending ? "disabled" : "default"}
+            onClick={() => submitProject()}
+            className="w-full"
+          >
             Create Project
+            {isPending && <Spinner className="text-ludoLightPurple" />}
           </Button>
         </div>
       </DialogWrapper>

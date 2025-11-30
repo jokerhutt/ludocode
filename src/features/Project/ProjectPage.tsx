@@ -30,15 +30,17 @@ export function ProjectPage() {
 
       <CodeRunnerProvider project={project} files={files}>
         <>
-          <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
+          <div className="col-span-10 min-h-0 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
             <EditorWinbar />
             <ProjectEditor />
             <RunCodeButton />
           </div>
 
-          <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
+          <div className="col-span-1 min-h-0 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3 flex flex-col">
             <RunnerWinbar />
-            <ProjectRunner />
+            <div className="flex-1 min-h-0">
+              <ProjectRunner />
+            </div>
           </div>
         </>
       </CodeRunnerProvider>

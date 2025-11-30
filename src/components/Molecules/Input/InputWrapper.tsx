@@ -1,10 +1,13 @@
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
-type InputWrapperProps = { children: ReactNode };
+type InputWrapperProps = { children: ReactNode; className?: string };
 
-export function InputWrapper({ children }: InputWrapperProps) {
+export function InputWrapper({ children, className }: InputWrapperProps) {
   return (
-    <div className="flex text-white w-full gap-4 items-center">{children}</div>
+    <div className={cn("flex flex-col text-white w-full gap-2 items-start", className)}>
+      {children}
+    </div>
   );
 }
