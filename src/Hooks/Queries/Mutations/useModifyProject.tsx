@@ -29,7 +29,8 @@ export function useModifyProject(projectId: string) {
   const deleteProjectMutation = useDeleteProject(projectId);
 
   const handleRenameProject = useCallback(
-    (newName: string) => {
+    (oldName: string, newName: string) => {
+      if (oldName === newName) return;
       renameProjectMutation.mutate({ targetId: projectId, newName: newName });
     },
     [projectId, renameProjectMutation]
@@ -39,5 +40,8 @@ export function useModifyProject(projectId: string) {
     deleteProjectMutation.mutate(null);
   }, [deleteProjectMutation]);
 
-  return { handleRenameProject, handleDeleteProject };
+  return {
+    handleRenameProject,
+    handleDeleteProject,
+  };
 }
