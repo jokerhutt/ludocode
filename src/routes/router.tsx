@@ -225,6 +225,9 @@ export const router = createRouter({
   defaultNotFoundComponent: () => {
     return <ErrorPage errorCode={404} />;
   },
+  defaultErrorComponent: () => {
+    return <ErrorPage errorCode={500} />;
+  },
 });
 
 declare module "@tanstack/react-router" {
