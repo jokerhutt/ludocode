@@ -1,8 +1,17 @@
-<h1 align="center">Code Playground, Projects & Files</h1>
+<h1 align="center">Projects & Files</h1>
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Autosave](#autosave)
+3. [The Editor](#the-editor)
+4. [Running Code & The Output Log](#running-code--the-output-log)
+5. [File Operations](#file-operations)
+   - [Adding Files](#adding-files)
+   - [Editing Files](#editing-files)
 
 ## Overview
 
-This document explains how the code playground, which allows users to write and execute code, works. 
+This document explains how the projects feature, which allows users to write and execute code, works. 
 
 Projects are seperated into 2 core datstructures: The `ProjectSnapshot` and the `ProjectFileSnapshot`. Each project and file has a `LanguageType`, which assists in deciding the runtime in which the users code runs.
 

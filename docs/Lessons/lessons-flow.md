@@ -17,74 +17,24 @@ It handles:
 
 Each exercise in a lesson has 3 'phases' that it goes through.
 
-<style>
-  .lesson-phase-text-col {
-    width: 480px;
-  }
-
-  .lesson-phase-img-col {
-    width: 280px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .lesson-phase-img {
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    object-fit: contain;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-
- .lesson-phase-row {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-  }
-</style>
 
 ### 1. User Input Phase
 
-<div class="lesson-phase-row">
-  <div class="lesson-phase-text-col">
+The user interacts with the exercise by selecting options and forming a potential answer. Nothing is evaluated, and no submission exists. This phase is purely about constructing input.
 
-The user chooses options and messes around with answers here. Nothing is final yet. This is the phase where the user experiments with different answer selections and changes their mind freely without any consequences.
+Selections are stored locally in a `useState` array of `AnswerToken`, allowing the user to revise, remove, or reorder choices without restrictions. No progress changes occur here.
 
-Answers are stored locally in a `useState` array of `AnswerToken`. The user can revise and adjust these selections however they like. Nothing is locked in at this stage.
-
-The submit button remains disabled until there is at least a valid combination of tokens. Valid simply means the selection forms a structured choice that the system can evaluate. It does not imply correctness. The system just needs something coherent to process before allowing submission.
-
-  </div>
-
-  <div class="lesson-phase-img-col">
-    <img src="./images/LESSONS_PHASE_INPUT.png" class="lesson-phase-img" />
-  </div>
-
-</div>
+The submit button stays disabled until the selection meets the basic requirements of a complete answer. Once the input satisfies those criteria, submission becomes available.
 
 ---
 
 ### 2. Staged Phase
 
-<div class="lesson-phase-row">
-  <div class="lesson-phase-text-col">
+The user has submitted their answer. Input is now locked, and the exercise goes from interaction to evaluation.
 
-Submit has been clicked.
+The current selection is passed into the staging hook, which generates an `ExerciseAttempt`. This object represents the submitted answer and is used to perform correctness checks.
 
-User input is locked
-
-State is pushed into the staging hook for correctness validation
-
-Produces an `ExerciseAttempt` stored in `currentlyStagedAttempt`,
-`currentlyStagedAttempt.isCorrect` drives the feedback UI
-
-  </div>
-
-  <div class="lesson-phase-img-col">
-    <img src="./images/LESSONS_PHASE_STAGED.png" class="lesson-phase-img" />
-  </div>
-  
-</div>
+The result of this attempt is stored in `currentlyStagedAttempt`. Its `isCorrect` property determines the feedback the user sees and whether they are allowed to continue or must retry.
 
 ---
 
@@ -131,7 +81,10 @@ A submitted attempt is **correct** when the selected `answerOrder`s are strictly
 
 Null means a distractor was picked, which automatically means the attempt is wrong.
 
+### Correct Exercise Example: 
 <img src="./images/LESSONS_AO_CLOZE_CORRECT.png"/>
+
+### Incorrect Exercise Example: 
 <img src="./images/LESSONS_AO_CLOZE_WRONG.png"/>
 
 ---

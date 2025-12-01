@@ -1,8 +1,17 @@
 <h1 align="center">Fetching the Catalog Tree</h1>
 
+## Table of Contents
+1. [Overview](#overview)
+2. [FlatCourseTree](#flatcoursetree)
+3. [`useTreeData()`](#usetreedata)
+4. [Benefits of using ids for the tree](#benefits-of-using-ids-for-the-tree)
+5. [Using the tree data](#using-the-tree-data)
+
 ## Overview
 
-This document explains how the catalog tree is fetched. For information on how it is used how it more on how it is used (e.g. tracking and updating the current lesson see [Tracking progress in a course](./tracking-course-progress.md))
+This document explains how the catalog tree is fetched. For information on how it is used how it more on how it is used (e.g. tracking and updating the current lesson see [Tracking progress in a course](./tracking-course-progress.md)).
+
+For information about how the queries system works, see [Queries & State Management](../Queries/queries.md)
 
 The catalog tree is the tree that holds the modules and lessons for each course.
 

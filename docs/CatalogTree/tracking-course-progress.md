@@ -1,5 +1,12 @@
 <h1 align="center">Tracking Course Progress</h1>
 
+## Table of Contents
+1. [Overview](#overview)
+2. [LudoLesson](#ludolesson)
+3. [CourseProgress](#courseprogress)
+4. [Deriving completion on the UI](#deriving-completion-on-the-ui)
+5. [Updating the current lesson](#updating-the-current-lesson)
+
 ## Overview
 
 This document explains how the user's current lesson & completed lessons are calculated and updated. For information on how the course catalog is fetched, see [Catalog Tree & Fetching](./catalog-tree-fetching.md)
