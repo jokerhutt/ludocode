@@ -37,8 +37,8 @@ export const ModuleListForm = withForm({
             if (isCurrent) {
               router.navigate(
                 nextId
-                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
-                  : ludoNavigation.build.toSelectCourse()
+                  ? ludoNavigation.builder.toBuilderModule(courseId, nextId)
+                  : ludoNavigation.hub.builder.toBuilderHub()
               );
             }
 

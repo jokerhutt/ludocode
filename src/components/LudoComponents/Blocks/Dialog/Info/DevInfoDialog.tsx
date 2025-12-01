@@ -1,10 +1,6 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
+import { Dialog, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import type { ReactNode } from "react";
-import type { DevInfoContent } from "@/lib/infoContent";
+import type { DevInfoContent } from "@/constants/static-data/infoContent";
 import ReactMarkdown from "react-markdown";
 import { DialogWrapper } from "../DialogWrapper";
 
@@ -20,7 +16,7 @@ export function DevInfoDialog({ content, children }: DevInfoDialogProps) {
       <DialogWrapper className="text-start">
         <DialogTitle className="text-white">{content.title}</DialogTitle>
         <div className="prose prose-invert  whitespace-pre-wrap text-white">
-          <ReactMarkdown >{content.body}</ReactMarkdown>
+          <ReactMarkdown>{content.body}</ReactMarkdown>
         </div>
       </DialogWrapper>
     </Dialog>

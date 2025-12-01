@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import type { DailyGoalMet } from "@/Types/Progress/UserStreak";
 import { HeroIcon } from "../../Atoms/Icons/HeroIcon";
 

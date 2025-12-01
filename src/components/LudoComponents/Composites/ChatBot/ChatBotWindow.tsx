@@ -3,7 +3,7 @@ import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { useAutoScrollDown } from "@/Hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./ChatBotConversation";
 import { ChatBotInput } from "./ChatBotInput";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { useChatbot } from "@/Hooks/Context/ChatBot/ChatBotContext";
 type ChatBotProps = {
   className?: string;

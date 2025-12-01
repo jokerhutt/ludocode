@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { type LucideIcon, XIcon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 

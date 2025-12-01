@@ -19,7 +19,7 @@ export function BuilderHeader({ handleFormSubmission }: BuilderHeaderProps) {
           title="Are you sure you want to exit the builder?"
           subtitle="All unsaved progress will be lost"
           onClick={() =>
-            router.navigate(ludoNavigation.playground.toPlayground())
+            router.navigate(ludoNavigation.hub.builder.toBuilderHub())
           }
         >
           <ExitButton />

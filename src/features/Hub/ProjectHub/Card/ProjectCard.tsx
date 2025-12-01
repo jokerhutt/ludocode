@@ -1,4 +1,3 @@
-
 import { CustomIcon } from "@/components/LudoComponents/Atoms/Icons/CustomIcon";
 import { FileActionsButton } from "@/components/LudoComponents/Blocks/Popover/FileActionsButton";
 import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject.tsx";
@@ -20,7 +19,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div
       onClick={() =>
-        router.navigate(ludoNavigation.playground.toProject(projectId))
+        router.navigate(ludoNavigation.project.toProject(projectId))
       }
       className="w-full text-white hover:cursor-pointer flex justify-between border-ludoLightPurple border p-4 rounded-xl bg-ludoGrayLight"
     >

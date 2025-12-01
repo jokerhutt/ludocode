@@ -1,6 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "@/constants/form/formKit";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 
 type FormTitleFieldProps = {
   name?: string;

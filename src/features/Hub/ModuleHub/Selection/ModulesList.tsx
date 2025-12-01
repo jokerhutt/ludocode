@@ -1,8 +1,7 @@
-
 import { ListRow } from "@/components/LudoComponents/Atoms/Row/ListRow";
 import { ListContainer } from "@/components/LudoComponents/Blocks/List/ListContainer";
 import type { ListHeaderProps } from "@/components/LudoComponents/Blocks/List/ListHeader";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { moduleHubRoute, router } from "@/routes/router";
 import type { LudoModule } from "@/Types/Catalog/LudoModule";
@@ -28,7 +27,9 @@ export function ModulesList({
 
   const selectModule = (selectedModuleId: string, isSelected: boolean) => {
     if (isSelected) return;
-    router.navigate(ludoNavigation.module.toModule(courseId, selectedModuleId));
+    router.navigate(
+      ludoNavigation.hub.module.toModule(courseId, selectedModuleId)
+    );
   };
 
   const headerContent: ListHeaderProps | undefined = !!header

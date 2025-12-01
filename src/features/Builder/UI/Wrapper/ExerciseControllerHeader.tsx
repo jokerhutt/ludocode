@@ -1,5 +1,5 @@
 import { DevInfoDialog } from "@/components/LudoComponents/Blocks/Dialog/Info/DevInfoDialog";
-import { exTypeInfoContent } from "@/lib/infoContent";
+import { exTypeInfoContent } from "@/constants/static-data/infoContent";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
 import type { LessonSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";

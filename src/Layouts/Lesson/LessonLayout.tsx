@@ -20,7 +20,7 @@ export function LessonLayout() {
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
         <HeaderWithProgress
-          onExit={() => router.navigate(ludoNavigation.module.toCurrent())}
+          onExit={() => router.navigate(ludoNavigation.hub.module.toCurrent())}
           total={exercises.length}
           position={exercisePosition - 1}
         />

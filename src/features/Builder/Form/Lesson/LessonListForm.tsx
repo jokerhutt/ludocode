@@ -29,7 +29,7 @@ export const LessonListForm = withForm({
   }) => {
     const selectLesson = (lessonId: string) => {
       router.navigate(
-        ludoNavigation.build.toBuilderLesson(courseId, moduleId, lessonId)
+        ludoNavigation.builder.toBuilderLesson(courseId, moduleId, lessonId)
       );
     };
 
@@ -56,7 +56,7 @@ export const LessonListForm = withForm({
             fieldArray.removeValue(index);
             if (isCurrent) {
               router.navigate(
-                ludoNavigation.build.toBuilderModule(courseId, moduleId)
+                ludoNavigation.builder.toBuilderModule(courseId, moduleId)
               );
             }
           };

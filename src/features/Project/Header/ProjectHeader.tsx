@@ -19,7 +19,7 @@ export function ProjectHeader() {
   });
 
   const goToPlayground = () => {
-    router.navigate(ludoNavigation.playground.toPlayground());
+    router.navigate(ludoNavigation.hub.project.toProjectHub());
   };
 
   return (

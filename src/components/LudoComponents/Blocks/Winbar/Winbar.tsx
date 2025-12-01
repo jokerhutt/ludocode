@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import type { ReactNode } from "react";
 
 type Winbar = { children: ReactNode; className?: string };

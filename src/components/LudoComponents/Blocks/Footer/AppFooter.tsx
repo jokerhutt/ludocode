@@ -1,14 +1,12 @@
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/components/utils";
 
 type AppFooterProps = {
   children: ReactNode;
   className?: string;
 };
 
-export function AppFooter({ children, className}: AppFooterProps) {
-
-
+export function AppFooter({ children, className }: AppFooterProps) {
   return (
     <footer
       className={cn(

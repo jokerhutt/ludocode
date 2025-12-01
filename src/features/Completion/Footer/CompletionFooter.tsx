@@ -20,18 +20,18 @@ export function CompletionFooter() {
         } else if (isCourseCompleteForFirstTime) {
           return ludoNavigation.completion.toCourseComplete();
         } else {
-          return ludoNavigation.module.toCurrent();
+          return ludoNavigation.hub.module.toCurrent();
         }
 
       case "streak":
         if (isCourseCompleteForFirstTime) {
           return ludoNavigation.completion.toCourseComplete();
         } else {
-          return ludoNavigation.module.toCurrent();
+          return ludoNavigation.hub.module.toCurrent();
         }
 
       case "course":
-        return ludoNavigation.module.toCurrent();
+        return ludoNavigation.hub.module.toCurrent();
     }
   };
 

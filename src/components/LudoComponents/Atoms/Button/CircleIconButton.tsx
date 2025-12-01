@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { HeroIcon, type IconName } from "../Icons/HeroIcon";
 
 type CircleIconButtonProps = {

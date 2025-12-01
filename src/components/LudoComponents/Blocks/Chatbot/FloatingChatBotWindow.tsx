@@ -1,9 +1,10 @@
-
 import { ChatBotProvider } from "@/Hooks/Context/ChatBot/ChatBotContext";
 import { useHotkeys } from "@/Hooks/UI/useHotkeys";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { useState } from "react";
-import ChatBotWindow, { type ChatBotChatType } from "../../Composites/ChatBot/ChatBotWindow";
+import ChatBotWindow, {
+  type ChatBotChatType,
+} from "../../Composites/ChatBot/ChatBotWindow";
 
 type FloatingChatBotWindowProps = {
   chatType: ChatBotChatType;

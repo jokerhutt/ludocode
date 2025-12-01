@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 import { BookmarkIcon, type LucideProps } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 
@@ -19,7 +19,10 @@ export const Checkpoint = ({
   ...props
 }: CheckpointProps) => (
   <div
-    className={cn("flex items-center gap-0.5 text-muted-foreground overflow-hidden", className)}
+    className={cn(
+      "flex items-center gap-0.5 text-muted-foreground overflow-hidden",
+      className
+    )}
     {...props}
   >
     {children}

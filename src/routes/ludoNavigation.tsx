@@ -5,7 +5,6 @@ import {
   RP_MODULE,
   RP_BUILD,
   RP_MODULE_REDIRECT,
-  RP_ME,
   RP_BUILD_HUB,
   RP_PROJECT_HUB,
 } from "../constants/router/routes.ts";
@@ -20,13 +19,28 @@ import type { LessonSubmission } from "@/Types/Exercise/LessonSubmissionTypes.ts
 export const ludoNavigation = {
   courseRoot: () => ({ to: RP_COURSE }),
 
-  me: () => ({ to: RP_ME }),
+  hub: {
+    module: {
+      toCurrent: (replace = false) => ({
+        to: RP_MODULE_REDIRECT,
+        replace: replace,
+      }),
+      toModule: (courseId: string, moduleId: string) => ({
+        to: RP_MODULE,
+        params: { courseId, moduleId },
+      }),
+    },
+    builder: {
+      toBuilderHub: () => ({
+        to: RP_BUILD_HUB,
+      }),
+    },
+    project: {
+      toProjectHub: () => ({ to: RP_PROJECT_HUB }),
+    },
+  },
 
-  build: {
-    toSelectCourse: () => ({
-      to: RP_BUILD_HUB,
-    }),
-
+  builder: {
     toBuilder: (courseId: string) => ({
       to: RP_BUILD,
       params: { courseId },
@@ -76,8 +90,7 @@ export const ludoNavigation = {
     }),
   },
 
-  playground: {
-    toPlayground: () => ({ to: RP_PROJECT_HUB }),
+  project: {
     toProject: (projectId: string) => ({
       to: projectRoute.to,
       params: { projectId },
@@ -127,17 +140,6 @@ export const ludoNavigation = {
         ...prev,
         step: "course",
       }),
-    }),
-  },
-
-  module: {
-    toCurrent: (replace = false) => ({
-      to: RP_MODULE_REDIRECT,
-      replace: replace,
-    }),
-    toModule: (courseId: string, moduleId: string) => ({
-      to: RP_MODULE,
-      params: { courseId, moduleId },
     }),
   },
 };

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { ListHeader, type ListHeaderProps } from "./ListHeader";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 
 type ListContainerProps = {
   children: ReactNode;

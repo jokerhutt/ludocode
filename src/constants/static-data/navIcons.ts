@@ -20,17 +20,17 @@ export const navIcons: NavIcon[] = [
     name: "Learn",
     redirectPath: "/modules",
     path: "/course",
-    onClick: () => router.navigate(ludoNavigation.module.toCurrent()),
+    onClick: () => router.navigate(ludoNavigation.hub.module.toCurrent()),
   },
   {
     name: "Playground",
     path: RP_PROJECT_HUB,
-    onClick: () => router.navigate(ludoNavigation.playground.toPlayground()),
+    onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
   },
   {
     name: "Build",
     path: "/build",
     redirectPath: RP_BUILD_HUB,
-    onClick: () => router.navigate(ludoNavigation.build.toSelectCourse()),
+    onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
   },
 ];

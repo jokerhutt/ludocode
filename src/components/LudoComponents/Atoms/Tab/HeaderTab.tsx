@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 
 type HeaderTabProps = {
   text: string;
@@ -17,8 +17,12 @@ export function HeaderTab({
 
   return (
     <div
-      onClick={() => onClick()}  
-      className={cn("flex items-center bg-ludoGrayDark/60 justify-center", activeStyle, className)}
+      onClick={() => onClick()}
+      className={cn(
+        "flex items-center bg-ludoGrayDark/60 justify-center",
+        activeStyle,
+        className
+      )}
     >
       <p>{text}</p>
     </div>

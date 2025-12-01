@@ -24,7 +24,7 @@ export function useChangeCourse() {
       );
       qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId);
       qc.setQueryData(qk.enrolled(), newEnrolled);
-      router.navigate(ludoNavigation.module.toCurrent());
+      router.navigate(ludoNavigation.hub.module.toCurrent());
     },
   });
 }

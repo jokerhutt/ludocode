@@ -1,5 +1,5 @@
 import { HeaderTab } from "@/components/LudoComponents/Atoms/Tab/HeaderTab";
-import { cn } from "@/lib/utils";
+import { cn } from "@/components/utils";
 
 type ModuleSelectionBarProps = {
   activeTab: MobileModuleTabs;

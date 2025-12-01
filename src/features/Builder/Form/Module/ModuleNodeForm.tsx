@@ -49,7 +49,7 @@ export const ModuleNodeForm = withForm({
             const firstLessonOfNewModule = modules[newModuleIndex].lessons[0];
             if (!firstLessonOfNewModule) return;
             router.navigate(
-              ludoNavigation.build.toBuilderLesson(
+              ludoNavigation.builder.toBuilderLesson(
                 courseId,
                 moduleId,
                 firstLessonOfNewModule.id

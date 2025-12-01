@@ -13,7 +13,7 @@ export function BuilderHubCourseCard({ title, id }: BuilderHubCourseCardProps) {
       </div>
       <Button
         className="lg:mt-0 mt-3"
-        onClick={() => router.navigate(ludoNavigation.build.toBuilder(id))}
+        onClick={() => router.navigate(ludoNavigation.builder.toBuilder(id))}
       >
         Edit Course
       </Button>

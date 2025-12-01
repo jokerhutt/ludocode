@@ -20,7 +20,7 @@ export function LeaveUnsavedButton({
     <LeaveUnsavedDialog
       title={leaveUnsavedText}
       subtitle={leaveUnsavedSubtitle}
-      onClick={() => router.navigate(ludoNavigation.build.toSelectCourse())}
+      onClick={() => router.navigate(ludoNavigation.hub.builder.toBuilderHub())}
     >
       <Button variant={variant}> Quit </Button>
     </LeaveUnsavedDialog>
