@@ -14,7 +14,6 @@ export type ErrorStatus = 404 | 500;
 type ErrorMap = Record<ErrorStatus, ErrorEntry>;
 
 export const errorMap: ErrorMap = {
-    
   404: {
     status: 404,
     title: "The page you are looking for couldn't be found",
@@ -24,7 +23,7 @@ export const errorMap: ErrorMap = {
   },
   500: {
     status: 500,
-    title: "Encountered unexpected error on our server, sorry!",
+    title: "Encountered unexpected error on our side, sorry!",
     suggestion:
       "Try refreshing the page or inspecting the error in the developer tools",
     actionText: "Go to home",
