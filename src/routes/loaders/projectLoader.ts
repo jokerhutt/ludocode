@@ -3,7 +3,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries";
 import { redirect } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 
-export async function playgroundLoader(queryClient: QueryClient) {
+export async function projectHubLoader(queryClient: QueryClient) {
   const projectsPacket = await queryClient.ensureQueryData(qo.allProjects());
 
   return { projectsPacket };
