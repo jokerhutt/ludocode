@@ -13,9 +13,7 @@ import { ExerciseNodeForm } from "@/features/Builder/Form/Exercise/ExerciseNodeF
 import { LudoSidebar } from "@/components/design-system/composites/sidebar/ludo-sidebar.tsx";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 
-type BuilderLayoutProps = {};
-
-export function BuilderLayout({}: BuilderLayoutProps) {
+export function BuilderLayout() {
   const { courseId } = buildRoute.useParams();
   const { data: courseSnapshot } = useSuspenseQuery(
     qo.courseSnapshot(courseId)
