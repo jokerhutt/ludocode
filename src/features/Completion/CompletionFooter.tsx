@@ -12,11 +12,6 @@ export function CompletionFooter() {
   const isCourseCompleteForFirstTime = completionStatus === "COURSE_COMPLETE";
 
   const handleCompletionContinue = () => {
-    console.log("Rah ah");
-    console.log("Has Streak increased: " + hasStreakIncreased);
-    console.log("isCourseComplete: " + isCourseCompleteForFirstTime);
-    console.log("Status: " + completionStatus);
-    console.log("step: " + step);
 
     switch (step) {
       case "lesson":

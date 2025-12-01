@@ -1,6 +1,5 @@
 export const qk = {
   courses: () => ["courses"] as const,
-
   courseTree: (courseId: string) => ["courseTree", courseId] as const,
   currentCourseId: () => ["currentCourseId"] as const,
   course: (courseId: string) => ["course", courseId] as const,
@@ -10,21 +9,14 @@ export const qk = {
   lesson: (lessonId: string) => ["lesson", lessonId] as const,
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,
-
   projects: () => ["projects"] as const,
-
   courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
-
   modulesBySection: (courseId: string) =>
     ["courses", courseId, "modules"] as const,
-
   lessonsByModule: (moduleId: string) =>
     ["modules", moduleId, "lessons"] as const,
-
   userCoins: (userId: string) => ["coins", userId] as const,
-
   courseSnapshot: (courseId: string) => ["snapshot", courseId] as const,
-
   enrolled: () => ["enrolled"] as const,
   user: (userId: string) => ["user", userId] as const,
   currentUser: () => ["currentUser"] as const,

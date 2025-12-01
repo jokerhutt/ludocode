@@ -28,7 +28,7 @@ export function useAutoSaveProject({
   const projectId = project.projectId;
 
   const saveMutation = useMutation({
-    ...mutations.saveProject(projectId),
+    ...mutations.saveProject(),
     onSuccess: () => {
       lastSavedAtRef.current = new Date();
     },

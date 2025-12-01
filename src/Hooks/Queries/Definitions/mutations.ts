@@ -99,12 +99,12 @@ export const mutations = {
     });
   },
 
-  saveProject: (projectId: string) => {
+  saveProject: () => {
     return mutationOptions<ProjectSnapshot, Error, ProjectSnapshot>({
       mutationKey: ["saveProject"],
       mutationFn: (variables) =>
         ludoPost<ProjectSnapshot, ProjectSnapshot>(
-          SUBMIT_SAVE_PROJECT(projectId),
+          SUBMIT_SAVE_PROJECT(),
           variables,
           true
         ),

@@ -266,6 +266,7 @@ export const lessonRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   demoLoginRoute,
+  authRoute,
   authedRoute.addChildren([
     onboardingRoute.addChildren([onboardingStageRoute]),
     siteRoute.addChildren([
@@ -280,7 +281,6 @@ const routeTree = rootRoute.addChildren([
     syncRoute,
     completionRoute,
   ]),
-  authRoute,
 ]);
 
 export const router = createRouter({

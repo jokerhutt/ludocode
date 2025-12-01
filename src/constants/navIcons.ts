@@ -1,13 +1,6 @@
 import { router } from "../routes/router";
 import { ludoNavigation } from "../routes/ludoNavigation";
-import {
-  RP_BUILD_SELECTION,
-  RP_COURSE,
-  RP_ME,
-  RP_MODULE,
-  RP_MODULE_REDIRECT,
-  RP_PLAYGROUND,
-} from "./routes";
+import { RP_BUILD_SELECTION, RP_COURSE, RP_PLAYGROUND } from "./routes";
 
 export type NavIcon = {
   name: string;
@@ -40,9 +33,4 @@ export const navIcons: NavIcon[] = [
     redirectPath: RP_BUILD_SELECTION,
     onClick: () => router.navigate(ludoNavigation.build.toSelectCourse()),
   },
-  // {
-  //   name: "Profile",
-  //   path: RP_ME,
-  //   onClick: () => router.navigate(ludoNavigation.me()),
-  // },
 ];

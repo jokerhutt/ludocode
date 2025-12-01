@@ -24,7 +24,6 @@ export function assertStep(step: string): Step {
 }
 
 export function CompletionLayout() {
-    
   const { courseId, lessonId } = completionRoute.useParams();
   const search: CompletionSearch = completionRoute.useSearch();
   const { data: courses } = useSuspenseQuery(qo.allCourses());
