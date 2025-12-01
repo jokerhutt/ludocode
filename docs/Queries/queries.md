@@ -1,5 +1,12 @@
 <h1 align="center">Queries & State Management</h1>
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Batching Queries](#batching-queries)
+3. [Mutating and Invalidating Queries](#mutating-and-invalidating-queries)
+   - [Using `setQueryData()`](#using-setquerydata)
+   - [Using `invalidateQueries()`](#using-invalidatequeries)
+
 ## Overview
 
 This document explains how TanStack Query is used for server-side data caching and retrieval.
