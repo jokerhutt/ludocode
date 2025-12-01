@@ -1,10 +1,10 @@
 import { Textarea } from "@/components/ui/textarea";
-import { useFieldContext } from "@/form/formKit";
+import { useFieldContext } from "@/constants/form/formKit";
 import { cn } from "@/lib/utils";
 
 type FormTitleFieldProps = {
   name?: string;
-  className?: string; // ← optional cn override
+  className?: string;
 };
 
 export default function FormTitleField({

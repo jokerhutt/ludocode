@@ -6,11 +6,11 @@ import {
   RP_BUILD,
   RP_MODULE_REDIRECT,
   RP_ME,
-  RP_BUILD_SELECTION,
-  RP_PLAYGROUND,
-} from "../constants/routes.ts";
+  RP_BUILD_HUB,
+  RP_PROJECT_HUB,
+} from "../constants/router/routes.ts";
 import {
-  lessonRoute,
+  lessonPageRoute,
   projectRoute,
   completionRoute,
   syncRoute,
@@ -24,7 +24,7 @@ export const ludoNavigation = {
 
   build: {
     toSelectCourse: () => ({
-      to: RP_BUILD_SELECTION,
+      to: RP_BUILD_HUB,
     }),
 
     toBuilder: (courseId: string) => ({
@@ -69,7 +69,7 @@ export const ludoNavigation = {
       search: { exercise },
     }),
     toNextExercise: (lessonId: string, current: number) => ({
-      to: lessonRoute.to,
+      to: lessonPageRoute.to,
       params: { lessonId },
       search: { exercise: current + 1 },
       replace: true,
@@ -77,7 +77,7 @@ export const ludoNavigation = {
   },
 
   playground: {
-    toPlayground: () => ({ to: RP_PLAYGROUND }),
+    toPlayground: () => ({ to: RP_PROJECT_HUB }),
     toProject: (projectId: string) => ({
       to: projectRoute.to,
       params: { projectId },

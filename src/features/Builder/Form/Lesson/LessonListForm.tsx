@@ -1,14 +1,14 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
-import { TreeItem } from "../../../../components/Atoms/Tree/TreeItem";
-import { BuilderNode } from "../../../../components/Atoms/Tree/BuilderNode";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
-import { EditNodeDialog } from "../../../../components/Molecules/Dialog/Edit/EditNodeDialog";
 import { newLesson } from "../../Util/NewExerciseTemplates";
-import { StatusButtonField } from "../../../../components/Atoms/Status/StatusButtonField";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";
-import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
+import { TreeItem } from "@/components/LudoComponents/Atoms/Tree/TreeItem";
+import { BuilderNodeWrapper } from "@/components/LudoComponents/Blocks/Wrapper/BuilderNodeWrapper";
+import { BuilderNode } from "@/components/LudoComponents/Atoms/Tree/BuilderNode";
+import { StatusButtonField } from "@/components/LudoComponents/Atoms/Status/StatusButtonField";
+import { EditNodeDialog } from "@/components/LudoComponents/Blocks/Dialog/Edit/EditNodeDialog";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,

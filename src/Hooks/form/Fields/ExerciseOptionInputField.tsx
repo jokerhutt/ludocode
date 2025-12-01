@@ -1,5 +1,5 @@
 import { Textarea } from "@/components/ui/textarea";
-import { useFieldContext } from "../../form/formKit";
+import { useFieldContext } from "@/constants/form/formKit";
 
 type ExerciseOptionInputFieldProps = { onEmpty: () => void };
 

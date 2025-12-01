@@ -13,7 +13,7 @@ import {
   SUBMIT_ONBOARDING,
   SUBMIT_RENAME_PROJECT,
   SUBMIT_SAVE_PROJECT,
-} from "../../../constants/pathConstants";
+} from "../../../constants/api/pathConstants";
 import type { ChangeCourseType } from "../../../Types/Request/ChangeCourseType";
 import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
 import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";

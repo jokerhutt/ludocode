@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useGoogleAuthEntry } from "../../Hooks/Queries/Mutations/useGoogleAuthEntry";
-import { MainContentWrapper } from "../../Layouts/Grids/MainContentWrapper";
-import { MainGridWrapper } from "../../Layouts/Grids/MainGridWrapper";
+import { MainGridWrapper } from "@/components/LudoComponents/Layouts/Grids/MainGridWrapper";
+import { MainContentWrapper } from "@/components/LudoComponents/Layouts/Grids/MainContentWrapper";
+
 
 type AuthPageProps = {};
 

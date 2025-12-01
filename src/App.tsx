@@ -2,14 +2,10 @@ import { RouterProvider } from "@tanstack/react-router";
 import "./App.css";
 import { queryClient, router } from "./routes/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GOOGLE_CLIENT_ID } from "./constants/env";
+import { GOOGLE_CLIENT_ID } from "./constants/environment/env";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-
-  
-
-
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <QueryClientProvider client={queryClient}>

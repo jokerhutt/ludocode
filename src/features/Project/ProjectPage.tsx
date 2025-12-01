@@ -4,12 +4,13 @@ import { RunnerWinbar } from "./Runner/RunnerWinbar.tsx";
 import { EditorWinbar } from "./Editor/EditorWinbar.tsx";
 import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
-import ChatBotWindow from "../Chatbot/ChatBotWindow.tsx";
-import { ChatBotAccordion } from "@/components/Molecules/Chatbot/ChatBotAccordion.tsx";
-import { ChatBotProvider } from "../Common/ChatBotContext.tsx";
+
+import { ChatBotProvider } from "../../Hooks/Context/ChatBot/ChatBotContext.tsx";
 import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
-import { CodeRunnerProvider } from "./CodeRunnerContext.tsx";
-import { useProjectContext } from "../../Hooks/Context/ProjectContext.tsx";
+import { CodeRunnerProvider } from "../../Hooks/Context/Runner/CodeRunnerContext.tsx";
+import { useProjectContext } from "../../Hooks/Context/Project/ProjectContext.tsx";
+import { ChatBotAccordion } from "@/components/LudoComponents/Blocks/Chatbot/ChatBotAccordion.tsx";
+import ChatBotWindow from "@/components/LudoComponents/Composites/ChatBot/ChatBotWindow.tsx";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();

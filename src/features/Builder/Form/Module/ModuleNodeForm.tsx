@@ -1,13 +1,13 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
-import { BuilderNode } from "@/components/Atoms/Tree/BuilderNode";
-import { EditNodeDialog } from "@/components/Molecules/Dialog/Edit/EditNodeDialog";
-import { ExpandCollapsibleButtonProps } from "@/components/Atoms/Button/ExpandCollapsibleButton";
 import { LessonListForm } from "../Lesson/LessonListForm";
-import { StatusButtonField } from "@/components/Atoms/Status/StatusButtonField";
-import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
+import { BuilderNodeWrapper } from "@/components/LudoComponents/Blocks/Wrapper/BuilderNodeWrapper";
+import { BuilderNode } from "@/components/LudoComponents/Atoms/Tree/BuilderNode";
+import { StatusButtonField } from "@/components/LudoComponents/Atoms/Status/StatusButtonField";
+import { EditNodeDialog } from "@/components/LudoComponents/Blocks/Dialog/Edit/EditNodeDialog";
+import { ExpandCollapsibleButton } from "@/components/LudoComponents/Atoms/Button/ExpandCollapsibleButton";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -99,7 +99,7 @@ export const ModuleNodeForm = withForm({
                     <span>Edit</span>
                   </Button>
                 </EditNodeDialog>
-                <ExpandCollapsibleButtonProps
+                <ExpandCollapsibleButton
                   isExpanded={isExpanded}
                   onClick={() =>
                     field.handleChange({ ...module, isExpanded: !isExpanded })

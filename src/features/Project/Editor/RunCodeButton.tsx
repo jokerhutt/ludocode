@@ -1,5 +1,5 @@
 import { useHotkeys } from "@/Hooks/UI/useHotkeys";
-import { useCodeRunnerContext } from "../CodeRunnerContext";
+import { useCodeRunnerContext } from "../../../Hooks/Context/Runner/CodeRunnerContext";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 

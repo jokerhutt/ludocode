@@ -1,6 +1,7 @@
-import { OptionListWrapper } from "@/components/Molecules/Wrapper/OptionListWrapper";
-import { WideClickableOption } from "../../../components/Atoms/CodeOption/WideClickableOption";
-import { useLessonContext } from "@/features/Exercise/useLessonContext";
+
+import { WideClickableOption } from "@/components/LudoComponents/Atoms/CodeOption/WideClickableOption";
+import { OptionListWrapper } from "@/components/LudoComponents/Blocks/Wrapper/OptionListWrapper";
+import { useLessonContext } from "@/Hooks/Context/Lesson/useLessonContext";
 import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData";
 
 export function TriviaExercise() {

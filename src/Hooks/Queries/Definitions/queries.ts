@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { qk } from "../../../constants/qk";
+import { qk } from "../../../constants/queries/qk.ts";
 import {
   courseProgressBatcher,
   lessonBatcher,
@@ -26,13 +26,16 @@ import {
   GET_MY_PROJECTS,
   GET_USER_STREAK,
   GET_PAST_WEEK_STREAK,
-} from "../../../constants/pathConstants.ts";
+} from "../../../constants/api/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse.ts";
-import { type DailyGoalMet, type UserStreak } from "@/Types/Progress/UserStreak.ts";
+import {
+  type DailyGoalMet,
+  type UserStreak,
+} from "@/Types/Progress/UserStreak.ts";
 
 export const qo = {
   user: (userId: string) =>

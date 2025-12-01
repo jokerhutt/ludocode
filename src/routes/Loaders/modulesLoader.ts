@@ -4,9 +4,9 @@ import { redirect, type ParsedLocation } from "@tanstack/react-router";
 import {
   RP_AUTH,
   RP_BUILD,
-  RP_BUILD_SELECTION,
+  RP_BUILD_HUB,
   RP_MODULE,
-} from "../../constants/routes.ts";
+} from "../../constants/router/routes.ts";
 import type { CourseProgress } from "../../Types/Progress/CourseProgress";
 import { qo } from "../../Hooks/Queries/Definitions/queries";
 import { ensureTreeData } from "../routerEnsures";
@@ -18,7 +18,7 @@ export async function modulesRedirectLoader(
   console.log("M0");
   const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
 
-  await queryClient.ensureQueryData(qo.allCourses())
+  await queryClient.ensureQueryData(qo.allCourses());
 
   const currentCourseId: string = await queryClient.ensureQueryData(
     qo.currentCourseId()
@@ -76,7 +76,7 @@ export async function buildRedirectLoader(
   const courseSnapshot = await qc.ensureQueryData(qo.courseSnapshot(courseId));
   const firstModuleId = courseSnapshot.modules[0].moduleId;
 
-  if (!firstModuleId) throw redirect({ to: RP_BUILD_SELECTION });
+  if (!firstModuleId) throw redirect({ to: RP_BUILD_HUB });
 
   throw redirect({
     to: RP_BUILD,

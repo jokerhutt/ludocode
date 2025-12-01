@@ -1,4 +1,4 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";

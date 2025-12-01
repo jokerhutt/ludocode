@@ -1,6 +1,6 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
-import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+import type { ColumnType } from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
 import { ExerciseOptionsDnDContainer } from "../../UI/DragAndDrop/ExerciseOptionsDnDContainer";
 
 export const ExerciseOptionsForm = withForm({

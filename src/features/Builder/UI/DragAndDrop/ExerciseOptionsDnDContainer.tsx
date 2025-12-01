@@ -4,7 +4,7 @@ import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
 import {
   useOptionsDragAndDrop,
   type ColumnType,
-} from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+} from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 

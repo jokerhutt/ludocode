@@ -1,5 +1,5 @@
 import { SidebarMenu } from "@/components/ui/sidebar";
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { Button } from "@/components/ui/button";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";

@@ -1,4 +1,4 @@
-import { ThinNodeButton } from "@/components/Atoms/Button/ThinNodeButton";
+import { ThinNodeButton } from "@/components/LudoComponents/Atoms/Button/ThinNodeButton";
 
 type SelectLessonButtonProps = {
   selectLesson: (lessonId: string) => void;

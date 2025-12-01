@@ -1,4 +1,4 @@
-import { RP_PLAYGROUND } from "@/constants/routes";
+import { RP_PROJECT_HUB } from "@/constants/router/routes";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { redirect } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export async function projectLoader(
   const { projectId } = params;
 
   if (!projectId) {
-    throw redirect({ to: RP_PLAYGROUND, replace: true });
+    throw redirect({ to: RP_PROJECT_HUB, replace: true });
   }
 
   const projects = await queryClient.ensureQueryData(qo.allProjects());

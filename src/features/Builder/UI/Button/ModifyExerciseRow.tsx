@@ -1,5 +1,6 @@
-import { AddExerciseDialog } from "@/components/Molecules/Dialog/Create/AddExerciseDialog";
-import { DeleteDialog } from "@/components/Molecules/Dialog/Warning/DeleteDialog";
+
+import { AddExerciseDialog } from "@/components/LudoComponents/Blocks/Dialog/Create/AddExerciseDialog";
+import { DeleteDialog } from "@/components/LudoComponents/Blocks/Dialog/Warning/DeleteDialog";
 import { Button } from "@/components/ui/button";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 

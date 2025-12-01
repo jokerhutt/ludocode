@@ -1,11 +1,11 @@
 import { AnalyzeExercise } from "./Templates/AnalyzeExercise";
-import { ExercisePrompt } from "./UI/ExercisePrompt";
+import { ExercisePrompt } from "./UI/Prompt/ExercisePrompt";
 import { InfoExercise } from "./Templates/InfoExercise";
 import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
-import { ExerciseMedia } from "./UI/ExerciseMedia";
-import { FloatingChatBotWindow } from "@/components/Molecules/Chatbot/FloatingChatBotWindow";
-import { useLessonContext } from "./useLessonContext";
+import { ExerciseMedia } from "./UI/Media/ExerciseMedia";
+import { useLessonContext } from "../../Hooks/Context/Lesson/useLessonContext";
+import { FloatingChatBotWindow } from "@/components/LudoComponents/Blocks/Chatbot/FloatingChatBotWindow";
 
 export function LessonPage() {
   const exerciseBodyMap: any = {

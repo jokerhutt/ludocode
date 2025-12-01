@@ -1,7 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "../../../constants/pathConstants.ts";
-import { qk } from "../../../constants/qk";
+import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
+import { qk } from "../../../constants/queries/qk.ts";
 import { router } from "../../../routes/router";
 import type { LoginUserResponse } from "../../../Types/User/LoginUserResponse.ts";
 import { ludoPost } from "../Fetcher/ludoPost.ts";
@@ -14,7 +14,7 @@ export function useGoogleAuthEntry() {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
 
-      console.log("Calling post")
+      console.log("Calling post");
 
       const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
         GOOGLE_LOGIN,

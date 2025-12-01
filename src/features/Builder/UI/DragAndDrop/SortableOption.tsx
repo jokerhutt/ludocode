@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+import type { ColumnType } from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";

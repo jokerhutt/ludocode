@@ -1,5 +1,5 @@
 import { TreeFile } from "./TreeFile.tsx";
-import { useProjectContext } from "../../../Hooks/Context/ProjectContext.tsx";
+import { useProjectContext } from "../../../Hooks/Context/Project/ProjectContext.tsx";
 
 export function ProjectFileTree() {
   const { files, current, setCurrent } = useProjectContext();

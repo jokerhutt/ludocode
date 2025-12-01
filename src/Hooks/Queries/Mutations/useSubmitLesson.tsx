@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { qk } from "../../../constants/qk";
+import { qk } from "../../../constants/queries/qk";
 import { router } from "../../../routes/router";
 import { ludoNavigation } from "../../../routes/ludoNavigation";
 import { mutations } from "../Definitions/mutations";

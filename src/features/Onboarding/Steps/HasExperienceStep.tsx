@@ -1,4 +1,4 @@
-import { useOnboardingContext } from "../OnboardingContext";
+import { useOnboardingContext } from "../../../Hooks/Context/Onboarding/OnboardingContext";
 
 export function HasExperienceStep() {
   const { content, hook } = useOnboardingContext();

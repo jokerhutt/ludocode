@@ -1,4 +1,4 @@
-import { TreeItem } from "@/components/Atoms/Tree/TreeItem";
+import { TreeItem } from "@/components/LudoComponents/Atoms/Tree/TreeItem";
 import { Button } from "@/components/ui/button";
 
 type AddLessonButtonProps = {addLesson: () => void};

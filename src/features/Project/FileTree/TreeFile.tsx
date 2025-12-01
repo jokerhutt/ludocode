@@ -1,12 +1,13 @@
-import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon.tsx";
-import { FileWrapper } from "../../../components/Molecules/File/FileWrapper.tsx";
-import { FileInfoRow } from "@/components/Molecules/File/FileInfoRow.tsx";
-import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton.tsx";
+
 import {
   LANGUAGE_MAP,
   type LanguageType,
 } from "@/Types/Playground/LanguageType.ts";
-import { useProjectContext } from "../../../Hooks/Context/ProjectContext.tsx";
+import { useProjectContext } from "../../../Hooks/Context/Project/ProjectContext.tsx";
+import { FileWrapper } from "@/components/LudoComponents/Blocks/File/FileWrapper.tsx";
+import { FileInfoRow } from "@/components/LudoComponents/Blocks/File/FileInfoRow.tsx";
+import { CustomIcon } from "@/components/LudoComponents/Atoms/Icons/CustomIcon.tsx";
+import { FileActionsButton } from "@/components/LudoComponents/Blocks/Popover/FileActionsButton.tsx";
 
 type TreeFileProps = {
   fileName: string;

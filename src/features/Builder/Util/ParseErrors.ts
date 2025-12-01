@@ -1,7 +1,5 @@
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 
-//Absolute madhouse
-
 export const parseExerciseError = (
   errorEntries: any,
   exercises: ExerciseSnap[]
@@ -28,6 +26,5 @@ export const parseExerciseError = (
     if (ex) errorMap[ex.id] = true;
   });
 
-  return errorMap
-
+  return errorMap;
 };

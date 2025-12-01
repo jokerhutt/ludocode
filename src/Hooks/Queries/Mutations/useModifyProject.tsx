@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "../Definitions/mutations";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse";
-import { qk } from "@/constants/qk";
+import { qk } from "@/constants/queries/qk";
 import { useCallback } from "react";
 
 export function useRenameProject() {

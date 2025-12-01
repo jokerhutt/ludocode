@@ -1,4 +1,4 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { LivePromptPreview } from "../../UI/Wrapper/LivePromptPreview";
 

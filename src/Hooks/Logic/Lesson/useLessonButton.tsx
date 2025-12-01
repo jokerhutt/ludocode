@@ -1,4 +1,4 @@
-import type { LessonCompletion } from "@/features/Module/PathButton";
+import type { LessonCompletion } from "@/features/Module/Path/ModulePathButton";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
 import type { LudoLesson } from "@/Types/Catalog/LudoLesson";
@@ -6,8 +6,6 @@ import type { LudoLesson } from "@/Types/Catalog/LudoLesson";
 type Args = { lesson: LudoLesson; isCurrent: boolean };
 
 export function useLessonButton({ lesson, isCurrent }: Args) {
-
-
   const isCompleted = lesson.isCompleted;
   const isLocked = !lesson.isCompleted && !isCurrent;
 
@@ -24,7 +22,5 @@ export function useLessonButton({ lesson, isCurrent }: Args) {
     router.navigate(ludoNavigation.lesson.start("Python", lesson.id));
   };
 
-  return {lessonType, goToLesson}
-
-
+  return { lessonType, goToLesson };
 }

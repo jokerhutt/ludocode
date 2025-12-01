@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "../Definitions/mutations";
-import { qk } from "@/constants/qk";
+import { qk } from "@/constants/queries/qk";
 import type { LudoCourse } from "@/Types/Catalog/LudoCourse";
 
 export function useCreateCourse(closeModal?: () => void) {

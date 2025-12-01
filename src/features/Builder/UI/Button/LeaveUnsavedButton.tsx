@@ -1,4 +1,4 @@
-import { LeaveUnsavedDialog } from "@/components/Molecules/Dialog/Warning/LeaveUnsavedDialog";
+import { LeaveUnsavedDialog } from "@/components/LudoComponents/Blocks/Dialog/Warning/LeaveUnsavedDialog";
 import { Button } from "@/components/ui/button";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";

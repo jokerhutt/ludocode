@@ -1,6 +1,5 @@
-import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
+import type { ColumnType } from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
-import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
 import type {
   ExerciseSnap,
   LessonSnap,
