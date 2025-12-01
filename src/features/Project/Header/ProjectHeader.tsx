@@ -18,14 +18,14 @@ export function ProjectHeader() {
     debounceMs: 1000,
   });
 
-  const goToPlayground = () => {
+  const goToProjectHub = () => {
     router.navigate(ludoNavigation.hub.project.toProjectHub());
   };
 
   return (
     <HeaderWithBar device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
-        <HollowSlotButton className="h-8" onClick={() => goToPlayground()}>
+        <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
         </HollowSlotButton>
       </div>

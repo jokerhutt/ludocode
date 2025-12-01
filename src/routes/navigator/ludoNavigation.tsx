@@ -1,13 +1,5 @@
 import type { HistoryState } from "@tanstack/react-router";
-import {
-  RP_COURSE,
-  RP_LESSON,
-  RP_MODULE,
-  RP_BUILD,
-  RP_MODULE_REDIRECT,
-  RP_BUILD_HUB,
-  RP_PROJECT_HUB,
-} from "../../constants/router/routes.ts";
+import { routes } from "../../constants/router/routes.ts";
 import {
   lessonPageRoute,
   projectRoute,
@@ -17,37 +9,37 @@ import {
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
 
 export const ludoNavigation = {
-  courseRoot: () => ({ to: RP_COURSE }),
+  courseRoot: () => ({ to: routes.hub.coursesHub }),
 
   hub: {
     module: {
       toCurrent: (replace = false) => ({
-        to: RP_MODULE_REDIRECT,
+        to: routes.hub.module.moduleRedirect,
         replace: replace,
       }),
       toModule: (courseId: string, moduleId: string) => ({
-        to: RP_MODULE,
+        to: routes.hub.module.moduleHub,
         params: { courseId, moduleId },
       }),
     },
     builder: {
       toBuilderHub: () => ({
-        to: RP_BUILD_HUB,
+        to: routes.hub.buildHub,
       }),
     },
     project: {
-      toProjectHub: () => ({ to: RP_PROJECT_HUB }),
+      toProjectHub: () => ({ to: routes.hub.projectHub }),
     },
   },
 
   builder: {
     toBuilder: (courseId: string) => ({
-      to: RP_BUILD,
+      to: routes.build.builderPage,
       params: { courseId },
     }),
 
     toBuilderModule: (courseId: string, moduleId: string) => ({
-      to: RP_BUILD,
+      to: routes.build.builderPage,
       params: { courseId },
       search: { moduleId },
     }),
@@ -57,7 +49,7 @@ export const ludoNavigation = {
       moduleId: string,
       lessonId: string
     ) => ({
-      to: RP_BUILD,
+      to: routes.build.builderPage,
       params: { courseId },
       search: { moduleId, lessonId },
     }),
@@ -68,7 +60,7 @@ export const ludoNavigation = {
       lessonId: string,
       exerciseId: string
     ) => ({
-      to: RP_BUILD,
+      to: routes.build.builderPage,
       params: { courseId },
       search: { moduleId, lessonId, exerciseId },
     }),
@@ -78,7 +70,7 @@ export const ludoNavigation = {
     start: (courseId: string, lessonId: string) =>
       ludoNavigation.lesson.toLesson(courseId, lessonId, 1),
     toLesson: (courseId: string, lessonId: string, exercise: number) => ({
-      to: RP_LESSON,
+      to: routes.lesson.lessonPage,
       params: { courseId, lessonId },
       search: { exercise },
     }),

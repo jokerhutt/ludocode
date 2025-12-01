@@ -1,6 +1,6 @@
 import { router } from "../../routes/router";
 import { ludoNavigation } from "../../routes/navigator/ludoNavigation.tsx";
-import { RP_BUILD_HUB, RP_COURSE, RP_PROJECT_HUB } from "../router/routes";
+import { routes } from "../router/routes";
 
 export type NavIcon = {
   name: string;
@@ -13,24 +13,24 @@ export type NavIcon = {
 export const navIcons: NavIcon[] = [
   {
     name: "Courses",
-    path: RP_COURSE,
+    path: routes.hub.coursesHub,
     onClick: () => router.navigate(ludoNavigation.courseRoot()),
   },
   {
     name: "Learn",
-    redirectPath: "/modules",
+    redirectPath: routes.hub.module.moduleRedirect,
     path: "/course",
     onClick: () => router.navigate(ludoNavigation.hub.module.toCurrent()),
   },
   {
-    name: "Playground",
-    path: RP_PROJECT_HUB,
+    name: "Projects",
+    path: routes.hub.projectHub,
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
   },
   {
     name: "Build",
     path: "/build",
-    redirectPath: RP_BUILD_HUB,
+    redirectPath: routes.hub.buildHub,
     onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
   },
 ];

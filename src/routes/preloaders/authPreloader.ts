@@ -1,9 +1,5 @@
 import { DEMO_LOGIN } from "@/constants/api/pathConstants";
-import {
-  RP_COURSE,
-  RP_ONBOARDING,
-  RP_ONBOARDING_START,
-} from "@/constants/router/routes";
+import { routes } from "@/constants/router/routes";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { redirect, type ParsedLocation } from "@tanstack/react-router";
@@ -17,7 +13,7 @@ export async function demoAuthPreloader(queryClient: QueryClient) {
   await queryClient.invalidateQueries();
   await queryClient.ensureQueryData(qo.currentUser());
 
-  throw redirect({ to: RP_COURSE });
+  throw redirect({ to: routes.hub.coursesHub });
 }
 
 export async function appPreloader(
@@ -36,9 +32,9 @@ export async function appPreloader(
     .ensureQueryData(qo.preferences())
     .catch(() => null);
 
-  if (location.pathname.startsWith(RP_ONBOARDING)) return;
+  if (location.pathname.startsWith(routes.onboarding.base)) return;
 
   if (!currentCourseId || !userPreferences) {
-    throw redirect({ to: RP_ONBOARDING_START, replace: true });
+    throw redirect({ to: routes.onboarding.start, replace: true });
   }
 }

@@ -2,26 +2,11 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
-  redirect,
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Hub/CourseHub/CoursePage.tsx";
 import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
 import { HubLayout } from "@/layouts/Hub/HubLayout.tsx";
-import {
-  RP_COURSE,
-  RP_LESSON,
-  RP_MODULE,
-  RP_MODULE_REDIRECT,
-  RP_BUILD,
-  RP_AUTH,
-  RP_SYNC,
-  RP_BUILD_HUB,
-  RP_ONBOARDING,
-  RP_ONBOARDING_START,
-  RP_PROJECT_HUB,
-  RP_PROJECT,
-  RP_DEMO,
-} from "../constants/router/routes.ts";
+import { routes } from "../constants/router/routes.ts";
 import { LessonLayout } from "@/layouts/Lesson/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
@@ -78,7 +63,7 @@ const appRoute = createRoute({
 
 const demoAuthRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: RP_DEMO,
+  path: routes.auth.demo,
   beforeLoad: async () => demoAuthPreloader(queryClient),
 });
 
@@ -97,7 +82,7 @@ export const hubRoute = createRoute({
 
 export const courseHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: RP_COURSE,
+  path: routes.hub.coursesHub,
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => coursesLoader(queryClient),
   component: CoursePage,
@@ -105,13 +90,13 @@ export const courseHubRoute = createRoute({
 
 export const authRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: RP_AUTH,
+  path: routes.auth.authPage,
   component: AuthPage,
 });
 
 export const projectHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: RP_PROJECT_HUB,
+  path: routes.hub.projectHub,
   staticData: { headerTitle: "Project" },
   loader: async ({}) => projectHubLoader(queryClient),
   component: ProjectHubPage,
@@ -119,7 +104,7 @@ export const projectHubRoute = createRoute({
 
 export const projectRoute = createRoute({
   getParentRoute: () => desktopGuardRoute,
-  path: RP_PROJECT,
+  path: routes.project.projectPage,
   loader: async ({ params }) => projectLoader(params, queryClient),
   component: ProjectLayout,
 });
@@ -143,14 +128,14 @@ export const onboardingStageRoute = createRoute({
 
 export const moduleHubRedirectRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: RP_MODULE_REDIRECT,
+  path: routes.hub.module.moduleRedirect,
   staticData: { headerTitle: "Modules" },
   loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
 export const buildRoute = createRoute({
   getParentRoute: () => desktopGuardRoute,
-  path: RP_BUILD,
+  path: routes.build.builderPage,
   validateSearch: (s: Record<string, unknown>) => ({
     moduleId: typeof s.moduleId === "string" ? s.moduleId : undefined,
     lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
@@ -162,7 +147,7 @@ export const buildRoute = createRoute({
 
 export const builderHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: RP_BUILD_HUB,
+  path: routes.hub.buildHub,
   staticData: { headerTitle: "Builder " },
   loader: async ({ location }) => builderHubLoader(location, queryClient),
   component: BuilderHubPage,
@@ -170,7 +155,7 @@ export const builderHubRoute = createRoute({
 
 export const moduleHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: RP_MODULE,
+  path: routes.hub.module.moduleHub,
   staticData: { headerTitle: "Modules" },
   loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModuleHubLayout,
@@ -178,21 +163,21 @@ export const moduleHubRoute = createRoute({
 
 export const lessonRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: RP_LESSON,
+  path: routes.lesson.lessonPage,
   loader: async ({ params }) => lessonPageLoader(params, queryClient),
   component: LessonLayout,
 });
 
 export const syncRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: RP_SYNC,
+  path: routes.completion.syncPage,
   loader: async ({}) => syncLoader(queryClient),
   component: SyncingPage,
 });
 
 export const completionRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: "/completion/$courseId/lesson/$lessonId",
+  path: routes.completion.completionPage,
   component: CompletionLayout,
   validateSearch: z.object({
     step: z.enum(["lesson", "streak", "course"]).default("lesson"),
