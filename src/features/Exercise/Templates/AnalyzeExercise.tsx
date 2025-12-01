@@ -1,10 +1,10 @@
-import { CodeBoxWrapper } from "@/components/LudoComponents/Blocks/Wrapper/CodeBoxWrapper.tsx";
+import { CodeBoxWrapper } from "@/components/design-system/blocks/wrapper/code-box-wrapper.tsx";
 import { ExerciseAnswerField } from "../UI/AnswerField/ExerciseAnswerField.tsx";
 
-import { useLessonContext } from "@/Hooks/Context/Lesson/useLessonContext.tsx";
-import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData.tsx";
-import { OptionListWrapper } from "@/components/LudoComponents/Blocks/Wrapper/OptionListWrapper.tsx";
-import { WideClickableOption } from "@/components/LudoComponents/Atoms/CodeOption/WideClickableOption.tsx";
+import { useLessonContext } from "@/hooks/Context/Lesson/useLessonContext.tsx";
+import { useExerciseBodyData } from "@/hooks/Flows/Exercises/useExerciseBodyData.tsx";
+import { OptionListWrapper } from "@/components/design-system/blocks/wrapper/option-list-wrapper.tsx";
+import { WideClickableOption } from "@/components/design-system/atoms/option/wide-clickable-option.tsx";
 
 export function AnalyzeExercise() {
   const { currentExercise, inputState } = useLessonContext();

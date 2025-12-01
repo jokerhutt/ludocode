@@ -1,4 +1,4 @@
-import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
+import type { ExerciseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 
 export const parseExerciseError = (
   errorEntries: any,

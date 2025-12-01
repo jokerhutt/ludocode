@@ -6,7 +6,7 @@ export type DevInfoContent = {
 };
 
 export const exTypeInfoContent: DevInfoContent = {
-  title: "Exercises: Exercise Types",
+  title: "Exercises: Exercise types",
   description:
     "When making exercises, you can select from one of four exercise types",
   body: `

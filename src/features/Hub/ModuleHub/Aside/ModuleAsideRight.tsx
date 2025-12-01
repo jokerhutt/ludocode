@@ -1,8 +1,8 @@
-import { useResetCourseProgress } from "../../../../Hooks/Queries/Mutations/useResetCourseProgress";
-import { AsideComponent } from "@/components/LudoComponents/Layouts/Aside/AsideComponent";
-import type { LudoModule } from "../../../../Types/Catalog/LudoModule";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import { useResetCourseProgress } from "@/hooks/Queries/Mutations/useResetCourseProgress";
+import { AsideComponent } from "@/components/design-system/layouts/aside/aside-component.tsx";
+import type { LudoModule } from "@/types/Catalog/LudoModule";
+import { Button } from "@/components/external/ui/button";
+import { Spinner } from "@/components/external/ui/spinner";
 import { ModulesList } from "../Selection/ModulesList";
 
 type ModuleAsideRightProps = {

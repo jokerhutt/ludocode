@@ -1,11 +1,11 @@
-import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
-import { useModal } from "@/Hooks/UI/useModal.tsx";
+import type { ProjectSnapshot } from "@/types/Project/ProjectSnapshot.ts";
+import { useModal } from "@/hooks/UI/useModal.tsx";
 import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/Hooks/Queries/Definitions/queries.ts";
-import { ProjectCard } from "./Card/ProjectCard.tsx";
-import { PlaygroundHero } from "./Hero/PlaygroundHero.tsx";
-import { CreateProjectDialog } from "@/components/LudoComponents/Blocks/Dialog/Create/CreateProjectDialog.tsx";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { ProjectCard } from "@/features/Hub/ProjectHub/UI/Card/ProjectCard.tsx";
+import { PlaygroundHero } from "@/features/Hub/ProjectHub/UI/Hero/PlaygroundHero.tsx";
+import { CreateProjectDialog } from "@/features/Hub/ProjectHub/UI/Dialog/CreateProjectDialog.tsx";
 
 export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());

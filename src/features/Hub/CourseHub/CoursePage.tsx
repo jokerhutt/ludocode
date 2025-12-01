@@ -1,12 +1,12 @@
 import { useLoaderData } from "@tanstack/react-router";
-import { useChangeCourse } from "../../../Hooks/Queries/Mutations/useChangeCourse.tsx";
+import { useChangeCourse } from "@/hooks/Queries/Mutations/useChangeCourse.tsx";
 import { CourseCard } from "./UI/CourseCard.tsx";
 import { courseHubRoute } from "../../../routes/router.tsx";
-import type { LudoCourse } from "../../../Types/Catalog/LudoCourse.ts";
+import type { LudoCourse } from "@/types/Catalog/LudoCourse.ts";
 import { useSuspenseQueries } from "@tanstack/react-query";
-import { qo } from "../../../Hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { CourseCardGrid } from "./UI/CourseCardGrid.tsx";
-import type { IconName } from "@/components/LudoComponents/Atoms/Icons/CustomIcon.tsx";
+import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
 
 export type CourseType = {
   name: string;

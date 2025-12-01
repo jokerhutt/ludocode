@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import type { ColumnType } from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
-import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
+import { Button } from "@/components/external/ui/button";
+import { Textarea } from "@/components/external/ui/textarea";
+import type { ColumnType } from "@/hooks/Flows/Builder/useOptionsDragAndDrop";
+import type { OptionSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { FormEditMode } from "./ExerciseOptionsDnDContainer";

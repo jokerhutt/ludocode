@@ -1,13 +1,13 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { Button } from "@/components/ui/button";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { Button } from "@/components/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm";
-import { BuilderNodeWrapper } from "@/components/LudoComponents/Blocks/Wrapper/BuilderNodeWrapper";
-import { BuilderNode } from "@/components/LudoComponents/Atoms/Tree/BuilderNode";
-import { StatusButtonField } from "@/components/LudoComponents/Atoms/Status/StatusButtonField";
-import { EditNodeDialog } from "@/components/LudoComponents/Blocks/Dialog/Edit/EditNodeDialog";
-import { ExpandCollapsibleButton } from "@/components/LudoComponents/Atoms/Button/ExpandCollapsibleButton";
+import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/builder-node-wrapper.tsx";
+import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.tsx";
+import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
+import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
+import { CollapsibleButton } from "@/components/design-system/atoms/button/collapsible-button.tsx";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -99,7 +99,7 @@ export const ModuleNodeForm = withForm({
                     <span>Edit</span>
                   </Button>
                 </EditNodeDialog>
-                <ExpandCollapsibleButton
+                <CollapsibleButton
                   isExpanded={isExpanded}
                   onClick={() =>
                     field.handleChange({ ...module, isExpanded: !isExpanded })

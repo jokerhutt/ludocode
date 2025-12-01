@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/external/ui/button";
 import { errorMap, type ErrorStatus } from "@/constants/static-data/ErrorData";
-import { FallbackLayout } from "@/Layouts/Fallback/FallbackLayout";
+import { FallbackLayout } from "@/layouts/Fallback/FallbackLayout";
 
 type ErrorPageProps = { errorCode: ErrorStatus };
 

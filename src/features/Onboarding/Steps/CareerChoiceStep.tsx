@@ -1,5 +1,5 @@
-import { useOnboardingContext } from "../../../Hooks/Context/Onboarding/OnboardingContext";
-import type { CareerType } from "@/Types/Onboarding/OnboardingCourse";
+import { useOnboardingContext } from "@/hooks/Context/Onboarding/OnboardingContext";
+import type { CareerType } from "@/types/Onboarding/OnboardingCourse";
 
 export function CareerChoiceStep() {
   const { content, hook } = useOnboardingContext();

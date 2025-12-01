@@ -1,4 +1,4 @@
-import type { OnboardingFormContent } from "@/Types/Onboarding/OnboardingCourse";
+import type { OnboardingFormContent } from "@/types/Onboarding/OnboardingCourse";
 
 export const onboardingContent: OnboardingFormContent = {
   courseContent: [

@@ -1,10 +1,10 @@
-import { ListRow } from "@/components/LudoComponents/Atoms/Row/ListRow";
-import { ListContainer } from "@/components/LudoComponents/Blocks/List/ListContainer";
-import type { ListHeaderProps } from "@/components/LudoComponents/Blocks/List/ListHeader";
-import { cn } from "@/components/utils";
-import { ludoNavigation } from "@/routes/ludoNavigation";
+import { ListRow } from "@/components/design-system/atoms/row/list-row.tsx";
+import { ListContainer } from "@/components/design-system/blocks/list/list-container.tsx";
+import type { ListHeaderProps } from "@/components/design-system/blocks/list/list-header.tsx";
+import { cn } from "@/components/cn-utils.ts";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { moduleHubRoute, router } from "@/routes/router";
-import type { LudoModule } from "@/Types/Catalog/LudoModule";
+import type { LudoModule } from "@/types/Catalog/LudoModule";
 
 type ModulesListHeaderProps = {
   courseName: string;

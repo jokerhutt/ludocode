@@ -1,4 +1,4 @@
-import { useOnboardingContext } from "../../../Hooks/Context/Onboarding/OnboardingContext";
+import { useOnboardingContext } from "@/hooks/Context/Onboarding/OnboardingContext";
 
 export function CourseChoiceStep() {
   const { content, hook } = useOnboardingContext();

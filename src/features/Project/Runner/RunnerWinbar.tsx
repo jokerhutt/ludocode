@@ -1,7 +1,7 @@
 
-import { Winbar } from "@/components/LudoComponents/Blocks/Winbar/Winbar.tsx";
-import { useCodeRunnerContext } from "../../../Hooks/Context/Runner/CodeRunnerContext.tsx";
-import { CircleIconButton } from "@/components/LudoComponents/Atoms/Button/CircleIconButton.tsx";
+import { Winbar } from "@/components/design-system/blocks/winbar/winbar.tsx";
+import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext.tsx";
+import { CircleButton } from "@/components/design-system/atoms/button/circle-button.tsx";
 
 export function RunnerWinbar() {
   const { outputInfo } = useCodeRunnerContext();
@@ -11,7 +11,7 @@ export function RunnerWinbar() {
     <Winbar>
       <div className="flex h-full text-white justify-between items-center">
         <p className="">Output</p>
-        <CircleIconButton iconName="TrashIcon" onClick={clearOutput} />
+        <CircleButton iconName="TrashIcon" onClick={clearOutput} />
       </div>
     </Winbar>
   );

@@ -1,9 +1,9 @@
 
-import { Winbar } from "@/components/LudoComponents/Blocks/Winbar/Winbar.tsx";
-import { useProjectContext } from "../../../Hooks/Context/Project/ProjectContext.tsx";
+import { Winbar } from "@/components/design-system/blocks/winbar/winbar.tsx";
+import { useProjectContext } from "@/hooks/Context/Project/ProjectContext.tsx";
 import { stripFileName } from "../Util/filenameUtil.ts";
-import { EditorTabGroup } from "@/components/LudoComponents/Blocks/Group/EditorTabGroup.tsx";
-import { EditorTab } from "@/components/LudoComponents/Atoms/Tab/EditorTab.tsx";
+import { EditorTabGroup } from "@/components/design-system/composites/editor/editor-tab-group.tsx";
+import { EditorTab } from "@/components/design-system/atoms/tab/editor-tab.tsx";
 
 export function EditorWinbar() {
   const { current, files } = useProjectContext();

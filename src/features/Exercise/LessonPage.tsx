@@ -4,8 +4,8 @@ import { InfoExercise } from "./Templates/InfoExercise";
 import { ClozeExercise } from "./Templates/ClozeExercise";
 import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/Media/ExerciseMedia";
-import { useLessonContext } from "../../Hooks/Context/Lesson/useLessonContext";
-import { FloatingChatBotWindow } from "@/components/LudoComponents/Blocks/Chatbot/FloatingChatBotWindow";
+import { useLessonContext } from "@/hooks/Context/Lesson/useLessonContext";
+import { FloatingChatbotWindow } from "@/components/design-system/blocks/chatbot/floating-chatbot-window.tsx";
 
 export function LessonPage() {
   const exerciseBodyMap: any = {
@@ -27,7 +27,7 @@ export function LessonPage() {
   return (
     <>
       <div className="col-span-0 hidden lg:block lg:col-span-4 h-full min-h-0">
-        <FloatingChatBotWindow
+        <FloatingChatbotWindow
           chatType="LESSON"
           targetId={currentExercise.id ?? null}
           outerClassName="pl-6 pr-30"

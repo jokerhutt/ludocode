@@ -1,5 +1,5 @@
-import type { LudoLesson } from "../../../../Types/Catalog/LudoLesson";
-import { useLessonButton } from "@/Hooks/Logic/Lesson/useLessonButton";
+import type { LudoLesson } from "@/types/Catalog/LudoLesson";
+import { useLessonButton } from "@/hooks/Flows/Lesson/useLessonButton";
 import { PathButtonPopover } from "./PathButtonPopover";
 import { PathButtonTrigger } from "./PathButtonTrigger";
 

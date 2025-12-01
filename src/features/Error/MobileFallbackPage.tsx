@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/external/ui/button";
 import { router } from "@/routes/router";
 
 export function MobileFallbackPage() {

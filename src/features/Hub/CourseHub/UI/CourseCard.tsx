@@ -1,5 +1,5 @@
-import { CustomIcon, type IconName } from "@/components/LudoComponents/Atoms/Icons/CustomIcon";
-import type { LudoCourse } from "../../../../Types/Catalog/LudoCourse";
+import { CustomIcon, type IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 
 type CourseCardProps = {
   course: LudoCourse;

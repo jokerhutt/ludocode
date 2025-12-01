@@ -1,4 +1,4 @@
-import { AsideComponent } from "@/components/LudoComponents/Layouts/Aside/AsideComponent";
+import { AsideComponent } from "@/components/design-system/layouts/aside/aside-component.tsx";
 
 type ModuleAsideLeftProps = {};
 

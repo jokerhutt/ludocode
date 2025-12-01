@@ -1,10 +1,10 @@
 import { ExerciseAnswerField } from "../UI/AnswerField/ExerciseAnswerField";
-import { useSelectOption } from "@/Hooks/Logic/Exercises/useSelectOption";
-import { useLessonContext } from "@/Hooks/Context/Lesson/useLessonContext";
-import { useExerciseBodyData } from "@/Hooks/Logic/Exercises/useExerciseBodyData";
-import { CodeBoxWrapper } from "@/components/LudoComponents/Blocks/Wrapper/CodeBoxWrapper";
-import { OptionListWrapper } from "@/components/LudoComponents/Blocks/Wrapper/OptionListWrapper";
-import { ClickableOption } from "@/components/LudoComponents/Atoms/CodeOption/ClickableOption";
+import { useSelectOption } from "@/hooks/Flows/Exercises/useSelectOption";
+import { useLessonContext } from "@/hooks/Context/Lesson/useLessonContext";
+import { useExerciseBodyData } from "@/hooks/Flows/Exercises/useExerciseBodyData";
+import { CodeBoxWrapper } from "@/components/design-system/blocks/wrapper/code-box-wrapper.tsx";
+import { OptionListWrapper } from "@/components/design-system/blocks/wrapper/option-list-wrapper.tsx";
+import { ClickableOption } from "@/components/design-system/atoms/option/clickable-option.tsx";
 
 export function ClozeExercise() {
   const { currentExercise, inputState } = useLessonContext();

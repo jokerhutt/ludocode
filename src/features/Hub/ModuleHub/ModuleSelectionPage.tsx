@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/external/ui/button";
 import { router } from "@/routes/router";
-import type { LudoCourse } from "@/Types/Catalog/LudoCourse";
-import type { LudoModule } from "@/Types/Catalog/LudoModule";
-import { ludoNavigation } from "@/routes/ludoNavigation";
+import type { LudoCourse } from "@/types/Catalog/LudoCourse";
+import type { LudoModule } from "@/types/Catalog/LudoModule";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { ModulesList } from "./Selection/ModulesList";
 
 type ModuleSelectionPageProps = {

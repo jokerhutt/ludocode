@@ -1,15 +1,15 @@
-// src/form/formKit.ts
+// src/Form/formKit.ts
 import {
   createFormHook,
   createFormHookContexts,
   formOptions,
 } from "@tanstack/react-form";
-import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
-import type { ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
-import { OnboardingSnapSchema } from "@/Types/Zod/OnboardingSchema/OnboardingSnapSchema";
-import FormTitleField from "@/Hooks/form/Fields/FormTitleField";
-import { AddExerciseFieldButton } from "@/Hooks/form/Fields/AddExerciseFieldButton";
-import { StatusButtonField } from "@/components/LudoComponents/Atoms/Status/StatusButtonField";
+import { CourseSnapSchema } from "@/types/Zod/SnapshotSchema/CourseSnapSchema";
+import type { ModuleSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
+import { OnboardingSnapSchema } from "@/types/Zod/OnboardingSchema/OnboardingSnapSchema";
+import FormTitleField from "@/components/tanstack-form-components/fields/form-title-field.tsx";
+import { AddExerciseFieldButton } from "@/components/tanstack-form-components/fields/add-exercise-field-button.tsx";
+import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
 
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =

@@ -1,7 +1,7 @@
-import { DevInfoDialog } from "@/components/LudoComponents/Blocks/Dialog/Info/DevInfoDialog";
+import { DevInfoDialog } from "@/components/design-system/composites/dialog/info-dialog.tsx";
 import { exTypeInfoContent } from "@/constants/static-data/infoContent";
-import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
-import type { LessonSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
+import type { ExerciseType } from "@/types/Exercise/ExerciseType";
+import type { LessonSnap, ModuleSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 type ExerciseControllerHeaderProps = {

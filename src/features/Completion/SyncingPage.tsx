@@ -1,6 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
-import type { SyncState } from "../../routes/Packets/SyncState";
-import { useSubmitLesson } from "../../Hooks/Queries/Mutations/useSubmitLesson";
+import type { SyncState } from "../../types/Completion/SyncState.ts";
+import { useSubmitLesson } from "@/hooks/Queries/Mutations/useSubmitLesson";
 import { useEffect } from "react";
 import { PropagateLoader } from "react-spinners";
 import { syncRoute } from "../../routes/router";

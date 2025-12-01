@@ -1,11 +1,11 @@
-import type { ColumnType } from "@/Hooks/Logic/DragAndDrop/useOptionsDragAndDrop";
-import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
+import type { ColumnType } from "@/hooks/Flows/Builder/useOptionsDragAndDrop";
+import type { ExerciseType } from "@/types/Exercise/ExerciseType";
 import type {
   ExerciseSnap,
   LessonSnap,
   ModuleSnap,
   OptionSnap,
-} from "@/Types/Snapshot/SnapshotTypes";
+} from "@/types/Builder/BuilderSnapshotTypes.ts";
 
 export const newLesson = (orderIndex: number): LessonSnap => {
   return {

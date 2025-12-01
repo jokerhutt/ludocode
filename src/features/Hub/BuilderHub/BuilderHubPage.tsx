@@ -1,10 +1,10 @@
-import { qo } from "@/Hooks/Queries/Definitions/queries";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useModal } from "@/Hooks/UI/useModal";
+import { useModal } from "@/hooks/UI/useModal";
 import { uuid } from "@tanstack/react-form";
-import { BuilderHubCourseCard } from "./Card/BuilderHubCourseCard";
-import { BuilderHubHero } from "./Hero/BuilderHubHero";
-import { CreateCourseDialog } from "@/components/LudoComponents/Blocks/Dialog/Create/CreateCourseDialog";
+import { BuilderHubCourseCard } from "@/features/Hub/BuilderHub/UI/Card/BuilderHubCourseCard";
+import { BuilderHubHero } from "@/features/Hub/BuilderHub/UI/Hero/BuilderHubHero";
+import { CreateCourseDialog } from "@/features/Hub/BuilderHub/UI/Dialog/CreateCourseDialog.tsx";
 
 type BuilderHubPageProps = {};
 

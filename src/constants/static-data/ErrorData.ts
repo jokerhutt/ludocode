@@ -1,4 +1,4 @@
-import { ludoNavigation } from "@/routes/ludoNavigation";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { router } from "@/routes/router";
 
 type ErrorEntry = {

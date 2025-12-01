@@ -1,7 +1,7 @@
-import { useHotkeys } from "@/Hooks/UI/useHotkeys";
-import { useCodeRunnerContext } from "../../../Hooks/Context/Runner/CodeRunnerContext";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import { useHotkeys } from "@/hooks/UI/useHotkeys";
+import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext";
+import { Button } from "@/components/external/ui/button";
+import { Spinner } from "@/components/external/ui/spinner";
 
 export function RunCodeButton() {
   const { runCode, outputInfo } = useCodeRunnerContext();

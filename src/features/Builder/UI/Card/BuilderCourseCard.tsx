@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { ludoNavigation } from "@/routes/ludoNavigation";
+import { Button } from "@/components/external/ui/button";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { router } from "@/routes/router";
 
 type BuilderCourseCardProps = { title: string; id: string };

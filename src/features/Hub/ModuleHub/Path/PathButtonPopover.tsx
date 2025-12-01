@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent } from "@/components/ui/popover";
-import type { LudoLesson } from "@/Types/Catalog/LudoLesson";
+import { Button } from "@/components/external/ui/button";
+import { Popover, PopoverContent } from "@/components/external/ui/popover";
+import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { ReactNode } from "react";
 import type { LessonCompletion } from "./ModulePathButton";
 

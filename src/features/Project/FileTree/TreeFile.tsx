@@ -2,12 +2,12 @@
 import {
   LANGUAGE_MAP,
   type LanguageType,
-} from "@/Types/Playground/LanguageType.ts";
-import { useProjectContext } from "../../../Hooks/Context/Project/ProjectContext.tsx";
-import { FileWrapper } from "@/components/LudoComponents/Blocks/File/FileWrapper.tsx";
-import { FileInfoRow } from "@/components/LudoComponents/Blocks/File/FileInfoRow.tsx";
-import { CustomIcon } from "@/components/LudoComponents/Atoms/Icons/CustomIcon.tsx";
-import { FileActionsButton } from "@/components/LudoComponents/Blocks/Popover/FileActionsButton.tsx";
+} from "@/types/Project/LanguageType.ts";
+import { useProjectContext } from "@/hooks/Context/Project/ProjectContext.tsx";
+import { FileWrapper } from "@/components/design-system/blocks/file/file-wrapper.tsx";
+import { FileInfoRow } from "@/components/design-system/blocks/file/file-info-row.tsx";
+import { CustomIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import { FileActionsButton } from "@/components/design-system/blocks/popover/file-actions-button.tsx";
 
 type TreeFileProps = {
   fileName: string;

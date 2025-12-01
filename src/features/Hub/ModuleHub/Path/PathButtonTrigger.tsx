@@ -1,7 +1,7 @@
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import type { LessonCompletion } from "./ModulePathButton";
-import { CompletionRibbon } from "@/components/LudoComponents/Atoms/Ribbon/CompletionRibbon";
-import { LockIcon } from "@/components/LudoComponents/Atoms/Icons/CustomIcon";
+import { CompletionRibbon } from "@/components/design-system/atoms/ribbon/completion-ribbon.tsx";
+import { LockIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
 
 type PathButtonTriggerProps = { lessonType: LessonCompletion };
 

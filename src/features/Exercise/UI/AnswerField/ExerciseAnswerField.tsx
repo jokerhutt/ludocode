@@ -1,10 +1,10 @@
 import { Fragment, useCallback, useMemo } from "react";
-import type { LudoExerciseOption } from "../../../../Types/Exercise/LudoExerciseOption.ts";
-import { useInputAssistance } from "../../../../Hooks/Logic/Input/useInputAssistance.tsx";
-import type { AnswerToken } from "@/Hooks/Logic/Exercises/useExercise.tsx";
-import { splitPromptGaps } from "@/Hooks/Logic/Exercises/Util/inputUtil.ts";
-import { InlineCode } from "@/components/LudoComponents/Atoms/Code/InlineCode.tsx";
-import { OptionInputSlot } from "@/components/LudoComponents/Atoms/CodeOption/OptionInputSlot.tsx";
+import type { LudoExerciseOption } from "@/types/Exercise/LudoExerciseOption.ts";
+import { useInputAssistance } from "@/hooks/Flows/Input/useInputAssistance.tsx";
+import type { AnswerToken } from "@/hooks/Flows/Exercises/useExercise.tsx";
+import { splitPromptGaps } from "@/hooks/Flows/Exercises/Util/inputUtil.ts";
+import { InlineCode } from "@/components/design-system/atoms/code/inline-code.tsx";
+import { OptionInputSlot } from "@/components/design-system/atoms/option/option-input-slot.tsx";
 
 type ExerciseAnswerFieldProps = {
   answerField: string;

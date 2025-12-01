@@ -1,7 +1,7 @@
 
-import { InlineCode } from "@/components/LudoComponents/Atoms/Code/InlineCode";
-import { CodeBoxWrapper } from "@/components/LudoComponents/Blocks/Wrapper/CodeBoxWrapper";
-import type { OptionSnap } from "@/Types/Snapshot/SnapshotTypes";
+import { InlineCode } from "@/components/design-system/atoms/code/inline-code.tsx";
+import { CodeBoxWrapper } from "@/components/design-system/blocks/wrapper/code-box-wrapper.tsx";
+import type { OptionSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { Fragment } from "react/jsx-runtime";
 
 type LivePromptPreviewProps = {

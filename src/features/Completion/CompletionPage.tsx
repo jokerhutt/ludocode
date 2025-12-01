@@ -1,11 +1,11 @@
 import confettiAnimationData from "../../../public/Animations/LC_CONFETTI_SLOW.json";
 import streakAnimationData from "../../../public/Animations/STR_INCREASE.json";
-import { useTimedLottie } from "@/Hooks/UI/useTimedLottie";
+import { useTimedLottie } from "@/hooks/UI/useTimedLottie";
 import Lottie from "lottie-react";
-import { useCompletionContext } from "../../Hooks/Context/Completion/CompletionContext";
-import { useLottie } from "@/Hooks/Animation/useLottie";
-import { CompletionStatsRow } from "./Stats/CompletionStatsRow";
-import { IncrementingMotionCounter } from "@/components/LudoComponents/Atoms/Motion/IncrementingMotionCounter";
+import { useCompletionContext } from "@/hooks/Context/Completion/CompletionContext";
+import { useLottie } from "@/hooks/Animation/useLottie";
+import { CompletionStatsRow } from "@/features/Completion/UI/Stats/CompletionStatsRow";
+import { IncrementingMotionCounter } from "@/components/design-system/atoms/motion/incrementing-motion-counter.tsx";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();

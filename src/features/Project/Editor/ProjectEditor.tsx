@@ -1,9 +1,9 @@
-import { useMonacoTheme } from "@/Hooks/UI/useMonacoTheme";
+import { useMonacoTheme } from "@/hooks/UI/useMonacoTheme";
 import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
-import { useCodeRunnerContext } from "../../../Hooks/Context/Runner/CodeRunnerContext";
-import { useProjectContext } from "../../../Hooks/Context/Project/ProjectContext";
-import { LudoSpinner } from "@/components/LudoComponents/Blocks/Progress/LudoSpinner";
+import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext";
+import { useProjectContext } from "@/hooks/Context/Project/ProjectContext";
+import { LudoSpinner } from "@/components/design-system/blocks/progress/ludo-spinner.tsx";
 
 export function ProjectEditor() {
   const { active, updateContent } = useProjectContext();

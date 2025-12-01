@@ -1,5 +1,5 @@
 import { router } from "../../routes/router";
-import { ludoNavigation } from "../../routes/ludoNavigation";
+import { ludoNavigation } from "../../routes/navigator/ludoNavigation.tsx";
 import { RP_BUILD_HUB, RP_COURSE, RP_PROJECT_HUB } from "../router/routes";
 
 export type NavIcon = {

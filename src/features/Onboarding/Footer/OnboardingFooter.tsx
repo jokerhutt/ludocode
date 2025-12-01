@@ -1,7 +1,7 @@
 
-import { AppFooter } from "@/components/LudoComponents/Blocks/Footer/AppFooter";
-import { useOnboardingContext } from "../../../Hooks/Context/Onboarding/OnboardingContext";
-import { ActionButton } from "@/components/LudoComponents/Atoms/Button/ActionButton";
+import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
+import { useOnboardingContext } from "@/hooks/Context/Onboarding/OnboardingContext";
+import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 
 type OnboardingFooterProps = {};
 

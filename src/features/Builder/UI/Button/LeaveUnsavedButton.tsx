@@ -1,6 +1,6 @@
-import { LeaveUnsavedDialog } from "@/components/LudoComponents/Blocks/Dialog/Warning/LeaveUnsavedDialog";
-import { Button } from "@/components/ui/button";
-import { ludoNavigation } from "@/routes/ludoNavigation";
+import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
+import { Button } from "@/components/external/ui/button";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { router } from "@/routes/router";
 
 type LeaveUnsavedButtonProps = { variant: any; enabled: boolean };

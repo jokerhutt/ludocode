@@ -1,5 +1,5 @@
 import { onboardingStageRoute } from "@/routes/router";
-import { steps, type StageKey } from "@/Types/Onboarding/OnboardingSteps";
+import { steps, type StageKey } from "@/types/Onboarding/OnboardingSteps";
 
 export function OnboardingStagePage() {
   const { stage } = onboardingStageRoute.useParams() as { stage: StageKey };

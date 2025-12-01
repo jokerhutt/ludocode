@@ -5,8 +5,8 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Hub/CourseHub/CoursePage.tsx";
-import { ModuleHubLayout } from "../Layouts/Hub/ModuleHubLayout.tsx";
-import { HubLayout } from "../Layouts/Hub/HubLayout.tsx";
+import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
+import { HubLayout } from "@/layouts/Hub/HubLayout.tsx";
 import {
   RP_COURSE,
   RP_LESSON,
@@ -22,7 +22,7 @@ import {
   RP_PROJECT,
   RP_DEMO,
 } from "../constants/router/routes.ts";
-import { LessonLayout } from "../Layouts/Lesson/LessonLayout.tsx";
+import { LessonLayout } from "@/layouts/Lesson/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
@@ -30,27 +30,27 @@ import {
   buildSectionLoader,
   modulePageLoader,
   modulesRedirectLoader,
-} from "./Loaders/modulesLoader";
-import { qo } from "../Hooks/Queries/Definitions/queries";
-import { coursesLoader } from "./Loaders/coursesLoader";
+} from "@/routes/loaders/modulesLoader";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import { coursesLoader } from "@/routes/loaders/coursesLoader";
 import { SyncingPage } from "../features/Completion/SyncingPage.tsx";
-import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
-import { OnboardingLayout } from "@/Layouts/Onboarding/OnboardingLayout.tsx";
+import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
+import { OnboardingLayout } from "@/layouts/Onboarding/OnboardingLayout.tsx";
 import {
   stepOrder,
   type StageKey,
-} from "@/Types/Onboarding/OnboardingSteps.ts";
+} from "@/types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
 import { ProjectHubPage } from "@/features/Hub/ProjectHub/ProjectHubPage.tsx";
-import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
+import { playgroundLoader, projectLoader } from "@/routes/loaders/playgroundLoader.ts";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
-import { ProjectLayout } from "@/Layouts/Project/ProjectLayout.tsx";
+import { ProjectLayout } from "@/layouts/Project/ProjectLayout.tsx";
 import { DEMO_LOGIN } from "@/constants/api/pathConstants.ts";
-import { CompletionLayout } from "@/Layouts/Completion/CompletionLayout.tsx";
+import { CompletionLayout } from "@/layouts/Completion/CompletionLayout.tsx";
 import z from "zod";
-import { DesktopOnlyPage } from "@/Layouts/Fallback/DesktopOnlyPage.tsx";
-import { BuilderLayout } from "@/Layouts/Builder/BuilderLayout.tsx";
+import { DesktopOnlyPage } from "@/layouts/Fallback/DesktopOnlyPage.tsx";
+import { BuilderLayout } from "@/layouts/Builder/BuilderLayout.tsx";
 import { BuilderHubPage } from "@/features/Hub/BuilderHub/BuilderHubPage.tsx";
 
 export const queryClient = new QueryClient();
@@ -145,7 +145,7 @@ export const authRoute = createRoute({
 export const projectHubRoute = createRoute({
   getParentRoute: () => hubRoute,
   path: RP_PROJECT_HUB,
-  staticData: { headerTitle: "Playground" },
+  staticData: { headerTitle: "Project" },
   loader: async ({}) => playgroundLoader(queryClient),
   component: ProjectHubPage,
 });

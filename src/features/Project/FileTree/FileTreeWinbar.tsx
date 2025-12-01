@@ -1,6 +1,6 @@
-import { CircleIconButton } from "@/components/LudoComponents/Atoms/Button/CircleIconButton";
-import { NewFilePopover } from "@/components/LudoComponents/Blocks/Popover/NewFilePopover";
-import { Winbar } from "@/components/LudoComponents/Blocks/Winbar/Winbar";
+import { CircleButton } from "@/components/design-system/atoms/button/circle-button.tsx";
+import { NewFilePopover } from "@/components/design-system/blocks/popover/new-file-popover.tsx";
+import { Winbar } from "@/components/design-system/blocks/winbar/winbar.tsx";
 
 
 export function FileTreeWinbar() {
@@ -9,7 +9,7 @@ export function FileTreeWinbar() {
       <div className="flex h-full text-white justify-between items-center">
         <p>Files</p>
         <NewFilePopover>
-          <CircleIconButton iconName="PlusIcon" />
+          <CircleButton iconName="PlusIcon" />
         </NewFilePopover>
       </div>
     </Winbar>

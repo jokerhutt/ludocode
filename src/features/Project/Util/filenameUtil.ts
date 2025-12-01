@@ -1,4 +1,4 @@
-import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
+import type { ProjectFileSnapshot } from "@/types/Project/ProjectFileSnapshot";
 
 export const stripFileName = (fileName: string) =>
   fileName.replace("inmem:///", "");
