@@ -4,10 +4,10 @@ import { useChangeExercise } from "./useChangeExercise";
 
 import { useCallback } from "react";
 import type { ExerciseAttempt } from "@/types/Exercise/LessonSubmissions.ts";
-import type { ExercisePhase } from "@/components/Molecules/footer/LessonFooter";
 import { useStagedAttempt } from "./useStagedAttempt";
 import { useExerciseInput, type useExerciseInputResponse } from "./useExerciseInput";
 import { useCommittedSubmissions } from "./useCommittedSubmissions";
+import type { ExercisePhase } from "@/features/Exercise/UI/Footer/LessonFooter";
 
 export type AnswerToken = { id?: string; value: string };
 

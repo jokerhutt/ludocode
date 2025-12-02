@@ -1,4 +1,4 @@
-import type { AnswerToken } from "@/hooks/Flows/Input/useInputAssistance";
+import type { AnswerToken } from "@/hooks/Flows/Exercises/useExercise";
 
 export type LessonSubmission = {
   id: string;

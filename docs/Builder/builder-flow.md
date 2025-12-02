@@ -1,5 +1,14 @@
 <h1 align="center">The Builder</h1>
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Purpose](#purpose)
+3. [Architecture Explanation](#architecture-explanation)
+4. [Snapshots & Zod](#snapshots--zod)
+5. [Builder UI Tree Nodes](#builder-ui-tree-nodes)
+6. [Builder UI Exercise Nodes](#builder-ui-exercise-nodes)
+7. [Error Validation & Bubbling](#error-validation--bubbling)
+
 ## Overview
 
 This document explains how the builder feature, which allows users to edit a courses modules, lessons, exercises, and options, works. It also explains some of the architectural decisions related to the builder.
