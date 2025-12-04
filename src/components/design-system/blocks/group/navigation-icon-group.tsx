@@ -2,6 +2,7 @@ import { navIcons } from "@/constants/static-data/navIcons";
 import { useLocation } from "@tanstack/react-router";
 import { HollowSlotButtonGroup } from "./hollow-slot-button-group.tsx";
 import { HollowSlotButton } from "@/components/design-system/atoms/button/hollow-slot-button.tsx";
+import { useFeatureEnabledCheck } from "@/hooks/App/useFeatureEnabledCheck.tsx";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;
@@ -12,7 +13,14 @@ export function NavigationIconGroup({
   groupClassName,
   buttonClassName,
 }: NavigationIconGroupProps) {
+
+  const {enabled: isAdmin} = useFeatureEnabledCheck({feature: "isAdminEnabled"})
+
   const icons = navIcons;
+  const userIcons = navIcons.filter((icon) => icon.name !== "Build")
+
+  const iconsToRender = isAdmin ? icons : userIcons
+
   const location = useLocation();
 
   const isActive = (iconPath: string, altPath?: string): boolean => {
@@ -26,7 +34,7 @@ export function NavigationIconGroup({
 
   return (
     <HollowSlotButtonGroup className={groupClassName}>
-      {icons.map((icon) => (
+      {iconsToRender.map((icon) => (
         <HollowSlotButton
           className={buttonClassName}
           active={isActive(icon.path)}

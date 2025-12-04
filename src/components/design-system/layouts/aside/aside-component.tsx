@@ -1,6 +1,5 @@
 import { cn } from "@/components/cn-utils.ts";
 import type { ReactNode } from "react";
-import type { string } from "zod";
 
 type AsideComponentProps = {
   children: ReactNode;

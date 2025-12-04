@@ -1,7 +1,6 @@
 type ActionButtonProps = {
   text: string;
   variant?: "yellow" | "default";
-  fill?: boolean;
   orientation?: "start" | "center" | "end";
   active?: boolean;
   onClick?: () => void;
@@ -21,7 +20,6 @@ const variants = {
 export function ActionButton({
   text,
   variant = "default",
-  fill = false,
   active = false,
   orientation = "start",
   onClick,

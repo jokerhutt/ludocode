@@ -1,4 +1,4 @@
-import { Dialog, DialogHeader, DialogTitle, DialogTrigger } from "@/components/external/ui/dialog.tsx";
+import { Dialog, DialogTitle, DialogTrigger } from "@/components/external/ui/dialog.tsx";
 import { DialogWrapper } from "@/components/design-system/blocks/dialog/dialog-wrapper.tsx";
 import type { ReactNode } from "react";
 

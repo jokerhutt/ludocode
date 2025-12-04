@@ -1,6 +1,5 @@
-import { DEMO_AUTH_TOKEN } from "../environment/env";
+import { API_URL, DEMO_AUTH_TOKEN } from "../environment/env";
 
-export const API_URL = "http://localhost:8080";
 export const API_PREFIX = "/api/v1";
 export const API_PATH = API_URL + API_PREFIX;
 
@@ -8,6 +7,8 @@ export const API_PATH = API_URL + API_PREFIX;
 export const GET_ALL_COURSES = API_PATH + `/catalog/courses`;
 export const GET_COURSE_TREE = (courseId: string) =>
   API_PATH + `/catalog/courses/${courseId}/tree`;
+
+export const GET_ENABLED_FEATURES = API_PATH + `/features`;
 
 // == MODULES == //
 export const GET_MODULES_FROM_IDS = (moduleIds: string) =>

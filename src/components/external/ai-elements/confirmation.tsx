@@ -94,13 +94,6 @@ export type ConfirmationRequestProps = {
 };
 
 export const ConfirmationRequest = ({ children }: ConfirmationRequestProps) => {
-  const { state } = useConfirmation();
-
-  // Only show when approval is requested
-  if (state !== "approval-requested") {
-    return null;
-  }
-
   return children;
 };
 
@@ -111,15 +104,10 @@ export type ConfirmationAcceptedProps = {
 export const ConfirmationAccepted = ({
   children,
 }: ConfirmationAcceptedProps) => {
-  const { approval, state } = useConfirmation();
+  const { approval } = useConfirmation();
 
   // Only show when approved and in response states
-  if (
-    !approval?.approved ||
-    (state !== "approval-responded" &&
-      state !== "output-denied" &&
-      state !== "output-available")
-  ) {
+  if (!approval?.approved) {
     return null;
   }
 
@@ -133,15 +121,10 @@ export type ConfirmationRejectedProps = {
 export const ConfirmationRejected = ({
   children,
 }: ConfirmationRejectedProps) => {
-  const { approval, state } = useConfirmation();
+  const { approval} = useConfirmation();
 
   // Only show when rejected and in response states
-  if (
-    approval?.approved !== false ||
-    (state !== "approval-responded" &&
-      state !== "output-denied" &&
-      state !== "output-available")
-  ) {
+  if (approval?.approved !== false) {
     return null;
   }
 
@@ -154,13 +137,6 @@ export const ConfirmationActions = ({
   className,
   ...props
 }: ConfirmationActionsProps) => {
-  const { state } = useConfirmation();
-
-  // Only show when approval is requested
-  if (state !== "approval-requested") {
-    return null;
-  }
-
   return (
     <div
       className={cn("flex items-center justify-end gap-2 self-end", className)}

@@ -11,7 +11,6 @@ export function SaveStatusIcon({
   isSaving,
   isSaved,
   error,
-  lastSavedAt,
 }: SaveStatusIconProps) {
   const status: IconName = !!error
     ? "CloudError"

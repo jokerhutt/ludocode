@@ -1,6 +1,6 @@
+import type { BarState } from "@/components/design-system/blocks/header/header-with-bar";
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import type { BarState } from "../../components/Molecules/header/HeaderWithBar";
 
 export function useRouterBar() {
   const { status } = useRouterState();

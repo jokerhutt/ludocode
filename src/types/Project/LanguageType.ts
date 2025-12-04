@@ -1,4 +1,4 @@
-import type { IconName } from "@/components/atoms/hero-icon/CustomIcon";
+import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon";
 import type { ProjectFileChoice } from "@/hooks/Flows/Project/useProject";
 
 export type LanguageType = "python" | "javascript" | "lua";

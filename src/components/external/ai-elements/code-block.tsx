@@ -85,7 +85,7 @@ export const CodeBlock = ({
   const mounted = useRef(false);
 
   useEffect(() => {
-    highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
+    highlightCode(code, language, showLineNumbers).then(([dark]) => {
       if (!mounted.current) {
         setHtml(dark);
         setDarkHtml(dark);

@@ -18,10 +18,8 @@ export function AuthPage({}: AuthPageProps) {
             </h1>
 
             <p className="text-ludoAltText text-center text-xl">
-              This is a project that i made as a showcase project for Mimo.{" "}
-              <br /> <br /> If you are from Mimo and do not wish to use Google,
-              I have sent a demo authentication link in my email. I hope you
-              enjoy! 🤞
+              This is a work in progress code learning platform. 
+              <br/> The core features are here, try it out!
             </p>
 
             <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">

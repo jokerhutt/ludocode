@@ -2,7 +2,6 @@
 import {
   createFormHook,
   createFormHookContexts,
-  formOptions,
 } from "@tanstack/react-form";
 import { CourseSnapSchema } from "@/types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { ModuleSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
