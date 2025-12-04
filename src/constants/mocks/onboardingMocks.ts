@@ -7,11 +7,6 @@ export const onboardingContent: OnboardingFormContent = {
       title: "Python",
       description: "Python is a simple programming language",
     },
-    {
-      courseId: "85f9dc0b-0511-4301-8374-dee51dbd11a9",
-      title: "Swift",
-      description: "Swift is by apple",
-    },
   ],
   careerContent: [
     {
@@ -20,13 +15,6 @@ export const onboardingContent: OnboardingFormContent = {
       careerType: "DATA",
       description: "Data scientists",
       topPath: "Python",
-    },
-    {
-      courseId: "85f9dc0b-0511-4301-8374-dee51dbd11a9",
-      title: "IOS Developer",
-      careerType: "IOS",
-      description: "Ios Developer",
-      topPath: "Swift",
     },
   ],
   previousExperienceContent: [

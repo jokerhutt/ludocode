@@ -10,7 +10,7 @@
 
 ## Overview
 
-This repository contains the frontend code for Ludocode, a code learning website intended primarily as a showcase project for Mimo.
+This repository contains the frontend code for Ludocode, a code learning website.
 
 The project is written using React, Typescript, Tailwind CSS, ShadCN UI, and Tanstack query, form, & router.
 

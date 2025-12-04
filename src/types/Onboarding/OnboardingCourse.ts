@@ -16,7 +16,7 @@ export type OnboardingCourseType = {
   description: string;
 };
 
-export type CareerType = "DATA" | "IOS";
+export type CareerType = "DATA";
 
 export type PreviousExperienceType = {
   content: string;

@@ -6,8 +6,17 @@ import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { ProjectCard } from "@/features/Hub/ProjectHub/UI/Card/ProjectCard.tsx";
 import { ProjectHubHero } from "@/features/Hub/ProjectHub/UI/Hero/ProjectHubHero.tsx";
 import { CreateProjectDialog } from "@/features/Hub/ProjectHub/UI/Dialog/CreateProjectDialog.tsx";
+import { FeatureDisabledPage } from "@/features/Error/FeatureDisabledPage";
+import { useFeatureEnabledCheck } from "@/hooks/App/useFeatureEnabledCheck";
 
 export function ProjectHubPage() {
+
+  const {meta, enabled} = useFeatureEnabledCheck({feature: "isGcsEnabled"})
+
+  if (!enabled) {
+    return <FeatureDisabledPage meta={meta} />;
+  }
+
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
   const allProjects = projectsPacket.projects;
 

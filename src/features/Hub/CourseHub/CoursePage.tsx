@@ -3,8 +3,6 @@ import { useChangeCourse } from "@/hooks/Queries/Mutations/useChangeCourse.tsx";
 import { CourseCard } from "./UI/CourseCard.tsx";
 import { courseHubRoute } from "../../../routes/router.tsx";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse.ts";
-import { useSuspenseQueries } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { CourseCardGrid } from "./UI/CourseCardGrid.tsx";
 import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
 
@@ -16,16 +14,7 @@ export type CourseType = {
 };
 
 export function CoursePage() {
-  const { allCourses, enrolled } = useLoaderData({ from: courseHubRoute.id });
-
-  const progressQueries = useSuspenseQueries({
-    queries: enrolled.map((enrolled: string) => qo.courseProgress(enrolled)),
-  });
-
-  const progressList = progressQueries.map(
-    (progressQuery) => progressQuery.data
-  );
-
+  const { allCourses } = useLoaderData({ from: courseHubRoute.id });
   const changeCourseMutation = useChangeCourse();
 
   const handleSelectCourse = (courseId: string) => {

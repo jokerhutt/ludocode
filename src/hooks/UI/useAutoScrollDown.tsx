@@ -1,4 +1,3 @@
-import type { ChatMessage } from "@/types/AI/AIMessagePart";
 import type { UIDataTypes, UIMessage, UITools } from "ai";
 import { useEffect, useRef } from "react";
 

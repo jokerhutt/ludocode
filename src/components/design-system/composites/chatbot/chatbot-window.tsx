@@ -14,7 +14,7 @@ type ChatBotProps = {
 export type ChatBotChatType = "LESSON" | "PROJECT";
 
 const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
-  const { messages, sendMessage, status } = useChatbot();
+  const { messages, sendMessage} = useChatbot();
 
   const handleSubmit = (message: PromptInputMessage) => {
     sendMessage({

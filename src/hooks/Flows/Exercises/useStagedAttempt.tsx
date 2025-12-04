@@ -3,8 +3,8 @@ import { useCallback, useState } from "react";
 import type { LudoExercise } from "@/types/Exercise/LudoExercise";
 import { areAllFilled, areAllValid, checkCorrect } from "./Util/validationUtil";
 import { playSound } from "@/sound/soundManager";
-import type { ExercisePhase } from "@/components/Molecules/footer/LessonFooter";
 import type { AnswerToken } from "./useExercise";
+import type { ExercisePhase } from "@/features/Exercise/UI/Footer/LessonFooter";
 
 type useStagedAttemptProps = {
   currentExerciseInputs: AnswerToken[];
@@ -24,6 +24,7 @@ export function useStagedAttempt({
   currentExerciseInputs,
   currentExercise,
 }: useStagedAttemptProps): useStagedAttemptResponse {
+  
   const allSlotsFilled = areAllFilled(currentExerciseInputs);
   const allSlotsValid =
     currentExercise.exerciseType === "INFO" ||

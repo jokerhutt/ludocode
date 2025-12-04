@@ -5,7 +5,7 @@ import type {
 } from "@/types/Onboarding/OnboardingCourse";
 import { stepOrder, type StageKey } from "@/types/Onboarding/OnboardingSteps";
 import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 
 type Args = { stage: StageKey };
 
@@ -77,7 +77,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   };
 
   const next = useCallback(() => {
-    if (!submitOnboardingMutation.isPending) return;
+    if (submitOnboardingMutation.isPending) return;
     if (!canAdvance) return;
     if (!atLast) goto(stepOrder[idx + 1]);
     if (atLast) {

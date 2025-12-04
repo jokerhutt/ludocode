@@ -1,4 +1,4 @@
-import type { LessonCompletion } from "@/features/Module/Path/ModulePathButton";
+import type { LessonCompletion } from "@/features/Hub/ModuleHub/Path/ModulePathButton";
 import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { router } from "@/routes/router";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";

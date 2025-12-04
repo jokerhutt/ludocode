@@ -26,16 +26,15 @@ import {
   GET_MY_PROJECTS,
   GET_USER_STREAK,
   GET_PAST_WEEK_STREAK,
+  GET_ENABLED_FEATURES,
 } from "../../../constants/api/pathConstants.ts";
 import type { LudoUser } from "@/types/User/LudoUser";
 import type { FlatCourseTree } from "@/types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import type { UserPreferences } from "@/types/User/UserPreferences.ts";
 import type { ProjectListResponse } from "@/types/Project/ProjectListResponse.ts";
-import {
-  type DailyGoalMet,
-  type UserStreak,
-} from "@/types/User/UserStreak.ts";
+import { type DailyGoalMet, type UserStreak } from "@/types/User/UserStreak.ts";
+import { type ActiveFeaturesResponse } from "@/types/FeatureFlags/FeatureFlags.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -57,6 +56,13 @@ export const qo = {
       queryKey: qk.preferences(),
       queryFn: () => ludoGet<UserPreferences>(GET_USER_PREFERENCES, true),
       staleTime: 60_000,
+    }),
+
+  activeFeatures: () =>
+    queryOptions<ActiveFeaturesResponse>({
+      queryKey: qk.activeFeatures(),
+      queryFn: () => ludoGet<ActiveFeaturesResponse>(GET_ENABLED_FEATURES),
+      staleTime: Infinity,
     }),
 
   lesson: (lessonId: string) =>

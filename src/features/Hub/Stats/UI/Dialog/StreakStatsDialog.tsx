@@ -1,6 +1,5 @@
 import {
   Dialog,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/external/ui/dialog.tsx";
