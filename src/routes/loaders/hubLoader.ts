@@ -13,3 +13,6 @@ export async function hubLoader(queryClient: QueryClient) {
 
   return { userStats, userStreak };
 }
+
+export async function hubIndexLoader() {
+}

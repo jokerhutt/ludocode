@@ -2,6 +2,7 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
+  redirect,
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Hub/CourseHub/CoursePage.tsx";
 import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
@@ -12,7 +13,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
   modulePageLoader,
-  modulesRedirectLoader,
+  modulesRedirectLoader as moduleIndexLoder,
 } from "@/routes/loaders/modulesLoader";
 import { coursesLoader } from "@/routes/loaders/coursesLoader";
 import { SyncingPage } from "../features/Completion/SyncingPage.tsx";
@@ -41,7 +42,7 @@ import {
   builderPageLoader,
 } from "./loaders/builderLoader.ts";
 import { lessonPageLoader } from "./loaders/lessonsLoader.ts";
-import { hubLoader } from "./loaders/hubLoader.ts";
+import { hubIndexLoader, hubLoader } from "./loaders/hubLoader.ts";
 import { syncLoader } from "./loaders/syncLoader.ts";
 import { appPreloader, demoAuthPreloader } from "./preloaders/authPreloader.ts";
 import { profileRootLoader } from "./loaders/profileLoader.ts";
@@ -58,9 +59,17 @@ const rootRoute = createRootRoute({
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const appRoute = createRoute({
+  id: "app",
   getParentRoute: () => rootRoute,
-  id: "authed",
   beforeLoad: async ({ location }) => appPreloader(location, queryClient),
+});
+
+const appIndexRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/",
+  beforeLoad: () => {
+    throw redirect({ to: routes.hub.module.root });
+  },
 });
 
 const demoAuthRoute = createRoute({
@@ -77,14 +86,14 @@ export const desktopGuardRoute = createRoute({
 
 export const hubRoute = createRoute({
   getParentRoute: () => appRoute,
-  id: "site",
+  id: "hub",
   loader: async ({}) => hubLoader(queryClient),
   component: HubLayout,
 });
 
 export const courseHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: routes.hub.coursesHub,
+  path: routes.hub.courses,
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => coursesLoader(queryClient),
   component: CoursePage,
@@ -98,7 +107,7 @@ export const authRoute = createRoute({
 
 export const projectHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: routes.hub.projectHub,
+  path: routes.hub.project,
   staticData: { headerTitle: "Project" },
   loader: async ({}) => projectHubLoader(queryClient),
   component: ProjectHubPage,
@@ -117,18 +126,6 @@ export const onboardingRoute = createRoute({
   component: OnboardingLayout,
 });
 
-export const profileRootRoute = createRoute({
-  getParentRoute: () => hubRoute,
-  path: routes.hub.profile.root,
-  loader: async () => profileRootLoader(queryClient),
-});
-
-export const profileUserRoute = createRoute({
-  getParentRoute: () => hubRoute,
-  path: routes.hub.profile.user,
-  component: ProfilePage,
-});
-
 export const onboardingStageRoute = createRoute({
   getParentRoute: () => onboardingRoute,
   path: "$stage",
@@ -140,11 +137,41 @@ export const onboardingStageRoute = createRoute({
   component: OnboardingStagePage,
 });
 
-export const moduleHubRedirectRoute = createRoute({
+export const profileRootRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: routes.hub.module.moduleRedirect,
+  path: routes.hub.profile.root,
+});
+
+export const profileIndexRoute = createRoute({
+  getParentRoute: () => profileRootRoute,
+  path: "/",
+  loader: async () => profileRootLoader(queryClient),
+});
+
+export const profileUserRoute = createRoute({
+  getParentRoute: () => profileRootRoute,
+  path: routes.hub.profile.user,
+  staticData: { headerTitle: "Profile" },
+  component: ProfilePage,
+});
+
+export const moduleHubRootRoute = createRoute({
+  getParentRoute: () => hubRoute,
+  path: routes.hub.module.root,
+});
+
+export const moduleIndexRoute = createRoute({
+  getParentRoute: () => moduleHubRootRoute,
+  path: "/",
+  loader: async () => moduleIndexLoder(queryClient),
+});
+
+export const moduleHubRoute = createRoute({
+  getParentRoute: () => moduleHubRootRoute,
+  path: routes.hub.module.moduleHub,
   staticData: { headerTitle: "Modules" },
-  loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
+  loader: async ({ params }) => modulePageLoader(params, queryClient),
+  component: ModuleHubLayout,
 });
 
 export const buildRoute = createRoute({
@@ -161,18 +188,10 @@ export const buildRoute = createRoute({
 
 export const builderHubRoute = createRoute({
   getParentRoute: () => hubRoute,
-  path: routes.hub.buildHub,
+  path: routes.hub.builder,
   staticData: { headerTitle: "Builder " },
   loader: async ({ location }) => builderHubLoader(location, queryClient),
   component: BuilderHubPage,
-});
-
-export const moduleHubRoute = createRoute({
-  getParentRoute: () => hubRoute,
-  path: routes.hub.module.moduleHub,
-  staticData: { headerTitle: "Modules" },
-  loader: async ({ params }) => modulePageLoader(params, queryClient),
-  component: ModuleHubLayout,
 });
 
 export const lessonRoute = createRoute({
@@ -216,14 +235,14 @@ const routeTree = rootRoute.addChildren([
   demoAuthRoute,
   authRoute,
   appRoute.addChildren([
+    appIndexRoute,
     onboardingRoute.addChildren([onboardingStageRoute]),
     hubRoute.addChildren([
       courseHubRoute,
       projectHubRoute,
       builderHubRoute,
-      profileRootRoute.addChildren([profileUserRoute]),
-      moduleHubRedirectRoute,
-      moduleHubRoute,
+      profileRootRoute.addChildren([profileIndexRoute, profileUserRoute]),
+      moduleHubRootRoute.addChildren([moduleIndexRoute, moduleHubRoute]),
     ]),
     desktopGuardRoute.addChildren([projectRoute, buildRoute]),
     lessonRoute.addChildren([lessonPageRoute]),

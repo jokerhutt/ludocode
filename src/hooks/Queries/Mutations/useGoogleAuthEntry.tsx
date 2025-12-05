@@ -17,8 +17,11 @@ export function useGoogleAuthEntry() {
 
       console.log("Calling post");
 
-      const { user, userCoins, userStreak }: LoginUserResponse =
-        await ludoPost(GOOGLE_LOGIN, { code: codeResponse.code }, true);
+      const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
+        GOOGLE_LOGIN,
+        { code: codeResponse.code },
+        true
+      );
 
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
@@ -28,7 +31,7 @@ export function useGoogleAuthEntry() {
       if (!user.hasOnboarded) {
         router.navigate({ to: routes.onboarding.start, replace: true });
       } else {
-        router.navigate(ludoNavigation.courseRoot());
+        router.navigate(ludoNavigation.hub.module.toCurrent());
       }
     },
     onError: (err) => console.error("Google login failed", err),

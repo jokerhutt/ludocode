@@ -4,6 +4,7 @@ import { HeaderWithBar } from "./header-with-bar.tsx";
 
 type AppHeaderProps = { title: string };
 
+//TODO rename this to hub header
 export function AppHeader({ title }: AppHeaderProps) {
   return (
     <HeaderWithBar device="Both">

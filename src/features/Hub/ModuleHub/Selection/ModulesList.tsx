@@ -27,9 +27,7 @@ export function ModulesList({
 
   const selectModule = (selectedModuleId: string, isSelected: boolean) => {
     if (isSelected) return;
-    router.navigate(
-      ludoNavigation.hub.module.toModule(courseId, selectedModuleId)
-    );
+    router.navigate(ludoNavigation.hub.module.toModule(courseId, selectedModuleId));
   };
 
   const headerContent: ListHeaderProps | undefined = !!header

@@ -13,23 +13,19 @@ export function NavigationIconGroup({
   groupClassName,
   buttonClassName,
 }: NavigationIconGroupProps) {
-
-  const {enabled: isAdmin} = useFeatureEnabledCheck({feature: "isAdminEnabled"})
+  const { enabled: isAdmin } = useFeatureEnabledCheck({
+    feature: "isAdminEnabled",
+  });
 
   const icons = navIcons;
-  const userIcons = navIcons.filter((icon) => icon.name !== "Build")
+  const userIcons = navIcons.filter((icon) => icon.name !== "Build");
 
-  const iconsToRender = isAdmin ? icons : userIcons
+  const iconsToRender = isAdmin ? icons : userIcons;
 
   const location = useLocation();
 
-  const isActive = (iconPath: string, altPath?: string): boolean => {
-    if (iconPath === "/") return location.pathname === "/";
-
-    return (
-      location.pathname.startsWith(iconPath) ||
-      (!!altPath && location.pathname.startsWith(altPath))
-    );
+  const isActive = (iconPath: string): boolean => {
+    return location.pathname.startsWith(iconPath);
   };
 
   return (
