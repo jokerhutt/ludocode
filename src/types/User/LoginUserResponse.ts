@@ -6,5 +6,4 @@ export type LoginUserResponse = {
   user: LudoUser;
   userCoins: UserCoins;
   userStreak: UserStreak;
-  hasOnboarded: boolean
 };

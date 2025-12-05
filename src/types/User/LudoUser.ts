@@ -4,5 +4,6 @@ export type LudoUser = {
     lastName: string,
     pfpSrc: string,
     email: string,
+    hasOnboarded: boolean
     createdAt: string,
 }
