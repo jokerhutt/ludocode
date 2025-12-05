@@ -1,18 +1,18 @@
 export const RP_INDEX = `/`;
 
 export const routes = {
+  root: "/",
   auth: {
     authPage: `/auth`,
     demo: `/demo`,
   },
   hub: {
-    root: "/hub",
-    courses: `/`,
-    builder: `/builder/hub`,
-    project: `/project/hub`,
+    courses: `/courses`,
+    builder: `/builder`,
+    project: `/projects`,
     module: {
-      root: `/modules`,
-      moduleHub: `course/$courseId/module/$moduleId`,
+      root: `/learn`,
+      moduleHub: `$courseId/$moduleId`,
     },
     profile: {
       root: `/profile`,
@@ -20,14 +20,15 @@ export const routes = {
     },
   },
   lesson: {
-    lessonPage: `/course/$courseId/lesson/$lessonId`,
+    lessonPage: `/lesson/$courseId/$lessonId`,
   },
   build: {
+    root: `/build`,
     builderPage: `/build/course/$courseId`,
   },
   completion: {
-    syncPage: `/lesson/$lessonId/sync`,
-    completionPage: `/completion/$courseId/lesson/$lessonId`,
+    syncPage: `/sync/$lessonId`,
+    completionPage: `/completion/$courseId/$lessonId`,
   },
   project: {
     projectPage: `/project/$projectId`,

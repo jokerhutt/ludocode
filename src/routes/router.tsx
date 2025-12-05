@@ -2,6 +2,7 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
+  redirect,
 } from "@tanstack/react-router";
 import { CoursePage } from "../features/Hub/CourseHub/CoursePage.tsx";
 import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
@@ -41,7 +42,7 @@ import {
   builderPageLoader,
 } from "./loaders/builderLoader.ts";
 import { lessonPageLoader } from "./loaders/lessonsLoader.ts";
-import { hubLoader } from "./loaders/hubLoader.ts";
+import { hubIndexLoader, hubLoader } from "./loaders/hubLoader.ts";
 import { syncLoader } from "./loaders/syncLoader.ts";
 import { appPreloader, demoAuthPreloader } from "./preloaders/authPreloader.ts";
 import { profileRootLoader } from "./loaders/profileLoader.ts";
@@ -58,9 +59,17 @@ const rootRoute = createRootRoute({
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const appRoute = createRoute({
+  id: "app",
   getParentRoute: () => rootRoute,
-  id: "authed",
   beforeLoad: async ({ location }) => appPreloader(location, queryClient),
+});
+
+const appIndexRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/",
+  beforeLoad: () => {
+    throw redirect({ to: routes.hub.module.root });
+  },
 });
 
 const demoAuthRoute = createRoute({
@@ -77,7 +86,7 @@ export const desktopGuardRoute = createRoute({
 
 export const hubRoute = createRoute({
   getParentRoute: () => appRoute,
-  id: "site",
+  id: "hub",
   loader: async ({}) => hubLoader(queryClient),
   component: HubLayout,
 });
@@ -131,7 +140,6 @@ export const onboardingStageRoute = createRoute({
 export const profileRootRoute = createRoute({
   getParentRoute: () => hubRoute,
   path: routes.hub.profile.root,
-  staticData: { headerTitle: "Profile" },
 });
 
 export const profileIndexRoute = createRoute({
@@ -143,13 +151,13 @@ export const profileIndexRoute = createRoute({
 export const profileUserRoute = createRoute({
   getParentRoute: () => profileRootRoute,
   path: routes.hub.profile.user,
+  staticData: { headerTitle: "Profile" },
   component: ProfilePage,
 });
 
 export const moduleHubRootRoute = createRoute({
   getParentRoute: () => hubRoute,
   path: routes.hub.module.root,
-  staticData: { headerTitle: "Modules" },
 });
 
 export const moduleIndexRoute = createRoute({
@@ -161,6 +169,7 @@ export const moduleIndexRoute = createRoute({
 export const moduleHubRoute = createRoute({
   getParentRoute: () => moduleHubRootRoute,
   path: routes.hub.module.moduleHub,
+  staticData: { headerTitle: "Modules" },
   loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModuleHubLayout,
 });
@@ -226,6 +235,7 @@ const routeTree = rootRoute.addChildren([
   demoAuthRoute,
   authRoute,
   appRoute.addChildren([
+    appIndexRoute,
     onboardingRoute.addChildren([onboardingStageRoute]),
     hubRoute.addChildren([
       courseHubRoute,

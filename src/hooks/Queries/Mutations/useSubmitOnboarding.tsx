@@ -12,8 +12,8 @@ export function useSubmitOnboarding() {
     onSuccess: (payload) => {
       const { refreshedUser, preferences, courseProgressResponse } = payload;
 
-      qc.setQueryData(qk.user(refreshedUser.id), refreshedUser)
-      qc.setQueryData(qk.currentUser(), refreshedUser)
+      qc.setQueryData(qk.user(refreshedUser.id), refreshedUser);
+      qc.setQueryData(qk.currentUser(), refreshedUser);
       qc.setQueryData(qk.preferences(), preferences);
       qc.setQueryData(
         qk.courseProgress(courseProgressResponse.courseId),
@@ -21,7 +21,12 @@ export function useSubmitOnboarding() {
       );
       qc.setQueryData(qk.currentCourseId(), courseProgressResponse.courseId);
 
-      router.navigate(ludoNavigation.hub.module.toCurrent(true));
+      router.navigate(
+        ludoNavigation.hub.module.toModule(
+          courseProgressResponse.courseId,
+          courseProgressResponse.moduleId
+        )
+      );
     },
   });
 }

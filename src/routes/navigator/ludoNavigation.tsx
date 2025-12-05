@@ -5,6 +5,7 @@ import {
   projectRoute,
   completionRoute,
   syncRoute,
+  moduleHubRoute,
 } from "../router.tsx";
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
 
@@ -20,7 +21,7 @@ export const ludoNavigation = {
         replace: replace,
       }),
       toModule: (courseId: string, moduleId: string) => ({
-        to: routes.hub.module.moduleHub,
+        to: moduleHubRoute.to,
         params: { courseId, moduleId },
         replace: true,
       }),

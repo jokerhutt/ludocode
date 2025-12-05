@@ -26,11 +26,16 @@ export async function appPreloader(
   const user = await queryClient
     .ensureQueryData(qo.currentUser())
     .catch(() => null);
-  if (!user) redirectToAuth();
+  if (!user) {
+    redirectToAuth();
+    return;
+  }
 
   const isOnboarding = location.pathname.startsWith(routes.onboarding.base);
 
-  if (!isOnboarding && !!user && !user.hasOnboarded) {
+  if (!isOnboarding && !user.hasOnboarded) {
     router.navigate({ to: routes.onboarding.start, replace: true });
+    return;
   }
+
 }

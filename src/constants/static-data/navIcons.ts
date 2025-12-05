@@ -6,7 +6,6 @@ export type NavIcon = {
   name: string;
   icon?: string;
   path: string;
-  redirectPath?: string;
   onClick?: () => void;
 };
 
@@ -18,8 +17,7 @@ export const navIcons: NavIcon[] = [
   },
   {
     name: "Learn",
-    redirectPath: routes.hub.module.root,
-    path: "/course",
+    path: routes.hub.module.root,
     onClick: () => router.navigate(ludoNavigation.hub.module.toCurrent()),
   },
   {
@@ -34,8 +32,7 @@ export const navIcons: NavIcon[] = [
   },
   {
     name: "Build",
-    path: "/build",
-    redirectPath: routes.hub.builder,
+    path: routes.hub.builder,
     onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
   },
 ];
