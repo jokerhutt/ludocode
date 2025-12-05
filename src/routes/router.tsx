@@ -24,7 +24,7 @@ import {
 } from "@/types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
 import { ProjectHubPage } from "@/features/Hub/ProjectHub/ProjectHubPage.tsx";
-import { projectLoader } from "@/routes/loaders/projectLoader.ts";
+import { projectHubLoader, projectLoader } from "@/routes/loaders/projectLoader.ts";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/layouts/Project/ProjectLayout.tsx";
@@ -95,6 +95,7 @@ export const projectHubRoute = createRoute({
   getParentRoute: () => hubRoute,
   path: routes.hub.projectHub,
   staticData: { headerTitle: "Project" },
+  loader: async ({}) => projectHubLoader(queryClient),
   component: ProjectHubPage,
 });
 

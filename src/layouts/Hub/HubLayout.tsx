@@ -6,6 +6,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { AppHeader } from "@/components/design-system/blocks/header/app-header.tsx";
 import { NavigationFooter } from "@/components/design-system/blocks/footer/navigation-footer.tsx";
+import { useEffect } from "react";
 
 export function HubLayout() {
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
@@ -13,6 +14,11 @@ export function HubLayout() {
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
   const { data: streakPacket } = useSuspenseQuery(qo.streak(currentUserId));
   const { coins } = coinPacket;
+
+  useEffect(() => {
+    console.log("HubLayout MOUNTED");
+    return () => console.log("HubLayout UNMOUNTED");
+  }, []);
 
   const matches = useMatches();
   const active = matches[matches.length - 1];
