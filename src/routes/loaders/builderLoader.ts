@@ -9,7 +9,7 @@ export async function builderHubLoader(
   const user = await qc.ensureQueryData(qo.currentUser());
   if (!user) redirectToAuth();
 
-  qc.ensureQueryData(qo.allCourses());
+  await qc.ensureQueryData(qo.allCourses());
 }
 
 export async function builderPageLoader(
