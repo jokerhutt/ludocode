@@ -28,6 +28,11 @@ export const navIcons: NavIcon[] = [
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
   },
   {
+    name: "Profile",
+    path: routes.hub.profile.root,
+    onClick: () => router.navigate(ludoNavigation.hub.profile.me())
+  },
+  {
     name: "Build",
     path: "/build",
     redirectPath: routes.hub.buildHub,

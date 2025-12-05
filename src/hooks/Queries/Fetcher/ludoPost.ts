@@ -1,3 +1,5 @@
+import { LOGOUT } from "@/constants/api/pathConstants";
+
 export async function ludoPost<TResponse, TBody = unknown>(
   path: string,
   body: TBody | null,
@@ -11,5 +13,15 @@ export async function ludoPost<TResponse, TBody = unknown>(
   });
 
   if (!res.ok) throw new Error(`Failed POST ${path} → ${res.status}`);
+  
   return res.json() as Promise<TResponse>;
+}
+
+export async function logout() {
+  const res = await fetch(LOGOUT, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error(`Logout failed → ${res.status}`);
 }

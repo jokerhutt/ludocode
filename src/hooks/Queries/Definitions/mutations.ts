@@ -1,7 +1,7 @@
 import { mutationOptions } from "@tanstack/react-query";
 import type { LessonCompletionPacket } from "@/types/Completion/LessonCompletionResponse.ts";
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
-import { ludoPost } from "../Fetcher/ludoPost";
+import { logout, ludoPost } from "../Fetcher/ludoPost";
 import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
@@ -48,6 +48,13 @@ export const mutations = {
       mutationKey: ["runCode"],
       mutationFn: (variables) =>
         ludoPost<RunnerResult, ProjectSnapshot>(RUN_CODE, variables, true),
+    });
+  },
+
+  logOut: () => {
+    return mutationOptions<void, Error, void>({
+      mutationKey: ["logout"],
+      mutationFn: () => logout(),
     });
   },
 

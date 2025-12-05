@@ -13,6 +13,10 @@ export const routes = {
       moduleRedirect: `/modules`,
       moduleHub: `/course/$courseId/module/$moduleId`,
     },
+    profile: {
+      root: `/profile`,
+      user: `/profile/$userId`
+    }
   },
   lesson: {
     lessonPage: `/course/$courseId/lesson/$lessonId`,

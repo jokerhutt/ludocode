@@ -24,7 +24,10 @@ import {
 } from "@/types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
 import { ProjectHubPage } from "@/features/Hub/ProjectHub/ProjectHubPage.tsx";
-import { projectHubLoader, projectLoader } from "@/routes/loaders/projectLoader.ts";
+import {
+  projectHubLoader,
+  projectLoader,
+} from "@/routes/loaders/projectLoader.ts";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import { LessonPage } from "@/features/Exercise/LessonPage.tsx";
 import { ProjectLayout } from "@/layouts/Project/ProjectLayout.tsx";
@@ -41,6 +44,8 @@ import { lessonPageLoader } from "./loaders/lessonsLoader.ts";
 import { hubLoader } from "./loaders/hubLoader.ts";
 import { syncLoader } from "./loaders/syncLoader.ts";
 import { appPreloader, demoAuthPreloader } from "./preloaders/authPreloader.ts";
+import { profileRootLoader } from "./loaders/profileLoader.ts";
+import { ProfilePage } from "@/features/Hub/ProfileHub/ProfilePage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -110,6 +115,18 @@ export const onboardingRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "onboarding",
   component: OnboardingLayout,
+});
+
+export const profileRootRoute = createRoute({
+  getParentRoute: () => hubRoute,
+  path: routes.hub.profile.root,
+  loader: async () => profileRootLoader(queryClient),
+});
+
+export const profileUserRoute = createRoute({
+  getParentRoute: () => hubRoute,
+  path: routes.hub.profile.user,
+  component: ProfilePage,
 });
 
 export const onboardingStageRoute = createRoute({
@@ -204,6 +221,7 @@ const routeTree = rootRoute.addChildren([
       courseHubRoute,
       projectHubRoute,
       builderHubRoute,
+      profileRootRoute.addChildren([profileUserRoute]),
       moduleHubRedirectRoute,
       moduleHubRoute,
     ]),
