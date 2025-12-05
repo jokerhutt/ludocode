@@ -11,7 +11,7 @@ export function CourseChoiceStep() {
       <h1 className="text-2xl text-center font-bold text-white">
         What language would you like to start with?
       </h1>
-      <div className="grid grid-cols-3 py-6 gap-6">
+      <div className="grid lg:grid-cols-2s py-6 gap-6">
         {content.courseContent.map((cContent) => (
           <div
             onClick={() => chooseCourse(cContent.courseId)}

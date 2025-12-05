@@ -11,7 +11,7 @@ export function HasExperienceStep() {
       <h1 className="text-2xl text-center font-bold text-white">
         Do you have any programming experience?
       </h1>
-      <div className="grid grid-cols-2 py-6 gap-6">
+      <div className="grid lg:grid-cols-2 py-6 gap-6">
         {content.previousExperienceContent.map((peContent) => (
           <div
             onClick={() => chooseProgrammingExperience(peContent.value)}

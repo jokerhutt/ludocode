@@ -33,7 +33,7 @@ export function OnboardingLayout() {
         <HeaderWithProgress total={total} position={current} />
         <MainContentWrapper>
           <div className="grid col-span-full grid-cols-12">
-            <div className="col-start-2 col-end-11 lg:col-start-3 lg:col-end-11 py-6 min-w-0">
+            <div className="col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 py-6 min-w-0">
               <Outlet />
             </div>
           </div>

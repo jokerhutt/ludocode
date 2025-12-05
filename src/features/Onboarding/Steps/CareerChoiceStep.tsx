@@ -14,7 +14,7 @@ export function CareerChoiceStep() {
       <h1 className="text-2xl text-center font-bold text-white">
         Which direction in Programming Interests you most?
       </h1>
-      <div className="grid grid-cols-3 py-10 gap-6">
+      <div className="grid lg:grid-cols-2 py-10 gap-6">
         {content.careerContent.map((cContent) => (
           <div
             onClick={() => chooseCareer(cContent.careerType)}
