@@ -18,7 +18,7 @@ export async function projectLoader(
 
   //TODO add a custom redirect
   if (!projectId || !isGcsEnabled) {
-    throw redirect({ to: routes.hub.projectHub, replace: true });
+    throw redirect({ to: routes.hub.project, replace: true });
   }
 
   const projects = await queryClient.ensureQueryData(qo.allProjects());

@@ -6,17 +6,18 @@ export const routes = {
     demo: `/demo`,
   },
   hub: {
-    coursesHub: `/`,
-    buildHub: `/builder/hub`,
-    projectHub: `/project/hub`,
+    root: "/hub",
+    courses: `/`,
+    builder: `/builder/hub`,
+    project: `/project/hub`,
     module: {
-      moduleRedirect: `/modules`,
-      moduleHub: `/course/$courseId/module/$moduleId`,
+      root: `/modules`,
+      moduleHub: `course/$courseId/module/$moduleId`,
     },
     profile: {
       root: `/profile`,
-      user: `/profile/$userId`
-    }
+      user: `$userId`,
+    },
   },
   lesson: {
     lessonPage: `/course/$courseId/lesson/$lessonId`,

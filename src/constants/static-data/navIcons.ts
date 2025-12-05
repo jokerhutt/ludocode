@@ -13,29 +13,29 @@ export type NavIcon = {
 export const navIcons: NavIcon[] = [
   {
     name: "Courses",
-    path: routes.hub.coursesHub,
+    path: routes.hub.courses,
     onClick: () => router.navigate(ludoNavigation.courseRoot()),
   },
   {
     name: "Learn",
-    redirectPath: routes.hub.module.moduleRedirect,
+    redirectPath: routes.hub.module.root,
     path: "/course",
     onClick: () => router.navigate(ludoNavigation.hub.module.toCurrent()),
   },
   {
     name: "Projects",
-    path: routes.hub.projectHub,
+    path: routes.hub.project,
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
   },
   {
     name: "Profile",
     path: routes.hub.profile.root,
-    onClick: () => router.navigate(ludoNavigation.hub.profile.me())
+    onClick: () => router.navigate(ludoNavigation.hub.profile.me()),
   },
   {
     name: "Build",
     path: "/build",
-    redirectPath: routes.hub.buildHub,
+    redirectPath: routes.hub.builder,
     onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
   },
 ];
