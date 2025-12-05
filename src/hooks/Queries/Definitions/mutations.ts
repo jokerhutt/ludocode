@@ -53,7 +53,7 @@ export const mutations = {
 
   logOut: () => {
     return mutationOptions<void, Error, void>({
-      mutationKey: ["runCode"],
+      mutationKey: ["logout"],
       mutationFn: () => logout(),
     });
   },

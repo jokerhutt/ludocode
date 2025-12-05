@@ -1,6 +1,7 @@
-import { redirectToAuth } from "@/routes/redirects/redirects";
 import { mutations } from "../Definitions/mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { router } from "@/routes/router";
+import { ludoNavigation } from "@/routes/navigator/ludoNavigation";
 
 export function useLogout() {
   const qc = useQueryClient();
@@ -9,7 +10,7 @@ export function useLogout() {
     ...mutations.logOut(),
     onSuccess: () => {
       qc.clear();
-      redirectToAuth()
+      router.navigate(ludoNavigation.auth());
     },
   });
 }

@@ -5,10 +5,14 @@ import {
   projectRoute,
   completionRoute,
   syncRoute,
+  profileUserRoute,
 } from "../router.tsx";
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
 
 export const ludoNavigation = {
+
+  auth: () => ({to: routes.auth.authPage}),
+
   courseRoot: () => ({ to: routes.hub.coursesHub }),
 
   hub: {
@@ -29,6 +33,14 @@ export const ludoNavigation = {
     },
     project: {
       toProjectHub: () => ({ to: routes.hub.projectHub }),
+    },
+    profile: {
+      me: () => ({ to: routes.hub.profile.root }),
+      toProfile: (userId: string) => ({
+        to: routes.hub.profile.user,
+        params: { userId },
+        replace: true,
+      }),
     },
   },
 

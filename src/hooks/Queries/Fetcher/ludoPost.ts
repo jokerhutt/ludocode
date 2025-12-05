@@ -1,3 +1,5 @@
+import { LOGOUT } from "@/constants/api/pathConstants";
+
 export async function ludoPost<TResponse, TBody = unknown>(
   path: string,
   body: TBody | null,
@@ -16,7 +18,7 @@ export async function ludoPost<TResponse, TBody = unknown>(
 }
 
 export async function logout() {
-  const res = await fetch("/api/v1/auth/logout", {
+  const res = await fetch(LOGOUT, {
     method: "POST",
     credentials: "include",
   });
