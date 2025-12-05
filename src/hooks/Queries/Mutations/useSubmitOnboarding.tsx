@@ -10,8 +10,10 @@ export function useSubmitOnboarding() {
   return useMutation({
     ...mutations.submitOnboarding(),
     onSuccess: (payload) => {
-      const { preferences, courseProgressResponse } = payload;
+      const { refreshedUser, preferences, courseProgressResponse } = payload;
 
+      qc.setQueryData(qk.user(refreshedUser.id), refreshedUser)
+      qc.setQueryData(qk.currentUser(), refreshedUser)
       qc.setQueryData(qk.preferences(), preferences);
       qc.setQueryData(
         qk.courseProgress(courseProgressResponse.courseId),

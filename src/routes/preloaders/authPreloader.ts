@@ -4,6 +4,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { redirect} from "@tanstack/react-router";
 import { redirectToAuth } from "../redirects/redirects";
+import { router } from "../router";
 
 export async function demoAuthPreloader(queryClient: QueryClient) {
   await fetch(DEMO_LOGIN, {
@@ -17,6 +18,7 @@ export async function demoAuthPreloader(queryClient: QueryClient) {
 }
 
 export async function appPreloader(
+  location: { pathname: string }, 
   queryClient: QueryClient
 ) {
 
@@ -26,5 +28,11 @@ export async function appPreloader(
     .ensureQueryData(qo.currentUser())
     .catch(() => null);
   if (!user) redirectToAuth();
+
+  const isOnboarding = location.pathname.startsWith(routes.onboarding.base)
+
+  if (!isOnboarding && !!user && !user.hasOnboarded) {
+    router.navigate({ to: routes.onboarding.start, replace: true });
+  }
 
 }

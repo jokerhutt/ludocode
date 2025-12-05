@@ -55,7 +55,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const appRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authed",
-  beforeLoad: async () => appPreloader(queryClient),
+  beforeLoad: async ({ location }) => appPreloader(location, queryClient),
 });
 
 const demoAuthRoute = createRoute({
