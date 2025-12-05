@@ -11,5 +11,15 @@ export async function ludoPost<TResponse, TBody = unknown>(
   });
 
   if (!res.ok) throw new Error(`Failed POST ${path} → ${res.status}`);
+  
   return res.json() as Promise<TResponse>;
+}
+
+export async function logout() {
+  const res = await fetch("/api/v1/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error(`Logout failed → ${res.status}`);
 }
