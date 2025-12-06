@@ -13,11 +13,8 @@ export async function projectLoader(
 ) {
   const { projectId } = params;
 
-  const features = await queryClient.ensureQueryData(qo.activeFeatures());
-  const { isGcsEnabled } = features;
-
   //TODO add a custom redirect
-  if (!projectId || !isGcsEnabled) {
+  if (!projectId) {
     throw redirect({ to: routes.hub.project, replace: true });
   }
 

@@ -42,7 +42,7 @@ import {
   builderPageLoader,
 } from "./loaders/builderLoader.ts";
 import { lessonPageLoader } from "./loaders/lessonsLoader.ts";
-import { hubIndexLoader, hubLoader } from "./loaders/hubLoader.ts";
+import { hubLoader } from "./loaders/hubLoader.ts";
 import { syncLoader } from "./loaders/syncLoader.ts";
 import { appPreloader, demoAuthPreloader } from "./preloaders/authPreloader.ts";
 import { profileRootLoader } from "./loaders/profileLoader.ts";
