@@ -6,7 +6,7 @@ import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.t
 import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 
 export function CompletionFooter() {
-  const { search } = useCompletionContext();
+  const { courseId, moduleId, search } = useCompletionContext();
   const { step, completionStatus, oldStreak, newStreak } = search;
 
   const hasStreakIncreased = oldStreak < newStreak;
@@ -20,18 +20,18 @@ export function CompletionFooter() {
         } else if (isCourseCompleteForFirstTime) {
           return ludoNavigation.completion.toCourseComplete();
         } else {
-          return ludoNavigation.hub.module.toCurrent();
+          return ludoNavigation.hub.module.toModule(courseId, moduleId);
         }
 
       case "streak":
         if (isCourseCompleteForFirstTime) {
           return ludoNavigation.completion.toCourseComplete();
         } else {
-          return ludoNavigation.hub.module.toCurrent();
+          return ludoNavigation.hub.module.toModule(courseId, moduleId);
         }
 
       case "course":
-        return ludoNavigation.hub.module.toCurrent();
+        return ludoNavigation.hub.module.toModule(courseId, moduleId);
     }
   };
 

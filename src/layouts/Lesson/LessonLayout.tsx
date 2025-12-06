@@ -10,6 +10,9 @@ import { MainContentWrapper } from "@/components/design-system/layouts/grid/main
 import { LessonFooter } from "@/features/Exercise/UI/Footer/LessonFooter.tsx";
 
 export function LessonLayout() {
+
+  const {courseId, moduleId} = lessonRoute.useParams();
+
   const { exercises, lesson } = lessonRoute.useLoaderData();
   const { exercise: position } = lessonPageRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
@@ -20,7 +23,7 @@ export function LessonLayout() {
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
         <HeaderWithProgress
-          onExit={() => router.navigate(ludoNavigation.hub.module.toCurrent())}
+          onExit={() => router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId))}
           total={exercises.length}
           position={exercisePosition - 1}
         />

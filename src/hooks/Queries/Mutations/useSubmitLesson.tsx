@@ -27,6 +27,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
       const completionStatus = payload.status;
 
       const courseId = newCourseProgress.id;
+      const moduleId = newCourseProgress.moduleId;
       const lessonId = updatedCompletedLesson.id;
 
       qc.setQueryData(qk.lesson(lessonId), updatedCompletedLesson);
@@ -45,6 +46,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
       router.navigate(
         ludoNavigation.completion.toLessonComplete(
           courseId,
+          moduleId,
           lessonId,
           coins,
           accuracy,

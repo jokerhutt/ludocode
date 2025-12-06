@@ -16,10 +16,6 @@ export const ludoNavigation = {
 
   hub: {
     module: {
-      toCurrent: (replace = false) => ({
-        to: routes.hub.module.root,
-        replace: replace,
-      }),
       toModule: (courseId: string, moduleId: string) => ({
         to: moduleHubRoute.to,
         params: { courseId, moduleId },
@@ -35,7 +31,6 @@ export const ludoNavigation = {
       toProjectHub: () => ({ to: routes.hub.project }),
     },
     profile: {
-      me: () => ({ to: routes.hub.profile.root }),
       toProfile: (userId: string) => ({
         to: routes.hub.profile.user,
         params: { userId },
@@ -79,11 +74,16 @@ export const ludoNavigation = {
   },
 
   lesson: {
-    start: (courseId: string, lessonId: string) =>
-      ludoNavigation.lesson.toLesson(courseId, lessonId, 1),
-    toLesson: (courseId: string, lessonId: string, exercise: number) => ({
+    start: (courseId: string, moduleId: string, lessonId: string) =>
+      ludoNavigation.lesson.toLesson(courseId, moduleId, lessonId, 1),
+    toLesson: (
+      courseId: string,
+      moduleId: string,
+      lessonId: string,
+      exercise: number
+    ) => ({
       to: routes.lesson.lessonPage,
-      params: { courseId, lessonId },
+      params: { courseId, moduleId, lessonId },
       search: { exercise },
     }),
     toNextExercise: (lessonId: string, current: number) => ({
@@ -111,6 +111,7 @@ export const ludoNavigation = {
 
     toLessonComplete: (
       courseId: string,
+      moduleId: string,
       lessonId: string,
       coins: number,
       accuracy: number,
@@ -119,7 +120,7 @@ export const ludoNavigation = {
       completionStatus: string
     ) => ({
       to: completionRoute.to,
-      params: { courseId, lessonId },
+      params: { courseId, moduleId, lessonId },
       search: {
         step: "lesson",
         coins,

@@ -3,9 +3,19 @@ import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
 import { router } from "@/routes/router";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 
-type Args = { lesson: LudoLesson; isCurrent: boolean };
+type Args = {
+  lesson: LudoLesson;
+  courseId: string;
+  moduleId: string;
+  isCurrent: boolean;
+};
 
-export function useLessonButton({ lesson, isCurrent }: Args) {
+export function useLessonButton({
+  lesson,
+  courseId,
+  moduleId,
+  isCurrent,
+}: Args) {
   const isCompleted = lesson.isCompleted;
   const isLocked = !lesson.isCompleted && !isCurrent;
 
@@ -19,7 +29,7 @@ export function useLessonButton({ lesson, isCurrent }: Args) {
 
   const goToLesson = () => {
     if (isLocked) return;
-    router.navigate(ludoNavigation.lesson.start("Python", lesson.id));
+    router.navigate(ludoNavigation.lesson.start(courseId, moduleId, lesson.id));
   };
 
   return { lessonType, goToLesson };

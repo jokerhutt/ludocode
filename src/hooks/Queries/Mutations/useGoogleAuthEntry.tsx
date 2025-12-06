@@ -7,6 +7,7 @@ import type { LoginUserResponse } from "@/types/User/LoginUserResponse.ts";
 import { ludoPost } from "../Fetcher/ludoPost.ts";
 import { routes } from "@/constants/router/routes.ts";
 import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { qo } from "../Definitions/queries.ts";
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
 
@@ -31,7 +32,10 @@ export function useGoogleAuthEntry() {
       if (!user.hasOnboarded) {
         router.navigate({ to: routes.onboarding.start, replace: true });
       } else {
-        router.navigate(ludoNavigation.hub.module.toCurrent());
+        const currentCourseId = await queryClient.ensureQueryData(qo.currentCourseId())
+        const currentCourseProgress = await queryClient.ensureQueryData(qo.courseProgress(currentCourseId))
+        const {courseId, moduleId} = currentCourseProgress
+        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
       }
     },
     onError: (err) => console.error("Google login failed", err),

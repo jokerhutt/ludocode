@@ -20,6 +20,7 @@ export type LessonCompletionResponse = {
 
 export type CompletionState = {
   courseId: string;
+  moduleId: string;
   courseName: string;
   lessonId: string;
   search: CompletionSearch;

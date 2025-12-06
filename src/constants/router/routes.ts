@@ -10,17 +10,18 @@ export const routes = {
     courses: `/courses`,
     builder: `/builder`,
     project: `/projects`,
+
     module: {
       root: `/learn`,
-      moduleHub: `$courseId/$moduleId`,
+      moduleHub: `/learn/$courseId/$moduleId`,
     },
     profile: {
       root: `/profile`,
-      user: `$userId`,
+      user: `/profile/$userId`,
     },
   },
   lesson: {
-    lessonPage: `/lesson/$courseId/$lessonId`,
+    lessonPage: `/lesson/$courseId/$moduleId/$lessonId`,
   },
   build: {
     root: `/build`,
@@ -28,7 +29,7 @@ export const routes = {
   },
   completion: {
     syncPage: `/sync/$lessonId`,
-    completionPage: `/completion/$courseId/$lessonId`,
+    completionPage: `/completion/$courseId/$moduleId/$lessonId`,
   },
   project: {
     projectPage: `/project/$projectId`,

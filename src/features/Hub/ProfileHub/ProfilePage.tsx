@@ -20,7 +20,7 @@ export function ProfilePage({}: ProfilePageProps) {
       <div className="col-span-full relative lg:col-span-8 flex flex-col gap-4 lg:items-center h-full min-h-0 justify-start min-w-0">
         <div className="flex gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">
           <img
-            className="w-auto h-16 lg:h-32 object-fit rounded-xl"
+            className="lg:w-32 w-16 h-16 lg:h-32 object-fit rounded-full"
             src={userPfpSrc}
           />
           <div className="flex flex-col gap-1">

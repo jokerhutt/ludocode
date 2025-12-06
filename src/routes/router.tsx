@@ -11,10 +11,7 @@ import { routes } from "../constants/router/routes.ts";
 import { LessonLayout } from "@/layouts/Lesson/LessonLayout.tsx";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
-import {
-  modulePageLoader,
-  modulesRedirectLoader as moduleIndexLoder,
-} from "@/routes/loaders/modulesLoader";
+import { modulePageLoader } from "@/routes/loaders/modulesLoader";
 import { coursesLoader } from "@/routes/loaders/coursesLoader";
 import { SyncingPage } from "../features/Completion/SyncingPage.tsx";
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
@@ -45,8 +42,9 @@ import { lessonPageLoader } from "./loaders/lessonsLoader.ts";
 import { hubLoader } from "./loaders/hubLoader.ts";
 import { syncLoader } from "./loaders/syncLoader.ts";
 import { appPreloader, demoAuthPreloader } from "./preloaders/authPreloader.ts";
-import { profileRootLoader } from "./loaders/profileLoader.ts";
 import { ProfilePage } from "@/features/Hub/ProfileHub/ProfilePage.tsx";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { ludoNavigation } from "./navigator/ludoNavigation.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -67,8 +65,15 @@ const appRoute = createRoute({
 const appIndexRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/",
-  beforeLoad: () => {
-    throw redirect({ to: routes.hub.module.root });
+  beforeLoad: async () => {
+    const currentCourseId = await queryClient.ensureQueryData(
+      qo.currentCourseId()
+    );
+    const courseProgress = await queryClient.ensureQueryData(
+      qo.courseProgress(currentCourseId)
+    );
+    const { courseId, moduleId } = courseProgress;
+    throw redirect(ludoNavigation.hub.module.toModule(courseId, moduleId));
   },
 });
 
@@ -137,37 +142,15 @@ export const onboardingStageRoute = createRoute({
   component: OnboardingStagePage,
 });
 
-export const profileRootRoute = createRoute({
-  getParentRoute: () => hubRoute,
-  path: routes.hub.profile.root,
-});
-
-export const profileIndexRoute = createRoute({
-  getParentRoute: () => profileRootRoute,
-  path: "/",
-  loader: async () => profileRootLoader(queryClient),
-});
-
 export const profileUserRoute = createRoute({
-  getParentRoute: () => profileRootRoute,
+  getParentRoute: () => hubRoute,
   path: routes.hub.profile.user,
   staticData: { headerTitle: "Profile" },
   component: ProfilePage,
 });
 
-export const moduleHubRootRoute = createRoute({
-  getParentRoute: () => hubRoute,
-  path: routes.hub.module.root,
-});
-
-export const moduleIndexRoute = createRoute({
-  getParentRoute: () => moduleHubRootRoute,
-  path: "/",
-  loader: async () => moduleIndexLoder(queryClient),
-});
-
 export const moduleHubRoute = createRoute({
-  getParentRoute: () => moduleHubRootRoute,
+  getParentRoute: () => hubRoute,
   path: routes.hub.module.moduleHub,
   staticData: { headerTitle: "Modules" },
   loader: async ({ params }) => modulePageLoader(params, queryClient),
@@ -241,8 +224,8 @@ const routeTree = rootRoute.addChildren([
       courseHubRoute,
       projectHubRoute,
       builderHubRoute,
-      profileRootRoute.addChildren([profileIndexRoute, profileUserRoute]),
-      moduleHubRootRoute.addChildren([moduleIndexRoute, moduleHubRoute]),
+      profileUserRoute,
+      moduleHubRoute,
     ]),
     desktopGuardRoute.addChildren([projectRoute, buildRoute]),
     lessonRoute.addChildren([lessonPageRoute]),

@@ -2,6 +2,7 @@ import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import { useLessonButton } from "@/hooks/Flows/Lesson/useLessonButton";
 import { PathButtonPopover } from "./PathButtonPopover";
 import { PathButtonTrigger } from "./PathButtonTrigger";
+import { useCurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext";
 
 export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 
@@ -11,7 +12,13 @@ type ModulePathButtonProps = {
 };
 
 export function ModulePathButton({ lesson, isCurrent }: ModulePathButtonProps) {
-  const { lessonType, goToLesson } = useLessonButton({ lesson, isCurrent });
+  const { courseId, moduleId } = useCurrentCourseContext();
+  const { lessonType, goToLesson } = useLessonButton({
+    lesson,
+    courseId,
+    moduleId,
+    isCurrent,
+  });
 
   return (
     <PathButtonPopover
