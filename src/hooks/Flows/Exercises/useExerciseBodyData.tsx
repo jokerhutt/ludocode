@@ -14,17 +14,24 @@ export function useExerciseBodyData(
     [currentExercise.id]
   );
 
-  const options = useMemo(
-    () => shuffleArray(mergedOptions),
-    [mergedOptions]
-  );
+  const options = useMemo(() => shuffleArray(mergedOptions), [mergedOptions]);
 
-  const { currentExerciseInputs, replaceAnswerAt, setAnswerAt } = inputState;
+  const {
+    currentExerciseInputs,
+    clearExerciseInputs,
+    popLastAnswer,
+    isEmpty,
+    replaceAnswerAt,
+    setAnswerAt,
+  } = inputState;
 
   return {
     prompt,
     options,
+    popLastAnswer,
+    isEmpty,
     currentExerciseInputs,
+    clearExerciseInputs,
     replaceAnswerAt,
     setAnswerAt,
   };

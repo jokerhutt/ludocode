@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { LudoExercise } from "@/types/Exercise/LudoExercise";
 import { getGapCount } from "./Util/inputUtil";
 import type { ExerciseAttempt } from "@/types/Exercise/LessonSubmissions.ts";
@@ -9,6 +9,8 @@ type Args = { currentExercise: LudoExercise };
 export type useExerciseInputResponse = {
   currentExerciseInputs: AnswerToken[];
   setAnswerAt: (token: AnswerToken) => void;
+  popLastAnswer: () => void;
+  isEmpty: boolean;
   replaceAnswerAt: (index: number, token: AnswerToken) => void;
   clearExerciseInputs: () => void;
   initializeInputs: (attempt: ExerciseAttempt | null) => void;
@@ -25,6 +27,11 @@ export function useExerciseInput({
     AnswerToken[]
   >(Array.from({ length: gapCount }, makeEmpty));
 
+  const isEmpty = useMemo(
+    () => currentExerciseInputs.every((t) => t.value === ""),
+    [currentExerciseInputs]
+  );
+
   const initializeInputs = useCallback(
     (lastAttempt: ExerciseAttempt | null) => {
       if (lastAttempt) {
@@ -40,6 +47,19 @@ export function useExerciseInput({
     },
     [gapCount]
   );
+
+  const popLastAnswer = useCallback(() => {
+    setCurrentExerciseInputs((prev) => {
+      const next = prev.slice();
+      // find last filled slot
+      const lastFilled = [...next].reverse().findIndex((t) => t.value !== "");
+      if (lastFilled !== -1) {
+        const realIndex = next.length - 1 - lastFilled;
+        next[realIndex] = makeEmpty(); // clear it
+      }
+      return next;
+    });
+  }, []);
 
   //TODO these names arent fully correct
   const setAnswerAt = useCallback((token: AnswerToken) => {
@@ -67,6 +87,8 @@ export function useExerciseInput({
   return {
     currentExerciseInputs,
     setAnswerAt,
+    popLastAnswer,
+    isEmpty,
     replaceAnswerAt,
     clearExerciseInputs,
     initializeInputs,

@@ -1,5 +1,6 @@
 import { cn } from "@/components/cn-utils.ts";
 import type { ReactNode } from "react";
+import { HeroIcon } from "../../atoms/hero-icon/hero-icon";
 
 type CodeBoxWrapperProps = {
   children: ReactNode;
@@ -16,10 +17,14 @@ export function CodeBoxWrapper({
 }: CodeBoxWrapperProps) {
   return (
     <div
-      className={cn("w-full min-h-40 rounded-3xl bg-ludoGrayLight", className)}
+      className={cn(
+        "w-full flex flex-col rounded-3xl bg-ludoGrayLight",
+        className
+      )}
     >
       {header && <div className="w-full h-2 rounded-t-3xl bg-ludoDarkPurple" />}
       <div className={cn("w-full h-full p-6", innerClassName)}>{children}</div>
+
     </div>
   );
 }
