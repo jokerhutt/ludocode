@@ -5,15 +5,14 @@ import {
   type MobileModuleTabs,
 } from "../../features/Hub/ModuleHub/Selection/ModuleSelectionBar";
 import { useEffect } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
 import { ModulePage } from "@/features/Hub/ModuleHub/ModulePage";
 import { useTab } from "@/hooks/UI/useTab";
 import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/ModuleSelectionPage";
+import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 
 export function ModuleHubLayout() {
   const { courseId, moduleId } = moduleHubRoute.useParams();
-  const { tree } = moduleHubRoute.useLoaderData();
+  const { tree, allCourses } = moduleHubRoute.useLoaderData();
 
   const { courseProgress, modules, lessons } = useTreeData({
     tree,
@@ -21,8 +20,7 @@ export function ModuleHubLayout() {
     moduleId,
   });
 
-  const { data: courses } = useSuspenseQuery(qo.allCourses());
-  const currentCourse = courses.find((course) => course.id == courseId);
+  const currentCourse = allCourses.find((course: LudoCourse) => course.id == courseId);
 
   const mainTab: MobileModuleTabs = "Path";
   const { activeTab, setTab } = useTab<MobileModuleTabs>(mainTab);
