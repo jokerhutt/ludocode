@@ -1,19 +1,26 @@
 import { HeroIcon } from "@/components/design-system/atoms/hero-icon/hero-icon";
 
 type CodeUtilsGroupProps = {
+  enabled: boolean;
   clearExerciseInputs: () => void;
   popLast: () => void;
   isEmpty: boolean;
 };
 
 export function CodeUtilsGroup({
+  enabled,
   clearExerciseInputs,
   popLast,
   isEmpty,
 }: CodeUtilsGroupProps) {
   return (
     <div className="w-full flex mt-6 items-end gap-6">
-      <div onClick={() => clearExerciseInputs()}>
+      <div
+        onClick={() => {
+          if (!enabled) return;
+          clearExerciseInputs();
+        }}
+      >
         <HeroIcon
           iconName="TrashIcon"
           className={`h-6 hover:cursor-pointer ${
@@ -21,7 +28,12 @@ export function CodeUtilsGroup({
           } w-6`}
         />
       </div>
-      <div onClick={() => popLast()}>
+      <div
+        onClick={() => {
+          if (!enabled) return;
+          popLast();
+        }}
+      >
         <HeroIcon
           iconName="BackspaceIcon"
           className={`h-6 hover:cursor-pointer ${

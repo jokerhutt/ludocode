@@ -8,7 +8,7 @@ import { ClickableOption } from "@/components/design-system/atoms/option/clickab
 import { CodeUtilsGroup } from "../UI/Group/CodeUtilsGroup";
 
 export function ClozeExercise() {
-  const { currentExercise, inputState } = useLessonContext();
+  const { currentExercise, phase, inputState } = useLessonContext();
   const {
     options,
     replaceAnswerAt,
@@ -32,6 +32,7 @@ export function ClozeExercise() {
               setAnswerAt={replaceAnswerAt}
             />
             <CodeUtilsGroup
+              enabled={phase == "DEFAULT"}
               clearExerciseInputs={clearExerciseInputs}
               popLast={popLastAnswer}
               isEmpty={isEmpty}
