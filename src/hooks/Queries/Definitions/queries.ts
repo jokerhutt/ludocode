@@ -1,10 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { qk } from "./qk.ts";
-import {
-  lessonBatcher,
-  moduleBatcher,
-  userBatcher,
-} from "../Batcher/batchers";
+import { lessonBatcher, moduleBatcher, userBatcher } from "../Batcher/batchers";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { CourseProgress } from "@/types/User/CourseProgress.ts";
@@ -22,8 +18,7 @@ import {
   getUserEnrolledFn,
   getUserStreakFn,
   getUserWeeklyStreakFn,
-  ludoGet,
-} from "../Fetcher/ludoGet";
+} from "../../../routes/utils/-serverFn.ts";
 import {
   GET_USER_PREFERENCES,
   GET_ENABLED_FEATURES,
@@ -32,6 +27,7 @@ import type { UserPreferences } from "@/types/User/UserPreferences.ts";
 import { type DailyGoalMet, type UserStreak } from "@/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@/types/FeatureFlags/FeatureFlags.ts";
 import { type UserCoins } from "@/types/User/UserCoins.ts";
+import { ludoGet } from "../Fetcher/ludoGet.ts";
 
 export const qo = {
   user: (userId: string) =>
