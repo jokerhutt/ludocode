@@ -1,5 +1,4 @@
 import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
-import { routes } from "../router/routes";
 import { router } from "@/main";
 
 export type NavIcon = {

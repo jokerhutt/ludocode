@@ -5,7 +5,6 @@ import { type QueryClient } from "@tanstack/react-query";
 import { ErrorPage } from "@/features/Error/ErrorPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "@/constants/environment/env";
-import { useEffect } from "react";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -21,19 +20,12 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
-  useEffect(() => {
-    console.log("mounted router componet");
-
-    return () => {
-      console.log("router componet");
-    };
-  }, []);
-
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludoYellow bg-ludoGrayDark">
         <Outlet />
       </div>
+
     </GoogleOAuthProvider>
   );
 }

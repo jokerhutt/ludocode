@@ -7,16 +7,9 @@ import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-gr
 import { AppHeader } from "@/components/design-system/blocks/header/app-header.tsx";
 import { NavigationFooter } from "@/components/design-system/blocks/footer/navigation-footer.tsx";
 import { CurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext";
-import { useEffect } from "react";
+import { Suspense } from "react";
 
 export function HubLayout() {
-  useEffect(() => {
-    console.log("mounted hub");
-
-    return () => {
-      console.log("unmounted hub");
-    };
-  }, []);
   const matches = useMatches();
   const active = matches[matches.length - 1];
   const title =
@@ -39,7 +32,9 @@ export function HubLayout() {
       <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
         <MainGridWrapper gridRows={"SITE"}>
           <AppHeader title={title} />
-          <Outlet />
+          <Suspense fallback={<div />}>
+            <Outlet />
+          </Suspense>
           <NavigationFooter />
         </MainGridWrapper>
       </StatsContext.Provider>
