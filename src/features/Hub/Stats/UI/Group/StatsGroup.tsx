@@ -1,4 +1,4 @@
-import { useStatsContext } from "@/hooks/Context/Stats/StatsContext.tsx";
+import { useStatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
 import { HollowSlotButtonGroup } from "../../../../../components/design-system/blocks/group/hollow-slot-button-group.tsx";
 import { HollowSlotButton } from "@/components/design-system/atoms/button/hollow-slot-button.tsx";
 import { CommitIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";

@@ -1,5 +1,5 @@
 import { useHotkeys } from "@/hooks/UI/useHotkeys";
-import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext";
+import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { Button } from "@/components/external/ui/button";
 import { Spinner } from "@/components/external/ui/spinner";
 

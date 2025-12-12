@@ -1,11 +1,11 @@
-import { getNavIcons } from "@/constants/static-data/navIcons";
+import { getNavIcons } from "@/constants/content/navIcons";
 import { useLocation } from "@tanstack/react-router";
 import { HollowSlotButtonGroup } from "./hollow-slot-button-group.tsx";
 import { HollowSlotButton } from "@/components/design-system/atoms/button/hollow-slot-button.tsx";
-import { useFeatureEnabledCheck } from "@/hooks/App/useFeatureEnabledCheck.tsx";
+import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { useCurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext.tsx";
+import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;

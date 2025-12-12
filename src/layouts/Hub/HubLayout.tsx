@@ -1,12 +1,12 @@
 import { Outlet, useMatches } from "@tanstack/react-router";
 
-import { StatsContext } from "@/hooks/Context/Stats/StatsContext";
+import { StatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { AppHeader } from "@/components/design-system/blocks/header/app-header.tsx";
 import { NavigationFooter } from "@/components/design-system/blocks/footer/navigation-footer.tsx";
-import { CurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext";
+import { CurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 import { Suspense } from "react";
 
 export function HubLayout() {

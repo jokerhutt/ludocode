@@ -1,8 +1,7 @@
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { BuilderLayout } from "@/layouts/Builder/BuilderLayout.tsx";
-import { redirectToAuth } from "@/old-routes/redirects/redirects";
 import type { QueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import {createFileRoute, redirect} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_desktopguard/build/$courseId")({
   validateSearch: (s: Record<string, unknown>) => ({
@@ -14,13 +13,14 @@ export const Route = createFileRoute("/_app/_desktopguard/build/$courseId")({
     builderPageLoader(params, context.queryClient),
   component: BuilderLayout,
 });
+
 export async function builderPageLoader(
   params: { courseId: string },
   queryClient: QueryClient
 ) {
   const { courseId } = params;
 
-  if (!courseId) redirectToAuth();
+  if (!courseId) throw redirect({to: "/auth", replace: true})
 
   await queryClient.ensureQueryData(qo.courseSnapshot(courseId));
 }

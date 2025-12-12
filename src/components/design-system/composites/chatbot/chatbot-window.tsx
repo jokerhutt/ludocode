@@ -4,7 +4,7 @@ import { useAutoScrollDown } from "@/hooks/UI/useAutoScrollDown";
 import { ChatBotConversation } from "./chatbot-conversation.tsx";
 import { ChatBotInput } from "./chatbot-input.tsx";
 import { cn } from "@/components/cn-utils.ts";
-import { useChatbot } from "@/hooks/Context/ChatBot/ChatBotContext";
+import { useChatbot } from "@/features/AI/Context/ChatBotContext.tsx";
 type ChatBotProps = {
   className?: string;
   type: ChatBotChatType;

@@ -1,4 +1,4 @@
-import type { ColumnType } from "@/hooks/Flows/Builder/useOptionsDragAndDrop";
+import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
 import type { ExerciseType } from "@/types/Exercise/ExerciseType";
 import type {
   ExerciseSnap,

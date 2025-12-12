@@ -4,7 +4,7 @@ import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
 import { qk } from "../Definitions/qk.ts";
 import type { LoginUserResponse } from "@/types/User/LoginUserResponse.ts";
 import { ludoPost } from "../Fetcher/ludoPost.ts";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import { qo } from "../Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
 export function useGoogleAuthEntry() {

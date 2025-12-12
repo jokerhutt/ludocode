@@ -1,9 +1,8 @@
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { router } from "@/main";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation";
-import { redirectToAuth } from "@/old-routes/redirects/redirects";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import type { QueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import {createFileRoute, redirect} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
   beforeLoad: async ({ location, context }) =>
@@ -20,8 +19,7 @@ async function appPreloader(
     .ensureQueryData(qo.currentUser())
     .catch(() => null);
   if (!user) {
-    redirectToAuth();
-    return;
+    throw redirect({to: "/auth", replace: true})
   }
 
   const isOnboarding = location.pathname.startsWith("/_app/onboarding");

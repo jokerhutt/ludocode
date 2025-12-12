@@ -1,4 +1,4 @@
-import type { AnswerToken } from "@/hooks/Flows/Exercises/useExercise";
+import type { AnswerToken } from "@/features/Lesson/Hooks/useExercise.tsx";
 
 export type LessonSubmission = {
   id: string;

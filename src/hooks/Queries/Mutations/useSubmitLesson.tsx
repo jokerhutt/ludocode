@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../Definitions/qk.ts";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import { mutations } from "../Definitions/mutations";
 import { useRouter } from "@tanstack/react-router";
 

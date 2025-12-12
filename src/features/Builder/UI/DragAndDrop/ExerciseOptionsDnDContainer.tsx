@@ -4,7 +4,7 @@ import type { OptionSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import {
   useOptionsDragAndDrop,
   type ColumnType,
-} from "@/hooks/Flows/Builder/useOptionsDragAndDrop";
+} from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
 import { Button } from "@/components/external/ui/button";
 import { useState } from "react";
 

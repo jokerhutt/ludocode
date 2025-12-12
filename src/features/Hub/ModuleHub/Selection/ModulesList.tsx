@@ -2,7 +2,7 @@ import { ListRow } from "@/components/design-system/atoms/row/list-row.tsx";
 import { ListContainer } from "@/components/design-system/blocks/list/list-container.tsx";
 import type { ListHeaderProps } from "@/components/design-system/blocks/list/list-header.tsx";
 import { cn } from "@/components/cn-utils.ts";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
 

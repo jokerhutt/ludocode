@@ -2,8 +2,8 @@ import confettiAnimationData from "../../../public/Animations/LC_CONFETTI_SLOW.j
 import streakAnimationData from "../../../public/Animations/STR_INCREASE.json";
 import { useTimedLottie } from "@/hooks/UI/useTimedLottie";
 import Lottie from "lottie-react";
-import { useCompletionContext } from "@/hooks/Context/Completion/CompletionContext";
-import { useLottie } from "@/hooks/Animation/useLottie";
+import { useCompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
+import { useLottie } from "@/hooks/UI/useLottie.tsx";
 import { CompletionStatsRow } from "@/features/Completion/UI/Stats/CompletionStatsRow";
 import { IncrementingMotionCounter } from "@/components/design-system/atoms/motion/incrementing-motion-counter.tsx";
 

@@ -8,7 +8,7 @@ import {
 } from "@/types/Project/LanguageType";
 import type { ReactNode } from "react";
 import { FileInfoRow } from "@/components/design-system/blocks/file/file-info-row.tsx";
-import { useProjectContext } from "@/hooks/Context/Project/ProjectContext.tsx";
+import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { FileWrapper } from "@/components/design-system/blocks/file/file-wrapper.tsx";
 import { CustomIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
 
