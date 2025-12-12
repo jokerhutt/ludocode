@@ -105,7 +105,6 @@ export const qo = {
     queryOptions({
       queryKey: qk.currentUser(),
       queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
-      enabled: () => Boolean(Cookies.get("jwt")),
       staleTime: 60_000,
       retry: false,
     }),

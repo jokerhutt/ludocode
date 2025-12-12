@@ -1,9 +1,10 @@
 import { mutations } from "../Definitions/mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation";
+import { useRouter } from "@tanstack/react-router";
 
 export function useLogout() {
+  const router = useRouter()
   const qc = useQueryClient();
 
   return useMutation({

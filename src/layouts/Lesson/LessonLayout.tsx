@@ -1,17 +1,20 @@
-import { Outlet } from "@tanstack/react-router";
-import { lessonPageRoute, lessonRoute, router } from "../../routes/router";
+import { getRouteApi, Outlet, useRouter } from "@tanstack/react-router";
 import { LessonContext } from "@/hooks/Context/Lesson/useLessonContext";
 
 import { useExercise } from "@/hooks/Flows/Exercises/useExercise";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { HeaderWithProgress } from "@/components/design-system/blocks/header/header-with-progress.tsx";
 import { MainContentWrapper } from "@/components/design-system/layouts/grid/main-content-wrapper.tsx";
 import { LessonFooter } from "@/features/Exercise/UI/Footer/LessonFooter.tsx";
 
 export function LessonLayout() {
-
-  const {courseId, moduleId} = lessonRoute.useParams();
+  const router = useRouter()
+  const lessonRoute = getRouteApi("/_app/lesson/$courseId/$moduleId/$lessonId");
+  const lessonPageRoute = getRouteApi(
+    "/_app/lesson/$courseId/$moduleId/$lessonId/"
+  );
+  const { courseId, moduleId } = lessonRoute.useParams();
 
   const { exercises, lesson } = lessonRoute.useLoaderData();
   const { exercise: position } = lessonPageRoute.useSearch();
@@ -23,7 +26,11 @@ export function LessonLayout() {
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
         <HeaderWithProgress
-          onExit={() => router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId))}
+          onExit={() =>
+            router.navigate(
+              ludoNavigation.hub.module.toModule(courseId, moduleId)
+            )
+          }
           total={exercises.length}
           position={exercisePosition - 1}
         />

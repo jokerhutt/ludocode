@@ -1,12 +1,12 @@
-
 import { useCompletionContext } from "@/hooks/Context/Completion/CompletionContext.tsx";
-import { router } from "@/routes/router.tsx";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
 import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
+import { useRouter } from "@tanstack/react-router";
 
 export function CompletionFooter() {
-  const { courseId, moduleId, search } = useCompletionContext();
+  const router = useRouter();
+  const { courseId, moduleId, lessonId, search } = useCompletionContext();
   const { step, completionStatus, oldStreak, newStreak } = search;
 
   const hasStreakIncreased = oldStreak < newStreak;
@@ -16,22 +16,47 @@ export function CompletionFooter() {
     switch (step) {
       case "lesson":
         if (hasStreakIncreased) {
-          return ludoNavigation.completion.toStreakIncrease();
+          router.navigate(
+            ludoNavigation.completion.toStreakIncrease(
+              courseId,
+              moduleId,
+              lessonId
+            )
+          );
         } else if (isCourseCompleteForFirstTime) {
-          return ludoNavigation.completion.toCourseComplete();
+          router.navigate(
+            ludoNavigation.completion.toCourseComplete(
+              courseId,
+              moduleId,
+              lessonId
+            )
+          );
         } else {
-          return ludoNavigation.hub.module.toModule(courseId, moduleId);
+          router.navigate(
+            ludoNavigation.hub.module.toModule(courseId, moduleId)
+          );
         }
+        break;
 
       case "streak":
         if (isCourseCompleteForFirstTime) {
-          return ludoNavigation.completion.toCourseComplete();
+          router.navigate(
+            ludoNavigation.completion.toCourseComplete(
+              courseId,
+              moduleId,
+              lessonId
+            )
+          );
         } else {
-          return ludoNavigation.hub.module.toModule(courseId, moduleId);
+          router.navigate(
+            ludoNavigation.hub.module.toModule(courseId, moduleId)
+          );
         }
+        break;
 
       case "course":
-        return ludoNavigation.hub.module.toModule(courseId, moduleId);
+        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
+        break;
     }
   };
 
@@ -41,7 +66,7 @@ export function CompletionFooter() {
         className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
       >
         <ActionButton
-          onClick={() => router.navigate(handleCompletionContinue())}
+          onClick={() => handleCompletionContinue()}
           text="Continue"
           active={true}
         />

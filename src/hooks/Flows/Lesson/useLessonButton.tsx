@@ -1,7 +1,7 @@
 import type { LessonCompletion } from "@/features/Hub/ModuleHub/Path/ModulePathButton";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
-import { router } from "@/routes/router";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
+import { useRouter } from "@tanstack/react-router";
 
 type Args = {
   lesson: LudoLesson;
@@ -16,16 +16,17 @@ export function useLessonButton({
   moduleId,
   isCurrent,
 }: Args) {
+  const router = useRouter();
   const isCompleted = lesson.isCompleted;
   const isLocked = !lesson.isCompleted && !isCurrent;
 
   const lessonType: LessonCompletion = isCurrent
     ? "COMPLETE"
     : isCompleted
-    ? "MASTERED"
-    : isLocked
-    ? "LOCKED"
-    : "DEFAULT";
+      ? "MASTERED"
+      : isLocked
+        ? "LOCKED"
+        : "DEFAULT";
 
   const goToLesson = () => {
     if (isLocked) return;

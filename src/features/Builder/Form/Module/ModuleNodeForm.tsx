@@ -1,6 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { Button } from "@/components/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm";
 import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/builder-node-wrapper.tsx";
@@ -8,6 +7,7 @@ import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.
 import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
 import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
 import { CollapsibleButton } from "@/components/design-system/atoms/button/collapsible-button.tsx";
+import type { getRouter } from "@/router";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -18,8 +18,9 @@ export const ModuleNodeForm = withForm({
     moduleId: "" as string,
     modulesLength: 0 as number,
     currentModuleId: "" as string,
-    currentLessonId: "" as string,
+    currentLessonId: "" as string | undefined,
     index: 0 as number,
+    router: null as unknown as ReturnType<typeof getRouter>,
   },
   render: ({
     form,
@@ -30,6 +31,7 @@ export const ModuleNodeForm = withForm({
     modulesLength,
     index,
     currentModuleId,
+    router,
     currentLessonId,
   }) => {
     return (
@@ -107,14 +109,17 @@ export const ModuleNodeForm = withForm({
                 />
               </BuilderNodeWrapper>
 
-              <LessonListForm
-                form={form}
-                currentLessonId={currentLessonId}
-                courseId={courseId}
-                moduleId={moduleId}
-                isExpanded={isExpanded}
-                moduleIndex={index}
-              />
+              {currentLessonId && (
+                <LessonListForm
+                  router={router}
+                  form={form}
+                  currentLessonId={currentLessonId}
+                  courseId={courseId}
+                  moduleId={moduleId}
+                  isExpanded={isExpanded}
+                  moduleIndex={index}
+                />
+              )}
             </div>
           );
         }}

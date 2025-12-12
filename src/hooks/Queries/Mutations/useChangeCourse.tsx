@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../Definitions/qk.ts";
 import type { ChangeCourseType } from "@/types/User/ChangeCourseType.ts";
-import { router } from "../../../routes/router";
-import { ludoNavigation } from "../../../routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { mutations } from "../Definitions/mutations.ts";
+import { useRouter } from "@tanstack/react-router";
 
 export function useChangeCourse() {
   const qc = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     ...mutations.changeCourse(),
@@ -24,7 +25,12 @@ export function useChangeCourse() {
       );
       qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId);
       qc.setQueryData(qk.enrolled(), newEnrolled);
-      router.navigate(ludoNavigation.hub.module.toModule(newCourseProgress.courseId, newCourseProgress.moduleId));
+      router.navigate(
+        ludoNavigation.hub.module.toModule(
+          newCourseProgress.courseId,
+          newCourseProgress.moduleId
+        )
+      );
     },
   });
 }

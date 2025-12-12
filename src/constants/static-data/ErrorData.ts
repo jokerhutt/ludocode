@@ -1,12 +1,11 @@
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
-import { router } from "@/routes/router";
-
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import type { NavigateOptions } from "@tanstack/react-router";
 type ErrorEntry = {
   status: ErrorStatus;
   title: string;
   suggestion: string;
   actionText: string;
-  fallbackAction?: () => void;
+  fallbackAction?: () => NavigateOptions;
 };
 
 export type ErrorStatus = 404 | 500;
@@ -19,7 +18,7 @@ export const errorMap: ErrorMap = {
     title: "The page you are looking for couldn't be found",
     suggestion: "Did you make sure the url is correct?",
     actionText: "Go to home",
-    fallbackAction: () => router.navigate(ludoNavigation.courseRoot()),
+    fallbackAction: () => ludoNavigation.courseRoot(),
   },
   500: {
     status: 500,

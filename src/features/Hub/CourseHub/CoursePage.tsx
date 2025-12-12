@@ -1,10 +1,9 @@
-import { useLoaderData } from "@tanstack/react-router";
 import { useChangeCourse } from "@/hooks/Queries/Mutations/useChangeCourse.tsx";
 import { CourseCard } from "./UI/CourseCard.tsx";
-import { courseHubRoute } from "../../../routes/router.tsx";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse.ts";
 import { CourseCardGrid } from "./UI/CourseCardGrid.tsx";
 import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import { useLoaderData } from "@tanstack/react-router";
 
 export type CourseType = {
   name: string;
@@ -14,7 +13,7 @@ export type CourseType = {
 };
 
 export function CoursePage() {
-  const { allCourses } = useLoaderData({ from: courseHubRoute.id });
+  const { allCourses } = useLoaderData({ from: "/_app/_hub/courses" });
   const changeCourseMutation = useChangeCourse();
 
   const handleSelectCourse = (courseId: string) => {

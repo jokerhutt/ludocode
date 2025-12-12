@@ -1,5 +1,5 @@
 import { getNavIcons } from "@/constants/static-data/navIcons";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useRouter } from "@tanstack/react-router";
 import { HollowSlotButtonGroup } from "./hollow-slot-button-group.tsx";
 import { HollowSlotButton } from "@/components/design-system/atoms/button/hollow-slot-button.tsx";
 import { useFeatureEnabledCheck } from "@/hooks/App/useFeatureEnabledCheck.tsx";
@@ -16,6 +16,8 @@ export function NavigationIconGroup({
   groupClassName,
   buttonClassName,
 }: NavigationIconGroupProps) {
+  const router = useRouter();
+
   const { enabled: isAdmin } = useFeatureEnabledCheck({
     feature: "isAdminEnabled",
   });
@@ -23,7 +25,7 @@ export function NavigationIconGroup({
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { courseId, moduleId } = useCurrentCourseContext();
 
-  const icons = getNavIcons(currentUser.id, courseId, moduleId);
+  const icons = getNavIcons(currentUser.id, courseId, moduleId, router);
   const userIcons = icons.filter((icon) => icon.name !== "Build");
 
   const iconsToRender = isAdmin ? icons : userIcons;

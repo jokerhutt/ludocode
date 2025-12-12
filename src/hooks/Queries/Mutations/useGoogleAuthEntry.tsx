@@ -2,14 +2,14 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
 import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
 import { qk } from "../Definitions/qk.ts";
-import { router } from "../../../routes/router";
 import type { LoginUserResponse } from "@/types/User/LoginUserResponse.ts";
 import { ludoPost } from "../Fetcher/ludoPost.ts";
-import { routes } from "@/constants/router/routes.ts";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { qo } from "../Definitions/queries.ts";
+import { useRouter } from "@tanstack/react-router";
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useGoogleLogin({
     flow: "auth-code",
@@ -30,11 +30,15 @@ export function useGoogleAuthEntry() {
       queryClient.setQueryData(qk.streak(user.id), userStreak);
 
       if (!user.hasOnboarded) {
-        router.navigate({ to: routes.onboarding.start, replace: true });
+        router.navigate(ludoNavigation.onboarding.start());
       } else {
-        const currentCourseId = await queryClient.ensureQueryData(qo.currentCourseId())
-        const currentCourseProgress = await queryClient.ensureQueryData(qo.courseProgress(currentCourseId))
-        const {courseId, moduleId} = currentCourseProgress
+        const currentCourseId = await queryClient.ensureQueryData(
+          qo.currentCourseId()
+        );
+        const currentCourseProgress = await queryClient.ensureQueryData(
+          qo.courseProgress(currentCourseId)
+        );
+        const { courseId, moduleId } = currentCourseProgress;
         router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
       }
     },

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../Definitions/qk.ts";
-import { router } from "../../../routes/router";
-import { ludoNavigation } from "../../../routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { mutations } from "../Definitions/mutations";
+import { useRouter } from "@tanstack/react-router";
 
 type Args = {
   oldStreak: number;
@@ -10,6 +10,7 @@ type Args = {
 
 export function useSubmitLesson({ oldStreak }: Args) {
   const qc = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     ...mutations.submitLesson(),
