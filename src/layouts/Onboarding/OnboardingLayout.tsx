@@ -3,9 +3,9 @@ import { type StageKey } from "@/types/Onboarding/OnboardingSteps";
 import {
   OnboardingContext,
   type OnboardingContextType,
-} from "@/hooks/Context/Onboarding/OnboardingContext";
-import { useOnboardingFlow } from "@/hooks/Flows/Onboarding/useOnboardingFlow";
-import { OnboardingFooter } from "../../features/Onboarding/Footer/OnboardingFooter";
+} from "@/features/Onboarding/Context/OnboardingContext.tsx";
+import { useOnboardingFlow } from "@/features/Onboarding/Hook/useOnboardingFlow.tsx";
+import { OnboardingFooter } from "../../features/Onboarding/UI/Zone/OnboardingFooter.tsx";
 import { onboardingContent } from "../../constants/mocks/onboardingMocks";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { HeaderWithProgress } from "@/components/design-system/blocks/header/header-with-progress.tsx";

@@ -1,5 +1,5 @@
 import { MobileFallbackPage } from "@/features/Error/MobileFallbackPage";
-import { useIsMobile } from "@/hooks/UI/useIsMobile";
+import { useIsMobile } from "@/hooks/Guard/useIsMobile.tsx";
 import { Outlet } from "@tanstack/react-router";
 
 export function DesktopOnlyPage() {

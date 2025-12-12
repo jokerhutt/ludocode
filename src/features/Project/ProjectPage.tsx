@@ -5,10 +5,10 @@ import { EditorWinbar } from "./Editor/EditorWinbar.tsx";
 import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 
-import { ChatBotProvider } from "@/hooks/Context/ChatBot/ChatBotContext.tsx";
+import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
 import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
-import { CodeRunnerProvider } from "@/hooks/Context/Runner/CodeRunnerContext.tsx";
-import { useProjectContext } from "@/hooks/Context/Project/ProjectContext.tsx";
+import { CodeRunnerProvider } from "@/features/Project/Context/CodeRunnerContext.tsx";
+import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { ChatBotAccordion } from "@/components/design-system/blocks/chatbot/chatbot-accordion.tsx";
 import ChatBotWindow from "@/components/design-system/composites/chatbot/chatbot-window.tsx";
 

@@ -1,0 +1,12 @@
+import type { CourseProgress } from "@/types/User/CourseProgress.ts";
+import { createContext, useContext } from "react";
+
+
+export const CurrentCourseContext = createContext<CourseProgress | null>(null);
+
+export function useCurrentCourseContext() {
+  const ctx = useContext(CurrentCourseContext);
+  if (!ctx)
+    throw new Error("useCurrentCourseContext must be used inside a Stats.Provider");
+  return ctx;
+}

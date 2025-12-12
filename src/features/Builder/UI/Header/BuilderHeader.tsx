@@ -2,7 +2,7 @@ import { Button } from "@/components/external/ui/button.tsx";
 import { useState } from "react";
 import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
 import { ExitButton } from "@/components/design-system/atoms/button/exit-button.tsx";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 
 type BuilderHeaderProps = { handleFormSubmission: () => Promise<void> };

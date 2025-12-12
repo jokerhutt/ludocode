@@ -1,4 +1,4 @@
-import type { AnswerToken } from "@/hooks/Flows/Exercises/useExercise";
+import type { AnswerToken } from "@/features/Lesson/Hooks/useExercise.tsx";
 import type { LudoExerciseOption } from "@/types/Exercise/LudoExerciseOption";
 import { WideButton } from "@/components/design-system/atoms/button/wide-button.tsx";
 

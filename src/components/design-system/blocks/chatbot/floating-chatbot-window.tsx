@@ -1,4 +1,4 @@
-import { ChatBotProvider } from "@/hooks/Context/ChatBot/ChatBotContext";
+import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
 import { useHotkeys } from "@/hooks/UI/useHotkeys";
 import { cn } from "@/components/cn-utils.ts";
 import { useState } from "react";

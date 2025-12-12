@@ -1,4 +1,4 @@
-import { useAutoWidth } from "@/hooks/Flows/Input/useAutoInputWidth";
+import { useAutoWidth } from "@/hooks/UI/useAutoInputWidth.tsx";
 import { useImperativeHandle } from "react";
 
 type OptionInputSlotProps = {

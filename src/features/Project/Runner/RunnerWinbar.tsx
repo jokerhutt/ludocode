@@ -1,6 +1,6 @@
 
 import { Winbar } from "@/components/design-system/blocks/winbar/winbar.tsx";
-import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext.tsx";
+import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { CircleButton } from "@/components/design-system/atoms/button/circle-button.tsx";
 
 export function RunnerWinbar() {

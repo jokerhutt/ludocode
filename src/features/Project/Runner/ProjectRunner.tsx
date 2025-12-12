@@ -1,4 +1,4 @@
-import { useCodeRunnerContext } from "@/hooks/Context/Runner/CodeRunnerContext";
+import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
 
 export function ProjectRunner() {
   const isError = (status: number) => status != 0;

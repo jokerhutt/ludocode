@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import type { ReactNode } from "react";
-import type { DevInfoContent } from "@/constants/static-data/infoContent.ts";
+import type { DevInfoContent } from "@/constants/content/infoContent.ts";
 import ReactMarkdown from "react-markdown";
 import { DialogWrapper } from "@/components/design-system/blocks/dialog/dialog-wrapper.tsx";
 

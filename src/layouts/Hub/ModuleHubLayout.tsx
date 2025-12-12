@@ -1,4 +1,4 @@
-import { useTreeData } from "@/hooks/Flows/Catalog/useTreeData";
+import { useTreeData } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
 import {
   ModuleSelectionBar,
   type MobileModuleTabs,

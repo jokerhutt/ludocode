@@ -1,7 +1,7 @@
-import { ProjectProvider } from "@/hooks/Context/Project/ProjectContext";
+import { ProjectProvider } from "@/features/Project/Context/ProjectContext.tsx";
 import { ProjectPage } from "@/features/Project/ProjectPage";
 import { getRouteApi, useLoaderData } from "@tanstack/react-router";
-import { ProjectHeader } from "@/features/Project/Header/ProjectHeader";
+import { ProjectHeader } from "@/features/Project/Zone/ProjectHeader.tsx";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 
 type ProjectLayoutProps = {};

@@ -1,5 +1,5 @@
 import { Button } from "@/components/external/ui/button";
-import { errorMap, type ErrorStatus } from "@/constants/static-data/ErrorData";
+import { errorMap, type ErrorStatus } from "@/constants/content/ErrorData";
 import { FallbackLayout } from "@/layouts/Fallback/FallbackLayout";
 import { useRouter } from "@tanstack/react-router";
 

@@ -1,8 +1,7 @@
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { HubLayout } from "@/layouts/Hub/HubLayout";
-import { redirectToAuth } from "@/old-routes/redirects/redirects";
 import type { QueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import {createFileRoute, redirect} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_hub")({
   loader: async ({ context }) => hubLoader(context.queryClient),
@@ -16,7 +15,9 @@ async function hubLoader(queryClient: QueryClient) {
     qo.streak(currentUser.id)
   );
 
-  if (!userStats || !userStreak || !currentUser) redirectToAuth();
+  if (!userStats || !userStreak || !currentUser) {
+    throw redirect({to: "/auth", replace: true});
+  }
 
   return { userStats, userStreak };
 }

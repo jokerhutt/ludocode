@@ -1,5 +1,5 @@
 import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon";
-import type { ProjectFileChoice } from "@/hooks/Flows/Project/useProject";
+import type { ProjectFileChoice } from "@/features/Project/Hooks/useProject.tsx";
 
 export type LanguageType = "python" | "javascript" | "lua";
 

@@ -1,4 +1,4 @@
-import { CompletionFooter } from "@/features/Completion/UI/Footer/CompletionFooter";
+import { CompletionFooter } from "@/features/Completion/UI/Zone/CompletionFooter";
 import {
   LessonCompletionPage,
   CourseCompletePage,
@@ -8,7 +8,7 @@ import type {
   CompletionSearch,
   CompletionState,
 } from "@/types/Completion/LessonCompletionResponse.ts";
-import { CompletionContext } from "@/hooks/Context/Completion/CompletionContext";
+import { CompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";

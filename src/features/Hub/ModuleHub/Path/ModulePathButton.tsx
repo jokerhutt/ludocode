@@ -1,8 +1,8 @@
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
-import { useLessonButton } from "@/hooks/Flows/Lesson/useLessonButton";
+import { useLessonButton } from "@/features/Hub/ModuleHub/Hooks/useLessonButton.tsx";
 import { PathButtonPopover } from "./PathButtonPopover";
 import { PathButtonTrigger } from "./PathButtonTrigger";
-import { useCurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext";
+import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 
 export type LessonCompletion = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
 

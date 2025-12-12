@@ -23,7 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/external/ui/tooltip.tsx";
-import { useIsMobile } from "@/hooks/UI/useIsMobile.tsx";
+import { useIsMobile } from "@/hooks/Guard/useIsMobile.tsx";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

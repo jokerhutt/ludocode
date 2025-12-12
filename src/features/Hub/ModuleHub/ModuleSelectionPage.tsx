@@ -1,7 +1,7 @@
 import { Button } from "@/components/external/ui/button";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
-import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import { ModulesList } from "./Selection/ModulesList";
 import { useRouter } from "@tanstack/react-router";
 

@@ -57,7 +57,7 @@ root
 All route paths are defined as a `routes` object in:
 
 ```
-src/constants/router/routes.ts
+src/constants/router/-routes.ts
 ```
 
 This file is the authoritative source for every path.

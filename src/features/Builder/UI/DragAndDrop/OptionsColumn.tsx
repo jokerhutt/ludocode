@@ -5,7 +5,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableOption } from "./SortableOption";
-import type { ColumnType } from "@/hooks/Flows/Builder/useOptionsDragAndDrop";
+import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
 import { Button } from "@/components/external/ui/button";
 import type { FormEditMode } from "./ExerciseOptionsDnDContainer";
 import { newOptionSnap } from "../../Util/NewExerciseTemplates";
