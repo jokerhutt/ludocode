@@ -1,14 +1,14 @@
-
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
-import { router } from "@/routes/router";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { useAutoSaveProject } from "@/hooks/Flows/Project/useAutoSaveProject";
 import { useProjectContext } from "@/hooks/Context/Project/ProjectContext";
 import { HeaderWithBar } from "@/components/design-system/blocks/header/header-with-bar.tsx";
 import { HollowSlotButton } from "@/components/design-system/atoms/button/hollow-slot-button.tsx";
 import { HeroIcon } from "@/components/design-system/atoms/hero-icon/hero-icon.tsx";
 import { SaveStatusIcon } from "../Editor/SaveStatusIcon";
+import { useRouter } from "@tanstack/react-router";
 
 export function ProjectHeader() {
+  const router = useRouter();
   const { project, files } = useProjectContext();
   const { projectName } = project;
 

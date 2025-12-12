@@ -9,8 +9,8 @@ import {
   createInfoExerciseAttempt,
   mergeStagedAttemptIntoExerciseSubmissions,
 } from "./Util/submissionUtil";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { useRouter } from "@tanstack/react-router";
 
 type Args = {
   currentExercise: LudoExercise;
@@ -29,6 +29,7 @@ export function useCommittedSubmissions({
   clearStaged,
   lessonId,
 }: Args) {
+  const router = useRouter();
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
     useState<ExerciseSubmission[]>([]);
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
@@ -38,7 +39,7 @@ export function useCommittedSubmissions({
     );
   };
   const handleCorrectAttempt = () =>
-    router.navigate(ludoNavigation.lesson.toNextExercise(lessonId, position));
+    router.navigate(ludoNavigation.lesson.toNextExercise(position));
 
   const isInfoExercise = currentExercise.exerciseType === "INFO";
   const isLastExercise = position === exercises.length;
@@ -47,7 +48,6 @@ export function useCommittedSubmissions({
     (staged: ExerciseAttempt | null) => {
       if (staged == null && currentExercise.exerciseType !== "INFO") return;
 
-      // If the answer is info, create a dummy attempt
       const filteredStagedAttempt =
         staged && !isInfoExercise
           ? staged

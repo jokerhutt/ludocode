@@ -1,10 +1,11 @@
 import { Button } from "@/components/external/ui/button";
-import { router } from "@/routes/router";
 import { type FeatureMeta } from "@/types/FeatureFlags/FeatureFlags";
+import { useRouter } from "@tanstack/react-router";
 
 type FeatureDisabledPageProps = { meta: FeatureMeta };
 
 export function FeatureDisabledPage({ meta }: FeatureDisabledPageProps) {
+  const router = useRouter();
   return (
     <div className="w-full h-full flex flex-col px-8 gap-2 items-center justify-center bg-ludoGrayDark">
       <h1 className="text-center font-bold mb-6 text-2xl text-ludoAltText">

@@ -1,12 +1,10 @@
-
-import { Outlet, useParams } from "@tanstack/react-router";
+import { getRouteApi, Outlet, useParams } from "@tanstack/react-router";
 import { type StageKey } from "@/types/Onboarding/OnboardingSteps";
 import {
   OnboardingContext,
   type OnboardingContextType,
 } from "@/hooks/Context/Onboarding/OnboardingContext";
 import { useOnboardingFlow } from "@/hooks/Flows/Onboarding/useOnboardingFlow";
-import { onboardingStageRoute } from "@/routes/router";
 import { OnboardingFooter } from "../../features/Onboarding/Footer/OnboardingFooter";
 import { onboardingContent } from "../../constants/mocks/onboardingMocks";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
@@ -14,7 +12,8 @@ import { HeaderWithProgress } from "@/components/design-system/blocks/header/hea
 import { MainContentWrapper } from "@/components/design-system/layouts/grid/main-content-wrapper.tsx";
 
 export function OnboardingLayout() {
-  const { stage } = useParams({ from: onboardingStageRoute.id }) as {
+  const routeApi = getRouteApi("/_app/onboarding/$stage");
+  const { stage } = useParams({ from: routeApi.id }) as {
     stage: StageKey;
   };
 

@@ -1,4 +1,3 @@
-import { moduleHubRoute } from "../../routes/router";
 import { useTreeData } from "@/hooks/Flows/Catalog/useTreeData";
 import {
   ModuleSelectionBar,
@@ -9,8 +8,10 @@ import { ModulePage } from "@/features/Hub/ModuleHub/ModulePage";
 import { useTab } from "@/hooks/UI/useTab";
 import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/ModuleSelectionPage";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
+import { getRouteApi } from "@tanstack/react-router";
 
 export function ModuleHubLayout() {
+  const moduleHubRoute = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
   const { courseId, moduleId } = moduleHubRoute.useParams();
   const { tree, allCourses } = moduleHubRoute.useLoaderData();
 
@@ -20,7 +21,9 @@ export function ModuleHubLayout() {
     moduleId,
   });
 
-  const currentCourse = allCourses.find((course: LudoCourse) => course.id == courseId);
+  const currentCourse = allCourses.find(
+    (course: LudoCourse) => course.id == courseId
+  );
 
   const mainTab: MobileModuleTabs = "Path";
   const { activeTab, setTab } = useTab<MobileModuleTabs>(mainTab);

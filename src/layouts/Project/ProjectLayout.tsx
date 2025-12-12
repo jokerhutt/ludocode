@@ -1,14 +1,14 @@
 import { ProjectProvider } from "@/hooks/Context/Project/ProjectContext";
 import { ProjectPage } from "@/features/Project/ProjectPage";
-import { useLoaderData } from "@tanstack/react-router";
-import { projectRoute } from "@/routes/router";
+import { getRouteApi, useLoaderData } from "@tanstack/react-router";
 import { ProjectHeader } from "@/features/Project/Header/ProjectHeader";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 
 type ProjectLayoutProps = {};
 
 export function ProjectLayout({}: ProjectLayoutProps) {
-  const { project } = useLoaderData({ from: projectRoute.id });
+  const routeApi = getRouteApi("/_app/_desktopguard/project/$projectId");
+  const { project } = useLoaderData({ from: routeApi.id });
 
   return (
     <ProjectProvider project={project}>

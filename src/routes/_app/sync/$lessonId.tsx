@@ -1,7 +1,14 @@
+import { SyncingPage } from "@/features/Completion/SyncingPage";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-export async function syncLoader(queryClient: QueryClient) {
+export const Route = createFileRoute("/_app/sync/$lessonId")({
+  loader: async ({ context }) => syncLoader(context.queryClient),
+  component: SyncingPage,
+});
+
+async function syncLoader(queryClient: QueryClient) {
   const currentUser = await queryClient.ensureQueryData(qo.currentUser());
   await queryClient.ensureQueryData(qo.coins(currentUser.id));
   const userStreak = await queryClient.ensureQueryData(

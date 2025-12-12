@@ -1,6 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { Button } from "@/components/external/ui/button";
 import { newLesson } from "../../Util/NewExerciseTemplates";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";
@@ -9,6 +8,7 @@ import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/bu
 import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.tsx";
 import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
 import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
+import { router } from "@/main";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,

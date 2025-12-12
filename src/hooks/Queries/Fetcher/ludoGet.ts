@@ -1,9 +1,8 @@
 export async function ludoGet<T>(
   path: string,
-  credentials: boolean = false,
-  name: string = ""
+  credentials: boolean = true,
+  name = ""
 ): Promise<T> {
-
   const res = await fetch(path, {
     credentials: credentials ? "include" : "same-origin",
   });

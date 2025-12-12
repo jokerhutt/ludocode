@@ -7,8 +7,14 @@ import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-gr
 import { AppHeader } from "@/components/design-system/blocks/header/app-header.tsx";
 import { NavigationFooter } from "@/components/design-system/blocks/footer/navigation-footer.tsx";
 import { CurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseContext";
+import { Suspense } from "react";
 
 export function HubLayout() {
+  const matches = useMatches();
+  const active = matches[matches.length - 1];
+  const title =
+    (active?.staticData as { headerTitle?: string })?.headerTitle ?? "LudoCode";
+
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const currentUserId = currentUser.id;
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
@@ -20,17 +26,15 @@ export function HubLayout() {
   );
 
   const { coins } = coinPacket;
-  const matches = useMatches();
-  const active = matches[matches.length - 1];
-  const title =
-    (active?.staticData as { headerTitle?: string })?.headerTitle ?? "LudoCode";
 
   return (
     <CurrentCourseContext.Provider value={courseProgress}>
       <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
         <MainGridWrapper gridRows={"SITE"}>
           <AppHeader title={title} />
-          <Outlet />
+          <Suspense fallback={<div />}>
+            <Outlet />
+          </Suspense>
           <NavigationFooter />
         </MainGridWrapper>
       </StatsContext.Provider>

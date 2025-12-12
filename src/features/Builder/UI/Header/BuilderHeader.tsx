@@ -2,12 +2,13 @@ import { Button } from "@/components/external/ui/button.tsx";
 import { useState } from "react";
 import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
 import { ExitButton } from "@/components/design-system/atoms/button/exit-button.tsx";
-import { router } from "@/routes/router.tsx";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
+import { useRouter } from "@tanstack/react-router";
 
 type BuilderHeaderProps = { handleFormSubmission: () => Promise<void> };
 
 export function BuilderHeader({ handleFormSubmission }: BuilderHeaderProps) {
+  const router = useRouter();
   const [actionsEnabled, setActionsEnabled] = useState<boolean>(true);
   const text = actionsEnabled ? "Lock" : "Unlock";
   const variant = actionsEnabled ? "default" : ("disabled" as const);

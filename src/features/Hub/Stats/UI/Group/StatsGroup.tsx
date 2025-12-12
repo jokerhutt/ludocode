@@ -5,7 +5,7 @@ import { CommitIcon } from "@/components/design-system/atoms/hero-icon/custom-ic
 import { FireIcon } from "@heroicons/react/24/solid";
 import { CoinsDialog } from "@/features/Hub/Stats/UI/Dialog/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/features/Hub/Stats/UI/Dialog/StreakStatsDialog.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 
 type StatsGroupProps = { groupClassName?: string; buttonClassName?: string };
@@ -14,7 +14,7 @@ export function StatsGroup({
   groupClassName,
   buttonClassName,
 }: StatsGroupProps) {
-  const { data: pastWeekStreak } = useSuspenseQuery(qo.streakPastWeek());
+  const { data: pastWeekStreak } = useQuery(qo.streakPastWeek());
   const { coins, userStreak } = useStatsContext();
   const { current } = userStreak;
 
@@ -28,7 +28,10 @@ export function StatsGroup({
           </HollowSlotButton>
         </CoinsDialog>
 
-        <StreakStatsDialog pastWeekStreak={pastWeekStreak} streak={userStreak}>
+        <StreakStatsDialog
+          pastWeekStreak={pastWeekStreak ?? []}
+          streak={userStreak}
+        >
           <HollowSlotButton>
             <FireIcon className="h-5 text-orange-400" />
             <p className="text-sm">{current}</p>

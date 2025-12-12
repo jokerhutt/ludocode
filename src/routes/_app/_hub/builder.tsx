@@ -1,8 +1,17 @@
+import { BuilderHubPage } from "@/features/Hub/BuilderHub/BuilderHubPage";
 import { qo } from "@/hooks/Queries/Definitions/queries";
+import { redirectToAuth } from "@/old-routes/redirects/redirects";
 import type { QueryClient } from "@tanstack/react-query";
-import { redirectToAuth } from "../redirects/redirects";
+import { createFileRoute } from "@tanstack/react-router";
 
-export async function builderHubLoader(
+export const Route = createFileRoute("/_app/_hub/builder")({
+  staticData: { headerTitle: "Builder " },
+  loader: async ({ location, context }) =>
+    builderHubLoader(location, context.queryClient),
+  component: BuilderHubPage,
+});
+
+async function builderHubLoader(
   _location: { pathname: string },
   qc: QueryClient
 ) {

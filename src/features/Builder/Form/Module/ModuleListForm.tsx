@@ -1,17 +1,17 @@
 import { SidebarMenu } from "@/components/external/ui/sidebar";
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { Button } from "@/components/external/ui/button";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { newModule } from "@/features/Builder/Util/NewExerciseTemplates";
 import { ModuleNodeForm } from "./ModuleNodeForm";
+import { router } from "@/main";
 
 export const ModuleListForm = withForm({
   ...courseFormOpts,
   props: {
     courseId: "" as string,
-    currentModuleId: "" as string,
-    currentLessonId: "" as string,
+    currentModuleId: "" as string | undefined,
+    currentLessonId: "" as string | undefined,
   },
   render: ({ form, courseId, currentLessonId, currentModuleId }) => {
     return (
@@ -51,20 +51,21 @@ export const ModuleListForm = withForm({
                 Add Module
               </Button>
               <SidebarMenu>
-                {modules.map((module, index) => (
-                  <ModuleNodeForm
-                    key={module.moduleId}
-                    updateOrder={rearrangeModule}
-                    removeModule={removeModule}
-                    modulesLength={modules.length}
-                    currentLessonId={currentLessonId}
-                    currentModuleId={currentModuleId}
-                    form={form}
-                    moduleId={module.moduleId}
-                    index={index}
-                    courseId={courseId}
-                  />
-                ))}
+                {currentModuleId &&
+                  modules.map((module, index) => (
+                    <ModuleNodeForm
+                      key={module.moduleId}
+                      updateOrder={rearrangeModule}
+                      removeModule={removeModule}
+                      modulesLength={modules.length}
+                      currentLessonId={currentLessonId}
+                      currentModuleId={currentModuleId}
+                      form={form}
+                      moduleId={module.moduleId}
+                      index={index}
+                      courseId={courseId}
+                    />
+                  ))}
               </SidebarMenu>
             </div>
           );

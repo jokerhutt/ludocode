@@ -1,6 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import type { ExerciseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { parseExerciseError } from "@/features/Builder/Util/ParseErrors";
 import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";
@@ -9,6 +8,7 @@ import { ExerciseOptionsForm } from "./ExerciseOptionsForm";
 import { SingleExerciseNodeWrapper } from "../../UI/Wrapper/SingleExerciseNodeWrapper";
 import { ExerciseControllerHeader } from "../../UI/Wrapper/ExerciseControllerHeader";
 import { ModifyExerciseRow } from "../../UI/Button/ModifyExerciseRow";
+import { router } from "@/main";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,

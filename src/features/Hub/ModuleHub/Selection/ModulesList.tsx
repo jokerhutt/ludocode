@@ -2,9 +2,9 @@ import { ListRow } from "@/components/design-system/atoms/row/list-row.tsx";
 import { ListContainer } from "@/components/design-system/blocks/list/list-container.tsx";
 import type { ListHeaderProps } from "@/components/design-system/blocks/list/list-header.tsx";
 import { cn } from "@/components/cn-utils.ts";
-import { ludoNavigation } from "@/routes/navigator/ludoNavigation.tsx";
-import { moduleHubRoute, router } from "@/routes/router";
+import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
+import { getRouteApi, useRouter } from "@tanstack/react-router";
 
 type ModulesListHeaderProps = {
   courseName: string;
@@ -23,11 +23,15 @@ export function ModulesList({
   containerClassName,
   rowClassName,
 }: ModulesListProps) {
-  const { courseId, moduleId } = moduleHubRoute.useParams();
+  const routeApi = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
+  const router = useRouter();
+  const { courseId, moduleId } = routeApi.useParams();
 
   const selectModule = (selectedModuleId: string, isSelected: boolean) => {
     if (isSelected) return;
-    router.navigate(ludoNavigation.hub.module.toModule(courseId, selectedModuleId));
+    router.navigate(
+      ludoNavigation.hub.module.toModule(courseId, selectedModuleId)
+    );
   };
 
   const headerContent: ListHeaderProps | undefined = !!header

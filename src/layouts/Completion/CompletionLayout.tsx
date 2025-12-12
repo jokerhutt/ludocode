@@ -1,5 +1,4 @@
 import { CompletionFooter } from "@/features/Completion/UI/Footer/CompletionFooter";
-import { completionRoute } from "@/routes/router";
 import {
   LessonCompletionPage,
   CourseCompletePage,
@@ -14,6 +13,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { MainContentWrapper } from "@/components/design-system/layouts/grid/main-content-wrapper.tsx";
+import { getRouteApi } from "@tanstack/react-router";
 
 export const STEPS = ["lesson", "streak", "course"] as const;
 export type Step = (typeof STEPS)[number];
@@ -24,6 +24,9 @@ export function assertStep(step: string): Step {
 }
 
 export function CompletionLayout() {
+  const completionRoute = getRouteApi(
+    "/_app/completion/$courseId/$moduleId/$lessonId"
+  );
   const { courseId, moduleId, lessonId } = completionRoute.useParams();
   const search: CompletionSearch = completionRoute.useSearch();
   const { data: courses } = useSuspenseQuery(qo.allCourses());

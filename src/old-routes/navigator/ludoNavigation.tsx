@@ -1,18 +1,37 @@
 import type { HistoryState } from "@tanstack/react-router";
-import { routes } from "../../constants/router/routes.ts";
-import {
-  lessonPageRoute,
-  projectRoute,
-  completionRoute,
-  syncRoute,
-  moduleHubRoute,
-} from "../router.tsx";
+
 import type { LessonSubmission } from "@/types/Exercise/LessonSubmissions.ts";
 
-export const ludoNavigation = {
-  auth: () => ({ to: routes.auth.authPage }),
+// AUTH
+import { Route as authRoute } from "@/routes/auth";
 
-  courseRoot: () => ({ to: routes.hub.courses }),
+// HUB PAGES
+import { Route as coursesRoute } from "@/routes/_app/_hub/courses";
+import { Route as builderHubRoute } from "@/routes/_app/_hub/builder";
+import { Route as projectHubRoute } from "@/routes/_app/_hub/projects";
+
+import { Route as moduleHubRoute } from "@/routes/_app/_hub/learn/$courseId/$moduleId";
+import { Route as profileRoute } from "@/routes/_app/_hub/profile/$userId";
+
+// LESSON PAGE
+import { Route as lessonPageRoute } from "@/routes/_app/lesson/$courseId/$moduleId/$lessonId";
+
+// DESKTOP-GUARD GROUP
+import { Route as builderPageRoute } from "@/routes/_app/_desktopguard/build/$courseId";
+import { Route as projectPageRoute } from "@/routes/_app/_desktopguard/project/$projectId";
+
+// SYNC + COMPLETION
+import { Route as syncRoute } from "@/routes/_app/sync/$lessonId";
+import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$moduleId/$lessonId";
+
+// ONBOARDING
+import { Route as onboardingStageRoute } from "@/routes/_app/onboarding/$stage";
+import type { StageKey } from "@/types/Onboarding/OnboardingSteps";
+
+export const ludoNavigation = {
+  auth: () => ({ to: authRoute.to }),
+
+  courseRoot: () => ({ to: coursesRoute.to }),
 
   hub: {
     module: {
@@ -24,15 +43,15 @@ export const ludoNavigation = {
     },
     builder: {
       toBuilderHub: () => ({
-        to: routes.hub.builder,
+        to: builderHubRoute.to,
       }),
     },
     project: {
-      toProjectHub: () => ({ to: routes.hub.project }),
+      toProjectHub: () => ({ to: projectHubRoute.to }),
     },
     profile: {
       toProfile: (userId: string) => ({
-        to: routes.hub.profile.user,
+        to: profileRoute.to,
         params: { userId },
         replace: true,
       }),
@@ -41,14 +60,21 @@ export const ludoNavigation = {
 
   builder: {
     toBuilder: (courseId: string) => ({
-      to: routes.build.builderPage,
-      params: { courseId },
+      to: builderPageRoute.to,
+      params: {
+        courseId,
+      },
+      search: {
+        moduleId: undefined,
+        lessonId: undefined,
+        exerciseId: undefined,
+      },
     }),
 
     toBuilderModule: (courseId: string, moduleId: string) => ({
-      to: routes.build.builderPage,
+      to: builderPageRoute.to,
       params: { courseId },
-      search: { moduleId },
+      search: { moduleId, lessonId: undefined, exerciseId: undefined },
     }),
 
     toBuilderLesson: (
@@ -56,9 +82,9 @@ export const ludoNavigation = {
       moduleId: string,
       lessonId: string
     ) => ({
-      to: routes.build.builderPage,
+      to: builderPageRoute.to,
       params: { courseId },
-      search: { moduleId, lessonId },
+      search: { moduleId, lessonId, exerciseId: undefined },
     }),
 
     toBuilderExercise: (
@@ -67,7 +93,7 @@ export const ludoNavigation = {
       lessonId: string,
       exerciseId: string
     ) => ({
-      to: routes.build.builderPage,
+      to: builderPageRoute.to,
       params: { courseId },
       search: { moduleId, lessonId, exerciseId },
     }),
@@ -82,22 +108,33 @@ export const ludoNavigation = {
       lessonId: string,
       exercise: number
     ) => ({
-      to: routes.lesson.lessonPage,
+      to: lessonPageRoute.to,
       params: { courseId, moduleId, lessonId },
       search: { exercise },
     }),
-    toNextExercise: (lessonId: string, current: number) => ({
+    toNextExercise: (current: number) => ({
       to: lessonPageRoute.to,
-      params: { lessonId },
-      search: { exercise: current + 1 },
+      params: (prev: any) => prev,
+      search: (prev: any) => ({
+        ...prev,
+        exercise: current + 1,
+      }),
       replace: true,
     }),
   },
 
   project: {
     toProject: (projectId: string) => ({
-      to: projectRoute.to,
+      to: projectPageRoute.to,
       params: { projectId },
+    }),
+  },
+
+  onboarding: {
+    start: () => ({
+      to: onboardingStageRoute.to,
+      params: { stage: "careers" as StageKey },
+      replace: true,
     }),
   },
 
@@ -122,7 +159,7 @@ export const ludoNavigation = {
       to: completionRoute.to,
       params: { courseId, moduleId, lessonId },
       search: {
-        step: "lesson",
+        step: "lesson" as const,
         coins,
         accuracy,
         oldStreak,
@@ -131,16 +168,26 @@ export const ludoNavigation = {
       },
     }),
 
-    toStreakIncrease: () => ({
+    toStreakIncrease: (
+      courseId: string,
+      moduleId: string,
+      lessonId: string
+    ) => ({
       to: completionRoute.to,
+      params: { courseId, moduleId, lessonId },
       search: (prev: any) => ({
         ...prev,
-        step: "streak",
+        step: "streak" as const,
       }),
     }),
 
-    toCourseComplete: () => ({
+    toCourseComplete: (
+      courseId: string,
+      moduleId: string,
+      lessonId: string
+    ) => ({
       to: completionRoute.to,
+      params: { courseId, moduleId, lessonId },
       search: (prev: any) => ({
         ...prev,
         step: "course",

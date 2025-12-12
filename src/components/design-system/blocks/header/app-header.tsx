@@ -6,6 +6,7 @@ type AppHeaderProps = { title: string };
 
 //TODO rename this to hub header
 export function AppHeader({ title }: AppHeaderProps) {
+
   return (
     <HeaderWithBar device="Both">
       <div className="col-start-2 col-end-12 flex items-center justify-between">

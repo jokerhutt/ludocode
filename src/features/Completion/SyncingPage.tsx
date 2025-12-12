@@ -1,9 +1,8 @@
-import { useLocation } from "@tanstack/react-router";
+import { getRouteApi, useLocation } from "@tanstack/react-router";
 import type { SyncState } from "../../types/Completion/SyncState.ts";
 import { useSubmitLesson } from "@/hooks/Queries/Mutations/useSubmitLesson";
 import { useEffect } from "react";
 import { PropagateLoader } from "react-spinners";
-import { syncRoute } from "../../routes/router";
 
 type SyncingPageProps = {};
 
@@ -12,8 +11,9 @@ function isSyncState(s: any): s is SyncState {
 }
 
 export function SyncingPage({}: SyncingPageProps) {
+  const routeApi = getRouteApi("/_app/sync/$lessonId");
   const { state } = useLocation();
-  const { oldStreak } = syncRoute.useLoaderData();
+  const { oldStreak } = routeApi.useLoaderData();
   const submitLesson = useSubmitLesson({ oldStreak });
 
   useEffect(() => {
