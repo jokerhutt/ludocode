@@ -11,6 +11,30 @@ import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import appCss from "@/App.css?url";
 import { ErrorPage } from "@/features/Error/ErrorPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { createServerFn } from "@tanstack/react-start";
+import { useAppSession } from "./utils/session";
+
+const fetchUser = createServerFn({ method: "GET" }).handler(async () => {
+  const session = await useAppSession();
+
+  console.log(" SESSION DATA: " + JSON.stringify(session));
+
+  if (!session.data.id) {
+    return null;
+  }
+
+  console.log("session data exists")
+
+  return {
+    id: session.data.id,
+    firstName: session.data.firstName,
+    lastName: session.data.lastName,
+    pfpSrc: session.data.pfpSrc,
+    email: session.data.email,
+    hasOnboarded: session.data.hasOnboarded,
+    createdAt: session.data.createdAt,
+  };
+});
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -25,7 +49,9 @@ export const Route = createRootRouteWithContext<{
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   beforeLoad: async () => {
+    const user = await fetchUser();
     await sleep(300);
+    return { user };
   },
   errorComponent: () => (
     <RootDocument>

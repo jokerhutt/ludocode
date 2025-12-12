@@ -8,7 +8,7 @@ export const GET_ALL_COURSES = API_PATH + `/catalog/courses`;
 export const GET_COURSE_TREE = (courseId: string) =>
   API_PATH + `/catalog/courses/${courseId}/tree`;
 
-export const LOGOUT = API_PATH + `/auth/logout`
+export const LOGOUT = API_PATH + `/auth/logout`;
 
 export const GET_ENABLED_FEATURES = API_PATH + `/features`;
 

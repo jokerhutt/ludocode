@@ -1,23 +1,23 @@
+import { GOOGLE_LOGIN } from "@/constants/api/pathConstants";
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import { fetchCurrentUserFromCookie } from "@/server/auth";
+import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost";
+import type { LoginUserResponse } from "@/types/User/LoginUserResponse";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { getRequestHeaders } from "@tanstack/react-start/server";
+import { createServerFn } from "@tanstack/react-start";
+import { useAppSession } from "../utils/session";
 
 export const Route = createFileRoute("/_app")({
   beforeLoad: async ({ location, context }) =>
-    appPreloader(location, context.queryClient),
+    appPreloader(location, context.queryClient, context.user),
 });
 
 async function appPreloader(
   location: { pathname: string },
-  queryClient: QueryClient
+  queryClient: QueryClient,
+  user: any | null
 ) {
-  console.log("[beforeLoad] running");
-
-  const headers = getRequestHeaders();
-  const cookie = headers.get("cookie") ?? "";
-  const user = await fetchCurrentUserFromCookie(cookie);
+  console.log("User is: " + JSON.stringify(user));
 
   if (!user) {
     console.log("[beforeLoad] NO USER");
@@ -39,3 +39,24 @@ async function appPreloader(
 
   return { user };
 }
+
+export const googleLoginFn = createServerFn({ method: "POST" })
+  .inputValidator((d: { code: string }) => d)
+  .handler(async ({ data }) => {
+    const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
+      GOOGLE_LOGIN,
+      { code: data.code },
+      true
+    );
+    console.log(
+      "USER: " +
+        JSON.stringify(user) +
+        " COINS: " +
+        JSON.stringify(userCoins) +
+        " STREAK: " +
+        JSON.stringify(userStreak)
+    );
+    const session = await useAppSession();
+    await session.update(user);
+    return { user, userCoins, userStreak };
+  });

@@ -4,11 +4,11 @@ import { useSession } from "@tanstack/react-start/server";
 export function useAppSession() {
   return useSession<LudoUser>({
     name: "app-session",
-    password: process.env.SESSION_SECRET!,
+    password: "47702bc705c19aa0121d27027e5939532f04c8f1",
     cookie: {
       httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
       path: "/",
     },
   });

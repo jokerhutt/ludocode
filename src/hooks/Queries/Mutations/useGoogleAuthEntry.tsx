@@ -1,12 +1,10 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
 import { qk } from "../Definitions/qk.ts";
-import type { LoginUserResponse } from "@/types/User/LoginUserResponse.ts";
-import { ludoPost } from "../Fetcher/ludoPost.ts";
 import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { qo } from "../Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
+import { googleLoginFn } from "@/routes/_app/route.tsx";
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -18,11 +16,10 @@ export function useGoogleAuthEntry() {
 
       console.log("Calling post");
 
-      const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
-        GOOGLE_LOGIN,
-        { code: codeResponse.code },
-        true
-      );
+      const { user, userCoins, userStreak } = await googleLoginFn({
+        data: { code: codeResponse.code },
+      });
+      await router.invalidate();
 
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);

@@ -1,40 +1,37 @@
 import { queryOptions } from "@tanstack/react-query";
 import { qk } from "./qk.ts";
 import {
-  courseProgressBatcher,
   lessonBatcher,
   moduleBatcher,
   userBatcher,
-  userCoinsBatcher,
 } from "../Batcher/batchers";
-import Cookies from "js-cookie";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { CourseProgress } from "@/types/User/CourseProgress.ts";
 import type { LudoExercise } from "@/types/Exercise/LudoExercise";
-import { ludoGet } from "../Fetcher/ludoGet";
-import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 import {
-  AUTH_ME,
-  GET_ALL_COURSES,
-  GET_COURSE_SNAPSHOT,
-  GET_COURSE_TREE,
-  GET_CURRENT_COURSE_ID,
-  GET_ENROLLED_IDS,
-  GET_EXERCISES_FROM_LESSON,
+  getAllCoursesFn,
+  getCourseProgressServer,
+  getCourseSnapshotFn,
+  getCourseTreeFn,
+  getCurrentCourseIdFn,
+  getCurrentUserFn,
+  getExercisesFromLessonFn,
+  getProjectsFn,
+  getUserCoinsFn,
+  getUserEnrolledFn,
+  getUserStreakFn,
+  getUserWeeklyStreakFn,
+  ludoGet,
+} from "../Fetcher/ludoGet";
+import {
   GET_USER_PREFERENCES,
-  GET_MY_PROJECTS,
-  GET_USER_STREAK,
-  GET_PAST_WEEK_STREAK,
   GET_ENABLED_FEATURES,
 } from "../../../constants/api/pathConstants.ts";
-import type { LudoUser } from "@/types/User/LudoUser";
-import type { FlatCourseTree } from "@/types/Catalog/FlatCourseTree";
-import type { CourseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import type { UserPreferences } from "@/types/User/UserPreferences.ts";
-import type { ProjectListResponse } from "@/types/Project/ProjectListResponse.ts";
 import { type DailyGoalMet, type UserStreak } from "@/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@/types/FeatureFlags/FeatureFlags.ts";
+import { type UserCoins } from "@/types/User/UserCoins.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -47,7 +44,7 @@ export const qo = {
   courseProgress: (courseId: string) =>
     queryOptions<CourseProgress>({
       queryKey: qk.courseProgress(courseId),
-      queryFn: () => courseProgressBatcher.fetch(courseId),
+      queryFn: () => getCourseProgressServer({ data: courseId }),
       staleTime: 60_000,
     }),
 
@@ -75,21 +72,21 @@ export const qo = {
   streakPastWeek: () =>
     queryOptions<DailyGoalMet[]>({
       queryKey: qk.streakPastWeek(),
-      queryFn: () => ludoGet<DailyGoalMet[]>(GET_PAST_WEEK_STREAK, true),
+      queryFn: () => getUserWeeklyStreakFn(),
       staleTime: 60_000,
     }),
 
   streak: (userId: string) =>
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
-      queryFn: () => ludoGet<UserStreak>(GET_USER_STREAK, true),
+      queryFn: () => getUserStreakFn(),
       staleTime: 60_000,
     }),
 
   currentCourseId: () =>
     queryOptions<string>({
       queryKey: qk.currentCourseId(),
-      queryFn: () => ludoGet<string>(GET_CURRENT_COURSE_ID, true),
+      queryFn: () => getCurrentCourseIdFn(),
       staleTime: 60_000,
       retry: false,
     }),
@@ -104,7 +101,7 @@ export const qo = {
   currentUser: () =>
     queryOptions({
       queryKey: qk.currentUser(),
-      queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
+      queryFn: () => getCurrentUserFn(),
       staleTime: 60_000,
       retry: false,
     }),
@@ -112,50 +109,49 @@ export const qo = {
   courseSnapshot: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseSnapshot(courseId),
-      queryFn: () => ludoGet<CourseSnap>(GET_COURSE_SNAPSHOT(courseId)),
+      queryFn: () => getCourseSnapshotFn({ data: courseId }),
       staleTime: 60_000 * 10,
     }),
 
   allCourses: () =>
     queryOptions({
       queryKey: qk.courses(),
-      queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
+      queryFn: () => getAllCoursesFn(),
       staleTime: 60_000,
     }),
 
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(GET_MY_PROJECTS, true),
+      queryFn: () => getProjectsFn(),
       staleTime: 60_000,
     }),
 
   coins: (userId: string) =>
-    queryOptions({
+    queryOptions<UserCoins>({
       queryKey: qk.userCoins(userId),
-      queryFn: () => userCoinsBatcher.fetch(userId),
+      queryFn: () => getUserCoinsFn({ data: userId }),
       staleTime: 60_000,
     }),
 
   enrolled: () =>
     queryOptions({
       queryKey: qk.enrolled(),
-      queryFn: () => ludoGet<string[]>(GET_ENROLLED_IDS, true),
+      queryFn: () => getUserEnrolledFn(),
       staleTime: 60_000,
     }),
 
   exercises: (lessonId: string) =>
     queryOptions<LudoExercise[]>({
       queryKey: qk.exercises(lessonId),
-      queryFn: () =>
-        ludoGet<LudoExercise[]>(GET_EXERCISES_FROM_LESSON(lessonId)),
+      queryFn: () => getExercisesFromLessonFn({ data: lessonId }),
       staleTime: 60_000,
     }),
 
   courseTree: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseTree(courseId),
-      queryFn: () => ludoGet<FlatCourseTree>(GET_COURSE_TREE(courseId), true),
+      queryFn: () => getCourseTreeFn({ data: courseId }),
       staleTime: 5 * 60_000,
     }),
 };

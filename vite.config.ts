@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [tanstackStart(), react(), netlify(), tailwindcss()],
+  plugins: [tanstackStart(), netlify(), react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

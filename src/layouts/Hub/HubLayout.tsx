@@ -11,6 +11,7 @@ import { CurrentCourseContext } from "@/hooks/Context/Progress/CurrentCourseCont
 export function HubLayout() {
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const currentUserId = currentUser.id;
+  console.log("First coins try")
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
   const { data: streakPacket } = useSuspenseQuery(qo.streak(currentUserId));
 
@@ -19,6 +20,7 @@ export function HubLayout() {
     qo.courseProgress(currentCourseId)
   );
 
+  console.log("Trying coins")
   const { coins } = coinPacket;
   const matches = useMatches();
   const active = matches[matches.length - 1];
