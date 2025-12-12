@@ -16,29 +16,29 @@ export const getNavIcons = (
 ): NavIcon[] => [
   {
     name: "Courses",
-    path: routes.hub.courses,
+    path: "/courses",
     onClick: () => router.navigate(ludoNavigation.courseRoot()),
   },
   {
     name: "Learn",
-    path: routes.hub.module.root,
+    path: "/learn",
     onClick: () =>
       router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId)),
   },
   {
     name: "Projects",
-    path: routes.hub.project,
+    path: "/projects",
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
   },
   {
     name: "Profile",
-    path: routes.hub.profile.root,
+    path: "/profile",
     onClick: () =>
       router.navigate(ludoNavigation.hub.profile.toProfile(userId)),
   },
   {
     name: "Build",
-    path: routes.hub.builder,
+    path: "/builder",
     onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
   },
 ];

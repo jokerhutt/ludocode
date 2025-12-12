@@ -16,7 +16,6 @@ export function useGoogleAuthEntry() {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
 
-      console.log("Calling post");
 
       const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
         GOOGLE_LOGIN,

@@ -1,10 +1,10 @@
 export async function ludoGet<T>(
   path: string,
-  creds: boolean = true,
+  credentials: boolean = true,
   name = ""
 ): Promise<T> {
   const res = await fetch(path, {
-    credentials: "include",
+    credentials: credentials ? "include" : "same-origin",
   });
 
   if (!res.ok) throw new Error("Failed to fetch " + name);

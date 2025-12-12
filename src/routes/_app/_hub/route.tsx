@@ -16,12 +16,8 @@ async function hubLoader(queryClient: QueryClient) {
     qo.streak(currentUser.id)
   );
 
-  console.log(" WOOHOO!! ");
-
   if (!userStats || !userStreak || !currentUser) redirectToAuth();
 
-  console.log("Woerks");
   return { userStats, userStreak };
 }
 
-export async function hubIndexLoader() {}
