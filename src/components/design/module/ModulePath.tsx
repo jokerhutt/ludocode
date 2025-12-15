@@ -1,12 +1,9 @@
 import { PathRow } from "@/components/design-system/atoms/row/path-row";
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext";
 import { useLessonButton } from "@/features/Hub/ModuleHub/Hooks/useLessonButton";
-import { PathButtonPopover } from "@/features/Hub/ModuleHub/Path/PathButtonPopover";
+import { PathPopover } from "@/features/Hub/ModuleHub/Path/PathPopover";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import { PathButton } from "./PathButton";
-import { PopoverTrigger } from "@radix-ui/react-popover";
-import { LudoPopover } from "../popover/LudoPopover";
-
 type ModulePathProps = { lessons: LudoLesson[]; currentLessonId: string };
 
 export function ModulePath({ lessons, currentLessonId }: ModulePathProps) {
@@ -23,19 +20,17 @@ export function ModulePath({ lessons, currentLessonId }: ModulePathProps) {
 
     return (
       <PathRow key={lesson.id} index={i}>
-        <LudoPopover
+        <PathPopover
           goToLesson={goToLesson}
-          lesson={lesson}
           lessonType={lessonType}
-        >
-          <PopoverTrigger asChild>
+          lesson={lesson}
+          trigger={
             <PathButton
-              className="data-[state=open]:translate-y-2
-                      data-[state=open]:shadow-none"
               lessonState={lessonType}
+              className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none"
             />
-          </PopoverTrigger>
-        </LudoPopover>
+          }
+        />
       </PathRow>
     );
   });

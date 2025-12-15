@@ -1,11 +1,9 @@
 import { ModuleAsideRight } from "./Aside/ModuleAsideRight";
-import { ModulePathButton } from "./Path/ModulePathButton";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { CourseProgress } from "@/types/User/CourseProgress.ts";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 import { ModuleAsideLeft } from "./Aside/ModuleAsideLeft";
-import { PathRow } from "@/components/design-system/atoms/row/path-row.tsx";
 import { ModulePath } from "@/components/design/module/ModulePath";
 
 type ModulePageProps = {

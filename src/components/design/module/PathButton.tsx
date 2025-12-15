@@ -1,9 +1,9 @@
-import type { LessonCompletion } from "@/features/Hub/ModuleHub/Path/ModulePathButton";
 import { LockIcon } from "../../design-system/atoms/hero-icon/custom-icon";
 import { CompletionRibbon } from "../../design-system/atoms/ribbon/completion-ribbon";
 import { LudoButton } from "../LudoButton";
 import { cn } from "@/components/cn-utils";
 import React from "react";
+import type { LessonCompletion } from "./types";
 
 type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   lessonState: LessonCompletion;
