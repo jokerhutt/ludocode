@@ -1,6 +1,6 @@
 import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
 import { Button } from "@/components/external/ui/button";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";
 
 type LeaveUnsavedButtonProps = { variant: any; enabled: boolean };

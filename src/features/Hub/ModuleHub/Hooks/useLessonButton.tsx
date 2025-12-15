@@ -1,5 +1,5 @@
 import type { LessonCompletion } from "@/features/Hub/ModuleHub/Path/ModulePathButton.tsx";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson.ts";
 import { useRouter } from "@tanstack/react-router";
 

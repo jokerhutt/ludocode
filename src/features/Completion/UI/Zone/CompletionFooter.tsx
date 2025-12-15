@@ -1,5 +1,5 @@
 import { useCompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
 import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 import { useRouter } from "@tanstack/react-router";

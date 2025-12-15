@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../Definitions/qk.ts";
 import type { ChangeCourseType } from "@/types/User/ChangeCourseType.ts";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { mutations } from "../Definitions/mutations.ts";
 import { useRouter } from "@tanstack/react-router";
 

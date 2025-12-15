@@ -1,5 +1,5 @@
 import { Button } from "@/components/external/ui/button.tsx";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";
 
 type BuilderHubCourseCardProps = { title: string; id: string };

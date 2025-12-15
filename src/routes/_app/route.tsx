@@ -1,8 +1,6 @@
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import { router } from "@/main";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
 import type { QueryClient } from "@tanstack/react-query";
-import {createFileRoute, redirect} from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
   beforeLoad: async ({ location, context }) =>
@@ -19,13 +17,18 @@ async function appPreloader(
     .ensureQueryData(qo.currentUser())
     .catch(() => null);
   if (!user) {
-    throw redirect({to: "/auth", replace: true})
+    throw redirect({ to: "/auth", replace: true });
   }
 
-  const isOnboarding = location.pathname.startsWith("/_app/onboarding");
+  const isOnboarding = location.pathname.startsWith("/onboarding");
 
   if (!isOnboarding && !user.hasOnboarded) {
-    router.navigate(ludoNavigation.onboarding.start());
+    console.log("Navigaten");
+    throw redirect({
+      to: "/onboarding/$stage",
+      params: { stage: "career" },
+      replace: true,
+    });
     return;
   }
 }

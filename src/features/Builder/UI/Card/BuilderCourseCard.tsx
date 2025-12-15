@@ -1,11 +1,11 @@
 import { Button } from "@/components/external/ui/button";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";
 
 type BuilderCourseCardProps = { title: string; id: string };
 
 export function BuilderCourseCard({ title, id }: BuilderCourseCardProps) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div className="w-full text-white rounded-2xl p-6 flex-col flex lg:flex-row lg:items-center lg:justify-between border-ludoGrayLight border-2">
       <div className="flex flex-col gap-2">

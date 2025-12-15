@@ -1,5 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import type { ExerciseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { parseExerciseError } from "@/features/Builder/Util/ParseErrors";
 import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";

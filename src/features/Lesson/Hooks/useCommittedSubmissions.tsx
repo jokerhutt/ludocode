@@ -9,7 +9,7 @@ import {
   createInfoExerciseAttempt,
   mergeStagedAttemptIntoExerciseSubmissions,
 } from "../Util/submissionUtil.ts";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 
 type Args = {

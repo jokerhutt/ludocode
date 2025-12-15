@@ -4,7 +4,7 @@ import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
 import { qk } from "../Definitions/qk.ts";
 import type { LoginUserResponse } from "@/types/User/LoginUserResponse.ts";
 import { ludoPost } from "../Fetcher/ludoPost.ts";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { qo } from "../Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
 export function useGoogleAuthEntry() {
@@ -15,7 +15,6 @@ export function useGoogleAuthEntry() {
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
-
 
       const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
         GOOGLE_LOGIN,

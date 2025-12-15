@@ -1,7 +1,7 @@
 import { CustomIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
 import { FileActionsButton } from "@/components/design-system/blocks/popover/file-actions-button.tsx";
 import { useModifyProject } from "@/hooks/Queries/Mutations/useModifyProject.tsx";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { LANGUAGE_MAP } from "@/types/Project/LanguageType.ts";
 import type { ProjectSnapshot } from "@/types/Project/ProjectSnapshot.ts";
 import { useRouter } from "@tanstack/react-router";
@@ -10,7 +10,7 @@ type ProjectCardProps = { project: ProjectSnapshot };
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { projectId, projectName, projectLanguage } = project;
-  const router = useRouter()
+  const router = useRouter();
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);

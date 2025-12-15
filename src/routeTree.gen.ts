@@ -15,9 +15,8 @@ import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
-import { Route as AppOnboardingIndexRouteImport } from './routes/_app/onboarding/index'
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
-import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding/$stage'
+import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
 import { Route as AppHubBuilderRouteImport } from './routes/_app/_hub/builder'
@@ -54,11 +53,6 @@ const AppHubRouteRoute = AppHubRouteRouteImport.update({
 } as any)
 const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
   id: '/_desktopguard',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppOnboardingIndexRoute = AppOnboardingIndexRouteImport.update({
-  id: '/onboarding/',
-  path: '/onboarding/',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
@@ -137,7 +131,6 @@ export interface FileRoutesByFullPath {
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/onboarding': typeof AppOnboardingIndexRoute
   '/build/$courseId': typeof AppDesktopguardBuildCourseIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/profile/$userId': typeof AppHubProfileUserIdRoute
@@ -155,7 +148,6 @@ export interface FileRoutesByTo {
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/onboarding': typeof AppOnboardingIndexRoute
   '/build/$courseId': typeof AppDesktopguardBuildCourseIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/profile/$userId': typeof AppHubProfileUserIdRoute
@@ -176,7 +168,6 @@ export interface FileRoutesById {
   '/_app/_hub/projects': typeof AppHubProjectsRoute
   '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/_app/onboarding/': typeof AppOnboardingIndexRoute
   '/_app/_desktopguard/build/$courseId': typeof AppDesktopguardBuildCourseIdRoute
   '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/_app/_hub/profile/$userId': typeof AppHubProfileUserIdRoute
@@ -196,7 +187,6 @@ export interface FileRouteTypes {
     | '/projects'
     | '/onboarding/$stage'
     | '/sync/$lessonId'
-    | '/onboarding'
     | '/build/$courseId'
     | '/project/$projectId'
     | '/profile/$userId'
@@ -214,7 +204,6 @@ export interface FileRouteTypes {
     | '/projects'
     | '/onboarding/$stage'
     | '/sync/$lessonId'
-    | '/onboarding'
     | '/build/$courseId'
     | '/project/$projectId'
     | '/profile/$userId'
@@ -234,7 +223,6 @@ export interface FileRouteTypes {
     | '/_app/_hub/projects'
     | '/_app/onboarding/$stage'
     | '/_app/sync/$lessonId'
-    | '/_app/onboarding/'
     | '/_app/_desktopguard/build/$courseId'
     | '/_app/_desktopguard/project/$projectId'
     | '/_app/_hub/profile/$userId'
@@ -292,13 +280,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AppDesktopguardRouteRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/_app/onboarding/': {
-      id: '/_app/onboarding/'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof AppOnboardingIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/sync/$lessonId': {
@@ -442,7 +423,6 @@ interface AppRouteRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AppOnboardingStageRoute: typeof AppOnboardingStageRoute
   AppSyncLessonIdRoute: typeof AppSyncLessonIdRoute
-  AppOnboardingIndexRoute: typeof AppOnboardingIndexRoute
   AppLessonCourseIdModuleIdLessonIdRouteRoute: typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
   AppCompletionCourseIdModuleIdLessonIdRoute: typeof AppCompletionCourseIdModuleIdLessonIdRoute
 }
@@ -453,7 +433,6 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AppOnboardingStageRoute: AppOnboardingStageRoute,
   AppSyncLessonIdRoute: AppSyncLessonIdRoute,
-  AppOnboardingIndexRoute: AppOnboardingIndexRoute,
   AppLessonCourseIdModuleIdLessonIdRouteRoute:
     AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren,
   AppCompletionCourseIdModuleIdLessonIdRoute:
@@ -472,12 +451,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

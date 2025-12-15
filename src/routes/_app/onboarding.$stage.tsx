@@ -1,4 +1,4 @@
-import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage";
+import { OnboardingLayout } from "@/layouts/Onboarding/OnboardingLayout";
 import { stepOrder, type StageKey } from "@/types/Onboarding/OnboardingSteps";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -8,5 +8,5 @@ export const Route = createFileRoute("/_app/onboarding/$stage")({
       ? p.stage
       : "course") as StageKey,
   }),
-  component: OnboardingStagePage,
+  component: OnboardingLayout,
 });

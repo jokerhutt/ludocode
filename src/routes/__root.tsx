@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { type QueryClient } from "@tanstack/react-query";
 import { ErrorPage } from "@/features/Error/ErrorPage";
@@ -25,7 +23,6 @@ function RootComponent() {
       <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludoYellow bg-ludoGrayDark">
         <Outlet />
       </div>
-
     </GoogleOAuthProvider>
   );
 }

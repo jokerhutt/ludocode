@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "../Definitions/mutations";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";
 
 export function useSubmitOnboarding() {
   const qc = useQueryClient();
-  const router = useRouter()
+  const router = useRouter();
 
   return useMutation({
     ...mutations.submitOnboarding(),

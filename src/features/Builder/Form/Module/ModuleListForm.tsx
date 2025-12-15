@@ -1,7 +1,7 @@
 import { SidebarMenu } from "@/components/external/ui/sidebar";
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { Button } from "@/components/external/ui/button";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { newModule } from "@/features/Builder/Util/NewExerciseTemplates";
 import { ModuleNodeForm } from "./ModuleNodeForm";
 import { router } from "@/main";

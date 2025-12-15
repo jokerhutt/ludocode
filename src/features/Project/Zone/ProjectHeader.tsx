@@ -1,4 +1,4 @@
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useAutoSaveProject } from "@/features/Project/Hooks/useAutoSaveProject.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { HeaderWithBar } from "@/components/design-system/blocks/header/header-with-bar.tsx";

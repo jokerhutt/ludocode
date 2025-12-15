@@ -1,5 +1,5 @@
-import { getRouteApi, Outlet, useParams } from "@tanstack/react-router";
-import { type StageKey } from "@/types/Onboarding/OnboardingSteps";
+import { getRouteApi, useParams } from "@tanstack/react-router";
+import { steps, type StageKey } from "@/types/Onboarding/OnboardingSteps";
 import {
   OnboardingContext,
   type OnboardingContextType,
@@ -24,8 +24,8 @@ export function OnboardingLayout() {
   };
 
   const { current, total } = contextValue.hook.position;
+  const Step = steps[stage];
 
-  //TODO check this subgrid? Do i need?
   return (
     <OnboardingContext.Provider value={contextValue}>
       <MainGridWrapper gridRows="FULL">
@@ -33,7 +33,7 @@ export function OnboardingLayout() {
         <MainContentWrapper>
           <div className="grid col-span-full grid-cols-12">
             <div className="col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 py-6 min-w-0">
-              <Outlet />
+              <Step />
             </div>
           </div>
         </MainContentWrapper>

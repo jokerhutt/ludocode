@@ -1,5 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { ludoNavigation } from "@/routes/utils/-ludoNavigation.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 import { Button } from "@/components/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm";
 import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/builder-node-wrapper.tsx";
