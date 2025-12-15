@@ -4,6 +4,7 @@ import { cn } from "../cn-utils";
 type Variant = "default" | "alt";
 
 type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {
+  withRing?: boolean;
   selected?: boolean;
   shadow?: boolean;
   variant?: Variant;
@@ -14,6 +15,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     {
       children,
       className,
+      withRing = true,
       shadow = true,
       selected = false,
       variant = "default",
@@ -26,11 +28,17 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       alt: "bg-ludoAltAccent",
     };
 
+    const shadowMap: Record<Variant, string> = {
+      default: "shadow-[0_5px_0_#262E57]",
+      alt: "shadow-[0_5px_0_#624FA0]",
+    };
+
     return (
       <div
         className={cn(
-          "p-1.5 flex items-center justify-center rounded-lg border-2",
+          "flex items-center justify-center rounded-lg border-2",
           selected ? "border-ludoLightPurple" : "border-transparent",
+          withRing ? "p-1.5" : "",
           selected && shadow ? "pb-2.5" : ""
         )}
       >
@@ -41,13 +49,15 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
             "h-20 w-20 rounded-lg inline-flex items-center justify-center",
             variantStyles[variant],
             shadow
-              ? "shadow-[0_5px_0_#262E57] active:translate-y-1 active:shadow-none"
+              ? `${shadowMap[variant]} active:translate-y-1 active:shadow-none`
               : "",
             className
           )}
           {...props}
         >
-          <div className="flex items-center justify-center">{children}</div>
+          <div className="flex items-center text-ludoAltText justify-center">
+            {children}
+          </div>
         </button>
       </div>
     );

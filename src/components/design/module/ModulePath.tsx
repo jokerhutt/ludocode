@@ -5,6 +5,7 @@ import { PathButtonPopover } from "@/features/Hub/ModuleHub/Path/PathButtonPopov
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import { PathButton } from "./PathButton";
 import { PopoverTrigger } from "@radix-ui/react-popover";
+import { LudoPopover } from "../popover/LudoPopover";
 
 type ModulePathProps = { lessons: LudoLesson[]; currentLessonId: string };
 
@@ -22,7 +23,7 @@ export function ModulePath({ lessons, currentLessonId }: ModulePathProps) {
 
     return (
       <PathRow key={lesson.id} index={i}>
-        <PathButtonPopover
+        <LudoPopover
           goToLesson={goToLesson}
           lesson={lesson}
           lessonType={lessonType}
@@ -34,7 +35,7 @@ export function ModulePath({ lessons, currentLessonId }: ModulePathProps) {
               lessonState={lessonType}
             />
           </PopoverTrigger>
-        </PathButtonPopover>
+        </LudoPopover>
       </PathRow>
     );
   });
