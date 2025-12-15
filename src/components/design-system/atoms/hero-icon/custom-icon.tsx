@@ -22,7 +22,11 @@ type CustomIconProps = IconProps & { iconName: IconName; color?: string };
 export function CustomIcon({ iconName, className, color }: CustomIconProps) {
   const Icon = Icons[iconName];
   if (!Icon) {
-    console.error("❌ CUSTOM ICON FAILED:", iconName, "is not in hero-icon map");
+    console.error(
+      "❌ CUSTOM ICON FAILED:",
+      iconName,
+      "is not in hero-icon map"
+    );
     return null;
   }
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
@@ -91,6 +95,41 @@ export function CloudYesIcon({ className, color }: IconProps): JSX.Element {
       <path d="M2 14.5c0 2.485 2.015 4.5 4.5 4.5H18.5C20.433 19 22 17.433 22 15.5c0-1.763-1.304-3.222-3-3.465 0.009-1.803-.674-3.609-2.05-4.985a7.5 7.5 0 00-10.9 0C5.15 7.95 4.547 9.033 4.24 10.179 2.368 10.724 2 12.452 2 14.5z" />
 
       <path d="M15 11l-4 4-2-2" />
+    </svg>
+  );
+}
+
+export function XIconSquare({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.6667 2H3.33333C2.59695 2 2 2.59695 2 3.33333V12.6667C2 13.403 2.59695 14 3.33333 14H12.6667C13.403 14 14 13.403 14 12.6667V3.33333C14 2.59695 13.403 2 12.6667 2Z"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10 6L6 10"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M6 6L10 10"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   );
 }
