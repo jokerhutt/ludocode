@@ -12,8 +12,8 @@ export function CompletionRibbon({ lessonState }: CompletionRibbonProps) {
 
   return (
     <>
-      {showComplete && <InnerRibbon className="bg-pythonYellow" />}
-      {showMastered && <OuterRibbon className="bg-pythonBlue" />}
+      {showComplete && <InnerRibbon className="bg-ludoLightPurple" />}
+      {showMastered && <OuterRibbon className="bg-pathPurple" />}
     </>
   );
 }

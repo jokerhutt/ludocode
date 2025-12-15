@@ -9,7 +9,7 @@ export function InnerRibbon({ className }: InnerRibbonProps) {
     <span
       aria-hidden
       className={cn(
-        "absolute -top-1.5 left-[-45px] w-30 h-3 bg-pythonYellow -rotate-45 rounded",
+        "absolute -top-1.5 -right-12 w-30 h-3 bg-ludoLightPurple -rotate-135 rounded",
         className
       )}
     />

@@ -7,9 +7,9 @@ type PathRowProps = {
 
 export function PathRow({ children, index }: PathRowProps) {
 
-  const position = index % 2 == 0 ? "justify-end" : "justify-start"
+  const position = index % 2 == 0 ? "flex-row-reverse" : "flex-row"
 
   return (
-    <div className={`w-full min-w-0 flex items-center ${position}`}>{children}</div>
+    <div className={`w-full min-w-0 relative flex items-center ${position}`}>{children}</div>
   );
 }

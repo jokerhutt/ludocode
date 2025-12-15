@@ -6,6 +6,7 @@ import type { LudoModule } from "@/types/Catalog/LudoModule";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 import { ModuleAsideLeft } from "./Aside/ModuleAsideLeft";
 import { PathRow } from "@/components/design-system/atoms/row/path-row.tsx";
+import { ModulePath } from "@/components/design/module/ModulePath";
 
 type ModulePageProps = {
   lessons: LudoLesson[];
@@ -27,15 +28,11 @@ export function ModulePage({
   return (
     <>
       <ModuleAsideLeft />
-      <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
-        {lessons.map((lesson: LudoLesson, i: number) => (
-          <PathRow key={lesson.id} index={i}>
-            <ModulePathButton
-              isCurrent={lesson.id == courseProgress.currentLessonId}
-              lesson={lesson}
-            />
-          </PathRow>
-        ))}
+      <div className="col-start-4 col-end-10 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col lg:gap-8 items-center py-6 min-w-0">
+        <ModulePath
+          lessons={lessons}
+          currentLessonId={courseProgress.currentLessonId}
+        />
       </div>
       <ModuleAsideRight
         modules={modules}
