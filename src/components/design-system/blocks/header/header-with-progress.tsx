@@ -1,3 +1,4 @@
+import { Progress } from "@/components/external/ui/progress.tsx";
 import { ExitButton } from "../../atoms/button/exit-button.tsx";
 import { LeaveUnsavedDialog } from "../../composites/dialog/leave-unsaved-dialog.tsx";
 import { HeaderWithBar } from "./header-with-bar.tsx";
@@ -30,7 +31,10 @@ export function HeaderWithProgress({
         )}
       </div>
       <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
-        <SegmentedProgress total={total} completed={completed} />
+        <Progress
+          className="border-ludoLightPurple"
+          value={(completed / total) * 100}
+        />
       </div>
     </HeaderWithBar>
   );
