@@ -46,7 +46,7 @@ export function PathPopover({
         </p>
       </div>
       <div className="flex flex-col items-end justify-between">
-        <XSquareIcon className="text-ludoLightPurple h-4 w-4" />
+        <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
         <LudoButton
           onClick={() => goToLesson()}
           withRing={false}
