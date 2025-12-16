@@ -10,7 +10,7 @@ export function TriviaExercise() {
     useExerciseBodyData(currentExercise, inputState);
 
   return (
-    <OptionListWrapper type="COLUMN">
+    <OptionListWrapper className="px-8" type="COLUMN">
       {options.map((option) => (
         <WideClickableOption
           setAnswerAt={replaceAnswerAt}

@@ -12,17 +12,17 @@ export function AnalyzeExercise() {
     useExerciseBodyData(currentExercise, inputState);
 
   return (
-    <>
-      <CodeBoxWrapper>
+    <div className="flex flex-col gap-8">
+      <div className="w-full px-8 bg-codeGray py-4 flex flex-col gap-2">
         <ExerciseAnswerField
           options={options}
           answerField={prompt!}
           userResponses={currentExerciseInputs}
           setAnswerAt={replaceAnswerAt}
         />
-      </CodeBoxWrapper>
+      </div>
 
-      <OptionListWrapper type="COLUMN">
+      <OptionListWrapper className="px-8" type="COLUMN">
         {options.map((option) => (
           <WideClickableOption
             setAnswerAt={replaceAnswerAt}
@@ -31,6 +31,6 @@ export function AnalyzeExercise() {
           />
         ))}
       </OptionListWrapper>
-    </>
+    </div>
   );
 }

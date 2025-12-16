@@ -21,24 +21,14 @@ export function ClozeExercise() {
   } = useExerciseBodyData(currentExercise, inputState);
 
   return (
-    <>
-      <div className="w-full flex flex-col gap-2">
-        <CodeBoxWrapper>
-          <div className="w-full flex flex-col">
-            <ExerciseAnswerField
-              options={options}
-              answerField={prompt!}
-              userResponses={currentExerciseInputs}
-              setAnswerAt={replaceAnswerAt}
-            />
-            <CodeUtilsGroup
-              enabled={phase == "DEFAULT"}
-              clearExerciseInputs={clearExerciseInputs}
-              popLast={popLastAnswer}
-              isEmpty={isEmpty}
-            />
-          </div>
-        </CodeBoxWrapper>
+    <div className="flex flex-col justify-between h-full">
+      <div className="w-full px-8 bg-codeGray py-4 flex flex-col gap-2">
+        <ExerciseAnswerField
+          options={options}
+          answerField={prompt!}
+          userResponses={currentExerciseInputs}
+          setAnswerAt={replaceAnswerAt}
+        />
       </div>
 
       <OptionListWrapper type="ROW">
@@ -57,6 +47,25 @@ export function ClozeExercise() {
           );
         })}
       </OptionListWrapper>
-    </>
+    </div>
   );
+}
+
+{
+  /* <CodeBoxWrapper>
+          <div className="w-full flex flex-col">
+            <ExerciseAnswerField
+              options={options}
+              answerField={prompt!}
+              userResponses={currentExerciseInputs}
+              setAnswerAt={replaceAnswerAt}
+            />
+            <CodeUtilsGroup
+              enabled={phase == "DEFAULT"}
+              clearExerciseInputs={clearExerciseInputs}
+              popLast={popLastAnswer}
+              isEmpty={isEmpty}
+            />
+          </div>
+        </CodeBoxWrapper> */
 }

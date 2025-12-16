@@ -14,7 +14,7 @@ export function CodeUtilsGroup({
   isEmpty,
 }: CodeUtilsGroupProps) {
   return (
-    <div className="w-full flex mt-6 items-end gap-6">
+    <div className="w-full flex items-end gap-6">
       <div
         onClick={() => {
           if (!enabled) return;

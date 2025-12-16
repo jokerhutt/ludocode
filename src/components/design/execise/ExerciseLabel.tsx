@@ -1,14 +1,15 @@
+import { cn } from "@/components/cn-utils";
 import {
   CustomIcon,
   type IconName,
 } from "@/components/design-system/atoms/hero-icon/custom-icon";
 import type { ExerciseType } from "@/types/Exercise/ExerciseType";
 
-type ExerciseTypeInfoProps = { exerciseType: ExerciseType };
+type ExerciseLabelProps = { exerciseType: ExerciseType; className?: string };
 
 type ExerciseTypeContent = { description: string; iconName: IconName };
 
-export function ExerciseTypeInfo({ exerciseType }: ExerciseTypeInfoProps) {
+export function ExerciseLabel({ exerciseType, className }: ExerciseLabelProps) {
   const typeDescriptions: Record<ExerciseType, ExerciseTypeContent> = {
     CLOZE: { description: "Fill in the Blanks", iconName: "Cloze" },
     INFO: { description: "Informational", iconName: "Question" },
@@ -19,7 +20,9 @@ export function ExerciseTypeInfo({ exerciseType }: ExerciseTypeInfoProps) {
   const { description, iconName } = typeDescriptions[exerciseType];
 
   return (
-    <div className="flex gap-2 text-ludoLightPurple items-center">
+    <div
+      className={cn("flex gap-2 text-ludoLightPurple items-center", className)}
+    >
       <CustomIcon iconName={iconName} />
       <p>{description}</p>
     </div>
