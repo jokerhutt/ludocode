@@ -49,7 +49,11 @@ export function ExerciseAnswerField({
   );
 
   return (
-    <p className="text-white text-lg text-left leading-loose font-light">
+    <p
+      className="  text-white text-lg text-left leading-loose font-light
+  flex flex-wrap gap-x-1 gap-y-2
+  overflow-x-hidden"
+    >
       {parts.map((part, index) => (
         <Fragment key={index}>
           <InlineCode lineHeight="26px" code={part} />
