@@ -6,6 +6,7 @@ import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/Media/ExerciseMedia";
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { FloatingChatbotWindow } from "@/components/design-system/blocks/chatbot/floating-chatbot-window.tsx";
+import { ExerciseTypeInfo } from "@/components/design/execise/ExerciseTypeInfo";
 
 export function LessonPage() {
   const exerciseBodyMap: any = {
@@ -36,6 +37,7 @@ export function LessonPage() {
 
       {currentExercise && (
         <div className="col-span-full px-8 lg:px-0 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
+          <ExerciseTypeInfo exerciseType={currentExercise.exerciseType} />
           <ExercisePrompt prompt={currentExercise.title} />
           {currentExercise.subtitle && (
             <ExercisePrompt prompt={currentExercise.subtitle} />

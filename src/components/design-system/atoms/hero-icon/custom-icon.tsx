@@ -10,6 +10,10 @@ export const Icons = {
   Golang: GoIcon,
   Lua: LuaIcon,
   Javascript: JavascriptIcon,
+  Cloze: ClozeIcon,
+  Trivia: TriviaIcon,
+  Analyze: AnalyzeIcon,
+  Question: QuestionIcon,
   CloudError: CloudErrorIcon,
   CloudLoad: CloudLoadIcon,
   CloudYes: CloudYesIcon,
@@ -32,6 +36,47 @@ export function CustomIcon({ iconName, className, color }: CustomIconProps) {
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
 }
 
+export function QuestionIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_99_737)">
+        <path
+          d="M2.56667 5.74666C2.46937 5.30834 2.48431 4.85256 2.61011 4.42155C2.73591 3.99055 2.9685 3.59829 3.28632 3.28114C3.60413 2.96399 3.99688 2.73222 4.42814 2.60732C4.85941 2.48242 5.31523 2.46844 5.75334 2.56666C5.99448 2.18953 6.32668 1.87917 6.71931 1.66418C7.11194 1.4492 7.55237 1.33652 8.00001 1.33652C8.44764 1.33652 8.88807 1.4492 9.28071 1.66418C9.67334 1.87917 10.0055 2.18953 10.2467 2.56666C10.6855 2.46801 11.1421 2.48193 11.574 2.60714C12.006 2.73234 12.3992 2.96475 12.7172 3.28276C13.0352 3.60077 13.2677 3.99404 13.3929 4.42599C13.5181 4.85795 13.532 5.31455 13.4333 5.75333C13.8105 5.99447 14.1208 6.32666 14.3358 6.71929C14.5508 7.11193 14.6635 7.55236 14.6635 7.99999C14.6635 8.44763 14.5508 8.88806 14.3358 9.28069C14.1208 9.67333 13.8105 10.0055 13.4333 10.2467C13.5316 10.6848 13.5176 11.1406 13.3927 11.5719C13.2678 12.0031 13.036 12.3959 12.7189 12.7137C12.4017 13.0315 12.0094 13.2641 11.5784 13.3899C11.1474 13.5157 10.6917 13.5306 10.2533 13.4333C10.0125 13.8119 9.68006 14.1236 9.28676 14.3395C8.89346 14.5555 8.45202 14.6687 8.00334 14.6687C7.55466 14.6687 7.11322 14.5555 6.71992 14.3395C6.32662 14.1236 5.99417 13.8119 5.75334 13.4333C5.31523 13.5316 4.85941 13.5176 4.42814 13.3927C3.99688 13.2678 3.60413 13.036 3.28632 12.7188C2.9685 12.4017 2.73591 12.0094 2.61011 11.5784C2.48431 11.1474 2.46937 10.6916 2.56667 10.2533C2.18664 10.0128 1.87362 9.68011 1.65671 9.28614C1.4398 8.89216 1.32605 8.44973 1.32605 7.99999C1.32605 7.55026 1.4398 7.10782 1.65671 6.71385C1.87362 6.31988 2.18664 5.98717 2.56667 5.74666Z"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M6.06 6C6.21673 5.55444 6.5261 5.17874 6.9333 4.93942C7.3405 4.7001 7.81926 4.61262 8.28478 4.69247C8.7503 4.77232 9.17254 5.01435 9.47672 5.37568C9.78089 5.73702 9.94737 6.19435 9.94666 6.66666C9.94666 8 7.94666 8.66666 7.94666 8.66666"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8 11.3333H8.00667"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_99_737">
+          <rect width="16" height="16" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
 export function CommitIcon({ className, color }: IconProps): JSX.Element {
   return (
     <svg
@@ -41,6 +86,129 @@ export function CommitIcon({ className, color }: IconProps): JSX.Element {
       fill={color ?? "currentColor"}
     >
       <path d="M448,224H380a128,128,0,0,0-247.9,0H64a32,32,0,0,0,0,64h68.05A128,128,0,0,0,380,288H448a32,32,0,0,0,0-64ZM256,320a64,64,0,1,1,64-64A64.07,64.07,0,0,1,256,320Z" />
+    </svg>
+  );
+}
+
+export function AnalyzeIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14 14L11.1067 11.1067"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function TriviaIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.28 7.28133C14.3993 7.22868 14.5006 7.14218 14.5713 7.03253C14.642 6.92289 14.6789 6.79492 14.6776 6.66449C14.6762 6.53405 14.6366 6.40688 14.5637 6.29872C14.4908 6.19056 14.3877 6.10617 14.2673 6.056L8.55334 3.45333C8.37963 3.3741 8.19093 3.33309 8 3.33309C7.80908 3.33309 7.62038 3.3741 7.44667 3.45333L1.73334 6.05333C1.61465 6.10531 1.51368 6.19075 1.44278 6.29921C1.37188 6.40766 1.33412 6.53442 1.33412 6.664C1.33412 6.79357 1.37188 6.92033 1.44278 7.02879C1.51368 7.13724 1.61465 7.22268 1.73334 7.27466L7.44667 9.88C7.62038 9.95923 7.80908 10.0002 8 10.0002C8.19093 10.0002 8.37963 9.95923 8.55334 9.88L14.28 7.28133Z"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M14.6667 6.66666V10.6667"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M4 8.33334V10.6667C4 11.1971 4.42143 11.7058 5.17157 12.0809C5.92172 12.456 6.93913 12.6667 8 12.6667C9.06087 12.6667 10.0783 12.456 10.8284 12.0809C11.5786 11.7058 12 11.1971 12 10.6667V8.33334"
+        stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ClozeIcon({ className, color }: IconProps): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_82_7034)">
+        <path
+          d="M8.00004 6.66667H2.66671C1.93033 6.66667 1.33337 7.26363 1.33337 8.00001V13.3333C1.33337 14.0697 1.93033 14.6667 2.66671 14.6667H8.00004C8.73642 14.6667 9.33337 14.0697 9.33337 13.3333V8.00001C9.33337 7.26363 8.73642 6.66667 8.00004 6.66667Z"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M11.9466 9.33333L14.28 7C14.5273 6.72566 14.6642 6.36938 14.6642 6C14.6642 5.63061 14.5273 5.27434 14.28 5L10.9466 1.72C10.6723 1.47264 10.316 1.33574 9.94663 1.33574C9.57724 1.33574 9.22096 1.47264 8.94663 1.72L6.66663 4"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 12H4.00667"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M6.66663 9.33333H6.67329"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M10 4H10.0067"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M12 6H12.0067"
+          stroke="#C1ADFF"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_82_7034">
+          <rect width="16" height="16" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }
