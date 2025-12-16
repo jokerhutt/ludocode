@@ -9,6 +9,7 @@ type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   shadow?: boolean;
   variant?: Variant;
   disabled?: boolean;
+  ringClass?: string;
 };
 
 export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
@@ -20,6 +21,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       shadow = true,
       selected = false,
       variant = "default",
+      ringClass,
       disabled = false,
       ...props
     },
@@ -51,7 +53,8 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
           "flex items-center justify-center rounded-lg border-2",
           selected ? "border-ludoLightPurple" : "border-transparent",
           withRing ? "p-1.5" : "w-full h-full",
-          selected && shadow ? "pb-2.5" : ""
+          selected && shadow ? "pb-2.5" : "",
+          ringClass
         )}
       >
         <button
@@ -67,9 +70,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
           )}
           {...props}
         >
-          <div className="flex items-center justify-center">
-            {children}
-          </div>
+          <div className="flex items-center justify-center">{children}</div>
         </button>
       </div>
     );

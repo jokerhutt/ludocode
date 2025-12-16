@@ -32,7 +32,7 @@ export function LessonFeedbackDrawer() {
     >
       <div
         className={cn(
-          "mx-auto h-40 max-w-screen bg-codeGray border-t-4 border-green-400/8",
+          "mx-auto lg:h-26 h-40 max-w-screen bg-codeGray border-t-4 border-green-400/8",
           border
         )}
       >

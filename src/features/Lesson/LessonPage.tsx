@@ -51,17 +51,17 @@ export function LessonPage() {
 
   return (
     <>
-      <div className="col-span-0 hidden lg:block lg:col-span-4 h-full min-h-0">
+      <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
         <FloatingChatbotWindow
           chatType="LESSON"
           targetId={currentExercise.id ?? null}
-          outerClassName="pl-6 pr-30"
+          outerClassName="pl-6 pr-10"
         />
       </div>
 
       {currentExercise && (
-        <div className="col-span-full lg:px-0 lg:col-span-4 flex flex-col gap-6 py-8 items-stretch justify-start h-full min-w-0">
-          <div className="flex flex-col gap-3 px-8">
+        <div className="col-span-full lg:px-0 lg:col-span-6 flex flex-col gap-6 py-8 items-stretch justify-start h-full min-w-0">
+          <div className="flex flex-col gap-3 lg:px-0 px-8">
             <ExerciseLabel exerciseType={currentExercise.exerciseType} />
             <ExerciseInstruction currentExercise={currentExercise} />
 

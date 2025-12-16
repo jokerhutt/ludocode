@@ -3,7 +3,7 @@ import { dracula as theme } from "react-syntax-highlighter/dist/esm/styles/prism
 
 export function InlineCode({
   code,
-  lang = "js",
+  lang = "py",
   fontSize = "17px",
   lineHeight = "28px",
 }: {

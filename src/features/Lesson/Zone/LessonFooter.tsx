@@ -18,18 +18,26 @@ export function LessonFooter() {
     handleExerciseButtonClick();
   };
 
-  const text = phase == "DEFAULT" ? "CHECK" : phase == "CORRECT" ? "CONTINUE" : "TRY AGAIN"
+  const text =
+    phase == "DEFAULT"
+      ? "CHECK"
+      : phase == "CORRECT"
+        ? "CONTINUE"
+        : "TRY AGAIN";
 
   return (
-    <AppFooter className={cn("bg-transparent z-20")}>
+    <AppFooter
+      className={cn("bg-transparent border-t-ludoGrayLight lg:border-t z-20")}
+    >
       <div
-        className={`flex w-full justify-center pt-2 pb-4 px-8 lg:px-0 items-center col-start-1 col-end-13 lg:col-end-12`}
+        className={`flex w-full justify-center lg:justify-end py-4 px-8 lg:px-0 items-center col-start-1 lg:col-start-4 col-end-13 lg:col-end-10`}
       >
         <LudoButton
           variant="alt"
           disabled={!canSubmit}
           withRing={false}
-          className="w-full text-lg font-bold h-full"
+          ringClass="lg:w-1/3"
+          className="w-full text-lg font-bold h-full lg:h-2/3"
           onClick={() => trySubmit()}
         >
           <p>{text}</p>

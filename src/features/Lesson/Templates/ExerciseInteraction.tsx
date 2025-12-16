@@ -43,7 +43,7 @@ export function ExerciseInteraction({
   return (
     <div className={cn("flex flex-col h-full justify-start gap-8")}>
       {showAnswerField && (
-        <div className="w-full px-8 bg-codeGray py-4 flex flex-col gap-3">
+        <div className="w-full px-8 bg-codeGray lg:rounded-lg py-4 flex flex-col gap-3">
           <LudoCodeBlock
             withGaps={withGaps}
             options={options}
@@ -61,7 +61,7 @@ export function ExerciseInteraction({
         </div>
       )}
 
-      <OptionListWrapper className="px-8" type={optionLayout}>
+      <OptionListWrapper className="px-8 lg:px-0" type={optionLayout}>
         {options.map((option) => {
           const { isSelected, handleClick } = useSelectOption({
             option,
