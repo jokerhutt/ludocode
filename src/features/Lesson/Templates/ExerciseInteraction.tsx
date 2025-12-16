@@ -1,5 +1,5 @@
 import { OptionListWrapper } from "@/components/design-system/blocks/wrapper/option-list-wrapper";
-import { ExerciseAnswerField } from "../UI/AnswerField/ExerciseAnswerField";
+import { LudoCodeBlock } from "../UI/AnswerField/ExerciseAnswerField";
 import { useSelectOption } from "../Hooks/useSelectOption";
 import { ClickableOption } from "@/components/design-system/atoms/option/clickable-option";
 import { WideClickableOption } from "@/components/design-system/atoms/option/wide-clickable-option";
@@ -28,10 +28,12 @@ export function ExerciseInteraction({
     clearExerciseInputs,
   } = body;
 
+  const { selectionMode, showAnswerField, optionLayout, withGaps } = config;
+
   const { phase } = useLessonContext();
 
   const handleSelect = (token: AnswerToken) => {
-    if (config.selectionMode === "APPEND") {
+    if (selectionMode === "APPEND") {
       setAnswerAt(token);
     } else {
       replaceAnswerAt(0, token);
@@ -40,15 +42,17 @@ export function ExerciseInteraction({
 
   return (
     <div className={cn("flex flex-col h-full justify-start gap-8")}>
-      {config.showAnswerField && (
+      {showAnswerField && (
         <div className="w-full px-8 bg-codeGray py-4 flex flex-col gap-3">
-          <ExerciseAnswerField
+          <LudoCodeBlock
+            withGaps={withGaps}
             options={options}
             answerField={prompt!}
             userResponses={currentExerciseInputs}
             setAnswerAt={replaceAnswerAt}
           />
           <CodeUtilsGroup
+            visible={withGaps}
             enabled={phase == "DEFAULT"}
             clearExerciseInputs={clearExerciseInputs}
             popLast={popLastAnswer}
@@ -57,7 +61,7 @@ export function ExerciseInteraction({
         </div>
       )}
 
-      <OptionListWrapper className="px-8" type={config.optionLayout}>
+      <OptionListWrapper className="px-8" type={optionLayout}>
         {options.map((option) => {
           const { isSelected, handleClick } = useSelectOption({
             option,

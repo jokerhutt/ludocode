@@ -14,6 +14,7 @@ export type ExerciseInteractionConfig = {
   showAnswerField: boolean;
   optionLayout: OptionLayout;
   selectionMode: SelectionMode;
+  withGaps: boolean;
 };
 
 export const configByType: Record<ExerciseType, ExerciseInteractionConfig> = {
@@ -21,21 +22,25 @@ export const configByType: Record<ExerciseType, ExerciseInteractionConfig> = {
     showAnswerField: true,
     optionLayout: "ROW",
     selectionMode: "APPEND",
+    withGaps: true,
   },
   TRIVIA: {
     showAnswerField: false,
     optionLayout: "COLUMN",
     selectionMode: "REPLACE",
+    withGaps: false,
   },
   ANALYZE: {
     showAnswerField: true,
     optionLayout: "COLUMN",
     selectionMode: "REPLACE",
+    withGaps: false,
   },
   INFO: {
     showAnswerField: false,
     optionLayout: "COLUMN",
     selectionMode: "REPLACE",
+    withGaps: false,
   },
 };
 

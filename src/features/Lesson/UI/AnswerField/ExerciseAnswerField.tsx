@@ -6,19 +6,21 @@ import { splitPromptGaps } from "@/features/Lesson/Util/inputUtil.ts";
 import { InlineCode } from "@/components/design-system/atoms/code/inline-code.tsx";
 import { OptionInputSlot } from "@/components/design-system/atoms/option/option-input-slot.tsx";
 
-type ExerciseAnswerFieldProps = {
+type LudoCodeBlockProps = {
   answerField: string;
   options: LudoExerciseOption[];
+  withGaps?: boolean;
   userResponses: AnswerToken[];
   setAnswerAt: (index: number, value: AnswerToken) => void;
 };
 
-export function ExerciseAnswerField({
+export function LudoCodeBlock({
   answerField,
+  withGaps = false,
   options,
   userResponses,
   setAnswerAt,
-}: ExerciseAnswerFieldProps) {
+}: LudoCodeBlockProps) {
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
 
@@ -50,14 +52,17 @@ export function ExerciseAnswerField({
 
   return (
     <p
-      className=" text-white text-lg text-left items-center leading-loose font-light
-  flex flex-wrap gap-x-1 gap-y-2
+      className="  text-white text-lg text-start items-center leading-loose font-light
+  flex flex-wrap
+  *:mr-1
+  [&>*:last-child]:mr-0
+  gap-y-2
   overflow-x-hidden"
     >
       {parts.map((part, index) => (
         <Fragment key={index}>
           <InlineCode lineHeight="26px" code={part} />
-          {index < parts.length - 1 && (
+          {withGaps && index < parts.length - 1 && (
             <OptionInputSlot
               value={responses[index].value}
               onChange={(value) => handleChange(index, value)}
