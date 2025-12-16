@@ -36,7 +36,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-lg border-2",
+          "flex items-center w-full justify-center rounded-lg border-2",
           selected ? "border-ludoLightPurple" : "border-transparent",
           withRing ? "p-1.5" : "",
           selected && shadow ? "pb-2.5" : ""
@@ -46,7 +46,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
           ref={ref}
           type="button"
           className={cn(
-            "h-20 w-20 rounded-lg hover:cursor-pointer inline-flex items-center justify-center",
+            "h-20 w-full rounded-lg hover:cursor-pointer inline-flex items-center justify-center",
             variantStyles[variant],
             shadow
               ? `${shadowMap[variant]} active:translate-y-1 active:shadow-none`
