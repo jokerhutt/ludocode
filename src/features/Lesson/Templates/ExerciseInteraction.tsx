@@ -38,11 +38,8 @@ export function ExerciseInteraction({
     }
   };
 
-  const justifyStyle =
-    config.optionLayout == "ROW" ? "justify-between" : "justify-start gap-8";
-
   return (
-    <div className={cn("flex flex-col h-full", justifyStyle)}>
+    <div className={cn("flex flex-col h-full justify-start gap-8")}>
       {config.showAnswerField && (
         <div className="w-full px-8 bg-codeGray py-4 flex flex-col gap-3">
           <ExerciseAnswerField

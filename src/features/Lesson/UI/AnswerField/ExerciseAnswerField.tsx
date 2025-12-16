@@ -50,7 +50,7 @@ export function ExerciseAnswerField({
 
   return (
     <p
-      className="  text-white text-lg text-left leading-loose font-light
+      className=" text-white text-lg text-left items-center leading-loose font-light
   flex flex-wrap gap-x-1 gap-y-2
   overflow-x-hidden"
     >
