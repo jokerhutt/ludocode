@@ -8,6 +8,7 @@ import { HeaderWithProgress } from "@/components/design-system/blocks/header/hea
 import { MainContentWrapper } from "@/components/design-system/layouts/grid/main-content-wrapper.tsx";
 import { LessonFooter } from "@/features/Lesson/Zone/LessonFooter.tsx";
 import { Suspense } from "react";
+import { LessonFeedbackDrawer } from "@/features/Lesson/Zone/LessonDrawer";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export function LessonLayout() {
             </Suspense>
           </div>
         </MainContentWrapper>
+        <LessonFeedbackDrawer />
         <LessonFooter />
       </MainGridWrapper>
     </LessonContext.Provider>

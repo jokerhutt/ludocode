@@ -18,17 +18,21 @@ export function LessonFooter() {
     handleExerciseButtonClick();
   };
 
+  const text = phase == "DEFAULT" ? "CHECK" : phase == "CORRECT" ? "CONTINUE" : "TRY AGAIN"
+
   return (
-    <AppFooter className={cn("bg-transparent")}>
+    <AppFooter className={cn("bg-transparent z-20")}>
       <div
-        className={`flex w-full justify-center pt-2 pb-4 px-4 lg:px-0 items-center col-start-1 col-end-13 lg:col-end-12`}
+        className={`flex w-full justify-center pt-2 pb-4 px-8 lg:px-0 items-center col-start-1 col-end-13 lg:col-end-12`}
       >
         <LudoButton
+          variant="alt"
+          disabled={!canSubmit}
           withRing={false}
-          className="w-full"
+          className="w-full text-lg font-bold h-full"
           onClick={() => trySubmit()}
         >
-          <p>CHECK</p>
+          <p>{text}</p>
         </LudoButton>
       </div>
     </AppFooter>
