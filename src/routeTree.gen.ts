@@ -18,6 +18,7 @@ import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktop
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
 import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
+import { Route as AppHubDesignRouteImport } from './routes/_app/_hub/design'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
 import { Route as AppHubBuilderRouteImport } from './routes/_app/_hub/builder'
 import { Route as AppHubProfileUserIdRouteImport } from './routes/_app/_hub/profile/$userId'
@@ -68,6 +69,11 @@ const AppOnboardingStageRoute = AppOnboardingStageRouteImport.update({
 const AppHubProjectsRoute = AppHubProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => AppHubRouteRoute,
+} as any)
+const AppHubDesignRoute = AppHubDesignRouteImport.update({
+  id: '/design',
+  path: '/design',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
 const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoIndexRoute
   '/builder': typeof AppHubBuilderRoute
   '/courses': typeof AppHubCoursesRoute
+  '/design': typeof AppHubDesignRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoIndexRoute
   '/builder': typeof AppHubBuilderRoute
   '/courses': typeof AppHubCoursesRoute
+  '/design': typeof AppHubDesignRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/demo/': typeof DemoIndexRoute
   '/_app/_hub/builder': typeof AppHubBuilderRoute
   '/_app/_hub/courses': typeof AppHubCoursesRoute
+  '/_app/_hub/design': typeof AppHubDesignRoute
   '/_app/_hub/projects': typeof AppHubProjectsRoute
   '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/builder'
     | '/courses'
+    | '/design'
     | '/projects'
     | '/onboarding/$stage'
     | '/sync/$lessonId'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/builder'
     | '/courses'
+    | '/design'
     | '/projects'
     | '/onboarding/$stage'
     | '/sync/$lessonId'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/demo/'
     | '/_app/_hub/builder'
     | '/_app/_hub/courses'
+    | '/_app/_hub/design'
     | '/_app/_hub/projects'
     | '/_app/onboarding/$stage'
     | '/_app/sync/$lessonId'
@@ -301,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof AppHubProjectsRouteImport
+      parentRoute: typeof AppHubRouteRoute
+    }
+    '/_app/_hub/design': {
+      id: '/_app/_hub/design'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof AppHubDesignRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
     '/_app/_hub/courses': {
@@ -385,6 +404,7 @@ const AppDesktopguardRouteRouteWithChildren =
 interface AppHubRouteRouteChildren {
   AppHubBuilderRoute: typeof AppHubBuilderRoute
   AppHubCoursesRoute: typeof AppHubCoursesRoute
+  AppHubDesignRoute: typeof AppHubDesignRoute
   AppHubProjectsRoute: typeof AppHubProjectsRoute
   AppHubProfileUserIdRoute: typeof AppHubProfileUserIdRoute
   AppHubLearnCourseIdModuleIdRoute: typeof AppHubLearnCourseIdModuleIdRoute
@@ -393,6 +413,7 @@ interface AppHubRouteRouteChildren {
 const AppHubRouteRouteChildren: AppHubRouteRouteChildren = {
   AppHubBuilderRoute: AppHubBuilderRoute,
   AppHubCoursesRoute: AppHubCoursesRoute,
+  AppHubDesignRoute: AppHubDesignRoute,
   AppHubProjectsRoute: AppHubProjectsRoute,
   AppHubProfileUserIdRoute: AppHubProfileUserIdRoute,
   AppHubLearnCourseIdModuleIdRoute: AppHubLearnCourseIdModuleIdRoute,
