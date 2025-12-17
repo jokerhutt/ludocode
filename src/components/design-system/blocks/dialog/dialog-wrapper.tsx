@@ -12,7 +12,10 @@ export function DialogWrapper({ children, className }: DialogWrapperProps) {
     <DialogContent
       onClick={(e) => e.stopPropagation()}
       showCloseButton={false}
-      className={cn("bg-ludoGrayLight text-center", className)}
+      className={cn(
+        "bg-ludoGrayLight border-2 border-ludoLightPurple text-center",
+        className
+      )}
     >
       {children}
     </DialogContent>

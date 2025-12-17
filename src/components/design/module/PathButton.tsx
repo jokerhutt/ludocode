@@ -1,6 +1,6 @@
 import { LockIcon } from "../../design-system/atoms/hero-icon/custom-icon";
 import { CompletionRibbon } from "../../design-system/atoms/ribbon/completion-ribbon";
-import { LudoButton } from "../LudoButton";
+import { LudoButton } from "../primitives/LudoButton.tsx";
 import { cn } from "@/components/cn-utils";
 import React from "react";
 import type { LessonCompletion } from "./types";

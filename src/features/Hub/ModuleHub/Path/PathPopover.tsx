@@ -1,8 +1,8 @@
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { ReactElement } from "react";
-import { LudoPopover } from "@/components/design/popover/LudoPopover";
+import { LudoPopover } from "@/components/design/primitives/LudoPopover.tsx";
 import { XSquareIcon } from "lucide-react";
-import { LudoButton } from "@/components/design/LudoButton";
+import { LudoButton } from "@/components/design/primitives/LudoButton.tsx";
 import type { LessonCompletion } from "@/components/design/module/types";
 
 type PathPopoverProps = {

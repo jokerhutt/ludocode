@@ -1,6 +1,6 @@
 
 import { AddExerciseDialog } from "@/features/Builder/UI/Dialog/AddExerciseDialog.tsx";
-import { DeleteDialog } from "@/components/design-system/composites/dialog/delete-dialog.tsx";
+import { DeleteDialog } from "@/components/design/popover/delete-dialog.tsx";
 import { Button } from "@/components/external/ui/button";
 import type { ExerciseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 

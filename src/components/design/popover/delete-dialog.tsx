@@ -1,6 +1,5 @@
-import { DialogTrigger } from "@radix-ui/react-dialog";
+import { WarningDialog } from "@/components/design/popover/WarningDialog.tsx";
 import type { ReactNode } from "react";
-import { WarningDialog } from "@/components/design-system/blocks/dialog/warning-dialog.tsx";
 
 type DeleteDialogProps = {
   targetName: string;
@@ -11,7 +10,6 @@ type DeleteDialogProps = {
 
 export function DeleteDialog({
   onClick,
-  canDelete,
   targetName,
   children,
 }: DeleteDialogProps) {
@@ -20,12 +18,11 @@ export function DeleteDialog({
   return (
     <WarningDialog
       onClick={onClick}
-      canClick={canDelete}
       title={title}
       subtitle="This action is irreversible"
       buttonText="Delete"
     >
-      <DialogTrigger>{children}</DialogTrigger>
+      {children}
     </WarningDialog>
   );
 }

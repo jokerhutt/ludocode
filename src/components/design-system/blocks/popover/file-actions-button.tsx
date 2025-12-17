@@ -25,15 +25,15 @@ export function FileActionsButton({
 
   return (
     <FileActionsPopover
-    itemType={itemType}
+      itemType={itemType}
       renameItem={renameItem}
       deleteItem={() => deleteItem(fileName)}
       targetId={targetId}
       targetName={fileName}
     >
-      <div onClick={(e) => e.stopPropagation()} className={style[variant]}>
+      <button onClick={(e) => e.stopPropagation()} className={style[variant]}>
         <HeroIcon className="h-4" iconName="EllipsisVerticalIcon" />
-      </div>
+      </button>
     </FileActionsPopover>
   );
 }

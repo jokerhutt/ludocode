@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { cn } from "../cn-utils";
+import { cn } from "../../cn-utils.ts";
 
 type Variant = "default" | "alt";
 

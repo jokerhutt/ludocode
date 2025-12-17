@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 type FileWrapperProps = {
   children: ReactNode;
   isSelected: boolean;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: React.MouseEventHandler;
 };
 
 export function FileWrapper({
@@ -12,9 +12,8 @@ export function FileWrapper({
   onClick,
 }: FileWrapperProps) {
   return (
-    <div
+    <button
       onClick={(e) => {
-        e.stopPropagation();
         onClick?.(e);
       }}
       className={`flex gap-8 px-2 py-1 justify-between rounded-lg hover:cursor-pointer items-center ${
@@ -22,6 +21,6 @@ export function FileWrapper({
       }`}
     >
       {children}
-    </div>
+    </button>
   );
 }

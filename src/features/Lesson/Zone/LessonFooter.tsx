@@ -2,7 +2,7 @@ import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx
 import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
 import { useHotkeys } from "@/hooks/UI/useHotkeys.tsx";
 import { cn } from "@/components/cn-utils";
-import { LudoButton } from "@/components/design/LudoButton";
+import { LudoButton } from "@/components/design/primitives/LudoButton.tsx";
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 

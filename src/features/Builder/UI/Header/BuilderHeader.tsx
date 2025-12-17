@@ -1,6 +1,6 @@
 import { Button } from "@/components/external/ui/button.tsx";
 import { useState } from "react";
-import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
+import { LeaveUnsavedDialog } from "@/components/design/popover/leave-unsaved-dialog.tsx";
 import { ExitButton } from "@/components/design-system/atoms/button/exit-button.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";

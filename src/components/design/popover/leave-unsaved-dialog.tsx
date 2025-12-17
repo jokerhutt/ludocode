@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { WarningDialog } from "@/components/design-system/blocks/dialog/warning-dialog.tsx";
-import { DialogTrigger } from "@/components/external/ui/dialog.tsx";
+import { WarningDialog } from "@/components/design/popover/WarningDialog.tsx";
 type LeaveUnsavedBuilder = {
   onClick: () => void;
   children: ReactNode;
@@ -19,12 +18,11 @@ export function LeaveUnsavedDialog({
   return (
     <WarningDialog
       onClick={onClick}
-      canClick={true}
       title={title}
       subtitle={subtitle}
       buttonText={buttonText}
     >
-      <DialogTrigger>{children}</DialogTrigger>
+      {children}
     </WarningDialog>
   );
 }

@@ -1,4 +1,4 @@
-import { DevInfoDialog } from "@/components/design-system/composites/dialog/info-dialog.tsx";
+import { DevInfoDialog } from "@/components/design/popover/info-dialog.tsx";
 import { exTypeInfoContent } from "@/constants/content/infoContent";
 import type { ExerciseType } from "@/types/Exercise/ExerciseType";
 import type { LessonSnap, ModuleSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";

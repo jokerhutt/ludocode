@@ -1,7 +1,7 @@
-import { Popover, PopoverContent } from "@/components/external/ui/popover";
+import { Popover, PopoverContent } from "@/components/external/ui/popover.tsx";
 import type { ReactElement, ReactNode } from "react";
 import { PopoverArrow, PopoverTrigger } from "@radix-ui/react-popover";
-import { useIsMobile } from "@/hooks/Guard/useIsMobile";
+import { useIsMobile } from "@/hooks/Guard/useIsMobile.tsx";
 
 export type BasePopoverProps = {
   trigger: ReactElement;

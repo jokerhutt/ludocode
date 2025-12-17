@@ -1,4 +1,4 @@
-import { LudoButton } from "../LudoButton";
+import { LudoButton } from "../primitives/LudoButton.tsx";
 import { PathButton } from "../module/PathButton";
 
 type DesignPageProps = {};

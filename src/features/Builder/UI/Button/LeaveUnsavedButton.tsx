@@ -1,4 +1,4 @@
-import { LeaveUnsavedDialog } from "@/components/design-system/composites/dialog/leave-unsaved-dialog.tsx";
+import { LeaveUnsavedDialog } from "@/components/design/popover/leave-unsaved-dialog.tsx";
 import { Button } from "@/components/external/ui/button";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useRouter } from "@tanstack/react-router";
