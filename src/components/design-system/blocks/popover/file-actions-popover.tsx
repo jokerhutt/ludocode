@@ -32,6 +32,7 @@ export function FileActionsPopover({
       <Popover modal={true}>
         <PopoverTrigger asChild>{children}</PopoverTrigger>
         <PopoverContent
+          onClick={(e) => e.stopPropagation()}
           align="end"
           className="text-white hover:cursor-default flex flex-col gap-2 p-4 bg-ludoGrayLight"
         >

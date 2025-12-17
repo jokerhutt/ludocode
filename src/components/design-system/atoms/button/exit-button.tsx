@@ -13,7 +13,7 @@ export function ExitButton({
   iconClassName,
 }: ExitButtonProps) {
   return (
-    <div
+    <button
       onClick={() => onClick?.()}
       className={cn(
         "p-2 rounded-full hover:cursor-pointer hover:bg-ludoGrayDark/50",
@@ -24,6 +24,6 @@ export function ExitButton({
         iconName="XMarkIcon"
         className={cn("text-white h-6 ", iconClassName)}
       />
-    </div>
+    </button>
   );
 }

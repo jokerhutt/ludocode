@@ -1,7 +1,6 @@
-import { DialogWrapper } from "@/components/design-system/blocks/dialog/dialog-wrapper.tsx";
 import { useState, type ReactNode } from "react";
 import { Input } from "@/components/external/ui/input.tsx";
-import { Dialog, DialogTitle } from "@/components/external/ui/dialog.tsx";
+import { DialogTitle } from "@/components/external/ui/dialog.tsx";
 import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 import { LudoDialog } from "../primitives/LudoDialog";
 
@@ -23,7 +22,7 @@ export function RenameDialog({
   const [open, setOpen] = useState(false);
 
   return (
-    <LudoDialog trigger={children}>
+    <LudoDialog open={open} onOpenChange={setOpen} trigger={children}>
       <DialogTitle className="text-white">Rename {itemCategory}</DialogTitle>
       <Input
         className="text-ludoAltText"

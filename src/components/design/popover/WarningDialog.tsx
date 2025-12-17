@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { LudoDialog } from "../primitives/LudoDialog.tsx";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { LudoButton } from "../primitives/LudoButton.tsx";
+import { DialogDescription, DialogTitle } from "@/components/external/ui/dialog.tsx";
 
 type WarningDialogProps = {
   title: string;
@@ -19,7 +19,7 @@ export function WarningDialog({
   buttonText,
 }: WarningDialogProps) {
   return (
-    <LudoDialog trigger={children}>
+    <LudoDialog asChild={false} trigger={children}>
       <DialogTitle className="text-white">{title}</DialogTitle>
       {subtitle && (
         <DialogDescription className="text-white code font-bold">
