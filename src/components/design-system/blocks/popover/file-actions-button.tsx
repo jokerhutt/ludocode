@@ -5,6 +5,7 @@ type FileActionsButtonProps = {
   fileName: string;
   targetId: string;
   variant?: "main" | "secondary";
+  size?: "lg" | "default";
   itemType: string;
   renameItem: (oldName: string, newName: string) => void;
   deleteItem: (name: string) => void;
@@ -15,6 +16,7 @@ export function FileActionsButton({
   fileName,
   targetId,
   variant = "main",
+  size = "default",
   renameItem,
   deleteItem,
 }: FileActionsButtonProps) {
@@ -22,6 +24,8 @@ export function FileActionsButton({
     main: "p-1 rounded-full hover:cursor-pointer hover:bg-ludoLightPurple/80",
     secondary: "hover:cursor-pointer hover:text-ludoLightPurple",
   };
+
+  const sizeStyle = size == "lg" ? "h-6" : "h-4";
 
   return (
     <FileActionsPopover
@@ -32,7 +36,7 @@ export function FileActionsButton({
       targetName={fileName}
     >
       <button onClick={(e) => e.stopPropagation()} className={style[variant]}>
-        <HeroIcon className="h-4" iconName="EllipsisVerticalIcon" />
+        <HeroIcon className={sizeStyle} iconName="EllipsisVerticalIcon" />
       </button>
     </FileActionsPopover>
   );

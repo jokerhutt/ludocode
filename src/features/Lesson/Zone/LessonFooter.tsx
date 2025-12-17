@@ -35,9 +35,7 @@ export function LessonFooter() {
         <LudoButton
           variant="alt"
           disabled={!canSubmit}
-          withRing={false}
-          ringClass="lg:w-1/3"
-          className="w-full text-lg font-bold h-full lg:h-2/3"
+          className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
           onClick={() => trySubmit()}
         >
           <p>{text}</p>

@@ -115,6 +115,24 @@
   font-style: italic;
 }
 
+@layer components {
+  .layout-grid {
+    @apply grid grid-cols-12;
+  }
+
+  .main-col-wide {
+    @apply col-span-full lg:col-start-3 lg:col-end-11;
+  }
+
+  .main-col-thin {
+    @apply col-span-full lg:col-start-4 lg:col-end-10;
+  }
+
+  .aside-col-thin {
+    @apply hidden lg:block lg:col-span-2;
+  }
+}
+
 @layer utilities {
   .scrollbar-ludoYellow {
     scrollbar-width: thin;

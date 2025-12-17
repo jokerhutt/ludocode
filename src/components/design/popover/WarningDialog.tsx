@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 import { LudoDialog } from "../primitives/LudoDialog.tsx";
 import { LudoButton } from "../primitives/LudoButton.tsx";
-import { DialogDescription, DialogTitle } from "@/components/external/ui/dialog.tsx";
+import {
+  DialogDescription,
+  DialogTitle,
+} from "@/components/external/ui/dialog.tsx";
 
 type WarningDialogProps = {
   title: string;
@@ -28,7 +31,6 @@ export function WarningDialog({
       )}
 
       <LudoButton
-        withRing={false}
         className="w-full h-10"
         variant="alt"
         onClick={() => onClick()}

@@ -1,25 +1,20 @@
-import { Button } from "@/components/external/ui/button";
+import type { ReactNode } from "react";
 
-type DefaultHeroProps = {
-  onClick: () => void;
+export type HeroContentProps = {
   title: string;
   subtitle: string;
-  buttonText: string;
 };
 
-export function DefaultHero({
-  onClick,
-  title,
-  subtitle,
-  buttonText,
-}: DefaultHeroProps) {
+export type HeroProps = HeroContentProps & {
+  children: ReactNode;
+};
+
+export function DefaultHero({ title, subtitle, children }: HeroProps) {
   return (
-    <div className="pb-2 flex flex-col gap-2 text-white">
-      <h1 className="text-2xl">{title}</h1>
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-0  lg:items-center justify-between">
-        <p>{subtitle}</p>
-        <Button onClick={() => onClick()}>{buttonText}</Button>
-      </div>
+    <div className="pb-2 grid grid-cols-[3fr_2fr] grid-rows-[auto_auto] text-white gap-y-2 gap-x-8">
+      <h1 className="text-2xl col-span-2">{title}</h1>
+      <p className="text-sm">{subtitle}</p>
+      <div className="flex justify-end">{children}</div>
     </div>
   );
 }

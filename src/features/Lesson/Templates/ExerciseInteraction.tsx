@@ -1,5 +1,5 @@
 import { OptionListWrapper } from "@/components/design-system/blocks/wrapper/option-list-wrapper";
-import { LudoCodeBlock } from "../UI/AnswerField/ExerciseAnswerField";
+import { InteractiveCodeBlock } from "../UI/AnswerField/InteractiveCodeBlock";
 import { useSelectOption } from "../Hooks/useSelectOption";
 import { ClickableOption } from "@/components/design-system/atoms/option/clickable-option";
 import { WideClickableOption } from "@/components/design-system/atoms/option/wide-clickable-option";
@@ -44,7 +44,7 @@ export function ExerciseInteraction({
     <div className={cn("flex flex-col h-full justify-start gap-8")}>
       {showAnswerField && (
         <div className="w-full px-8 bg-codeGray lg:rounded-lg py-4 flex flex-col gap-3">
-          <LudoCodeBlock
+          <InteractiveCodeBlock
             withGaps={withGaps}
             options={options}
             answerField={prompt!}

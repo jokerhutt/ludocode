@@ -4,11 +4,12 @@ import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { ProjectCard } from "@/features/Hub/ProjectHub/UI/Card/ProjectCard.tsx";
-import { ProjectHubHero } from "@/features/Hub/ProjectHub/UI/Hero/ProjectHubHero.tsx";
 import { CreateProjectDialog } from "@/features/Hub/ProjectHub/UI/Dialog/CreateProjectDialog.tsx";
+import { DefaultHero } from "@/components/design-system/blocks/hero/default-hero";
+import { projectHeroContent } from "./content";
+import { LudoButton } from "@/components/design/primitives/LudoButton";
 
 export function ProjectHubPage() {
-
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
   const allProjects = projectsPacket.projects;
 
@@ -21,9 +22,22 @@ export function ProjectHubPage() {
   return (
     <>
       <div className="grid col-span-full overflow-y-auto min-h-0 p-8 h-full grid-cols-12">
-        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
-        <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-          <ProjectHubHero openCreateProject={openCreateProject} />
+        <div className=" relative main-col-wide flex flex-col gap-8 items-stretch justify-start min-w-0">
+          <DefaultHero {...projectHeroContent}>
+            <CreateProjectDialog
+              hash={uuid()}
+              open={createProjectOpen}
+              close={() => closeCreateProject()}
+            >
+              <LudoButton
+                className="w-full lg:w-1/3 lg:h-10 h-full px-4 "
+                variant="alt"
+                onClick={() => openCreateProject()}
+              >
+                Create
+              </LudoButton>
+            </CreateProjectDialog>
+          </DefaultHero>
 
           <div className="flex flex-col gap-8 pb-8">
             {allProjects.map((project: ProjectSnapshot) => (
@@ -31,13 +45,7 @@ export function ProjectHubPage() {
             ))}
           </div>
         </div>
-        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
       </div>
-      <CreateProjectDialog
-        hash={uuid()}
-        open={createProjectOpen}
-        close={() => closeCreateProject()}
-      />
     </>
   );
 }

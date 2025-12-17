@@ -6,7 +6,7 @@ import { splitPromptGaps } from "@/features/Lesson/Util/inputUtil.ts";
 import { InlineCode } from "@/components/design-system/atoms/code/inline-code.tsx";
 import { OptionInputSlot } from "@/components/design-system/atoms/option/option-input-slot.tsx";
 
-type LudoCodeBlockProps = {
+type InteractiveCodeBlockProps = {
   answerField: string;
   options: LudoExerciseOption[];
   withGaps?: boolean;
@@ -14,13 +14,13 @@ type LudoCodeBlockProps = {
   setAnswerAt: (index: number, value: AnswerToken) => void;
 };
 
-export function LudoCodeBlock({
+export function InteractiveCodeBlock({
   answerField,
   withGaps = false,
   options,
   userResponses,
   setAnswerAt,
-}: LudoCodeBlockProps) {
+}: InteractiveCodeBlockProps) {
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
 

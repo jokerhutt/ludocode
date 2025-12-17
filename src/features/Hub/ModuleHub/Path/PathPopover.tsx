@@ -49,8 +49,6 @@ export function PathPopover({
         <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
         <LudoButton
           onClick={() => goToLesson()}
-          withRing={false}
-          ringClass="items-end"
           className="h-7 w-26 rounded-sm"
           variant="alt"
         >

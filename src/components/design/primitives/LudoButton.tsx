@@ -4,12 +4,11 @@ import { cn } from "../../cn-utils.ts";
 type Variant = "default" | "alt";
 
 type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-  withRing?: boolean;
   selected?: boolean;
   shadow?: boolean;
   variant?: Variant;
   disabled?: boolean;
-  ringClass?: string;
+  childClass?: string;
 };
 
 export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
@@ -17,11 +16,10 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     {
       children,
       className,
-      withRing = true,
       shadow = true,
       selected = false,
       variant = "default",
-      ringClass,
+      childClass,
       disabled = false,
       ...props
     },
@@ -48,31 +46,21 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     };
 
     return (
-      <div
+      <button
+        ref={ref}
+        type="button"
         className={cn(
-          "flex items-center justify-center rounded-lg border-2",
-          selected ? "border-ludoLightPurple" : "border-transparent",
-          withRing ? "p-1.5" : "w-full h-full",
-          selected && shadow ? "pb-2.5" : "",
-          ringClass
+          "h-20 w-20 rounded-lg hover:cursor-pointer",
+          shadow
+            ? `${disabled ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
+            : "",
+          `${disabled ? disabledVariantStyles[variant] : variantStyles[variant]}`,
+          className
         )}
+        {...props}
       >
-        <button
-          ref={ref}
-          type="button"
-          className={cn(
-            "h-20 w-20 rounded-lg hover:cursor-pointer inline-flex items-center justify-center",
-            shadow
-              ? `${disabled ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
-              : "",
-            `${disabled ? disabledVariantStyles[variant] : variantStyles[variant]}`,
-            className
-          )}
-          {...props}
-        >
-          <div className="flex items-center justify-center">{children}</div>
-        </button>
-      </div>
+        {children}
+      </button>
     );
   }
 );
