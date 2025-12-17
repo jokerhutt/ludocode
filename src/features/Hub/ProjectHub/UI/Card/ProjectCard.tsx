@@ -16,13 +16,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
 
-  const { title: languageName, iconName } = LANGUAGE_MAP[projectLanguage];
+  const { iconName } = LANGUAGE_MAP[projectLanguage];
 
   return (
     <LudoButton
-      onClick={() =>
-        router.navigate(ludoNavigation.project.toProject(projectId))
-      }
+      onClick={() => {
+        console.log("PID", projectId);
+        router.navigate(ludoNavigation.project.toProject(projectId));
+      }}
       className="w-full h-20 flex items-start text-white hover:cursor-pointer justify-between p-4"
     >
       <div className="w-full items-start text-white flex gap-4">

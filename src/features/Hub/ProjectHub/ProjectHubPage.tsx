@@ -21,7 +21,7 @@ export function ProjectHubPage() {
 
   return (
     <>
-      <div className="grid col-span-full overflow-y-auto min-h-0 p-8 h-full grid-cols-12">
+      <div className="layout-grid col-span-full scrollable p-8">
         <div className=" relative main-col-wide flex flex-col gap-8 items-stretch justify-start min-w-0">
           <DefaultHero {...projectHeroContent}>
             <CreateProjectDialog

@@ -131,6 +131,10 @@
   .aside-col-thin {
     @apply hidden lg:block lg:col-span-2;
   }
+
+  .scrollable {
+    @apply overflow-y-auto min-h-0 h-full;
+  }
 }
 
 @layer utilities {

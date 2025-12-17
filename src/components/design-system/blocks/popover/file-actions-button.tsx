@@ -35,9 +35,9 @@ export function FileActionsButton({
       targetId={targetId}
       targetName={fileName}
     >
-      <button onClick={(e) => e.stopPropagation()} className={style[variant]}>
+      <div role="button" onClick={(e) => e.stopPropagation()} className={style[variant]}>
         <HeroIcon className={sizeStyle} iconName="EllipsisVerticalIcon" />
-      </button>
+      </div>
     </FileActionsPopover>
   );
 }
