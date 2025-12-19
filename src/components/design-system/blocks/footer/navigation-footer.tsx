@@ -3,7 +3,7 @@ import { AppFooter } from "./app-footer.tsx";
 
 export function NavigationFooter() {
   return (
-    <AppFooter className="lg:hidden border-t border-t-ludoLightPurple">
+    <AppFooter className="lg:hidden border-t border-t-ludoGrayDark">
       <div className="col-span-full flex justify-center items-center">
         <NavigationIconGroup
           groupClassName="gap-4"

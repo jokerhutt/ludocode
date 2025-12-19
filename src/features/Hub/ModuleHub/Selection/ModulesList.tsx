@@ -23,6 +23,7 @@ export function ModulesList({
   containerClassName,
   rowClassName,
 }: ModulesListProps) {
+
   const routeApi = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
   const router = useRouter();
   const { courseId, moduleId } = routeApi.useParams();
@@ -46,7 +47,7 @@ export function ModulesList({
         return (
           <ListRow
             className={cn(
-              isLast ? "rounded-b-xl border-b-0" : "",
+              isLast ? "rounded-b-lg border-b-0" : "",
               rowClassName
             )}
             hover

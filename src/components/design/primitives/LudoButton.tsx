@@ -36,13 +36,13 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     };
 
     const shadowMap: Record<Variant, string> = {
-      default: "shadow-[0_5px_0_#262E57]",
-      alt: "shadow-[0_5px_0_#624FA0]",
+      default: "shadow-[0_7px_0_#262E57]",
+      alt: "shadow-[0_7px_0_#624FA0]",
     };
 
     const disabledShadowStyles: Record<Variant, string> = {
       default: "shadow-[0_5px_0_#262E57]/50",
-      alt: "shadow-[0_5px_0_#624FA0]/40",
+      alt: "shadow-[0_5px_0_#624FA0]/50",
     };
 
     return (

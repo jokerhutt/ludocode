@@ -26,7 +26,7 @@ export function ModulePage({
   return (
     <>
       <ModuleAsideLeft />
-      <div className="col-start-4 col-end-10 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col lg:gap-8 items-center py-6 min-w-0">
+      <div className="main-col-thin overflow-auto flex flex-col lg:gap-8 items-center px-8 lg:px-0 p-6 min-w-0">
         <ModulePath
           lessons={lessons}
           currentLessonId={courseProgress.currentLessonId}

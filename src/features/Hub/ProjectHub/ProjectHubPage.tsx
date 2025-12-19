@@ -21,8 +21,8 @@ export function ProjectHubPage() {
 
   return (
     <>
-      <div className="layout-grid col-span-full scrollable p-8">
-        <div className=" relative main-col-wide flex flex-col gap-8 items-stretch justify-start min-w-0">
+      <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
+        <div className=" relative main-col-wide flex flex-col gap-6 justify-start min-w-0">
           <DefaultHero {...projectHeroContent}>
             <CreateProjectDialog
               hash={uuid()}
@@ -39,7 +39,7 @@ export function ProjectHubPage() {
             </CreateProjectDialog>
           </DefaultHero>
 
-          <div className="flex flex-col gap-8 pb-8">
+          <div className="grid lg:grid-cols-2 gap-8">
             {allProjects.map((project: ProjectSnapshot) => (
               <ProjectCard key={project.projectId} project={project} />
             ))}

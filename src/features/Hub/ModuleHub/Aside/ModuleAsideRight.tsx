@@ -4,6 +4,7 @@ import type { LudoModule } from "@/types/Catalog/LudoModule";
 import { Button } from "@/components/external/ui/button";
 import { Spinner } from "@/components/external/ui/spinner";
 import { ModulesList } from "../Selection/ModulesList";
+import { LudoButton } from "@/components/design/primitives/LudoButton";
 
 type ModuleAsideRightProps = {
   modules: LudoModule[];
@@ -29,14 +30,15 @@ export function ModuleAsideRight({
     <AsideComponent orientation="RIGHT_WIDE" innerClassName="py-6 px-12">
       <ModulesList modules={modules} header={{ courseName }} />
       <div className="mt-6">
-        <Button
-          variant={isResettingCourse ? "disabled" : "default"}
-          className="w-full text-xl"
+        <LudoButton
+          variant="alt"
+          disabled={isResettingCourse}
+          className="w-full h-12 text-xl"
           onClick={() => handleResetCourse(courseId)}
         >
           Reset
           {isResettingCourse && <Spinner className="text-ludoLightPurple" />}
-        </Button>
+        </LudoButton>
       </div>
     </AsideComponent>
   );

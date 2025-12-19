@@ -16,7 +16,7 @@ export function ListContainer({
   return (
     <div
       className={cn(
-        "border w-full rounded-xl border-ludoGrayLight flex flex-col items-center",
+        "border w-full rounded-lg border-ludoGrayLight flex flex-col items-center",
         className
       )}
     >

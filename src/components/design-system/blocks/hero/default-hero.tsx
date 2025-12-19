@@ -6,14 +6,14 @@ export type HeroContentProps = {
 };
 
 export type HeroProps = HeroContentProps & {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export function DefaultHero({ title, subtitle, children }: HeroProps) {
   return (
-    <div className="pb-2 grid grid-cols-[3fr_2fr] grid-rows-[auto_auto] text-white gap-y-2 gap-x-8">
+    <div className="pb-5 grid border-b-ludoLightPurple/90 border-b-2 grid-cols-[3fr_2fr] lg:grid-cols-2 grid-rows-[auto_auto] text-white gap-y-2 gap-x-8">
       <h1 className="text-2xl col-span-2">{title}</h1>
-      <p className="text-sm">{subtitle}</p>
+      <p className="text-sm lg:text-lg text-ludoAltText">{subtitle}</p>
       <div className="flex justify-end">{children}</div>
     </div>
   );

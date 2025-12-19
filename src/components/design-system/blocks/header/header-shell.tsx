@@ -24,7 +24,7 @@ export function HeaderShell({
   return (
     <nav
       className={cn(
-        `relative col-span-full grid  ${visibility} border-b border-b-ludoLightPurple lg:border-b-2 lg:border-b-ludoGrayLightShadow grid-cols-12 min-h-14 bg-ludoGrayLight`,
+        `relative col-span-full grid  ${visibility} border-b border-b-ludoGrayDark lg:border-b-2 lg:border-b-ludoGrayLightShadow grid-cols-12 min-h-14 bg-ludoGrayLight`,
         className
       )}
     >

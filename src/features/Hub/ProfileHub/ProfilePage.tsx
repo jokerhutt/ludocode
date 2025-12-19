@@ -15,7 +15,7 @@ export function ProfilePage({}: ProfilePageProps) {
   const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
 
   return (
-    <div className="grid col-span-full text-ludoAltText min-h-0 overflow-y-auto relative p-8 h-full grid-cols-12">
+    <div className="layout-grid scrollable col-span-full text-ludoAltText relative px-8 lg:px-0 py-6">
       <div className="hidden lg:block lg:col-span-2" />
       <div className="col-span-full relative lg:col-span-8 flex flex-col gap-4 lg:items-center h-full min-h-0 justify-start min-w-0">
         <div className="flex gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">

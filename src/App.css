@@ -125,11 +125,15 @@
   }
 
   .main-col-thin {
-    @apply col-span-full lg:col-start-4 lg:col-end-10;
+    @apply col-start-3 col-end-11 lg:col-start-7 lg:col-end-9;
   }
 
   .aside-col-thin {
     @apply hidden lg:block lg:col-span-2;
+  }
+
+  .aside-col-wide {
+    @apply hidden lg:col-span-4;
   }
 
   .scrollable {

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 type AsideComponentProps = {
   children: ReactNode;
-  orientation: "LEFT" | "RIGHT" | "RIGHT_WIDE";
+  orientation: "LEFT" | "RIGHT_WIDE";
   className?: string;
   innerClassName?: string;
 };
@@ -14,19 +14,12 @@ export function AsideComponent({
   className,
   innerClassName,
 }: AsideComponentProps) {
-  const border =
-    orientation == "RIGHT" || "RIGHT_WIDE" ? "border-l" : "border-r";
-  const span =
-    orientation == "RIGHT"
-      ? "col-start-9 col-end-12"
-      : orientation == "RIGHT_WIDE"
-      ? "col-start-9 col-end-13"
-      : "col-start-1 col-end-5";
+  const border = orientation == "RIGHT_WIDE" ? "border-l" : "border-r";
 
   return (
     <aside
       className={cn(
-        `hidden lg:block ${span} h-full ${border} border-ludoGrayLight`,
+        `hidden lg:block aside-col-wide h-full border-ludoGrayLight`,
         className
       )}
     >

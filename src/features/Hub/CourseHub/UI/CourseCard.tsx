@@ -1,4 +1,8 @@
-import { CustomIcon, type IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import {
+  CustomIcon,
+  type IconName,
+} from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import { LudoButton } from "@/components/design/primitives/LudoButton";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 
 type CourseCardProps = {
@@ -18,17 +22,12 @@ export function CourseCard({ course, onClick }: CourseCardProps) {
   };
 
   return (
-    <button
-      onClick={() => onClick()}
-      className="flex active:shadow-none active:translate-y-2 hover:cursor-pointer shadow-buttonShadow items-center w-full rounded-2xl bg-ludoGrayLight justify-center"
-    >
+    <LudoButton onClick={() => onClick()} className="w-full h-20">
       <div className="w-full flex items-center px-4 py-2 justify-center">
-        <div className="w-full">
+        <div className="w-full ">
           <h1 className="text-white font-bold text-xl">{title}</h1>
         </div>
-
-        <CustomIcon iconName={courseIcons[title]} className="h-8" />
       </div>
-    </button>
+    </LudoButton>
   );
 }

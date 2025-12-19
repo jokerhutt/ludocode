@@ -1,8 +1,8 @@
 import { useCompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
-import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 import { useRouter } from "@tanstack/react-router";
+import { LudoButton } from "@/components/design/primitives/LudoButton";
 
 export function CompletionFooter() {
   const router = useRouter();
@@ -63,13 +63,11 @@ export function CompletionFooter() {
   return (
     <AppFooter>
       <div
-        className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
+        className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10`}
       >
-        <ActionButton
-          onClick={() => handleCompletionContinue()}
-          text="Continue"
-          active={true}
-        />
+        <LudoButton variant="alt" className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3" onClick={() => handleCompletionContinue()}>
+          <p>Continue</p>
+        </LudoButton>
       </div>
     </AppFooter>
   );

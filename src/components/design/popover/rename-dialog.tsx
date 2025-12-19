@@ -1,8 +1,8 @@
 import { useState, type ReactNode } from "react";
 import { Input } from "@/components/external/ui/input.tsx";
 import { DialogTitle } from "@/components/external/ui/dialog.tsx";
-import { ActionButton } from "@/components/design-system/atoms/button/action-button.tsx";
 import { LudoDialog } from "../primitives/LudoDialog";
+import { LudoButton } from "../primitives/LudoButton";
 
 type RenameDialogProps = {
   itemName: string;
@@ -29,15 +29,17 @@ export function RenameDialog({
         value={textBuffer}
         onChange={(e) => setTextBuffer(e.target.value)}
       />
-      <ActionButton
-        onClick={() => {
-          onSubmit(oldPath, textBuffer);
-          setOpen(false);
-        }}
-        active={true}
-        orientation="center"
-        text="Save"
-      />
+      <LudoButton
+      variant="alt"
+      className="w-full h-10"
+      onClick={() => {
+        onSubmit(oldPath, textBuffer);
+        setOpen(false);
+      }}
+      
+      >
+        <p>Save</p>
+      </LudoButton>
     </LudoDialog>
   );
 }

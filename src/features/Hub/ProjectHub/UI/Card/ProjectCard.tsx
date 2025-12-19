@@ -21,7 +21,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <LudoButton
       onClick={() => {
-        console.log("PID", projectId);
         router.navigate(ludoNavigation.project.toProject(projectId));
       }}
       className="w-full h-20 flex items-start text-white hover:cursor-pointer justify-between p-4"
