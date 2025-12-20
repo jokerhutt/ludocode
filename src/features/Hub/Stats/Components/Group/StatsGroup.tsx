@@ -1,5 +1,5 @@
 import { useStatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
-import { IconLabel } from "@/components/design-system/primitives/IconLabel";
+import { LabelPair } from "@/components/design-system/primitives/LabelPair";
 import { HollowSlotButton } from "@/components/design-system/primitives/hollow-slot";
 import { CommitIcon } from "@/components/design-system/primitives/custom-icon.tsx";
 import { FireIcon } from "@heroicons/react/24/solid";
@@ -20,7 +20,7 @@ export function StatsGroup({
 
   return (
     <>
-      <IconLabel className={groupClassName}>
+      <LabelPair className={groupClassName}>
         <CoinsDialog coins={coins}>
           <HollowSlotButton className={buttonClassName}>
             <CommitIcon className="h-5 text-pythonYellow" />
@@ -37,7 +37,7 @@ export function StatsGroup({
             <p className="text-sm">{current}</p>
           </HollowSlotButton>
         </StreakStatsDialog>
-      </IconLabel>
+      </LabelPair>
     </>
   );
 }
