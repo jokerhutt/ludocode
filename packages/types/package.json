@@ -1,0 +1,8 @@
+{
+  "name": "@ludocode/types",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./*"
+  }
+}

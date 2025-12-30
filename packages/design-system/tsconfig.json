@@ -1,0 +1,37 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [
+    { "path": "../types" },
+    { "path": "../external" },
+    { "path": "../hooks" }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+
+    "baseUrl": "../..",
+    "paths": {
+      "@ludocode/types/*": ["packages/types/*"],
+      "@ludocode/external/*": ["packages/external/*"],
+      "@ludocode/design-system/*": ["packages/design-system/*"],
+      "@ludocode/hooks/*": ["packages/hooks/*"]
+    },
+
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}

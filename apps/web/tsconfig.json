@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ludocode/types/*": ["packages/types/*"],
+      "@ludocode/external/*": ["packages/external/*"],
+      "@ludocode/design-system/*": ["packages/design-system/*"],
+      "@ludocode/hooks/*": ["packages/hooks/*"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@ludocode/hooks",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    "./*": "./*"
+  }
+}
