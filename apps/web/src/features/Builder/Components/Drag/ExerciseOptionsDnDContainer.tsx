@@ -1,11 +1,11 @@
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { OptionsColumn } from "./OptionsColumn.tsx";
-import type { OptionSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import {
   useOptionsDragAndDrop,
   type ColumnType,
 } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { useState } from "react";
 
 type ExerciseOptionsDnDContainerProps = {

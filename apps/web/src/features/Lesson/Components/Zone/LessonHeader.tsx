@@ -1,7 +1,7 @@
 import { Progress } from "../../../../../../../packages/external/ui/progress.tsx";
-import { HeaderWithBar } from "../../../../../../../packages/design-system/zones/header-with-bar.tsx";
 import { LeaveUnsavedDialog } from "../../../../../../../packages/design-system/templates/dialog/leave-unsaved-dialog.tsx";
 import { IconButton } from "../../../../../../../packages/design-system/primitives/icon-button.tsx";
+import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
 
 type LessonHeaderProps = {
   total: number;

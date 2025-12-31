@@ -1,4 +1,4 @@
-import { Aside } from "../../../../../../../../packages/design-system/zones/aside.tsx";
+import { Aside } from "@ludocode/design-system/zones/aside";
 
 type ModuleAsideLeftProps = {};
 

@@ -1,4 +1,4 @@
-import { Button } from "../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { errorMap, type ErrorStatus } from "@/constants/content/ErrorData.ts";
 import { FallbackLayout } from "@/layouts/Fallback/FallbackLayout.tsx";
 import { useRouter } from "@tanstack/react-router";

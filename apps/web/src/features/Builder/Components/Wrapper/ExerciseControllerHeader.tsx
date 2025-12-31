@@ -1,10 +1,10 @@
-import { DevInfoDialog } from "../../../../../../../packages/design-system/templates/dialog/info-dialog.tsx";
+import { DevInfoDialog } from "@ludocode/design-system/templates/dialog/info-dialog";
 import { exTypeInfoContent } from "@/constants/content/infoContent.ts";
-import type { ExerciseType } from "../../../../../../../packages/types/Exercise/ExerciseType.ts";
+import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType";
 import type {
   LessonSnap,
   ModuleSnap,
-} from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+} from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 type ExerciseControllerHeaderProps = {

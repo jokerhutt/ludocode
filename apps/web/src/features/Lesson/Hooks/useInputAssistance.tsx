@@ -1,7 +1,7 @@
 import type { LudoExerciseOption } from "../../../../../../packages/types/Exercise/LudoExerciseOption.ts";
 import { useCallback, useMemo, useRef } from "react";
-import type { AnswerToken } from "./useExercise.tsx";
 import { findNextEmptyIndex } from "../Util/inputUtil.ts";
+import type { AnswerToken } from "@ludocode/types";
 
 type Args = {
   options: LudoExerciseOption[];

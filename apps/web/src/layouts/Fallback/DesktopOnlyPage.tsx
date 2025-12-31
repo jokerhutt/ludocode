@@ -1,9 +1,9 @@
 import { MobileFallbackPage } from "@/features/Error/MobileFallbackPage.tsx";
-import { useIsMobile } from "@/hooks/Guard/useIsMobile.tsx";
+import { useIsMobile } from "@ludocode/hooks";
 import { Outlet } from "@tanstack/react-router";
 
 export function DesktopOnlyPage() {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile({});
 
   if (isMobile) {
     return <MobileFallbackPage />;

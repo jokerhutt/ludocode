@@ -1,6 +1,6 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { newLesson } from "../../Util/NewExerciseTemplates.ts";
 import { AddLessonRow } from "@/features/Builder/Components/Button/AddLessonRow.tsx";
 import { TreeItem } from "@/features/Builder/Components/Tree/tree-item.tsx";

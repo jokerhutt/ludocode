@@ -1,6 +1,6 @@
-import { HollowSlotButton } from "../../../../../../../packages/design-system/primitives/hollow-slot.tsx";
-import { LabelPair } from "../../../../../../../packages/design-system/primitives/LabelPair.tsx";
-import type { LessonStats } from "../../../../../../../packages/types/Completion/LessonStats.ts";
+import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
+import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
+import type { LessonStats } from "@ludocode/types/Completion/LessonStats";
 
 type CompletionStatsRowProps = { userStats: LessonStats };
 

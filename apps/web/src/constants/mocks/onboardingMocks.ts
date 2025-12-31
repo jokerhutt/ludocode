@@ -1,4 +1,4 @@
-import type { OnboardingFormContent } from "../../../../../packages/types/Onboarding/OnboardingCourse.ts";
+import type { OnboardingFormContent } from "@ludocode/types";
 
 export const onboardingContent: OnboardingFormContent = {
   courseContent: [

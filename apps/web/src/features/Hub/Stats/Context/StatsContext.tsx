@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { LudoStats } from "../../../../../../../packages/types/User/LudoStats.ts";
+import type { LudoStats } from "@ludocode/types/User/LudoStats";
 
 export const StatsContext = createContext<LudoStats | null>(null);
 

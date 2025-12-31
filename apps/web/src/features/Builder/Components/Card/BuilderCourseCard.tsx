@@ -1,4 +1,4 @@
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 

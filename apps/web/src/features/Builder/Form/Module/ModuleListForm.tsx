@@ -1,6 +1,6 @@
-import { SidebarMenu } from "../../../../../../../packages/external/ui/sidebar.tsx";
+import { SidebarMenu } from "@ludocode/external/ui/sidebar";
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { newModule } from "@/features/Builder/Util/NewExerciseTemplates.ts";
 import { ModuleNodeForm } from "./ModuleNodeForm.tsx";

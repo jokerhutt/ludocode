@@ -1,7 +1,6 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import type { LudoLesson } from "../../../../../../../packages/types/Catalog/LudoLesson.ts";
+import type { LessonStatus, LudoLesson } from "../../../../../../../packages/types/Catalog/LudoLesson.ts";
 import { useRouter } from "@tanstack/react-router";
-import type { LessonStatus } from "../Components/Path/Path.tsx";
 
 type Args = {
   lesson: LudoLesson;

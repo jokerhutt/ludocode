@@ -1,5 +1,5 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import { LessonStatus } from "@ludocode/types";
+import type { LessonStatus } from "@ludocode/types";
 
 type CompletionRibbonProps = {
   lessonState: LessonStatus;

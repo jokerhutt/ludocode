@@ -1,5 +1,5 @@
 import { NavigationIconGroup } from "@/features/Hub/Components/Group/navigation-icon-group.tsx";
-import { FooterShell } from "../../../../../../../packages/design-system/zones/footer-shell.tsx";
+import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 
 export function NavigationFooter() {
   return (

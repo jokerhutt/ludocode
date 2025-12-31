@@ -1,4 +1,4 @@
-import { cn } from "../../../../../../../packages/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ReactNode } from "react";
 
 type CodeBoxWrapperProps = {
@@ -23,7 +23,6 @@ export function CodeBoxWrapper({
     >
       {header && <div className="w-full h-2 rounded-t-3xl bg-ludoDarkPurple" />}
       <div className={cn("w-full h-full p-6", innerClassName)}>{children}</div>
-
     </div>
   );
 }

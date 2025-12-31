@@ -1,4 +1,4 @@
-import type { OptionSnap } from "../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import {
   PointerSensor,
   useSensor,

@@ -1,7 +1,6 @@
-
-import { InlineCode } from "../../../../../../../packages/design-system/primitives/inline-code.tsx";
+import { InlineCode } from "@ludocode/design-system/primitives/inline-code";
 import { CodeBoxWrapper } from "@/features/Builder/Components/Wrapper/code-box-wrapper.tsx";
-import type { OptionSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { Fragment } from "react/jsx-runtime";
 
 type LivePromptPreviewProps = {

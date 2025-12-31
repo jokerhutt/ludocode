@@ -1,7 +1,6 @@
-import type { LudoLesson } from "../../../../../../../../packages/types/Catalog/LudoLesson.ts";
+import type { LessonStatus, LudoLesson } from "../../../../../../../../packages/types/Catalog/LudoLesson.ts";
 import type { ReactElement } from "react";
 import { XSquareIcon } from "lucide-react";
-import type { LessonStatus } from "./Path.tsx";
 import { LudoPopover } from "../../../../../../../../packages/design-system/widgets/ludo-popover.tsx";
 import { LudoButton } from "../../../../../../../../packages/design-system/primitives/ludo-button.tsx";
 

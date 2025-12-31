@@ -1,11 +1,11 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useAutoSaveProject } from "@/features/Project/Hooks/useAutoSaveProject.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
-import { HeaderWithBar } from "../../../../../../packages/design-system/zones/header-with-bar.tsx";
 import { HollowSlotButton } from "../../../../../../packages/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "../../../../../../packages/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "../Editor/SaveStatusIcon.tsx";
 import { useRouter } from "@tanstack/react-router";
+import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
 
 export function ProjectHeader() {
   const router = useRouter();

@@ -1,14 +1,13 @@
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 import { useLessonButton } from "@/features/Hub/ModuleHub/Hooks/useLessonButton.tsx";
 import { PathPopover } from "@/features/Hub/ModuleHub/Components/Path/PathPopover.tsx";
-import type { LudoLesson } from "../../../../../../../../packages/types/Catalog/LudoLesson.ts";
 import type { ReactNode } from "react";
 import React from "react";
-import { cn } from "../../../../../../../../packages/design-system/cn-utils.ts";
-import { CompletionRibbon } from "../../../../../../../../packages/design-system/primitives/ribbon.tsx";
-import { LudoButton } from "../../../../../../../../packages/design-system/primitives/ludo-button.tsx";
-import { LockIcon } from "../../../../../../../../packages/design-system/primitives/custom-icon.tsx";
-
+import type { LessonStatus, LudoLesson } from "@ludocode/types";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LockIcon } from "@ludocode/design-system/primitives/custom-icon";
+import {CompletionRibbon} from "@ludocode/design-system/primitives/ribbon"
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type PathRowProps = {
   children: ReactNode;

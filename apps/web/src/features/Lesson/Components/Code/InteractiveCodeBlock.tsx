@@ -1,10 +1,10 @@
 import { Fragment, useCallback, useMemo } from "react";
 import type { LudoExerciseOption } from "../../../../../../../packages/types/Exercise/LudoExerciseOption.ts";
 import { useInputAssistance } from "@/features/Lesson/Hooks/useInputAssistance.tsx";
-import type { AnswerToken } from "@/features/Lesson/Hooks/useExercise.tsx";
 import { splitPromptGaps } from "@/features/Lesson/Util/inputUtil.ts";
 import { OptionInputSlot } from "../../../../../../../packages/design-system/primitives/option-input-slot.tsx";
 import { InlineCode } from "../../../../../../../packages/design-system/primitives/inline-code.tsx";
+import type { AnswerToken } from "@ludocode/types";
 
 type InteractiveCodeBlockProps = {
   answerField: string;

@@ -1,4 +1,4 @@
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 
 type ThinNodeButtonProps = { onClick?: () => void; text: string };
 

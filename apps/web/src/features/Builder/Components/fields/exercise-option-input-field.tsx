@@ -1,4 +1,4 @@
-import { Textarea } from "../../../../../../../packages/external/ui/textarea.tsx";
+import { Textarea } from "@ludocode/external/ui/textarea";
 import { useFieldContext } from "@/constants/form/formKit.ts";
 
 type ExerciseOptionInputFieldProps = { onEmpty: () => void };

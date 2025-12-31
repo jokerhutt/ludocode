@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 import { useCompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
 import { useLottie } from "@/hooks/UI/useLottie.tsx";
 import { CompletionStatsGroup } from "@/features/Completion/Components/Stats/CompletionStatsGroup.tsx";
-import { IncrementingCounter } from "../../../../../../packages/design-system/primitives/incrementing-counter.tsx";
+import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();

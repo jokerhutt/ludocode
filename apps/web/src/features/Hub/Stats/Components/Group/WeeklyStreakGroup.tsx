@@ -1,6 +1,6 @@
-import { cn } from "../../../../../../../../packages/design-system/cn-utils.ts";
-import type { DailyGoalMet } from "../../../../../../../../packages/types/User/UserStreak.ts";
-import { HeroIcon } from "../../../../../../../../packages/design-system/primitives/hero-icon.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import type { DailyGoalMet } from "@ludocode/types/User/UserStreak";
+import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon";
 
 type WeeklyStreakGroupProps = {
   history: DailyGoalMet[];

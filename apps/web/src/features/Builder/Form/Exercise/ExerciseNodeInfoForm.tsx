@@ -1,5 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
-import type { OptionSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { LivePromptPreview } from "@/features/Builder/Components/Wrapper/LivePromptPreview.tsx";
 
 export const ExerciseNodeInfoForm = withForm({

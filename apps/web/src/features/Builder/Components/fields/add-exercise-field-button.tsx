@@ -1,5 +1,5 @@
 import { uuid } from "@tanstack/react-form";
-import type { ExerciseSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { ExerciseSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { useFieldContext } from "@/constants/form/formKit.ts";
 
 export function AddExerciseFieldButton() {

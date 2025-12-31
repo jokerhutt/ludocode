@@ -1,7 +1,7 @@
 import { AddExerciseDialog } from "@/features/Builder/Components/Dialog/AddExerciseDialog.tsx";
-import { DeleteDialog } from "../../../../../../../packages/design-system/templates/dialog/delete-dialog.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
-import type { ExerciseSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
+import { Button } from "@ludocode/external/ui/button";
+import type { ExerciseSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 
 type ModifyExerciseRowProps = {
   canRemoveExercises: boolean;

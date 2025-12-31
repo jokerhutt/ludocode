@@ -1,7 +1,8 @@
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import type { LudoCourse } from "@ludocode/types";
+
 ;
 // import type { IconName } from "@/components/design-system/primitives/custom-icon";
-import { LudoButton } from "../../../../../../../../packages/design-system/primitives/ludo-button.tsx";
-import type { LudoCourse } from "../../../../../../../../packages/types/Catalog/LudoCourse.ts";
 
 type CourseCardProps = {
   course: LudoCourse;

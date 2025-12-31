@@ -1,9 +1,9 @@
 import { useResetCourseProgress } from "@/hooks/Queries/Mutations/useResetCourseProgress.tsx";
-import type { LudoModule } from "../../../../../../../../packages/types/Catalog/LudoModule.ts";
-import { Spinner } from "../../../../../../../../packages/external/ui/spinner.tsx";
 import { ModulesList } from "@/features/Hub/ModuleHub/Components/Selection/ModulesList.tsx";
-import { Aside } from "../../../../../../../../packages/design-system/zones/aside.tsx";
-import { LudoButton } from "../../../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { Aside } from "@ludocode/design-system/zones/aside";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { Spinner } from "@ludocode/external/ui/spinner";
+import type { LudoModule } from "@ludocode/types";
 
 type ModuleAsideRightProps = {
   modules: LudoModule[];

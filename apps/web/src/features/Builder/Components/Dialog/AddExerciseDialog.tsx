@@ -1,10 +1,10 @@
 import { Dialog, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import { useState, type ReactNode } from "react";
-import type { ExerciseType } from "../../../../../../../packages/types/Exercise/ExerciseType.ts";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
-import type { ExerciseSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType";
+import { Button } from "@ludocode/external/ui/button";
+import type { ExerciseSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { newExercises } from "@/features/Builder/Util/NewExerciseTemplates.ts";
-import { DialogWrapper } from "../../../../../../../packages/design-system/widgets/ludo-dialog.tsx";
+import { DialogWrapper } from "@ludocode/design-system/widgets/ludo-dialog";
 
 type AddExerciseDialogProps = {
   onClick: (newExercise: ExerciseSnap) => void;

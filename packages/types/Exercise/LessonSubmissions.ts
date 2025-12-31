@@ -1,4 +1,4 @@
-import type { AnswerToken } from "../../../apps/web/src/features/Lesson/Hooks/useExercise.tsx";
+import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
 
 export type LessonSubmission = {
   id: string;

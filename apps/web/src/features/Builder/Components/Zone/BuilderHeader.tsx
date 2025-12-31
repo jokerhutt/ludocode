@@ -1,9 +1,9 @@
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { useState } from "react";
-import { LeaveUnsavedDialog } from "../../../../../../../packages/design-system/templates/dialog/leave-unsaved-dialog.tsx";
+import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
-import { IconButton } from "../../../../../../../packages/design-system/primitives/icon-button.tsx";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button";
 
 type BuilderHeaderProps = { handleFormSubmission: () => Promise<void> };
 

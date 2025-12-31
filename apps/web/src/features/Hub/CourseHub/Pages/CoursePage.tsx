@@ -1,10 +1,10 @@
 import { useChangeCourse } from "@/hooks/Queries/Mutations/useChangeCourse.tsx";
 import { CourseCard } from "@/features/Hub/CourseHub/Components/Card/CourseCard.tsx";
-import type { LudoCourse } from "../../../../../../../packages/types/Catalog/LudoCourse.ts";
 import { CourseCardGrid } from "@/features/Hub/CourseHub/Components/Group/CourseCardGrid.tsx";
 import { useLoaderData } from "@tanstack/react-router";
-import type { IconName } from "../../../../../../../packages/design-system/primitives/custom-icon.tsx";
-import { Hero } from "../../../../../../../packages/design-system/zones/hero.tsx";
+import { Hero } from "@ludocode/design-system/zones/hero";
+import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
+import type { LudoCourse } from "@ludocode/types";
 
 export type CourseType = {
   name: string;

@@ -3,8 +3,8 @@ import { useCallback, useState } from "react";
 import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
 import { areAllFilled, areAllValid, checkCorrect } from "../Util/validationUtil.ts";
 import { playSound } from "@/sound/soundManager.ts";
-import type { AnswerToken } from "./useExercise.tsx";
 import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
+import type { AnswerToken } from "@ludocode/types";
 
 type useStagedAttemptProps = {
   currentExerciseInputs: AnswerToken[];

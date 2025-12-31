@@ -9,7 +9,7 @@ import {
   SortableContext,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { useState } from "react";
 import { SortableExerciseDot } from "@/features/Builder/Components/Drag/SortableExerciseDot.tsx";
 

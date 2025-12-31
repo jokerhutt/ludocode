@@ -1,7 +1,7 @@
-import { Button } from "../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { useGoogleAuthEntry } from "@/hooks/Queries/Mutations/useGoogleAuthEntry.tsx";
-import { MainGridWrapper } from "../../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { MainContentWrapper } from "../../../../../../packages/design-system/layouts/grid/main-content-wrapper.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
+import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
 
 type AuthPageProps = {};
 
@@ -18,8 +18,8 @@ export function AuthPage({}: AuthPageProps) {
             </h1>
 
             <p className="text-ludoAltText text-center text-xl">
-              This is a work in progress code learning platform. 
-              <br/> The core features are here, try it out!
+              This is a work in progress code learning platform.
+              <br /> The core features are here, try it out!
             </p>
 
             <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">

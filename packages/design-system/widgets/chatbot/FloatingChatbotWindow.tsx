@@ -1,4 +1,4 @@
-import { ChatBotChatType } from "@ludocode/design-system/widgets/chatbot/ChatbotConversation";
+import type { ChatBotChatType } from "@ludocode/design-system/widgets/chatbot/ChatbotConversation";
 import { useHotkeys } from "@ludocode/hooks";
 import { useState } from "react";
 import { ChatBotProvider } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";

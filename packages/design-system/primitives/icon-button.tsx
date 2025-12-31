@@ -1,6 +1,8 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import { HeroIcon, IconName } from "@ludocode/design-system/primitives/hero-icon";
-
+import {
+  HeroIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/hero-icon";
 
 type IconButtonProps = {
   className?: string;

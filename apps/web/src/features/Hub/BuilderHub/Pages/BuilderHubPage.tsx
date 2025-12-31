@@ -4,9 +4,9 @@ import { useModal } from "@/hooks/UI/useModal.tsx";
 import { uuid } from "@tanstack/react-form";
 import { BuilderHubCourseCard } from "@/features/Hub/BuilderHub/Components/Card/BuilderHubCourseCard.tsx";
 import { CreateCourseDialog } from "@/features/Hub/BuilderHub/Components/Dialog/CreateCourseDialog.tsx";
-import { Hero } from "../../../../../../../packages/design-system/zones/hero.tsx";
 import { builderHeroContent } from "../content.ts";
-import { LudoButton } from "../../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 
 type BuilderHubPageProps = {};
 

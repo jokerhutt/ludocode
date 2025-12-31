@@ -1,4 +1,4 @@
-import type { ExerciseSnap } from "../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { ExerciseSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 
 export const parseExerciseError = (
   errorEntries: any,

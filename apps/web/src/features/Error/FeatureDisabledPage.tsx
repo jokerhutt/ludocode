@@ -1,5 +1,5 @@
-import { Button } from "../../../../../packages/external/ui/button.tsx";
-import { type FeatureMeta } from "../../../../../packages/types/FeatureFlags/FeatureFlags.ts";
+import { Button } from "@ludocode/external/ui/button";
+import { type FeatureMeta } from "@ludocode/types/FeatureFlags/FeatureFlags";
 import { useRouter } from "@tanstack/react-router";
 
 type FeatureDisabledPageProps = { meta: FeatureMeta };

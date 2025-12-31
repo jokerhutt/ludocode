@@ -1,5 +1,5 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
-import type { OptionSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
 import { ExerciseOptionsDnDContainer } from "@/features/Builder/Components/Drag/ExerciseOptionsDnDContainer.tsx";
 

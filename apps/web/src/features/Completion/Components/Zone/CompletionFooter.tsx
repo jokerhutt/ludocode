@@ -1,8 +1,8 @@
 import { useCompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
-import { FooterShell } from "../../../../../../../packages/design-system/zones/footer-shell.tsx";
-import { LudoButton } from "../../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 export function CompletionFooter() {
   const router = useRouter();
@@ -65,7 +65,11 @@ export function CompletionFooter() {
       <div
         className={`flex w-full justify-end py-4 px-8 lg:px-0 items-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10`}
       >
-        <LudoButton variant="alt" className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3" onClick={() => handleCompletionContinue()}>
+        <LudoButton
+          variant="alt"
+          className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
+          onClick={() => handleCompletionContinue()}
+        >
           <p>Continue</p>
         </LudoButton>
       </div>

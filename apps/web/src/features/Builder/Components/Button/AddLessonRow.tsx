@@ -1,5 +1,5 @@
 import { TreeItem } from "@/features/Builder/Components/Tree/tree-item.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 
 type AddLessonButtonProps = { addLesson: () => void };
 

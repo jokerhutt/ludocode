@@ -1,7 +1,7 @@
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
-import { Textarea } from "../../../../../../../packages/external/ui/textarea.tsx";
+import { Button } from "@ludocode/external/ui/button";
+import { Textarea } from "@ludocode/external/ui/textarea";
 import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
-import type { OptionSnap } from "../../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { FormEditMode } from "./ExerciseOptionsDnDContainer.tsx";

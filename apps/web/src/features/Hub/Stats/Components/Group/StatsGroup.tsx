@@ -1,7 +1,7 @@
 import { useStatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
-import { LabelPair } from "../../../../../../../../packages/design-system/primitives/LabelPair.tsx";
-import { HollowSlotButton } from "../../../../../../../../packages/design-system/primitives/hollow-slot.tsx";
-import { CommitIcon } from "../../../../../../../../packages/design-system/primitives/custom-icon.tsx";
+import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
+import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
+import { CommitIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { FireIcon } from "@heroicons/react/24/solid";
 import { CoinsDialog } from "@/features/Hub/Stats/Components/Dialog/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/features/Hub/Stats/Components/Dialog/StreakStatsDialog.tsx";

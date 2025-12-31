@@ -1,5 +1,5 @@
+import type { AnswerToken } from "@ludocode/types";
 import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import type { AnswerToken } from "../Hooks/useExercise.tsx";
 
 const norm = (s: string) => (s ?? "").trim();
 

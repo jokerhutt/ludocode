@@ -1,11 +1,11 @@
 import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
-import type { ExerciseType } from "../../../../../../packages/types/Exercise/ExerciseType.ts";
+import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType";
 import type {
   ExerciseSnap,
   LessonSnap,
   ModuleSnap,
   OptionSnap,
-} from "../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+} from "@ludocode/types/Builder/BuilderSnapshotTypes";
 
 export const newLesson = (orderIndex: number): LessonSnap => {
   return {

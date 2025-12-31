@@ -1,6 +1,6 @@
-import { Textarea } from "../../../../../../../packages/external/ui/textarea.tsx";
+import { Textarea } from "@ludocode/external/ui/textarea";
 import { useFieldContext } from "@/constants/form/formKit.ts";
-import { cn } from "../../../../../../../packages/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type FormTitleFieldProps = {
   name?: string;

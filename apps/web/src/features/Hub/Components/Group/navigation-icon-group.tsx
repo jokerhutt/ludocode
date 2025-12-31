@@ -1,7 +1,7 @@
 import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
-import { LabelPair } from "../../../../../../../packages/design-system/primitives/LabelPair.tsx";
-import { HollowSlotButton } from "../../../../../../../packages/design-system/primitives/hollow-slot.tsx";
+import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
+import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";

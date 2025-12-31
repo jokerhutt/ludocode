@@ -1,6 +1,6 @@
 import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken.ts";
 import { WideButton } from "@ludocode/design-system/primitives/wide-button";
-import { LudoExerciseOption } from "@ludocode/types";
+import type { LudoExerciseOption } from "@ludocode/types";
 
 type ClickableOptionProps = {
   content: string;

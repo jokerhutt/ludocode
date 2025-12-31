@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../../../packages/external/ui/dialog.tsx";
+} from "@ludocode/external/ui/dialog";
 import type { ReactNode } from "react";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { TrashIcon } from "lucide-react";
-import { SelectTrigger, SelectValue } from "../../../../../../../packages/external/ui/select.tsx";
-import { LudoSelect } from "../../../../../../../packages/design-system/primitives/ludo-select.tsx";
+import { SelectTrigger, SelectValue } from "@ludocode/external/ui/select";
+import { LudoSelect } from "@ludocode/design-system/primitives/ludo-select";
 
 export const EditNodeDialog = withForm({
   ...courseFormOpts,

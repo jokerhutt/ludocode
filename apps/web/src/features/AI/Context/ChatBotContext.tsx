@@ -7,7 +7,7 @@ import {
   type UITools,
 } from "ai";
 import { SUBMIT_AI_PROMPT } from "@/constants/api/pathConstants.ts";
-import type { ChatBotChatType } from "../../../../../../packages/design-system/widgets/chatbot/ChatbotConversation.tsx";
+import type { ChatBotChatType } from "@ludocode/design-system/widgets/chatbot/ChatbotConversation";
 
 const ChatBotContext = createContext<UseChatHelpers<
   UIMessage<any, UIDataTypes, UITools>

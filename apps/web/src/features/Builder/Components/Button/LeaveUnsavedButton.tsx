@@ -1,5 +1,5 @@
-import { LeaveUnsavedDialog } from "../../../../../../../packages/design-system/templates/dialog/leave-unsaved-dialog.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog";
+import { Button } from "@ludocode/external/ui/button";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 

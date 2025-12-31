@@ -1,5 +1,5 @@
 import { getRouteApi, useLocation } from "@tanstack/react-router";
-import type { SyncState } from "../../../../../../packages/types/Completion/SyncState.ts";
+import type { SyncState } from "@ludocode/types/Completion/SyncState";
 import { useSubmitLesson } from "@/hooks/Queries/Mutations/useSubmitLesson.tsx";
 import { useEffect } from "react";
 import { PropagateLoader } from "react-spinners";

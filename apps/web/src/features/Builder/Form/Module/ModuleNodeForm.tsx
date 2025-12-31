@@ -1,10 +1,10 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { Button } from "../../../../../../../packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm.tsx";
 import { BuilderNodeWrapper } from "@/features/Builder/Components/Wrapper/builder-node-wrapper.tsx";
 import { BuilderNode } from "@/features/Builder/Components/Tree/builder-node.tsx";
-import { StatusDot } from "../../../../../../../packages/design-system/primitives/status-dot.tsx";
+import { StatusDot } from "@ludocode/design-system/primitives/status-dot";
 import { EditNodeDialog } from "@/features/Builder/Components/Dialog/EditNodeDialog.tsx";
 import { ChevronRightIcon } from "lucide-react";
 import { router } from "@/main.tsx";
