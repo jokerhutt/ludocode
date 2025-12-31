@@ -1,10 +1,4 @@
 {
-  "files": [],
-  "references": [
-    { "path": "packages/types" },
-    { "path": "packages/external" },
-    { "path": "packages/hooks" },
-    { "path": "packages/design-system" },
-    { "path": "apps/web" }
-  ]
+  "extends": "./tsconfig.base.json",
+  "include": ["packages", "apps"]
 }

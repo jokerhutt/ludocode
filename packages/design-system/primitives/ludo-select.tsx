@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectItem } from "@ludocode/external/ui/select.tsx";
+import { Select, SelectContent, SelectItem } from "@ludocode/external/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 import type { ReactNode } from "react";
 

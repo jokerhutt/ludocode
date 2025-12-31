@@ -1,5 +1,5 @@
-import { Spinner } from "@ludocode/external/ui/spinner.tsx";
-import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Spinner } from "@ludocode/external/ui/spinner";
 import type { ReactNode } from "react";
 
 type LudoSpinnerProps = {
