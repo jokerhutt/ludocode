@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
 import { DialogDescription, DialogTitle } from "@ludocode/external/ui/dialog";
 
 type WarningDialogProps = {

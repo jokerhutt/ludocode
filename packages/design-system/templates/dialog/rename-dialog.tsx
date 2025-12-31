@@ -1,8 +1,8 @@
 import { useState, type ReactNode } from "react";
-import { Input } from "@ludocode/external/ui/input.tsx";
-import { DialogTitle } from "@ludocode/external/ui/dialog.tsx";
+import { DialogTitle } from "@ludocode/external/ui/dialog";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
+import { Input } from "@ludocode/external/ui/input";
 
 type RenameDialogProps = {
   itemName: string;

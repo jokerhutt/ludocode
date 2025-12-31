@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 function Drawer({
   ...props

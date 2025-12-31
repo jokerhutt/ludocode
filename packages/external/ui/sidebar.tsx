@@ -5,25 +5,25 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 
-import { cn } from "../../design-system/cn-utils.ts";
-import { Button } from "packages/external/ui/button.tsx";
-import { Input } from "packages/external/ui/input.tsx";
-import { Separator } from "packages/external/ui/separator.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Button } from "@ludocode/external/ui/button";
+import { Input } from "@ludocode/external/ui/input";
+import { Separator } from "@ludocode/external/ui/separator";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "packages/external/ui/sheet.tsx";
-import { Skeleton } from "packages/external/ui/skeleton.tsx";
+} from "@ludocode/external/ui/sheet";
+import { Skeleton } from "@ludocode/external/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "packages/external/ui/tooltip.tsx";
-import { useIsMobile } from "../../../apps/web/src/hooks/Guard/useIsMobile.tsx";
+} from "@ludocode/external/ui/tooltip";
+import { useIsMobile } from "@ludocode/hooks/guard/useIsMobile";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -66,7 +66,7 @@ function SidebarProvider({
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile({});
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.

@@ -1,4 +1,4 @@
-import { cn } from "../cn-utils";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ReactNode } from "react";
 
 type ListContainerProps = {

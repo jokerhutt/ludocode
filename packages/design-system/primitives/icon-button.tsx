@@ -1,8 +1,6 @@
-import { cn } from "@ludocode/design-system/cn-utils.ts";
-import {
-  HeroIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/hero-icon.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { HeroIcon, IconName } from "@ludocode/design-system/primitives/hero-icon";
+
 
 type IconButtonProps = {
   className?: string;

@@ -1,6 +1,6 @@
-import { Popover, PopoverContent } from "../../external/ui/popover.tsx";
 import type { ReactElement, ReactNode } from "react";
 import { PopoverArrow, PopoverTrigger } from "@radix-ui/react-popover";
+import { Popover, PopoverContent } from "@ludocode/external/ui/popover";
 
 export type BasePopoverProps = {
   trigger: ReactElement;

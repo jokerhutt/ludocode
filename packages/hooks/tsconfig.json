@@ -3,9 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@ludocode/design-system": ["../design-system"],
       "@ludocode/design-system/*": ["../design-system/*"],
+      "@ludocode/types": ["../types"],
       "@ludocode/types/*": ["../types/*"],
+      "@ludocode/hooks": ["."],
       "@ludocode/hooks/*": ["./*"],
+      "@ludocode/external": ["../external"],
       "@ludocode/external/*": ["../external/*"]
     }
   },

@@ -1,6 +1,6 @@
 import {type ReactNode, useState} from "react";
-import {useHotkeys} from "../../../../apps/web/src/hooks/UI/useHotkeys.tsx";
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "../../../external/ui/accordion.tsx";
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@ludocode/external/ui/accordion";
+import { useHotkeys } from "@ludocode/hooks";
 
 type ChatBotAccordionProps = { children: ReactNode };
 

@@ -1,5 +1,5 @@
+import { useAutoWidth } from "@ludocode/hooks";
 import { useImperativeHandle } from "react";
-import {useAutoWidth} from "@ludocode/hooks/input/useAutoWidth"
 
 type OptionInputSlotProps = {
   value: string;

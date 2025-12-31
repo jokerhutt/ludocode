@@ -1,5 +1,5 @@
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ReactNode } from "react";
-import { cn } from "../cn-utils.ts";
 
 type FooterShellProps = {
   children: ReactNode;

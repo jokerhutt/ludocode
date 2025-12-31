@@ -1,5 +1,7 @@
-import { cn } from "../cn-utils.ts";
-import type { ReactNode } from "react";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { RouterBar } from "@ludocode/design-system/primitives/router-bar";
+import { useEffect, useState, type ReactNode } from "react";
+import { useRouterState } from "@tanstack/react-router";
 
 export type DeviceType = "Mobile" | "Desktop" | "Both";
 
@@ -18,8 +20,8 @@ export function HeaderShell({
     device == "Both"
       ? "grid"
       : device == "Desktop"
-      ? "hidden lg:grid"
-      : "lg:hidden";
+        ? "hidden lg:grid"
+        : "lg:hidden";
 
   return (
     <nav
@@ -31,4 +33,37 @@ export function HeaderShell({
       {children}
     </nav>
   );
+}
+
+export type BarState = "idle" | "loading" | "loadingDone";
+
+export function HeaderWithBar({
+  children,
+  className,
+  device = "Both",
+}: HeaderShellProps) {
+  const { barState } = useRouterBar();
+
+  return (
+    <HeaderShell className={className} device={device}>
+      {children}
+      <RouterBar barState={barState} />
+    </HeaderShell>
+  );
+}
+
+export function useRouterBar() {
+  const { status } = useRouterState();
+  const [barState, setBarState] = useState<BarState>("idle");
+
+  useEffect(() => {
+    if (status === "pending") {
+      setBarState("loading");
+    } else if (status === "idle") {
+      setBarState("loadingDone");
+      setTimeout(() => setBarState("idle"), 200);
+    }
+  }, [status]);
+
+  return { barState };
 }

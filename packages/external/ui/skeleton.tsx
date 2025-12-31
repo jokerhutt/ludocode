@@ -1,4 +1,4 @@
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (

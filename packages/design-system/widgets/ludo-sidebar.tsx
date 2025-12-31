@@ -5,7 +5,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarTrigger,
-} from "../../external/ui/sidebar.tsx";
+} from "@ludocode/external/ui/sidebar";
 import type { ReactNode } from "react";
 
 type LudoSidebarProps = { title: string; children: ReactNode };

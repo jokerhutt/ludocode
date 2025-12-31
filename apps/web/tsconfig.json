@@ -7,7 +7,7 @@
   "compilerOptions": {
     "baseUrl": "../..",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["apps/web/src/*"],
       "@ludocode/types": ["packages/types"],
       "@ludocode/types/*": ["packages/types/*"],
       "@ludocode/external": ["packages/external"],

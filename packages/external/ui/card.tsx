@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (

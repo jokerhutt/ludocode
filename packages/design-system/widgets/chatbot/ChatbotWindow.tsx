@@ -1,9 +1,9 @@
-import {useChatbot} from "../../../../apps/web/src/features/AI/Context/ChatBotContext.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.js";
 import type {PromptInputMessage} from "../../../external/ai-elements/prompt-input.tsx";
-import {useAutoScrollDown} from "../../../../apps/web/src/hooks/UI/useAutoScrollDown.tsx";
-import {cn} from "../../cn-utils.ts";
 import { ChatBotConversation, type ChatBotChatType } from "./ChatbotConversation";
 import { ChatBotInput } from "./ChatbotInput";
+import { useAutoScrollDown } from "@ludocode/hooks";
+import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext.js";
 
 
 type ChatBotProps = {

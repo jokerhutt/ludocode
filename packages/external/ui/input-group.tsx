@@ -3,10 +3,10 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../design-system/cn-utils.ts";
-import { Button } from "packages/external/ui/button.tsx";
-import { Input } from "packages/external/ui/input.tsx";
-import { Textarea } from "packages/external/ui/textarea.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Button } from "@ludocode/external/ui/button";
+import { Input } from "@ludocode/external/ui/input";
+import { Textarea } from "@ludocode/external/ui/textarea";
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
