@@ -1,33 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "jsx": "react-jsx",
-
-    "baseUrl": "../..",
+    "baseUrl": ".",
     "paths": {
-      "@ludocode/types/*": ["packages/types/*"],
-      "@ludocode/external/*": ["packages/external/*"],
-      "@ludocode/design-system/*": ["packages/design-system/*"],
-      "@ludocode/hooks/*": ["packages/hooks/*"]
-    },
-
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+      "@ludocode/design-system/*": ["../design-system/*"],
+      "@ludocode/types/*": ["../types/*"],
+      "@ludocode/hooks/*": ["../hooks/*"],
+      "@ludocode/external/*": ["./*"]
+    }
   },
-  "include": ["./**/*.ts", "./**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

@@ -1,4 +1,4 @@
-import type { BarState } from "@ludocode/design-system/zones/header-with-bar.tsx";
+import { BarState } from "@ludocode/design-system/zones/header-with-bar";
 
 type RouterBarProps = {
   barState: BarState;

@@ -1,5 +1,5 @@
-import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { Button } from "@ludocode/external/ui/button.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Button } from "@ludocode/external/ui/button";
 import type { ReactNode } from "react";
 
 type HollowSlotButtonProps = {
