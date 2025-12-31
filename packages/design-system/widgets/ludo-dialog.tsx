@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from "@ludocode/external/ui/dialog.tsx";
+} from "@ludocode/external/ui/dialog";
 import type { ReactNode } from "react";
 import { useState } from "react";
 

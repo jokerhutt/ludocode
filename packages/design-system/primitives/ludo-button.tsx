@@ -1,6 +1,7 @@
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Spinner } from "@ludocode/external/ui/spinner";
 import { forwardRef } from "react";
-import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { Spinner } from "@ludocode/external/ui/spinner.tsx";
+
 
 type Variant = "default" | "alt";
 

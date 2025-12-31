@@ -8,9 +8,13 @@
     "baseUrl": "../..",
     "paths": {
       "@/*": ["./src/*"],
+      "@ludocode/types": ["packages/types"],
       "@ludocode/types/*": ["packages/types/*"],
+      "@ludocode/external": ["packages/external"],
       "@ludocode/external/*": ["packages/external/*"],
+      "@ludocode/design-system": ["packages/design-system"],
       "@ludocode/design-system/*": ["packages/design-system/*"],
+      "@ludocode/hooks": ["packages/hooks"],
       "@ludocode/hooks/*": ["packages/hooks/*"]
     }
   }

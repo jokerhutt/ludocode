@@ -1,4 +1,4 @@
-import { cn } from "../cn-utils.ts";
+import { cn } from "../cn-utils";
 import type { ReactNode } from "react";
 
 type ListContainerProps = {
