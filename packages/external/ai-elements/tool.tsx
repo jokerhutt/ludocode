@@ -1,12 +1,12 @@
 "use client";
 
-import { Badge } from "packages/external/ui/badge.tsx";
+import { Badge } from "@ludocode/external/ui/badge";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "packages/external/ui/collapsible.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/collapsible";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ToolUIPart } from "ai";
 import {
   CheckCircleIcon,
@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { isValidElement } from "react";
-import { CodeBlock } from "./code-block.tsx";
+import { CodeBlock } from "@ludocode/external/ai-elements/code-block"
 
 export type ToolProps = ComponentProps<typeof Collapsible>;
 

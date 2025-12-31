@@ -8,14 +8,14 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "packages/external/ui/command.tsx";
+} from "@ludocode/external/ui/command";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "packages/external/ui/dialog.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/dialog";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ComponentProps, ReactNode } from "react";
 
 export type ModelSelectorProps = ComponentProps<typeof Dialog>;

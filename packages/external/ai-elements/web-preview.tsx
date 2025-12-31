@@ -1,19 +1,19 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "packages/external/ui/collapsible.tsx";
-import { Input } from "packages/external/ui/input.tsx";
+} from "@ludocode/external/ui/collapsible";
+import { Input } from "@ludocode/external/ui/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "packages/external/ui/tooltip.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/tooltip";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ChevronDownIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";

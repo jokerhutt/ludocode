@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import {
   Card,
   CardAction,
@@ -9,17 +9,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "packages/external/ui/card.tsx";
+} from "@ludocode/external/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "packages/external/ui/collapsible.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/collapsible";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ChevronsUpDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import { createContext, useContext } from "react";
-import { Shimmer } from "./shimmer.tsx";
+import { Shimmer } from "@ludocode/external/ai-elements/shimmer";
 
 type PlanContextValue = {
   isStreaming: boolean;

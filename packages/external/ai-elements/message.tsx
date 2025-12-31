@@ -1,14 +1,17 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
-import { ButtonGroup, ButtonGroupText } from "packages/external/ui/button-group.tsx";
+import { Button } from "@ludocode/external/ui/button";
+import {
+  ButtonGroup,
+  ButtonGroupText,
+} from "@ludocode/external/ui/button-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "packages/external/ui/tooltip.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/tooltip";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { FileUIPart, UIMessage } from "ai";
 import {
   ChevronLeftIcon,

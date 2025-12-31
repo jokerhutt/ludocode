@@ -1,8 +1,8 @@
 "use client";
 
-import { Alert, AlertDescription } from "packages/external/ui/alert.tsx";
-import { Button } from "packages/external/ui/button.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+import { Alert, AlertDescription } from "@ludocode/external/ui/alert";
+import { Button } from "@ludocode/external/ui/button";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ToolUIPart } from "ai";
 import {
   type ComponentProps,
@@ -121,7 +121,7 @@ export type ConfirmationRejectedProps = {
 export const ConfirmationRejected = ({
   children,
 }: ConfirmationRejectedProps) => {
-  const { approval} = useConfirmation();
+  const { approval } = useConfirmation();
 
   // Only show when rejected and in response states
   if (approval?.approved !== false) {

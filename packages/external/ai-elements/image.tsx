@@ -1,4 +1,4 @@
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { Experimental_GeneratedImage } from "ai";
 
 export type ImageProps = Experimental_GeneratedImage & {

@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "packages/external/ui/hover-card.tsx";
-import { Progress } from "packages/external/ui/progress.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/hover-card";
+import { Progress } from "@ludocode/external/ui/progress";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { LanguageModelUsage } from "ai";
 import { type ComponentProps, createContext, useContext } from "react";
 import { getUsage } from "tokenlens";

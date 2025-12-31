@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -9,32 +9,32 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "packages/external/ui/command.tsx";
+} from "@ludocode/external/ui/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "packages/external/ui/dropdown-menu.tsx";
+} from "@ludocode/external/ui/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "packages/external/ui/hover-card.tsx";
+} from "@ludocode/external/ui/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "packages/external/ui/input-group.tsx";
+} from "@ludocode/external/ui/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "packages/external/ui/select.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/select";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ChatStatus, FileUIPart } from "ai";
 import {
   CornerDownLeftIcon,

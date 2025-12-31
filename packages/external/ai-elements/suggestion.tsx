@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
-import { ScrollArea, ScrollBar } from "packages/external/ui/scroll-area.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+import { Button } from "@ludocode/external/ui/button";
+import { ScrollArea, ScrollBar } from "@ludocode/external/ui/scroll-area";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ComponentProps } from "react";
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;

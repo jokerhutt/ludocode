@@ -5,13 +5,13 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "packages/external/ui/collapsible.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/collapsible";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { BrainIcon, ChevronDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import { createContext, memo, useContext, useEffect, useState } from "react";
 import { Streamdown } from "streamdown";
-import { Shimmer } from "./shimmer.tsx";
+import { Shimmer } from "@ludocode/external/ai-elements/shimmer";
 
 type ReasoningContextValue = {
   isStreaming: boolean;

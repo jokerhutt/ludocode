@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
-import { Separator } from "packages/external/ui/separator.tsx";
+import { Button } from "@ludocode/external/ui/button";
+import { Separator } from "@ludocode/external/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "packages/external/ui/tooltip.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/tooltip";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { BookmarkIcon, type LucideProps } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 

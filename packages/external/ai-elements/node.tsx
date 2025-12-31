@@ -6,8 +6,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "packages/external/ui/card.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/card";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { Handle, Position } from "@xyflow/react";
 import type { ComponentProps } from "react";
 

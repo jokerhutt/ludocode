@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { motion } from "motion/react";
 import {
   type CSSProperties,

@@ -1,18 +1,18 @@
 "use client";
 
-import { Badge } from "packages/external/ui/badge.tsx";
+import { Badge } from "@ludocode/external/ui/badge";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "packages/external/ui/carousel.tsx";
+} from "@ludocode/external/ui/carousel";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "packages/external/ui/hover-card.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/hover-card";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import {
   type ComponentProps,

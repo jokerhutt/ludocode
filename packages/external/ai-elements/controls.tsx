@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../../design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { Controls as ControlsPrimitive } from "@xyflow/react";
 import type { ComponentProps } from "react";
 

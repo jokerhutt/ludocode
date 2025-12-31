@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "packages/external/ui/button.tsx";
+import { Button } from "@ludocode/external/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "packages/external/ui/dropdown-menu.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/dropdown-menu";
+import { cn } from "@ludocode/design-system/cn-utils";
 import {
   ChevronDownIcon,
   ExternalLinkIcon,

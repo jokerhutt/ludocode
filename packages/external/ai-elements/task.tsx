@@ -4,8 +4,8 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "packages/external/ui/collapsible.tsx";
-import { cn } from "../../design-system/cn-utils.ts";
+} from "@ludocode/external/ui/collapsible";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 
