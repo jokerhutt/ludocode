@@ -35,9 +35,4 @@ export const getNavIcons = (
     onClick: () =>
       router.navigate(ludoNavigation.hub.profile.toProfile(userId)),
   },
-  {
-    name: "Build",
-    path: "/builder",
-    onClick: () => router.navigate(ludoNavigation.hub.builder.toBuilderHub()),
-  },
 ];

@@ -1,0 +1,9 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "JSON with Comments", "JSON", "comment", "blank", "total"
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/guard/useIsMobile.tsx", "TypeScript JSX", 0, 19, 0, 0, 0, 8, 27
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/index.ts", "TypeScript", 4, 0, 0, 0, 0, 1, 5
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useAutoScrollDown.tsx", "TypeScript JSX", 0, 14, 0, 0, 0, 6, 20
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useAutoWidth.tsx", "TypeScript JSX", 0, 11, 0, 0, 0, 4, 15
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useHotkeys.tsx", "TypeScript JSX", 0, 31, 0, 0, 0, 6, 37
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/package.json", "JSON", 0, 0, 0, 9, 0, 1, 10
+"/Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/tsconfig.json", "JSON with Comments", 0, 0, 17, 0, 0, 1, 18
+"Total", "-", 4, 75, 17, 9, 0, 27, 132

@@ -6,7 +6,6 @@ import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
   RUN_CODE,
-  SUBMIT_CREATE_COURSE,
   SUBMIT_CREATE_PROJECT,
   SUBMIT_DELETE_PROJECT,
   SUBMIT_LESSON,
@@ -23,8 +22,6 @@ import { type CreateProjectRequest } from "../../../../../../packages/types/Proj
 import type { ProjectListResponse } from "../../../../../../packages/types/Project/ProjectListResponse.ts";
 import type { RunnerResult } from "../../../../../../packages/types/Project/Runner/RunnerResult.ts";
 import type { RenameProjectRequest } from "../../../../../../packages/types/Project/RenameProjectRequest.ts";
-import { type LudoCourse } from "../../../../../../packages/types/Catalog/LudoCourse.ts";
-import { type CreateCourseRequest } from "../../../../../../packages/types/Builder/CreateCourseRequest.ts";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -64,18 +61,6 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<ProjectListResponse, CreateProjectRequest>(
           SUBMIT_CREATE_PROJECT,
-          variables,
-          true
-        ),
-    });
-  },
-
-  createCourse: () => {
-    return mutationOptions<LudoCourse[], Error, CreateCourseRequest>({
-      mutationKey: ["createCourse"],
-      mutationFn: (variables) =>
-        ludoPost<LudoCourse[], CreateCourseRequest>(
-          SUBMIT_CREATE_COURSE,
           variables,
           true
         ),

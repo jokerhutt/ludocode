@@ -3,7 +3,7 @@ import type {
   CareerType,
   OnboardingSubmission,
 } from "../../../../../../packages/types/Onboarding/OnboardingCourse.ts";
-import { stepOrder, type StageKey } from "../../../../../../packages/types/Onboarding/OnboardingSteps.ts";
+import { stepOrder, type StageKey } from "../Templates/OnboardingSteps.ts";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 

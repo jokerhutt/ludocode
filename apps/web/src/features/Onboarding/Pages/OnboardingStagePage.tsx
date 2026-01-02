@@ -1,4 +1,4 @@
-import { steps, type StageKey } from "../../../../../../packages/types/Onboarding/OnboardingSteps.ts";
+import { steps, type StageKey } from "../Templates/OnboardingSteps.ts";
 import { getRouteApi } from "@tanstack/react-router";
 
 export function OnboardingStagePage() {

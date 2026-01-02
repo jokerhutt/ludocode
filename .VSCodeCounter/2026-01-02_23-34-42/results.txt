@@ -1,0 +1,37 @@
+Date : 2026-01-02 23:34:42
+Directory : /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks
+Total : 7 files,  105 codes, 0 comments, 27 blanks, all 132 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript JSX     |          4 |         75 |          0 |         24 |         99 |
+| JSON with Comments |          1 |         17 |          0 |          1 |         18 |
+| JSON               |          1 |          9 |          0 |          1 |         10 |
+| TypeScript         |          1 |          4 |          0 |          1 |          5 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                 |          7 |        105 |          0 |         27 |        132 |
+| . (Files)                                                                                         |          3 |         30 |          0 |          3 |         33 |
+| guard                                                                                             |          1 |         19 |          0 |          8 |         27 |
+| input                                                                                             |          3 |         56 |          0 |         16 |         72 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                          | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/guard/useIsMobile.tsx       | TypeScript JSX     |         19 |          0 |          8 |         27 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/index.ts                    | TypeScript         |          4 |          0 |          1 |          5 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useAutoScrollDown.tsx | TypeScript JSX     |         14 |          0 |          6 |         20 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useAutoWidth.tsx      | TypeScript JSX     |         11 |          0 |          4 |         15 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/input/useHotkeys.tsx        | TypeScript JSX     |         31 |          0 |          6 |         37 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/package.json                | JSON               |          9 |          0 |          1 |         10 |
+| /Users/davidglogowski/JCode/Ludocode/ludocode-frontend/packages/hooks/tsconfig.json               | JSON with Comments |         17 |          0 |          1 |         18 |
+| Total                                                                                             |                    |        105 |          0 |         27 |        132 |
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

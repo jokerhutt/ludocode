@@ -1,5 +1,4 @@
 import type { ProjectSnapshot } from "../../../../../../../packages/types/Project/ProjectSnapshot.ts";
-import { useModal } from "@/hooks/UI/useModal.tsx";
 import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
@@ -8,6 +7,7 @@ import { CreateProjectDialog } from "@/features/Hub/ProjectHub/Components/Dialog
 import { projectHeroContent } from "../content.ts";
 import { Hero } from "../../../../../../../packages/design-system/zones/hero.tsx";
 import { LudoButton } from "../../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { useModal } from "@ludocode/hooks";
 
 export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());

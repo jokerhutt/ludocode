@@ -1,6 +1,6 @@
-import { useHotkeys } from "@/hooks/UI/useHotkeys.tsx";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { LudoButton } from "../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { useHotkeys } from "@ludocode/hooks";
 
 export function RunCodeButton() {
   const { runCode, outputInfo } = useCodeRunnerContext();
