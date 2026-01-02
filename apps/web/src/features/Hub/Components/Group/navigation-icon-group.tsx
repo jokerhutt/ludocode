@@ -2,7 +2,6 @@ import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
 import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
-import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
@@ -16,17 +15,12 @@ export function NavigationIconGroup({
   groupClassName,
   buttonClassName,
 }: NavigationIconGroupProps) {
-  const { enabled: isAdmin } = useFeatureEnabledCheck({
-    feature: "isAdminEnabled",
-  });
-
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { courseId, moduleId } = useCurrentCourseContext();
 
   const icons = getNavIcons(currentUser.id, courseId, moduleId);
-  const userIcons = icons.filter((icon) => icon.name !== "Build");
 
-  const iconsToRender = isAdmin ? icons : userIcons;
+  const iconsToRender = icons;
 
   const location = useLocation();
 

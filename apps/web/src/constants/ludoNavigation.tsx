@@ -7,7 +7,6 @@ import { Route as authRoute } from "@/routes/auth";
 
 // HUB PAGES
 import { Route as coursesRoute } from "@/routes/_app/_hub/courses.tsx";
-import { Route as builderHubRoute } from "@/routes/_app/_hub/builder.tsx";
 import { Route as projectHubRoute } from "@/routes/_app/_hub/projects.tsx";
 
 import { Route as moduleHubRoute } from "@/routes/_app/_hub/learn/$courseId/$moduleId.tsx";
@@ -17,7 +16,6 @@ import { Route as profileRoute } from "@/routes/_app/_hub/profile/$userId.tsx";
 import { Route as lessonPageRoute } from "@/routes/_app/lesson/$courseId/$moduleId/$lessonId";
 
 // DESKTOP-GUARD GROUP
-import { Route as builderPageRoute } from "@/routes/_app/_desktopguard/build/$courseId.tsx";
 import { Route as projectPageRoute } from "@/routes/_app/_desktopguard/project/$projectId.tsx";
 
 // SYNC + COMPLETION
@@ -41,11 +39,6 @@ export const ludoNavigation = {
         replace: true,
       }),
     },
-    builder: {
-      toBuilderHub: () => ({
-        to: builderHubRoute.to,
-      }),
-    },
     project: {
       toProjectHub: () => ({ to: projectHubRoute.to }),
     },
@@ -56,47 +49,6 @@ export const ludoNavigation = {
         replace: true,
       }),
     },
-  },
-
-  builder: {
-    toBuilder: (courseId: string) => ({
-      to: builderPageRoute.to,
-      params: {
-        courseId,
-      },
-      search: {
-        moduleId: undefined,
-        lessonId: undefined,
-        exerciseId: undefined,
-      },
-    }),
-
-    toBuilderModule: (courseId: string, moduleId: string) => ({
-      to: builderPageRoute.to,
-      params: { courseId },
-      search: { moduleId, lessonId: undefined, exerciseId: undefined },
-    }),
-
-    toBuilderLesson: (
-      courseId: string,
-      moduleId: string,
-      lessonId: string
-    ) => ({
-      to: builderPageRoute.to,
-      params: { courseId },
-      search: { moduleId, lessonId, exerciseId: undefined },
-    }),
-
-    toBuilderExercise: (
-      courseId: string,
-      moduleId: string,
-      lessonId: string,
-      exerciseId: string
-    ) => ({
-      to: builderPageRoute.to,
-      params: { courseId },
-      search: { moduleId, lessonId, exerciseId },
-    }),
   },
 
   lesson: {

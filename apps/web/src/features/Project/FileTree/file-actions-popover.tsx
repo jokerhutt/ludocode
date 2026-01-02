@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
-
+import {
+  FileWrapper,
+  FileInfoRow,
+} from "@ludocode/design-system/primitives/file.tsx";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "../../../../../../packages/external/ui/popover.tsx";
 import { DeleteDialog } from "../../../../../../packages/design-system/templates/dialog/delete-dialog.tsx";
-import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper.tsx";
-import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row.tsx";
 import { HeroIcon } from "../../../../../../packages/design-system/primitives/hero-icon.tsx";
 import { RenameDialog } from "../../../../../../packages/design-system/templates/dialog/rename-dialog.tsx";
 

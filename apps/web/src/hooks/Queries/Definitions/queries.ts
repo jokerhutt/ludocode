@@ -16,7 +16,6 @@ import type { LudoCourse } from "../../../../../../packages/types/Catalog/LudoCo
 import {
   AUTH_ME,
   GET_ALL_COURSES,
-  GET_COURSE_SNAPSHOT,
   GET_COURSE_TREE,
   GET_CURRENT_COURSE_ID,
   GET_ENROLLED_IDS,
@@ -29,10 +28,12 @@ import {
 } from "../../../constants/api/pathConstants.ts";
 import type { LudoUser } from "../../../../../../packages/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "../../../../../../packages/types/Catalog/FlatCourseTree.ts";
-import type { CourseSnap } from "../../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
 import type { UserPreferences } from "../../../../../../packages/types/User/UserPreferences.ts";
 import type { ProjectListResponse } from "../../../../../../packages/types/Project/ProjectListResponse.ts";
-import { type DailyGoalMet, type UserStreak } from "../../../../../../packages/types/User/UserStreak.ts";
+import {
+  type DailyGoalMet,
+  type UserStreak,
+} from "../../../../../../packages/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "../../../../../../packages/types/FeatureFlags/FeatureFlags.ts";
 
 export const qo = {
@@ -106,13 +107,6 @@ export const qo = {
       queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
       staleTime: 60_000,
       retry: false,
-    }),
-
-  courseSnapshot: (courseId: string) =>
-    queryOptions({
-      queryKey: qk.courseSnapshot(courseId),
-      queryFn: () => ludoGet<CourseSnap>(GET_COURSE_SNAPSHOT(courseId)),
-      staleTime: 60_000 * 10,
     }),
 
   allCourses: () =>

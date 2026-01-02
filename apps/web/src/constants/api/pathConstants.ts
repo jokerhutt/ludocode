@@ -8,7 +8,7 @@ export const GET_ALL_COURSES = API_PATH + `/catalog/courses`;
 export const GET_COURSE_TREE = (courseId: string) =>
   API_PATH + `/catalog/courses/${courseId}/tree`;
 
-export const LOGOUT = API_PATH + `/auth/logout`
+export const LOGOUT = API_PATH + `/auth/logout`;
 
 export const GET_ENABLED_FEATURES = API_PATH + `/features`;
 
@@ -21,12 +21,6 @@ export const GET_LESSONS_FROM_IDS = (lessonIds: string) =>
   API_PATH + `/catalog/lessons/ids?${lessonIds}`;
 export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
   API_PATH + `/catalog/lessons/${lessonId}/exercises`;
-
-// == SNAPSHOT == //
-export const SUBMIT_COURSE_SNAPSHOT = API_PATH + `/snapshot/submit`;
-export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshot/course/create`;
-export const GET_COURSE_SNAPSHOT = (courseId: string) =>
-  API_PATH + `/snapshot/course/${courseId}`;
 
 // == AI == //
 export const SUBMIT_AI_PROMPT = API_PATH + `/ai/prompt/send`;

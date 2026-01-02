@@ -15,3 +15,9 @@ export function InputWrapper({ children, className }: InputWrapperProps) {
     </div>
   );
 }
+
+type InputTitleProps = { children: ReactNode };
+
+export function InputTitle({ children }: InputTitleProps) {
+  return <h3>{children}</h3>;
+}

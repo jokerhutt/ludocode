@@ -10,5 +10,4 @@ export function useLottie(animationPath: string) {
   }, []);
 
   return animationData;
-
 }

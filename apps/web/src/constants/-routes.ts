@@ -8,7 +8,6 @@ export const routes = {
   },
   hub: {
     courses: `/_app/_hub/courses`,
-    builder: `/_app/_hub/builder`,
     project: `/_app/_hub/projects`,
 
     module: {
@@ -22,10 +21,6 @@ export const routes = {
   },
   lesson: {
     lessonPage: `/_app/lesson/$courseId/$moduleId/$lessonId`,
-  },
-  build: {
-    root: `/_app/_desktopguard/build`,
-    builderPage: `/_app/_desktopguard/build/$courseId`,
   },
   completion: {
     syncPage: `/_app/sync/$lessonId`,

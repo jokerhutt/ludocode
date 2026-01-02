@@ -6,8 +6,10 @@ import { useState, type ReactNode } from "react";
 import { useCreateProject } from "@/hooks/Queries/Mutations/useCreateProject.tsx";
 import { Spinner } from "../../../../../../../../packages/external/ui/spinner.tsx";
 import { LudoDialog } from "../../../../../../../../packages/design-system/widgets/ludo-dialog.tsx";
-import { InputWrapper } from "@/features/Builder/Components/Input/input-wrapper.tsx";
-import { InputTitle } from "@/features/Builder/Components/Input/input-title.tsx";
+import {
+  InputWrapper,
+  InputTitle,
+} from "@ludocode/design-system/primitives/input";
 
 type CreateProjectDialogProps = {
   open: boolean;

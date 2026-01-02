@@ -1,4 +1,4 @@
-import { useMonacoTheme } from "@/hooks/UI/useMonacoTheme.tsx";
+import { useMonacoTheme } from "@/features/Project/Hooks/useMonacoTheme.tsx";
 import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";

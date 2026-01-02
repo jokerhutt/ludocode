@@ -5,10 +5,10 @@ import {
 } from "@/features/Hub/ModuleHub/Components/Selection/ModuleSelectionTabs.tsx";
 import { useEffect } from "react";
 import { ModulePage } from "@/features/Hub/ModuleHub/Pages/ModulePage.tsx";
-import { useTab } from "@/hooks/UI/useTab.tsx";
 import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/Pages/ModuleSelectionPage.tsx";
 import type { LudoCourse } from "../../../../../packages/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
+import { useTab } from "@ludocode/hooks";
 
 export function ModuleHubLayout() {
   const moduleHubRoute = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
