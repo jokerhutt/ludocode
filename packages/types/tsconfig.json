@@ -13,5 +13,9 @@
       "@ludocode/external/*": ["../external/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../../apps/web/src/features/Onboarding/Templates/OnboardingSteps.ts"
+  ]
 }

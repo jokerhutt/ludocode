@@ -26,7 +26,7 @@ import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$mo
 
 // ONBOARDING
 import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.tsx";
-import type { StageKey } from "@ludocode/types";
+import type { StageKey } from "@/features/Onboarding/Templates/OnboardingSteps.ts";
 
 export const ludoNavigation = {
   auth: () => ({ to: authRoute.to }),

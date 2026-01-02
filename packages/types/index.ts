@@ -30,7 +30,6 @@ export * from "./FeatureFlags/FeatureFlags";
 // Onboarding
 export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";
-export * from "./Onboarding/OnboardingSteps";
 
 // Project
 export * from "./Project/CreateProjectRequest";

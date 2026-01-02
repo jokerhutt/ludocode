@@ -1,5 +1,8 @@
 import { getRouteApi, useParams } from "@tanstack/react-router";
-import { steps, type StageKey } from "../../../../../packages/types/Onboarding/OnboardingSteps.ts";
+import {
+  steps,
+  type StageKey,
+} from "../../features/Onboarding/Templates/OnboardingSteps.ts";
 import {
   OnboardingContext,
   type OnboardingContextType,

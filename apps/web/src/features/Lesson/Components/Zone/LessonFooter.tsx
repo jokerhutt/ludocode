@@ -1,9 +1,9 @@
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
-import { FooterShell } from "../../../../../../../packages/design-system/zones/footer-shell.tsx";
-import { useHotkeys } from "@/hooks/UI/useHotkeys.tsx";
-import { cn } from "../../../../../../../packages/design-system/cn-utils.ts";
-import { LudoButton } from "../../../../../../../packages/design-system/primitives/ludo-button.tsx";
 import { useState } from "react";
+import { useHotkeys } from "@ludocode/hooks";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 

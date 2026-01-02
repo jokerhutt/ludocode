@@ -1,3 +1,8 @@
+// AUTH
+import { Route as authRoute } from "@/routes/auth";
+import { Route as builderHubRoute } from "@/routes/_app/_hub/builder.tsx";
+import { Route as builderPageRoute } from "@/routes/_app/build/$courseId.tsx";
+
 export const adminNavigation = {
   auth: () => ({ to: authRoute.to }),
   builder: {

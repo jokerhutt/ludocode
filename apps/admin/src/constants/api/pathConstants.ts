@@ -17,3 +17,6 @@ export const SUBMIT_COURSE_SNAPSHOT = API_PATH + `/snapshot/submit`;
 export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshot/course/create`;
 export const GET_COURSE_SNAPSHOT = (courseId: string) =>
   API_PATH + `/snapshot/course/${courseId}`;
+
+// == COURSES == //
+export const GET_ALL_COURSES = API_PATH + `/catalog/courses`;

@@ -3,7 +3,6 @@ import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
 import { useAdminGoogleAuthEntry } from "@/hooks/Queries/Mutations/useAdminGoogleAuthEntry";
 
-
 export function AdminAuthPage() {
   const googleLogin = useAdminGoogleAuthEntry();
 
@@ -13,12 +12,11 @@ export function AdminAuthPage() {
         <div className="flex flex-col items-center justify-center h-full">
           <div className="flex flex-col gap-12 w-4/5 lg:w-1/2 items-center justify-center">
             <h1 className="text-center text-3xl lg:text-6xl text-ludoAltText">
-              Welcome to Ludocode
+              Welcome to Ludocode Admin
             </h1>
 
             <p className="text-ludoAltText text-center text-xl">
-              This is a work in progress code learning platform.
-              <br /> The core features are here, try it out!
+              This is the admin dashboard for ludocode
             </p>
 
             <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">

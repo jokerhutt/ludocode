@@ -9,9 +9,10 @@ import {
 import type { LudoLesson } from "../../../../../../packages/types/Catalog/LudoLesson.ts";
 import { makeIdBatcher } from "./batcherFactory.ts";
 import type { LudoModule } from "../../../../../../packages/types/Catalog/LudoModule.ts";
-import type { LudoUser } from "../../../../../../packages/types/User/LudoUser.ts";
+
 import type { CourseProgress } from "../../../../../../packages/types/User/CourseProgress.ts";
 import type { UserCoins } from "../../../../../../packages/types/User/UserCoins.ts";
+import type { LudoUser } from "@ludocode/types";
 
 export const lessonBatcher = makeIdBatcher<LudoLesson>({
   name: "lesson",
