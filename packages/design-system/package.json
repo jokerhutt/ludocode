@@ -1,0 +1,8 @@
+{
+  "name": "@ludocode/design-system",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./*"
+  }
+}

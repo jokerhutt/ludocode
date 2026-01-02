@@ -1,0 +1,96 @@
+import { useCallback, useMemo, useState } from "react";
+import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
+import { getGapCount } from "../Util/inputUtil.ts";
+import type { ExerciseAttempt } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+import type { AnswerToken } from "@ludocode/types";
+
+type Args = { currentExercise: LudoExercise };
+
+export type useExerciseInputResponse = {
+  currentExerciseInputs: AnswerToken[];
+  setAnswerAt: (token: AnswerToken) => void;
+  popLastAnswer: () => void;
+  isEmpty: boolean;
+  replaceAnswerAt: (index: number, token: AnswerToken) => void;
+  clearExerciseInputs: () => void;
+  initializeInputs: (attempt: ExerciseAttempt | null) => void;
+};
+
+const makeEmpty = (): AnswerToken => ({ id: undefined, value: "" });
+
+export function useExerciseInput({
+  currentExercise,
+}: Args): useExerciseInputResponse {
+  const gapCount = getGapCount(currentExercise);
+
+  const [currentExerciseInputs, setCurrentExerciseInputs] = useState<
+    AnswerToken[]
+  >(Array.from({ length: gapCount }, makeEmpty));
+
+  const isEmpty = useMemo(
+    () => currentExerciseInputs.every((t) => t.value === ""),
+    [currentExerciseInputs]
+  );
+
+  const initializeInputs = useCallback(
+    (lastAttempt: ExerciseAttempt | null) => {
+      if (lastAttempt) {
+        const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
+          typeof a === "string"
+            ? { id: undefined, value: a }
+            : { id: a.id, value: a.value ?? "" }
+        );
+        setCurrentExerciseInputs(tokens);
+      } else {
+        setCurrentExerciseInputs(Array.from({ length: gapCount }, makeEmpty));
+      }
+    },
+    [gapCount]
+  );
+
+  const popLastAnswer = useCallback(() => {
+    setCurrentExerciseInputs((prev) => {
+      const next = prev.slice();
+      // find last filled slot
+      const lastFilled = [...next].reverse().findIndex((t) => t.value !== "");
+      if (lastFilled !== -1) {
+        const realIndex = next.length - 1 - lastFilled;
+        next[realIndex] = makeEmpty(); // clear it
+      }
+      return next;
+    });
+  }, []);
+
+  //TODO these names arent fully correct
+  const setAnswerAt = useCallback((token: AnswerToken) => {
+    setCurrentExerciseInputs((prev) => {
+      const next = prev.slice();
+      const firstEmpty = next.findIndex((slot) => slot.value === "");
+      if (firstEmpty !== -1)
+        next[firstEmpty] = { id: token.id, value: token.value };
+      return next;
+    });
+  }, []);
+
+  const replaceAnswerAt = useCallback((index: number, token: AnswerToken) => {
+    setCurrentExerciseInputs((prev) => {
+      const next = prev.slice();
+      next[index] = { id: token.id, value: token.value };
+      return next;
+    });
+  }, []);
+
+  const clearExerciseInputs = useCallback(() => {
+    setCurrentExerciseInputs(Array.from({ length: gapCount }, makeEmpty));
+  }, [gapCount]);
+
+  return {
+    currentExerciseInputs,
+    setAnswerAt,
+    popLastAnswer,
+    isEmpty,
+    replaceAnswerAt,
+    clearExerciseInputs,
+    initializeInputs,
+  };
+}

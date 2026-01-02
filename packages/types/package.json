@@ -1,0 +1,9 @@
+{
+  "name": "@ludocode/types",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./*": "./*"
+  }
+}

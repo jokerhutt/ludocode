@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ludocode/design-system": ["../design-system"],
+      "@ludocode/design-system/*": ["../design-system/*"],
+      "@ludocode/types": ["."],
+      "@ludocode/types/*": ["./*"],
+      "@ludocode/hooks": ["../hooks"],
+      "@ludocode/hooks/*": ["../hooks/*"],
+      "@ludocode/external": ["../external"],
+      "@ludocode/external/*": ["../external/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../../apps/web/src/features/Onboarding/Templates/OnboardingSteps.ts"
+  ]
+}

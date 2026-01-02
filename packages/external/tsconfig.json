@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ludocode/design-system": ["../design-system"],
+      "@ludocode/design-system/*": ["../design-system/*"],
+      "@ludocode/types": ["../types"],
+      "@ludocode/types/*": ["../types/*"],
+      "@ludocode/hooks": ["../hooks"],
+      "@ludocode/hooks/*": ["../hooks/*"],
+      "@ludocode/external": ["."],
+      "@ludocode/external/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}

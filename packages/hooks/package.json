@@ -1,0 +1,9 @@
+{
+  "name": "@ludocode/hooks",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./*": "./*"
+  }
+}
