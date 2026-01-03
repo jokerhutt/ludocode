@@ -25,6 +25,7 @@ import {
   GET_USER_STREAK,
   GET_PAST_WEEK_STREAK,
   GET_ENABLED_FEATURES,
+  GET_USER_CREDITS,
 } from "../../../constants/api/pathConstants.ts";
 import type { LudoUser } from "../../../../../../packages/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "../../../../../../packages/types/Catalog/FlatCourseTree.ts";
@@ -69,6 +70,13 @@ export const qo = {
     queryOptions<LudoLesson>({
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
+      staleTime: 60_000,
+    }),
+
+  credits: () =>
+    queryOptions<number>({
+      queryKey: qk.credits(),
+      queryFn: () => ludoGet<number>(GET_USER_CREDITS, true),
       staleTime: 60_000,
     }),
 

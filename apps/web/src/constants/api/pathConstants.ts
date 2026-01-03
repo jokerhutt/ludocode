@@ -25,6 +25,9 @@ export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
 // == AI == //
 export const SUBMIT_AI_PROMPT = API_PATH + `/ai/prompt/send`;
 
+// == AI CREDITS == //
+export const GET_USER_CREDITS = API_PATH + `/credits/get`;
+
 // == PROJECT == //
 export const GET_PROJECT = (pid: string) => API_PATH + `/projects/${pid}/get`;
 export const GET_MY_PROJECTS = API_PATH + `/projects/my`;
