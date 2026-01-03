@@ -6,6 +6,8 @@ import type { ExerciseType } from "../../../../../../packages/types/Exercise/Exe
 import { ExerciseInteraction } from "../Templates/ExerciseInteraction.tsx";
 import { useExerciseBodyData } from "../Hooks/useExerciseBodyData.tsx";
 import { FloatingChatbotWindow } from "../../../../../../packages/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 
 export type OptionLayout = "ROW" | "COLUMN";
 export type SelectionMode = "APPEND" | "REPLACE";
@@ -48,11 +50,13 @@ export function LessonPage() {
   const { inputState, currentExercise } = useLessonContext();
 
   const body = useExerciseBodyData(currentExercise, inputState);
+  const { data: credits } = useSuspenseQuery(qo.credits());
 
   return (
     <>
       <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
         <FloatingChatbotWindow
+          credits={credits}
           chatType="LESSON"
           targetId={currentExercise.id ?? null}
           outerClassName="pl-6 pr-10"

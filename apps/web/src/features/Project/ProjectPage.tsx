@@ -11,9 +11,12 @@ import { CodeRunnerProvider } from "@/features/Project/Context/CodeRunnerContext
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { ChatBotAccordion } from "../../../../../packages/design-system/widgets/chatbot/ChatbotAccordion.tsx";
 import ChatBotWindow from "../../../../../packages/design-system/widgets/chatbot/ChatbotWindow.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();
+  const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
@@ -21,7 +24,11 @@ export function ProjectPage() {
         <FileTreeWinbar />
         <ProjectFileTree />
         <div className="min-h-0 w-full h-full flex flex-col justify-end">
-          <ChatBotProvider targetId={project.projectId} type="PROJECT">
+          <ChatBotProvider
+            credits={chatbotCredits}
+            targetId={project.projectId}
+            type="PROJECT"
+          >
             <ChatBotAccordion>
               <ChatBotWindow type="PROJECT" targetId={currentFileId} />
             </ChatBotAccordion>

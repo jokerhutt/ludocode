@@ -34,7 +34,7 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       globalDrop
       multiple
     >
-      <ChatbotCreditsTab credits={100} />
+      <ChatbotCreditsTab />
       <PromptInputBody>
         <PromptInputTextarea
           placeholder="Ask your question here."

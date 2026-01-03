@@ -11,6 +11,7 @@ const CodeRunnerContext = createContext<useRunnerResponse | null>(null);
 
 type CodeRunnerProviderProps = {
   children: ReactNode;
+  
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
 };
