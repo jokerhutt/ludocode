@@ -1,7 +1,6 @@
-
-import * as SolidIcons from '@heroicons/react/24/solid';
-import * as OutlineIcons from '@heroicons/react/24/outline';
-import type { JSX } from 'react';
+import * as SolidIcons from "@heroicons/react/24/solid";
+import * as OutlineIcons from "@heroicons/react/24/outline";
+import type { JSX } from "react";
 
 export type IconName = keyof typeof SolidIcons | keyof typeof OutlineIcons;
 
@@ -14,9 +13,9 @@ type HeroIconProps = {
 export function HeroIcon({
   solid,
   iconName,
-  className
+  className,
 }: HeroIconProps): JSX.Element {
   const Icon = solid ? SolidIcons[iconName] : OutlineIcons[iconName];
 
-  return <Icon className={className ?? 'h-6 w-6'} />;
+  return <Icon className={className ?? "h-6 w-6"} />;
 }
