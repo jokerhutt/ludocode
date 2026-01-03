@@ -2,7 +2,7 @@ import { OnboardingLayout } from "@/layouts/Onboarding/OnboardingLayout.tsx";
 import {
   stepOrder,
   type StageKey,
-} from "../../features/Onboarding/Templates/OnboardingSteps.ts";
+} from "@/features/Onboarding/Templates/OnboardingSteps.ts";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/onboarding/$stage")({

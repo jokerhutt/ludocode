@@ -1,10 +1,10 @@
 import { ModuleAsideRight } from "@/features/Hub/ModuleHub/Components/Aside/ModuleAsideRight.tsx";
-import type { LudoLesson } from "../../../../../../../packages/types/Catalog/LudoLesson.ts";
-import type { CourseProgress } from "../../../../../../../packages/types/User/CourseProgress.ts";
-import type { LudoModule } from "../../../../../../../packages/types/Catalog/LudoModule.ts";
-import type { LudoCourse } from "../../../../../../../packages/types/Catalog/LudoCourse.ts";
+import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
+import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
+import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
+import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { ModuleAsideLeft } from "@/features/Hub/ModuleHub/Components/Aside/ModuleAsideLeft.tsx";
-import { ModulePath } from "../Components/Path/Path.tsx";
+import { ModulePath } from "@/features/Hub/ModuleHub/Components/Path/Path.tsx";
 
 type ModulePageProps = {
   lessons: LudoLesson[];

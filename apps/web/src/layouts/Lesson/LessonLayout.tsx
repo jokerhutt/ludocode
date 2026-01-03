@@ -3,9 +3,9 @@ import { LessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 
 import { useExercise } from "@/features/Lesson/Hooks/useExercise.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
-import { MainContentWrapper } from "../../../../../packages/design-system/layouts/grid/main-content-wrapper.tsx";
+import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { LessonFooter } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 import { Suspense } from "react";
 import { LessonFeedbackDrawer } from "@/features/Lesson/Components/Zone/LessonDrawer.tsx";

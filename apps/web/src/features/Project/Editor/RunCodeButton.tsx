@@ -1,5 +1,5 @@
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
-import { LudoButton } from "../../../../../../packages/design-system/primitives/ludo-button.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useHotkeys } from "@ludocode/hooks";
 
 export function RunCodeButton() {

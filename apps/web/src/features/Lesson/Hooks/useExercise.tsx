@@ -1,14 +1,16 @@
-import type { LudoLesson } from "../../../../../../packages/types/Catalog/LudoLesson.ts";
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import { useChangeExercise } from "./useChangeExercise.tsx";
+import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import { useChangeExercise } from "@/features/Lesson/Hooks/useChangeExercise.tsx";
 
 import { useCallback } from "react";
-import type { ExerciseAttempt } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
-import { useStagedAttempt } from "./useStagedAttempt.tsx";
-import { useExerciseInput, type useExerciseInputResponse } from "./useExerciseInput.tsx";
-import { useCommittedSubmissions } from "./useCommittedSubmissions.tsx";
+import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
+import { useStagedAttempt } from "@/features/Lesson/Hooks/useStagedAttempt.tsx";
+import {
+  useExerciseInput,
+  type useExerciseInputResponse,
+} from "@/features/Lesson/Hooks/useExerciseInput.tsx";
+import { useCommittedSubmissions } from "@/features/Lesson/Hooks/useCommittedSubmissions.tsx";
 import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
-
 
 type Args = { exercises: LudoExercise[]; lesson: LudoLesson; position: number };
 

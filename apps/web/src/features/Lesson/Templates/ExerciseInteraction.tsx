@@ -1,13 +1,16 @@
 import { InteractiveCodeBlock } from "@/features/Lesson/Components/Code/InteractiveCodeBlock.tsx";
-import { useSelectOption } from "../Hooks/useSelectOption.tsx";
+import { useSelectOption } from "@/features/Lesson/Hooks/useSelectOption.tsx";
 
-import type { ExerciseInteractionConfig } from "../Pages/LessonPage.tsx";
-import type { useExerciseBodyData } from "../Hooks/useExerciseBodyData.tsx";
-import { cn } from "../../../../../../packages/design-system/cn-utils.ts";
+import type { ExerciseInteractionConfig } from "@/features/Lesson//Pages/LessonPage.tsx";
+import type { useExerciseBodyData } from "@/features/Lesson//Hooks/useExerciseBodyData.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { CodeUtilsGroup } from "@/features/Lesson/Components/Code/CodeUtilsGroup.tsx";
-import { useLessonContext } from "../Context/useLessonContext.tsx";
+import { useLessonContext } from "@/features/Lesson//Context/useLessonContext.tsx";
 import { OptionListWrapper } from "@/features/Lesson/Components/Code/option-list-wrapper.tsx";
-import { ClickableOption, WideClickableOption } from "../../../../../../packages/design-system/primitives/clickable-option.tsx";
+import {
+  ClickableOption,
+  WideClickableOption,
+} from "@ludocode/design-system/primitives/clickable-option.tsx";
 import type { AnswerToken } from "@ludocode/types";
 
 export function ExerciseInteraction({

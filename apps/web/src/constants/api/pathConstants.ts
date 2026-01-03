@@ -1,4 +1,4 @@
-import { API_URL, DEMO_AUTH_TOKEN } from "../environment/env.ts";
+import { API_URL, DEMO_AUTH_TOKEN } from "@/constants/environment/env";
 
 export const API_PREFIX = "/api/v1";
 export const API_PATH = API_URL + API_PREFIX;

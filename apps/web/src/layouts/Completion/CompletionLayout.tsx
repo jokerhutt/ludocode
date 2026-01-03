@@ -7,12 +7,12 @@ import {
 import type {
   CompletionSearch,
   CompletionState,
-} from "../../../../../packages/types/Completion/LessonCompletionResponse.ts";
+} from "@ludocode/types/Completion/LessonCompletionResponse.ts";
 import { CompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { MainContentWrapper } from "../../../../../packages/design-system/layouts/grid/main-content-wrapper.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { getRouteApi } from "@tanstack/react-router";
 
 export const STEPS = ["lesson", "streak", "course"] as const;

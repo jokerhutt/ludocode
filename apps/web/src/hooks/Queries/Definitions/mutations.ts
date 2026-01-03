@@ -1,7 +1,7 @@
 import { mutationOptions } from "@tanstack/react-query";
-import type { LessonCompletionPacket } from "../../../../../../packages/types/Completion/LessonCompletionResponse.ts";
-import type { LessonSubmission } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
-import { logout, ludoPost } from "../Fetcher/ludoPost.ts";
+import type { LessonCompletionPacket } from "@ludocode/types/Completion/LessonCompletionResponse.ts";
+import type { LessonSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
+import { logout, ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import {
   CHANGE_COURSE,
   RESET_COURSE_PROGRESS,
@@ -12,16 +12,16 @@ import {
   SUBMIT_ONBOARDING,
   SUBMIT_RENAME_PROJECT,
   SUBMIT_SAVE_PROJECT,
-} from "../../../constants/api/pathConstants.ts";
-import type { ChangeCourseType } from "../../../../../../packages/types/User/ChangeCourseType.ts";
-import type { CourseProgress } from "../../../../../../packages/types/User/CourseProgress.ts";
-import type { OnboardingResponse } from "../../../../../../packages/types/Onboarding/OnboardingResponse.ts";
-import type { OnboardingSubmission } from "../../../../../../packages/types/Onboarding/OnboardingCourse.ts";
-import { type ProjectSnapshot } from "../../../../../../packages/types/Project/ProjectSnapshot.ts";
-import { type CreateProjectRequest } from "../../../../../../packages/types/Project/CreateProjectRequest.ts";
-import type { ProjectListResponse } from "../../../../../../packages/types/Project/ProjectListResponse.ts";
-import type { RunnerResult } from "../../../../../../packages/types/Project/Runner/RunnerResult.ts";
-import type { RenameProjectRequest } from "../../../../../../packages/types/Project/RenameProjectRequest.ts";
+} from "@/constants/api/pathConstants.ts";
+import type { ChangeCourseType } from "@ludocode/types/User/ChangeCourseType.ts";
+import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
+import type { OnboardingResponse } from "@ludocode/types/Onboarding/OnboardingResponse.ts";
+import type { OnboardingSubmission } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
+import { type ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
+import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProjectRequest.ts";
+import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
+import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
+import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
 
 export interface ChangeCourseVariables {
   newCourseId: string;

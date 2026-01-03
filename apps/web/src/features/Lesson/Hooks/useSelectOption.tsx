@@ -1,5 +1,5 @@
 import type { AnswerToken } from "@ludocode/types";
-import type { LudoExerciseOption } from "../../../../../../packages/types/Exercise/LudoExerciseOption.ts";
+import type { LudoExerciseOption } from "@ludocode/types/Exercise/LudoExerciseOption.ts";
 
 type Args = {
   option: LudoExerciseOption;

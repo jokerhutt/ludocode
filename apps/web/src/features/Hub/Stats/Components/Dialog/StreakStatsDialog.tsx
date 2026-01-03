@@ -2,11 +2,11 @@ import {
   Dialog,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../../../../packages/external/ui/dialog.tsx";
+} from "@ludocode/external/ui/dialog.tsx";
 import type { ReactNode } from "react";
-import type { DailyGoalMet, UserStreak } from "../../../../../../../../packages/types/User/UserStreak.ts";
+import type { DailyGoalMet, UserStreak } from "@ludocode/types/User/UserStreak.ts";
 import { WeeklyStreakGroup } from "@/features/Hub/Stats/Components/Group/WeeklyStreakGroup.tsx";
-import { DialogWrapper } from "../../../../../../../../packages/design-system/widgets/ludo-dialog.tsx";
+import { DialogWrapper } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
 
 type StreakStatsDialogProps = {
   children: ReactNode;

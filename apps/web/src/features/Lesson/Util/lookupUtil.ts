@@ -1,4 +1,4 @@
-import type { ExerciseAttempt, ExerciseSubmission } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+import type { ExerciseAttempt, ExerciseSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 
 export function findLastAttempt(
   submissions: ExerciseSubmission[],

@@ -1,5 +1,5 @@
-import { cn } from "../../../../../../../../packages/design-system/cn-utils.ts";
-import { HeaderTab } from "../../../../../../../../packages/design-system/primitives/tab.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { HeaderTab } from "@ludocode/design-system/primitives/tab";
 
 type ModuleSelectionBarProps = {
   activeTab: MobileModuleTabs;

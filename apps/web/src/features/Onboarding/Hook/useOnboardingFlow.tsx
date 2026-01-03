@@ -2,8 +2,11 @@ import { useSubmitOnboarding } from "@/hooks/Queries/Mutations/useSubmitOnboardi
 import type {
   CareerType,
   OnboardingSubmission,
-} from "../../../../../../packages/types/Onboarding/OnboardingCourse.ts";
-import { stepOrder, type StageKey } from "../Templates/OnboardingSteps.ts";
+} from "@ludocode/types/Onboarding/OnboardingCourse.ts";
+import {
+  stepOrder,
+  type StageKey,
+} from "@/features/Onboarding/Templates/OnboardingSteps.ts";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 

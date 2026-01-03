@@ -1,8 +1,8 @@
 "use client";
 
 import { Drawer } from "vaul";
-import { useLessonContext } from "../Context/useLessonContext.tsx";
-import { LessonFooter } from "../Components/Zone/LessonFooter.tsx";
+import { useLessonContext } from "@/features/Lesson//Context/useLessonContext.tsx";
+import { LessonFooter } from "@/features/Lesson//Components/Zone/LessonFooter.tsx";
 
 export function LessonFeedbackDrawer() {
   const { phase } = useLessonContext();

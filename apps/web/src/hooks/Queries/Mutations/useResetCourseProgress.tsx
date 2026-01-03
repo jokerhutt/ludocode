@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { mutations } from "../Definitions/mutations.ts";
-import type { CourseProgress } from "../../../../../../packages/types/User/CourseProgress.ts";
-import { qk } from "../Definitions/qk.ts";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
+import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useRouter } from "@tanstack/react-router";
+import { router } from "@/main.tsx";
 
 export function useResetCourseProgress() {
   const qc = useQueryClient();
-  const router = useRouter();
 
   return useMutation({
     ...mutations.resetCourseProgress(),

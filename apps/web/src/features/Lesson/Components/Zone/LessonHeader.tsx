@@ -1,6 +1,6 @@
-import { Progress } from "../../../../../../../packages/external/ui/progress.tsx";
-import { LeaveUnsavedDialog } from "../../../../../../../packages/design-system/templates/dialog/leave-unsaved-dialog.tsx";
-import { IconButton } from "../../../../../../../packages/design-system/primitives/icon-button.tsx";
+import { Progress } from "@ludocode/external/ui/progress.tsx";
+import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog.tsx";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
 
 type LessonHeaderProps = {

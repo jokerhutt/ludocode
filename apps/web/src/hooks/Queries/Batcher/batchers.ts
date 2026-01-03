@@ -5,13 +5,13 @@ import {
   GET_MODULES_FROM_IDS,
   GET_USER_COINS_FROM_USER_IDS,
   GET_USERS_FROM_IDS,
-} from "../../../constants/api/pathConstants.ts";
-import type { LudoLesson } from "../../../../../../packages/types/Catalog/LudoLesson.ts";
+} from "@/constants/api/pathConstants.ts";
+import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import { makeIdBatcher } from "./batcherFactory.ts";
-import type { LudoModule } from "../../../../../../packages/types/Catalog/LudoModule.ts";
+import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 
-import type { CourseProgress } from "../../../../../../packages/types/User/CourseProgress.ts";
-import type { UserCoins } from "../../../../../../packages/types/User/UserCoins.ts";
+import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
+import type { UserCoins } from "@ludocode/types/User/UserCoins.ts";
 import type { LudoUser } from "@ludocode/types";
 
 export const lessonBatcher = makeIdBatcher<LudoLesson>({

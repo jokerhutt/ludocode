@@ -1,9 +1,9 @@
-import { cn } from "../../../../../../../packages/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 import {
   CustomIcon,
   type IconName,
-} from "../../../../../../../packages/design-system/primitives/custom-icon.tsx";
-import type { ExerciseType } from "../../../../../../../packages/types/Exercise/ExerciseType.ts";
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
 
 type ExerciseLabelProps = { exerciseType: ExerciseType; className?: string };
 

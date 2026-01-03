@@ -1,6 +1,6 @@
-import { Winbar } from "../../../../../../packages/design-system/zones/winbar.tsx";
+import { Winbar } from "@ludocode/design-system/zones/winbar.tsx";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
-import { IconButton } from "../../../../../../packages/design-system/primitives/icon-button.tsx";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 
 export function RunnerWinbar() {
   const { outputInfo } = useCodeRunnerContext();

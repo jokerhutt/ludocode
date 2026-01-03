@@ -1,7 +1,11 @@
-import type { ExerciseAttempt } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { useCallback, useState } from "react";
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import { areAllFilled, areAllValid, checkCorrect } from "../Util/validationUtil.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import {
+  areAllFilled,
+  areAllValid,
+  checkCorrect,
+} from "@/features/Lesson/Util/validationUtil.ts";
 import { playSound } from "@/sound/soundManager.ts";
 import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 import type { AnswerToken } from "@ludocode/types";
@@ -24,7 +28,6 @@ export function useStagedAttempt({
   currentExerciseInputs,
   currentExercise,
 }: useStagedAttemptProps): useStagedAttemptResponse {
-  
   const allSlotsFilled = areAllFilled(currentExerciseInputs);
   const allSlotsValid =
     currentExercise.exerciseType === "INFO" ||
@@ -57,8 +60,8 @@ export function useStagedAttempt({
   const phase: ExercisePhase = !hasStaged
     ? "DEFAULT"
     : currentlyStagedAttempt.isCorrect
-    ? "CORRECT"
-    : "INCORRECT";
+      ? "CORRECT"
+      : "INCORRECT";
 
   const canSubmit = allSlotsValid;
 

@@ -1,5 +1,5 @@
 import { useOnboardingContext } from "@/features/Onboarding/Context/OnboardingContext.tsx";
-import type { CareerType } from "../../../../../../packages/types/Onboarding/OnboardingCourse.ts";
+import type { CareerType } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
 
 export function CareerChoiceStep() {
   const { content, hook } = useOnboardingContext();

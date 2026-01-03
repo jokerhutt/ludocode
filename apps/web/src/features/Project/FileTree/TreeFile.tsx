@@ -1,13 +1,13 @@
 import {
   LANGUAGE_MAP,
   type LanguageType,
-} from "../../../../../../packages/types/Project/LanguageType.ts";
+} from "@ludocode/types/Project/LanguageType.ts";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import {
   FileWrapper,
   FileInfoRow,
 } from "@ludocode/design-system/primitives/file.tsx";
-import { CustomIcon } from "../../../../../../packages/design-system/primitives/custom-icon.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button.tsx";
 
 type TreeFileProps = {

@@ -1,6 +1,6 @@
 import { NewFilePopover } from "@/features/Project/FileTree/new-file-popover.tsx";
-import { IconButton } from "../../../../../../packages/design-system/primitives/icon-button.tsx";
-import { Winbar } from "../../../../../../packages/design-system/zones/winbar.tsx";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
+import { Winbar } from "@ludocode/design-system/zones/winbar.tsx";
 
 export function FileTreeWinbar() {
   return (

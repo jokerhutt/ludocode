@@ -1,6 +1,6 @@
-import { cn } from "../../../../../../../packages/design-system/cn-utils.ts";
-import { useLessonContext } from "../../Context/useLessonContext.tsx";
-import type { ExercisePhase } from "./LessonFooter.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
+import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter";
 
 type ResultStyle = {
   border: string;

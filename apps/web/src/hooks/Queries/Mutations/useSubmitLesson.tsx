@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { qk } from "../Definitions/qk.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { mutations } from "../Definitions/mutations.ts";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
 import { useRouter } from "@tanstack/react-router";
 
 type Args = {

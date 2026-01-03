@@ -2,10 +2,10 @@ import { ExerciseMedia } from "@/features/Lesson/Components/Media/ExerciseMedia.
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { ExerciseLabel } from "@/features/Lesson/Components/Prompt/ExerciseLabel.tsx";
 import { ExerciseInstruction } from "@/features/Lesson/Components/Prompt/ExerciseInstruction.tsx";
-import type { ExerciseType } from "../../../../../../packages/types/Exercise/ExerciseType.ts";
-import { ExerciseInteraction } from "../Templates/ExerciseInteraction.tsx";
-import { useExerciseBodyData } from "../Hooks/useExerciseBodyData.tsx";
-import { FloatingChatbotWindow } from "../../../../../../packages/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
+import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
+import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInteraction.tsx";
+import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
+import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 

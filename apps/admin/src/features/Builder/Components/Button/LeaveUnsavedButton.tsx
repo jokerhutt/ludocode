@@ -1,7 +1,7 @@
 import { adminNavigation } from "@/constants/adminNavigation";
+import { router } from "@/main";
 import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog";
 import { Button } from "@ludocode/external/ui/button";
-import { useRouter } from "@tanstack/react-router";
 
 type LeaveUnsavedButtonProps = { variant: any; enabled: boolean };
 
@@ -9,7 +9,6 @@ export function LeaveUnsavedButton({
   variant,
   enabled,
 }: LeaveUnsavedButtonProps) {
-  const router = useRouter();
   const leaveUnsavedText = `Are you sure you want to exit the builder?`;
   const leaveUnsavedSubtitle = `ALL unsubmitted changes will be lost. If you want to submit, click Submit Snapshot in the header`;
 

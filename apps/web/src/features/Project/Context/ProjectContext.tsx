@@ -2,7 +2,7 @@ import {
   useProject,
   type UseProjectResponse,
 } from "@/features/Project/Hooks/useProject.tsx";
-import type { ProjectSnapshot } from "../../../../../../packages/types/Project/ProjectSnapshot.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { createContext, useContext, type ReactNode } from "react";
 
 const ProjectContext = createContext<UseProjectResponse | null>(null);

@@ -1,8 +1,8 @@
 import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
-import type { OutputPacket } from "../../../../../../packages/types/Project/Runner/OutputPacket.ts";
-import type { ProjectFileSnapshot } from "../../../../../../packages/types/Project/ProjectFileSnapshot.ts";
-import type { ProjectSnapshot } from "../../../../../../packages/types/Project/ProjectSnapshot.ts";
-import type { RunnerResult } from "../../../../../../packages/types/Project/Runner/RunnerResult.ts";
+import type { OutputPacket } from "@ludocode/types/Project/Runner/OutputPacket.ts";
+import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
+import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState, useRef, useEffect } from "react";
 

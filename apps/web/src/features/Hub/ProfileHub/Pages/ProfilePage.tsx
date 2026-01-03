@@ -1,6 +1,6 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { LogoutButton } from "../../../Auth/Components/LogoutButton.tsx";
+import { LogoutButton } from "@/features/Auth/Components/LogoutButton.tsx";
 import dayjs from "dayjs";
 
 type ProfilePageProps = {};

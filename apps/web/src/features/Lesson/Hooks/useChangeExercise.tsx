@@ -1,7 +1,7 @@
 import type {
   ExerciseAttempt,
   ExerciseSubmission,
-} from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+} from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { useEffect } from "react";
 import { findLastAttempt } from "../Util/lookupUtil.ts";
 
