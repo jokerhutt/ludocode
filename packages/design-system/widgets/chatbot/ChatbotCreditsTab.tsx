@@ -2,13 +2,13 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";
 
-type ChatbotCreditsTabProps = { className?: string };
+type ChatbotCreditsTabProps = { credits: number; className?: string };
 
 export function ChatbotCreditsTab({
   className,
+  credits
 }: ChatbotCreditsTabProps) {
 
-  const {credits} = useChatbot()
 
   return (
     <div

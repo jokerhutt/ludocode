@@ -14,6 +14,7 @@ import {
   MessageActions,
 } from "@ludocode/external/ai-elements/message";
 import { ChatbotCreditsTab } from "./ChatbotCreditsTab";
+import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";
 
 type ChatBotInputProps = {
   handleSubmit: (message: PromptInputMessage) => void;
@@ -21,6 +22,9 @@ type ChatBotInputProps = {
 
 export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
   const [input, setInput] = useState("");
+  const { credits } = useChatbot();
+
+  const creditsEmpty = credits <= 0;
 
   const clearInputAndSubmit = (message: PromptInputMessage) => {
     setInput("");
@@ -34,7 +38,7 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       globalDrop
       multiple
     >
-      <ChatbotCreditsTab />
+      <ChatbotCreditsTab credits={credits} />
       <PromptInputBody>
         <PromptInputTextarea
           placeholder="Ask your question here."
@@ -44,7 +48,7 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       </PromptInputBody>
       <PromptInputFooter>
         <PromptInputTools />
-        <PromptInputSubmit disabled={!input && !status} />
+        <PromptInputSubmit disabled={(!input && !status) || creditsEmpty} />
       </PromptInputFooter>
     </PromptInput>
   );
