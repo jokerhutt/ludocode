@@ -1,4 +1,4 @@
-import { API_URL } from "../environment/env.ts";
+import { API_URL } from "@/constants/environment/env.ts";
 
 // == PREFIX == //
 export const API_PREFIX = "/api/v1";

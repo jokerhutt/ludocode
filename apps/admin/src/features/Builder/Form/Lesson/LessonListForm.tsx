@@ -1,10 +1,10 @@
 import { Button } from "@ludocode/external/ui/button";
-import { newLesson } from "../../Util/NewExerciseTemplates.ts";
+import { newLesson } from "@/features/Builder/Util/NewExerciseTemplates.ts";
 import { AddLessonRow } from "@/features/Builder/Components/Button/AddLessonRow.tsx";
 import { TreeItem } from "@/features/Builder/Components/Tree/tree-item.tsx";
 import { BuilderNodeWrapper } from "@/features/Builder/Components/Wrapper/builder-node-wrapper.tsx";
 import { BuilderNode } from "@/features/Builder/Components/Tree/builder-node.tsx";
-import { StatusDot } from "../../../../../../../packages/design-system/primitives/status-dot.tsx";
+import { StatusDot } from "@ludocode/design-system/primitives/status-dot.tsx";
 import { EditNodeDialog } from "@/features/Builder/Components/Dialog/EditNodeDialog.tsx";
 import { router } from "@/main.tsx";
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";

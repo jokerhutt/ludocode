@@ -1,7 +1,7 @@
 import { SidebarMenu } from "@ludocode/external/ui/sidebar";
 import { Button } from "@ludocode/external/ui/button";
 import { newModule } from "@/features/Builder/Util/NewExerciseTemplates.ts";
-import { ModuleNodeForm } from "./ModuleNodeForm.tsx";
+import { ModuleNodeForm } from "@/features/Builder/Form/Module/ModuleNodeForm.tsx";
 import { router } from "@/main.tsx";
 import { courseFormOpts, withForm } from "@/constants/form/formKit.ts";
 import { adminNavigation } from "@/constants/adminNavigation.tsx";

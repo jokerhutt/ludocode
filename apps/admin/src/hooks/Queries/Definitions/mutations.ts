@@ -1,8 +1,8 @@
 import { mutationOptions } from "@tanstack/react-query";
-import { ludoPost } from "../Fetcher/ludoPost.ts";
-import { SUBMIT_CREATE_COURSE } from "../../../constants/api/pathConstants.ts";
-import { type LudoCourse } from "../../../../../../packages/types/Catalog/LudoCourse.ts";
-import { type CreateCourseRequest } from "../../../../../../packages/types/Builder/CreateCourseRequest.ts";
+import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
+import { SUBMIT_CREATE_COURSE } from "@/constants/api/pathConstants.ts";
+import { type LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
+import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRequest.ts";
 
 export const mutations = {
   createCourse: () => {

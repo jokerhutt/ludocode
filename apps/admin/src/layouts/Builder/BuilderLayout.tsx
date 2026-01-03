@@ -1,21 +1,21 @@
 import {
   SidebarInset,
   SidebarProvider,
-} from "../../../../../packages/external/ui/sidebar.tsx";
+} from "@ludocode/external/ui/sidebar.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import type {
   CourseSnap,
   ModuleSnap,
-} from "../../../../../packages/types/Builder/BuilderSnapshotTypes.ts";
+} from "@ludocode/types/Builder/BuilderSnapshotTypes.ts";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/api/pathConstants.ts";
 import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ModuleListForm } from "@/features/Builder/Form/Module/ModuleListForm.tsx";
 import { BuilderHeader } from "@/features/Builder/Components/Zone/BuilderHeader.tsx";
 import { ExerciseNodeForm } from "@/features/Builder/Form/Exercise/ExerciseNodeForm.tsx";
-import { LudoSidebar } from "../../../../../packages/design-system/widgets/ludo-sidebar.tsx";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { LudoSidebar } from "@ludocode/design-system/widgets/ludo-sidebar.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { getRouteApi } from "@tanstack/react-router";
 import { courseFormOpts, useAppForm } from "@/constants/form/formKit.ts";
 

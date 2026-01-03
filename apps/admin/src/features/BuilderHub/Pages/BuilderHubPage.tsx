@@ -1,12 +1,12 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { uuid } from "@tanstack/react-form";
-import { builderHeroContent } from "../content.ts";
+import { builderHeroContent } from "@/features/BuilderHub/content.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { useModal } from "@ludocode/hooks/ui/useModal.tsx";
 import { BuilderHubCourseCard } from "@/features/BuilderHub/Components/Card/BuilderHubCourseCard.tsx";
-import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog.tsx";
+import { CreateCourseDialog } from "@/features/BuilderHub/Components/Dialog/CreateCourseDialog.tsx";
 
 export function BuilderHubPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());

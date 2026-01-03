@@ -4,7 +4,7 @@ import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.
 import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import type { FormEditMode } from "./ExerciseOptionsDnDContainer.tsx";
+import type { FormEditMode } from "@/features/Builder/Components/Drag/ExerciseOptionsDnDContainer.tsx";
 
 type SortableOptionProps = {
   id: string;
