@@ -6,17 +6,20 @@ import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts
 import { useRouter } from "@tanstack/react-router";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import dayjs from "dayjs";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { projectId, projectName, projectLanguage } = project;
+  const { projectId, projectName, projectLanguage, updatedAt } = project;
   const router = useRouter();
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
 
   const { iconName } = LANGUAGE_MAP[projectLanguage];
+
+  const updatedAtTime = updatedAt ? dayjs(updatedAt).format("MMMM DD, YYYY") : "-";
 
   return (
     <LudoButton
@@ -34,7 +37,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-col gap-1 text-start">
           <p className="m-0 text-lg leading-tight">{projectName}</p>
           <p className="m-0 text-xs text-ludoAltText leading-tight">
-            Modified 4 days ago
+            Last modified: {updatedAtTime}
           </p>
         </div>
       </div>
