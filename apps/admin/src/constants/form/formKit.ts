@@ -2,8 +2,12 @@
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import FormTitleField from "@/features/Builder/Components/fields/form-title-field.tsx";
 import { AddExerciseFieldButton } from "@/features/Builder/Components/fields/add-exercise-field-button.tsx";
-import { StatusDot } from "../../../../../packages/design-system/primitives/status-dot.tsx";
-import { CourseSnapSchema, OnboardingSnapSchema, type ModuleSnap } from "@ludocode/types";
+import { StatusDot } from "@ludocode/design-system/primitives/status-dot.tsx";
+import {
+  CourseSnapSchema,
+  OnboardingSnapSchema,
+  type ModuleSnap,
+} from "@ludocode/types";
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();

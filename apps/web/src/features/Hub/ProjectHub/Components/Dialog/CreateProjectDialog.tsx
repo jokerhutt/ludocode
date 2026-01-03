@@ -1,11 +1,11 @@
-import { DialogTitle } from "../../../../../../../../packages/external/ui/dialog.tsx";
-import { Input } from "../../../../../../../../packages/external/ui/input.tsx";
-import { Button } from "../../../../../../../../packages/external/ui/button.tsx";
-import type { LanguageType } from "../../../../../../../../packages/types/Project/LanguageType.ts";
+import { DialogTitle } from "@ludocode/external/ui/dialog.tsx";
+import { Input } from "@ludocode/external/ui/input.tsx";
+import { Button } from "@ludocode/external/ui/button.tsx";
+import type { LanguageType } from "@ludocode/types/Project/LanguageType.ts";
 import { useState, type ReactNode } from "react";
 import { useCreateProject } from "@/hooks/Queries/Mutations/useCreateProject.tsx";
-import { Spinner } from "../../../../../../../../packages/external/ui/spinner.tsx";
-import { LudoDialog } from "../../../../../../../../packages/design-system/widgets/ludo-dialog.tsx";
+import { Spinner } from "@ludocode/external/ui/spinner.tsx";
+import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
 import {
   InputWrapper,
   InputTitle,

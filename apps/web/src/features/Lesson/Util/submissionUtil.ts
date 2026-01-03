@@ -2,7 +2,7 @@ import type {
   ExerciseAttempt,
   ExerciseSubmission,
   LessonSubmission,
-} from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+} from "@ludocode/types/Exercise/LessonSubmissions.ts";
 
 export function convertStagedAttemptIntoExerciseSubmission(
   attempt: ExerciseAttempt,

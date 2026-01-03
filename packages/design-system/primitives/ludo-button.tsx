@@ -2,7 +2,6 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { Spinner } from "@ludocode/external/ui/spinner";
 import { forwardRef } from "react";
 
-
 type Variant = "default" | "alt";
 
 type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {

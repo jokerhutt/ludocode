@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import { getGapCount } from "../Util/inputUtil.ts";
-import type { ExerciseAttempt } from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import { getGapCount } from "@/features/Lesson/Util/inputUtil.ts";
+import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { AnswerToken } from "@ludocode/types";
 
 type Args = { currentExercise: LudoExercise };

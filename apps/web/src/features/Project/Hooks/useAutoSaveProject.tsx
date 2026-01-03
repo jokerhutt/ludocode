@@ -1,6 +1,6 @@
 import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
-import type { ProjectFileSnapshot } from "../../../../../../packages/types/Project/ProjectFileSnapshot.ts";
-import type { ProjectSnapshot } from "../../../../../../packages/types/Project/ProjectSnapshot.ts";
+import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 

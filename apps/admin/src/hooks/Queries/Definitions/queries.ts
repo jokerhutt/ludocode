@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { qk } from "./qk";
+import { qk } from "@/hooks/Queries/Definitions/qk";
 import { userBatcher } from "@/hooks/Queries/Batcher/batchers";
 import {
   AUTH_ME,

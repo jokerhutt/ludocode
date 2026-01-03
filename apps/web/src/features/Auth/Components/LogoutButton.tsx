@@ -1,5 +1,5 @@
-import { Button } from "@ludocode/external/ui/button";
 import { useLogout } from "@/hooks/Queries/Mutations/useLogout.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 type LogoutButtonProps = {};
 
@@ -12,8 +12,8 @@ export function LogoutButton({}: LogoutButtonProps) {
   };
 
   return (
-    <Button onClick={() => handleLogout()} className="text-lg">
+    <LudoButton variant="alt" onClick={() => handleLogout()} className="text-lg px-4">
       Log Out
-    </Button>
+    </LudoButton>
   );
 }

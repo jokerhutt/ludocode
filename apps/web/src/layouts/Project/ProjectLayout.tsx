@@ -2,7 +2,7 @@ import { ProjectProvider } from "@/features/Project/Context/ProjectContext.tsx";
 import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { getRouteApi, useLoaderData } from "@tanstack/react-router";
 import { ProjectHeader } from "@/features/Project/Zone/ProjectHeader.tsx";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 
 type ProjectLayoutProps = {};
 

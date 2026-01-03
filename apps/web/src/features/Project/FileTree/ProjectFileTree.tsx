@@ -1,4 +1,4 @@
-import { TreeFile } from "./TreeFile.tsx";
+import { TreeFile } from "@/features/Project/FileTree/TreeFile.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 
 export function ProjectFileTree() {

@@ -7,10 +7,10 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../../../packages/external/ui/popover.tsx";
-import { DeleteDialog } from "../../../../../../packages/design-system/templates/dialog/delete-dialog.tsx";
-import { HeroIcon } from "../../../../../../packages/design-system/primitives/hero-icon.tsx";
-import { RenameDialog } from "../../../../../../packages/design-system/templates/dialog/rename-dialog.tsx";
+} from "@ludocode/external/ui/popover.tsx";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
+import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
+import { RenameDialog } from "@ludocode/design-system/templates/dialog/rename-dialog.tsx";
 
 type FileActionsPopoverProps = {
   children: ReactNode;

@@ -3,8 +3,8 @@ import type {
   FlatCourseTree,
   FlatLesson,
   FlatModule,
-} from "../../../../../../../packages/types/Catalog/FlatCourseTree.ts";
-import { qo } from "../../../../hooks/Queries/Definitions/queries.ts";
+} from "@ludocode/types/Catalog/FlatCourseTree.ts";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseDataArray } from "@/hooks/Queries/Util/useSuspenseDataArray.tsx";
 
 type Args = {

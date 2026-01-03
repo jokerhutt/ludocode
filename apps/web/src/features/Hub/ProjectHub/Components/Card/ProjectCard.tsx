@@ -1,11 +1,11 @@
 import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button.tsx";
 import { useModifyProject } from "@/hooks/Queries/Mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { LANGUAGE_MAP } from "../../../../../../../../packages/types/Project/LanguageType.ts";
-import type { ProjectSnapshot } from "../../../../../../../../packages/types/Project/ProjectSnapshot.ts";
+import { LANGUAGE_MAP } from "@ludocode/types/Project/LanguageType.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { useRouter } from "@tanstack/react-router";
-import { LudoButton } from "../../../../../../../../packages/design-system/primitives/ludo-button.tsx";
-import { CustomIcon } from "../../../../../../../../packages/design-system/primitives/custom-icon.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 

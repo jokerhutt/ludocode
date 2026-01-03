@@ -1,4 +1,4 @@
-import { mutations } from "../Definitions/mutations.ts";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";

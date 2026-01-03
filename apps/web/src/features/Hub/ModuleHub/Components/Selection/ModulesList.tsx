@@ -1,9 +1,9 @@
-import { cn } from "../../../../../../../../packages/design-system/cn-utils.ts";
-import { ListContainer, ListRow, type ListHeaderProps } from "../../../../../../../../packages/design-system/widgets/ludo-list.tsx";
+import { ListContainer, ListRow, type ListHeaderProps } from "@ludocode/design-system/widgets/ludo-list.tsx";
 
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import type { LudoModule } from "../../../../../../../../packages/types/Catalog/LudoModule.ts";
+import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type ModulesListHeaderProps = {
   courseName: string;

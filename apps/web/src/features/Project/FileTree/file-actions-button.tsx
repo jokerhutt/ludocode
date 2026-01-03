@@ -1,4 +1,4 @@
-import { HeroIcon } from "../../../../../../packages/design-system/primitives/hero-icon.tsx";
+import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { FileActionsPopover } from "./file-actions-popover.tsx";
 
 type FileActionsButtonProps = {

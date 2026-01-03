@@ -1,10 +1,10 @@
 import { useState, useCallback } from "react";
-import type { ProjectFileSnapshot } from "../../../../../../packages/types/Project/ProjectFileSnapshot.ts";
-import type { ProjectSnapshot } from "../../../../../../packages/types/Project/ProjectSnapshot.ts";
+import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import {
   LANGUAGE_MAP,
   type LanguageType,
-} from "../../../../../../packages/types/Project/LanguageType.ts";
+} from "@ludocode/types/Project/LanguageType.ts";
 import { nextName } from "../Util/filenameUtil.ts";
 
 export type ProjectFileChoice = {

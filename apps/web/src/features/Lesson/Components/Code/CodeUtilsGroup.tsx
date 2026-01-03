@@ -1,4 +1,4 @@
-import { HeroIcon } from "../../../../../../../packages/design-system/primitives/hero-icon.tsx";
+import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 
 type CodeUtilsGroupProps = {
   enabled: boolean;
@@ -15,34 +15,35 @@ export function CodeUtilsGroup({
   popLast,
   isEmpty,
 }: CodeUtilsGroupProps) {
-  if (visible) return (
-    <div className="w-full flex items-end gap-6">
-      <div
-        onClick={() => {
-          if (!enabled) return;
-          clearExerciseInputs();
-        }}
-      >
-        <HeroIcon
-          iconName="TrashIcon"
-          className={`h-6 hover:cursor-pointer ${
-            isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
-          } w-6`}
-        />
+  if (visible)
+    return (
+      <div className="w-full flex items-end gap-6">
+        <div
+          onClick={() => {
+            if (!enabled) return;
+            clearExerciseInputs();
+          }}
+        >
+          <HeroIcon
+            iconName="TrashIcon"
+            className={`h-6 hover:cursor-pointer ${
+              isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
+            } w-6`}
+          />
+        </div>
+        <div
+          onClick={() => {
+            if (!enabled) return;
+            popLast();
+          }}
+        >
+          <HeroIcon
+            iconName="BackspaceIcon"
+            className={`h-6 hover:cursor-pointer ${
+              isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
+            } w-6`}
+          />
+        </div>
       </div>
-      <div
-        onClick={() => {
-          if (!enabled) return;
-          popLast();
-        }}
-      >
-        <HeroIcon
-          iconName="BackspaceIcon"
-          className={`h-6 hover:cursor-pointer ${
-            isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
-          } w-6`}
-        />
-      </div>
-    </div>
-  );
+    );
 }

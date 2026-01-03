@@ -2,17 +2,17 @@ import { getRouteApi, useParams } from "@tanstack/react-router";
 import {
   steps,
   type StageKey,
-} from "../../features/Onboarding/Templates/OnboardingSteps.ts";
+} from "@/features/Onboarding/Templates/OnboardingSteps.ts";
 import {
   OnboardingContext,
   type OnboardingContextType,
 } from "@/features/Onboarding/Context/OnboardingContext.tsx";
 import { useOnboardingFlow } from "@/features/Onboarding/Hook/useOnboardingFlow.tsx";
 import { OnboardingFooter } from "@/features/Onboarding/Components/Zone/OnboardingFooter.tsx";
-import { onboardingContent } from "../../constants/mocks/onboardingMocks.ts";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { onboardingContent } from "@/constants/mocks/onboardingMocks.ts";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
-import { MainContentWrapper } from "../../../../../packages/design-system/layouts/grid/main-content-wrapper.tsx";
+import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 
 export function OnboardingLayout() {
   const routeApi = getRouteApi("/_app/onboarding/$stage");

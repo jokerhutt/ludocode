@@ -1,8 +1,8 @@
 import type { ExerciseSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { parseExerciseError } from "@/features/Builder/Util/ParseErrors.ts";
-import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm.tsx";
+import { ExerciseNodeInfoForm } from "@/features/Builder/Form/Exercise/ExerciseNodeInfoForm.tsx";
 import { ExerciseNodesList } from "@/features/Builder/Form/Exercise/ExerciseNodesList.tsx";
-import { ExerciseOptionsForm } from "./ExerciseOptionsForm.tsx";
+import { ExerciseOptionsForm } from "@/features/Builder/Form/Exercise/ExerciseOptionsForm.tsx";
 import { SingleExerciseNodeWrapper } from "@/features/Builder/Components/Wrapper/SingleExerciseNodeWrapper.tsx";
 import { ExerciseControllerHeader } from "@/features/Builder/Components/Wrapper/ExerciseControllerHeader.tsx";
 import { ModifyExerciseRow } from "@/features/Builder/Components/Button/ModifyExerciseRow.tsx";

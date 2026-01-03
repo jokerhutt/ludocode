@@ -1,7 +1,7 @@
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import type { useExerciseInputResponse } from "./useExerciseInput.tsx";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import type { useExerciseInputResponse } from "@/features/Lesson/Hooks/useExerciseInput.tsx";
 import { useMemo } from "react";
-import { shuffleArray } from "../Util/shuffleUtil.ts";
+import { shuffleArray } from "@/features/Lesson/Util/shuffleUtil.ts";
 
 export function useExerciseBodyData(
   currentExercise: LudoExercise,

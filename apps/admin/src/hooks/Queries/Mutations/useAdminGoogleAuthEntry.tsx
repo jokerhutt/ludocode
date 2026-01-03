@@ -1,9 +1,9 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "../../../constants/api/pathConstants.ts";
-import { qk } from "../Definitions/qk.ts";
-import type { LoginUserResponse } from "../../../../../../packages/types/User/LoginUserResponse.ts";
-import { ludoPost } from "../Fetcher/ludoPost.ts";
+import { GOOGLE_LOGIN } from "@/constants/api/pathConstants.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk.ts";
+import type { LoginUserResponse } from "@ludocode//types/User/LoginUserResponse.ts";
+import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { useRouter } from "@tanstack/react-router";
 import { adminNavigation } from "@/constants/adminNavigation.tsx";
 export function useAdminGoogleAuthEntry() {

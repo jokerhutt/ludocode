@@ -1,4 +1,4 @@
-import { API_URL, DEMO_AUTH_TOKEN } from "../environment/env.ts";
+import { API_URL, DEMO_AUTH_TOKEN } from "@/constants/environment/env";
 
 export const API_PREFIX = "/api/v1";
 export const API_PATH = API_URL + API_PREFIX;
@@ -24,6 +24,9 @@ export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
 
 // == AI == //
 export const SUBMIT_AI_PROMPT = API_PATH + `/ai/prompt/send`;
+
+// == AI CREDITS == //
+export const GET_USER_CREDITS = API_PATH + `/credits/get`;
 
 // == PROJECT == //
 export const GET_PROJECT = (pid: string) => API_PATH + `/projects/${pid}/get`;

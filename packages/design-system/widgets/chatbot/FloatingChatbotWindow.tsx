@@ -8,12 +8,14 @@ import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow
 type FloatingChatBotWindowProps = {
   chatType: ChatBotChatType;
   targetId: string | null;
+  credits: number;
   outerClassName?: string;
 };
 
 export function FloatingChatbotWindow({
   outerClassName,
   targetId,
+  credits,
   chatType,
 }: FloatingChatBotWindowProps) {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +27,7 @@ export function FloatingChatbotWindow({
   });
 
   return (
-    <ChatBotProvider targetId={targetId} type="LESSON">
+    <ChatBotProvider credits={credits} targetId={targetId} type="LESSON">
       <div
         className={cn("h-full w-full py-6 ", isVisibleStyle, outerClassName)}
       >

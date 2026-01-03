@@ -1,5 +1,5 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import type { LessonStatus, LudoLesson } from "../../../../../../../packages/types/Catalog/LudoLesson.ts";
+import type { LessonStatus, LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import { useRouter } from "@tanstack/react-router";
 
 type Args = {

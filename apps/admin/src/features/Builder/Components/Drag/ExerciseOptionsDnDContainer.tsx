@@ -1,5 +1,5 @@
 import { DndContext, DragOverlay } from "@dnd-kit/core";
-import { OptionsColumn } from "./OptionsColumn.tsx";
+import { OptionsColumn } from "@/features/Builder/Components/Drag/OptionsColumn.tsx";
 import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import {
   useOptionsDragAndDrop,

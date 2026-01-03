@@ -1,18 +1,18 @@
 import { queryOptions } from "@tanstack/react-query";
-import { qk } from "./qk.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk";
 import {
   courseProgressBatcher,
   lessonBatcher,
   moduleBatcher,
   userBatcher,
   userCoinsBatcher,
-} from "../Batcher/batchers.ts";
-import type { LudoModule } from "../../../../../../packages/types/Catalog/LudoModule.ts";
-import type { LudoLesson } from "../../../../../../packages/types/Catalog/LudoLesson.ts";
-import type { CourseProgress } from "../../../../../../packages/types/User/CourseProgress.ts";
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
-import { ludoGet } from "../Fetcher/ludoGet.ts";
-import type { LudoCourse } from "../../../../../../packages/types/Catalog/LudoCourse.ts";
+} from "@/hooks/Queries/Batcher/batchers.ts";
+import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
+import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
+import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import { ludoGet } from "@/hooks/Queries/Fetcher/ludoGet.ts";
+import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import {
   AUTH_ME,
   GET_ALL_COURSES,
@@ -25,16 +25,17 @@ import {
   GET_USER_STREAK,
   GET_PAST_WEEK_STREAK,
   GET_ENABLED_FEATURES,
-} from "../../../constants/api/pathConstants.ts";
-import type { LudoUser } from "../../../../../../packages/types/User/LudoUser.ts";
-import type { FlatCourseTree } from "../../../../../../packages/types/Catalog/FlatCourseTree.ts";
-import type { UserPreferences } from "../../../../../../packages/types/User/UserPreferences.ts";
-import type { ProjectListResponse } from "../../../../../../packages/types/Project/ProjectListResponse.ts";
+  GET_USER_CREDITS,
+} from "@/constants/api/pathConstants.ts";
+import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
+import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
+import type { UserPreferences } from "@ludocode/types/User/UserPreferences.ts";
+import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import {
   type DailyGoalMet,
   type UserStreak,
-} from "../../../../../../packages/types/User/UserStreak.ts";
-import { type ActiveFeaturesResponse } from "../../../../../../packages/types/FeatureFlags/FeatureFlags.ts";
+} from "@ludocode/types/User/UserStreak.ts";
+import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -69,6 +70,13 @@ export const qo = {
     queryOptions<LudoLesson>({
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
+      staleTime: 60_000,
+    }),
+
+  credits: () =>
+    queryOptions<number>({
+      queryKey: qk.credits(),
+      queryFn: () => ludoGet<number>(GET_USER_CREDITS, true),
       staleTime: 60_000,
     }),
 

@@ -1,5 +1,5 @@
 import { Button } from "@ludocode/external/ui/button";
-import { LessonListForm } from "../Lesson/LessonListForm.tsx";
+import { LessonListForm } from "@/features/Builder/Form/Lesson/LessonListForm.tsx";
 import { BuilderNodeWrapper } from "@/features/Builder/Components/Wrapper/builder-node-wrapper.tsx";
 import { BuilderNode } from "@/features/Builder/Components/Tree/builder-node.tsx";
 import { StatusDot } from "@ludocode/design-system/primitives/status-dot";

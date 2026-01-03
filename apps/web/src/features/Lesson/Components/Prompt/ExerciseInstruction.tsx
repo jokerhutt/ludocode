@@ -1,4 +1,4 @@
-import type { LudoExercise } from "../../../../../../../packages/types/Exercise/LudoExercise.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 
 type ExerciseInstructionProps = { currentExercise: LudoExercise };
 

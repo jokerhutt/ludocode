@@ -17,6 +17,7 @@ export const Icons = {
   CloudError: CloudErrorIcon,
   CloudLoad: CloudLoadIcon,
   CloudYes: CloudYesIcon,
+  AICredit: AICreditIcon,
 } as const satisfies Record<string, ComponentType<IconProps>>;
 
 export type IconName = keyof typeof Icons;
@@ -109,6 +110,47 @@ export function AnalyzeIcon({ color }: IconProps): JSX.Element {
       <path
         d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
         stroke="#C1ADFF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function AICreditIcon({ color }: IconProps): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill={color ?? "none"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+        stroke="#8369D6"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M18.09 10.3701C19.0353 10.7225 19.8765 11.3076 20.5357 12.0713C21.195 12.835 21.651 13.7526 21.8617 14.7392C22.0724 15.7258 22.0309 16.7496 21.741 17.716C21.4512 18.6823 20.9223 19.5599 20.2034 20.2677C19.4845 20.9755 18.5987 21.4906 17.6279 21.7653C16.6572 22.0401 15.6329 22.0656 14.6496 21.8396C13.6664 21.6135 12.7561 21.1432 12.0028 20.4721C11.2495 19.801 10.6776 18.9508 10.34 18.0001"
+        stroke="#8369D6"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7 6H8V10"
+        stroke="#8369D6"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M16.71 13.8799L17.41 14.5899L14.59 17.4099"
+        stroke="#8369D6"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"

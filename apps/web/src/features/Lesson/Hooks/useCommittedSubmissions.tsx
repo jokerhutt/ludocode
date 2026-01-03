@@ -1,14 +1,14 @@
 import {
   type ExerciseAttempt,
   type ExerciseSubmission,
-} from "../../../../../../packages/types/Exercise/LessonSubmissions.ts";
-import type { LudoExercise } from "../../../../../../packages/types/Exercise/LudoExercise.ts";
+} from "@ludocode/types/Exercise/LessonSubmissions.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { useCallback, useState } from "react";
 import {
   convertToLessonSubmission,
   createInfoExerciseAttempt,
   mergeStagedAttemptIntoExerciseSubmissions,
-} from "../Util/submissionUtil.ts";
+} from "@/features/Lesson/Util/submissionUtil.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 

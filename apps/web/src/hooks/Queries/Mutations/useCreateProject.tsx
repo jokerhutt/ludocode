@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { mutations } from "../Definitions/mutations.ts";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
-import type { ProjectListResponse } from "../../../../../../packages/types/Project/ProjectListResponse.ts";
+import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 
 export function useCreateProject(closeModal?: () => void) {
   const qc = useQueryClient();

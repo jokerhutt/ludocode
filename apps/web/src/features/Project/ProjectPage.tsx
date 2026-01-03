@@ -1,19 +1,22 @@
-import { ProjectEditor } from "./Editor/ProjectEditor.tsx";
-import { ProjectFileTree } from "./FileTree/ProjectFileTree.tsx";
-import { RunnerWinbar } from "./Runner/RunnerWinbar.tsx";
-import { EditorWinbar } from "./Editor/EditorWinbar.tsx";
-import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
-import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
+import { ProjectEditor } from "@/features/Project/Editor/ProjectEditor.tsx";
+import { ProjectFileTree } from "@/features/Project/FileTree/ProjectFileTree.tsx";
+import { RunnerWinbar } from "@/features/Project/Runner/RunnerWinbar.tsx";
+import { EditorWinbar } from "@/features/Project/Editor/EditorWinbar.tsx";
+import { ProjectRunner } from "@/features/Project/Runner/ProjectRunner.tsx";
+import { FileTreeWinbar } from "@/features/Project/FileTree/FileTreeWinbar.tsx";
 
 import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
-import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
+import { RunCodeButton } from "@/features/Project/Editor/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
-import { ChatBotAccordion } from "../../../../../packages/design-system/widgets/chatbot/ChatbotAccordion.tsx";
-import ChatBotWindow from "../../../../../packages/design-system/widgets/chatbot/ChatbotWindow.tsx";
+import { ChatBotAccordion } from "@ludocode/design-system/widgets/chatbot/ChatbotAccordion.tsx";
+import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();
+  const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
@@ -21,7 +24,11 @@ export function ProjectPage() {
         <FileTreeWinbar />
         <ProjectFileTree />
         <div className="min-h-0 w-full h-full flex flex-col justify-end">
-          <ChatBotProvider targetId={currentFileId} type="PROJECT">
+          <ChatBotProvider
+            credits={chatbotCredits}
+            targetId={project.projectId}
+            type="PROJECT"
+          >
             <ChatBotAccordion>
               <ChatBotWindow type="PROJECT" targetId={currentFileId} />
             </ChatBotAccordion>

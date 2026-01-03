@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { qk } from "../Definitions/qk.ts";
-import type { ChangeCourseType } from "../../../../../../packages/types/User/ChangeCourseType.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk.ts";
+import type { ChangeCourseType } from "@ludocode/types/User/ChangeCourseType.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { mutations } from "../Definitions/mutations.ts";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
 import { useRouter } from "@tanstack/react-router";
 
 export function useChangeCourse() {

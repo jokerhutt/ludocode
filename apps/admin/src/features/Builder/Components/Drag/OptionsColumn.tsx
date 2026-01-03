@@ -4,11 +4,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
-import { SortableOption } from "./SortableOption.tsx";
+import { SortableOption } from "@/features/Builder/Components/Drag/SortableOption.tsx";
 import type { ColumnType } from "@/features/Builder/Hooks/useOptionsDragAndDrop.tsx";
 import { Button } from "@ludocode/external/ui/button";
-import type { FormEditMode } from "./ExerciseOptionsDnDContainer.tsx";
-import { newOptionSnap } from "../../Util/NewExerciseTemplates.ts";
+import type { FormEditMode } from "@/features/Builder/Components/Drag/ExerciseOptionsDnDContainer.tsx";
+import { newOptionSnap } from "@/features/Builder/Util/NewExerciseTemplates.ts";
 
 type OptionsColumnProps = {
   items?: OptionSnap[];

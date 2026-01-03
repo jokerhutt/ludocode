@@ -1,4 +1,4 @@
-import { cn } from "../../../../../../packages/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 import type { ReactNode } from "react";
 
 type EditorTabGroupProps = { children: ReactNode; className?: string };

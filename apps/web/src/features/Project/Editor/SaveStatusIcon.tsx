@@ -1,4 +1,7 @@
-import { CustomIcon, type IconName } from "../../../../../../packages/design-system/primitives/custom-icon.tsx";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
 
 type SaveStatusIconProps = {
   isSaving: boolean;
@@ -15,10 +18,10 @@ export function SaveStatusIcon({
   const status: IconName = !!error
     ? "CloudError"
     : isSaving
-    ? "CloudLoad"
-    : isSaved
-    ? "CloudYes"
-    : "CloudError";
+      ? "CloudLoad"
+      : isSaved
+        ? "CloudYes"
+        : "CloudError";
 
   return (
     <div className="flex items-center gap-4">

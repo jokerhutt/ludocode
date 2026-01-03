@@ -3,7 +3,7 @@ import { Outlet, useMatches } from "@tanstack/react-router";
 import { StatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { MainGridWrapper } from "../../../../../packages/design-system/layouts/grid/main-grid-wrapper.tsx";
+import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { HubHeader } from "@/features/Hub/Components/Zone/HubHeader.tsx";
 import { NavigationFooter } from "@/features/Hub/Components/Zone/NavigationFooter.tsx";
 import { CurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
