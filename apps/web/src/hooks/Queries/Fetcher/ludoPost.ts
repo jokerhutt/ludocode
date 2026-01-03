@@ -13,7 +13,11 @@ export async function ludoPost<TResponse, TBody = unknown>(
   });
 
   if (!res.ok) throw new Error(`Failed POST ${path} → ${res.status}`);
-  
+
+  if (res.status === 204) {
+    return undefined as TResponse;
+  }
+
   return res.json() as Promise<TResponse>;
 }
 

@@ -80,10 +80,15 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   };
 
   const next = useCallback(() => {
+    console.log("Clicked onboarding")
     if (submitOnboardingMutation.isPending) return;
-    if (!canAdvance) return;
+    console.log("Mutation not pending")
+    if (!canAdvance()) return;
+    console.log("Can advance")
     if (!atLast) goto(stepOrder[idx + 1]);
+    console.log("At last, submitting")
     if (atLast) {
+      console.log("At last ch1")
       console.log("CH1");
       console.log("CAREER: " + JSON.stringify(selectedCareer));
       console.log("COURSE: " + JSON.stringify(selectedCourse));

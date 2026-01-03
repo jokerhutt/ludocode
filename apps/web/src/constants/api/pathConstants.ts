@@ -52,6 +52,7 @@ export const GET_USERS_FROM_IDS = (userIds: string) =>
 export const GET_USER_PREFERENCES = API_PATH + `/users/preferences`;
 export const SUBMIT_ONBOARDING = API_PATH + `/users/onboarding/submit`;
 export const CHANGE_COURSE = API_PATH + `/progress/course/course/change`;
+export const DELETE_USER = API_PATH + `/users/delete`
 
 // == PROGRESS - COURSE == //
 export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`;

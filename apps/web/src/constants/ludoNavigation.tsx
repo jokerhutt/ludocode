@@ -1,6 +1,5 @@
 import type { HistoryState } from "@tanstack/react-router";
 
-
 // AUTH
 import { Route as authRoute } from "@/routes/auth";
 
@@ -85,7 +84,7 @@ export const ludoNavigation = {
   onboarding: {
     start: () => ({
       to: onboardingStageRoute.to,
-      params: { stage: "careers" as StageKey },
+      params: { stage: "career" as StageKey },
       replace: true,
     }),
   },

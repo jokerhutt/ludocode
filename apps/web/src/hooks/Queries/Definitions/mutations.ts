@@ -4,6 +4,7 @@ import type { LessonSubmission } from "@ludocode/types/Exercise/LessonSubmission
 import { logout, ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import {
   CHANGE_COURSE,
+  DELETE_USER,
   RESET_COURSE_PROGRESS,
   RUN_CODE,
   SUBMIT_CREATE_PROJECT,
@@ -52,6 +53,13 @@ export const mutations = {
     return mutationOptions<void, Error, void>({
       mutationKey: ["logout"],
       mutationFn: () => logout(),
+    });
+  },
+
+  deleteAccount: () => {
+    return mutationOptions<void, Error, void>({
+      mutationKey: ["deleteUser"],
+      mutationFn: () => ludoPost<void, null>(DELETE_USER, null, true),
     });
   },
 
