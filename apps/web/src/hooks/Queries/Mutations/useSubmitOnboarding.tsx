@@ -2,11 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useRouter } from "@tanstack/react-router";
+import { router } from "@/main";
 
 export function useSubmitOnboarding() {
   const qc = useQueryClient();
-  const router = useRouter();
 
   return useMutation({
     ...mutations.submitOnboarding(),
@@ -16,18 +15,13 @@ export function useSubmitOnboarding() {
       qc.setQueryData(qk.user(refreshedUser.id), refreshedUser);
       qc.setQueryData(qk.currentUser(), refreshedUser);
       qc.setQueryData(qk.preferences(), preferences);
-      qc.setQueryData(
-        qk.courseProgress(courseProgressResponse.courseId),
-        courseProgressResponse
-      );
-      qc.setQueryData(qk.currentCourseId(), courseProgressResponse.courseId);
+      const { courseProgress } = courseProgressResponse;
+      const { courseId, moduleId } = courseProgress;
 
-      router.navigate(
-        ludoNavigation.hub.module.toModule(
-          courseProgressResponse.courseId,
-          courseProgressResponse.moduleId
-        )
-      );
+      qc.setQueryData(qk.courseProgress(courseId), courseProgressResponse);
+      qc.setQueryData(qk.currentCourseId(), courseId);
+
+      router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
     },
   });
 }

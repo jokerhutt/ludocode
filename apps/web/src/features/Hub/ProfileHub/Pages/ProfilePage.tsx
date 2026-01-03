@@ -2,6 +2,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { LogoutButton } from "@/features/Auth/Components/LogoutButton.tsx";
 import dayjs from "dayjs";
+import { DeleteAccountButton } from "@/features/Auth/Components/DeleteAccountButton";
 
 type ProfilePageProps = {};
 
@@ -34,7 +35,8 @@ export function ProfilePage({}: ProfilePageProps) {
           <h2>Badges:</h2>
           <div className="w-full min-h-10 rounded-md p-4 bg-ludoGrayLight"></div>
         </div>
-        <div className="absolute bottom-8 right-8 lg:right-0">
+        <div className="absolute bottom-8 flex gap-2 right-8 lg:right-0">
+          <DeleteAccountButton />
           <LogoutButton />
         </div>
       </div>
