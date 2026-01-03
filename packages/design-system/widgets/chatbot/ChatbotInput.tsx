@@ -13,6 +13,7 @@ import {
   MessageAction,
   MessageActions,
 } from "@ludocode/external/ai-elements/message";
+import { ChatbotCreditsTab } from "./ChatbotCreditsTab";
 
 type ChatBotInputProps = {
   handleSubmit: (message: PromptInputMessage) => void;
@@ -33,6 +34,7 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       globalDrop
       multiple
     >
+      <ChatbotCreditsTab credits={100} />
       <PromptInputBody>
         <PromptInputTextarea
           placeholder="Ask your question here."

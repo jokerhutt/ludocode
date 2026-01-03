@@ -21,7 +21,7 @@ export function ProjectPage() {
         <FileTreeWinbar />
         <ProjectFileTree />
         <div className="min-h-0 w-full h-full flex flex-col justify-end">
-          <ChatBotProvider targetId={currentFileId} type="PROJECT">
+          <ChatBotProvider targetId={project.projectId} type="PROJECT">
             <ChatBotAccordion>
               <ChatBotWindow type="PROJECT" targetId={currentFileId} />
             </ChatBotAccordion>
