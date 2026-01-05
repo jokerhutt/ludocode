@@ -3,15 +3,17 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { LogoutButton } from "@/features/Auth/Components/LogoutButton.tsx";
 import dayjs from "dayjs";
 import { DeleteAccountButton } from "@/features/Auth/Components/DeleteAccountButton";
+import { getUserAvatar } from "@/constants/avatars/avatars";
+import { Avatar } from "@ludocode/design-system/primitives/avatar";
 
 type ProfilePageProps = {};
 
 export function ProfilePage({}: ProfilePageProps) {
   const { data: user } = useSuspenseQuery(qo.currentUser());
 
-  const { pfpSrc, createdAt } = user;
+  const { avatarVersion, avatarIndex, createdAt } = user;
 
-  const userPfpSrc = pfpSrc ?? "./mocks/img/mockpfp.png";
+  const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
 
@@ -20,10 +22,7 @@ export function ProfilePage({}: ProfilePageProps) {
       <div className="hidden lg:block lg:col-span-2" />
       <div className="col-span-full relative lg:col-span-8 flex flex-col gap-4 lg:items-center h-full min-h-0 justify-start min-w-0">
         <div className="flex gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">
-          <img
-            className="lg:w-32 w-16 h-16 lg:h-32 object-fit rounded-full"
-            src={userPfpSrc}
-          />
+          <Avatar src={userPfpSrc} />
           <div className="flex flex-col gap-1">
             <h2 className=" text-xl lg:text-2xl">
               {user.firstName} {user.lastName}

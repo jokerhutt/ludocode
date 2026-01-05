@@ -1,5 +1,4 @@
 import type {
-  CourseProgress,
   CourseProgressWithEnrolled,
 } from "../User/CourseProgress.ts";
 import type { LudoUser } from "../User/LudoUser.ts";
