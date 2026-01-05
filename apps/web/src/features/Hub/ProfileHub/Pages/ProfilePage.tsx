@@ -21,20 +21,20 @@ export function ProfilePage({}: ProfilePageProps) {
     <div className="layout-grid scrollable col-span-full text-ludoAltText relative px-8 lg:px-0 py-6">
       <div className="hidden lg:block lg:col-span-2" />
       <div className="col-span-full relative lg:col-span-8 flex flex-col gap-4 lg:items-center h-full min-h-0 justify-start min-w-0">
-        <div className="flex gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">
+        <div className="flex gap-4 lg:gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">
           <Avatar src={userPfpSrc} />
-          <div className="flex flex-col gap-1">
-            <h2 className=" text-xl lg:text-2xl">
+          <div className="flex flex-col">
+            <h2 className=" text-lg lg:text-2xl">
               {user.firstName} {user.lastName}
             </h2>
-            <h3 className="lg:text-lg">Joined: {joinTime}</h3>
+            <h3 className="lg:text-lg text-sm">Joined: {joinTime}</h3>
           </div>
         </div>
         <div className="w-full flex flex-col gap-2">
           <h2>Badges:</h2>
           <div className="w-full min-h-10 rounded-md p-4 bg-ludoGrayLight"></div>
         </div>
-        <div className="absolute bottom-8 flex gap-2 right-8 lg:right-0">
+        <div className="absolute bottom-8 w-full flex gap-2 lg:gap-4 justify-between lg:justify-end">
           <DeleteAccountButton />
           <LogoutButton />
         </div>

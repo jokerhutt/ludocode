@@ -8,7 +8,7 @@ export function Avatar({ src }: AvatarProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative lg:w-32 w-16 h-16 lg:h-32 rounded-full overflow-hidden">
+    <div className="relative lg:w-26 w-16 h-16 lg:h-26 rounded-full overflow-hidden">
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-gray-300" />
       )}

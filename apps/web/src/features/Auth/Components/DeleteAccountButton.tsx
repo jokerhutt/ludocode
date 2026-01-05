@@ -15,7 +15,7 @@ export function DeleteAccountButton() {
       onClick={() => handleDeleteAccount()}
       className="text-lg w-50 px-4"
     >
-      Delete Account
+      Delete
     </LudoButton>
   );
 }
