@@ -16,28 +16,31 @@ export function useGoogleAuthEntry() {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
 
-      const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
-        GOOGLE_LOGIN,
-        { code: codeResponse.code },
-        true
-      );
+      try {
+        const { user, userCoins, userStreak }: LoginUserResponse =
+          await ludoPost(GOOGLE_LOGIN, { code: codeResponse.code }, true);
 
-      queryClient.setQueryData(qk.user(user.id), user);
-      queryClient.setQueryData(qk.currentUser(), user);
-      queryClient.setQueryData(qk.userCoins(user.id), userCoins);
-      queryClient.setQueryData(qk.streak(user.id), userStreak);
+        queryClient.setQueryData(qk.user(user.id), user);
+        queryClient.setQueryData(qk.currentUser(), user);
+        queryClient.setQueryData(qk.userCoins(user.id), userCoins);
+        queryClient.setQueryData(qk.streak(user.id), userStreak);
 
-      if (!user.hasOnboarded) {
-        router.navigate(ludoNavigation.onboarding.start());
-      } else {
-        const currentCourseId = await queryClient.ensureQueryData(
-          qo.currentCourseId()
-        );
-        const currentCourseProgress = await queryClient.ensureQueryData(
-          qo.courseProgress(currentCourseId)
-        );
-        const { courseId, moduleId } = currentCourseProgress;
-        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
+        if (!user.hasOnboarded) {
+          router.navigate(ludoNavigation.onboarding.start());
+        } else {
+          const currentCourseId = await queryClient.ensureQueryData(
+            qo.currentCourseId()
+          );
+          const currentCourseProgress = await queryClient.ensureQueryData(
+            qo.courseProgress(currentCourseId)
+          );
+          const { courseId, moduleId } = currentCourseProgress;
+          router.navigate(
+            ludoNavigation.hub.module.toModule(courseId, moduleId)
+          );
+        }
+      } catch (err: any) {
+        throw err;
       }
     },
     onError: (err) => console.error("Google login failed", err),
