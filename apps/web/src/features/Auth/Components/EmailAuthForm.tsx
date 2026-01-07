@@ -2,6 +2,7 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { Checkbox } from "@ludocode/external/ui/checkbox";
 import { useState } from "react";
 import { AuthInputField } from "./Input/AuthInputField";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type EmailAuthFormProps = { mode: "REGISTER" | "LOGIN" };
 
@@ -29,11 +30,9 @@ export function EmailAuthForm({ mode }: EmailAuthFormProps) {
             title="Password"
             placeHolder="Your password"
           />
-
-
         </div>
 
-        <div className="w-full my-0.5 text-ludoAltText lg:items-center flex gap-2">
+        <div className={cn("w-full my-0.5 text-ludoAltText lg:items-center flex gap-2", (mode == "REGISTER" ? "flex" : "hidden"))}>
           <Checkbox
             onSelect={() => setHasAgreedToToS(!hasAgreedToToS)}
             className="hover:cursor-pointer data-[state=checked]:bg-ludoAltAccent"
