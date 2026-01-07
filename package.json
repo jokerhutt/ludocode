@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "firebase": "^12.7.0",
     "react-toastify": "^11.0.5"
   }
 }

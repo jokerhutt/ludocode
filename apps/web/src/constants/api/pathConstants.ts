@@ -10,6 +10,8 @@ export const GET_COURSE_TREE = (courseId: string) =>
 
 export const LOGOUT = API_PATH + `/auth/logout`;
 
+export const FIREBASE_AUTH = API_PATH + `/auth/firebase`;
+
 export const GET_ENABLED_FEATURES = API_PATH + `/features`;
 
 // == MODULES == //
@@ -52,7 +54,7 @@ export const GET_USERS_FROM_IDS = (userIds: string) =>
 export const GET_USER_PREFERENCES = API_PATH + `/users/preferences`;
 export const SUBMIT_ONBOARDING = API_PATH + `/users/onboarding/submit`;
 export const CHANGE_COURSE = API_PATH + `/progress/course/course/change`;
-export const DELETE_USER = API_PATH + `/users/delete`
+export const DELETE_USER = API_PATH + `/users/delete`;
 
 // == PROGRESS - COURSE == //
 export const GET_CURRENT_COURSE_ID = API_PATH + `/progress/course/current`;
