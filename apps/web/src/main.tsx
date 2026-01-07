@@ -6,6 +6,8 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen.ts";
 import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
 import type { LessonSubmission } from "packages/types/Exercise/LessonSubmissions.ts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const queryClient = new QueryClient();
 
 export const router = createRouter({
@@ -30,6 +32,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ToastContainer />
     </QueryClientProvider>
   </StrictMode>
 );

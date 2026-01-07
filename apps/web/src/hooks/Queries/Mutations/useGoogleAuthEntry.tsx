@@ -7,6 +7,7 @@ import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
+import { toast } from "react-toastify";
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -40,7 +41,18 @@ export function useGoogleAuthEntry() {
           );
         }
       } catch (err: any) {
-        throw err;
+        let errorMsg = "Something went wrong!";
+        if (err?.status === 409) {
+          errorMsg = "Email already in use";
+        }
+        toast.error(errorMsg, {
+          position: "top-center",
+          style: {
+            background: "#dc2626",
+            color: "#ffffff",
+            fontWeight: 600,
+          },
+        });
       }
     },
     onError: (err) => console.error("Google login failed", err),
