@@ -1,8 +1,10 @@
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
 import { useFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry";
-import { EmailAuthForm } from "../Components/LoginForm";
+import { EmailAuthForm } from "../Components/EmailAuthForm";
 import { ProviderLoginGroup } from "../Components/ProviderLoginGroup";
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { router } from "@/main";
 
 type AuthPageProps = {};
 
@@ -26,7 +28,12 @@ export function RegistrationPage({}: AuthPageProps) {
             <div className="w-full flex flex-col gap-0.5 text-sm text-ludoAltText">
               <p>
                 Already have an account?{" "}
-                <span className="font-bold underline">Sign in here</span>{" "}
+                <span
+                  onClick={() => router.navigate(ludoNavigation.auth.login())}
+                  className="hover:cursor-pointer font-bold underline"
+                >
+                  Sign in here
+                </span>{" "}
               </p>
               <p>
                 Forgot your password?{" "}

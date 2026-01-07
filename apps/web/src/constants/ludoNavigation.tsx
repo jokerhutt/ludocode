@@ -1,7 +1,8 @@
 import type { HistoryState } from "@tanstack/react-router";
 
 // AUTH
-import { Route as authRoute } from "@/routes/auth/login";
+import { Route as authLoginRoute } from "@/routes/auth/login";
+import { Route as authRegisterRoute } from "@/routes/auth/register";
 
 // HUB PAGES
 import { Route as coursesRoute } from "@/routes/_app/_hub/courses.tsx";
@@ -26,7 +27,10 @@ import type { StageKey } from "@/features/Onboarding/Templates/OnboardingSteps.t
 import type { LessonSubmission } from "@ludocode/types";
 
 export const ludoNavigation = {
-  auth: () => ({ to: authRoute.to }),
+  auth: {
+    login: () => ({ to: authLoginRoute.to }),
+    register: () => ({ to: authRegisterRoute.to }),
+  },
 
   courseRoot: () => ({ to: coursesRoute.to }),
 
