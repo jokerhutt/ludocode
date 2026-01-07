@@ -1,12 +1,12 @@
 import { Button } from "@ludocode/external/ui/button";
-import { useGoogleAuthEntry } from "@/hooks/Queries/Mutations/useGoogleAuthEntry.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
+import { useFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry";
 
 type AuthPageProps = {};
 
 export function AuthPage({}: AuthPageProps) {
-  const googleLogin = useGoogleAuthEntry();
+  const firebaseLogin = useFirebaseAuthEntry();
 
   return (
     <MainGridWrapper gridRows="ONE">
@@ -24,7 +24,7 @@ export function AuthPage({}: AuthPageProps) {
 
             <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">
               <Button
-                onClick={() => googleLogin()}
+                onClick={() => firebaseLogin()}
                 className="font-bold h-16 px-6 text-2xl hover:cursor-pointer"
               >
                 Sign in with Google

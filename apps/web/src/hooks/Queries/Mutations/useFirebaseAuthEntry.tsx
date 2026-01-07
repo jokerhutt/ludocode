@@ -1,25 +1,32 @@
-import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "@/constants/api/pathConstants.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import type { LoginUserResponse } from "@ludocode/types/User/LoginUserResponse.ts";
 import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { auth } from "@/constants/auth/firebase";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
-export function useGoogleAuthEntry() {
+import { toast } from "react-toastify";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { FIREBASE_AUTH } from "@/constants/api/pathConstants";
+export function useFirebaseAuthEntry() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  return useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
+  return async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+
+      const idToken = await result.user.getIdToken();
 
       const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
-        GOOGLE_LOGIN,
-        { code: codeResponse.code },
-        true
+        FIREBASE_AUTH,
+        {},
+        true,
+        {
+          Authorization: `Bearer ${idToken}`,
+        }
       );
 
       queryClient.setQueryData(qk.user(user.id), user);
@@ -39,7 +46,16 @@ export function useGoogleAuthEntry() {
         const { courseId, moduleId } = currentCourseProgress;
         router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
       }
-    },
-    onError: (err) => console.error("Google login failed", err),
-  });
+    } catch (err: any) {
+      let errorMsg = "Something went wrong!";
+      toast.error(errorMsg, {
+        position: "top-center",
+        style: {
+          background: "#dc2626",
+          color: "#ffffff",
+          fontWeight: 600,
+        },
+      });
+    }
+  };
 }

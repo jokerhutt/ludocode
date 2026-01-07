@@ -3,11 +3,15 @@ import { LOGOUT } from "@/constants/api/pathConstants.ts";
 export async function ludoPost<TResponse, TBody = unknown>(
   path: string,
   body: TBody | null,
-  credentials = false
+  credentials = false,
+  headers?: Record<string, string>
 ): Promise<TResponse> {
   const res = await fetch(path, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
     credentials: credentials ? "include" : "same-origin",
     body: JSON.stringify(body),
   });
