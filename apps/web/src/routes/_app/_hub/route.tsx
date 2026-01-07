@@ -16,7 +16,7 @@ async function hubLoader(queryClient: QueryClient) {
   );
 
   if (!userStats || !userStreak || !currentUser) {
-    throw redirect({to: "/auth", replace: true});
+    throw redirect({to: "/auth/login", replace: true});
   }
 
   return { userStats, userStreak };

@@ -1,7 +1,7 @@
 import type { HistoryState } from "@tanstack/react-router";
 
 // AUTH
-import { Route as authRoute } from "@/routes/auth";
+import { Route as authRoute } from "@/routes/auth/login";
 
 // HUB PAGES
 import { Route as coursesRoute } from "@/routes/_app/_hub/courses.tsx";

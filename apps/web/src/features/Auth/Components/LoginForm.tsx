@@ -1,9 +1,9 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { Input } from "@ludocode/external/ui/input";
 
-type LoginFormProps = {};
+type EmailAuthFormProps = { mode: "REGISTER" | "LOGIN" };
 
-export function LoginForm({}: LoginFormProps) {
+export function EmailAuthForm({}: EmailAuthFormProps) {
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex flex-col gap-2">

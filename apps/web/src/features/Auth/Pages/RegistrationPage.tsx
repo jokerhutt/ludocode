@@ -1,12 +1,12 @@
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
 import { useFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry";
-import { LoginForm } from "../Components/LoginForm";
+import { EmailAuthForm } from "../Components/LoginForm";
 import { ProviderLoginGroup } from "../Components/ProviderLoginGroup";
 
 type AuthPageProps = {};
 
-export function AuthPage({}: AuthPageProps) {
+export function RegistrationPage({}: AuthPageProps) {
   const firebaseLogin = useFirebaseAuthEntry();
   return (
     <MainGridWrapper gridRows="ONE">
@@ -18,15 +18,15 @@ export function AuthPage({}: AuthPageProps) {
             </h1>
 
             <div className="w-full flex flex-col gap-6">
-              <LoginForm />
+              <EmailAuthForm mode="REGISTER" />
               <ProviderLoginGroup onLogin={firebaseLogin} />
               <hr className="w-full" />
             </div>
 
             <div className="w-full flex flex-col gap-0.5 text-sm text-ludoAltText">
               <p>
-                Don't have an account yet?{" "}
-                <span className="font-bold underline">Register here</span>{" "}
+                Already have an account?{" "}
+                <span className="font-bold underline">Sign in here</span>{" "}
               </p>
               <p>
                 Forgot your password?{" "}

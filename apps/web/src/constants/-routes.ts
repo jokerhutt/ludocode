@@ -3,7 +3,8 @@ export const RP_INDEX = `/`;
 export const routes = {
   root: "/",
   auth: {
-    authPage: `/auth/`,
+    login: `/auth/login`,
+    register: `/auth/register`,
     demo: `/demo/`,
   },
   hub: {
