@@ -7,16 +7,36 @@ import { auth } from "@/constants/auth/firebase";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { FIREBASE_AUTH } from "@/constants/api/pathConstants";
+
+export type AuthProviderMode = "GOOGLE" | "GITHUB" | "EMAIL";
+
+function getFirebaseProvider(mode: AuthProviderMode) {
+  switch (mode) {
+    case "GOOGLE":
+      return new GoogleAuthProvider();
+    case "GITHUB":
+      return new GithubAuthProvider();
+    case "EMAIL":
+      throw new Error("EMAIL does not use popup auth");
+    default:
+      throw new Error("Unsupported auth provider");
+  }
+}
+
 export function useFirebaseAuthEntry() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  return async () => {
+  return async (provider: AuthProviderMode) => {
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
+      const firebaseProvider = getFirebaseProvider(provider);
+      const result = await signInWithPopup(auth, firebaseProvider);
 
       const idToken = await result.user.getIdToken();
 
