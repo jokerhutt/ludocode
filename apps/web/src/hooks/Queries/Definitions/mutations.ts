@@ -3,16 +3,16 @@ import type { LessonCompletionPacket } from "@ludocode/types/Completion/LessonCo
 import type { LessonSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { logout, ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import {
-  CHANGE_COURSE,
   DELETE_USER,
+  PROGRESS_COURSES_CURRENT,
+  PROJECTS_BASE,
+  PROJECTS_BY_ID,
+  PROJECTS_NAME,
   RESET_COURSE_PROGRESS,
   RUN_CODE,
-  SUBMIT_CREATE_PROJECT,
-  SUBMIT_DELETE_PROJECT,
   SUBMIT_LESSON,
   SUBMIT_ONBOARDING,
-  SUBMIT_RENAME_PROJECT,
-  SUBMIT_SAVE_PROJECT,
+  USERS_ME,
 } from "@/constants/api/pathConstants.ts";
 import type { ChangeCourseType } from "@ludocode/types/User/ChangeCourseType.ts";
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
@@ -23,6 +23,9 @@ import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProject
 import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
+import { ludoPut } from "../Fetcher/ludoPut";
+import { ludoDelete } from "../Fetcher/ludoDelete";
+import { ludoPatch } from "../Fetcher/ludoPatch";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -59,7 +62,7 @@ export const mutations = {
   deleteAccount: () => {
     return mutationOptions<void, Error, void>({
       mutationKey: ["deleteUser"],
-      mutationFn: () => ludoPost<void, null>(DELETE_USER, null, true),
+      mutationFn: () => ludoDelete<void>(USERS_ME, true),
     });
   },
 
@@ -68,7 +71,7 @@ export const mutations = {
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
         ludoPost<ProjectListResponse, CreateProjectRequest>(
-          SUBMIT_CREATE_PROJECT,
+          PROJECTS_BASE,
           variables,
           true
         ),
@@ -76,23 +79,19 @@ export const mutations = {
   },
 
   deleteProject: (pid: string) => {
-    return mutationOptions<ProjectListResponse, Error, null>({
+    return mutationOptions<ProjectListResponse, Error, void>({
       mutationKey: ["deleteProject"],
-      mutationFn: (variables) =>
-        ludoPost<ProjectListResponse, null>(
-          SUBMIT_DELETE_PROJECT(pid),
-          variables,
-          true
-        ),
+      mutationFn: () =>
+        ludoDelete<ProjectListResponse>(PROJECTS_BY_ID(pid), true),
     });
   },
 
   reameProject: () => {
     return mutationOptions<ProjectListResponse, Error, RenameProjectRequest>({
-      mutationKey: ["deleteProject"],
+      mutationKey: ["renameProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectListResponse, RenameProjectRequest>(
-          SUBMIT_RENAME_PROJECT,
+        ludoPatch<ProjectListResponse, RenameProjectRequest>(
+          PROJECTS_NAME(variables.targetId),
           variables,
           true
         ),
@@ -103,8 +102,8 @@ export const mutations = {
     return mutationOptions<ProjectSnapshot, Error, ProjectSnapshot>({
       mutationKey: ["saveProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectSnapshot, ProjectSnapshot>(
-          SUBMIT_SAVE_PROJECT(),
+        ludoPut<ProjectSnapshot, ProjectSnapshot>(
+          PROJECTS_BY_ID(variables.projectId),
           variables,
           true
         ),
@@ -115,7 +114,7 @@ export const mutations = {
     return mutationOptions<OnboardingResponse, Error, OnboardingSubmission>({
       mutationKey: ["submitOnboarding"],
       mutationFn: (variables) =>
-        ludoPost<OnboardingResponse, OnboardingSubmission>(
+        ludoPut<OnboardingResponse, OnboardingSubmission>(
           SUBMIT_ONBOARDING,
           variables,
           true
@@ -138,8 +137,8 @@ export const mutations = {
     return mutationOptions<ChangeCourseType, Error, ChangeCourseVariables>({
       mutationKey: ["changeCourse"],
       mutationFn: (variables) =>
-        ludoPost<ChangeCourseType, ChangeCourseVariables>(
-          CHANGE_COURSE,
+        ludoPut<ChangeCourseType, ChangeCourseVariables>(
+          PROGRESS_COURSES_CURRENT,
           variables,
           true
         ),

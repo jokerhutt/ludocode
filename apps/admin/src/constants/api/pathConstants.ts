@@ -13,10 +13,12 @@ export const AUTH_ME = API_PATH + `/auth/me`;
 export const GOOGLE_LOGIN = API_PATH + `/auth/login/google`;
 
 // == SNAPSHOT == //
-export const SUBMIT_COURSE_SNAPSHOT = API_PATH + `/snapshot/submit`;
-export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshot/course/create`;
-export const GET_COURSE_SNAPSHOT = (courseId: string) =>
-  API_PATH + `/snapshot/course/${courseId}`;
+export const SUBMIT_CREATE_COURSE = API_PATH + `/snapshots/course/create`;
+
+export const SNAPSHOT = API_PATH + `/snapshots`
+export const SNAPSHOT_COURSE = API_PATH + `/course`
+export const SNAPSHOT_BY_COURSE = (courseId: string) =>
+  API_PATH + `/snapshots/${courseId}`;
 
 // == COURSES == //
-export const GET_ALL_COURSES = API_PATH + `/catalog/courses`;
+export const COURSES = API_PATH + `/catalog/courses`;

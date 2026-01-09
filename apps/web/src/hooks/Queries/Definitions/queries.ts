@@ -15,17 +15,16 @@ import { ludoGet } from "@/hooks/Queries/Fetcher/ludoGet.ts";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import {
   AUTH_ME,
-  GET_ALL_COURSES,
+  COURSES,
   GET_COURSE_TREE,
-  GET_CURRENT_COURSE_ID,
+  PROGRESS_COURSES_CURRENT,
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
   GET_USER_PREFERENCES,
-  GET_MY_PROJECTS,
-  GET_USER_STREAK,
-  GET_PAST_WEEK_STREAK,
   GET_ENABLED_FEATURES,
   GET_USER_CREDITS,
+  PROJECTS_BASE,
+  streakPath,
 } from "@/constants/api/pathConstants.ts";
 import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
@@ -83,21 +82,21 @@ export const qo = {
   streakPastWeek: () =>
     queryOptions<DailyGoalMet[]>({
       queryKey: qk.streakPastWeek(),
-      queryFn: () => ludoGet<DailyGoalMet[]>(GET_PAST_WEEK_STREAK, true),
+      queryFn: () => ludoGet<DailyGoalMet[]>(streakPath("weekly"), true),
       staleTime: 60_000,
     }),
 
   streak: (userId: string) =>
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
-      queryFn: () => ludoGet<UserStreak>(GET_USER_STREAK, true),
+      queryFn: () => ludoGet<UserStreak>(streakPath(), true),
       staleTime: 60_000,
     }),
 
   currentCourseId: () =>
     queryOptions<string>({
       queryKey: qk.currentCourseId(),
-      queryFn: () => ludoGet<string>(GET_CURRENT_COURSE_ID, true),
+      queryFn: () => ludoGet<string>(PROGRESS_COURSES_CURRENT, true),
       staleTime: 60_000,
       retry: false,
     }),
@@ -120,14 +119,14 @@ export const qo = {
   allCourses: () =>
     queryOptions({
       queryKey: qk.courses(),
-      queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
+      queryFn: () => ludoGet<LudoCourse[]>(COURSES),
       staleTime: 60_000,
     }),
 
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(GET_MY_PROJECTS, true),
+      queryFn: () => ludoGet<ProjectListResponse>(PROJECTS_BASE, true),
       staleTime: 60_000,
     }),
 

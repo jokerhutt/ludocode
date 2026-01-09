@@ -37,7 +37,7 @@ export function useModifyProject(projectId: string) {
   );
 
   const handleDeleteProject = useCallback(() => {
-    deleteProjectMutation.mutate(null);
+    deleteProjectMutation.mutate();
   }, [deleteProjectMutation]);
 
   return {
