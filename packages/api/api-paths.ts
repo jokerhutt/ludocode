@@ -51,14 +51,14 @@ export function createApiPaths({
     progress: {
       coins: {
         base: `${BASE}/progress/coins`,
-        fromUserIds: (userIds: string) => `${BASE}/progress/coins?${userIds}`,
+        byUserIds: (userIds: string) => `${BASE}/progress/coins?${userIds}`,
       },
       completion: {
         base: `${BASE}/progress/completion`,
       },
       courses: {
         base: `${BASE}/progress/courses`,
-        fromIds: (courseIds: string) => `${BASE}/progress/courses?${courseIds}`,
+        byIds: (courseIds: string) => `${BASE}/progress/courses?${courseIds}`,
 
         enrolled: `${BASE}/progress/courses/enrolled`,
         current: `${BASE}/progress/courses/current`,

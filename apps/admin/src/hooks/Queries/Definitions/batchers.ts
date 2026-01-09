@@ -1,11 +1,11 @@
-import { GET_USERS_FROM_IDS } from "@/constants/api/pathConstants";
-import { makeIdBatcher } from "./batcherFactory";
+import { makeIdBatcher } from "@ludocode/api/batcherFactory";
 import { create, windowScheduler } from "@yornaath/batshit";
 import type { LudoUser } from "@ludocode/types";
+import { adminApi } from "@/constants/api/adminApi";
 
 export const userBatcher = makeIdBatcher<LudoUser>({
   name: "user",
-  getUrlFn: GET_USERS_FROM_IDS,
+  getUrlFn: adminApi.users.byIds,
   idsKey: "userIds",
   scheduler: windowScheduler(10),
   createFn: create,

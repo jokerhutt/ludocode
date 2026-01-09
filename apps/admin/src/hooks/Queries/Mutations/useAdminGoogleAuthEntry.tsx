@@ -1,11 +1,10 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "@/constants/api/pathConstants.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import type { LoginUserResponse } from "@ludocode//types/User/LoginUserResponse.ts";
-import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { useRouter } from "@tanstack/react-router";
 import { adminNavigation } from "@/constants/adminNavigation.tsx";
+import { ludoPost } from "@ludocode/api/fetcher";
 export function useAdminGoogleAuthEntry() {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -16,7 +15,7 @@ export function useAdminGoogleAuthEntry() {
       console.log(codeResponse);
 
       const { user }: LoginUserResponse = await ludoPost(
-        GOOGLE_LOGIN,
+        "stub",
         { code: codeResponse.code },
         true
       );
