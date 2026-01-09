@@ -13,6 +13,8 @@
       "@/*": ["apps/admin/src/*"],
       "@ludocode/types": ["packages/types"],
       "@ludocode/types/*": ["packages/types/*"],
+      "@ludocode/api": ["packages/api"],
+      "@ludocode/api/*": ["packages/api/*"],
       "@ludocode/external": ["packages/external"],
       "@ludocode/external/*": ["packages/external/*"],
       "@ludocode/design-system": ["packages/design-system"],

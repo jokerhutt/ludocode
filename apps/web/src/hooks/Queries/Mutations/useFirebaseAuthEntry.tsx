@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import type { LoginUserResponse } from "@ludocode/types/User/LoginUserResponse.ts";
-import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { auth } from "@/constants/auth/firebase";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
@@ -12,7 +11,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { FIREBASE_AUTH } from "@/constants/api/pathConstants";
+import { api } from "@/constants/api/api";
+import { ludoPost } from "@ludocode/api/fetcher";
 
 export type AuthProviderMode = "GOOGLE" | "GITHUB" | "EMAIL";
 
@@ -41,7 +41,7 @@ export function useFirebaseAuthEntry() {
       const idToken = await result.user.getIdToken();
 
       const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
-        FIREBASE_AUTH,
+        api.auth.firebase,
         {},
         true,
         {

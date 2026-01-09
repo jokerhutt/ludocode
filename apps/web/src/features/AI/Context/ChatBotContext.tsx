@@ -6,10 +6,10 @@ import {
   type UIMessage,
   type UITools,
 } from "ai";
-import { SUBMIT_AI_PROMPT } from "@/constants/api/pathConstants.ts";
 import type { ChatBotChatType } from "@ludocode/design-system/widgets/chatbot/ChatbotConversation";
 import { useQueryClient } from "@tanstack/react-query";
 import { qk } from "@/hooks/Queries/Definitions/qk";
+import { api } from "@/constants/api/api";
 
 const ChatBotContext = createContext<ChatBotContextValue | null>(null);
 
@@ -35,7 +35,7 @@ export function ChatBotProvider({
 
   const chat = useChat({
     transport: new TextStreamChatTransport({
-      api: SUBMIT_AI_PROMPT,
+      api: api.ai.completions,
       credentials: "include",
     }),
     onData() {

@@ -1,19 +1,6 @@
 import { mutationOptions } from "@tanstack/react-query";
 import type { LessonCompletionPacket } from "@ludocode/types/Completion/LessonCompletionResponse.ts";
 import type { LessonSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
-import { logout, ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
-import {
-  DELETE_USER,
-  PROGRESS_COURSES_CURRENT,
-  PROJECTS_BASE,
-  PROJECTS_BY_ID,
-  PROJECTS_NAME,
-  RESET_COURSE_PROGRESS,
-  RUN_CODE,
-  SUBMIT_LESSON,
-  SUBMIT_ONBOARDING,
-  USERS_ME,
-} from "@/constants/api/pathConstants.ts";
 import type { ChangeCourseType } from "@ludocode/types/User/ChangeCourseType.ts";
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
 import type { OnboardingResponse } from "@ludocode/types/Onboarding/OnboardingResponse.ts";
@@ -23,9 +10,9 @@ import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProject
 import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
-import { ludoPut } from "../Fetcher/ludoPut";
-import { ludoDelete } from "../Fetcher/ludoDelete";
-import { ludoPatch } from "../Fetcher/ludoPatch";
+import {ludoPut, ludoPatch, ludoPost, ludoDelete} from "@ludocode/api/fetcher"
+import { api } from "@/constants/api/api";
+import { logout } from "@/constants/api/logout";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -37,7 +24,7 @@ export const mutations = {
       mutationKey: ["submitLesson"],
       mutationFn: (variables) =>
         ludoPost<LessonCompletionPacket, LessonSubmission>(
-          SUBMIT_LESSON,
+          api.progress.completion.base,
           variables,
           true
         ),
@@ -48,7 +35,7 @@ export const mutations = {
     return mutationOptions<RunnerResult, Error, ProjectSnapshot>({
       mutationKey: ["runCode"],
       mutationFn: (variables) =>
-        ludoPost<RunnerResult, ProjectSnapshot>(RUN_CODE, variables, true),
+        ludoPost<RunnerResult, ProjectSnapshot>(api.runner.execute, variables, true),
     });
   },
 
@@ -62,7 +49,7 @@ export const mutations = {
   deleteAccount: () => {
     return mutationOptions<void, Error, void>({
       mutationKey: ["deleteUser"],
-      mutationFn: () => ludoDelete<void>(USERS_ME, true),
+      mutationFn: () => ludoDelete<void>(api.users.me, true),
     });
   },
 
@@ -71,7 +58,7 @@ export const mutations = {
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
         ludoPost<ProjectListResponse, CreateProjectRequest>(
-          PROJECTS_BASE,
+          api.projects.base,
           variables,
           true
         ),
@@ -82,7 +69,7 @@ export const mutations = {
     return mutationOptions<ProjectListResponse, Error, void>({
       mutationKey: ["deleteProject"],
       mutationFn: () =>
-        ludoDelete<ProjectListResponse>(PROJECTS_BY_ID(pid), true),
+        ludoDelete<ProjectListResponse>(api.projects.byId(pid), true),
     });
   },
 
@@ -91,7 +78,7 @@ export const mutations = {
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
         ludoPatch<ProjectListResponse, RenameProjectRequest>(
-          PROJECTS_NAME(variables.targetId),
+          api.projects.name(variables.targetId),
           variables,
           true
         ),
@@ -103,7 +90,7 @@ export const mutations = {
       mutationKey: ["saveProject"],
       mutationFn: (variables) =>
         ludoPut<ProjectSnapshot, ProjectSnapshot>(
-          PROJECTS_BY_ID(variables.projectId),
+          api.projects.byId(variables.projectId),
           variables,
           true
         ),
@@ -115,7 +102,7 @@ export const mutations = {
       mutationKey: ["submitOnboarding"],
       mutationFn: (variables) =>
         ludoPut<OnboardingResponse, OnboardingSubmission>(
-          SUBMIT_ONBOARDING,
+          api.users.onboarding,
           variables,
           true
         ),
@@ -127,7 +114,7 @@ export const mutations = {
       mutationKey: ["resetProgress"],
       mutationFn: (courseId) =>
         ludoPost<CourseProgress, null>(
-          RESET_COURSE_PROGRESS(courseId),
+          api.progress.courses.reset(courseId),
           null,
           true
         ),
@@ -138,7 +125,7 @@ export const mutations = {
       mutationKey: ["changeCourse"],
       mutationFn: (variables) =>
         ludoPut<ChangeCourseType, ChangeCourseVariables>(
-          PROGRESS_COURSES_CURRENT,
+          api.progress.courses.current,
           variables,
           true
         ),

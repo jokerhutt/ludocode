@@ -1,22 +1,15 @@
 import { create, windowScheduler } from "@yornaath/batshit";
-import {
-  GET_COURSE_PROGRESS_FROM_IDS,
-  GET_LESSONS_FROM_IDS,
-  GET_MODULES_FROM_IDS,
-  GET_USER_COINS_FROM_USER_IDS,
-  GET_USERS_FROM_IDS,
-} from "@/constants/api/pathConstants.ts";
 import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
-import { makeIdBatcher } from "./batcherFactory.ts";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
-
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
 import type { UserCoins } from "@ludocode/types/User/UserCoins.ts";
 import type { LudoUser } from "@ludocode/types";
+import { api } from "@/constants/api/api.ts";
+import { makeIdBatcher } from "@ludocode/api/batcherFactory.ts";
 
 export const lessonBatcher = makeIdBatcher<LudoLesson>({
   name: "lesson",
-  getUrlFn: GET_LESSONS_FROM_IDS,
+  getUrlFn: api.catalog.lessons,
   idsKey: "lessonIds",
   scheduler: windowScheduler(10),
   createFn: create,
@@ -24,7 +17,7 @@ export const lessonBatcher = makeIdBatcher<LudoLesson>({
 
 export const moduleBatcher = makeIdBatcher<LudoModule>({
   name: "module",
-  getUrlFn: GET_MODULES_FROM_IDS,
+  getUrlFn: api.catalog.modules,
   idsKey: "moduleIds",
   scheduler: windowScheduler(10),
   createFn: create,
@@ -32,7 +25,7 @@ export const moduleBatcher = makeIdBatcher<LudoModule>({
 
 export const userBatcher = makeIdBatcher<LudoUser>({
   name: "user",
-  getUrlFn: GET_USERS_FROM_IDS,
+  getUrlFn: api.users.byIds,
   idsKey: "userIds",
   scheduler: windowScheduler(10),
   createFn: create,
@@ -40,7 +33,7 @@ export const userBatcher = makeIdBatcher<LudoUser>({
 
 export const courseProgressBatcher = makeIdBatcher<CourseProgress>({
   name: "courseProgress",
-  getUrlFn: GET_COURSE_PROGRESS_FROM_IDS,
+  getUrlFn: api.progress.courses.byIds,
   idsKey: "courseIds",
   scheduler: windowScheduler(10),
   createFn: create,
@@ -48,7 +41,7 @@ export const courseProgressBatcher = makeIdBatcher<CourseProgress>({
 
 export const userCoinsBatcher = makeIdBatcher<UserCoins>({
   name: "userCoins",
-  getUrlFn: GET_USER_COINS_FROM_USER_IDS,
+  getUrlFn: api.progress.coins.byUserIds,
   idsKey: "userIds",
   scheduler: windowScheduler(10),
   createFn: create,

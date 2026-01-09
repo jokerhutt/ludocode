@@ -1,8 +1,8 @@
 import { mutationOptions } from "@tanstack/react-query";
-import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
-import { SNAPSHOT_COURSE } from "@/constants/api/pathConstants.ts";
 import { type LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRequest.ts";
+import { ludoPost } from "@ludocode/api/fetcher";
+import { adminApi } from "@/constants/api/adminApi";
 
 export const mutations = {
   createCourse: () => {
@@ -10,7 +10,7 @@ export const mutations = {
       mutationKey: ["createCourse"],
       mutationFn: (variables) =>
         ludoPost<LudoCourse[], CreateCourseRequest>(
-          SNAPSHOT_COURSE,
+          adminApi.snapshots.base,
           variables,
           true
         ),

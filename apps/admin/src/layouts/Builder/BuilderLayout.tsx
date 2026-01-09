@@ -8,8 +8,6 @@ import type {
   CourseSnap,
   ModuleSnap,
 } from "@ludocode/types/Builder/BuilderSnapshotTypes.ts";
-import { COURSES, SNAPSHOT_BY_COURSE } from "@/constants/api/pathConstants.ts";
-import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost.ts";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ModuleListForm } from "@/features/Builder/Form/Module/ModuleListForm.tsx";
 import { BuilderHeader } from "@/features/Builder/Components/Zone/BuilderHeader.tsx";
@@ -18,7 +16,8 @@ import { LudoSidebar } from "@ludocode/design-system/widgets/ludo-sidebar.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { getRouteApi } from "@tanstack/react-router";
 import { courseFormOpts, useAppForm } from "@/constants/form/formKit.ts";
-import { ludoPut } from "@/hooks/Queries/Fetcher/ludoPut";
+import { adminApi } from "@/constants/api/adminApi";
+import { ludoPut } from "@ludocode/api/fetcher";
 
 export function BuilderLayout() {
   const routeApi = getRouteApi("/_app/build/$courseId");
@@ -42,7 +41,7 @@ export function BuilderLayout() {
     onSubmit: async ({ value }) => {
       try {
         const fresh = await ludoPut<CourseSnap>(
-          SNAPSHOT_BY_COURSE(courseId),
+          adminApi.snapshots.byCourse(courseId),
           value,
           true
         );

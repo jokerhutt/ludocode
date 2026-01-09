@@ -3,6 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@ludocode/api": ["../api"],
+      "@ludocode/api/*": ["../api/*"],
       "@ludocode/design-system": ["../design-system"],
       "@ludocode/design-system/*": ["../design-system/*"],
       "@ludocode/types": ["../types"],

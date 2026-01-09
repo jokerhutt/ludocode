@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { DEMO_LOGIN } from "@/constants/api/pathConstants.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { api } from "@/constants/api/api";
 
 export const Route = createFileRoute("/demo/")({
   beforeLoad: async ({ context }) => {
@@ -10,7 +10,8 @@ export const Route = createFileRoute("/demo/")({
 });
 
 async function demoAuthPreloader(queryClient: QueryClient) {
-  await fetch(DEMO_LOGIN, {
+  if (!api.auth.demo) return;
+  await fetch(api.auth.demo, {
     method: "GET",
     credentials: "include",
   });
