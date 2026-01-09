@@ -18,6 +18,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@ludocode/types": path.resolve(__dirname, "../../packages/types"),
       "@ludocode/external": path.resolve(__dirname, "../../packages/external"),
+      "@ludocode/api": path.resolve(__dirname, "../../packages/api"),
       "@ludocode/design-system": path.resolve(
         __dirname,
         "../../packages/design-system"

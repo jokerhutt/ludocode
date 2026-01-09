@@ -12,6 +12,8 @@
       "@ludocode/types/*": ["packages/types/*"],
       "@ludocode/external": ["packages/external"],
       "@ludocode/external/*": ["packages/external/*"],
+      "@ludocode/api": ["packages/api"],
+      "@ludocode/api/*": ["packages/api/*"],
       "@ludocode/design-system": ["packages/design-system"],
       "@ludocode/design-system/*": ["packages/design-system/*"],
       "@ludocode/hooks": ["packages/hooks"],
