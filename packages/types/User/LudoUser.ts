@@ -1,7 +1,6 @@
 export type LudoUser = {
   id: string;
-  firstName: string;
-  lastName: string;
+  displayName: string | null;
   avatarVersion: string;
   avatarIndex: number;
   email: string;
