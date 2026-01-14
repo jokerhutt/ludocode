@@ -1,10 +1,10 @@
 import { Button } from "@ludocode/external/ui/button";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
-import { useAdminGoogleAuthEntry } from "@/hooks/Queries/Mutations/useAdminGoogleAuthEntry";
+import { useAdminFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useAdminFirebaseAuthEntry";
 
 export function AdminAuthPage() {
-  const googleLogin = useAdminGoogleAuthEntry();
+  const firebaseLogin = useAdminFirebaseAuthEntry();
 
   return (
     <MainGridWrapper gridRows="ONE">
@@ -21,7 +21,7 @@ export function AdminAuthPage() {
 
             <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">
               <Button
-                onClick={() => googleLogin()}
+                onClick={() => firebaseLogin("GOOGLE")}
                 className="font-bold h-16 px-6 text-2xl hover:cursor-pointer"
               >
                 Sign in with Google

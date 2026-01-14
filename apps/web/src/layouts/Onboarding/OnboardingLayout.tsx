@@ -13,6 +13,8 @@ import { onboardingContent } from "@/constants/mocks/onboardingMocks.ts";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 
 export function OnboardingLayout() {
   const routeApi = getRouteApi("/_app/onboarding/$stage");
@@ -20,10 +22,12 @@ export function OnboardingLayout() {
     stage: StageKey;
   };
 
+  const { data: currentUser } = useSuspenseQuery(qo.currentUser());
+
   const content = onboardingContent;
   const contextValue: OnboardingContextType = {
     content: content,
-    hook: useOnboardingFlow({ stage }),
+    hook: useOnboardingFlow({ stage, currentUser }),
   };
 
   const { current, total } = contextValue.hook.position;

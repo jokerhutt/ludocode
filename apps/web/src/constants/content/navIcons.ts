@@ -6,6 +6,7 @@ export type NavIcon = {
   icon?: string;
   path: string;
   onClick?: () => void;
+  desktopOnly?: boolean;
 };
 
 export const getNavIcons = (
@@ -28,6 +29,7 @@ export const getNavIcons = (
     name: "Projects",
     path: "/projects",
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
+    desktopOnly: true,
   },
   {
     name: "Profile",

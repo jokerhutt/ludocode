@@ -11,7 +11,7 @@ export function useLogout() {
     ...mutations.logOut(),
     onSuccess: () => {
       qc.clear();
-      router.navigate(ludoNavigation.auth());
+      router.navigate(ludoNavigation.auth.login());
     },
   });
 }
