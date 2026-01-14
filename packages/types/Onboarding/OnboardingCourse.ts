@@ -5,10 +5,11 @@ export type OnboardingFormContent = {
 };
 
 export type OnboardingSubmission = {
-    chosenPath: CareerType;
-    chosenCourse: string;
-    hasProgrammingExperience: boolean;
-}
+  selectedUsername: string;
+  chosenPath: CareerType;
+  chosenCourse: string;
+  hasProgrammingExperience: boolean;
+};
 
 export type OnboardingCourseType = {
   courseId: string;

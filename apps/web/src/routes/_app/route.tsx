@@ -26,7 +26,7 @@ async function appPreloader(
     console.log("Navigaten");
     throw redirect({
       to: "/onboarding/$stage",
-      params: { stage: "career" },
+      params: { stage: "name" },
       replace: true,
     });
     return;
