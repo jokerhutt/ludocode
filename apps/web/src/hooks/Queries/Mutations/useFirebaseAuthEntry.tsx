@@ -5,6 +5,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useFinalizeLogin } from "./useFinalizeLogin";
+import { handleFirebaseAuthError } from "../handleFirebaseAuthError";
+import type { FirebaseError } from "firebase/app";
 
 export type AuthProviderMode = "GOOGLE" | "GITHUB";
 
@@ -23,11 +25,15 @@ export function useFirebaseAuthEntry() {
   const finalizeLogin = useFinalizeLogin();
 
   return async (provider: AuthProviderMode) => {
-    const firebaseProvider = getFirebaseProvider(provider);
+    try {
+      const firebaseProvider = getFirebaseProvider(provider);
 
-    const result = await signInWithPopup(auth, firebaseProvider);
-    const idToken = await result.user.getIdToken();
+      const result = await signInWithPopup(auth, firebaseProvider);
+      const idToken = await result.user.getIdToken();
 
-    await finalizeLogin(idToken);
+      await finalizeLogin(idToken);
+    } catch (err) {
+      handleFirebaseAuthError(err as FirebaseError);
+    }
   };
 }
