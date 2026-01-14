@@ -5,6 +5,7 @@ import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
+import { useIsMobile } from "@ludocode/hooks";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;
@@ -18,9 +19,13 @@ export function NavigationIconGroup({
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { courseId, moduleId } = useCurrentCourseContext();
 
+  const isMobile = useIsMobile({});
+
   const icons = getNavIcons(currentUser.id, courseId, moduleId);
 
-  const iconsToRender = icons;
+  const iconsToRender = isMobile
+    ? icons.filter((icon) => !icon.desktopOnly)
+    : icons;
 
   const location = useLocation();
 
