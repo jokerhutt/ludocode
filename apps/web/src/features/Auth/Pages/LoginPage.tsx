@@ -5,11 +5,13 @@ import { EmailAuthForm } from "../Components/EmailAuthForm";
 import { ProviderLoginGroup } from "../Components/ProviderLoginGroup";
 import { router } from "@/main";
 import { ludoNavigation } from "@/constants/ludoNavigation";
+import { useFirebaseEmailAuth } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth";
 
 type AuthPageProps = {};
 
 export function LoginPage({}: AuthPageProps) {
   const firebaseLogin = useFirebaseAuthEntry();
+  const emailAuth = useFirebaseEmailAuth();
   return (
     <MainGridWrapper gridRows="ONE">
       <MainContentWrapper>
@@ -20,7 +22,12 @@ export function LoginPage({}: AuthPageProps) {
             </h1>
 
             <div className="w-full flex flex-col gap-6">
-              <EmailAuthForm mode="LOGIN" />
+              <EmailAuthForm
+                mode="LOGIN"
+                onSubmit={(email, password) =>
+                  emailAuth(email, password, "LOGIN")
+                }
+              />
               <ProviderLoginGroup onLogin={firebaseLogin} />
               <hr className="w-full" />
             </div>
