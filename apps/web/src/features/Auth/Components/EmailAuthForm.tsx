@@ -23,7 +23,11 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
     (mode == "LOGIN" || hasAgreedToToS);
 
   const handleSubmit = () => {
-    if (!canSubmit) return;
+    console.log("Has agreed to TOS: " + hasAgreedToToS);
+    if (!canSubmit) {
+      console.log("cant submit");
+      return;
+    }
     onSubmit(emailInput, passwordInput, mode);
   };
 
@@ -53,7 +57,10 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
           )}
         >
           <Checkbox
-            onSelect={() => setHasAgreedToToS(!hasAgreedToToS)}
+            checked={hasAgreedToToS}
+            onCheckedChange={(checked) => {
+              setHasAgreedToToS(checked === true);
+            }}
             className="hover:cursor-pointer data-[state=checked]:bg-ludoAltAccent"
           />
           <p className="text-xs">

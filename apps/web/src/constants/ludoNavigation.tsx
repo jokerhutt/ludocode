@@ -88,7 +88,7 @@ export const ludoNavigation = {
   onboarding: {
     start: () => ({
       to: onboardingStageRoute.to,
-      params: { stage: "career" as StageKey },
+      params: { stage: "name" as StageKey },
       replace: true,
     }),
   },
