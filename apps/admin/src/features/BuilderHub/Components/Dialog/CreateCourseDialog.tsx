@@ -49,6 +49,7 @@ export function CreateCourseDialog({
         </DialogHeader>
 
         <InputWrapper>
+          
           <InputTitle>Course Name</InputTitle>
           <Input
             placeholder={courseName}

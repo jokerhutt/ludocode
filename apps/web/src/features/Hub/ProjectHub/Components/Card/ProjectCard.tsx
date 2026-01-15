@@ -7,12 +7,12 @@ import { useRouter } from "@tanstack/react-router";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import dayjs from "dayjs";
+import { router } from "@/main";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { projectId, projectName, projectLanguage, updatedAt } = project;
-  const router = useRouter();
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);

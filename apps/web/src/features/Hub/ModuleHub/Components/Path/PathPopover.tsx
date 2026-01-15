@@ -1,9 +1,9 @@
-
 import type { ReactElement } from "react";
 import { XSquareIcon } from "lucide-react";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { LudoPopover } from "@ludocode/design-system/widgets/ludo-popover.tsx";
 import type { LessonStatus, LudoLesson } from "@ludocode/types";
+import { PopoverClose } from "@radix-ui/react-popover";
 type PathPopoverProps = {
   trigger: ReactElement;
   lesson: LudoLesson;
@@ -46,7 +46,11 @@ export function PathPopover({
         </p>
       </div>
       <div className="flex flex-col items-end justify-between">
-        <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
+        <PopoverClose asChild>
+          <button type="button" aria-label="Close">
+            <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
+          </button>
+        </PopoverClose>
         <LudoButton
           onClick={() => goToLesson()}
           className="h-7 w-20 lg:w-26 rounded-sm"

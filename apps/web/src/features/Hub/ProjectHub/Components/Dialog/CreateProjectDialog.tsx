@@ -1,15 +1,11 @@
 import { DialogTitle } from "@ludocode/external/ui/dialog.tsx";
-import { Input } from "@ludocode/external/ui/input.tsx";
-import { Button } from "@ludocode/external/ui/button.tsx";
 import type { LanguageType } from "@ludocode/types/Project/LanguageType.ts";
 import { useState, type ReactNode } from "react";
 import { useCreateProject } from "@/hooks/Queries/Mutations/useCreateProject.tsx";
 import { Spinner } from "@ludocode/external/ui/spinner.tsx";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
-import {
-  InputWrapper,
-  InputTitle,
-} from "@ludocode/design-system/primitives/input";
+import { InputWrapper } from "@ludocode/design-system/primitives/input";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -65,39 +61,28 @@ export function CreateProjectDialog({
       </DialogTitle>
 
       <InputWrapper>
-        <InputTitle>Project name</InputTitle>
-        <Input
-          placeholder={projectName}
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
-        />
-      </InputWrapper>
-
-      <InputWrapper>
-        <InputTitle>Project type</InputTitle>
-        <div className="flex gap-4">
+        <div className="flex w-full gap-4">
           {possibleOptions.map((option) => (
-            <Button
+            <LudoButton
               onClick={() => setProjectLanguage(option)}
-              className={`${
-                projectLanguage == option ? "border border-ludoLightPurple" : ""
-              }`}
+              variant={projectLanguage == option ? "alt" : "white"}
             >
-              {option}
-            </Button>
+              {option[0].toUpperCase() + option.slice(1)}
+            </LudoButton>
           ))}
         </div>
       </InputWrapper>
 
       <div className="py-2 mt-2 flex gap-2 justify-center items-center">
-        <Button
-          variant={isSubmitLoading ? "disabled" : "default"}
+        <LudoButton
+          disabled={isSubmitLoading}
+          variant="alt"
           onClick={() => submitProject()}
           className="w-full flex"
         >
           Create Project
           {isSubmitLoading && <Spinner className="text-ludoLightPurple" />}
-        </Button>
+        </LudoButton>
       </div>
     </LudoDialog>
   );
