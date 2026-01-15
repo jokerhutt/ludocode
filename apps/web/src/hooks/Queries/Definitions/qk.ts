@@ -22,4 +22,9 @@ export const qk = {
   enrolled: () => ["enrolled"] as const,
   user: (userId: string) => ["user", userId] as const,
   currentUser: () => ["currentUser"] as const,
+
+  onboardingDraft: () => ["onboarding", "draft"] as const,
+  onboardingValidatedUpTo: () => ["onboarding", "validatedUpTo"] as const,
+
+
 };

@@ -1,6 +1,5 @@
-import { toast } from "react-toastify";
 import type { FirebaseError } from "firebase/app";
-import type { EmailLoginMode } from "./Mutations/useFirebaseEmailAuth";
+import type { EmailLoginMode } from "../Queries/Mutations/useFirebaseEmailAuth";
 import { errorToast } from "@ludocode/design-system/primitives/toast";
 
 export function handleFirebaseAuthError(

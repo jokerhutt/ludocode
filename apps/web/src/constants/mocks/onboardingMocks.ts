@@ -1,6 +1,12 @@
 import type { OnboardingFormContent } from "@ludocode/types";
 
 export const onboardingContent: OnboardingFormContent = {
+  stepTitles: {
+    name: "What would you like to be called?",
+    career: "What direction in programming interests you most?",
+    course: "What language would you like to start with?",
+    experience: "Do you have any programming experience?",
+  },
   courseContent: [
     {
       courseId: "75975805-3f02-43c2-9106-c990d944dfd2",
@@ -10,7 +16,6 @@ export const onboardingContent: OnboardingFormContent = {
   ],
   careerContent: [
     {
-      courseId: "75975805-3f02-43c2-9106-c990d944dfd2",
       title: "Data science",
       careerType: "DATA",
       description: "Data scientists",

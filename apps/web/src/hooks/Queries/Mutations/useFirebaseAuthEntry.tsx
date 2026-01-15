@@ -5,7 +5,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useFinalizeLogin } from "./useFinalizeLogin";
-import { handleFirebaseAuthError } from "../handleFirebaseAuthError";
+import { handleFirebaseAuthError } from "../../Error/handleFirebaseAuthError";
 import type { FirebaseError } from "firebase/app";
 
 export type AuthProviderMode = "GOOGLE" | "GITHUB";
