@@ -1,4 +1,5 @@
-import { steps, type StageKey } from "@/features/Onboarding/Templates/OnboardingSteps.ts";
+import { steps } from "@/features/Onboarding/Steps/OnboardingSteps";
+import type { StageKey } from "@ludocode/types";
 import { getRouteApi } from "@tanstack/react-router";
 
 export function OnboardingStagePage() {

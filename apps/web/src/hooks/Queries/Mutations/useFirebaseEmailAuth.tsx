@@ -4,7 +4,7 @@ import {
 } from "firebase/auth";
 import { useFinalizeLogin } from "./useFinalizeLogin";
 import { auth } from "@/constants/auth/firebase";
-import { handleFirebaseAuthError } from "../handleFirebaseAuthError";
+import { handleFirebaseAuthError } from "../../Error/handleFirebaseAuthError";
 import type { FirebaseError } from "firebase/app";
 import validator from "validator";
 import { errorToast } from "@ludocode/design-system/primitives/toast";

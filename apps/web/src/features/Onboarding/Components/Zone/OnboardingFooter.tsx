@@ -5,7 +5,7 @@ import { useOnboardingContext } from "@/features/Onboarding/Context/OnboardingCo
 type OnboardingFooterProps = {};
 
 export function OnboardingFooter({}: OnboardingFooterProps) {
-  const { hook } = useOnboardingContext();
+  const { flow: hook } = useOnboardingContext();
   const { canAdvance, next } = hook;
 
   return (
@@ -16,7 +16,7 @@ export function OnboardingFooter({}: OnboardingFooterProps) {
           className="h-10"
           variant="alt"
           onClick={() => next()}
-          disabled={!canAdvance()}
+          disabled={!canAdvance}
         >
           Continue
         </LudoButton>

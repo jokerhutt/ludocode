@@ -1,4 +1,8 @@
+export type StageKey = "name" | "course" | "career" | "experience";
+
 export type OnboardingFormContent = {
+  stepTitles: Record<StageKey, string>;
+
   courseContent: OnboardingCourseType[];
   careerContent: OnboardingCareerType[];
   previousExperienceContent: PreviousExperienceType[];
@@ -25,7 +29,6 @@ export type PreviousExperienceType = {
 };
 
 export type OnboardingCareerType = {
-  courseId: string;
   careerType: CareerType;
   title: string;
   description: string;
