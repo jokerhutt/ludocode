@@ -10,6 +10,8 @@ type AuthInputFieldProps = {
   placeHolder?: string;
   isProtected?: boolean;
   errorMsg?: string;
+  ring?: boolean;
+  variant?: "default" | "alt";
   isError?: boolean;
 };
 
@@ -19,23 +21,33 @@ export function AuthInputField({
   title,
   placeHolder,
   isProtected,
+  ring = false,
   errorMsg = "Required",
+  variant = "default",
   isError,
 }: AuthInputFieldProps) {
   const errorStyle = isError ? "border border-red-400" : "";
+  const ringStyle = ring ? "" : "focus:ring-0 focus-visible:ring-0";
+  const variantStyle =
+    variant == "default"
+      ? "border-transparent"
+      : "border-3 border-ludoAltAccent focus:border-ludoAltAccent focus-visible:border-ludoAltAccent font-bold";
+
   const [isHidden, setIsHidden] = useState<boolean>(isProtected ?? false);
 
   return (
-    <div className="w-full text-ludoAltText flex flex-col gap-2">
+    <div className="w-full text-ludoAltText items-start flex flex-col gap-2">
       {title && <p className="text-sm">{title}</p>}
-      <div className="relative">
+      <div className="relative w-full">
         <Input
           type={isHidden ? "password" : "text"}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className={cn(
             "bg-ludoGrayLight placeholder:text-ludoGray pr-10 h-12 border border-transparent text-white",
-            errorStyle
+            ringStyle,
+            errorStyle,
+            variantStyle
           )}
           placeholder={placeHolder}
         />
@@ -45,7 +57,11 @@ export function AuthInputField({
             onClick={() => setIsHidden((v) => !v)}
             className="absolute hover:cursor-pointer h-4 w-4 z-10 right-4 top-1/2 -translate-y-1/2"
           >
-            {isHidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4"/>}
+            {isHidden ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
           </button>
         )}
       </div>
