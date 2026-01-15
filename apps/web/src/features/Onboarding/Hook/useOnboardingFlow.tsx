@@ -1,5 +1,8 @@
 import { useSubmitOnboarding } from "@/hooks/Queries/Mutations/useSubmitOnboarding.tsx";
-import type { OnboardingSubmission, StageKey } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
+import type {
+  OnboardingSubmission,
+  StageKey,
+} from "@ludocode/types/Onboarding/OnboardingCourse.ts";
 import { stepOrder } from "@/features/Onboarding/Steps/OnboardingSteps";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback } from "react";
@@ -18,6 +21,7 @@ export type UseOnboardingFlowReturn = {
   position: OnboardingPosition;
   next: () => void;
   prev: () => void;
+  showBack: boolean;
   canAdvance: boolean;
 };
 
@@ -66,5 +70,6 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     next,
     prev,
     canAdvance,
+    showBack: !atFirst,
   };
 }

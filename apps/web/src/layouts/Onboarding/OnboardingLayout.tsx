@@ -8,13 +8,13 @@ import { useOnboardingFlow } from "@/features/Onboarding/Hook/useOnboardingFlow.
 import { OnboardingFooter } from "@/features/Onboarding/Components/Zone/OnboardingFooter.tsx";
 import { onboardingContent } from "@/constants/mocks/onboardingMocks.ts";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { useOnboardingDraft } from "@/features/Onboarding/Hook/useOnboardingDraft";
 import { useEffect } from "react";
 import type { StageKey } from "@ludocode/types";
+import { OnboardingHeader } from "@/features/Onboarding/Components/Zone/OnboardingHeader";
 
 export function OnboardingLayout() {
   const routeApi = getRouteApi("/_app/onboarding/$stage");
@@ -47,7 +47,7 @@ export function OnboardingLayout() {
   return (
     <OnboardingContext.Provider value={contextValue}>
       <MainGridWrapper gridRows="FULL">
-        <LessonHeader total={total} position={current} />
+        <OnboardingHeader total={total} position={current} />
         <MainContentWrapper>
           <div className="grid col-span-full grid-cols-12">
             <div className="col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 py-6 min-w-0">

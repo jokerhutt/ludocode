@@ -19,8 +19,12 @@ export const Route = createFileRoute("/_app/onboarding/$stage")({
       {};
 
     const invalid = firstInvalidStep(draft);
+    if (!invalid) return;
 
-    if (invalid && invalid !== params.stage) {
+    const currentIdx = stepOrder.indexOf(params.stage as StageKey);
+    const invalidIdx = stepOrder.indexOf(invalid);
+
+    if (currentIdx > invalidIdx) {
       throw redirect({
         to: "/onboarding/$stage",
         params: { stage: invalid },
