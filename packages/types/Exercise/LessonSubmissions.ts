@@ -1,7 +1,7 @@
 import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
 
 export type LessonSubmission = {
-  id: string;
+  submissionId: string;
   lessonId: string;
   submissions: ExerciseSubmission[];
 };

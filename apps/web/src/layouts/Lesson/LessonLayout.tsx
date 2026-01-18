@@ -16,6 +16,7 @@ export function LessonLayout() {
   const lessonPageRoute = getRouteApi(
     "/_app/lesson/$courseId/$moduleId/$lessonId/"
   );
+
   const { courseId, moduleId } = lessonRoute.useParams();
 
   const { exercises, lesson } = lessonRoute.useLoaderData();

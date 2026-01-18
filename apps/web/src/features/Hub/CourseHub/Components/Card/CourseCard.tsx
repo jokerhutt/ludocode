@@ -1,7 +1,6 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { LudoCourse } from "@ludocode/types";
 
-;
 // import type { IconName } from "@/components/design-system/primitives/custom-icon";
 
 type CourseCardProps = {
@@ -22,8 +21,9 @@ export function CourseCard({ course, onClick }: CourseCardProps) {
 
   return (
     <LudoButton onClick={() => onClick()} className="w-full h-20">
-      <div className="w-full flex items-center px-4 py-2 justify-center">
-        <div className="w-full ">
+      <div className="w-full flex flex-col items-start px-4 py-2 justify-center">
+        <p className="text-ludoLightPurple text-sm">COURSE</p>
+        <div className="w-full flex justify-start">
           <h1 className="text-white font-bold text-xl">{title}</h1>
         </div>
       </div>
