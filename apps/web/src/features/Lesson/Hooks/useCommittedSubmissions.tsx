@@ -63,7 +63,7 @@ export function useCommittedSubmissions({
       setCommittedExerciseSubmissions(merged);
 
       //Navigate based on result
-      if (isLastExercise) {
+      if (isLastExercise && (filteredStagedAttempt.isCorrect || isInfoExercise)) {
         handleLastExercise(merged);
       } else if (filteredStagedAttempt.isCorrect) {
         handleCorrectAttempt();
