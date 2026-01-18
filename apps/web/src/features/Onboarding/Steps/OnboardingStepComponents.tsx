@@ -1,8 +1,6 @@
-import type { CareerType } from "@ludocode/types";
 import { useOnboardingContext } from "../Context/OnboardingContext";
 import { OnboardingStageShell } from "../Components/Zone/OnboardingStageShell";
 import { AuthInputField } from "@/features/Auth/Components/Input/AuthInputField";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { WideOnboardingOption } from "../Components/WideOnboardingOption";
 
 export function CareerChoiceStep() {
@@ -11,8 +9,6 @@ export function CareerChoiceStep() {
 
   const { careerContent, stepTitles } = content;
 
-  const selectedColor = (career: CareerType) =>
-    career == draft.career ? "border-2 border-ludoLightPurple" : "";
 
   return (
     <OnboardingStageShell title={stepTitles.career}>

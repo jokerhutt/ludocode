@@ -18,7 +18,7 @@ export function useSubmitOnboarding() {
       const { courseProgress } = courseProgressResponse;
       const { courseId, moduleId } = courseProgress;
 
-      qc.setQueryData(qk.courseProgress(courseId), courseProgressResponse);
+      qc.setQueryData(qk.courseProgress(courseId), courseProgress);
       qc.setQueryData(qk.currentCourseId(), courseId);
 
       router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));

@@ -6,7 +6,7 @@ import type {
 
 export function convertStagedAttemptIntoExerciseSubmission(
   attempt: ExerciseAttempt,
-  version: number
+  version: number,
 ): ExerciseSubmission {
   return {
     exerciseId: attempt.exerciseId,
@@ -17,10 +17,10 @@ export function convertStagedAttemptIntoExerciseSubmission(
 
 export function convertToLessonSubmission(
   lessonId: string,
-  submissions: ExerciseSubmission[]
+  submissions: ExerciseSubmission[],
 ): LessonSubmission {
   return {
-    id: crypto.randomUUID(),
+    submissionId: crypto.randomUUID(),
     lessonId: lessonId,
     submissions: submissions,
   };
@@ -37,7 +37,7 @@ export function createInfoExerciseAttempt(exId: string): ExerciseAttempt {
 export function mergeStagedAttemptIntoExerciseSubmissions(
   subs: ExerciseSubmission[],
   attempt: ExerciseAttempt,
-  version: number
+  version: number,
 ): ExerciseSubmission[] {
   const i = subs.findIndex((s) => s.exerciseId === attempt.exerciseId);
 

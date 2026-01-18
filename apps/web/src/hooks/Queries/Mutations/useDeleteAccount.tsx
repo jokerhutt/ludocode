@@ -15,7 +15,7 @@ export function useDeleteAccount() {
       await logoutMutation.mutateAsync();
 
       qc.clear();
-      router.navigate(ludoNavigation.auth());
+      router.navigate(ludoNavigation.auth.login());
     },
   });
 }
