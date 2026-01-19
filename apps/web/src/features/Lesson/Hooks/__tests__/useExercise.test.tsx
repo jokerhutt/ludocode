@@ -14,14 +14,34 @@ vi.mock("@/main", () => ({
 import { useExercise } from "@/features/Lesson/Hooks/useExercise";
 import { l1, l1exercises } from "./fixtures";
 import type { AnswerToken } from "@ludocode/types";
+import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
 
 describe("useExercise Flow (integration)", () => {
   // ===== TEST 1 =====
 
-  it("wrong answer => INCORRECT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 1 }),
+  it("full flow => correctly handles lesson submission => navigates to sync page", async () => {
+    let currentPosition = 1;
+    let syncNavigation: any = null;
+
+    const { result, rerender } = renderHook(
+      ({ position }) =>
+        useExercise({ exercises: l1exercises, lesson: l1, position }),
+      { initialProps: { position: currentPosition } },
     );
+
+    navigateSpy.mockImplementation((navOptions: any) => {
+      if (navOptions.search && typeof navOptions.search === "function") {
+        const newSearch = navOptions.search({ exercise: currentPosition });
+        currentPosition = newSearch.exercise;
+        rerender({ position: currentPosition });
+      } else if (navOptions.to === syncRoute.to) {
+        // Call state function if it exists to get the new state
+        const newState =
+          typeof navOptions.state === "function" ? navOptions.state({}) : {};
+        syncNavigation = navOptions;
+        syncNavigation.computedState = newState;
+      }
+    });
 
     const selectedOption = l1exercises[0].distractors[0];
 
@@ -73,6 +93,119 @@ describe("useExercise Flow (integration)", () => {
 
     await waitFor(() => {
       expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.currentExercise.id).toBe(l1exercises[1].id);
+    });
+
+    const selectedOptionC1 = l1exercises[1].correctOptions[0];
+    const selectedOptionC2 = l1exercises[1].correctOptions[1];
+
+    act(() => {
+      const s1: AnswerToken = {
+        id: selectedOptionC1.id,
+        value: selectedOptionC1.content,
+      };
+      result.current.inputState.replaceAnswerAt(0, s1);
+    });
+
+    act(() => {
+      const s2: AnswerToken = {
+        id: selectedOptionC2.id,
+        value: selectedOptionC2.content,
+      };
+      result.current.inputState.replaceAnswerAt(1, s2);
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.phase).toBe("CORRECT");
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.currentExercise.id).toBe(l1exercises[2].id);
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.phase).toBe("DEFAULT");
+
+      // Assert navigation to sync page
+      expect(syncNavigation).not.toBeNull();
+      expect(syncNavigation.params.lessonId).toBe(l1.id);
+
+      // Assert lesson submission structure
+      expect(syncNavigation.computedState.submission).toBeDefined();
+      expect(syncNavigation.computedState.submission.lessonId).toBe(l1.id);
+      expect(
+        syncNavigation.computedState.submission.submissionId,
+      ).toBeDefined();
+      expect(syncNavigation.computedState.submission.submissions).toHaveLength(
+        3,
+      );
+
+      // Verify all exercises were submitted
+
+      expect(
+        syncNavigation.computedState.submission.submissions[0].exerciseId,
+      ).toBe(l1exercises[0].id);
+
+      // Exercise 1 had 2 attempts
+      expect(
+        syncNavigation.computedState.submission.submissions[0].attempts,
+      ).toHaveLength(2);
+
+      // Exercise 1 attempt 1 was INCORRECT
+      expect(
+        syncNavigation.computedState.submission.submissions[0].attempts[0]
+          .isCorrect,
+      ).toBe(false);
+
+      // Exercise 1 attempt 2 was CORRECT
+      expect(
+        syncNavigation.computedState.submission.submissions[0].attempts[1]
+          .isCorrect,
+      ).toBe(true);
+
+      expect(
+        syncNavigation.computedState.submission.submissions[1].exerciseId,
+      ).toBe(l1exercises[1].id);
+
+      // Exercise 2 had 1 attempt
+      expect(
+        syncNavigation.computedState.submission.submissions[1].attempts,
+      ).toHaveLength(1);
+
+      // Exercise 2 attempt 1 was CORRECT
+      expect(
+        syncNavigation.computedState.submission.submissions[1].attempts[0]
+          .isCorrect,
+      ).toBe(true);
+
+      expect(
+        syncNavigation.computedState.submission.submissions[2].exerciseId,
+      ).toBe(l1exercises[2].id);
+
+      // Exercise 3 had 1 attempt
+      expect(
+        syncNavigation.computedState.submission.submissions[2].attempts,
+      ).toHaveLength(1);
+
+      // Exercise 3 attempt 1 was CORRECT
+
+      expect(
+        syncNavigation.computedState.submission.submissions[2].attempts[0]
+          .isCorrect,
+      ).toBe(true);
     });
   });
 });
