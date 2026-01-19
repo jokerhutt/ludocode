@@ -6,18 +6,20 @@
   "scripts": {
     "dev": "../../node_modules/.bin/vite",
     "build": "../../node_modules/.bin/tsc -b && vite build",
+    "test": "vitest",
+    "test:run": "vitest run",
     "lint": "../../node_modules/.bin/eslint .",
     "preview": "../../node_modules/.bin/vite preview"
   },
   "dependencies": {
-    "@ludocode/design-system": "*",
-    "@ludocode/external": "*",
-    "@ludocode/api": "*",
-    "@ludocode/types": "*",
     "@ai-sdk/react": "^2.0.98",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@heroicons/react": "^2.2.0",
+    "@ludocode/api": "*",
+    "@ludocode/design-system": "*",
+    "@ludocode/external": "*",
+    "@ludocode/types": "*",
     "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-collapsible": "^1.1.12",
@@ -73,6 +75,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
     "@types/howler": "^2.2.12",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^24.9.2",
@@ -86,9 +90,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "jsdom": "^27.4.0",
     "tw-animate-css": "^1.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
-    "vite": "^7.1.7"
+    "vite": "^7.1.7",
+    "vitest": "^4.0.17"
   }
 }

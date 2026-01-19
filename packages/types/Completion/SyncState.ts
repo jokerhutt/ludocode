@@ -1,3 +1,4 @@
-import type { LessonSubmission } from "packages/types/Exercise/LessonSubmissions.ts";
+import { LessonSubmission } from "../Exercise/LessonSubmissions";
 
-export type SyncState = {submission: LessonSubmission}
+
+export type SyncState = { submission: LessonSubmission };

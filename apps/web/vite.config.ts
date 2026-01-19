@@ -1,7 +1,7 @@
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 export default defineConfig({
@@ -13,6 +13,12 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    globals: true,
+    clearMocks: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -21,7 +27,7 @@ export default defineConfig({
       "@ludocode/api": path.resolve(__dirname, "../../packages/api"),
       "@ludocode/design-system": path.resolve(
         __dirname,
-        "../../packages/design-system"
+        "../../packages/design-system",
       ),
       "@ludocode/hooks": path.resolve(__dirname, "../../packages/hooks"),
     },
