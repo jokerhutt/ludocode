@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "../../node_modules/.bin/vite",
     "build": "../../node_modules/.bin/tsc -b && vite build",
+    "test": "vitest",
+    "test:run": "vitest run",
     "lint": "../../node_modules/.bin/eslint .",
     "preview": "../../node_modules/.bin/vite preview"
   },

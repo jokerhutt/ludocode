@@ -23,7 +23,7 @@ export function LessonLayout() {
   const { exercise: position } = lessonPageRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
 
-  const state = useExercise({ exercises, lesson, position });
+  const state = useExercise({ exercises, lesson, position: exercisePosition });
 
   return (
     <LessonContext.Provider value={state}>

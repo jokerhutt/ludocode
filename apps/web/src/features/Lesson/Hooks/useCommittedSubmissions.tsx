@@ -10,7 +10,7 @@ import {
   mergeStagedAttemptIntoExerciseSubmissions,
 } from "@/features/Lesson/Util/submissionUtil.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useRouter } from "@tanstack/react-router";
+import { router } from "@/main";
 
 type Args = {
   currentExercise: LudoExercise;
@@ -29,13 +29,12 @@ export function useCommittedSubmissions({
   clearStaged,
   lessonId,
 }: Args) {
-  const router = useRouter();
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
     useState<ExerciseSubmission[]>([]);
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
     const lessonSubmission = convertToLessonSubmission(lessonId, merged);
     router.navigate(
-      ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission)
+      ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
     );
   };
   const handleCorrectAttempt = () =>
@@ -58,12 +57,15 @@ export function useCommittedSubmissions({
       const merged = mergeStagedAttemptIntoExerciseSubmissions(
         committedExerciseSubmissions,
         filteredStagedAttempt,
-        currentExercise.version
+        currentExercise.version,
       );
       setCommittedExerciseSubmissions(merged);
 
       //Navigate based on result
-      if (isLastExercise && (filteredStagedAttempt.isCorrect || isInfoExercise)) {
+      if (
+        isLastExercise &&
+        (filteredStagedAttempt.isCorrect || isInfoExercise)
+      ) {
         handleLastExercise(merged);
       } else if (filteredStagedAttempt.isCorrect) {
         handleCorrectAttempt();
@@ -85,7 +87,7 @@ export function useCommittedSubmissions({
       handleCorrectAttempt,
       clearExerciseInputs,
       clearStaged,
-    ]
+    ],
   );
 
   return { commitStagedAttemptIntoSubmissions };
