@@ -1,5 +1,5 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
 import { UserCard } from "../Components/Card/UserCard";
 import { AccountActionsGroup } from "../Components/Group/AccountActionsGroup";
 import { ProfileCardContainer } from "../Components/Card/ProfileCardContainer";
@@ -11,6 +11,22 @@ type ProfilePageProps = {};
 
 export function ProfilePage({}: ProfilePageProps) {
   const { data: user } = useSuspenseQuery(qo.currentUser());
+  const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
+
+  const { data: allCourses } = useSuspenseQuery(qo.allCourses());
+  const results = useSuspenseQueries({
+    queries: allCourses.map((course) => qo.courseStats(course.id)),
+  });
+  const allCourseStats = results.map((r) => r.data);
+
+  const currentCourseObject = allCourses.find(
+    (course) => course.id === currentCourseId,
+  );
+
+  const currentCourseStats = allCourseStats.find(
+    (courseStat) => courseStat.id === currentCourseId,
+  );
+
   return (
     <div className="layout-grid scrollable col-span-full text-ludoAltText relative px-8 lg:px-0 py-2">
       <div className="hidden lg:block lg:col-span-3" />
@@ -22,13 +38,15 @@ export function ProfilePage({}: ProfilePageProps) {
           </ProfileCardContainer>
           <ProfileCardContainer header="CURRENT COURSE">
             <CurrentCourseCard
-              courseName="Python"
-              courseIcon="Python"
-              value={50}
+              courseName={currentCourseObject!!.title}
+              courseStats={currentCourseStats!!}
             />
           </ProfileCardContainer>
           <ProfileCardContainer header="BADGES">
-            <BadgeCard />
+            <BadgeCard
+              allCourses={allCourses}
+              allCourseStats={allCourseStats}
+            />
           </ProfileCardContainer>
         </div>
         <AccountActionsGroup />

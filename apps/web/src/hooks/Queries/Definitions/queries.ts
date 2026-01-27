@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { qk } from "@/hooks/Queries/Definitions/qk";
 import {
   courseProgressBatcher,
+  courseStatsBatcher,
   lessonBatcher,
   moduleBatcher,
   userBatcher,
@@ -23,6 +24,7 @@ import {
 } from "@ludocode/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
 import { api } from "@/constants/api/api";
+import { type CourseStats } from "@ludocode/types";
 
 export const qo = {
   user: (userId: string) =>
@@ -37,6 +39,13 @@ export const qo = {
       queryKey: qk.courseProgress(courseId),
       queryFn: () => courseProgressBatcher.fetch(courseId),
       staleTime: 60_000,
+    }),
+
+  courseStats: (courseId: string) =>
+    queryOptions<CourseStats>({
+      queryKey: qk.courseStats(courseId),
+      queryFn: () => courseStatsBatcher.fetch(courseId),
+      staleTime: 60_000
     }),
 
   preferences: () =>

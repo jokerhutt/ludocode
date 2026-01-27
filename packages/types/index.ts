@@ -48,6 +48,7 @@ export * from "./Static/DevInfoContent";
 // User
 export * from "./User/ChangeCourseType";
 export * from "./User/CourseProgress";
+export * from "./User/CourseStats";
 export * from "./User/LoginUserResponse";
 export * from "./User/LudoStats";
 export * from "./User/LudoUser";
