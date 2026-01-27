@@ -42,7 +42,7 @@ export const qo = {
   preferences: () =>
     queryOptions<UserPreferences>({
       queryKey: qk.preferences(),
-      queryFn: () => ludoGet<UserPreferences>(api.users.preferences, true),
+      queryFn: () => ludoGet<UserPreferences>(api.preferences.base, true),
       staleTime: 60_000,
     }),
 

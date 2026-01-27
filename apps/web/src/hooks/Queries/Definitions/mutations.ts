@@ -102,7 +102,7 @@ export const mutations = {
       mutationKey: ["submitOnboarding"],
       mutationFn: (variables) =>
         ludoPut<OnboardingResponse, OnboardingSubmission>(
-          api.users.onboarding,
+          api.preferences.base,
           variables,
           true
         ),

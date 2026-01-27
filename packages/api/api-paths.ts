@@ -88,13 +88,15 @@ export function createApiPaths({
       byCourse: (courseId: string) => `${BASE}/snapshots/${courseId}`,
     },
 
+    preferences: {
+      base: `${BASE}/preferences`,
+    },
+
     users: {
       base: `${BASE}/users`,
       byIds: (userIds: string) => `${BASE}/users?${userIds}`,
       me: `${BASE}/users/me`,
-      preferences: `${BASE}/users/me/preferences`,
       avatar: `${BASE}/users/avatar`,
-      onboarding: `${BASE}/users/me/onboarding`,
     },
   };
 }
