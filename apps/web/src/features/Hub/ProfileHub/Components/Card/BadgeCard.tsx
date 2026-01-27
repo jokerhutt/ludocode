@@ -1,5 +1,5 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { Badge } from "./Badge";
+import { Badge } from "@ludocode/design-system/primitives/badge";
 
 type BadgeCardProps = {};
 

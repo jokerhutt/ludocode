@@ -18,13 +18,17 @@ export function ProfilePage({}: ProfilePageProps) {
         <UserCard user={user} />
         <div className="w-full h-full flex flex-col gap-5">
           <ProfileCardContainer header="STATS">
-            <UserStatsGroup streak={0} commits={0} />
+            <UserStatsGroup />
           </ProfileCardContainer>
           <ProfileCardContainer header="CURRENT COURSE">
-            <CurrentCourseCard courseName="Python" courseIcon="Python" value={50} />
+            <CurrentCourseCard
+              courseName="Python"
+              courseIcon="Python"
+              value={50}
+            />
           </ProfileCardContainer>
           <ProfileCardContainer header="BADGES">
-            <BadgeCard/>
+            <BadgeCard />
           </ProfileCardContainer>
         </div>
         <AccountActionsGroup />
