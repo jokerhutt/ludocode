@@ -59,7 +59,8 @@ export function createApiPaths({
       courses: {
         base: `${BASE}/progress/courses`,
         byIds: (courseIds: string) => `${BASE}/progress/courses?${courseIds}`,
-
+        stats: `${BASE}/progress/courses/stats`,
+        statsByIds: (courseIds: string) => `${BASE}/progress/courses/stats?${courseIds}`,
         enrolled: `${BASE}/progress/courses/enrolled`,
         current: `${BASE}/progress/courses/current`,
         reset: (courseId: string) =>

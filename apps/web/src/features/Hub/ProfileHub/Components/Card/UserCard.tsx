@@ -12,11 +12,11 @@ export function UserCard({ user }: UserCardProps) {
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   return (
-    <div className="flex gap-4 lg:gap-6 lg:w-full p-4 bg-ludoGrayLight rounded-md">
-      <Avatar src={userPfpSrc} />
-      <div className="flex flex-col">
-        <h2 className=" text-lg lg:text-2xl">{displayName}</h2>
-        <h3 className="lg:text-lg text-sm">Joined: {joinTime}</h3>
+    <div className="flex flex-col items-center gap-4 lg:gap-6 lg:w-full p-4 rounded-md">
+      <Avatar className="h-24 w-24" src={userPfpSrc} />
+      <div className="flex flex-col gap-1 items-center">
+        <h2 className=" text-2xl lg:text-2xl">{displayName}</h2>
+        <h3 className="lg:text-lg text-md">Joined: {joinTime}</h3>
       </div>
     </div>
   );

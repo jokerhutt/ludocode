@@ -48,12 +48,15 @@ export * from "./Static/DevInfoContent";
 // User
 export * from "./User/ChangeCourseType";
 export * from "./User/CourseProgress";
+export * from "./User/CourseStats";
 export * from "./User/LoginUserResponse";
 export * from "./User/LudoStats";
 export * from "./User/LudoUser";
 export * from "./User/UserCoins";
 export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
+export * from "./User/AvatarInfo";
+export * from "./User/EditProfileRequest";
 
 // Zod
 export * from "./Zod/OnboardingSchema/OnboardingSnapSchema";

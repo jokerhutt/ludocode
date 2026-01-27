@@ -12,15 +12,21 @@ export const Route = createFileRoute("/_app/_hub/courses")({
 
 async function coursesLoader(queryClient: QueryClient) {
   const currentUser: LudoUser = await queryClient.ensureQueryData(
-    qo.currentUser()
+    qo.currentUser(),
   );
   const allCourses = await queryClient.ensureQueryData(qo.allCourses());
   const enrolled: string[] = await queryClient.ensureQueryData(qo.enrolled());
 
   await Promise.all(
     enrolled.map((enrolledId) =>
-      queryClient.ensureQueryData(qo.courseProgress(enrolledId))
-    )
+      queryClient.ensureQueryData(qo.courseProgress(enrolledId)),
+    ),
+  );
+
+  await Promise.all(
+    enrolled.map((enrolledId) =>
+      queryClient.ensureQueryData(qo.courseStats(enrolledId)),
+    ),
   );
 
   return { allCourses, enrolled, currentUser };

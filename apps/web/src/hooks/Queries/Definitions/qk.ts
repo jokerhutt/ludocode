@@ -13,6 +13,7 @@ export const qk = {
   preferences: () => ["preferences"] as const,
   projects: () => ["projects"] as const,
   courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
+  courseStats: (courseId: string) => ["courseStats", courseId] as const,
   modulesBySection: (courseId: string) =>
     ["courses", courseId, "modules"] as const,
   lessonsByModule: (moduleId: string) =>
@@ -25,6 +26,4 @@ export const qk = {
 
   onboardingDraft: () => ["onboarding", "draft"] as const,
   onboardingValidatedUpTo: () => ["onboarding", "validatedUpTo"] as const,
-
-
 };

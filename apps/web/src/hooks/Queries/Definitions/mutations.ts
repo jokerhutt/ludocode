@@ -10,9 +10,15 @@ import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProject
 import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
-import {ludoPut, ludoPatch, ludoPost, ludoDelete} from "@ludocode/api/fetcher"
+import {
+  ludoPut,
+  ludoPatch,
+  ludoPost,
+  ludoDelete,
+} from "@ludocode/api/fetcher";
 import { api } from "@/constants/api/api";
 import { logout } from "@/constants/api/logout";
+import type { EditProfileRequest, LudoUser } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -26,7 +32,7 @@ export const mutations = {
         ludoPost<LessonCompletionPacket, LessonSubmission>(
           api.progress.completion.base,
           variables,
-          true
+          true,
         ),
     });
   },
@@ -35,7 +41,11 @@ export const mutations = {
     return mutationOptions<RunnerResult, Error, ProjectSnapshot>({
       mutationKey: ["runCode"],
       mutationFn: (variables) =>
-        ludoPost<RunnerResult, ProjectSnapshot>(api.runner.execute, variables, true),
+        ludoPost<RunnerResult, ProjectSnapshot>(
+          api.runner.execute,
+          variables,
+          true,
+        ),
     });
   },
 
@@ -60,7 +70,7 @@ export const mutations = {
         ludoPost<ProjectListResponse, CreateProjectRequest>(
           api.projects.base,
           variables,
-          true
+          true,
         ),
     });
   },
@@ -80,7 +90,7 @@ export const mutations = {
         ludoPatch<ProjectListResponse, RenameProjectRequest>(
           api.projects.name(variables.targetId),
           variables,
-          true
+          true,
         ),
     });
   },
@@ -92,7 +102,7 @@ export const mutations = {
         ludoPut<ProjectSnapshot, ProjectSnapshot>(
           api.projects.byId(variables.projectId),
           variables,
-          true
+          true,
         ),
     });
   },
@@ -104,8 +114,16 @@ export const mutations = {
         ludoPut<OnboardingResponse, OnboardingSubmission>(
           api.preferences.base,
           variables,
-          true
+          true,
         ),
+    });
+  },
+
+  editProfile: () => {
+    mutationOptions<LudoUser, Error, EditProfileRequest>({
+      mutationKey: ["editProfile"],
+      mutationFn: (variables) =>
+        ludoPut<LudoUser, EditProfileRequest>(api.users.me, variables, true),
     });
   },
 
@@ -116,7 +134,7 @@ export const mutations = {
         ludoPost<CourseProgress, null>(
           api.progress.courses.reset(courseId),
           null,
-          true
+          true,
         ),
     }),
 
@@ -127,7 +145,7 @@ export const mutations = {
         ludoPut<ChangeCourseType, ChangeCourseVariables>(
           api.progress.courses.current,
           variables,
-          true
+          true,
         ),
     });
   },
