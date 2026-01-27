@@ -1,14 +1,21 @@
 import { useState } from "react";
+import { cn } from "../cn-utils";
 
 type AvatarProps = {
   src: string;
+  className?: string;
 };
 
-export function Avatar({ src }: AvatarProps) {
+export function Avatar({ src, className }: AvatarProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative lg:w-26 w-16 h-16 lg:h-26 rounded-full overflow-hidden">
+    <div
+      className={cn(
+        "relative lg:w-26 w-16 h-16 lg:h-26 rounded-full overflow-hidden",
+        className,
+      )}
+    >
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-gray-300" />
       )}

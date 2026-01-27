@@ -12,7 +12,7 @@ export function LogoutButton({}: LogoutButtonProps) {
   };
 
   return (
-    <LudoButton variant="alt" onClick={() => handleLogout()} className="text-lg w-50 px-4">
+    <LudoButton variant="alt" onClick={() => handleLogout()} className="text-lg w-full px-4">
       Log Out
     </LudoButton>
   );
