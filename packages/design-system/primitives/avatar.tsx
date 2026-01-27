@@ -12,7 +12,7 @@ export function Avatar({ src, className }: AvatarProps) {
   return (
     <div
       className={cn(
-        "relative lg:w-26 w-16 h-16 lg:h-26 rounded-full overflow-hidden",
+        "relative border-ludoLightPurple border-4 lg:w-26 w-16 h-16 lg:h-26 rounded-full overflow-hidden",
         className,
       )}
     >

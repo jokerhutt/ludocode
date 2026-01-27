@@ -1,9 +1,9 @@
+import { CourseProgressBar } from "@/features/Hub/Components/Group/CourseProgressBar";
 import {
   CustomIcon,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { Progress } from "@ludocode/external/ui/progress";
 import type { CourseStats } from "@ludocode/types";
 
 type CurrentCourseCardProps = {
@@ -30,10 +30,7 @@ export function CurrentCourseCard({
           />
           <p className="text-lg">{courseName}</p>
         </div>
-        <div className="w-full gap-4 flex items-center">
-          <Progress value={value} />
-          <p>{value}%</p>
-        </div>
+        <CourseProgressBar value={value} />
       </LudoButton>
     </div>
   );

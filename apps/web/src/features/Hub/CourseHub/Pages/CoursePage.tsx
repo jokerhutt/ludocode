@@ -5,6 +5,9 @@ import { useLoaderData } from "@tanstack/react-router";
 import { Hero } from "@ludocode/design-system/zones/hero";
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 import type { LudoCourse } from "@ludocode/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import { useMemo } from "react";
 
 export type CourseType = {
   name: string;
@@ -16,6 +19,9 @@ export type CourseType = {
 export function CoursePage() {
   const { allCourses } = useLoaderData({ from: "/_app/_hub/courses" });
   const changeCourseMutation = useChangeCourse();
+
+  const { data: enrolledIds } = useSuspenseQuery(qo.enrolled());
+  const enrolledSet = useMemo(() => new Set(enrolledIds), [enrolledIds]);
 
   const handleSelectCourse = (courseId: string) => {
     if (changeCourseMutation.isPending) return;
@@ -29,6 +35,7 @@ export function CoursePage() {
         <CourseCardGrid>
           {allCourses.map((course: LudoCourse) => (
             <CourseCard
+              enrolled={enrolledSet.has(course.id)}
               key={course.id}
               onClick={() => handleSelectCourse(course.id)}
               course={course}
