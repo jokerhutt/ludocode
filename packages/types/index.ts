@@ -54,6 +54,8 @@ export * from "./User/LudoUser";
 export * from "./User/UserCoins";
 export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
+export * from "./User/AvatarInfo";
+export * from "./User/EditProfileRequest";
 
 // Zod
 export * from "./Zod/OnboardingSchema/OnboardingSnapSchema";
