@@ -39,7 +39,7 @@ export function simulateOnboardingBeforeLoad(
 
 export function createOnboardingRouterMock(
   rerender: RenderHookResult<any, any>["rerender"],
-  getCurrentStage: () => StageKey,
+  _: () => StageKey,
   setCurrentStage: (stage: StageKey) => void,
 ) {
   const navigations: OnboardingNavigationCapture[] = [];

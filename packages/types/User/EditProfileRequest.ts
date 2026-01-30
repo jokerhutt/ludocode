@@ -1,4 +1,4 @@
-import { AvatarInfo } from "@ludocode/types/User/AvatarInfo";
+import { type AvatarInfo } from "@ludocode/types/User/AvatarInfo";
 
 export type EditProfileRequest = {
   username: string;

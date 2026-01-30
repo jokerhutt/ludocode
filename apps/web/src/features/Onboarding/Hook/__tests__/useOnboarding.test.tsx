@@ -266,7 +266,7 @@ describe("useOnboardingFlow (integration)", () => {
       { initialProps: { stage: currentStage }, wrapper },
     );
 
-    const { result: draftResult } = renderHook(() => useOnboardingDraft(), {
+    const { result: _ } = renderHook(() => useOnboardingDraft(), {
       wrapper,
     });
 

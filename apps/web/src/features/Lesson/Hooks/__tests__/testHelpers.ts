@@ -80,7 +80,7 @@ export function createLessonRouterMock(
   setCurrentPosition: (pos: number) => void,
 ) {
   return createRouterMock(rerender, {
-    onSearchNavigation: (searchFn, currentSearch) => {
+    onSearchNavigation: (searchFn, _) => {
       const newSearch = searchFn({ exercise: getCurrentPosition() });
       setCurrentPosition(newSearch.exercise);
       return { position: newSearch.exercise };
