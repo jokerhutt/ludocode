@@ -38,7 +38,7 @@ export function ChatBotProvider({
       api: api.ai.completions,
       credentials: "include",
     }),
-    onData() {
+    onFinish() {
       queryClient.invalidateQueries({ queryKey: qk.credits() });
     },
     id: `chatbot-${type}-${targetId}`,
