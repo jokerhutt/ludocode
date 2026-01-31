@@ -23,7 +23,7 @@ export function CourseCard({ course, onClick, enrolled }: CourseCardProps) {
   return (
     <LudoButton onClick={() => onClick()} className="w-full h-20">
       <div className="w-full flex flex-col items-start px-4 py-2 justify-center">
-        <p className="text-ludoLightPurple text-sm">COURSE</p>
+        <p className="text-ludo-accent-muted text-sm">COURSE</p>
         <div className="w-full flex gap-4 justify-start">
           <h1 className="text-white font-bold text-xl">{title}</h1>
           {enrolled && <CourseProgressBar value={statsValue} />}

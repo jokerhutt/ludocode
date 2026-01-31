@@ -19,12 +19,12 @@ export function ModuleSelectionTabs({
   return (
     <div
       className={cn(
-        "h-12 grid grid-cols-[1fr_1fr] border-b-ludoGrayDark border-b text-white w-full bg-ludoGrayLight",
+        "h-12 grid grid-cols-[1fr_1fr] border-b-ludo-background border-b text-white w-full bg-ludo-surface",
         className
       )}
     >
       <HeaderTab
-        className="border-r border-r-ludoGrayDark"
+        className="border-r border-r-ludo-background"
         text={availableTabs[0]}
         onClick={() => changeTab(availableTabs[0])}
         isActive={activeTab == availableTabs[0]}

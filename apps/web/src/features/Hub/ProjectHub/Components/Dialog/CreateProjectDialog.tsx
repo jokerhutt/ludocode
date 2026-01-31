@@ -81,7 +81,7 @@ export function CreateProjectDialog({
           className="w-full flex"
         >
           Create Project
-          {isSubmitLoading && <Spinner className="text-ludoLightPurple" />}
+          {isSubmitLoading && <Spinner className="text-ludo-accent-muted" />}
         </LudoButton>
       </div>
     </LudoDialog>

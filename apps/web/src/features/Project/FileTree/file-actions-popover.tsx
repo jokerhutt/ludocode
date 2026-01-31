@@ -36,7 +36,7 @@ export function FileActionsPopover({
         <PopoverContent
           onClick={(e) => e.stopPropagation()}
           align="end"
-          className="text-white hover:cursor-default flex flex-col gap-2 p-4 bg-ludoGrayLight"
+          className="text-white hover:cursor-default flex flex-col gap-2 p-4 bg-ludo-surface"
         >
           <DeleteDialog
             onClick={() => deleteItem()}

@@ -45,8 +45,8 @@ export function OptionsColumn({
       className={`p-6 border-2 border-dashed rounded-lg min-h-64 transition-all
         ${
           isArrange && isOver
-            ? "border-ludoLightPurple bg-ludoLightPurple/20"
-            : "border-ludoLightPurple"
+            ? "border-ludo-accent-muted bg-ludo-accent-muted/20"
+            : "border-ludo-accent-muted"
         }`}
     >
       <div className="flex items-center justify-between mb-4">

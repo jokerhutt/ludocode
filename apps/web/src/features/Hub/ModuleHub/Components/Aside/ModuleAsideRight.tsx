@@ -36,7 +36,7 @@ export function ModuleAsideRight({
           onClick={() => handleResetCourse(courseId)}
         >
           Reset
-          {isResettingCourse && <Spinner className="text-ludoLightPurple" />}
+          {isResettingCourse && <Spinner className="text-ludo-accent-muted" />}
         </LudoButton>
       </div>
     </Aside>

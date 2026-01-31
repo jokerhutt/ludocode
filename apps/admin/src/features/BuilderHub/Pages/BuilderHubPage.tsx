@@ -20,7 +20,7 @@ export function BuilderHubPage() {
   return (
     <>
       <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
-        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <Hero {...builderHeroContent}>
             <LudoButton
@@ -39,7 +39,7 @@ export function BuilderHubPage() {
             />
           ))}
         </div>
-        <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
       </div>
       <CreateCourseDialog
         hash={uuid()}

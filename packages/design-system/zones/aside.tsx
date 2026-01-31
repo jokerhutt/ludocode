@@ -17,7 +17,7 @@ export function Aside({
   return (
     <aside
       className={cn(
-        `hidden lg:block aside-col-wide h-full border-ludoGrayLight`,
+        `hidden lg:block aside-col-wide h-full border-ludo-surface`,
         className
       )}
     >

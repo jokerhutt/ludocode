@@ -31,7 +31,7 @@ export function AuthInputField({
   const variantStyle =
     variant == "default"
       ? "border-transparent"
-      : "border-3 border-ludoAltAccent focus:border-ludoAltAccent focus-visible:border-ludoAltAccent font-bold";
+      : "border-3 border-ludo-accent focus:border-ludo-accent focus-visible:border-ludo-accent font-bold";
 
   const [isHidden, setIsHidden] = useState<boolean>(isProtected ?? false);
 
@@ -44,7 +44,7 @@ export function AuthInputField({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className={cn(
-            "bg-ludoGrayLight placeholder:text-ludoGray pr-10 h-12 border border-transparent text-white",
+            "bg-ludo-surface placeholder:text-ludoGray pr-10 h-12 border border-transparent text-white",
             ringStyle,
             errorStyle,
             variantStyle

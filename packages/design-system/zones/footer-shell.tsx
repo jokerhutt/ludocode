@@ -10,7 +10,7 @@ export function FooterShell({ children, className }: FooterShellProps) {
   return (
     <footer
       className={cn(
-        `col-span-full min-h-20 lg:min-h-26 grid grid-cols-12 bg-ludoGrayLight`,
+        `col-span-full min-h-20 lg:min-h-26 grid grid-cols-12 bg-ludo-surface`,
         className
       )}
     >

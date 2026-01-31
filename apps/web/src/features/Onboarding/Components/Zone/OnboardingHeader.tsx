@@ -26,7 +26,7 @@ export function OnboardingHeader({ total, position }: OnboardingHeaderProps) {
       </div>
       <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
         <Progress
-          className="border-ludoLightPurple h-3"
+          className="border-ludo-accent-muted h-3"
           value={(completed / total) * 100}
         />
       </div>

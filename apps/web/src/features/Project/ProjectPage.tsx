@@ -20,7 +20,7 @@ export function ProjectPage() {
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
-      <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludoGrayLight lg:col-span-3">
+      <div className="col-span-1 min-h-0 bg-ludo-background border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludo-surface lg:col-span-3">
         <FileTreeWinbar />
         <ProjectFileTree />
         <div className="min-h-0 w-full h-full flex flex-col justify-end">
@@ -44,7 +44,7 @@ export function ProjectPage() {
             <RunCodeButton />
           </div>
 
-          <div className="col-span-1 min-h-0 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3 flex flex-col">
+          <div className="col-span-1 min-h-0 border-l-2 border-l-ludo-surface bg-ludo-background lg:col-span-3 flex flex-col">
             <RunnerWinbar />
             <div className="flex-1 min-h-0">
               <ProjectRunner />

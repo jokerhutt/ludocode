@@ -7,17 +7,15 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-ludoGrayDark: #22273e;
-  --color-ludoGrayLight: #303966;
-  --color-codeGray: #2f3553;
-  --color-ludoGraySoft: #d9d9d9;
+  --color-ludo-background: #22273e;
+  --color-ludo-surface: #303966;
+  --color-ludo-code-surface: #2f3553;
   --color-ludoYellow: #fff887;
-  --color-ludoLightPurple: #c1adff;
-  --color-ludoGrayLightShadow: #262e57;
+  --color-ludo-accent-muted: #c1adff;
+  --color-ludo-surfaceShadow: #262e57;
   --color-ludoGrayText: #364153;
   --color-ludoAltText: #d1d5dc;
-  --color-pathPurple: #8369d6;
-  --color-ludoAltAccent: #8369d6;
+  --color-ludo-accent: #8369d6;
 
   --shadow-ludoDarkPurpleShadow: 0 6px 0 #8f6aff;
   --shadow-buttonShadow: 0 10px 0 #262e57;
@@ -139,23 +137,9 @@
 }
 
 @layer utilities {
-  .scrollbar-ludoYellow {
+  .scrollbar-ludo-accent {
     scrollbar-width: thin;
     scrollbar-color: #303966 transparent;
-  }
-
-  .scrollbar-blue::-webkit-scrollbar {
-    width: 4px;
-    height: 8px;
-  }
-
-  .scrollbar-blue::-webkit-scrollbar-thumb {
-    background-color: #303966;
-    border-radius: 4px;
-  }
-
-  .scrollbar-blue::-webkit-scrollbar-track {
-    background: transparent;
   }
 
   .scrollbar-none {

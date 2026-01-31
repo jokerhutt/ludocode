@@ -24,7 +24,7 @@ export function ChatBotAccordion({ children }: ChatBotAccordionProps) {
             collapsible
         >
             <AccordionItem value="item-1">
-                <AccordionTrigger className="text-white hover:cursor-pointer rounded-none py-3 px-6 bg-ludoGrayLight/70">
+                <AccordionTrigger className="text-white hover:cursor-pointer rounded-none py-3 px-6 bg-ludo-surface/70">
                     Chat with Ludo AI
                 </AccordionTrigger>
                 <AccordionContent className="">{children}</AccordionContent>

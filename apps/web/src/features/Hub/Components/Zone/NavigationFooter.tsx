@@ -3,7 +3,7 @@ import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 
 export function NavigationFooter() {
   return (
-    <FooterShell className="lg:hidden border-t border-t-ludoGrayDark">
+    <FooterShell className="lg:hidden border-t border-t-ludo-background">
       <div className="col-span-full flex justify-center items-center">
         <NavigationIconGroup
           groupClassName="gap-4"

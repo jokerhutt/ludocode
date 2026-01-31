@@ -20,7 +20,7 @@ export function AdminAuthPage() {
               This is the admin dashboard for ludocode
             </p>
 
-            <div className="border border-ludoGrayLightShadow p-6 flex justify-center items-center flex-col w-full">
+            <div className="border border-ludo-background p-6 flex justify-center items-center flex-col w-full">
               <LudoButton
                 className="font-bold"
                 variant="white"

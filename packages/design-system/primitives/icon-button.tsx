@@ -25,7 +25,7 @@ export function IconButton({
     <button
       onClick={() => onClick?.()}
       className={cn(
-        "p-1 hover:cursor-pointer hover:bg-ludoLightPurple/60 rounded-full",
+        "p-1 hover:cursor-pointer hover:bg-ludo-accent-muted/60 rounded-full",
         className
       )}
     >

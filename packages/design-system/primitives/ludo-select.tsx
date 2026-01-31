@@ -23,10 +23,10 @@ export function LudoSelect({
       onValueChange={(value) => onChange?.(index, Number(value))}
     >
       {children}
-      <SelectContent className="bg-ludoGrayLight">
+      <SelectContent className="bg-ludo-surface">
         <SelectGroup>
           {Array.from({ length: count }).map((_, i) => (
-            <SelectItem className="border-2 border-ludoLightPurple hover:cursor-pointer bg-ludoGrayDark my-2 text-white" key={i} value={String(i)}>
+            <SelectItem className="border-2 border-ludo-accent-muted hover:cursor-pointer bg-ludo-background my-2 text-white" key={i} value={String(i)}>
               {prefix} {i}
             </SelectItem>
           ))}

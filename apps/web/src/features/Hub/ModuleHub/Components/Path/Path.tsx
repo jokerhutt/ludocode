@@ -95,7 +95,7 @@ export const PathButton = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         {...props}
       >
         <CompletionRibbon lessonState={lessonState} />
-        {isLocked && <LockIcon className="text-ludoGrayDark h-10 w-10" />}
+        {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
     );
   }

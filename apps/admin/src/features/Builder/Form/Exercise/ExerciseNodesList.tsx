@@ -58,7 +58,7 @@ export const ExerciseNodesList = ({
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="flex justify-between items-center pb-1">
-        <span className="text-xs text-ludoGrayDark">
+        <span className="text-xs text-ludo-background">
           {isLocked ? "Click to select" : "Drag to reorder"}
         </span>
         <Button
@@ -76,7 +76,7 @@ export const ExerciseNodesList = ({
           items={exercises.map((e) => e.id)}
           strategy={horizontalListSortingStrategy}
         >
-          <div className="w-full flex gap-2 items-center p-2 border border-ludoGrayDark rounded-md">
+          <div className="w-full flex gap-2 items-center p-2 border border-ludo-background rounded-md">
             {exercises.map((exercise) => (
               <SortableExerciseDot
                 key={exercise.id}

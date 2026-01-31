@@ -77,7 +77,7 @@ export function BuilderLayout() {
         <SidebarInset>
           <MainGridWrapper className="max-h-dvh" gridRows="SITE">
             <BuilderHeader handleFormSubmission={handleFormSubmission} />
-            <div className="grid col-span-full overflow-y-auto h-full grid-cols-12 bg-ludoGrayDark">
+            <div className="grid col-span-full overflow-y-auto h-full grid-cols-12 bg-ludo-background">
               <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 {currentModuleId && currentLessonId && currentExerciseId && (
                   <ExerciseNodeForm

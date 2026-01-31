@@ -116,7 +116,7 @@ export const ExerciseNodeForm = withForm({
 
             return (
               <>
-                <div className="w-full flex rounded-md bg-ludoGrayLight p-4 flex-col gap-2">
+                <div className="w-full flex rounded-md bg-ludo-surface p-4 flex-col gap-2">
                   <ExerciseControllerHeader
                     currentLessonIndex={lessonIndex}
                     currentModuleIndex={moduleIndex}

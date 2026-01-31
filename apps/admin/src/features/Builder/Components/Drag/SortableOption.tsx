@@ -51,7 +51,7 @@ export function SortableOption({
       }}
       {...(isArrange ? { ...attributes, ...listeners } : {})}
       className={`
-        border-ludoLightPurple border rounded-md shadow select-none
+        border-ludo-accent-muted border rounded-md shadow select-none
         ${
           isArrange
             ? "p-2 cursor-grab active:cursor-grabbing"

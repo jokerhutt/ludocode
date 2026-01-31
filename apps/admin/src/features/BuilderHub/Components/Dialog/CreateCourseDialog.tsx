@@ -65,7 +65,7 @@ export function CreateCourseDialog({
             className="w-full"
           >
             Create Project
-            {isPending && <Spinner className="text-ludoLightPurple" />}
+            {isPending && <Spinner className="text-ludo-accent-muted" />}
           </Button>
         </div>
       </DialogWrapper>

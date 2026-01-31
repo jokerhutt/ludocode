@@ -15,7 +15,7 @@ export function ListContainer({
   return (
     <div
       className={cn(
-        "border w-full rounded-lg border-ludoGrayLight flex flex-col items-center",
+        "border w-full rounded-lg border-ludo-surface flex flex-col items-center",
         className
       )}
     >
@@ -58,10 +58,10 @@ export function ListRow({
         "flex w-full text-white hover:cursor-pointer text-lg border-b items-stretch px-2 py-4",
         alignmentClass,
         fill
-          ? "bg-ludoGrayLight border-b-ludoGrayDark"
-          : "border-b-ludoGrayLight",
-        hover && "hover:bg-ludoGrayLight/20 hover:cursor-pointer",
-        active && "bg-ludoGrayLight/70 hover:bg-ludoGrayLight/40",
+          ? "bg-ludo-surface border-b-ludo-background"
+          : "border-b-ludo-surface",
+        hover && "hover:bg-ludo-surface/20 hover:cursor-pointer",
+        active && "bg-ludo-surface/70 hover:bg-ludo-surface/40",
         className
       )}
     >
@@ -80,7 +80,7 @@ export function ListHeader({ title, className }: ListHeaderProps) {
   return (
     <div
       className={cn(
-        `border-b bg-ludoGrayLight rounded-t-lg border-ludoGrayLight w-full`,
+        `border-b bg-ludo-surface rounded-t-lg border-ludo-surface w-full`,
         className
       )}
     >

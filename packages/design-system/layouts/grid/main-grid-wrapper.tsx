@@ -22,7 +22,7 @@ export function MainGridWrapper({
   return (
     <div
       className={cn(
-        `grid bg-ludoGrayDark ${rows[gridRows]} min-h-0 h-dvh`,
+        `grid bg-ludo-background ${rows[gridRows]} min-h-0 h-dvh`,
         className
       )}
     >

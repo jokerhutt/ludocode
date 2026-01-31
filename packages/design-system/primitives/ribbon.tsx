@@ -11,8 +11,8 @@ export function CompletionRibbon({ lessonState }: CompletionRibbonProps) {
 
   return (
     <>
-      {showComplete && <InnerRibbon className="bg-ludoLightPurple" />}
-      {showMastered && <OuterRibbon className="bg-pathPurple" />}
+      {showComplete && <InnerRibbon className="bg-ludo-accent-muted" />}
+      {showMastered && <OuterRibbon className="bg-ludo-accent" />}
     </>
   );
 }
@@ -25,7 +25,7 @@ export function InnerRibbon({ className }: RibbonProps) {
     <span
       aria-hidden
       className={cn(
-        "absolute -top-1.5 -right-12 w-30 h-3 bg-ludoLightPurple -rotate-135 rounded",
+        "absolute -top-1.5 -right-12 w-30 h-3 -rotate-135 rounded",
         className
       )}
     />
@@ -37,7 +37,7 @@ export function OuterRibbon({ className }: RibbonProps) {
     <span
       aria-hidden
       className={cn(
-        "absolute -top-1.5 -right-8 w-30 h-3 bg-pythonBlue -rotate-135 rounded",
+        "absolute -top-1.5 -right-8 w-30 h-3 -rotate-135 rounded",
         className
       )}
     />

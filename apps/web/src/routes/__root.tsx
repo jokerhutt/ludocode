@@ -20,7 +20,7 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludoYellow bg-ludoGrayDark">
+      <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludo-accent bg-ludo-background">
         <Outlet />
       </div>
     </GoogleOAuthProvider>

@@ -25,7 +25,7 @@ export function AddExerciseFieldButton() {
           ],
         });
       }}
-      className="border-ludoLightPurple text-white text-center hover:cursor-pointer border-2 rounded-md w-20"
+      className="border-ludo-accent-muted text-white text-center hover:cursor-pointer border-2 rounded-md w-20"
     >
       <p>+</p>
     </div>

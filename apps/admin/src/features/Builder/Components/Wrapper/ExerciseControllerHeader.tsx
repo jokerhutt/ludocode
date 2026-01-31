@@ -34,7 +34,7 @@ export function ExerciseControllerHeader({
       <div className="w-full gap-4 flex items-center font-bold text-white py-2">
         <h2>Exercise Type: {headerDisplay}</h2>
         <DevInfoDialog content={exTypeInfoContent}>
-          <QuestionMarkCircleIcon className="h-4 hover:cursor-pointer hover:text-ludoLightPurple w-4" />
+          <QuestionMarkCircleIcon className="h-4 hover:cursor-pointer hover:text-ludo-accent-muted w-4" />
         </DevInfoDialog>
       </div>
     </div>

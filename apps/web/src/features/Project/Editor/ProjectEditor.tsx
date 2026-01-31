@@ -37,7 +37,7 @@ export function ProjectEditor() {
       beforeMount={beforeMount}
       loading={
         <LudoSpinner
-          className="text-ludoLightPurple"
+          className="text-ludo-accent-muted"
           spinnerClassName="h-10 w-10"
           wide
         />

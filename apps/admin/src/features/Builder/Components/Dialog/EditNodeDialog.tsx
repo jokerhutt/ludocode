@@ -76,7 +76,7 @@ export const EditNodeDialog = withForm({
                   count={arrayLength}
                 >
                   <SelectTrigger
-                    className="border-ludoLightPurple border-2 rounded-md"
+                    className="border-ludo-accent-muted border-2 rounded-md"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <SelectValue />

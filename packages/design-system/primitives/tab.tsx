@@ -5,7 +5,7 @@ type EditorTabProps = { children: ReactNode; className?: string };
 
 export function EditorTab({ children, className }: EditorTabProps) {
   const style = cn(
-    "h-full px-8 text-white text-center flex items-center border hover:cursor-pointer border-ludoLightPurple border-b-ludoGrayLight bg-ludoGrayDark",
+    "h-full px-8 text-white text-center flex items-center border hover:cursor-pointer border-ludo-accent-muted border-b-ludo-surface bg-ludo-background",
     className
   );
 
@@ -25,13 +25,13 @@ export function HeaderTab({
   isActive = false,
   className,
 }: HeaderTabProps) {
-  const activeStyle = isActive ? "bg-ludoGrayLight/70" : "";
+  const activeStyle = isActive ? "bg-ludo-surface/70" : "";
 
   return (
     <div
       onClick={() => onClick()}
       className={cn(
-        "flex items-center bg-ludoGrayDark/60 justify-center",
+        "flex items-center bg-ludo-background/60 justify-center",
         activeStyle,
         className
       )}

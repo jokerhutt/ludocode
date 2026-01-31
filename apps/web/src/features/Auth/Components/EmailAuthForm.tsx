@@ -61,7 +61,7 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
             onCheckedChange={(checked) => {
               setHasAgreedToToS(checked === true);
             }}
-            className="hover:cursor-pointer data-[state=checked]:bg-ludoAltAccent"
+            className="hover:cursor-pointer data-[state=checked]:bg-ludo-accent"
           />
           <p className="text-xs">
             By signing up, you agree to Ludocode's Terms of Service

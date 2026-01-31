@@ -20,8 +20,8 @@ export function HollowSlotButton({
       onClick={onClick}
       className={cn(
         "flex items-center text-white justify-center gap-2",
-        "bg-ludoGrayDark hover:cursor-pointer hover:bg-ludoGrayDark/50",
-        active && "border-2 border-ludoLightPurple",
+        "bg-ludo-background hover:cursor-pointer hover:bg-ludo-background/50",
+        active && "border-2 border-ludo-accent-muted",
         className
       )}
     >

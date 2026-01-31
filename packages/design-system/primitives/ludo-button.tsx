@@ -26,17 +26,17 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const variantStyles: Record<Variant, string> = {
-      default: "bg-ludoGrayLight text-white",
-      alt: "bg-ludoAltAccent text-white",
+      default: "bg-ludo-surface text-white",
+      alt: "bg-ludo-accent text-white",
       white: "bg-white text-black",
     };
 
     const disabledVariantStyles: Record<Variant, string> = {
-      default: "bg-ludoGrayLight/50 text-white/50",
-      alt: "bg-ludoAltAccent/40 text-white/50",
+      default: "bg-ludo-surface/50 text-white/50",
+      alt: "bg-ludo-accent/40 text-white/50",
       white: "bg-white/50 text-black/50",
     };
 
@@ -62,12 +62,12 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
             ? `${disabled || isLoading ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
             : "",
           `${disabled || isLoading ? disabledVariantStyles[variant] : variantStyles[variant]}`,
-          className
+          className,
         )}
         {...props}
       >
-        {!isLoading ? children : <Spinner className="text-ludoLightPurple" />}
+        {!isLoading ? children : <Spinner className="text-ludo-accent-muted" />}
       </button>
     );
-  }
+  },
 );

@@ -21,7 +21,7 @@ export function ExerciseLabel({ exerciseType, className }: ExerciseLabelProps) {
 
   return (
     <div
-      className={cn("flex gap-2 text-ludoLightPurple items-center", className)}
+      className={cn("flex gap-2 text-ludo-accent-muted items-center", className)}
     >
       <CustomIcon iconName={iconName} />
       <p>{description}</p>

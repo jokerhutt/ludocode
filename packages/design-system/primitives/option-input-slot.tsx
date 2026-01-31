@@ -37,7 +37,7 @@ export function OptionInputSlot({
           onTokenFinished?.();
         }}
         onKeyDown={handleKeyDown}
-        className="bg-ludoGrayDark rounded-lg h-7 text-white text-md mx-0.5 text-center px-1 outline-none"
+        className="bg-ludo-background rounded-lg h-7 text-white text-md mx-0.5 text-center px-1 outline-none"
       />
       <span
         ref={spanRef}

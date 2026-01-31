@@ -26,13 +26,13 @@ export function WeeklyStreakGroup({
       {title && <h3 className="text-start">{title}</h3>}
       <div
         className={cn(
-          "w-full flex gap-4 bg-ludoGrayLight rounded-lg",
+          "w-full flex gap-4 bg-ludo-surface rounded-lg",
           innerClassName
         )}
       >
         {history.map((day, index) => (
           <div className="flex flex-col gap-1">
-            <div className="rounded-sm h-7 w-7 bg-ludoGrayDark p-1 flex items-center justify-center">
+            <div className="rounded-sm h-7 w-7 bg-ludo-background p-1 flex items-center justify-center">
               {day.met && (
                 <HeroIcon
                   iconName="FireIcon"

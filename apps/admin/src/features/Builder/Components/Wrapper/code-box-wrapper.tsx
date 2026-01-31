@@ -17,7 +17,7 @@ export function CodeBoxWrapper({
   return (
     <div
       className={cn(
-        "w-full flex flex-col rounded-3xl bg-ludoGrayLight",
+        "w-full flex flex-col rounded-3xl bg-ludo-surface",
         className
       )}
     >

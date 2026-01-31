@@ -27,7 +27,7 @@ export function NewFilePopover({ children }: NewFilePopoverProps) {
       <PopoverTrigger asChild>
         <div>{children}</div>
       </PopoverTrigger>
-      <PopoverContent className="text-white bg-ludoGrayLight">
+      <PopoverContent className="text-white bg-ludo-surface">
         <FileWrapper isSelected={false} onClick={() => addFile()}>
           <FileInfoRow fileName={choice.name}>
             <CustomIcon color="white" className="h-4" iconName={iconName} />

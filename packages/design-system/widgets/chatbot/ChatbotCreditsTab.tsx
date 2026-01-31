@@ -12,7 +12,7 @@ export function ChatbotCreditsTab({
   return (
     <div
       className={cn(
-        "w-full py-1.5 px-3 bg-ludoGrayLight flex gap-2 items-center text-ludoLightPurple border-b-white border-b",
+        "w-full py-1.5 px-3 bg-ludo-surface flex gap-2 items-center text-ludo-accent-muted border-b-white border-b",
         className
       )}
     >

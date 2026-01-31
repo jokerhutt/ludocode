@@ -7,12 +7,12 @@ type WideButtonProps = {
 };
 
 export function WideButton({ onClick, active, children }: WideButtonProps) {
-  const style = active ? `border-ludoLightPurple` : "border-ludoGrayLight";
+  const style = active ? `border-ludo-accent-muted` : "border-ludo-surface";
 
   return (
     <div
       onClick={() => onClick?.()}
-      className={`w-full ${style} border-2 px-6 py-2 bg-ludoGrayLight rounded-lg `}
+      className={`w-full ${style} border-2 px-6 py-2 bg-ludo-surface rounded-lg `}
     >
       {children}
     </div>

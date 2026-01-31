@@ -32,7 +32,7 @@ export function ModuleHubLayout() {
   }, [moduleId]);
 
   return (
-    <div className="layout-grid lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludoGrayDark">
+    <div className="layout-grid lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludo-background">
       <ModuleSelectionTabs
         activeTab={activeTab}
         changeTab={setTab}

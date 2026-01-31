@@ -48,7 +48,7 @@ export function PathPopover({
       <div className="flex flex-col items-end justify-between">
         <PopoverClose asChild>
           <button type="button" aria-label="Close">
-            <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
+            <XSquareIcon className="text-ludo-accent-muted hover:cursor-pointer h-4 w-4" />
           </button>
         </PopoverClose>
         <LudoButton

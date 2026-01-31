@@ -22,7 +22,7 @@ export default function FormTitleField({
       <Textarea
         className={cn(
           "pl-2 text-white min-h-6 py-2 rounded-lg border-2",
-          error ? "border-red-500" : "border-ludoLightPurple",
+          error ? "border-red-500" : "border-ludo-accent-muted",
           className
         )}
         value={value}

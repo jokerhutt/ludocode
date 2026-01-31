@@ -13,14 +13,14 @@ export function ClickableOption({
   isSelected,
   handleClick,
 }: ClickableOptionProps) {
-  const allowedStyle = `text-white border-ludoGrayLight/50`;
-  const disabledStyle = `text-white/50 border-ludoGrayLight/50`;
+  const allowedStyle = `text-white border-ludo-surface/50`;
+  const disabledStyle = `text-white/50 border-ludo-surface/50`;
   const displayStyle = isSelected ? disabledStyle : allowedStyle;
 
   return (
     <div
       onClick={() => handleClick()}
-      className={`py-2 code hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludoGrayLight rounded-xl`}
+      className={`py-2 code hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludo-surface rounded-xl`}
     >
       <p className="text-md">{content}</p>
     </div>

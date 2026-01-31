@@ -5,7 +5,7 @@ export function StatusDot({ hasError }: StatusDotProps) {
   const status: ValidationButtonStatus = hasError ? "error" : "default";
 
   const statusColor = {
-    default: "bg-ludoGrayDark",
+    default: "bg-ludo-background",
     ok: "bg-green-400",
     error: "bg-red-400",
   };

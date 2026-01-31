@@ -97,7 +97,7 @@ export function ExerciseOptionsDnDContainer({
 
       {isArrange && draggingItem && (
         <DragOverlay>
-          <div className="p-2 border-ludoLightPurple border rounded-md text-white shadow-2xl cursor-grabbing opacity-95">
+          <div className="p-2 border-ludo-accent-muted border rounded-md text-white shadow-2xl cursor-grabbing opacity-95">
             {draggingItem.content}
           </div>
         </DragOverlay>

@@ -29,7 +29,7 @@ export function ChatBotConversation({ messages }: ChatBotConversationProps) {
                 case "text":
                   return (
                     <Message key={`${message.id}-${i}`} from={message.role}>
-                      <MessageContent className="group-[.is-user]:bg-ludoGrayLight">
+                      <MessageContent className="group-[.is-user]:bg-ludo-surface">
                         <MessageResponse
                           shikiTheme={[
                             "catppuccin-macchiato",

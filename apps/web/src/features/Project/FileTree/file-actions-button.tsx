@@ -21,8 +21,8 @@ export function FileActionsButton({
   deleteItem,
 }: FileActionsButtonProps) {
   const style = {
-    main: "p-1 rounded-full hover:cursor-pointer hover:bg-ludoLightPurple/80",
-    secondary: "hover:cursor-pointer hover:text-ludoLightPurple",
+    main: "p-1 rounded-full hover:cursor-pointer hover:bg-ludo-accent-muted/80",
+    secondary: "hover:cursor-pointer hover:text-ludo-accent-muted",
   };
 
   const sizeStyle = size == "lg" ? "h-6" : "h-4";

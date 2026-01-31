@@ -17,7 +17,7 @@ export function FileWrapper({
         onClick?.(e);
       }}
       className={`flex w-full gap-8 px-2 py-1 justify-between rounded-lg hover:cursor-pointer items-center ${
-        isSelected ? "bg-ludoLightPurple/70" : "hover:bg-ludoLightPurple/50"
+        isSelected ? "bg-ludo-accent-muted/70" : "hover:bg-ludo-accent-muted/50"
       }`}
     >
       {children}

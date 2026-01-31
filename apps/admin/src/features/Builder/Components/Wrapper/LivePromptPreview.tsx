@@ -22,7 +22,7 @@ export function LivePromptPreview({
 
       <CodeBoxWrapper
         header={false}
-        className="min-h-0 rounded-lg lg:min-h-0 bg-ludoGrayLight border border-ludoLightPurple"
+        className="min-h-0 rounded-lg lg:min-h-0 bg-ludo-surface border border-ludo-accent-muted"
         innerClassName="p-4"
       >
         {prompt ? (
@@ -36,7 +36,7 @@ export function LivePromptPreview({
                                     inline-flex items-center 
                                     px-2 py-0.5 mx-1 
                                     rounded 
-                                    bg-ludoGrayDark 
+                                    bg-ludo-background 
                                     text-ludoAltText 
                                     text-sm
                                   "

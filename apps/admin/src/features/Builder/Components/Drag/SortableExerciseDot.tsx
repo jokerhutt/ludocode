@@ -46,8 +46,8 @@ export const SortableExerciseDot = ({
       {...(!isLocked ? listeners : {})}
       {...attributes}
       className={`h-6 w-6 rounded-full ${
-        isSelected ? "bg-ludoLightPurple" : "bg-ludoGrayDark"
-      } ${hasError ? "border border-red-400" : "border-ludoGrayDark"}`}
+        isSelected ? "bg-ludo-accent-muted" : "bg-ludo-background"
+      } ${hasError ? "border border-red-400" : "border-ludo-background"}`}
     />
   );
 };

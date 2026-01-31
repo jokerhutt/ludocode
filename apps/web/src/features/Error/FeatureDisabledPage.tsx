@@ -7,7 +7,7 @@ type FeatureDisabledPageProps = { meta: FeatureMeta };
 export function FeatureDisabledPage({ meta }: FeatureDisabledPageProps) {
   const router = useRouter();
   return (
-    <div className="w-full h-full flex flex-col px-8 gap-2 items-center justify-center bg-ludoGrayDark">
+    <div className="w-full h-full flex flex-col px-8 gap-2 items-center justify-center bg-ludo-background">
       <h1 className="text-center font-bold mb-6 text-2xl text-ludoAltText">
         {meta.description}
       </h1>

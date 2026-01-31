@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-ludoLightPurple hover:cursor-pointer text-black hover:bg-ludoLightPurple/80",
+          "bg-ludo-accent-muted hover:cursor-pointer text-black hover:bg-ludo-accent-muted/80",
         destructive:
           "bg-red-300 text-black hover:text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-ludoLightGray/80 hover:text-accent-foreground dark:hover:bg-ludoLightGray/80",
         disabled:
-          "bg-ludoLightPurple/30 hover:cursor-not-allowed text-black hover:bg-ludoLightPurple/40",
+          "bg-ludo-accent-muted/30 hover:cursor-not-allowed text-black hover:bg-ludo-accent-muted/40",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
