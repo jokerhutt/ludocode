@@ -1,0 +1,15 @@
+@layer utilities {
+  .scrollbar-ludo-accent {
+    scrollbar-width: thin;
+    scrollbar-color: #8369d6 transparent;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

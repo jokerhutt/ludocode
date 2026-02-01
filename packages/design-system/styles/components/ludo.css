@@ -1,0 +1,25 @@
+@layer components {
+  .layout-grid {
+    @apply grid grid-cols-12;
+  }
+
+  .main-col-wide {
+    @apply col-span-full lg:col-start-3 lg:col-end-11;
+  }
+
+  .main-col-thin {
+    @apply col-start-3 col-end-11 lg:col-start-7 lg:col-end-9;
+  }
+
+  .aside-col-thin {
+    @apply hidden lg:block lg:col-span-2;
+  }
+
+  .aside-col-wide {
+    @apply hidden lg:col-span-4;
+  }
+
+  .scrollable {
+    @apply overflow-y-auto min-h-0 h-full;
+  }
+}

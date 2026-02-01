@@ -1,0 +1,18 @@
+@theme {
+  --color-ludo-background: #22273e;
+  --color-ludo-surface: #303966;
+  --color-ludo-code-surface: #2f3553;
+  --color-ludo-accent-muted: #c1adff;
+  --color-ludoAltText: #d1d5dc;
+  --color-ludo-accent: #8369d6;
+
+  /* normal shadows */
+  --shadow-ludo-surface: 0 7px 0 #303966;
+  --shadow-ludo-accent: 0 7px 0 #8369d6;
+  --shadow-ludo-white: 0 7px 0 #ffffff;
+
+  /* disabled shadows */
+  --shadow-ludo-surface-disabled: 0 5px 0 #30396680;
+  --shadow-ludo-accent-disabled: 0 5px 0 #8369d680;
+  --shadow-ludo-white-disabled: 0 5px 0 #ffffff80;
+}
