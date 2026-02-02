@@ -9,7 +9,8 @@ import { Route as coursesRoute } from "@/routes/_app/_hub/courses.tsx";
 import { Route as projectHubRoute } from "@/routes/_app/_hub/projects.tsx";
 
 import { Route as moduleHubRoute } from "@/routes/_app/_hub/learn/$courseId/$moduleId.tsx";
-import { Route as profileRoute } from "@/routes/_app/_hub/profile/$userId.tsx";
+import { Route as profileRoute } from "@/routes/_app/_hub/profile/$userId/index.tsx";
+import { Route as accountSettingsRoute } from "@/routes/_app/_hub/profile/$userId/settings.tsx";
 
 // LESSON PAGE
 import { Route as lessonPageRoute } from "@/routes/_app/lesson/$courseId/$moduleId/$lessonId";
@@ -27,29 +28,33 @@ import type { LessonSubmission, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {
   auth: {
-    login: () => ({ to: authLoginRoute.to }),
-    register: () => ({ to: authRegisterRoute.to }),
+    login: () => ({ to: authLoginRoute.to, replace: true }),
+    register: () => ({ to: authRegisterRoute.to, replace: true }),
   },
 
   courseRoot: () => ({ to: coursesRoute.to }),
 
   hub: {
     module: {
-      toModule: (courseId: string, moduleId: string) => ({
+      toModule: (courseId: string, moduleId: string, replace?: boolean) => ({
         to: moduleHubRoute.to,
         params: { courseId, moduleId },
-        replace: true,
+        replace: replace,
       }),
     },
     project: {
       toProjectHub: () => ({ to: projectHubRoute.to }),
     },
     profile: {
-      toProfile: (userId: string) => ({
+      toProfile: (userId: string, replace?: boolean) => ({
         to: profileRoute.to,
         params: { userId },
-        replace: true,
+        replace: replace,
       }),
+      toSettings: (userId: string) => ({
+        to: accountSettingsRoute.to,
+        params: {userId}
+      })
     },
   },
 
@@ -60,7 +65,7 @@ export const ludoNavigation = {
       courseId: string,
       moduleId: string,
       lessonId: string,
-      exercise: number
+      exercise: number,
     ) => ({
       to: lessonPageRoute.to,
       params: { courseId, moduleId, lessonId },
@@ -108,7 +113,7 @@ export const ludoNavigation = {
       accuracy: number,
       oldStreak: number,
       newStreak: number,
-      completionStatus: string
+      completionStatus: string,
     ) => ({
       to: completionRoute.to,
       params: { courseId, moduleId, lessonId },
@@ -125,7 +130,7 @@ export const ludoNavigation = {
     toStreakIncrease: (
       courseId: string,
       moduleId: string,
-      lessonId: string
+      lessonId: string,
     ) => ({
       to: completionRoute.to,
       params: { courseId, moduleId, lessonId },
@@ -138,7 +143,7 @@ export const ludoNavigation = {
     toCourseComplete: (
       courseId: string,
       moduleId: string,
-      lessonId: string
+      lessonId: string,
     ) => ({
       to: completionRoute.to,
       params: { courseId, moduleId, lessonId },

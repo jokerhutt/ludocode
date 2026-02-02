@@ -15,7 +15,7 @@ export function useResetCourseProgress() {
       qc.invalidateQueries({ queryKey: ["lesson"] });
       qc.invalidateQueries({ queryKey: ["module"] });
       router.navigate(
-        ludoNavigation.hub.module.toModule(payload.courseId, payload.moduleId)
+        ludoNavigation.hub.module.toModule(payload.courseId, payload.moduleId, true)
       );
     },
   });

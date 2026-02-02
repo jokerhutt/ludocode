@@ -1,5 +1,6 @@
 import { useDeleteAccount } from "@/hooks/Queries/Mutations/useDeleteAccount";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 
 export function DeleteAccountButton() {
   const deleteUserMutation = useDeleteAccount();
@@ -10,12 +11,12 @@ export function DeleteAccountButton() {
   };
 
   return (
-    <LudoButton
-      variant="alt"
+    <DeleteDialog
+      targetName="your account"
+      canDelete
       onClick={() => handleDeleteAccount()}
-      className="text-lg w-50 px-4"
     >
-      Delete
-    </LudoButton>
+      <LudoButton variant="danger">Delete Account</LudoButton>
+    </DeleteDialog>
   );
 }

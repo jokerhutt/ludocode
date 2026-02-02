@@ -1,5 +1,5 @@
-import { ProfilePage } from "@/features/Hub/ProfileHub/Pages/ProfilePage.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries";
+import { ProfileHubLayout } from "@/layouts/Hub/ProfileHubLayout";
 import type { LudoCourse } from "@ludocode/types";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,7 +7,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/_app/_hub/profile/$userId")({
   staticData: { headerTitle: "Profile" },
   loader: async ({ context }) => profileLoader(context.queryClient),
-  component: ProfilePage,
+  component: ProfileHubLayout,
 });
 
 async function profileLoader(queryClient: QueryClient) {

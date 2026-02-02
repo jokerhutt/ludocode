@@ -5,11 +5,13 @@
   --color-ludo-accent-muted: #c1adff;
   --color-ludoAltText: #d1d5dc;
   --color-ludo-accent: #8369d6;
+  --color-ludo-danger: #e57373;
 
   /* normal shadows */
   --shadow-ludo-surface: 0 7px 0 #303966;
   --shadow-ludo-accent: 0 7px 0 #8369d6;
   --shadow-ludo-white: 0 7px 0 #ffffff;
+  --shadow-ludo-danger: 0 7px 0 #c85a5a;
 
   /* disabled shadows */
   --shadow-ludo-surface-disabled: 0 5px 0 #30396680;

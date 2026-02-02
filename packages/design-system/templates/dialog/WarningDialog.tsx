@@ -29,7 +29,7 @@ export function WarningDialog({
 
       <LudoButton
         className="w-full h-10"
-        variant="alt"
+        variant="danger"
         onClick={() => onClick()}
       >
         {buttonText}
