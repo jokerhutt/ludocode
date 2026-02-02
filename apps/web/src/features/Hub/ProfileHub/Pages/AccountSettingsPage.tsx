@@ -16,7 +16,7 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
-  const { avatarIndex, avatarVersion, createdAt } = user;
+  const { avatarIndex, avatarVersion, createdAt, displayName } = user;
   const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
   return (
@@ -47,7 +47,7 @@ export function AccountSettingsPage() {
 
         <ProfileCardContainer className="gap-5" header="DANGER ZONE">
           <LogoutButton />
-          <DeleteAccountButton />
+          <DeleteAccountButton username={displayName!!} />
         </ProfileCardContainer>
       </div>
     </div>
