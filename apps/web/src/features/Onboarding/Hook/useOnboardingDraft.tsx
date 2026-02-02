@@ -19,6 +19,7 @@ export function useOnboardingDraft(): UseOnboardingDraftReturn {
   const queryClient = useQueryClient();
 
   const { data: draft = {} } = useQuery<OnboardingDraft>({
+    queryFn: async () => ({}),
     queryKey: qk.onboardingDraft(),
     initialData: {},
     staleTime: Infinity,
@@ -30,7 +31,7 @@ export function useOnboardingDraft(): UseOnboardingDraftReturn {
       (draft = {}) => ({
         ...draft,
         ...patch,
-      })
+      }),
     );
 
   const clearDraft = () =>
