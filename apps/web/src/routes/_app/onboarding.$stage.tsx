@@ -14,9 +14,12 @@ export const Route = createFileRoute("/_app/onboarding/$stage")({
   }),
 
   beforeLoad: ({ params, context }) => {
+    console.log("CHILD beforeLoad");
     const draft =
       context.queryClient.getQueryData<OnboardingDraft>(qk.onboardingDraft()) ??
       {};
+
+    console.log(JSON.stringify(draft));
 
     const invalid = firstInvalidStep(draft);
     if (!invalid) return;
@@ -25,6 +28,13 @@ export const Route = createFileRoute("/_app/onboarding/$stage")({
     const invalidIdx = stepOrder.indexOf(invalid);
 
     if (currentIdx > invalidIdx) {
+      console.log(
+        "INVALID INDEX: " +
+          "CURRENT: " +
+          currentIdx +
+          " INVALID: " +
+          invalidIdx,
+      );
       throw redirect({
         to: "/onboarding/$stage",
         params: { stage: invalid },

@@ -7,15 +7,11 @@ export function useDeleteAccount() {
   const router = useRouter();
   const qc = useQueryClient();
 
-  const logoutMutation = useMutation(mutations.logOut());
-
   return useMutation({
     ...mutations.deleteAccount(),
     onSuccess: async () => {
-      await logoutMutation.mutateAsync();
-
+      await router.navigate(ludoNavigation.auth.login());
       qc.clear();
-      router.navigate(ludoNavigation.auth.login());
     },
   });
 }

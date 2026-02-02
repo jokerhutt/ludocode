@@ -50,7 +50,8 @@ export function WarningDialog({
           <DialogDescription className="text-white code font-bold">
             type
             <span className="text-ludo-danger">
-              {destructiveConfirmation.confirmationValue}
+              {" "}
+              {destructiveConfirmation.confirmationValue}{" "}
             </span>
             to confirm
           </DialogDescription>
