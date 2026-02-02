@@ -4,5 +4,7 @@ import type { OnboardingCareerType } from "../Onboarding/OnboardingCourse"
 export type UserPreferences = {
     userId: UUID,
     hasExperience: boolean,
-    chosenPath: OnboardingCareerType
+    chosenPath: OnboardingCareerType,
+    aiEnabled: boolean,
+    audioEnabled: boolean
 }
