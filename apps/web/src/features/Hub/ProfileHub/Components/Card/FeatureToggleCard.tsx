@@ -1,10 +1,15 @@
 import { BotIcon, Volume2Icon } from "lucide-react";
 import { StatsCard } from "./StatsCard";
-import { useState } from "react";
 
-export function FeatureToggleGroup() {
-  const [audioEnabled, setAudioEnabled] = useState(true);
-  const [aiEnabled, setAiEnabled] = useState(true);
+type FeatureToggleGroupProps = {
+  audioEnabled: boolean;
+  setAudioEnabled: (value: boolean) => void;
+  aiEnabled: boolean;
+  setAiEnabled: (value: boolean) => void;
+};
+
+export function FeatureToggleGroup({audioEnabled, setAudioEnabled, aiEnabled, setAiEnabled}: FeatureToggleGroupProps) {
+
 
   return (
     <div className="w-full flex justify-between gap-4">

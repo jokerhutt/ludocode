@@ -48,9 +48,16 @@ export function WarningDialog({
       {destructiveConfirmation && (
         <>
           <DialogDescription className="text-white code font-bold">
-            type <span className="text-ludo-danger">{destructiveConfirmation.confirmationValue}</span>  to confirm
+            type
+            <span className="text-ludo-danger">
+              {destructiveConfirmation.confirmationValue}
+            </span>
+            to confirm
           </DialogDescription>
-          <Input className="text-ludoAltText" onChange={(e) => setConfirmationValue(e.target.value)}/>
+          <Input
+            className="text-ludoAltText"
+            onChange={(e) => setConfirmationValue(e.target.value)}
+          />
         </>
       )}
 

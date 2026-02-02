@@ -18,7 +18,12 @@ import {
 } from "@ludocode/api/fetcher";
 import { api } from "@/constants/api/api";
 import { logout } from "@/constants/api/logout";
-import type { EditProfileRequest, LudoUser } from "@ludocode/types";
+import type {
+  TogglePreferencesRequest,
+  UserPreferences,
+  EditProfileRequest,
+  LudoUser,
+} from "@ludocode/types";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -112,6 +117,18 @@ export const mutations = {
       mutationKey: ["submitOnboarding"],
       mutationFn: (variables) =>
         ludoPut<OnboardingResponse, OnboardingSubmission>(
+          api.preferences.base,
+          variables,
+          true,
+        ),
+    });
+  },
+
+  editPreferences: () => {
+    return mutationOptions<UserPreferences, Error, TogglePreferencesRequest>({
+      mutationKey: ["editPreferences"],
+      mutationFn: (variables) =>
+        ludoPatch<UserPreferences, TogglePreferencesRequest>(
           api.preferences.base,
           variables,
           true,
