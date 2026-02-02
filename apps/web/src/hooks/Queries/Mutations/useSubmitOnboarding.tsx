@@ -21,7 +21,7 @@ export function useSubmitOnboarding() {
       qc.setQueryData(qk.courseProgress(courseId), courseProgress);
       qc.setQueryData(qk.currentCourseId(), courseId);
 
-      router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
+      router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId, true));
     },
   });
 }

@@ -36,7 +36,8 @@ export function useFinalizeLogin() {
       router.navigate(
         ludoNavigation.hub.module.toModule(
           currentCourseProgress.courseId,
-          currentCourseProgress.moduleId
+          currentCourseProgress.moduleId,
+          true
         )
       );
     }

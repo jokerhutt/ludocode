@@ -33,7 +33,7 @@ export function CompletionFooter() {
           );
         } else {
           router.navigate(
-            ludoNavigation.hub.module.toModule(courseId, moduleId)
+            ludoNavigation.hub.module.toModule(courseId, moduleId, true)
           );
         }
         break;
@@ -49,13 +49,13 @@ export function CompletionFooter() {
           );
         } else {
           router.navigate(
-            ludoNavigation.hub.module.toModule(courseId, moduleId)
+            ludoNavigation.hub.module.toModule(courseId, moduleId, true)
           );
         }
         break;
 
       case "course":
-        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
+        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId, true));
         break;
     }
   };

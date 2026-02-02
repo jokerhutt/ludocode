@@ -51,6 +51,10 @@ export const ludoNavigation = {
         params: { userId },
         replace: replace,
       }),
+      toSettings: (userId: string) => ({
+        to: accountSettingsRoute.to,
+        params: {userId}
+      })
     },
   },
 
