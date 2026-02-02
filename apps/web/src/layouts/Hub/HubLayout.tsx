@@ -22,7 +22,7 @@ export function HubLayout() {
 
   const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
   const { data: courseProgress } = useSuspenseQuery(
-    qo.courseProgress(currentCourseId)
+    qo.courseProgress(currentCourseId),
   );
 
   const { coins } = coinPacket;
@@ -32,7 +32,7 @@ export function HubLayout() {
       <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
         <MainGridWrapper gridRows={"SITE"}>
           <HubHeader title={title} />
-          <Suspense fallback={<div />}>
+          <Suspense fallback={<div className="col-span-full" />}>
             <Outlet />
           </Suspense>
           <NavigationFooter />

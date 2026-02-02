@@ -15,6 +15,11 @@ async function hubLoader(queryClient: QueryClient) {
     qo.streak(currentUser.id)
   );
 
+  const currentCourseId = await queryClient.ensureQueryData(qo.currentCourseId())
+  await queryClient.ensureQueryData(qo.courseProgress(currentCourseId))
+
+
+
   if (!userStats || !userStreak || !currentUser) {
     throw redirect({to: "/auth/login", replace: true});
   }
