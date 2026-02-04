@@ -41,7 +41,7 @@ export function LudoDialog({
       <DialogContent
         showCloseButton={false}
         className={cn(
-          "bg-ludo-surface border-2 border-ludo-accent-muted text-center",
+          "bg-ludo-surface border-2 border-ludo-accent text-center",
           className
         )}
       >
