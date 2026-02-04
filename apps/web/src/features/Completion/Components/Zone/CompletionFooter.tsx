@@ -20,20 +20,20 @@ export function CompletionFooter() {
             ludoNavigation.completion.toStreakIncrease(
               courseId,
               moduleId,
-              lessonId
-            )
+              lessonId,
+            ),
           );
         } else if (isCourseCompleteForFirstTime) {
           router.navigate(
             ludoNavigation.completion.toCourseComplete(
               courseId,
               moduleId,
-              lessonId
-            )
+              lessonId,
+            ),
           );
         } else {
           router.navigate(
-            ludoNavigation.hub.module.toModule(courseId, moduleId, true)
+            ludoNavigation.hub.module.toModule(courseId, moduleId, true),
           );
         }
         break;
@@ -44,18 +44,20 @@ export function CompletionFooter() {
             ludoNavigation.completion.toCourseComplete(
               courseId,
               moduleId,
-              lessonId
-            )
+              lessonId,
+            ),
           );
         } else {
           router.navigate(
-            ludoNavigation.hub.module.toModule(courseId, moduleId, true)
+            ludoNavigation.hub.module.toModule(courseId, moduleId, true),
           );
         }
         break;
 
       case "course":
-        router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId, true));
+        router.navigate(
+          ludoNavigation.hub.module.toModule(courseId, moduleId, true),
+        );
         break;
     }
   };

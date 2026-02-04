@@ -7,6 +7,7 @@ type Variant = "default" | "alt" | "white" | "danger";
 type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   selected?: boolean;
   shadow?: boolean;
+  clickable?: boolean;
   isLoading?: boolean;
   variant?: Variant;
   disabled?: boolean;
@@ -18,6 +19,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     {
       children,
       className,
+      clickable = true,
       shadow = true,
       isLoading = false,
       selected = false,
@@ -56,15 +58,21 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       danger: "shadow-[0_5px_0_#C85A5A]/50",
     };
 
+    const clickableStyles = clickable ? "hover:cursor-pointer" : "";
+    const clickableShadowStyle =
+      clickable && shadow ? "active:translate-y-1 active:shadow-none" : "";
+
     return (
       <button
         ref={ref}
         type="button"
         className={cn(
-          "h-10 w-full rounded-lg flex justify-center items-center gap-3 hover:cursor-pointer",
+          "h-10 w-full rounded-lg flex justify-center items-center gap-3",
+          clickableStyles,
           shadow
-            ? `${disabled || isLoading ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
+            ? `${disabled || isLoading ? disabledShadowStyles[variant] : shadowMap[variant]}`
             : "",
+          clickableShadowStyle,
           `${disabled || isLoading ? disabledVariantStyles[variant] : variantStyles[variant]}`,
           className,
         )}
