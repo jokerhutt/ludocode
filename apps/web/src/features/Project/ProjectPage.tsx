@@ -13,27 +13,31 @@ import { ChatBotAccordion } from "@ludocode/design-system/widgets/chatbot/Chatbo
 import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();
   const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
+  const { aiEnabled } = useUserPreferencesContext();
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
       <div className="col-span-1 min-h-0 bg-ludo-background border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludo-surface lg:col-span-3">
         <FileTreeWinbar />
         <ProjectFileTree />
-        <div className="min-h-0 w-full h-full flex flex-col justify-end">
-          <ChatBotProvider
-            credits={chatbotCredits}
-            targetId={project.projectId}
-            type="PROJECT"
-          >
-            <ChatBotAccordion>
-              <ChatBotWindow type="PROJECT" targetId={currentFileId} />
-            </ChatBotAccordion>
-          </ChatBotProvider>
-        </div>
+        {aiEnabled && (
+          <div className="min-h-0 w-full h-full flex flex-col justify-end">
+            <ChatBotProvider
+              credits={chatbotCredits}
+              targetId={project.projectId}
+              type="PROJECT"
+            >
+              <ChatBotAccordion>
+                <ChatBotWindow type="PROJECT" targetId={currentFileId} />
+              </ChatBotAccordion>
+            </ChatBotProvider>
+          </div>
+        )}
       </div>
 
       <CodeRunnerProvider project={project} files={files}>
