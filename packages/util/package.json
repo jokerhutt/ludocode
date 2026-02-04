@@ -1,0 +1,12 @@
+{
+  "name": "@ludocode/util",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./*": "./*"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.19"
+  }
+}

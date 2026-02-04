@@ -8,6 +8,8 @@
     "baseUrl": "../..",
     "paths": {
       "@/*": ["apps/web/src/*"],
+      "@ludocode/util": ["packages/util"],
+      "@ludocode/util/*": ["packages/util/*"],
       "@ludocode/types": ["packages/types"],
       "@ludocode/types/*": ["packages/types/*"],
       "@ludocode/api": ["packages/api"],

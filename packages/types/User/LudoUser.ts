@@ -5,5 +5,5 @@ export type LudoUser = {
   avatarIndex: number;
   email: string;
   hasOnboarded: boolean;
-  createdAt: string;
+  createdAt: number;
 };

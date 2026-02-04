@@ -5,6 +5,6 @@ export type ProjectSnapshot = {
   projectId: string;
   projectName: string;
   projectLanguage: LanguageType;
-  updatedAt?: string;
+  updatedAt?: number;
   files: ProjectFileSnapshot[];
 };

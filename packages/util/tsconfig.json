@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ludocode/util": ["../util"],
-      "@ludocode/util/*": ["../util/*"],
+      "@ludocode/util": ["."],
+      "@ludocode/util/*": ["./*"],
       "@ludocode/api": ["../api"],
       "@ludocode/api/*": ["../api/*"],
-      "@ludocode/design-system": ["."],
-      "@ludocode/design-system/*": ["./*"],
+      "@ludocode/design-system": ["../design-system"],
+      "@ludocode/design-system/*": ["../design-system/*"],
       "@ludocode/types": ["../types"],
       "@ludocode/types/*": ["../types/*"],
       "@ludocode/hooks": ["../hooks"],
@@ -17,12 +17,5 @@
       "@ludocode/external/*": ["../external/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "../hooks/index.ts",
-    "../types/index.ts",
-    "../external/**/*.ts",
-    "../external/**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

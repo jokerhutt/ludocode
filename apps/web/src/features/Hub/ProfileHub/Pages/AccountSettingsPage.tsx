@@ -6,7 +6,6 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { AICreditBalanceCard } from "../Components/Card/AICreditBalanceCard";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { getUserAvatar } from "@/constants/avatars/avatars";
-import dayjs from "dayjs";
 import { DeleteAccountButton } from "@/features/Auth/Components/DeleteAccountButton";
 import { LogoutButton } from "@/features/Auth/Components/LogoutButton";
 import { router } from "@/main";
@@ -14,12 +13,13 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useState } from "react";
 import { useEditPreferences } from "@/hooks/Queries/Mutations/useEditPreferences";
 import type { TogglePreferencesRequest } from "@ludocode/types";
+import { parseToDate } from "@ludocode/util";
 
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: preferences } = useSuspenseQuery(qo.preferences());
   const { avatarIndex, avatarVersion, createdAt, displayName } = user;
-  const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
+  const joinTime = parseToDate(createdAt)
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   const [audioEnabled, setAudioEnabled] = useState(preferences.audioEnabled);
