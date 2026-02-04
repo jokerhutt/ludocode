@@ -5,7 +5,7 @@ import { AccountActionsGroup } from "../Components/Group/AccountActionsGroup";
 import { ProfileCardContainer } from "../Components/Card/ProfileCardContainer";
 import { UserStatsGroup } from "../Components/Group/UserStatsGroup";
 import { CurrentCourseCard } from "../Components/Card/CurrentCourseCard";
-import { BadgeCard } from "../Components/Card/BadgeCard";
+import { BadgeListCard } from "../Components/Card/BadgeCard";
 
 type ProfilePageProps = {};
 
@@ -43,7 +43,10 @@ export function ProfilePage({}: ProfilePageProps) {
           />
         </ProfileCardContainer>
         <ProfileCardContainer header="BADGES">
-          <BadgeCard allCourses={allCourses} allCourseStats={allCourseStats} />
+          <BadgeListCard
+            allCourses={allCourses}
+            allCourseStats={allCourseStats}
+          />
         </ProfileCardContainer>
       </div>
     </div>
