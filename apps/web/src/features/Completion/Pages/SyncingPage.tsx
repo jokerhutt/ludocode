@@ -1,7 +1,7 @@
 import { getRouteApi, useLocation } from "@tanstack/react-router";
 import type { SyncState } from "@ludocode/types/Completion/SyncState";
 import { useSubmitLesson } from "@/hooks/Queries/Mutations/useSubmitLesson.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PropagateLoader } from "react-spinners";
 
 type SyncingPageProps = {};
@@ -16,11 +16,16 @@ export function SyncingPage({}: SyncingPageProps) {
   const { oldStreak } = routeApi.useLoaderData();
   const submitLesson = useSubmitLesson({ oldStreak });
 
+  const hasSubmittedRef = useRef(false);
+  const submission = isSyncState(state) ? state.submission : null;
+
   useEffect(() => {
-    if (!isSyncState(state) || submitLesson.isPending || submitLesson.isSuccess)
-      return;
-    submitLesson.mutate(state.submission);
-  }, [state, submitLesson]);
+    if (!submission) return;
+    if (hasSubmittedRef.current) return;
+
+    hasSubmittedRef.current = true;
+    submitLesson.mutate(submission);
+  }, [submission, submitLesson.mutate]);
 
   return (
     <>
