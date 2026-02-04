@@ -13,6 +13,7 @@ import type { AnswerToken } from "@ludocode/types";
 type useStagedAttemptProps = {
   currentExerciseInputs: AnswerToken[];
   currentExercise: LudoExercise;
+  playAudio?: boolean;
 };
 
 export type useStagedAttemptResponse = {
@@ -27,6 +28,7 @@ export type useStagedAttemptResponse = {
 export function useStagedAttempt({
   currentExerciseInputs,
   currentExercise,
+  playAudio = true,
 }: useStagedAttemptProps): useStagedAttemptResponse {
   const allSlotsFilled = areAllFilled(currentExerciseInputs);
   const allSlotsValid =
@@ -35,25 +37,32 @@ export function useStagedAttempt({
 
   const [currentlyStagedAttempt, setCurrentlyStagedAttempt] =
     useState<ExerciseAttempt | null>(null);
+
   const clearCurrentlyStagedAttempt = useCallback(
     () => setCurrentlyStagedAttempt(null),
-    []
+    [],
   );
+
+  const playResultAudio = (isCorrect: boolean) => {
+      if (isCorrect) {
+        playSound("correct");
+      } else {
+        playSound("wrong");
+      }
+  };
 
   const stageAttempt = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(currentExerciseInputs, currentExercise);
-    if (isCorrect) {
-      playSound("correct");
-    } else {
-      playSound("wrong");
+    if (playAudio) {
+      playResultAudio(isCorrect)
     }
     setCurrentlyStagedAttempt({
       exerciseId: currentExercise.id,
       isCorrect,
       answer: [...currentExerciseInputs],
     });
-  }, [allSlotsValid, currentExerciseInputs, currentExercise]);
+  }, [allSlotsValid, playAudio, currentExerciseInputs, currentExercise]);
 
   const hasStaged = currentlyStagedAttempt != null;
 

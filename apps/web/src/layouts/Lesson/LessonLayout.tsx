@@ -9,12 +9,15 @@ import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-co
 import { LessonFooter } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 import { Suspense } from "react";
 import { LessonFeedbackDrawer } from "@/features/Lesson/Components/Zone/LessonDrawer.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import { UserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 
 export function LessonLayout() {
   const router = useRouter();
   const lessonRoute = getRouteApi("/_app/lesson/$courseId/$moduleId/$lessonId");
   const lessonPageRoute = getRouteApi(
-    "/_app/lesson/$courseId/$moduleId/$lessonId/"
+    "/_app/lesson/$courseId/$moduleId/$lessonId/",
   );
 
   const { courseId, moduleId } = lessonRoute.useParams();
@@ -22,31 +25,41 @@ export function LessonLayout() {
   const { exercises, lesson } = lessonRoute.useLoaderData();
   const { exercise: position } = lessonPageRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
+  const { data: preferences } = useSuspenseQuery(qo.preferences());
 
-  const state = useExercise({ exercises, lesson, position: exercisePosition });
+  const state = useExercise({
+    exercises,
+    lesson,
+    position: exercisePosition,
+    config: {
+      audioEnabled: preferences.audioEnabled,
+    },
+  });
 
   return (
-    <LessonContext.Provider value={state}>
-      <MainGridWrapper className="max-h-dvh" gridRows="FULL">
-        <LessonHeader
-          onExit={() =>
-            router.navigate(
-              ludoNavigation.hub.module.toModule(courseId, moduleId)
-            )
-          }
-          total={exercises.length}
-          position={exercisePosition - 1}
-        />
-        <MainContentWrapper>
-          <div className="grid col-span-full h-full grid-cols-12">
-            <Suspense fallback={<div />}>
-              <Outlet />
-            </Suspense>
-          </div>
-        </MainContentWrapper>
-        <LessonFeedbackDrawer />
-        <LessonFooter />
-      </MainGridWrapper>
-    </LessonContext.Provider>
+    <UserPreferencesContext.Provider value={preferences}>
+      <LessonContext.Provider value={state}>
+        <MainGridWrapper className="max-h-dvh" gridRows="FULL">
+          <LessonHeader
+            onExit={() =>
+              router.navigate(
+                ludoNavigation.hub.module.toModule(courseId, moduleId),
+              )
+            }
+            total={exercises.length}
+            position={exercisePosition - 1}
+          />
+          <MainContentWrapper>
+            <div className="grid col-span-full h-full grid-cols-12">
+              <Suspense fallback={<div />}>
+                <Outlet />
+              </Suspense>
+            </div>
+          </MainContentWrapper>
+          <LessonFeedbackDrawer />
+          <LessonFooter />
+        </MainGridWrapper>
+      </LessonContext.Provider>
+    </UserPreferencesContext.Provider>
   );
 }
