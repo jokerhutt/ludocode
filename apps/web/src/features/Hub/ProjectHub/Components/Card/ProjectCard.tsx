@@ -5,8 +5,8 @@ import { LANGUAGE_MAP } from "@ludocode/types/Project/LanguageType.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import dayjs from "dayjs";
 import { router } from "@/main";
+import { parseToDate } from "@ludocode/util";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 
@@ -18,7 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   const { iconName } = LANGUAGE_MAP[projectLanguage];
 
-  const updatedAtTime = updatedAt ? dayjs(updatedAt * 1000).format("MMMM DD, YYYY") : "-";
+  const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
 
   return (
     <LudoButton

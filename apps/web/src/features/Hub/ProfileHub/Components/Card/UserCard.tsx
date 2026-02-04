@@ -1,7 +1,7 @@
 import { getUserAvatar } from "@/constants/avatars/avatars";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import type { LudoUser } from "@ludocode/types";
-import dayjs from "dayjs";
+import {parseToDate} from "@ludocode/util"
 
 type UserCardProps = {
   user: LudoUser;
@@ -17,7 +17,7 @@ export function UserCard({
   showUsername = true,
 }: UserCardProps) {
   const { displayName, createdAt, avatarVersion, avatarIndex } = user;
-  const joinTime = dayjs(createdAt * 1000).format("MMMM DD, YYYY");
+  const joinTime = parseToDate(createdAt)
 
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
