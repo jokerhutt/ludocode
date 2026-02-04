@@ -17,7 +17,7 @@ export function UserCard({
   showUsername = true,
 }: UserCardProps) {
   const { displayName, createdAt, avatarVersion, avatarIndex } = user;
-  const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
+  const joinTime = dayjs(createdAt * 1000).format("MMMM DD, YYYY");
 
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 

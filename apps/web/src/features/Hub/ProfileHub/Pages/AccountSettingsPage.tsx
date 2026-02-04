@@ -19,7 +19,7 @@ export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: preferences } = useSuspenseQuery(qo.preferences());
   const { avatarIndex, avatarVersion, createdAt, displayName } = user;
-  const joinTime = dayjs(createdAt).format("MMMM DD, YYYY");
+  const joinTime = dayjs(createdAt * 1000).format("MMMM DD, YYYY");
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   const [audioEnabled, setAudioEnabled] = useState(preferences.audioEnabled);

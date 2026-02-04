@@ -18,7 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   const { iconName } = LANGUAGE_MAP[projectLanguage];
 
-  const updatedAtTime = updatedAt ? dayjs(updatedAt).format("MMMM DD, YYYY") : "-";
+  const updatedAtTime = updatedAt ? dayjs(updatedAt * 1000).format("MMMM DD, YYYY") : "-";
 
   return (
     <LudoButton
