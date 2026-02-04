@@ -8,6 +8,7 @@ import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData
 import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 
 export type OptionLayout = "ROW" | "COLUMN";
 export type SelectionMode = "APPEND" | "REPLACE";
@@ -48,19 +49,21 @@ export const configByType: Record<ExerciseType, ExerciseInteractionConfig> = {
 
 export function LessonPage() {
   const { inputState, currentExercise } = useLessonContext();
-
+  const { aiEnabled } = useUserPreferencesContext();
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
 
   return (
     <>
       <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
-        <FloatingChatbotWindow
-          credits={credits}
-          chatType="LESSON"
-          targetId={currentExercise.id ?? null}
-          outerClassName="pl-6 pr-10"
-        />
+        {aiEnabled && (
+          <FloatingChatbotWindow
+            credits={credits}
+            chatType="LESSON"
+            targetId={currentExercise.id ?? null}
+            outerClassName="pl-6 pr-10"
+          />
+        )}
       </div>
 
       {currentExercise && (
