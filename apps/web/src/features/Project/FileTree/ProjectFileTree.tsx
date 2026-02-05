@@ -23,7 +23,7 @@ export function ProjectFileTree() {
             id={key}
             onClick={() => setCurrent(index)}
             fileName={file.path}
-            language={file.language}
+            language={file.language.name}
             index={index}
             isSelected={current == index}
           />

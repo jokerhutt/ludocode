@@ -25,7 +25,7 @@ describe("useExercise Flow (integration)", () => {
 
     const { result, rerender } = renderHook(
       ({ position }) =>
-        useExercise({ exercises: l1exercises, lesson: l1, position }),
+        useExercise({ exercises: l1exercises, lesson: l1, position, config: {audioEnabled: true} }),
       { initialProps: { position: currentPosition } },
     );
 
@@ -214,7 +214,7 @@ describe("useExercise Phase (integration)", () => {
 
   it("wrong answer => INCORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 1 }),
+      useExercise({ exercises: l1exercises, lesson: l1, position: 1, config: {audioEnabled: true} }),
     );
 
     const selectedOptionA = l1exercises[0].distractors[0];
@@ -240,7 +240,7 @@ describe("useExercise Phase (integration)", () => {
 
   it("correct answer => CORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 1 }),
+      useExercise({ exercises: l1exercises, lesson: l1, position: 1, config: {audioEnabled: true} }),
     );
 
     const selectedOption = l1exercises[0].correctOptions[0];
@@ -266,7 +266,7 @@ describe("useExercise Phase (integration)", () => {
 
   it("INFO answer => DEFAULT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 3 }),
+      useExercise({ exercises: l1exercises, lesson: l1, position: 3, config: {audioEnabled: true} }),
     );
 
     act(() => {
@@ -282,7 +282,7 @@ describe("useExercise Phase (integration)", () => {
 
   it("incorrect answer order => INCORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 2 }),
+      useExercise({ exercises: l1exercises, lesson: l1, position: 2, config: {audioEnabled: true} }),
     );
 
     const selectedOption1 = l1exercises[1].correctOptions[1];
@@ -317,7 +317,7 @@ describe("useExercise Phase (integration)", () => {
 
   it("correct answer order => CORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({ exercises: l1exercises, lesson: l1, position: 2 }),
+      useExercise({ exercises: l1exercises, lesson: l1, position: 2, config: {audioEnabled: true} }),
     );
 
     const selectedOption1 = l1exercises[1].correctOptions[0];

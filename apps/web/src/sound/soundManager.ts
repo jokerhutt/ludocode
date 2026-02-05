@@ -5,14 +5,14 @@ const sounds = {
     src: ["/Audio/SFX/success.mp3"],
     volume: 0.4,
     html5: true,
-    onloaderror: (id, error) =>
+    onloaderror: (error) =>
       console.error("Failed to load correct sound:", error),
   }),
   wrong: new Howl({
     src: ["/Audio/SFX/wrong.mp3"],
     volume: 0.4,
     html5: true,
-    onloaderror: (id, error) =>
+    onloaderror: (error) =>
       console.error("Failed to load wrong sound:", error),
   }),
 };

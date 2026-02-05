@@ -1,4 +1,4 @@
-import { LudoCourseSubject } from "./LudoCourseSubject";
+import type { LudoCourseSubject } from "./LudoCourseSubject";
 
 export type LudoCourse = {
   id: string;

@@ -1,5 +1,5 @@
 import {
-  DestructiveActionConfirmation,
+  type DestructiveActionConfirmation,
   WarningDialog,
 } from "@ludocode/design-system/templates/dialog/WarningDialog";
 import type { ReactNode } from "react";

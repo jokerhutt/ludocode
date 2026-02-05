@@ -1,9 +1,5 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import {
-  AnimatedBadge,
-  Badge,
-  type BadgeProps,
-} from "@ludocode/design-system/primitives/badge";
+import { AnimatedBadge, Badge } from "@ludocode/design-system/primitives/badge";
 import type { CourseStats, LudoCourse } from "@ludocode/types";
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 import { cn } from "@ludocode/design-system/cn-utils";
@@ -17,7 +13,7 @@ type BadgeCardListProps = {
 export function BadgeListCard({
   allCourses,
   allCourseStats,
-  clickable = true
+  clickable = true,
 }: BadgeCardListProps) {
   const completedCourseIds = new Set(
     allCourseStats
@@ -31,7 +27,10 @@ export function BadgeListCard({
 
   return (
     <div className={cn("flex w-full")}>
-      <LudoButton clickable={clickable} className="flex items-center justify-start px-4 py-4 h-auto gap-2">
+      <LudoButton
+        clickable={clickable}
+        className="flex items-center justify-start px-4 py-4 h-auto gap-2"
+      >
         {completedCourses.map((course) => (
           <Badge icon={course.title as IconName} />
         ))}
@@ -46,9 +45,16 @@ type BadgeSingleCardProps = {
   clickable?: boolean;
 };
 
-export function BadgeSingleCard({ icon, animated, clickable }: BadgeSingleCardProps) {
+export function BadgeSingleCard({
+  icon,
+  animated,
+  clickable,
+}: BadgeSingleCardProps) {
   return (
-    <LudoButton clickable={clickable} className="flex w-auto items-center justify-start px-4 py-4 h-auto gap-2">
+    <LudoButton
+      clickable={clickable}
+      className="flex w-auto items-center justify-start px-4 py-4 h-auto gap-2"
+    >
       {animated ? <Badge icon={icon} /> : <AnimatedBadge icon={icon} />}
     </LudoButton>
   );

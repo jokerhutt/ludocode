@@ -10,7 +10,7 @@ export const testUser: LoginUserResponse = {
     avatarVersion: "v1",
     email: "test@email.com",
     hasOnboarded: false,
-    createdAt: "now",
+    createdAt: Date.now(),
   },
   userStreak: {
     current: 0,

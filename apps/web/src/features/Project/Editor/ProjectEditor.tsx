@@ -43,7 +43,7 @@ export function ProjectEditor() {
         />
       }
       onMount={handleMount}
-      language={language}
+      language={language.editorId}
       options={editorOptions}
     />
   );

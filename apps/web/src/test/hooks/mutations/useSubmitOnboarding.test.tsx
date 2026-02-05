@@ -59,11 +59,13 @@ describe("useSubmitOnboarding", () => {
         avatarIndex: 0,
         email: "ludocode@test.com",
         hasOnboarded: true,
-        createdAt: new Date().toISOString(),
+        createdAt: Date.now(),
       },
       preferences: {
         userId: "00000000-0000-0000-0000-000000000000" as UUID,
         hasExperience: true,
+        aiEnabled: true,
+        audioEnabled: true,
         chosenPath: {
           careerType: "DATA",
           title: "Data",
@@ -85,7 +87,9 @@ describe("useSubmitOnboarding", () => {
       },
     };
 
-    (mutations.submitOnboarding as unknown as { mockReturnValue: Function }).mockReturnValue({
+    (
+      mutations.submitOnboarding as unknown as { mockReturnValue: Function }
+    ).mockReturnValue({
       mutationFn: vi.fn().mockResolvedValue(payload),
     });
 

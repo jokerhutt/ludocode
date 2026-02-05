@@ -40,7 +40,6 @@ export function FileActionsPopover({
         >
           <DeleteDialog
             onClick={() => deleteItem()}
-            canDelete
             targetName={targetName}
           >
             <FileWrapper isSelected={false}>

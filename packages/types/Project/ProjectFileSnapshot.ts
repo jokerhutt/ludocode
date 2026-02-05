@@ -1,4 +1,4 @@
-import { LanguageMetadata } from "./ProjectSnapshot";
+import type { LanguageMetadata } from "./ProjectSnapshot";
 
 export type ProjectFileSnapshot = {
   id?: string;
