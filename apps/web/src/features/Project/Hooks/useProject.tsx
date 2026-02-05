@@ -9,12 +9,10 @@ type Args = {
 
 export function useProject({ project }: Args): UseProjectResponse {
   const [files, setFiles] = useState<ProjectFileSnapshot[]>(() =>
-    project.files.map((f) => ({ ...f }))
+    project.files.map((f) => ({ ...f })),
   );
-  const {projectLanguage} = project
-  const base = "script"
-  const fileExtension = "." + projectLanguage.slug
-
+  const { projectLanguage } = project;
+  const {base, extension} = projectLanguage
 
   const [current, setCurrent] = useState(0);
 
@@ -50,17 +48,17 @@ export function useProject({ project }: Args): UseProjectResponse {
       base = base.split("/").pop()!.split("\\").pop()!;
 
       let finalName = base;
-      if (!finalName.endsWith(fileExtension)) {
-        finalName = `${finalName}${fileExtension}`;
+      if (!finalName.endsWith(extension)) {
+        finalName = `${finalName}${extension}`;
       }
 
       const otherFiles = prev.filter((_, i) => i !== idx);
 
-      const bare = finalName.endsWith(fileExtension)
-        ? finalName.slice(0, -fileExtension.length)
+      const bare = finalName.endsWith(extension)
+        ? finalName.slice(0, -extension.length)
         : finalName;
 
-      const uniqueName = nextName(otherFiles, bare, fileExtension);
+      const uniqueName = nextName(otherFiles, bare, extension);
 
       const next = prev.slice();
       next[idx] = { ...file, path: uniqueName };
@@ -76,12 +74,12 @@ export function useProject({ project }: Args): UseProjectResponse {
         return next;
       });
     },
-    [current]
+    [current],
   );
 
   const addFile = useCallback(() => {
     setFiles((fs) => {
-      const name = nextName(fs, base, fileExtension);
+      const name = nextName(fs, base, extension);
       const file: ProjectFileSnapshot = {
         tempId: crypto.randomUUID(),
         path: `${name}`,

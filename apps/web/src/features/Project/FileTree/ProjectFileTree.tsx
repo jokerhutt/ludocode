@@ -1,5 +1,6 @@
 import { TreeFile } from "@/features/Project/FileTree/TreeFile.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
+import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 
 export function ProjectFileTree() {
   const { files, current, setCurrent } = useProjectContext();
@@ -23,7 +24,7 @@ export function ProjectFileTree() {
             id={key}
             onClick={() => setCurrent(index)}
             fileName={file.path}
-            language={file.language.name}
+            icon={file.language.iconName as IconName}
             index={index}
             isSelected={current == index}
           />

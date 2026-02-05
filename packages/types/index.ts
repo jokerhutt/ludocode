@@ -41,6 +41,7 @@ export * from "./Project/RenameProjectRequest";
 export * from "./Project/SaveProjectPayload";
 export * from "./Project/Runner/OutputPacket";
 export * from "./Project/Runner/RunnerResult";
+export * from "./Project/LanguageMetadata";
 
 // Static
 export * from "./Static/DevInfoContent";
