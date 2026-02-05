@@ -21,7 +21,7 @@ type NewFilePopoverProps = {
 export function NewFilePopover({ children }: NewFilePopoverProps) {
   const { project, addFile } = useProjectContext();
 
-  const iconName = project.projectLanguage.name as IconName;
+  const iconName = project.projectLanguage.iconName as IconName;
   const choice = project.projectLanguage.name;
 
   return (

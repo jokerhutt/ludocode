@@ -18,7 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
 
-  const iconName = projectLanguage.name as IconName;
+  const iconName = projectLanguage.iconName as IconName;
 
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
 

@@ -1,3 +1,4 @@
+import type { LanguageMetadata } from "./LanguageMetadata";
 import type { ProjectFileSnapshot } from "./ProjectFileSnapshot";
 
 export type ProjectSnapshot = {
@@ -7,11 +8,3 @@ export type ProjectSnapshot = {
   updatedAt?: number;
   files: ProjectFileSnapshot[];
 };
-
-export type LanguageMetadata = {
-  languageId: number;
-  slug: string;
-  initialScript?: string;
-  editorId: string;
-  name: string;
-}

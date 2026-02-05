@@ -11,7 +11,7 @@ import { FileActionsButton } from "@/features/Project/FileTree/file-actions-butt
 
 type TreeFileProps = {
   fileName: string;
-  language: String;
+  icon: IconName;
   id: string;
   index: number;
   isSelected: boolean;
@@ -20,19 +20,18 @@ type TreeFileProps = {
 
 export function TreeFile({
   fileName,
-  language,
+  icon,
   id,
   isSelected,
   onClick,
 }: TreeFileProps) {
-  const iconName = language as IconName;
 
   const { renameFile, deleteFile } = useProjectContext();
 
   return (
     <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
       <FileInfoRow fileName={fileName}>
-        <CustomIcon color="white" className="h-4" iconName={iconName} />
+        <CustomIcon color="white" className="h-4" iconName={icon} />
       </FileInfoRow>
       <FileActionsButton
         itemType={"File"}
