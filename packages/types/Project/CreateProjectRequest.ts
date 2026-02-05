@@ -1,7 +1,5 @@
-import type { LanguageType } from "./LanguageType"
-
 export type CreateProjectRequest = {
     projectName: string,
-    projectLanguage: LanguageType,
+    projectLanguageId: number,
     requestHash: string
 }

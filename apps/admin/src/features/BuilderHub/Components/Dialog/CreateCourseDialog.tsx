@@ -33,9 +33,12 @@ export function CreateCourseDialog({
   const submitProject = () => {
     if (courseName == null || courseName.length <= 0) return;
 
+    //TODO MAKE DYNAMIC
     createCourseMutation.mutate({
       courseTitle: courseName,
       requestHash: hash,
+      courseType: "COURSE",
+      courseSubject: {slug: "python", name: "Python", codeLanguageId: 1}
     });
   };
 

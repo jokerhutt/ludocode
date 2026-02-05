@@ -74,6 +74,7 @@ export function createApiPaths({
 
     projects: {
       base: `${BASE}/projects`,
+      languages: `${BASE}/projects/languages`,
       byId: (projectId: string) => `${BASE}/projects/${projectId}`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
     },

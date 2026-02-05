@@ -3,14 +3,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@ludocode/external/ui/popover.tsx";
-import { LANGUAGE_MAP } from "@ludocode/types/Project/LanguageType.ts";
 import type { ReactNode } from "react";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import {
   FileWrapper,
   FileInfoRow,
 } from "@ludocode/design-system/primitives/file.tsx";
-import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
 
 type NewFilePopoverProps = {
   children: ReactNode;
@@ -19,8 +21,8 @@ type NewFilePopoverProps = {
 export function NewFilePopover({ children }: NewFilePopoverProps) {
   const { project, addFile } = useProjectContext();
 
-  const { fileTemplate: choice, iconName } =
-    LANGUAGE_MAP[project.projectLanguage];
+  const iconName = project.projectLanguage.name as IconName;
+  const choice = project.projectLanguage.name;
 
   return (
     <Popover>
@@ -29,7 +31,7 @@ export function NewFilePopover({ children }: NewFilePopoverProps) {
       </PopoverTrigger>
       <PopoverContent className="text-white bg-ludo-surface">
         <FileWrapper isSelected={false} onClick={() => addFile()}>
-          <FileInfoRow fileName={choice.name}>
+          <FileInfoRow fileName={choice}>
             <CustomIcon color="white" className="h-4" iconName={iconName} />
           </FileInfoRow>
         </FileWrapper>

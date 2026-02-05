@@ -1,10 +1,12 @@
 import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button.tsx";
 import { useModifyProject } from "@/hooks/Queries/Mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { LANGUAGE_MAP } from "@ludocode/types/Project/LanguageType.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { router } from "@/main";
 import { parseToDate } from "@ludocode/util";
 
@@ -16,7 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
 
-  const { iconName } = LANGUAGE_MAP[projectLanguage];
+  const iconName = projectLanguage.name as IconName;
 
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
 

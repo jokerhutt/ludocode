@@ -1,17 +1,7 @@
 import { useState, useCallback } from "react";
 import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
-import {
-  LANGUAGE_MAP,
-  type LanguageType,
-} from "@ludocode/types/Project/LanguageType.ts";
 import { nextName } from "../Util/filenameUtil.ts";
-
-export type ProjectFileChoice = {
-  name: string;
-  lang: LanguageType;
-  base: string;
-};
 
 type Args = {
   project: ProjectSnapshot;
@@ -21,8 +11,10 @@ export function useProject({ project }: Args): UseProjectResponse {
   const [files, setFiles] = useState<ProjectFileSnapshot[]>(() =>
     project.files.map((f) => ({ ...f }))
   );
-  const { fileTemplate, fileExtension } = LANGUAGE_MAP[project.projectLanguage];
-  const { lang, base } = fileTemplate;
+  const {projectLanguage} = project
+  const base = "script"
+  const fileExtension = "." + projectLanguage.slug
+
 
   const [current, setCurrent] = useState(0);
 
@@ -93,7 +85,7 @@ export function useProject({ project }: Args): UseProjectResponse {
       const file: ProjectFileSnapshot = {
         tempId: crypto.randomUUID(),
         path: `${name}`,
-        language: lang,
+        language: projectLanguage,
         content: "",
       };
       const next = [...fs, file];

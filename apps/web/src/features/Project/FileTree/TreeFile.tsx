@@ -1,18 +1,17 @@
-import {
-  LANGUAGE_MAP,
-  type LanguageType,
-} from "@ludocode/types/Project/LanguageType.ts";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import {
   FileWrapper,
   FileInfoRow,
 } from "@ludocode/design-system/primitives/file.tsx";
-import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button.tsx";
 
 type TreeFileProps = {
   fileName: string;
-  language: LanguageType;
+  language: String;
   id: string;
   index: number;
   isSelected: boolean;
@@ -26,7 +25,7 @@ export function TreeFile({
   isSelected,
   onClick,
 }: TreeFileProps) {
-  const { iconName } = LANGUAGE_MAP[language];
+  const iconName = language as IconName;
 
   const { renameFile, deleteFile } = useProjectContext();
 

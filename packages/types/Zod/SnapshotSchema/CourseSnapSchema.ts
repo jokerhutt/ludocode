@@ -1,9 +1,19 @@
 import { z } from "zod";
 import { ModuleSnapshotSchema } from "./ModuleSnapshotSchema";
 
+export const CourseTypeSchema = z.enum(["COURSE", "SKILL_PATH"]);
+
+export const CourseSubjectSnapSchema = z.object({
+  slug: z.string(),
+  name: z.string(),
+});
+
 export const CourseSnapSchema = z
   .object({
     courseId: z.string().uuid(),
+    courseType: CourseTypeSchema,
+    courseSubject: CourseSubjectSnapSchema,
+
     modules: z
       .array(ModuleSnapshotSchema)
       .min(1, "Course must contain at least one module"),
@@ -25,7 +35,6 @@ export const CourseSnapSchema = z
       }
       seen.add(id);
     }
-
   });
 
 export function validateCourseSnapshot(payload: unknown) {

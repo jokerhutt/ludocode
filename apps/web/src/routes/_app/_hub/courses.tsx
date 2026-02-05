@@ -5,7 +5,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_hub/courses")({
-  staticData: { headerTitle: "Courses" },
+  staticData: { headerTitle: "Catalog" },
   loader: async ({ context }) => coursesLoader(context.queryClient),
   component: CoursePage,
 });

@@ -1,9 +1,9 @@
-import type { LanguageType } from "./LanguageType";
+import { LanguageMetadata } from "./ProjectSnapshot";
 
 export type ProjectFileSnapshot = {
   id?: string;
   tempId?: string;
   path: string;
-  language: LanguageType;
+  language: LanguageMetadata;
   content: string;
 };

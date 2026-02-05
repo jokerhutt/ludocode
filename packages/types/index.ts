@@ -11,6 +11,7 @@ export * from "./Catalog/FlatCourseTree";
 export * from "./Catalog/LudoCourse";
 export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
+export * from "./Catalog/LudoCourseSubject";
 
 // Completion
 export * from "./Completion/LessonCompletionResponse";
@@ -33,7 +34,6 @@ export * from "./Onboarding/OnboardingResponse";
 
 // Project
 export * from "./Project/CreateProjectRequest";
-export * from "./Project/LanguageType";
 export * from "./Project/ProjectFileSnapshot";
 export * from "./Project/ProjectListResponse";
 export * from "./Project/ProjectSnapshot";
@@ -57,7 +57,7 @@ export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
 export * from "./User/AvatarInfo";
 export * from "./User/EditProfileRequest";
-export * from "./User/TogglePreferencesRequest"
+export * from "./User/TogglePreferencesRequest";
 
 // Zod
 export * from "./Zod/OnboardingSchema/OnboardingSnapSchema";

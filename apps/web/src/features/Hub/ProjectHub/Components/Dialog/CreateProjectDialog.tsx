@@ -1,11 +1,13 @@
 import { DialogTitle } from "@ludocode/external/ui/dialog.tsx";
-import type { LanguageType } from "@ludocode/types/Project/LanguageType.ts";
 import { useState, type ReactNode } from "react";
 import { useCreateProject } from "@/hooks/Queries/Mutations/useCreateProject.tsx";
 import { Spinner } from "@ludocode/external/ui/spinner.tsx";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
 import { InputWrapper } from "@ludocode/design-system/primitives/input";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import type { LanguageMetadata } from "@ludocode/types";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -22,16 +24,16 @@ export function CreateProjectDialog({
 }: CreateProjectDialogProps) {
   const closeModal = () => {
     close();
-    setProjectLanguage("python");
+    setProjectLanguage(null);
     setProjectName("Untitled Project");
   };
 
   const createProjectMutation = useCreateProject(() => close());
 
-  const possibleOptions: LanguageType[] = ["python", "javascript", "lua"];
+  const possibleOptions = useSuspenseQuery(qo.languages()).data
   const [projectName, setProjectName] = useState<string>("Untitled Project");
   const [projectLanguage, setProjectLanguage] =
-    useState<LanguageType>("python");
+    useState<LanguageMetadata | null>(null);
 
   const submitProject = () => {
     if (isSubmitLoading) return;
@@ -40,7 +42,7 @@ export function CreateProjectDialog({
 
     createProjectMutation.mutate({
       projectName: projectName,
-      projectLanguage: projectLanguage,
+      projectLanguageId: projectLanguage.languageId,
       requestHash: hash,
     });
   };
@@ -62,12 +64,12 @@ export function CreateProjectDialog({
 
       <InputWrapper>
         <div className="flex w-full gap-4">
-          {possibleOptions.map((option) => (
+          {possibleOptions.map((option: LanguageMetadata) => (
             <LudoButton
               onClick={() => setProjectLanguage(option)}
               variant={projectLanguage == option ? "alt" : "white"}
             >
-              {option[0].toUpperCase() + option.slice(1)}
+              {option.name}
             </LudoButton>
           ))}
         </div>

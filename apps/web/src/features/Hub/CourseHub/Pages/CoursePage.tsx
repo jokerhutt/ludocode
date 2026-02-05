@@ -31,7 +31,7 @@ export function CoursePage() {
   return (
     <div className="layout-grid col-span-full">
       <div className="main-col-wide flex flex-col gap-6 py-6 px-8 lg:px-0 justify-start h-full min-w-0">
-        <Hero title="Courses" subtitle="Here you will find your courses" />
+        <Hero title="Library" subtitle="Here you will all available courses" />
         <CourseCardGrid>
           {allCourses.map((course: LudoCourse) => (
             <CourseCard

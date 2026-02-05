@@ -24,7 +24,7 @@ import {
 } from "@ludocode/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
 import { api } from "@/constants/api/api";
-import { type CourseStats } from "@ludocode/types";
+import { type CourseStats, type LanguageMetadata } from "@ludocode/types";
 
 export const qo = {
   user: (userId: string) =>
@@ -67,6 +67,13 @@ export const qo = {
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
       staleTime: 60_000,
+    }),
+
+  languages: () =>
+    queryOptions<LanguageMetadata[]>({
+      queryKey: qk.languages(),
+      queryFn: () => ludoGet<LanguageMetadata[]>(api.projects.languages, true),
+      staleTime: 60_00
     }),
 
   credits: () =>
