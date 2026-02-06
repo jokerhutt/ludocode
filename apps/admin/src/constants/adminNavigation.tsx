@@ -2,9 +2,22 @@
 import { Route as authRoute } from "@/routes/auth";
 import { Route as builderHubRoute } from "@/routes/_app/_hub/builder.tsx";
 import { Route as builderPageRoute } from "@/routes/_app/build/$courseId.tsx";
+import { Route as languagesHubRoute } from "@/routes/_app/_hub/languages.tsx";
 
 export const adminNavigation = {
   auth: () => ({ to: authRoute.to }),
+  hub: {
+    builder: {
+      toBuilderHub: () => ({
+        to: builderHubRoute.to,
+      }),
+    },
+    languages: {
+      toLanguagesHub: () => ({
+        to: languagesHubRoute.to,
+      }),
+    },
+  },
   builder: {
     toBuilderHub: () => ({
       to: builderHubRoute.to,
@@ -30,7 +43,7 @@ export const adminNavigation = {
     toBuilderLesson: (
       courseId: string,
       moduleId: string,
-      lessonId: string
+      lessonId: string,
     ) => ({
       to: builderPageRoute.to,
       params: { courseId },
@@ -41,7 +54,7 @@ export const adminNavigation = {
       courseId: string,
       moduleId: string,
       lessonId: string,
-      exerciseId: string
+      exerciseId: string,
     ) => ({
       to: builderPageRoute.to,
       params: { courseId },

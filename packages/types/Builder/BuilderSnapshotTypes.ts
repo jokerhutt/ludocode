@@ -1,8 +1,11 @@
 import type { Info } from "lucide-react";
-import type { CourseSnapSchema } from "../Zod/SnapshotSchema/CourseSnapSchema";
 import type {
-    Analyze,
-    Cloze,
+  CourseSnapSchema,
+  CourseSubjectSnapSchema,
+} from "../Zod/SnapshotSchema/CourseSnapSchema";
+import type {
+  Analyze,
+  Cloze,
   ExerciseSnapSchema,
   OptionSnap,
   Trivia,
@@ -16,6 +19,8 @@ export type LessonSnap = z.infer<typeof LessonSnapSchema>;
 export type ModuleSnap = z.infer<typeof ModuleSnapshotSchema>;
 export type CourseSnap = z.infer<typeof CourseSnapSchema>;
 export type OptionSnap = z.infer<typeof OptionSnap>;
+export type CourseTypeSnap = z.infer<typeof CourseSubjectSnapSchema>;
+export type CourseSubjectSnap = z.infer<typeof CourseSubjectSnapSchema>;
 
 export type ClozeSnap = z.infer<typeof Cloze>;
 export type AnalyzeSnap = z.infer<typeof Analyze>;

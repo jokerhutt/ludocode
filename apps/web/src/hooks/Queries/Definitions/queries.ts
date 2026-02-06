@@ -72,7 +72,7 @@ export const qo = {
   languages: () =>
     queryOptions<LanguageMetadata[]>({
       queryKey: qk.languages(),
-      queryFn: () => ludoGet<LanguageMetadata[]>(api.projects.languages, true),
+      queryFn: () => ludoGet<LanguageMetadata[]>(api.languages.base, true),
       staleTime: 60_00
     }),
 
