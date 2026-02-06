@@ -104,5 +104,13 @@ export function createApiPaths({
       me: `${BASE}/users/me`,
       avatar: `${BASE}/users/avatar`,
     },
+
+    external: {
+      piston: {
+        runtimes: `https://emkc.org/api/v2/piston/runtimes`
+      }
+    }
+
+
   };
 }

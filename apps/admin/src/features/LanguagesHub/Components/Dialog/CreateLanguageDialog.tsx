@@ -9,10 +9,10 @@ import {
 } from "@ludocode/design-system/primitives/input";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { DialogWrapper } from "@ludocode/design-system/widgets/ludo-dialog";
-import { Button } from "@ludocode/external/ui/button";
 import { DialogHeader } from "@ludocode/external/ui/dialog";
 import { Input } from "@ludocode/external/ui/input";
 import { Textarea } from "@ludocode/external/ui/textarea";
+import type { PistonRuntime } from "@ludocode/types";
 import { Dialog } from "@radix-ui/react-dialog";
 import { useState } from "react";
 
@@ -20,9 +20,10 @@ type CreateLanguageDialogProps = {
   open: boolean;
   close: () => void;
   hash: string;
+  runtimes: PistonRuntime[];
 };
 
-export function CreateLanguageDialog({ open }: CreateLanguageDialogProps) {
+export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDialogProps) {
   const resetForm = () => {
     setLanguageName("");
     setEditorId("");
@@ -83,12 +84,24 @@ export function CreateLanguageDialog({ open }: CreateLanguageDialogProps) {
         </InputWrapper>
 
         <InputWrapper>
-          <InputTitle>Piston ID</InputTitle>
-          <Input
-            placeholder="python3"
+          <InputTitle>Runtime</InputTitle>
+
+          <select
+            className="w-full bg-transparent border border-ludo-accent-muted rounded px-2 py-1 text-white"
             value={pistonId}
             onChange={(e) => setPistonId(e.target.value)}
-          />
+          >
+            <option value="">Select runtime</option>
+
+            {runtimes.map((rt) => (
+              <option
+                key={`${rt.language}-${rt.version}-${rt.runtime ?? "default"}`}
+                value={rt.language}
+              >
+                {rt.language}
+              </option>
+            ))}
+          </select>
         </InputWrapper>
 
         <InputWrapper>

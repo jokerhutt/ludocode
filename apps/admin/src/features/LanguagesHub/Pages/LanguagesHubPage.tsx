@@ -15,6 +15,7 @@ type LanguagesHubPageProps = {};
 
 export function LanguagesHubPage({}: LanguagesHubPageProps) {
   const languages = useSuspenseQuery(qo.languages()).data;
+  const runtimes = useSuspenseQuery(qo.runtimes()).data;
   const {
     modalOpen: createLanguageOpen,
     openModal: openCreateLanguage,
@@ -33,7 +34,11 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
               Instructions
             </LudoButton>
           </Hero>
-          <LudoButton onClick={() => openCreateLanguage()} variant="alt" className="w-1/3">
+          <LudoButton
+            onClick={() => openCreateLanguage()}
+            variant="alt"
+            className="w-1/3"
+          >
             Create Language
           </LudoButton>
           <div className="w-full grid grid-cols-3">
@@ -61,6 +66,7 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
       </div>
 
       <CreateLanguageDialog
+        runtimes={runtimes}
         open={createLanguageOpen}
         close={closeCreateLanguage}
         hash={uuid()}
