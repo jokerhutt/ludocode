@@ -14,7 +14,11 @@ import { Input } from "@ludocode/external/ui/input";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import type { PistonRuntime } from "@ludocode/types";
 import { Dialog } from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useMonaco } from "@monaco-editor/react";
+import type * as monaco from "monaco-editor";
+
+export type MonacoLanguage = monaco.languages.ILanguageExtensionPoint;
 
 type CreateLanguageDialogProps = {
   open: boolean;
@@ -23,7 +27,11 @@ type CreateLanguageDialogProps = {
   runtimes: PistonRuntime[];
 };
 
-export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDialogProps) {
+export function CreateLanguageDialog({
+  open,
+  runtimes,
+  close,
+}: CreateLanguageDialogProps) {
   const resetForm = () => {
     setLanguageName("");
     setEditorId("");
@@ -31,9 +39,15 @@ export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDi
     setSlug("");
     setInitialScript("");
     setBase("");
-    setExtension("");
     setIconName("");
   };
+
+  const monaco = useMonaco();
+
+  const editorLanguages = useMemo<MonacoLanguage[]>(() => {
+    if (!monaco) return [];
+    return monaco.languages.getLanguages();
+  }, [monaco]);
 
   const closeModal = () => {
     resetForm();
@@ -46,18 +60,24 @@ export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDi
   const [slug, setSlug] = useState<string>("");
   const [initialScript, setInitialScript] = useState<string>("");
   const [base, setBase] = useState<string>("");
-  const [extension, setExtension] = useState<string>("");
   const [iconName, setIconName] = useState<IconName | "">("");
+
+  const extension = useMemo(() => {
+    if (!editorId) return "";
+
+    const lang = editorLanguages.find((l) => l.id === editorId);
+    return lang?.extensions?.[0] ?? "";
+  }, [editorId, editorLanguages]);
 
   return (
     <Dialog open={open} onOpenChange={() => closeModal()}>
       <DialogWrapper>
         <DialogHeader className="text-white code font-bold text-xl">
-          New Course
+          New Language
         </DialogHeader>
 
         <InputWrapper>
-          <InputTitle>Language name</InputTitle>
+          <InputTitle>Language name (user facing)</InputTitle>
           <Input
             placeholder="E.g. Python"
             value={languageName}
@@ -66,7 +86,7 @@ export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDi
         </InputWrapper>
 
         <InputWrapper>
-          <InputTitle>Slug</InputTitle>
+          <InputTitle>Slug (unique identifier)</InputTitle>
           <Input
             placeholder="python"
             value={slug}
@@ -76,11 +96,20 @@ export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDi
 
         <InputWrapper>
           <InputTitle>Editor ID</InputTitle>
-          <Input
-            placeholder="python"
+
+          <select
+            className="w-full bg-transparent border border-ludo-accent-muted rounded px-2 py-1 text-white"
             value={editorId}
             onChange={(e) => setEditorId(e.target.value)}
-          />
+          >
+            <option value="">Select editor language</option>
+
+            {editorLanguages.map((lang) => (
+              <option key={lang.id} value={lang.id}>
+                {lang.id}
+              </option>
+            ))}
+          </select>
         </InputWrapper>
 
         <InputWrapper>
@@ -104,14 +133,7 @@ export function CreateLanguageDialog({ open, runtimes, close }: CreateLanguageDi
           </select>
         </InputWrapper>
 
-        <InputWrapper>
-          <InputTitle>Extension</InputTitle>
-          <Input
-            placeholder=".py"
-            value={extension}
-            onChange={(e) => setExtension(e.target.value)}
-          />
-        </InputWrapper>
+        <p className="text-left text-ludoAltText">Extension: {extension}</p>
 
         <InputWrapper>
           <InputTitle>Base</InputTitle>
