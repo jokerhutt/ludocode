@@ -10,6 +10,7 @@ import {
 import { CreateLanguageDialog } from "../Components/Dialog/CreateLanguageDialog";
 import { useModal } from "@ludocode/hooks/ui/useModal";
 import { uuid } from "@tanstack/react-form";
+import { LanguageCard } from "../Components/Card/LanguageCard";
 
 type LanguagesHubPageProps = {};
 
@@ -27,38 +28,23 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
         <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <Hero {...languagesHeroContent}>
-            <LudoButton
-              className="w-full lg:w-1/3 lg:h-10 h-full px-4 "
-              variant="alt"
-            >
-              Instructions
-            </LudoButton>
-          </Hero>
-          <LudoButton
-            onClick={() => openCreateLanguage()}
-            variant="alt"
-            className="w-1/3"
-          >
-            Create Language
-          </LudoButton>
-          <div className="w-full grid grid-cols-3">
-            {languages.map((language) => (
-              <LudoButton className="w-full relative h-auto">
-                <CustomIcon
-                  className="absolute top-5 right-5 h-10 w-10"
-                  iconName={language.iconName as IconName}
-                  color="white"
-                />
-                <div className="w-full p-4 text-start flex flex-col gap-2">
-                  <p>NAME: {language.name}</p>
-                  <p>ID: {language.languageId}</p>
-                  <p>BASE: {language.base}</p>
-                  <p>EXTENSION: {language.extension}</p>
-                  <p>SLUG: {language.slug}</p>
-                  <p>ICON NAME: {language.iconName}</p>
-                  <p>INITIAL SCRIPT: {language.initialScript}</p>
-                </div>
+            <div className="flex w-full justify-end items-end gap-4">
+              <LudoButton className="w-1/3 px-2" variant="alt">
+                Instructions
               </LudoButton>
+              <LudoButton
+                onClick={() => openCreateLanguage()}
+                variant="alt"
+                className="w-1/3 px-2"
+              >
+                Create Language
+              </LudoButton>
+            </div>
+          </Hero>
+
+          <div className="w-full grid grid-cols-3 gap-x-4">
+            {languages.map((language) => (
+              <LanguageCard language={language} />
             ))}
           </div>
         </div>
@@ -66,6 +52,7 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
       </div>
 
       <CreateLanguageDialog
+        existingUserLanguages={languages}
         runtimes={runtimes}
         open={createLanguageOpen}
         close={closeCreateLanguage}

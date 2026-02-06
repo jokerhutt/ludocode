@@ -28,12 +28,16 @@ export * from "./Exercise/LudoExerciseOption";
 // Feature Flags
 export * from "./FeatureFlags/FeatureFlags";
 
+// Languages
+export * from "./Languages/CreateLanguageRequest";
+export * from "./Languages/CreateLanguageFormSchema";
+
 // Onboarding
 export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";
 
 // Piston
-export * from "./Piston/Runtimes"
+export * from "./Piston/Runtimes";
 
 // Project
 export * from "./Project/CreateProjectRequest";
