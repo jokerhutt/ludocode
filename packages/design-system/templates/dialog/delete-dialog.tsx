@@ -7,12 +7,14 @@ import type { ReactNode } from "react";
 type DeleteDialogProps = {
   targetName: string;
   destructiveConfirmation?: DestructiveActionConfirmation;
+  canDelete?: boolean;
   onClick: () => void;
   children: ReactNode;
 };
 
 export function DeleteDialog({
   onClick,
+  canDelete = true,
   targetName,
   destructiveConfirmation,
   children,

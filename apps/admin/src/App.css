@@ -2,12 +2,12 @@
 @source "../../../packages/external/**/*.{ts,tsx,js,jsx}";
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@ludocode/design-system/components/ludo.css";
-@import "@ludocode/design-system/font/DMMono.css";
-@import "@ludocode/design-system/font/NeueHaas.css";
-@import "@ludocode/design-system/theme/ludo.css";
-@import "@ludocode/design-system/theme/chatbot.css";
-@import "@ludocode/design-system/utilities/ludo.css";
+@import "@ludocode/design-system/styles/components/ludo.css";
+@import "@ludocode/design-system/styles/font/DMMono.css";
+@import "@ludocode/design-system/styles/font/NeueHaas.css";
+@import "@ludocode/design-system/styles/theme/ludo.css";
+@import "@ludocode/design-system/styles/theme/chatbot.css";
+@import "@ludocode/design-system/styles/utilities/ludo.css";
 
 body {
   font-family: "DMMono", monospace;

@@ -16,7 +16,7 @@ export const qo = {
   currentUser: () =>
     queryOptions({
       queryKey: qk.currentUser(),
-      queryFn: () => ludoGet<LudoUser>(adminApi.users.me, true),
+      queryFn: () => ludoGet<LudoUser>(adminApi.auth.me, true),
       staleTime: 60_000,
       retry: false,
     }),

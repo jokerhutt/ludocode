@@ -39,12 +39,14 @@ export function BuilderLayout() {
     ...courseFormOpts,
     defaultValues: { courseId, modules },
     onSubmit: async ({ value }) => {
+      console.log("Submitting")
       try {
         const fresh = await ludoPut<CourseSnap>(
           adminApi.snapshots.byCourse(courseId),
           value,
           true
         );
+        console.log("Fresh: " + JSON.stringify(fresh))
         qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
         form.update({ defaultValues: fresh });
         form.reset();
