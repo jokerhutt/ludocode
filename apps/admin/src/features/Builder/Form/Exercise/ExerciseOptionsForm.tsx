@@ -14,7 +14,6 @@ export const ExerciseOptionsForm = withForm({
   render: ({ form, exerciseId, moduleIndex, exerciseIndex, lessonIndex }) => {
     return (
       <form.AppField
-        key={exerciseId}
         name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${exerciseIndex}].correctOptions`}
         mode="array"
       >
@@ -44,20 +43,24 @@ export const ExerciseOptionsForm = withForm({
               const handleEdit = (
                 id: string,
                 column: ColumnType,
-                value: string
+                value: string,
               ) => {
                 const field = column === "correct" ? correctFA : distrFA;
-
+                console.log("Editing option", { id, column, value });
+                console.log("Current options:", field.state.value);
                 const updated = field.state.value.map((opt) =>
-                  opt.exerciseOptionId === id ? { ...opt, content: value } : opt
+                  opt.exerciseOptionId === id
+                    ? { ...opt, content: value }
+                    : opt,
                 );
+                console.log("Updated options:", updated);
 
                 field.setValue(updated);
               };
 
               const removeValue = (
                 index: number,
-                type: "correct" | "distractor"
+                type: "correct" | "distractor",
               ) => {
                 if (type === "correct") {
                   correctFA.removeValue(index);

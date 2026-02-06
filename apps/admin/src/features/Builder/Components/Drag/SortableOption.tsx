@@ -5,6 +5,7 @@ import type { OptionSnap } from "@ludocode/types/Builder/BuilderSnapshotTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { FormEditMode } from "@/features/Builder/Components/Drag/ExerciseOptionsDnDContainer.tsx";
+import { useState, useEffect } from "react";
 
 type SortableOptionProps = {
   id: string;
@@ -27,6 +28,12 @@ export function SortableOption({
   const isRename = editMode === "Rename";
   const isDelete = editMode === "Delete";
   const isLock = editMode === "Lock";
+
+  const [localValue, setLocalValue] = useState(item.content);
+
+  useEffect(() => {
+    setLocalValue(item.content);
+  }, [item.content]);
 
   const {
     attributes,
@@ -63,15 +70,21 @@ export function SortableOption({
         <div className="flex items-center gap-2">
           <Textarea
             className="w-full min-h-8 bg-transparent border-b border-gray-300 text-white focus:outline-none"
-            value={item.content}
-            onChange={(e) => onEdit?.(id, columnType, e.target.value)}
+            value={localValue}
+            onChange={(e) => {
+              setLocalValue(e.target.value);
+              onEdit?.(id, columnType, e.target.value);
+            }}
+            onBlur={() => {
+              onEdit?.(id, columnType, localValue);
+            }}
           />
         </div>
       )}
 
       {isDelete && (
         <div className="flex items-center justify-between gap-2 text-white text-sm">
-          <span>{item.content}</span>
+          <span>{localValue}</span>
           <Button
             type="button"
             size="sm"
@@ -84,7 +97,7 @@ export function SortableOption({
       )}
 
       {(isArrange || isLock) && (
-        <div className="text-white text-sm">{item.content}</div>
+        <div className="text-white text-sm">{localValue}</div>
       )}
     </div>
   );
