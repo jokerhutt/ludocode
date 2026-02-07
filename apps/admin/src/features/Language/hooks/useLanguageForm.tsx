@@ -1,7 +1,7 @@
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 import {
-  createLanguageSchema,
-  type CreateLanguageFormInput,
+  languageFormSchema,
+  type LanguageFormInput,
   type LanguageMetadata,
   type PistonRuntime,
 } from "@ludocode/types";
@@ -25,7 +25,7 @@ export function useLanguageForm({
   const monaco = useMonaco();
 
   const [errors, setErrors] = useState<
-    Partial<Record<keyof CreateLanguageFormInput, string>>
+    Partial<Record<keyof LanguageFormInput, string>>
   >({});
 
   const validate = () => {
@@ -40,15 +40,13 @@ export function useLanguageForm({
       extension,
     };
 
-    const result = createLanguageSchema.safeParse(data);
+    const result = languageFormSchema.safeParse(data);
 
     if (!result.success) {
-      const fieldErrors: Partial<
-        Record<keyof CreateLanguageFormInput, string>
-      > = {};
+      const fieldErrors: Partial<Record<keyof LanguageFormInput, string>> = {};
 
       for (const issue of result.error.issues) {
-        const key = issue.path[0] as keyof CreateLanguageFormInput;
+        const key = issue.path[0] as keyof LanguageFormInput;
         fieldErrors[key] = issue.message;
       }
 

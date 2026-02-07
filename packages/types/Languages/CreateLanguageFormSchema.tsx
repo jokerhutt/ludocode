@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createLanguageSchema = z.object({
+export const languageFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   slug: z
     .string()
@@ -14,5 +14,4 @@ export const createLanguageSchema = z.object({
   extension: z.string().min(1, "Extension is required"),
 });
 
-export type CreateLanguageFormInput = z.infer<typeof createLanguageSchema>;
-export type UpdateLanguageFormInput = z.infer<typeof createLanguageSchema>;
+export type LanguageFormInput = z.infer<typeof languageFormSchema>;

@@ -1,9 +1,9 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import type { CreateLanguageFormInput } from "@ludocode/types";
+import type { LanguageFormInput } from "@ludocode/types";
 import { useCreateLanguage } from "../../hooks/useCreateLanguage";
 
 type CreateLanguageButtonProps = {
-  validate: () => CreateLanguageFormInput | null;
+  validate: () => LanguageFormInput | null;
 };
 
 export function CreateLanguageButton({ validate }: CreateLanguageButtonProps) {

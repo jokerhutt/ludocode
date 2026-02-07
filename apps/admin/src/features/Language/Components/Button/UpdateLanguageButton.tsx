@@ -1,11 +1,11 @@
 import { adminNavigation } from "@/constants/adminNavigation";
 import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import type { CreateLanguageFormInput, UpdateLanguageRequest } from "@ludocode/types";
+import type { LanguageFormInput, ModifyLanguageRequest } from "@ludocode/types";
 import { useUpdateLanguage } from "../../hooks/useUpdateLanguage";
 
 type UpdateLanguageButtonProps = {
-  validate: () => CreateLanguageFormInput | null;
+  validate: () => LanguageFormInput | null;
   hasChanged: boolean;
   languageId: number;
 };
@@ -19,7 +19,7 @@ export function UpdateLanguageButton({
     languageId: languageId,
   });
 
-  const handleUpdateAccount = (payload: UpdateLanguageRequest) => {
+  const handleUpdateAccount = (payload: ModifyLanguageRequest) => {
     if (updateLanguageMutation.isPending) return;
     if (!hasChanged) {
       router.navigate(adminNavigation.hub.languages.toLanguagesHub());

@@ -5,8 +5,7 @@ import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
 import {
   type LanguageMetadata,
-  type CreateLanguageRequest,
-  type UpdateLanguageRequest,
+  type ModifyLanguageRequest,
 } from "@ludocode/types";
 
 export const mutations = {
@@ -22,10 +21,10 @@ export const mutations = {
     });
   },
   updateLanguage: (languageId: number) => {
-    return mutationOptions<LanguageMetadata[], Error, UpdateLanguageRequest>({
+    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
       mutationKey: ["updateLanguage"],
       mutationFn: (variables) =>
-        ludoPut<LanguageMetadata[], UpdateLanguageRequest>(
+        ludoPut<LanguageMetadata[], ModifyLanguageRequest>(
           adminApi.languages.byId(languageId),
           variables,
           true,
@@ -43,10 +42,10 @@ export const mutations = {
     });
   },
   createLanguage: () => {
-    return mutationOptions<LanguageMetadata[], Error, CreateLanguageRequest>({
+    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
       mutationKey: ["createLanguage"],
       mutationFn: (variables) =>
-        ludoPost<LanguageMetadata[], CreateLanguageRequest>(
+        ludoPost<LanguageMetadata[], ModifyLanguageRequest>(
           adminApi.languages.base,
           variables,
           true,

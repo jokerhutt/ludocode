@@ -29,7 +29,7 @@ export * from "./Exercise/LudoExerciseOption";
 export * from "./FeatureFlags/FeatureFlags";
 
 // Languages
-export * from "./Languages/CreateLanguageRequest";
+export * from "./Languages/ModifyLanguageRequest";
 export * from "./Languages/CreateLanguageFormSchema";
 
 // Onboarding
