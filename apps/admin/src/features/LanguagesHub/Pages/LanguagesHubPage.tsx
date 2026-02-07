@@ -3,25 +3,14 @@ import { languagesHeroContent } from "../content";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import {
-  CustomIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon";
-import { CreateLanguageDialog } from "../Components/Dialog/CreateLanguageDialog";
-import { useModal } from "@ludocode/hooks/ui/useModal";
-import { uuid } from "@tanstack/react-form";
 import { LanguageCard } from "../Components/Card/LanguageCard";
+import { router } from "@/main";
+import { adminNavigation } from "@/constants/adminNavigation";
 
 type LanguagesHubPageProps = {};
 
 export function LanguagesHubPage({}: LanguagesHubPageProps) {
   const languages = useSuspenseQuery(qo.languages()).data;
-  const runtimes = useSuspenseQuery(qo.runtimes()).data;
-  const {
-    modalOpen: createLanguageOpen,
-    openModal: openCreateLanguage,
-    closeModal: closeCreateLanguage,
-  } = useModal();
   return (
     <>
       <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
@@ -33,7 +22,9 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
                 Instructions
               </LudoButton>
               <LudoButton
-                onClick={() => openCreateLanguage()}
+                onClick={() =>
+                  router.navigate(adminNavigation.language.toCreateLanguage())
+                }
                 variant="alt"
                 className="w-1/3 px-2"
               >
@@ -50,14 +41,6 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
         </div>
         <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
       </div>
-
-      <CreateLanguageDialog
-        existingUserLanguages={languages}
-        runtimes={runtimes}
-        open={createLanguageOpen}
-        close={closeCreateLanguage}
-        hash={uuid()}
-      />
     </>
   );
 }
