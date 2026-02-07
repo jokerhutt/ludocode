@@ -15,13 +15,11 @@ import { Textarea } from "@ludocode/external/ui/textarea";
 import type { LanguageMetadata, PistonRuntime } from "@ludocode/types";
 import { Dialog } from "@radix-ui/react-dialog";
 import type * as monaco from "monaco-editor";
-import {
-  useCreateLanguage,
-  useLanguageForm,
-} from "../../../Language/hooks/useCreateLanguage.tsx";
+import { useCreateLanguage } from "../../../Language/hooks/useCreateLanguage.tsx";
 import { RuntimeSelect } from "../Selection/RuntimeSelection";
 import { EditorLanguageSelect } from "../Selection/EditorLanguageSelect";
 import { LanguageIconSelect } from "../Selection/LanguageIconSelect";
+import { useLanguageForm } from "@/features/Language/hooks/useLanguageForm.tsx";
 
 export type MonacoLanguage = monaco.languages.ILanguageExtensionPoint;
 

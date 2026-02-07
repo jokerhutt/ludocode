@@ -1,8 +1,8 @@
-import type { LanguageFieldDiff } from "../../hooks/useCreateLanguage";
+import type { LanguageFieldDiff } from "../hooks/useLanguageDiffs";
 
 type LanguageDiffOverviewProps = { languageDiffs: LanguageFieldDiff[] };
 
-export function LanguageDiffOverview({
+export function LanguageDiffSection({
   languageDiffs,
 }: LanguageDiffOverviewProps) {
   return (

@@ -2,7 +2,7 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select";
-import type { MonacoLanguage } from "../../hooks/useCreateLanguage";
+import type { MonacoLanguage } from "../../hooks/useLanguageForm";
 
 type LanguageEditorIdSelectProps = {
   editorId: string;

@@ -10,7 +10,11 @@ export function LanguageLayout({}: LanguageLayoutProps) {
     <MainGridWrapper gridRows={"SITE"}>
       <LanguageHeader />
       <Suspense fallback={<div />}>
-        <Outlet />
+        <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
+          <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
+          <Outlet />
+          <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
+        </div>
       </Suspense>
     </MainGridWrapper>
   );
