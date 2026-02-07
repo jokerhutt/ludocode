@@ -1,0 +1,53 @@
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
+import { useDeleteLanguage } from "../../hooks/useDeleteLanguage";
+import type { DestructiveActionConfirmation } from "@ludocode/design-system/templates/dialog/WarningDialog";
+import type { LudoCourse } from "@ludocode/types";
+
+type DeleteLanguageButtonProps = {
+  languageId: number;
+  langaugeName: string;
+  attachedCourses: LudoCourse[];
+};
+
+export function DeleteLanguageButton({
+  languageId,
+  langaugeName,
+  attachedCourses,
+}: DeleteLanguageButtonProps) {
+  const deleteLanguageMutation = useDeleteLanguage({
+    languageId,
+  });
+
+  const handleDeleteAccount = () => {
+    if (deleteLanguageMutation.isPending) return;
+    deleteLanguageMutation.mutate();
+  };
+
+  const confirmation: DestructiveActionConfirmation = {
+    confirmationValue: langaugeName,
+    confirmationText: `type ${langaugeName} to confirm`,
+  };
+
+  const description =
+    attachedCourses.length > 0
+      ? `The following courses attached to this language will be DELETED: ${attachedCourses.map((course) => course.title)}`
+      : "";
+
+  return (
+    <DeleteDialog
+      targetName="this language"
+      description={description}
+      destructiveConfirmation={confirmation}
+      onClick={() => handleDeleteAccount()}
+    >
+      <LudoButton
+        isLoading={deleteLanguageMutation.isPending}
+        variant={"danger"}
+        className="w-full"
+      >
+        Delete
+      </LudoButton>
+    </DeleteDialog>
+  );
+}

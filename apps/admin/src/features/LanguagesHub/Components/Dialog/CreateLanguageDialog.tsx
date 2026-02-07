@@ -18,7 +18,7 @@ import type * as monaco from "monaco-editor";
 import {
   useCreateLanguage,
   useLanguageForm,
-} from "../../Hooks/useCreateLanguage";
+} from "../../../Language/hooks/useCreateLanguage.tsx";
 import { RuntimeSelect } from "../Selection/RuntimeSelection";
 import { EditorLanguageSelect } from "../Selection/EditorLanguageSelect";
 import { LanguageIconSelect } from "../Selection/LanguageIconSelect";

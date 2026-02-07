@@ -1,5 +1,5 @@
-import { mutations } from "@/hooks/Queries/Definitions/mutations";
-import { qk } from "@/hooks/Queries/Definitions/qk";
+import { mutations } from "@/hooks/Queries/Definitions/mutations.ts";
+import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import {
   createLanguageSchema,
   type CreateLanguageFormInput,
@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useMonaco } from "@monaco-editor/react";
 import type * as monaco from "monaco-editor";
-import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
+import type { IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
 export function useCreateLanguage(closeModal?: () => void) {
   const qc = useQueryClient();
 
