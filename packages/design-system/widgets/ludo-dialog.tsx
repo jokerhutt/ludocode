@@ -12,6 +12,7 @@ type LudoDialogProps = {
   trigger: ReactNode;
   asChild?: boolean;
   className?: string;
+  triggerClassName?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
@@ -21,6 +22,7 @@ export function LudoDialog({
   trigger,
   asChild = true,
   className,
+  triggerClassName,
   open,
   onOpenChange,
 }: LudoDialogProps) {
@@ -36,13 +38,15 @@ export function LudoDialog({
 
   return (
     <Dialog open={actualOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild={asChild}>{trigger}</DialogTrigger>
+      <DialogTrigger asChild={asChild} className={triggerClassName}>
+        {trigger}
+      </DialogTrigger>
 
       <DialogContent
         showCloseButton={false}
         className={cn(
           "bg-ludo-surface border-2 border-ludo-accent text-center",
-          className
+          className,
         )}
       >
         {children}
@@ -58,15 +62,15 @@ type DialogWrapperProps = {
 
 export function DialogWrapper({ children, className }: DialogWrapperProps) {
   return (
-      <DialogContent
-          onClick={(e) => e.stopPropagation()}
-          showCloseButton={false}
-          className={cn(
-              "bg-ludo-surface border-2 border-ludo-accent text-center",
-              className
-          )}
-      >
-        {children}
-      </DialogContent>
+    <DialogContent
+      onClick={(e) => e.stopPropagation()}
+      showCloseButton={false}
+      className={cn(
+        "bg-ludo-surface border-2 border-ludo-accent text-center",
+        className,
+      )}
+    >
+      {children}
+    </DialogContent>
   );
 }

@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
 import { Button } from "@ludocode/external/ui/button";
 import { TrashIcon } from "lucide-react";
 import { SelectTrigger, SelectValue } from "@ludocode/external/ui/select";
-import { LudoSelect } from "@ludocode/design-system/primitives/ludo-select";
+import { LudoSelectLegacy } from "@ludocode/design-system/primitives/ludo-select";
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
 
 export const EditNodeDialog = withForm({
@@ -70,7 +70,7 @@ export const EditNodeDialog = withForm({
                   {(f) => <f.FormTitleField className="text-black" />}
                 </form.AppField>
                 <h2>Order Index</h2>
-                <LudoSelect
+                <LudoSelectLegacy
                   onChange={updateOrder}
                   index={currentIndex}
                   count={arrayLength}
@@ -81,7 +81,7 @@ export const EditNodeDialog = withForm({
                   >
                     <SelectValue />
                   </SelectTrigger>
-                </LudoSelect>
+                </LudoSelectLegacy>
               </div>
             </DialogHeader>
             <div className="grid gap-4"></div>

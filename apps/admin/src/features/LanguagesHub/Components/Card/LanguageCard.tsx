@@ -1,12 +1,24 @@
-import { CustomIcon, type IconName } from "@ludocode/design-system/primitives/custom-icon";
+import { adminNavigation } from "@/constants/adminNavigation";
+import { router } from "@/main";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { LanguageMetadata } from "@ludocode/types";
 
 type LanguageCardProps = { language: LanguageMetadata };
 
-export function LanguageCard({language}: LanguageCardProps) {
+export function LanguageCard({ language }: LanguageCardProps) {
   return (
-    <LudoButton className="w-full relative h-auto">
+    <LudoButton
+      onClick={() =>
+        router.navigate(
+          adminNavigation.language.toLanguage(language.languageId),
+        )
+      }
+      className="w-full relative h-auto"
+    >
       <CustomIcon
         className="absolute top-5 right-5 h-10 w-10"
         iconName={language.iconName as IconName}

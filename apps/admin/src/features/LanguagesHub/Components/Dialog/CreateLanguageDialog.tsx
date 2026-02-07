@@ -17,7 +17,7 @@ import { Dialog } from "@radix-ui/react-dialog";
 import type * as monaco from "monaco-editor";
 import {
   useCreateLanguage,
-  useCreateLanguageForm,
+  useLanguageForm,
 } from "../../Hooks/useCreateLanguage";
 import { RuntimeSelect } from "../Selection/RuntimeSelection";
 import { EditorLanguageSelect } from "../Selection/EditorLanguageSelect";
@@ -39,7 +39,7 @@ export function CreateLanguageDialog({
   existingUserLanguages,
   close,
 }: CreateLanguageDialogProps) {
-  const formHook = useCreateLanguageForm({ existingUserLanguages, runtimes });
+  const formHook = useLanguageForm({ existingUserLanguages, runtimes });
   const closeModal = () => {
     formHook.reset();
     close();

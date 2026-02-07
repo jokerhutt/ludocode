@@ -7,7 +7,7 @@ import {
   type PistonRuntime,
 } from "@ludocode/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMonaco } from "@monaco-editor/react";
 import type * as monaco from "monaco-editor";
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
@@ -28,11 +28,30 @@ export type MonacoLanguage = monaco.languages.ILanguageExtensionPoint;
 type Params = {
   existingUserLanguages: LanguageMetadata[];
   runtimes: PistonRuntime[];
+  currentLanguage?: LanguageMetadata;
 };
 
-export function useCreateLanguageForm({
+export type LanguageFormField =
+  | "name"
+  | "slug"
+  | "editorId"
+  | "pistonId"
+  | "base"
+  | "iconName"
+  | "extension"
+  | "initialScript";
+
+export type LanguageFieldDiff = {
+  field: LanguageFormField;
+  hasChanged: boolean;
+  oldValue: string;
+  newValue: string;
+};
+
+export function useLanguageForm({
   existingUserLanguages,
   runtimes,
+  currentLanguage,
 }: Params) {
   const monaco = useMonaco();
 
@@ -99,23 +118,49 @@ export function useCreateLanguageForm({
   const [base, setBase] = useState("");
   const [iconName, setIconName] = useState<IconName | "">("");
 
+  const didInitRef = useRef(false);
+
+  useEffect(() => {
+    if (!currentLanguage) return;
+
+    if (didInitRef.current) return;
+
+    setLanguageName(currentLanguage.name);
+    setEditorId(currentLanguage.editorId);
+    setPistonId(currentLanguage.pistonId);
+    setSlug(currentLanguage.slug);
+    setInitialScript(currentLanguage.initialScript);
+    setBase(currentLanguage.base);
+    setIconName(currentLanguage.iconName as IconName);
+
+    didInitRef.current = true;
+  }, [currentLanguage]);
+
   // -------------------------
   // used ids
   // -------------------------
 
+  const filteredLanguages = useMemo(() => {
+    if (!currentLanguage) return existingUserLanguages;
+
+    return existingUserLanguages.filter(
+      (l) => l.languageId !== currentLanguage.languageId,
+    );
+  }, [existingUserLanguages, currentLanguage]);
+
   const usedEditorIds = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.editorId)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.editorId)),
+    [filteredLanguages],
   );
 
   const usedPistonIds = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.pistonId)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.pistonId)),
+    [filteredLanguages],
   );
 
   const usedSlugs = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.slug)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.slug)),
+    [filteredLanguages],
   );
 
   // -------------------------
@@ -162,6 +207,7 @@ export function useCreateLanguageForm({
     setBase("");
     setIconName("");
     setErrors({});
+    didInitRef.current = false;
   };
 
   const slugAvailable = slug.length > 0 && !usedSlugs.has(slug);
@@ -198,4 +244,85 @@ export function useCreateLanguageForm({
     // utils
     reset,
   };
+}
+
+export function useLanguageDiffs({
+  languageName,
+  slug,
+  editorId,
+  pistonId,
+  base,
+  iconName,
+  initialScript,
+  extension,
+  currentLanguage,
+}: {
+  languageName: string;
+  slug: string;
+  editorId: string;
+  pistonId: string;
+  base: string;
+  iconName: string;
+  initialScript: string;
+  extension: string;
+  currentLanguage?: LanguageMetadata;
+}): LanguageFieldDiff[] {
+  return useMemo(() => {
+    if (!currentLanguage) return [];
+
+    const current = {
+      name: languageName,
+      slug,
+      editorId,
+      pistonId,
+      base,
+      iconName,
+      initialScript,
+      extension,
+    };
+
+    const original = {
+      name: currentLanguage.name,
+      slug: currentLanguage.slug,
+      editorId: currentLanguage.editorId,
+      pistonId: currentLanguage.pistonId,
+      base: currentLanguage.base,
+      iconName: currentLanguage.iconName ?? "",
+      initialScript: currentLanguage.initialScript,
+      extension: currentLanguage.extension,
+    };
+
+    const fields: LanguageFormField[] = [
+      "name",
+      "slug",
+      "editorId",
+      "pistonId",
+      "base",
+      "iconName",
+      "initialScript",
+      "extension",
+    ];
+
+    return fields.map((field) => {
+      const oldValue = original[field];
+      const newValue = current[field];
+
+      return {
+        field,
+        hasChanged: oldValue !== newValue,
+        oldValue,
+        newValue,
+      };
+    });
+  }, [
+    languageName,
+    slug,
+    editorId,
+    pistonId,
+    base,
+    iconName,
+    initialScript,
+    extension,
+    currentLanguage,
+  ]);
 }

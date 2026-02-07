@@ -15,3 +15,4 @@ export const createLanguageSchema = z.object({
 });
 
 export type CreateLanguageFormInput = z.infer<typeof createLanguageSchema>;
+export type UpdateLanguageFormInput = z.infer<typeof createLanguageSchema>;

@@ -1,4 +1,8 @@
-import { Select, SelectContent, SelectItem } from "@ludocode/external/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+} from "@ludocode/external/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 import type { ReactNode } from "react";
 
@@ -10,7 +14,7 @@ type LudoSelectProps = {
   prefix?: string;
 };
 
-export function LudoSelect({
+export function LudoSelectLegacy({
   index,
   count,
   children,
@@ -26,7 +30,11 @@ export function LudoSelect({
       <SelectContent className="bg-ludo-surface">
         <SelectGroup>
           {Array.from({ length: count }).map((_, i) => (
-            <SelectItem className="border-2 border-ludo-accent-muted hover:cursor-pointer bg-ludo-background my-2 text-white" key={i} value={String(i)}>
+            <SelectItem
+              className="border-2 border-ludo-accent-muted hover:cursor-pointer bg-ludo-background my-2 text-white"
+              key={i}
+              value={String(i)}
+            >
               {prefix} {i}
             </SelectItem>
           ))}

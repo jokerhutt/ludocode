@@ -14,6 +14,7 @@ type WarningDialogProps = {
   buttonText: string;
   subtitle?: string;
   onClick: () => void;
+  description?: string;
   destructiveConfirmation?: DestructiveActionConfirmation;
   children: ReactNode;
 };
@@ -22,6 +23,7 @@ export function WarningDialog({
   children,
   title,
   subtitle,
+  description,
   onClick,
   buttonText,
   destructiveConfirmation,
@@ -37,11 +39,17 @@ export function WarningDialog({
   };
 
   return (
-    <LudoDialog asChild={false} trigger={children}>
+    <LudoDialog asChild={false} trigger={children} triggerClassName="w-full">
       <DialogTitle className="text-white">{title}</DialogTitle>
       {subtitle && (
         <DialogDescription className="text-white code font-bold">
           {subtitle}
+        </DialogDescription>
+      )}
+
+      {description && (
+        <DialogDescription className="text-white code font-bold">
+          {description}
         </DialogDescription>
       )}
 
