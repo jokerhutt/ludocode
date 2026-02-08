@@ -1,17 +1,21 @@
 export type ApiConfig = {
   apiPrefix: string;
   apiUrl: string;
+  adminPrefix: string;
   demoAuthToken?: string;
 };
 
 export function createApiPaths({
   apiPrefix = "/api/v1",
   apiUrl,
+  adminPrefix,
   demoAuthToken,
 }: ApiConfig) {
   const API_PREFIX = apiPrefix;
   const API_PATH = apiUrl;
+  const ADMIN_PREFIX = adminPrefix;
   const BASE = API_PATH + API_PREFIX;
+  const ADMIN_BASE = BASE + ADMIN_PREFIX;
 
   return {
     ai: {
@@ -48,6 +52,13 @@ export function createApiPaths({
       base: `${BASE}/features`,
     },
 
+    languages: {
+      base: `${BASE}/languages`,
+      adminBase: `${ADMIN_BASE}/languages`,
+      byId: (languageId: number) => `${BASE}/languages/${languageId}`,
+      byAdminId: (languageId: number) => `${ADMIN_BASE}/languages/${languageId}`
+    },
+
     progress: {
       coins: {
         base: `${BASE}/progress/coins`,
@@ -60,7 +71,8 @@ export function createApiPaths({
         base: `${BASE}/progress/courses`,
         byIds: (courseIds: string) => `${BASE}/progress/courses?${courseIds}`,
         stats: `${BASE}/progress/courses/stats`,
-        statsByIds: (courseIds: string) => `${BASE}/progress/courses/stats?${courseIds}`,
+        statsByIds: (courseIds: string) =>
+          `${BASE}/progress/courses/stats?${courseIds}`,
         enrolled: `${BASE}/progress/courses/enrolled`,
         current: `${BASE}/progress/courses/current`,
         reset: (courseId: string) =>
@@ -70,11 +82,6 @@ export function createApiPaths({
         base: `${BASE}/progress/streak`,
         weekly: `${BASE}/progress/streak?mode=weekly`,
       },
-    },
-
-    languages: {
-      base: `${BASE}/languages`,
-      byId: (languageId: number) => `${BASE}/languages/${languageId}`
     },
 
     projects: {
@@ -89,9 +96,16 @@ export function createApiPaths({
     },
 
     snapshots: {
-      base: `${BASE}/snapshots`,
-      course: `${BASE}/snapshots/course`,
-      byCourse: (courseId: string) => `${BASE}/snapshots/${courseId}`,
+      base: `${ADMIN_BASE}/snapshots`,
+      course: `${ADMIN_BASE}/snapshots/course`,
+      byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
+    },
+
+    subjects: {
+      base: `${BASE}/subjects`,
+      adminBase: `${ADMIN_BASE}/subjects`,
+      byId: (subjectId: number) => `${BASE}/subjects/${subjectId}`,
+      byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`
     },
 
     preferences: {
@@ -107,10 +121,8 @@ export function createApiPaths({
 
     external: {
       piston: {
-        runtimes: `https://emkc.org/api/v2/piston/runtimes`
-      }
-    }
-
-
+        runtimes: `https://emkc.org/api/v2/piston/runtimes`,
+      },
+    },
   };
 }

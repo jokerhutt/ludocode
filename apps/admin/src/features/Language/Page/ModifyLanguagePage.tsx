@@ -22,7 +22,7 @@ export function ModifyLanguagePage({}: LanguagePageProps) {
 
   const allCourses = useSuspenseQuery(qo.allCourses()).data;
   const attachedCourses = allCourses.filter(
-    (course) => course.subject.codeLanguage == language?.name,
+    (course) => course.language?.name == language?.name,
   );
 
   const formHook = useLanguageForm({

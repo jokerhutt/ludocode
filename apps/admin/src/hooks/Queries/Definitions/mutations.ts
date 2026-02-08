@@ -25,7 +25,7 @@ export const mutations = {
       mutationKey: ["updateLanguage"],
       mutationFn: (variables) =>
         ludoPut<LanguageMetadata[], ModifyLanguageRequest>(
-          adminApi.languages.byId(languageId),
+          adminApi.languages.byAdminId(languageId),
           variables,
           true,
         ),
@@ -36,7 +36,7 @@ export const mutations = {
       mutationKey: ["deleteLanguage"],
       mutationFn: () =>
         ludoDelete<LanguageMetadata[]>(
-          adminApi.languages.byId(languageId),
+          adminApi.languages.byAdminId(languageId),
           true,
         ),
     });
@@ -46,7 +46,7 @@ export const mutations = {
       mutationKey: ["createLanguage"],
       mutationFn: (variables) =>
         ludoPost<LanguageMetadata[], ModifyLanguageRequest>(
-          adminApi.languages.base,
+          adminApi.languages.adminBase,
           variables,
           true,
         ),
