@@ -1,9 +1,27 @@
-type CurriculumLessonPreviewItemProps = {};
+import { cn } from "@ludocode/design-system/cn-utils";
 
-export function CurriculumLessonPreviewItem({}: CurriculumLessonPreviewItemProps) {
+type CurriculumLessonPreviewItemProps = {
+  title: string;
+  onClick: () => void;
+  isSelected: boolean;
+};
+
+export function CurriculumLessonPreviewItem({
+  title,
+  onClick,
+  isSelected,
+}: CurriculumLessonPreviewItemProps) {
+  const borderStyle = isSelected ? "border-2 border-ludo-accent" : "";
+
   return (
-    <div className="bg-ludo-background text-ludoAltText px-4 py-2  w-full rounded-sm">
-      <p className="text-sm">Print Statements</p>
+    <div
+      onClick={() => onClick()}
+      className={cn(
+        "bg-ludo-background hover:cursor-pointer text-ludoAltText px-4 py-2  w-full rounded-sm",
+        borderStyle,
+      )}
+    >
+      <p className="text-sm">{title}</p>
     </div>
   );
 }

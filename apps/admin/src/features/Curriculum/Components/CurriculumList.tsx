@@ -4,7 +4,7 @@ type CurriculumListBodyProps = { children: ReactNode };
 
 export function CurriculumListBody({ children }: CurriculumListBodyProps) {
   return (
-        <div className="w-full flex overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col">
+        <div className="w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col">
 
       {children}
     </div>

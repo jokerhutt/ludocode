@@ -5,14 +5,18 @@ import {
   CurriculumListFooter,
   CurriculumListHeader,
 } from "./CurriculumList";
+import type { LessonSnap } from "@ludocode/types";
 
-type LessonPreviewProps = {};
+type LessonPreviewProps = {lesson: LessonSnap};
 
-export function LessonPreview({}: LessonPreviewProps) {
+export function LessonPreview({lesson}: LessonPreviewProps) {
+
+  const {title} = lesson  
+
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border max-h-1/2 flex-col w-full">
       <CurriculumListHeader>
-        <p className="text-white font-bold">Print Statements</p>
+        <p className="text-white font-bold">{title}</p>
         <LudoButton
           className="w-auto h-auto px-4 py-1 rounded-sm"
           shadow={false}
@@ -23,9 +27,9 @@ export function LessonPreview({}: LessonPreviewProps) {
       </CurriculumListHeader>
 
       <CurriculumListBody>
-        <CurriculumModuleList />
-        <CurriculumModuleList />
-        <CurriculumModuleList />
+            <div className="h-200">
+
+            </div>
       </CurriculumListBody>
 
       <CurriculumListFooter>

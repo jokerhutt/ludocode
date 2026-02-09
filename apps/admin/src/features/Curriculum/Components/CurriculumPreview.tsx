@@ -5,10 +5,19 @@ import {
   CurriculumListFooter,
   CurriculumListHeader,
 } from "./CurriculumList";
+import type { LessonSnap, ModuleSnap } from "@ludocode/types";
 
-type CurriculumPreviewProps = {};
+type CurriculumPreviewProps = {
+  selectedLesson: LessonSnap | null;
+  onLessonClick: (lesson: LessonSnap) => void;
+  modules: ModuleSnap[];
+};
 
-export function CurriculumPreview({}: CurriculumPreviewProps) {
+export function CurriculumPreview({
+  onLessonClick,
+  modules,
+  selectedLesson,
+}: CurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumListHeader>
@@ -23,9 +32,14 @@ export function CurriculumPreview({}: CurriculumPreviewProps) {
       </CurriculumListHeader>
 
       <CurriculumListBody>
-        <CurriculumModuleList />
-        <CurriculumModuleList />
-        <CurriculumModuleList />
+        {modules.map((module) => (
+          <CurriculumModuleList
+            selectedLesson={selectedLesson}
+            onLessonClick={onLessonClick}
+            title={module.title}
+            lessons={module.lessons}
+          />
+        ))}
       </CurriculumListBody>
 
       <CurriculumListFooter>
