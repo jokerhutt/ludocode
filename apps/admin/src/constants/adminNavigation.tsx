@@ -5,6 +5,9 @@ import { Route as builderPageRoute } from "@/routes/_app/build/$courseId.tsx";
 import { Route as languagesHubRoute } from "@/routes/_app/_hub/languages.tsx";
 import { Route as modifyLanguagePageRoute } from "@/routes/_app/language/$languageId";
 import { Route as createLanguagePageRoute } from "@/routes/_app/language/create";
+import { Route as coursesHubRoute } from "@/routes/_app/_hub/courses.tsx";
+import { Route as modifyCoursePageRoute } from "@/routes/_app/curriculum/$courseId";
+
 export const adminNavigation = {
   auth: () => ({ to: authRoute.to }),
   hub: {
@@ -18,6 +21,17 @@ export const adminNavigation = {
         to: languagesHubRoute.to,
       }),
     },
+    courses: {
+      toCoursesHub: () => ({
+        to: coursesHubRoute.to,
+      }),
+    },
+  },
+  curriculum: {
+    toCourse: (courseId: string) => ({
+      to: modifyCoursePageRoute.to,
+      params: { courseId: courseId },
+    }),
   },
   language: {
     toLanguage: (languageId: number) => ({

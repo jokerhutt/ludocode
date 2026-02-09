@@ -7,6 +7,7 @@ import {
   type LanguageMetadata,
   type LudoCourse,
   type LudoUser,
+  type LudoCourseSubject,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
@@ -47,6 +48,13 @@ export const qo = {
       queryKey: qk.languages(),
       queryFn: () => ludoGet<LanguageMetadata[]>(adminApi.languages.base, true),
       staleTime: 60_00,
+    }),
+
+  allSubjects: () =>
+    queryOptions<LudoCourseSubject[]>({
+      queryKey: qk.subjects(),
+      queryFn: () => ludoGet<LudoCourseSubject[]>(adminApi.subjects.base, true),
+      staleTime: 60_000
     }),
 
   allCourses: () =>

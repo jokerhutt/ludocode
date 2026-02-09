@@ -23,7 +23,7 @@ export function ExerciseLabel({ exerciseType, className }: ExerciseLabelProps) {
     <div
       className={cn("flex gap-2 text-ludo-accent-muted items-center", className)}
     >
-      <CustomIcon iconName={iconName} />
+      <CustomIcon iconName={"Analyze"} />
       <p>{description}</p>
     </div>
   );

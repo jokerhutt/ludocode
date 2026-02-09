@@ -16,6 +16,12 @@ export const getAdminNavIcons = (): NavIcon[] => [
     onClick: () => router.navigate(adminNavigation.hub.builder.toBuilderHub()),
   },
   {
+    name: "Courses",
+    path: "/courses",
+    onClick: () =>
+      router.navigate(adminNavigation.hub.courses.toCoursesHub()),
+  },
+  {
     name: "Languages",
     path: "/languages",
     onClick: () =>
