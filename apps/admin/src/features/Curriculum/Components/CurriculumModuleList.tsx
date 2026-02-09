@@ -1,11 +1,11 @@
-import type { LessonSnap } from "@ludocode/types";
+import type { CurriculumDraft, CurriculumDraftLesson, CurriculumDraftLessons, LessonSnap } from "@ludocode/types";
 import { CurriculumLessonPreviewItem } from "./CurriculumLessonPreviewItem";
 
 type CurriculumModuleListProps = {
   title: string;
-  lessons: LessonSnap[];
-  onLessonClick: (lesson: LessonSnap) => void;
-  selectedLesson: LessonSnap | null;
+  lessons: CurriculumDraftLessons;
+  onLessonClick: (lesson: CurriculumDraftLesson) => void;
+  selectedLesson: CurriculumDraftLesson | null;
 };
 
 export function CurriculumModuleList({

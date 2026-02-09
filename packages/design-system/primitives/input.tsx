@@ -42,6 +42,7 @@ type LudoInputProps = {
   placeholder?: string;
   isProtected?: boolean;
   containerClassName?: string;
+  className?: string;
   ring?: boolean;
   variant?: "default" | "alt";
   error?: string;
@@ -54,6 +55,7 @@ export function LudoInput({
   placeholder,
   isProtected,
   containerClassName,
+  className,
   ring = false,
   variant = "default",
   error,
@@ -85,6 +87,7 @@ export function LudoInput({
             ringStyle,
             errorStyle,
             variantStyle,
+            className,
           )}
           placeholder={placeholder}
         />

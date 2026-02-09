@@ -18,6 +18,9 @@ export * from "./Completion/LessonCompletionResponse";
 export * from "./Completion/LessonStats";
 export * from "./Completion/SyncState";
 
+// Curriculum
+export * from "./Curriculum/CurriculumDraftSchema";
+
 // Exercise
 export * from "./Exercise/AnswerToken";
 export * from "./Exercise/ExerciseType";

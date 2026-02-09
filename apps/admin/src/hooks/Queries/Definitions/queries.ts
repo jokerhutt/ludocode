@@ -8,6 +8,7 @@ import {
   type LudoCourse,
   type LudoUser,
   type LudoCourseSubject,
+  type CurriculumDraft,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
@@ -36,10 +37,19 @@ export const qo = {
       staleTime: 60_000 * 10,
     }),
 
+  curriculumSnapshot: (courseId: string) =>
+    queryOptions({
+      queryKey: qk.curriculum(courseId),
+      queryFn: () =>
+        ludoGet<CurriculumDraft>(adminApi.snapshots.byCourse(courseId), true),
+      staleTime: 60_000 * 10,
+    }),
+
   runtimes: () =>
     queryOptions({
       queryKey: qk.runtimes(),
-      queryFn: () => ludoGet<PistonRuntime[]>(adminApi.external.piston.runtimes, false),
+      queryFn: () =>
+        ludoGet<PistonRuntime[]>(adminApi.external.piston.runtimes, false),
       staleTime: 60_000 * 10,
     }),
 
@@ -54,7 +64,7 @@ export const qo = {
     queryOptions<LudoCourseSubject[]>({
       queryKey: qk.subjects(),
       queryFn: () => ludoGet<LudoCourseSubject[]>(adminApi.subjects.base, true),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
   allCourses: () =>
