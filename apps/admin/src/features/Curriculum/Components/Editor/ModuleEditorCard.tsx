@@ -2,67 +2,85 @@ import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { CurriculumDraft } from "@ludocode/types";
 import { Grip } from "lucide-react";
+import { withForm } from "../../types";
 
-type ModuleEditorCardProps = {moduleSnap: CurriculumDraft["modules"][number]};
-
-export function ModuleEditorCard({moduleSnap}: ModuleEditorCardProps) {
-  return (
-    <div className="flex rounded-lg text-white border-3 p-4 border-dashed border-ludo-accent h-full flex-col w-full">
-      <div className="w-full flex items-center gap-4">
-        <Grip className="h-5 w-5" />
-        <p>Intro to Python</p>
-      </div>
-      <div className="flex flex-col gap-4 w-full p-4 h-full">
-        <div className="w-full flex items-center gap-2">
+export const ModuleEditorCard = withForm({
+  defaultValues: {
+    modules: [] as CurriculumDraft["modules"],
+  },
+  props: {
+    moduleIndex: 0,
+  },
+  render: function Render({ form, moduleIndex }) {
+    return (
+      <div className="flex rounded-lg text-white border-3 p-4 border-dashed border-ludo-accent h-full flex-col w-full">
+        <div className="w-full flex items-center gap-4">
           <Grip className="h-5 w-5" />
-          <LudoInput
-            className="h-10"
-            value={"Hello World"}
-            setValue={() => () => null}
+          <form.Field
+            name={`modules[${moduleIndex}].title`}
+            children={(field) => <p>{String(field.state.value)}</p>}
           />
         </div>
-        <div className="w-full flex items-center gap-2">
-          <Grip className="h-5 w-5" />
-          <LudoInput
-            className="h-10"
-            value={"Hello World"}
-            setValue={() => () => null}
-          />
-        </div>
-        <div className="w-full flex items-center gap-2">
-          <Grip className="h-5 w-5" />
-          <LudoInput
-            className="h-10"
-            value={"Hello World"}
-            setValue={() => () => null}
-          />
-        </div>
+        <form.Field
+          name={`modules[${moduleIndex}].lessons`}
+          mode="array"
+          children={(lessonsField) => (
+            <>
+              <div className="flex flex-col gap-4 w-full p-4 h-full">
+                {lessonsField.state.value.map((lesson, lessonIndex) => (
+                  <div
+                    key={lesson.id}
+                    className="w-full flex items-center gap-2"
+                  >
+                    <Grip className="h-5 w-5" />
+                    <form.Field
+                      name={`modules[${moduleIndex}].lessons[${lessonIndex}].title`}
+                      children={(field) => (
+                        <LudoInput
+                          className="h-10"
+                          value={String(field.state.value)}
+                          setValue={(value) => field.handleChange(value)}
+                        />
+                      )}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="w-full flex justify-between pr-4 items-center gap-4">
+                <LudoButton
+                  className="w-auto h-auto px-4 py-1 rounded-sm"
+                  shadow={false}
+                  variant="white"
+                  onClick={() =>
+                    lessonsField.pushValue({
+                      id: crypto.randomUUID(),
+                      title: "",
+                    })
+                  }
+                >
+                  Add Lesson
+                </LudoButton>
+                <div className="flex justify-end gap-4">
+                  <LudoButton
+                    className="w-auto h-auto px-4 py-1 rounded-sm"
+                    shadow={false}
+                    variant="alt"
+                  >
+                    Abort
+                  </LudoButton>
+                  <LudoButton
+                    className="w-auto h-auto px-4 py-1 rounded-sm"
+                    shadow={false}
+                    variant="alt"
+                  >
+                    Save
+                  </LudoButton>
+                </div>
+              </div>
+            </>
+          )}
+        />
       </div>
-      <div className="w-full flex justify-between pr-4 items-center gap-4">
-        <LudoButton
-          className="w-auto h-auto px-4 py-1 rounded-sm"
-          shadow={false}
-          variant="white"
-        >
-          Add Lesson
-        </LudoButton>
-        <div className="flex justify-end gap-4">
-          <LudoButton
-            className="w-auto h-auto px-4 py-1 rounded-sm"
-            shadow={false}
-            variant="alt"
-          >
-            Abort
-          </LudoButton>
-          <LudoButton
-            className="w-auto h-auto px-4 py-1 rounded-sm"
-            shadow={false}
-            variant="alt"
-          >
-            Save
-          </LudoButton>
-        </div>
-      </div>
-    </div>
-  );
-}
+    );
+  },
+});

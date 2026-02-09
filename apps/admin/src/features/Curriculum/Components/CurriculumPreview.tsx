@@ -5,18 +5,20 @@ import {
   CurriculumListFooter,
   CurriculumListHeader,
 } from "./CurriculumList";
-import type { CurriculumDraft, CurriculumDraftLesson, LessonSnap, ModuleSnap } from "@ludocode/types";
+import type { CurriculumDraft, CurriculumDraftLesson } from "@ludocode/types";
 
 type CurriculumPreviewProps = {
   selectedLesson: CurriculumDraftLesson | null;
   onLessonClick: (lesson: CurriculumDraftLesson) => void;
   modules: CurriculumDraft["modules"];
+  onEditClick: () => void;
 };
 
 export function CurriculumPreview({
   onLessonClick,
   modules,
   selectedLesson,
+  onEditClick,
 }: CurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
@@ -26,6 +28,7 @@ export function CurriculumPreview({
           className="w-auto h-auto px-4 py-1 rounded-sm"
           shadow={false}
           variant="alt"
+          onClick={onEditClick}
         >
           <p className="text-sm">Edit Curriculum</p>
         </LudoButton>
