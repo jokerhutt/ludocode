@@ -23,7 +23,7 @@ export function CurriculumBody({ curriculumSnap, isEditing, setIsEditing }: Curr
             modules={curriculumSnap.modules}
           />
         ) : (
-          <CurriculumEditor />
+          <CurriculumEditor modules={curriculumSnap.modules}/>
         )}
       </div>
 

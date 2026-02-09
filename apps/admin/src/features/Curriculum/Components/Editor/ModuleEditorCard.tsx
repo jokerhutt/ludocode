@@ -1,10 +1,11 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import type { CurriculumDraft } from "@ludocode/types";
 import { Grip } from "lucide-react";
 
-type ModuleEditorCardProps = {};
+type ModuleEditorCardProps = {moduleSnap: CurriculumDraft["modules"][number]};
 
-export function ModuleEditorCard({}: ModuleEditorCardProps) {
+export function ModuleEditorCard({moduleSnap}: ModuleEditorCardProps) {
   return (
     <div className="flex rounded-lg text-white border-3 p-4 border-dashed border-ludo-accent h-full flex-col w-full">
       <div className="w-full flex items-center gap-4">
