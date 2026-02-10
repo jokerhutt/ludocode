@@ -2,6 +2,7 @@ import type { CurriculumDraft } from "@ludocode/types";
 import { ModuleEditorCard } from "./ModuleEditorCard";
 import { withForm } from "../../types";
 import { ShadowLessButton } from "../ShadowLessButton";
+import { Plus } from "lucide-react";
 
 export const CurriculumEditor = withForm({
   defaultValues: {
@@ -31,14 +32,38 @@ export const CurriculumEditor = withForm({
             </ShadowLessButton>
           </div>
         </div>
-        {form.state.values.modules.map((module, moduleIndex) => (
-          <ModuleEditorCard
-            onSave={onSave}
-            key={module.id}
-            form={form}
-            moduleIndex={moduleIndex}
-          />
-        ))}
+        <form.Field name="modules" mode="array">
+          {(modulesField) => (
+            <>
+              {modulesField.state.value.map((module, moduleIndex) => (
+                <div key={module.id} className="flex flex-col gap-2">
+                  <ModuleEditorCard
+                    onSave={onSave}
+                    form={form}
+                    moduleIndex={moduleIndex}
+                  />
+
+                  <div
+                    role="button"
+                    onClick={() =>
+                      modulesField.insertValue(moduleIndex + 1, {
+                        id: crypto.randomUUID(),
+                        title: "Untitled Module",
+                        lessons: [],
+                      })
+                    }
+                    className="w-full hover:cursor-pointer hover:bg-ludo-accent/20
+                               text-ludo-accent border border-dashed py-2 px-4
+                               flex items-center border-ludo-accent rounded-sm gap-4"
+                  >
+                    <Plus />
+                    <p>Add Module</p>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+        </form.Field>
       </div>
     );
   },

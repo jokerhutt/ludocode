@@ -32,11 +32,17 @@ const EditorLessonRow = withForm({
   render: function Render({ form, moduleIndex, lessonIndex, lesson }) {
     const lessonId = lesson.id;
 
-    const { attributes, listeners, setNodeRef, transform, transition } =
-      useSortable({ id: lessonId });
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      isDragging,
+      transform,
+      transition,
+    } = useSortable({ id: lessonId });
 
     const style = {
-      transition,
+      transition: isDragging ? transition : undefined,
       transform: CSS.Transform.toString(transform),
     };
 
@@ -48,7 +54,7 @@ const EditorLessonRow = withForm({
       >
         {/* drag handle only */}
         <Grip
-          className="h-5 w-5 cursor-grab active:cursor-grabbing"
+          className="h-5 w-5 focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
@@ -108,13 +114,14 @@ export const ModuleEditorCard = withForm({
             return (
               <>
                 <DndContext
+                  autoScroll={false}
                   measuring={{
                     droppable: { strategy: MeasuringStrategy.Always },
                   }}
                   onDragEnd={handleDragEnd}
                   collisionDetection={closestCenter}
                 >
-                  <div className="flex flex-col gap-4 w-full h-full">
+                  <div className="flex flex-col gap-4 p-4 w-full h-full">
                     <SortableContext
                       items={lessons.map((l) => l.id)}
                       strategy={verticalListSortingStrategy}
