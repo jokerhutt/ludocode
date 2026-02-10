@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { CurriculumPreview } from "./CurriculumPreview";
-import { LessonPreview } from "./LessonPreview";
+import { CurriculumPreview } from "../Preview/CurriculumPreview";
+import { LessonDetailPreview } from "../LessonDetailPreview";
 import type { CurriculumDraftLesson, CurriculumDraft } from "@ludocode/types";
-import { CurriculumEditor } from "./Editor/CurriculumEditor";
-import { withForm } from "../types";
+import { CurriculumEditor } from "../Editor/CurriculumEditor";
+import { withForm } from "../../types";
 
 export const CurriculumBody = withForm({
   defaultValues: {
@@ -52,7 +52,7 @@ export const CurriculumBody = withForm({
 
         <div className="w-1/2 flex min-h-0 flex-col h-full">
           {!isEditing && selectedLesson && (
-            <LessonPreview lesson={selectedLesson} />
+            <LessonDetailPreview lesson={selectedLesson} />
           )}
         </div>
       </div>

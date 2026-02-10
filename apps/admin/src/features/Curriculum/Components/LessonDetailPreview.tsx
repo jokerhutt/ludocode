@@ -1,36 +1,35 @@
-
 import {
-  CurriculumListBody,
-  CurriculumListFooter,
-  CurriculumListHeader,
+  CurriculumPreviewContent,
+  CurriculumPreviewFooter,
+  CurriculumPreviewHeader,
 } from "./CurriculumList";
-import type { CurriculumDraftLesson} from "@ludocode/types";
+import type { CurriculumDraftLesson } from "@ludocode/types";
 import { ShadowLessButton } from "./ShadowLessButton";
 
-type LessonPreviewProps = { lesson: CurriculumDraftLesson };
+type LessonDetailPreviewProps = { lesson: CurriculumDraftLesson };
 
-export function LessonPreview({ lesson }: LessonPreviewProps) {
+export function LessonDetailPreview({ lesson }: LessonDetailPreviewProps) {
   const { title } = lesson;
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border max-h-1/2 flex-col w-full">
-      <CurriculumListHeader>
+      <CurriculumPreviewHeader>
         <p className="text-white font-bold">{title}</p>
         <ShadowLessButton>
           <p className="text-sm">Edit Exercises</p>
         </ShadowLessButton>
-      </CurriculumListHeader>
+      </CurriculumPreviewHeader>
 
-      <CurriculumListBody>
+      <CurriculumPreviewContent>
         <div className="h-200"></div>
-      </CurriculumListBody>
+      </CurriculumPreviewContent>
 
-      <CurriculumListFooter>
+      <CurriculumPreviewFooter>
         <p className="text-xs">Last Modified: 6th of January at 18:32</p>
         <ShadowLessButton variant="white">
           <p className="text-sm">Cheatsheet</p>
         </ShadowLessButton>
-      </CurriculumListFooter>
+      </CurriculumPreviewFooter>
     </div>
   );
 }

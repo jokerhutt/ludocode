@@ -1,5 +1,5 @@
 import type { CurriculumDraft } from "@ludocode/types";
-import { ModuleEditorCard } from "./ModuleEditorCard";
+import { EditorModule } from "./EditorModule";
 import { withForm } from "../../types";
 import { EditorActions } from "./EditorActions";
 import { AddModuleButton } from "./AddModuleButton";
@@ -32,7 +32,7 @@ export const CurriculumEditor = withForm({
             <>
               {modulesField.state.value.map((module, moduleIndex) => (
                 <div key={moduleIndex} className="flex flex-col gap-2">
-                  <ModuleEditorCard
+                  <EditorModule
                     onSave={onSave}
                     form={form}
                     moduleIndex={moduleIndex}

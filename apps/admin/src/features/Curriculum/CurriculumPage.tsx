@@ -1,6 +1,5 @@
-import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { CurriculumBody } from "./Components/CurriculumBody";
-import { CurriculumHero } from "./Components/CurriculumHero";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { CurriculumHero } from "./Components/Zone/CurriculumHero";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
@@ -11,9 +10,9 @@ import {
 } from "@ludocode/types";
 import { useAppForm } from "./types";
 import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
-import { CurriculumPreview } from "./Components/CurriculumPreview";
+import { CurriculumPreview } from "./Components/Preview/CurriculumPreview";
 import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
-import { LessonPreview } from "./Components/LessonPreview";
+import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 
 type CurriculumPageProps = {};
 
@@ -113,7 +112,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
               <div className="w-1/2 flex min-h-0 flex-col h-full">
                 {!isEditing && selectedLesson && (
-                  <LessonPreview lesson={selectedLesson} />
+                  <LessonDetailPreview lesson={selectedLesson} />
                 )}
               </div>
             </div>

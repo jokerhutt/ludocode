@@ -1,16 +1,16 @@
 import { cn } from "@ludocode/design-system/cn-utils";
 
-type CurriculumLessonPreviewItemProps = {
+type LessonPreviewItemProps = {
   title: string;
   onClick: () => void;
   isSelected: boolean;
 };
 
-export function CurriculumLessonPreviewItem({
+export function LessonPreviewItem({
   title,
   onClick,
   isSelected,
-}: CurriculumLessonPreviewItemProps) {
+}: LessonPreviewItemProps) {
   const borderStyle = isSelected ? "border-2 border-ludo-accent" : "";
 
   return (

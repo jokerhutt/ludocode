@@ -2,10 +2,11 @@ import type { ReactNode } from "react";
 
 type CurriculumListBodyProps = { children: ReactNode };
 
-export function CurriculumListBody({ children }: CurriculumListBodyProps) {
+export function CurriculumPreviewContent({
+  children,
+}: CurriculumListBodyProps) {
   return (
-        <div className="w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col">
-
+    <div className="w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col">
       {children}
     </div>
   );
@@ -13,7 +14,9 @@ export function CurriculumListBody({ children }: CurriculumListBodyProps) {
 
 type CurriculumListHeaderProps = { children: ReactNode };
 
-export function CurriculumListHeader({ children }: CurriculumListHeaderProps) {
+export function CurriculumPreviewHeader({
+  children,
+}: CurriculumListHeaderProps) {
   return (
     <div className="flex justify-between border-b-3 border-b-ludo-border h-14 px-4 py-2 items-center">
       {children}
@@ -23,7 +26,9 @@ export function CurriculumListHeader({ children }: CurriculumListHeaderProps) {
 
 type CurriculumListFooterProps = { children: ReactNode };
 
-export function CurriculumListFooter({ children }: CurriculumListFooterProps) {
+export function CurriculumPreviewFooter({
+  children,
+}: CurriculumListFooterProps) {
   return (
     <div className="flex justify-between border-t-3 border-t-ludo-border text-ludoAltText  h-14 px-4 py-2 items-center">
       {children}
