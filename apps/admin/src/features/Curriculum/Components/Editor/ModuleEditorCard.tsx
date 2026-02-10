@@ -35,10 +35,6 @@ const EditorLessonRow = withForm({
     const { attributes, listeners, setNodeRef, transform, transition } =
       useSortable({ id: lessonId });
 
-    if (transform?.y) {
-      console.log("row", lessonId, "transform.y", transform.y);
-    }
-
     const style = {
       transition,
       transform: CSS.Transform.toString(transform),
@@ -47,15 +43,18 @@ const EditorLessonRow = withForm({
     return (
       <div
         ref={setNodeRef}
-        {...attributes}
-        {...listeners}
         style={style}
         className="w-full flex items-center gap-2"
       >
-        <Grip className="h-5 w-5" />
+        {/* drag handle only */}
+        <Grip
+          className="h-5 w-5 cursor-grab active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+        />
 
         <form.Field
-          key={lessonId} // ✅ force remount when index<->lesson changes
+          key={lessonId}
           name={`modules[${moduleIndex}].lessons[${lessonIndex}].title`}
           children={(field) => (
             <LudoInput
