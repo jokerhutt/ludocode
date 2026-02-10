@@ -31,11 +31,17 @@ export const CurriculumEditor = withForm({
           {(modulesField) => (
             <>
               {modulesField.state.value.map((module, moduleIndex) => (
-                <div key={module.id} className="flex flex-col gap-2">
+                <div key={moduleIndex} className="flex flex-col gap-2">
                   <ModuleEditorCard
                     onSave={onSave}
                     form={form}
                     moduleIndex={moduleIndex}
+                    onMoveUp={() =>
+                      modulesField.swapValues(moduleIndex, moduleIndex - 1)
+                    }
+                    onMoveDown={() =>
+                      modulesField.swapValues(moduleIndex, moduleIndex + 1)
+                    }
                   />
 
                   <AddModuleButton

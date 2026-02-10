@@ -1,21 +1,32 @@
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { ShadowLessButton } from "../ShadowLessButton";
 
-type ModuleOrderActionsProps = {moveUp: () => void;};
+type ModuleOrderActionsProps = {
+  moduleIndex: number;
+  totalModules: number;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+};
 
-export function ModuleOrderActions({}: ModuleOrderActionsProps) {
+export function ModuleOrderActions({
+  moduleIndex,
+  totalModules,
+  onMoveUp,
+  onMoveDown,
+}: ModuleOrderActionsProps) {
   return (
     <div className="flex flex-col gap-2">
       <ShadowLessButton
         disabled={moduleIndex === 0}
-        onClick={() => moveUp()}
+        onClick={onMoveUp}
         className="w-6 h-6 rounded-sm"
       >
         <ArrowUp className="h-4 w-4" />
       </ShadowLessButton>
 
       <ShadowLessButton
-        disabled={moduleIndex === modules.length - 1}
-        onClick={() => moveDown()}
+        disabled={moduleIndex === totalModules - 1}
+        onClick={onMoveDown}
         className="w-6 h-6 rounded-sm"
       >
         <ArrowDown className="h-4 w-4" />
