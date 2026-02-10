@@ -1,8 +1,9 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { CurriculumDraft } from "@ludocode/types";
 import { Grip } from "lucide-react";
 import { withForm } from "../../types";
+import { EditorFooterActions } from "./EditorFooterActions";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 export const ModuleEditorCard = withForm({
   defaultValues: {
@@ -10,8 +11,9 @@ export const ModuleEditorCard = withForm({
   },
   props: {
     moduleIndex: 0,
+    onSave: () => {},
   },
-  render: function Render({ form, moduleIndex }) {
+  render: function Render({ form, moduleIndex, onSave }) {
     return (
       <div className="flex rounded-lg text-white border-3 p-4 border-dashed border-ludo-accent h-full flex-col w-full">
         <div className="w-full flex items-center gap-4">
@@ -46,37 +48,21 @@ export const ModuleEditorCard = withForm({
                   </div>
                 ))}
               </div>
-              <div className="w-full flex justify-between pr-4 items-center gap-4">
-                <LudoButton
-                  className="w-auto h-auto px-4 py-1 rounded-sm"
-                  shadow={false}
-                  variant="white"
-                  onClick={() =>
-                    lessonsField.pushValue({
-                      id: crypto.randomUUID(),
-                      title: "",
-                    })
-                  }
-                >
-                  Add Lesson
-                </LudoButton>
-                <div className="flex justify-end gap-4">
+              <div className="w-full flex justify-end pr-4 items-center gap-4">
                   <LudoButton
                     className="w-auto h-auto px-4 py-1 rounded-sm"
                     shadow={false}
-                    variant="alt"
+                    variant="white"
+                    onClick={() =>
+                      lessonsField.pushValue({
+                        id: crypto.randomUUID(),
+                        title: "",
+                      })
+                    }
                   >
-                    Abort
-                  </LudoButton>
-                  <LudoButton
-                    className="w-auto h-auto px-4 py-1 rounded-sm"
-                    shadow={false}
-                    variant="alt"
-                  >
-                    Save
+                    Add Lesson
                   </LudoButton>
                 </div>
-              </div>
             </>
           )}
         />

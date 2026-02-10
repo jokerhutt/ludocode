@@ -30,9 +30,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
         })),
       })),
     } satisfies CurriculumDraft,
-    validators: {
-      onSubmit: curriculumDraftSchema,
-    },
+    // validators: {
+    //   onSubmit: curriculumDraftSchema,
+    // },
     onSubmit: async ({ value }) => {
       console.log("Form submitted:", value);
       setIsEditing(false);
@@ -40,6 +40,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
   });
 
   const handleSaveOrEdit = () => {
+    
     if (isEditing) {
       form.handleSubmit();
     } else {

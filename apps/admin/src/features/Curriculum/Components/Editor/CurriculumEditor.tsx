@@ -23,7 +23,7 @@ export const CurriculumEditor = withForm({
               Cancel
             </ShadowLessButton>
             <ShadowLessButton
-              variant="white"
+              variant="alt"
               onClick={onSave}
               disabled={!canSubmit}
             >
@@ -33,6 +33,7 @@ export const CurriculumEditor = withForm({
         </div>
         {form.state.values.modules.map((module, moduleIndex) => (
           <ModuleEditorCard
+            onSave={onSave}
             key={module.id}
             form={form}
             moduleIndex={moduleIndex}
