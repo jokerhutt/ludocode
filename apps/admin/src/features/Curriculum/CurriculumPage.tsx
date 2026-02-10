@@ -4,9 +4,16 @@ import { CurriculumHero } from "./Components/CurriculumHero";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
-import { curriculumDraftSchema, type CurriculumDraft } from "@ludocode/types";
+import {
+  curriculumDraftSchema,
+  type CurriculumDraft,
+  type CurriculumDraftLesson,
+} from "@ludocode/types";
 import { useAppForm } from "./types";
 import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
+import { CurriculumPreview } from "./Components/CurriculumPreview";
+import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
+import { LessonPreview } from "./Components/LessonPreview";
 
 type CurriculumPageProps = {};
 
@@ -48,12 +55,20 @@ export function CurriculumPage({}: CurriculumPageProps) {
     },
   });
 
+  const [selectedLesson, setSelectedLesson] =
+    useState<CurriculumDraftLesson | null>(null);
+
   const handleSaveOrEdit = () => {
     if (isEditing) {
       form.handleSubmit();
     } else {
       setIsEditing(true);
     }
+  };
+
+  const cancelEditing = () => {
+    form.reset();
+    setIsEditing(false);
   };
 
   return (
@@ -76,18 +91,32 @@ export function CurriculumPage({}: CurriculumPageProps) {
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
           children={([canSubmit, isSubmitting]) => (
-            <CurriculumBody
-              form={form}
-              isEditing={isEditing}
-              onEditClick={() => setIsEditing(true)}
-              onSave={handleSaveOrEdit}
-              onCancel={() => {
-                form.reset();
-                setIsEditing(false);
-              }}
-              canSubmit={canSubmit}
-              isSubmitting={isSubmitting}
-            />
+            <div className="flex gap-4 min-h-0">
+              <div className="w-full flex flex-col h-full">
+                {!isEditing ? (
+                  <CurriculumPreview
+                    selectedLesson={selectedLesson}
+                    onLessonClick={setSelectedLesson}
+                    modules={form.state.values.modules}
+                    onEditClick={handleSaveOrEdit}
+                  />
+                ) : (
+                  <CurriculumEditor
+                    form={form}
+                    onSave={handleSaveOrEdit}
+                    onCancel={cancelEditing}
+                    canSubmit={canSubmit}
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+              </div>
+
+              <div className="w-1/2 flex min-h-0 flex-col h-full">
+                {!isEditing && selectedLesson && (
+                  <LessonPreview lesson={selectedLesson} />
+                )}
+              </div>
+            </div>
           )}
         />
       </form>

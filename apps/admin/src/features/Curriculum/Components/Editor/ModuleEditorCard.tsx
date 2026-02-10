@@ -1,9 +1,8 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
-import type { CurriculumDraft, CurriculumDraftLesson } from "@ludocode/types";
-import { ArrowDown, ArrowUp, Grip } from "lucide-react";
+import type { CurriculumDraft } from "@ludocode/types";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { withForm } from "../../types";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { CSS } from "@dnd-kit/utilities";
 
 import {
   closestCenter,
@@ -13,64 +12,11 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { ShadowLessButton } from "../ShadowLessButton";
-
-const EditorLessonRow = withForm({
-  defaultValues: {
-    modules: [] as CurriculumDraft["modules"],
-  },
-  props: {
-    moduleIndex: 0,
-    lessonIndex: 0,
-    lesson: {} as CurriculumDraftLesson,
-  },
-  render: function Render({ form, moduleIndex, lessonIndex, lesson }) {
-    const lessonId = lesson.id;
-
-    const {
-      attributes,
-      listeners,
-      setNodeRef,
-      isDragging,
-      transform,
-      transition,
-    } = useSortable({ id: lessonId });
-
-    const style = {
-      transition: isDragging ? transition : undefined,
-      transform: CSS.Transform.toString(transform),
-    };
-
-    return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className="w-full flex items-center gap-2"
-      >
-        <Grip
-          className="h-5 w-5 focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
-          {...attributes}
-          {...listeners}
-        />
-
-        <form.Field
-          key={lessonId}
-          name={`modules[${moduleIndex}].lessons[${lessonIndex}].title`}
-          children={(field) => (
-            <LudoInput
-              className="h-10 flex-1"
-              value={String(field.state.value)}
-              setValue={(value) => field.handleChange(value)}
-            />
-          )}
-        />
-      </div>
-    );
-  },
-});
+import { EditorLesson } from "./EditorLesson";
+import { createNewLessonTemplate } from "./templates";
 
 export const ModuleEditorCard = withForm({
   defaultValues: {
@@ -178,7 +124,7 @@ export const ModuleEditorCard = withForm({
                         strategy={verticalListSortingStrategy}
                       >
                         {lessons.map((lesson, lessonIndex) => (
-                          <EditorLessonRow
+                          <EditorLesson
                             key={lesson.id}
                             form={form}
                             lesson={lesson}
@@ -191,20 +137,15 @@ export const ModuleEditorCard = withForm({
                   </DndContext>
 
                   <div className="w-full flex justify-end pr-4 items-center gap-4">
-                    <LudoButton
+                    <ShadowLessButton
                       type="button"
-                      className="w-auto h-auto px-4 py-1 rounded-sm"
-                      shadow={false}
                       variant="white"
                       onClick={() =>
-                        lessonsField.pushValue({
-                          id: crypto.randomUUID(),
-                          title: "Untitled Lesson",
-                        })
+                        lessonsField.pushValue(createNewLessonTemplate())
                       }
                     >
                       Add Lesson
-                    </LudoButton>
+                    </ShadowLessButton>
                   </div>
                 </>
               );

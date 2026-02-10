@@ -16,5 +16,7 @@ export const curriculumDraftSchema = z.object({
 });
 
 export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
-export type CurriculumDraftLessons = CurriculumDraft["modules"][number]["lessons"]
+export type CurriculumDraftModules = CurriculumDraft["modules"]
+export type CurriculumDraftModule = CurriculumDraftModules[number]
+export type CurriculumDraftLessons = CurriculumDraftModule["lessons"]
 export type CurriculumDraftLesson = CurriculumDraftLessons[number]

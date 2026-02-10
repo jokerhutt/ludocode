@@ -1,8 +1,9 @@
 import type { CurriculumDraft } from "@ludocode/types";
 import { ModuleEditorCard } from "./ModuleEditorCard";
 import { withForm } from "../../types";
-import { ShadowLessButton } from "../ShadowLessButton";
-import { Plus } from "lucide-react";
+import { EditorActions } from "./EditorActions";
+import { AddModuleButton } from "./AddModuleButton";
+import { createNewModuleTemplate } from "./templates";
 
 export const CurriculumEditor = withForm({
   defaultValues: {
@@ -19,18 +20,12 @@ export const CurriculumEditor = withForm({
       <div className="w-full h-full min-h-0 pr-2 overflow-y-auto scrollbar-ludo-accent flex flex-col gap-4">
         <div className="w-full text-white flex justify-between">
           <p>Editing Curriculum</p>
-          <div className="flex gap-2">
-            <ShadowLessButton variant="white" onClick={onCancel}>
-              Cancel
-            </ShadowLessButton>
-            <ShadowLessButton
-              variant="alt"
-              onClick={onSave}
-              disabled={!canSubmit}
-            >
-              {isSubmitting ? "Saving..." : "Save All"}
-            </ShadowLessButton>
-          </div>
+          <EditorActions
+            onSave={onSave}
+            onCancel={onCancel}
+            canSubmit={canSubmit}
+            isSubmitting={isSubmitting}
+          />
         </div>
         <form.Field name="modules" mode="array">
           {(modulesField) => (
@@ -43,27 +38,14 @@ export const CurriculumEditor = withForm({
                     moduleIndex={moduleIndex}
                   />
 
-                  <div
-                    role="button"
-                    onClick={() =>
-                      modulesField.insertValue(moduleIndex + 1, {
-                        id: crypto.randomUUID(),
-                        title: "Untitled Module",
-                        lessons: [
-                          {
-                            id: crypto.randomUUID(),
-                            title: "Untitled Lesson",
-                          },
-                        ],
-                      })
+                  <AddModuleButton
+                    onAdd={() =>
+                      modulesField.insertValue(
+                        moduleIndex + 1,
+                        createNewModuleTemplate(),
+                      )
                     }
-                    className="w-full hover:cursor-pointer hover:bg-ludo-accent/20
-                               text-ludo-accent border border-dashed py-2 px-4
-                               flex items-center border-ludo-accent rounded-sm gap-4"
-                  >
-                    <Plus />
-                    <p>Add Module</p>
-                  </div>
+                  />
                 </div>
               ))}
             </>
