@@ -4,7 +4,7 @@ import { CurriculumHero } from "./Components/CurriculumHero";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
-import { curriculumDraftSchema, type CurriculumDraft } from "@ludocode/types";
+import { type CurriculumDraft } from "@ludocode/types";
 import { useAppForm } from "./types";
 
 type CurriculumPageProps = {};
@@ -40,7 +40,6 @@ export function CurriculumPage({}: CurriculumPageProps) {
   });
 
   const handleSaveOrEdit = () => {
-    
     if (isEditing) {
       form.handleSubmit();
     } else {

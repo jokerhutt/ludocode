@@ -114,7 +114,7 @@ export const ModuleEditorCard = withForm({
     };
 
     return (
-      <div className="flex rounded-lg text-white border-3 p-4 gap-4 border-dashed border-ludo-accent h-full w-full">
+      <div className="flex rounded-lg text-white border-3 p-4 gap-6 border-dashed border-ludo-accent h-full w-full">
         <div className="flex flex-col gap-2">
           <ShadowLessButton
             disabled={moduleIndex === 0}
@@ -136,7 +136,12 @@ export const ModuleEditorCard = withForm({
           <div className="w-full flex items-center gap-4">
             <form.Field
               name={`modules[${moduleIndex}].title`}
-              children={(field) => <p>{String(field.state.value)}</p>}
+              children={(field) => (
+                <LudoInput
+                  setValue={(value) => field.handleChange(value)}
+                  value={String(field.state.value)}
+                />
+              )}
             />
           </div>
 
@@ -194,7 +199,7 @@ export const ModuleEditorCard = withForm({
                       onClick={() =>
                         lessonsField.pushValue({
                           id: crypto.randomUUID(),
-                          title: "",
+                          title: "Untitled Lesson",
                         })
                       }
                     >

@@ -49,7 +49,12 @@ export const CurriculumEditor = withForm({
                       modulesField.insertValue(moduleIndex + 1, {
                         id: crypto.randomUUID(),
                         title: "Untitled Module",
-                        lessons: [],
+                        lessons: [
+                          {
+                            id: crypto.randomUUID(),
+                            title: "Untitled Lesson",
+                          },
+                        ],
                       })
                     }
                     className="w-full hover:cursor-pointer hover:bg-ludo-accent/20
