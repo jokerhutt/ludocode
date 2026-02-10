@@ -17,7 +17,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
     qo.curriculumSnapshot(courseId),
   );
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
 
   const form = useAppForm({
     defaultValues: {
