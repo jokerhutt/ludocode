@@ -1,11 +1,11 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { CurriculumModuleList } from "./CurriculumModuleList";
 import {
-  CurriculumListBody,
-  CurriculumListFooter,
-  CurriculumListHeader,
-} from "./CurriculumList";
+  CurriculumPreviewContent,
+  CurriculumPreviewFooter,
+  CurriculumPreviewHeader,
+} from "../CurriculumList";
 import type { CurriculumDraft, CurriculumDraftLesson } from "@ludocode/types";
+import { ModulePreviewItem } from "./ModulePreviewItem";
 
 type CurriculumPreviewProps = {
   selectedLesson: CurriculumDraftLesson | null;
@@ -22,7 +22,7 @@ export function CurriculumPreview({
 }: CurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumListHeader>
+      <CurriculumPreviewHeader>
         <p className="text-white font-bold">Curriculum Preview</p>
         <LudoButton
           className="w-auto h-auto px-4 py-1 rounded-sm"
@@ -32,23 +32,23 @@ export function CurriculumPreview({
         >
           <p className="text-sm">Edit Curriculum</p>
         </LudoButton>
-      </CurriculumListHeader>
+      </CurriculumPreviewHeader>
 
-      <CurriculumListBody>
+      <CurriculumPreviewContent>
         {modules.map((module) => (
-          <CurriculumModuleList
+          <ModulePreviewItem
             selectedLesson={selectedLesson}
             onLessonClick={onLessonClick}
             title={module.title}
             lessons={module.lessons}
           />
         ))}
-      </CurriculumListBody>
+      </CurriculumPreviewContent>
 
-      <CurriculumListFooter>
+      <CurriculumPreviewFooter>
         <p className="text-xs">Last Modified: 6th of January at 18:32</p>
         <p className="text-xs">Revision: 6</p>
-      </CurriculumListFooter>
+      </CurriculumPreviewFooter>
     </div>
   );
 }
