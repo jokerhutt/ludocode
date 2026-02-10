@@ -56,7 +56,8 @@ export function createApiPaths({
       base: `${BASE}/languages`,
       adminBase: `${ADMIN_BASE}/languages`,
       byId: (languageId: number) => `${BASE}/languages/${languageId}`,
-      byAdminId: (languageId: number) => `${ADMIN_BASE}/languages/${languageId}`
+      byAdminId: (languageId: number) =>
+        `${ADMIN_BASE}/languages/${languageId}`,
     },
 
     progress: {
@@ -98,7 +99,8 @@ export function createApiPaths({
     snapshots: {
       base: `${ADMIN_BASE}/snapshots`,
       course: `${ADMIN_BASE}/snapshots/course`,
-      courseCurriculum: (courseId: string) => `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
+      byCourseCurriculum: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 
@@ -106,7 +108,7 @@ export function createApiPaths({
       base: `${BASE}/subjects`,
       adminBase: `${ADMIN_BASE}/subjects`,
       byId: (subjectId: number) => `${BASE}/subjects/${subjectId}`,
-      byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`
+      byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`,
     },
 
     preferences: {

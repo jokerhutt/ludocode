@@ -41,7 +41,10 @@ export const qo = {
     queryOptions({
       queryKey: qk.curriculum(courseId),
       queryFn: () =>
-        ludoGet<CurriculumDraft>(adminApi.snapshots.byCourse(courseId), true),
+        ludoGet<CurriculumDraft>(
+          adminApi.snapshots.byCourseCurriculum(courseId),
+          true,
+        ),
       staleTime: 60_000 * 10,
     }),
 

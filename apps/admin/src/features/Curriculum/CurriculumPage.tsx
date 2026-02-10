@@ -1,11 +1,12 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { CurriculumBody } from "./Components/CurriculumBody";
 import { CurriculumHero } from "./Components/CurriculumHero";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
-import { type CurriculumDraft } from "@ludocode/types";
+import { curriculumDraftSchema, type CurriculumDraft } from "@ludocode/types";
 import { useAppForm } from "./types";
+import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
 
 type CurriculumPageProps = {};
 
@@ -19,6 +20,10 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
   const [isEditing, setIsEditing] = useState(true);
 
+  const submitMutation = useUpdateCourse({
+    courseId,
+  });
+
   const form = useAppForm({
     defaultValues: {
       modules: curriculumSnap.modules.map((m) => ({
@@ -30,11 +35,15 @@ export function CurriculumPage({}: CurriculumPageProps) {
         })),
       })),
     } satisfies CurriculumDraft,
-    // validators: {
-    //   onSubmit: curriculumDraftSchema,
-    // },
+    validators: {
+      onSubmit: curriculumDraftSchema,
+    },
     onSubmit: async ({ value }) => {
-      console.log("Form submitted:", value);
+      submitMutation.mutate(value, {
+        onSuccess: (payload) => {
+          form.reset(payload);
+        },
+      });
       setIsEditing(false);
     },
   });

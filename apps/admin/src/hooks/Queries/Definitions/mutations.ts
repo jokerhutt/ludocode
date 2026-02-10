@@ -4,6 +4,7 @@ import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRe
 import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
 import {
+  type CurriculumDraft,
   type LanguageMetadata,
   type ModifyLanguageRequest,
 } from "@ludocode/types";
@@ -15,6 +16,17 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<LudoCourse[], CreateCourseRequest>(
           adminApi.snapshots.course,
+          variables,
+          true,
+        ),
+    });
+  },
+  updateCourse: (courseId: string) => {
+    return mutationOptions<CurriculumDraft, Error, CurriculumDraft>({
+      mutationKey: ["updateCurriculum"],
+      mutationFn: (variables) =>
+        ludoPut<CurriculumDraft, CurriculumDraft>(
+          adminApi.snapshots.byCourseCurriculum(courseId),
           variables,
           true,
         ),
