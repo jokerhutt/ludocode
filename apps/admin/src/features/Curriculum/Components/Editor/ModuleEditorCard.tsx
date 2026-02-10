@@ -81,16 +81,56 @@ export const ModuleEditorCard = withForm({
     onSave: () => {},
   },
   render: function Render({ form, moduleIndex }) {
+    const modules = form.state.values.modules;
+    console.log("Up Clicked: ModuleIndex: " + moduleIndex);
+    const moveUp = () => {
+      const modules = form.state.values.modules;
+
+      if (moduleIndex === 0) return;
+
+      const next = [...modules];
+      [next[moduleIndex - 1], next[moduleIndex]] = [
+        next[moduleIndex],
+        next[moduleIndex - 1],
+      ];
+
+      form.setFieldValue("modules", next);
+    };
+
+    const moveDown = () => {
+      const modules = form.state.values.modules;
+
+      console.table(modules.map((m) => m.id));
+
+      if (moduleIndex === modules.length - 1) return;
+
+      const next = [...modules];
+      [next[moduleIndex], next[moduleIndex + 1]] = [
+        next[moduleIndex + 1],
+        next[moduleIndex],
+      ];
+
+      form.setFieldValue("modules", next);
+    };
+
     return (
       <div className="flex rounded-lg text-white border-3 p-4 gap-4 border-dashed border-ludo-accent h-full w-full">
         <div className="flex flex-col gap-2">
-            <ShadowLessButton disabled={moduleIndex === 0} className="w-6 h-6 rounded-sm">
-              <ArrowUp className="h-4 w-4" />
-            </ShadowLessButton>
+          <ShadowLessButton
+            disabled={moduleIndex === 0}
+            onClick={() => moveUp()}
+            className="w-6 h-6 rounded-sm"
+          >
+            <ArrowUp className="h-4 w-4" />
+          </ShadowLessButton>
 
-            <ShadowLessButton disabled={moduleIndex === form.state.values.modules.length - 1} className="w-6 h-6 rounded-sm">
-              <ArrowDown className="h-4 w-4" />
-            </ShadowLessButton>
+          <ShadowLessButton
+            disabled={moduleIndex === modules.length - 1}
+            onClick={() => moveDown()}
+            className="w-6 h-6 rounded-sm"
+          >
+            <ArrowDown className="h-4 w-4" />
+          </ShadowLessButton>
         </div>
         <div className="flex flex-col w-full h-full">
           <div className="w-full flex items-center gap-4">
