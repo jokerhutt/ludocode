@@ -17,12 +17,13 @@ import { Route as AppCurriculumRouteRouteImport } from './routes/_app/curriculum
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppLanguageCreateRouteImport } from './routes/_app/language/create'
 import { Route as AppLanguageLanguageIdRouteImport } from './routes/_app/language/$languageId'
-import { Route as AppCurriculumCourseIdRouteImport } from './routes/_app/curriculum/$courseId'
 import { Route as AppCoursesCourseIdRouteImport } from './routes/_app/courses/$courseId'
 import { Route as AppBuildCourseIdRouteImport } from './routes/_app/build/$courseId'
 import { Route as AppHubLanguagesRouteImport } from './routes/_app/_hub/languages'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
 import { Route as AppHubBuilderRouteImport } from './routes/_app/_hub/builder'
+import { Route as AppCurriculumCourseIdIndexRouteImport } from './routes/_app/curriculum/$courseId/index'
+import { Route as AppCurriculumCourseIdLessonLessonIdRouteImport } from './routes/_app/curriculum/$courseId/lesson/$lessonId'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
@@ -62,11 +63,6 @@ const AppLanguageLanguageIdRoute = AppLanguageLanguageIdRouteImport.update({
   path: '/$languageId',
   getParentRoute: () => AppLanguageRouteRoute,
 } as any)
-const AppCurriculumCourseIdRoute = AppCurriculumCourseIdRouteImport.update({
-  id: '/$courseId',
-  path: '/$courseId',
-  getParentRoute: () => AppCurriculumRouteRoute,
-} as any)
 const AppCoursesCourseIdRoute = AppCoursesCourseIdRouteImport.update({
   id: '/courses/$courseId',
   path: '/courses/$courseId',
@@ -92,6 +88,18 @@ const AppHubBuilderRoute = AppHubBuilderRouteImport.update({
   path: '/builder',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
+const AppCurriculumCourseIdIndexRoute =
+  AppCurriculumCourseIdIndexRouteImport.update({
+    id: '/$courseId/',
+    path: '/$courseId/',
+    getParentRoute: () => AppCurriculumRouteRoute,
+  } as any)
+const AppCurriculumCourseIdLessonLessonIdRoute =
+  AppCurriculumCourseIdLessonLessonIdRouteImport.update({
+    id: '/$courseId/lesson/$lessonId',
+    path: '/$courseId/lesson/$lessonId',
+    getParentRoute: () => AppCurriculumRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/curriculum': typeof AppCurriculumRouteRouteWithChildren
@@ -103,9 +111,10 @@ export interface FileRoutesByFullPath {
   '/languages': typeof AppHubLanguagesRoute
   '/build/$courseId': typeof AppBuildCourseIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
-  '/curriculum/$courseId': typeof AppCurriculumCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
+  '/curriculum/$courseId': typeof AppCurriculumCourseIdIndexRoute
+  '/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
 export interface FileRoutesByTo {
   '/curriculum': typeof AppCurriculumRouteRouteWithChildren
@@ -117,9 +126,10 @@ export interface FileRoutesByTo {
   '/languages': typeof AppHubLanguagesRoute
   '/build/$courseId': typeof AppBuildCourseIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
-  '/curriculum/$courseId': typeof AppCurriculumCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
+  '/curriculum/$courseId': typeof AppCurriculumCourseIdIndexRoute
+  '/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,9 +144,10 @@ export interface FileRoutesById {
   '/_app/_hub/languages': typeof AppHubLanguagesRoute
   '/_app/build/$courseId': typeof AppBuildCourseIdRoute
   '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
-  '/_app/curriculum/$courseId': typeof AppCurriculumCourseIdRoute
   '/_app/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/_app/language/create': typeof AppLanguageCreateRoute
+  '/_app/curriculum/$courseId/': typeof AppCurriculumCourseIdIndexRoute
+  '/_app/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,9 +161,10 @@ export interface FileRouteTypes {
     | '/languages'
     | '/build/$courseId'
     | '/courses/$courseId'
-    | '/curriculum/$courseId'
     | '/language/$languageId'
     | '/language/create'
+    | '/curriculum/$courseId'
+    | '/curriculum/$courseId/lesson/$lessonId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/curriculum'
@@ -164,9 +176,10 @@ export interface FileRouteTypes {
     | '/languages'
     | '/build/$courseId'
     | '/courses/$courseId'
-    | '/curriculum/$courseId'
     | '/language/$languageId'
     | '/language/create'
+    | '/curriculum/$courseId'
+    | '/curriculum/$courseId/lesson/$lessonId'
   id:
     | '__root__'
     | '/_app'
@@ -180,9 +193,10 @@ export interface FileRouteTypes {
     | '/_app/_hub/languages'
     | '/_app/build/$courseId'
     | '/_app/courses/$courseId'
-    | '/_app/curriculum/$courseId'
     | '/_app/language/$languageId'
     | '/_app/language/create'
+    | '/_app/curriculum/$courseId/'
+    | '/_app/curriculum/$courseId/lesson/$lessonId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -248,13 +262,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLanguageLanguageIdRouteImport
       parentRoute: typeof AppLanguageRouteRoute
     }
-    '/_app/curriculum/$courseId': {
-      id: '/_app/curriculum/$courseId'
-      path: '/$courseId'
-      fullPath: '/curriculum/$courseId'
-      preLoaderRoute: typeof AppCurriculumCourseIdRouteImport
-      parentRoute: typeof AppCurriculumRouteRoute
-    }
     '/_app/courses/$courseId': {
       id: '/_app/courses/$courseId'
       path: '/courses/$courseId'
@@ -290,6 +297,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubBuilderRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
+    '/_app/curriculum/$courseId/': {
+      id: '/_app/curriculum/$courseId/'
+      path: '/$courseId'
+      fullPath: '/curriculum/$courseId'
+      preLoaderRoute: typeof AppCurriculumCourseIdIndexRouteImport
+      parentRoute: typeof AppCurriculumRouteRoute
+    }
+    '/_app/curriculum/$courseId/lesson/$lessonId': {
+      id: '/_app/curriculum/$courseId/lesson/$lessonId'
+      path: '/$courseId/lesson/$lessonId'
+      fullPath: '/curriculum/$courseId/lesson/$lessonId'
+      preLoaderRoute: typeof AppCurriculumCourseIdLessonLessonIdRouteImport
+      parentRoute: typeof AppCurriculumRouteRoute
+    }
   }
 }
 
@@ -310,11 +331,14 @@ const AppHubRouteRouteWithChildren = AppHubRouteRoute._addFileChildren(
 )
 
 interface AppCurriculumRouteRouteChildren {
-  AppCurriculumCourseIdRoute: typeof AppCurriculumCourseIdRoute
+  AppCurriculumCourseIdIndexRoute: typeof AppCurriculumCourseIdIndexRoute
+  AppCurriculumCourseIdLessonLessonIdRoute: typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
 
 const AppCurriculumRouteRouteChildren: AppCurriculumRouteRouteChildren = {
-  AppCurriculumCourseIdRoute: AppCurriculumCourseIdRoute,
+  AppCurriculumCourseIdIndexRoute: AppCurriculumCourseIdIndexRoute,
+  AppCurriculumCourseIdLessonLessonIdRoute:
+    AppCurriculumCourseIdLessonLessonIdRoute,
 }
 
 const AppCurriculumRouteRouteWithChildren =

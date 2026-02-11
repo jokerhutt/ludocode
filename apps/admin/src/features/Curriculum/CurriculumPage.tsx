@@ -17,7 +17,7 @@ import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 type CurriculumPageProps = {};
 
 export function CurriculumPage({}: CurriculumPageProps) {
-  const routeApi = getRouteApi("/_app/curriculum/$courseId");
+  const routeApi = getRouteApi("/_app/curriculum/$courseId/");
   const { courseId } = routeApi.useParams();
 
   const { data: curriculumSnap } = useSuspenseQuery(
@@ -112,7 +112,10 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
               <div className="w-1/2 flex min-h-0 flex-col h-full">
                 {!isEditing && selectedLesson && (
-                  <LessonDetailPreview lesson={selectedLesson} />
+                  <LessonDetailPreview
+                    lesson={selectedLesson}
+                    courseId={courseId}
+                  />
                 )}
               </div>
             </div>

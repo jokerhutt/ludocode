@@ -101,6 +101,8 @@ export function createApiPaths({
       course: `${ADMIN_BASE}/snapshots/course`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
+      byLessonCurriculum: (lessonId: string) =>
+        `${ADMIN_BASE}/snapshots/curriculum/lesson/${lessonId}`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 
