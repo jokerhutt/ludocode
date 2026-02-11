@@ -1,12 +1,19 @@
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { ReactNode } from "react";
 
-type CurriculumListBodyProps = { children: ReactNode };
+type CurriculumListBodyProps = { children: ReactNode; className?: string };
 
 export function CurriculumPreviewContent({
   children,
+  className,
 }: CurriculumListBodyProps) {
   return (
-    <div className="w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col">
+    <div
+      className={cn(
+        "w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-4 bg-ludo-surface flex-col",
+        className,
+      )}
+    >
       {children}
     </div>
   );

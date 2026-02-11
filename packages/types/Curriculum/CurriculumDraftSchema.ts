@@ -147,10 +147,6 @@ export const CurriculumDraftExerciseSchema = z.discriminatedUnion(
   [Cloze, Analyze, Trivia, Info],
 );
 
-export type CurriculumDraftExercise = z.infer<
-  typeof CurriculumDraftExerciseSchema
->;
-
 export const CurriculumDraftLessonSchema = z.object({
   id: z.string(),
   title: z.string().min(1, "Lesson title required"),
@@ -160,3 +156,9 @@ export const CurriculumDraftLessonSchema = z.object({
 export type CurriculumDraftLessonForm = z.infer<
   typeof CurriculumDraftLessonSchema
 >;
+
+export type CurriculumDraftLessonExercises =
+  CurriculumDraftLessonForm["exercises"];
+
+export type CurriculumDraftLessonExercise =
+  CurriculumDraftLessonExercises[number];
