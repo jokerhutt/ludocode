@@ -61,7 +61,6 @@ export const EditorExercise = withForm({
           name={`exercises[${exerciseIndex}].title`}
           children={(field) => (
             <ExercisePreviewItem
-              className="bg-ludo-surface"
               title={String(field.state.value) || "Untitled"}
               isSelected={isSelected}
               onClick={onSelect}

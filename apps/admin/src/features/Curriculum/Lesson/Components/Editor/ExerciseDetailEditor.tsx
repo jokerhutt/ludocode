@@ -6,6 +6,11 @@ import { useEffect } from "react";
 import { ExerciseTypePill } from "./ExerciseTypePill";
 import { ShadowLessButton } from "@/features/Curriculum/Components/ShadowLessButton";
 import { X } from "lucide-react";
+import {
+  CurriculumPreviewContent,
+  CurriculumPreviewFooter,
+  CurriculumPreviewHeader,
+} from "@/features/Curriculum/Components/CurriculumList";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
@@ -37,16 +42,14 @@ export const ExerciseDetailEditor = withForm({
 
     return (
       <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-        {/* Header */}
-        <div className="flex justify-between border-b-3 border-b-ludo-border h-14 px-4 py-2 items-center">
+        <CurriculumPreviewHeader>
           <div className="flex items-center gap-3">
             <p className="text-white font-bold">Exercise {exerciseIndex + 1}</p>
             <ExerciseTypePill type={exercise.exerciseType} />
           </div>
-        </div>
+        </CurriculumPreviewHeader>
 
-        {/* Content */}
-        <div className="w-full flex h-full overflow-y-auto scrollbar-ludo-accent min-h-0 p-6 bg-ludo-background flex-col gap-6">
+        <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
           {/* Title */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-ludoAltText">Title</p>
@@ -287,10 +290,9 @@ export const ExerciseDetailEditor = withForm({
               />
             </div>
           )}
-        </div>
+        </CurriculumPreviewContent>
 
-        {/* Footer */}
-        <div className="flex justify-between border-t-3 border-t-ludo-border text-ludoAltText h-14 px-4 py-2 items-center">
+        <CurriculumPreviewFooter>
           {exercise.exerciseType === "INFO" ? (
             <p className="text-xs">No options</p>
           ) : exercise.exerciseType === "CLOZE" ? (
@@ -313,7 +315,7 @@ export const ExerciseDetailEditor = withForm({
               {exercise.distractors.length} distractors
             </p>
           )}
-        </div>
+        </CurriculumPreviewFooter>
       </div>
     );
   },

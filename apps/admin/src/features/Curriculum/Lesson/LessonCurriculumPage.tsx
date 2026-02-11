@@ -43,9 +43,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   const [selectedExercise, setSelectedExercise] =
     useState<CurriculumDraftLessonExercise | null>(null);
 
-  const [selectedExerciseIndex, setSelectedExerciseIndex] = useState<
-    number | null
-  >(null);
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(
+    null,
+  );
 
   const handleSaveOrEdit = () => {
     if (isArranging) {
@@ -77,47 +77,57 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
         </div>
 
         <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
-            <div className="flex gap-4 min-h-0">
-              <aside className="w-1/2 flex flex-col h-full">
-                {!isArranging ? (
-                  <LessonCurriculumPreview
-                    canArrange={!isArranging}
-                    onArrangeClick={handleSaveOrEdit}
-                    setSelectedExercise={setSelectedExercise}
-                    exercises={form.state.values.exercises}
-                    selectedExercise={selectedExercise}
-                  />
-                ) : (
-                  <LessonCurriculumEditor
-                    form={form}
-                    onSave={handleSaveOrEdit}
-                    onCancel={cancelEditing}
-                    canSubmit={canSubmit}
-                    isSubmitting={isSubmitting}
-                    selectedExerciseIndex={selectedExerciseIndex}
-                    onSelectExercise={setSelectedExerciseIndex}
-                  />
-                )}
-              </aside>
+          selector={(state) => [
+            state.canSubmit,
+            state.isSubmitting,
+            selectedExerciseId !== null
+              ? state.values.exercises.findIndex(
+                  (e) => e.id === selectedExerciseId,
+                )
+              : -1,
+          ]}
+          children={([canSubmit, isSubmitting, selectedExerciseIndex]) => {
+            const idx = selectedExerciseIndex as number;
+            const submit = canSubmit as boolean;
+            const submitting = isSubmitting as boolean;
+            return (
+              <div className="flex gap-4 min-h-0 w-full flex-1">
+                <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
+                  {!isArranging ? (
+                    <LessonCurriculumPreview
+                      canArrange={!isArranging}
+                      onArrangeClick={handleSaveOrEdit}
+                      setSelectedExercise={setSelectedExercise}
+                      exercises={form.state.values.exercises}
+                      selectedExercise={selectedExercise}
+                    />
+                  ) : (
+                    <LessonCurriculumEditor
+                      form={form}
+                      onSave={handleSaveOrEdit}
+                      onCancel={cancelEditing}
+                      canSubmit={submit}
+                      isSubmitting={submitting}
+                      selectedExerciseId={selectedExerciseId}
+                      onSelectExercise={setSelectedExerciseId}
+                    />
+                  )}
+                </aside>
 
-              <aside className="w-full flex min-h-0 flex-col h-full">
-                {!isArranging && selectedExercise && (
-                  <ExerciseDetailPreview
-                    courseId={courseId}
-                    exercise={selectedExercise}
-                  />
-                )}
-                {isArranging && selectedExerciseIndex !== null && (
-                  <ExerciseDetailEditor
-                    form={form}
-                    exerciseIndex={selectedExerciseIndex}
-                  />
-                )}
-              </aside>
-            </div>
-          )}
+                <aside className="w-1/2 flex min-h-0 flex-col">
+                  {!isArranging && selectedExercise && (
+                    <ExerciseDetailPreview
+                      courseId={courseId}
+                      exercise={selectedExercise}
+                    />
+                  )}
+                  {isArranging && idx >= 0 && (
+                    <ExerciseDetailEditor form={form} exerciseIndex={idx} />
+                  )}
+                </aside>
+              </div>
+            );
+          }}
         />
       </form>
     </div>

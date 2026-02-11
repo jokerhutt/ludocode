@@ -5,6 +5,7 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { ExercisePreviewItem } from "./ExercisePreviewItem";
+import { ExerciseTypePill } from "../Editor/ExerciseTypePill";
 import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonExercises,
@@ -41,16 +42,18 @@ export function LessonCurriculumPreview({
       </CurriculumPreviewHeader>
       <CurriculumPreviewContent className="gap-4">
         {exercises.map((exercise) => (
-          <ExercisePreviewItem
-            onClick={() => setSelectedExercise(exercise)}
-            title={exercise.title ?? ""}
-            isSelected={selectedExercise?.id === exercise.id}
-          />
+          <div key={exercise.id} className="flex items-center gap-2">
+            <ExercisePreviewItem
+              onClick={() => setSelectedExercise(exercise)}
+              title={exercise.title ?? ""}
+              isSelected={selectedExercise?.id === exercise.id}
+            />
+            <ExerciseTypePill type={exercise.exerciseType} />
+          </div>
         ))}
       </CurriculumPreviewContent>
       <CurriculumPreviewFooter>
-        <p className="text-xs">Last Modified: 6th of January at 18:32</p>
-        <p className="text-xs">Revision: 6</p>
+        <p className="text-xs">{exercises.length} exercises</p>
       </CurriculumPreviewFooter>
     </div>
   );

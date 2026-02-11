@@ -28,7 +28,7 @@ export function ExerciseDetailPreview({
       <CurriculumPreviewHeader>
         <p className="text-white font-bold">{title}</p>
         <ShadowLessButton>
-          <p className="text-sm">Edit Exercise</p>
+          <p className="text-sm">Preview</p>
         </ShadowLessButton>
       </CurriculumPreviewHeader>
 
@@ -42,10 +42,10 @@ export function ExerciseDetailPreview({
       </CurriculumPreviewContent>
 
       <CurriculumPreviewFooter>
-        <p className="text-xs">Last Modified: 6th of January at 18:32</p>
-        <ShadowLessButton variant="white">
-          <p className="text-sm">Cheatsheet</p>
-        </ShadowLessButton>
+        <p className="text-xs">
+          {exercise.correctOptions.length} correct ·{" "}
+          {exercise.distractors.length} distractors
+        </p>
       </CurriculumPreviewFooter>
     </div>
   );
