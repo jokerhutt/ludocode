@@ -2,7 +2,7 @@ import type { CurriculumDraft } from "@ludocode/types";
 import { EditorModule } from "./EditorModule";
 import { withForm } from "../../types";
 import { EditorActions } from "./EditorActions";
-import { AddModuleButton } from "./AddModuleButton";
+import { AddCurriculumItemButton } from "./AddModuleButton";
 import { createNewModuleTemplate } from "./templates";
 
 export const CurriculumEditor = withForm({
@@ -45,7 +45,8 @@ export const CurriculumEditor = withForm({
                       }
                     />
 
-                    <AddModuleButton
+                    <AddCurriculumItemButton
+                      text={"Add Module"}
                       onAdd={() =>
                         modulesField.insertValue(
                           moduleIndex + 1,

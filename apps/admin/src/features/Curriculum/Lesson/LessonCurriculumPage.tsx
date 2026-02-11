@@ -5,6 +5,7 @@ import type { CurriculumDraftLessonExercise } from "@ludocode/types";
 import { useState } from "react";
 import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
 import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
+import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
 
 type LessonCurriculumPageProps = {};
 
@@ -17,7 +18,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
     qo.lessonCurriculumSnapshot(lessonId),
   );
 
-  const [isArranging, setIsArranging] = useState(false);
+  const [isArranging, setIsArranging] = useState(true);
   const [isEditingExercise, setIsEditingExercise] = useState(false);
 
   const canArrange = !isArranging && !isEditingExercise;
@@ -26,6 +27,11 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
     if (isEditingExercise) return;
     if (isArranging) return;
     setIsArranging(true);
+  };
+
+  const handleCancelClick = () => {
+    if (!isArranging) return;
+    setIsArranging(false);
   };
 
   const [selectedExercise, setSelectedExercise] =
@@ -40,13 +46,22 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
       </div>
       <div className="flex gap-4 min-h-0">
         <aside className="w-1/2 flex flex-col h-full">
-          <LessonCurriculumPreview
-            canArrange={canArrange}
-            onArrangeClick={handleArrangeClick}
-            setSelectedExercise={setSelectedExercise}
-            exercises={lessonCurriculum["exercises"]}
-            selectedExercise={selectedExercise}
-          />
+          {!isArranging ? (
+            <LessonCurriculumPreview
+              canArrange={canArrange}
+              onArrangeClick={handleArrangeClick}
+              setSelectedExercise={setSelectedExercise}
+              exercises={lessonCurriculum["exercises"]}
+              selectedExercise={selectedExercise}
+            />
+          ) : (
+            <LessonCurriculumEditor 
+            onSave={handleCancelClick}
+            onCancel={handleCancelClick}
+            canSubmit={!canArrange}
+            isSubmitting={false}
+            exercises={lessonCurriculum["exercises"]} />
+          )}
         </aside>
 
         <aside className="w-full flex min-h-0 flex-col h-full">
