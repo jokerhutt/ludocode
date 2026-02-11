@@ -1,8 +1,13 @@
 import { getRouteApi } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import type { CurriculumDraftLessonExercise } from "@ludocode/types";
+import {
+  CurriculumDraftLessonSchema,
+  type CurriculumDraftLessonExercise,
+  type CurriculumDraftLessonForm,
+} from "@ludocode/types";
 import { useState } from "react";
+import { useAppForm } from "../types";
 import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
 import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
@@ -17,6 +22,20 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   const { data: lessonCurriculum } = useSuspenseQuery(
     qo.lessonCurriculumSnapshot(lessonId),
   );
+
+  const form = useAppForm({
+    defaultValues: {
+      id: lessonCurriculum.id,
+      title: lessonCurriculum.title,
+      exercises: lessonCurriculum.exercises,
+    } satisfies CurriculumDraftLessonForm,
+    validators: {
+      onSubmit: CurriculumDraftLessonSchema,
+    },
+    onSubmit: async ({ value }) => {
+      setIsArranging(false);
+    },
+  });
 
   const [isArranging, setIsArranging] = useState(true);
   const [isEditingExercise, setIsEditingExercise] = useState(false);
@@ -55,12 +74,13 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
               selectedExercise={selectedExercise}
             />
           ) : (
-            <LessonCurriculumEditor 
-            onSave={handleCancelClick}
-            onCancel={handleCancelClick}
-            canSubmit={!canArrange}
-            isSubmitting={false}
-            exercises={lessonCurriculum["exercises"]} />
+            <LessonCurriculumEditor
+              onSave={handleCancelClick}
+              onCancel={handleCancelClick}
+              canSubmit={!canArrange}
+              isSubmitting={false}
+              exercises={lessonCurriculum["exercises"]}
+            />
           )}
         </aside>
 
