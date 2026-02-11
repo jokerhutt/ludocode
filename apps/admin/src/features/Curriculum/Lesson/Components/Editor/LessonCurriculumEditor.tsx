@@ -1,49 +1,52 @@
-import type { CurriculumDraftLessonExercises } from "@ludocode/types";
-import { EditorExercise } from "./EditorExercise";
+import type { CurriculumDraftLessonForm } from "@ludocode/types";
+import { withForm } from "@/features/Curriculum/types";
 import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions";
-import { AddCurriculumItemButton } from "@/features/Curriculum/Components/Editor/AddModuleButton";
+import { SortableExerciseContainer } from "./SortableExerciseContainer";
 import { ShadowLessButton } from "@/features/Curriculum/Components/ShadowLessButton";
+import { createNewExerciseTemplate } from "./templates";
 
-type LessonCurriculumEditorProps = {
-  exercises: CurriculumDraftLessonExercises;
-  onSave: () => void;
-  onCancel: () => void;
-  canSubmit: boolean;
-  isSubmitting: boolean;
-};
-
-export function LessonCurriculumEditor({
-  exercises,
-  onSave,
-  onCancel,
-  canSubmit,
-  isSubmitting,
-}: LessonCurriculumEditorProps) {
-  return (
-    <div className="w-full h-full min-h-0 flex gap-4 flex-col">
-      <div className="w-full text-white flex justify-between pb-4 border-b border-b-ludo-accent">
-        <p>Editing Curriculum</p>
-      </div>
-      <div className="flex justify-between w-full">
-        <ShadowLessButton>Add Exercise</ShadowLessButton>
-        <EditorActions
-          className="justify-end"
-          onSave={() => onSave()}
-          onCancel={() => onCancel()}
-          canSubmit={canSubmit}
-          isSubmitting={isSubmitting}
-        />
-      </div>
-
-      <div className="overflow-y-auto border-3 flex flex-col gap-4 border-dashed rounded-lg border-ludo-accent scrollbar-ludo-accent p-4 h-full w-full min-h-0">
-        <>
-          {exercises.map((exercise) => (
-            <div className="flex flex-col gap-4">
-              <EditorExercise />
+export const LessonCurriculumEditor = withForm({
+  defaultValues: {
+    id: "",
+    title: "",
+    exercises: [] as CurriculumDraftLessonForm["exercises"],
+  },
+  props: {
+    onSave: () => {},
+    onCancel: () => {},
+    canSubmit: false,
+    isSubmitting: false,
+  },
+  render: function Render({ form, onSave, onCancel, canSubmit, isSubmitting }) {
+    return (
+      <div className="w-full h-full min-h-0 flex flex-col gap-4">
+        <div className="w-full text-white flex justify-between pb-4 border-b border-b-ludo-accent">
+          <p>Editing Exercises</p>
+        </div>
+        <form.Field name="exercises" mode="array">
+          {(exercisesField) => (
+            <div className="flex justify-between">
+              <ShadowLessButton
+                onClick={() =>
+                  exercisesField.pushValue(createNewExerciseTemplate())
+                }
+              >
+                Add Exercise
+              </ShadowLessButton>
+              <EditorActions
+                className="justify-end"
+                onSave={onSave}
+                onCancel={onCancel}
+                canSubmit={canSubmit}
+                isSubmitting={isSubmitting}
+              />
             </div>
-          ))}
-        </>
+          )}
+        </form.Field>
+        <div className="h-full overflow-y-auto scrollbar-ludo-accent  border-3 border-dashed rounded-lg border-ludo-accent py-2 pr-2 min-h-0 w-full ">
+          <SortableExerciseContainer form={form} />
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+});

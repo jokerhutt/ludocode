@@ -1,20 +1,65 @@
-import { LudoInput } from "@ludocode/design-system/primitives/input";
+import type {
+  CurriculumDraftLessonExercise,
+  CurriculumDraftLessonForm,
+} from "@ludocode/types";
+import { withForm } from "@/features/Curriculum/types";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
 import { ExercisePreviewItem } from "../Preview/ExercisePreviewItem";
 
-type EditorExerciseProps = {};
+export const EditorExercise = withForm({
+  defaultValues: {
+    id: "",
+    title: "",
+    exercises: [] as CurriculumDraftLessonForm["exercises"],
+  },
+  props: {
+    exerciseIndex: 0,
+    exercise: {} as CurriculumDraftLessonExercise,
+  },
+  render: function Render({ form, exerciseIndex, exercise }) {
+    const exerciseId = exercise.id;
 
-export function EditorExercise({}: EditorExerciseProps) {
-  return (
-    <div className="w-full flex items-center gap-2">
-      <Grip className="h-5 w-5 text-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing" />
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      isDragging,
+      transform,
+      transition,
+    } = useSortable({ id: exerciseId });
 
-      <ExercisePreviewItem
-        className="bg-ludo-surface"
-        title="Sample"
-        isSelected={false}
-        onClick={() => () => null}
-      />
-    </div>
-  );
-}
+    const style = {
+      transition: isDragging ? transition : undefined,
+      transform: CSS.Transform.toString(transform),
+    };
+
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="w-full flex items-center gap-2"
+      >
+        <Grip
+          className="h-5 w-5 text-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+        />
+
+        <form.Field
+          key={exerciseId}
+          name={`exercises[${exerciseIndex}].title`}
+          children={(field) => (
+            <ExercisePreviewItem
+              className="bg-ludo-surface"
+              title={String(field.state.value) || "Untitled"}
+              isSelected={false}
+              onClick={() => {}}
+            />
+          )}
+        />
+      </div>
+    );
+  },
+});
