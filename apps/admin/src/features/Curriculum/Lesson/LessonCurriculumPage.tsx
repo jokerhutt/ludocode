@@ -11,6 +11,7 @@ import { useAppForm } from "../types";
 import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
 import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
+import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
 
 type LessonCurriculumPageProps = {};
 
@@ -41,6 +42,10 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
 
   const [selectedExercise, setSelectedExercise] =
     useState<CurriculumDraftLessonExercise | null>(null);
+
+  const [selectedExerciseIndex, setSelectedExerciseIndex] = useState<
+    number | null
+  >(null);
 
   const handleSaveOrEdit = () => {
     if (isArranging) {
@@ -91,6 +96,8 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                     onCancel={cancelEditing}
                     canSubmit={canSubmit}
                     isSubmitting={isSubmitting}
+                    selectedExerciseIndex={selectedExerciseIndex}
+                    onSelectExercise={setSelectedExerciseIndex}
                   />
                 )}
               </aside>
@@ -100,6 +107,12 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                   <ExerciseDetailPreview
                     courseId={courseId}
                     exercise={selectedExercise}
+                  />
+                )}
+                {isArranging && selectedExerciseIndex !== null && (
+                  <ExerciseDetailEditor
+                    form={form}
+                    exerciseIndex={selectedExerciseIndex}
                   />
                 )}
               </aside>

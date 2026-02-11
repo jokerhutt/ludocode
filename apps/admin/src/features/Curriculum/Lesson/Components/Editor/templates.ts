@@ -1,12 +1,26 @@
-import type { CurriculumDraftLessonExercise } from "@ludocode/types";
+import type {
+  CurriculumDraftLessonExercise,
+  ExerciseType,
+} from "@ludocode/types";
 
-export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
+export const createNewExerciseTemplate = (
+  exerciseType: ExerciseType = "INFO",
+): CurriculumDraftLessonExercise => ({
   id: crypto.randomUUID(),
-  exerciseType: "INFO",
+  exerciseType,
   title: "Untitled Exercise",
   subtitle: "",
   media: "",
   prompt: "",
-  correctOptions: [],
+  correctOptions:
+    exerciseType === "TRIVIA"
+      ? [
+          {
+            content: "",
+            answerOrder: 1,
+            exerciseOptionId: crypto.randomUUID(),
+          },
+        ]
+      : [],
   distractors: [],
 });

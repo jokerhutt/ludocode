@@ -18,8 +18,16 @@ export const EditorExercise = withForm({
   props: {
     exerciseIndex: 0,
     exercise: {} as CurriculumDraftLessonExercise,
+    isSelected: false,
+    onSelect: (() => {}) as () => void,
   },
-  render: function Render({ form, exerciseIndex, exercise }) {
+  render: function Render({
+    form,
+    exerciseIndex,
+    exercise,
+    isSelected,
+    onSelect,
+  }) {
     const exerciseId = exercise.id;
 
     const {
@@ -55,8 +63,8 @@ export const EditorExercise = withForm({
             <ExercisePreviewItem
               className="bg-ludo-surface"
               title={String(field.state.value) || "Untitled"}
-              isSelected={false}
-              onClick={() => {}}
+              isSelected={isSelected}
+              onClick={onSelect}
             />
           )}
         />

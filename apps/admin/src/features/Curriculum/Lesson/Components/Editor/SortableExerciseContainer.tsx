@@ -18,7 +18,11 @@ export const SortableExerciseContainer = withForm({
     title: "",
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
-  render: function Render({ form }) {
+  props: {
+    selectedExerciseIndex: null as number | null,
+    onSelectExercise: (() => {}) as (index: number | null) => void,
+  },
+  render: function Render({ form, selectedExerciseIndex, onSelectExercise }) {
     return (
       <form.Field name="exercises" mode="array">
         {(exercisesField) => {
@@ -57,6 +61,8 @@ export const SortableExerciseContainer = withForm({
                       key={exercise.id}
                       form={form}
                       exerciseIndex={exerciseIndex}
+                      isSelected={selectedExerciseIndex === exerciseIndex}
+                      onSelect={() => onSelectExercise(exerciseIndex)}
                     />
                   ))}
                 </SortableContext>
