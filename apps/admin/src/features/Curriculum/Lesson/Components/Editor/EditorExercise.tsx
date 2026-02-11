@@ -7,6 +7,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
 import { ExercisePreviewItem } from "../Preview/ExercisePreviewItem";
+import { ExerciseTypePill } from "./ExerciseTypePill";
 
 export const EditorExercise = withForm({
   defaultValues: {
@@ -59,6 +60,8 @@ export const EditorExercise = withForm({
             />
           )}
         />
+
+        <ExerciseTypePill type={exercise.exerciseType} />
       </div>
     );
   },
