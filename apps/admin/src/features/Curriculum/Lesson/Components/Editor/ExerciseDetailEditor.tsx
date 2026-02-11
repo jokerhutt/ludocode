@@ -4,8 +4,12 @@ import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { useEffect } from "react";
 import { ExerciseTypePill } from "./ExerciseTypePill";
-import { ShadowLessButton } from "@/features/Curriculum/Components/ShadowLessButton";
-import { X } from "lucide-react";
+import {
+  ClozeGapAnswers,
+  TriviaCorrectAnswer,
+  AnalyzeCorrectOptions,
+  DistractorsEditor,
+} from "./fields";
 import {
   CurriculumPreviewContent,
   CurriculumPreviewFooter,
@@ -25,7 +29,6 @@ export const ExerciseDetailEditor = withForm({
     const exercise = form.state.values.exercises[exerciseIndex];
     if (!exercise) return null;
 
-    // Sync TRIVIA to exactly 1 correct option on mount
     useEffect(() => {
       if (exercise.exerciseType !== "TRIVIA") return;
       const current =
@@ -50,7 +53,6 @@ export const ExerciseDetailEditor = withForm({
         </CurriculumPreviewHeader>
 
         <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
-          {/* Title */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-ludoAltText">Title</p>
             <form.Field
@@ -65,7 +67,6 @@ export const ExerciseDetailEditor = withForm({
             />
           </div>
 
-          {/* Subtitle */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-ludoAltText">Subtitle</p>
             <form.Field
@@ -80,7 +81,6 @@ export const ExerciseDetailEditor = withForm({
             />
           </div>
 
-          {/* Prompt - only for types that use it */}
           {(exercise.exerciseType === "CLOZE" ||
             exercise.exerciseType === "ANALYZE") && (
             <div className="flex flex-col gap-2">
@@ -102,7 +102,6 @@ export const ExerciseDetailEditor = withForm({
             </div>
           )}
 
-          {/* Media URL */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-ludoAltText">Media URL</p>
             <form.Field
@@ -117,25 +116,11 @@ export const ExerciseDetailEditor = withForm({
             />
           </div>
 
-          {/* TRIVIA — single correct answer */}
           {exercise.exerciseType === "TRIVIA" &&
             exercise.correctOptions.length > 0 && (
-              <div className="flex flex-col gap-2">
-                <p className="text-sm text-emerald-400">Correct Answer</p>
-                <form.Field
-                  name={`exercises[${exerciseIndex}].correctOptions[0].content`}
-                  children={(field) => (
-                    <LudoInput
-                      value={String(field.state.value ?? "")}
-                      setValue={(v) => field.handleChange(v)}
-                      placeholder="The correct answer"
-                    />
-                  )}
-                />
-              </div>
+              <TriviaCorrectAnswer form={form} exerciseIndex={exerciseIndex} />
             )}
 
-          {/* CLOZE — gap-matched correct options (reactive to prompt changes) */}
           {exercise.exerciseType === "CLOZE" && (
             <form.Field
               name={`exercises[${exerciseIndex}].prompt`}
@@ -153,142 +138,12 @@ export const ExerciseDetailEditor = withForm({
             />
           )}
 
-          {/* ANALYZE — free-form correct options */}
           {exercise.exerciseType === "ANALYZE" && (
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-emerald-400">Correct Options</p>
-                <form.Field
-                  name={`exercises[${exerciseIndex}].correctOptions`}
-                  mode="array"
-                  children={(correctField) => (
-                    <ShadowLessButton
-                      type="button"
-                      onClick={() =>
-                        correctField.pushValue({
-                          content: "",
-                          answerOrder: correctField.state.value.length + 1,
-                          exerciseOptionId: crypto.randomUUID(),
-                        })
-                      }
-                    >
-                      + Add
-                    </ShadowLessButton>
-                  )}
-                />
-              </div>
-              <form.Field
-                name={`exercises[${exerciseIndex}].correctOptions`}
-                mode="array"
-                children={(correctField) => (
-                  <div className="flex flex-col gap-2">
-                    {correctField.state.value.length === 0 && (
-                      <p className="text-xs text-ludoAltText/50 py-2">
-                        No correct options yet
-                      </p>
-                    )}
-                    {correctField.state.value.map((option, optIndex) => (
-                      <div
-                        key={option.exerciseOptionId}
-                        className="flex items-center gap-2"
-                      >
-                        <div className="w-6 h-6 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                          <span className="text-xs text-emerald-400">
-                            {optIndex + 1}
-                          </span>
-                        </div>
-                        <form.Field
-                          name={`exercises[${exerciseIndex}].correctOptions[${optIndex}].content`}
-                          children={(field) => (
-                            <LudoInput
-                              value={String(field.state.value ?? "")}
-                              setValue={(v) => field.handleChange(v)}
-                              placeholder="Option content"
-                            />
-                          )}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => correctField.removeValue(optIndex)}
-                          className="shrink-0 p-1.5 rounded-md hover:bg-ludo-surface text-ludoAltText hover:text-red-400 transition-colors"
-                        >
-                          <X className="h-4 w-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              />
-            </div>
+            <AnalyzeCorrectOptions form={form} exerciseIndex={exerciseIndex} />
           )}
 
-          {/* Distractors — shared for TRIVIA, CLOZE, ANALYZE */}
           {exercise.exerciseType !== "INFO" && (
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-red-400">Distractors</p>
-                <form.Field
-                  name={`exercises[${exerciseIndex}].distractors`}
-                  mode="array"
-                  children={(distractorField) => (
-                    <ShadowLessButton
-                      type="button"
-                      onClick={() =>
-                        distractorField.pushValue({
-                          content: "",
-                          answerOrder: null,
-                          exerciseOptionId: crypto.randomUUID(),
-                        })
-                      }
-                    >
-                      + Add
-                    </ShadowLessButton>
-                  )}
-                />
-              </div>
-              <form.Field
-                name={`exercises[${exerciseIndex}].distractors`}
-                mode="array"
-                children={(distractorField) => (
-                  <div className="flex flex-col gap-2">
-                    {distractorField.state.value.length === 0 && (
-                      <p className="text-xs text-ludoAltText/50 py-2">
-                        No distractors yet
-                      </p>
-                    )}
-                    {distractorField.state.value.map((option, optIndex) => (
-                      <div
-                        key={option.exerciseOptionId}
-                        className="flex items-center gap-2"
-                      >
-                        <div className="w-6 h-6 shrink-0 rounded-full bg-red-500/20 flex items-center justify-center">
-                          <span className="text-xs text-red-400">
-                            {optIndex + 1}
-                          </span>
-                        </div>
-                        <form.Field
-                          name={`exercises[${exerciseIndex}].distractors[${optIndex}].content`}
-                          children={(field) => (
-                            <LudoInput
-                              value={String(field.state.value ?? "")}
-                              setValue={(v) => field.handleChange(v)}
-                              placeholder="Distractor content"
-                            />
-                          )}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => distractorField.removeValue(optIndex)}
-                          className="shrink-0 p-1.5 rounded-md hover:bg-ludo-surface text-ludoAltText hover:text-red-400 transition-colors"
-                        >
-                          <X className="h-4 w-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              />
-            </div>
+            <DistractorsEditor form={form} exerciseIndex={exerciseIndex} />
           )}
         </CurriculumPreviewContent>
 
@@ -320,95 +175,3 @@ export const ExerciseDetailEditor = withForm({
     );
   },
 });
-
-/* ── Reactive CLOZE gap answers (syncs correctOptions to gap count) ── */
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ClozeGapAnswers({
-  form,
-  exerciseIndex,
-  gapCount,
-}: {
-  form: any;
-  exerciseIndex: number;
-  gapCount: number;
-}) {
-  useEffect(() => {
-    const current =
-      (form.state.values.exercises as CurriculumDraftLessonForm["exercises"])[
-        exerciseIndex
-      ]?.correctOptions ?? [];
-    if (current.length === gapCount) return;
-    const synced = Array.from(
-      { length: gapCount },
-      (_, i) =>
-        current[i] ?? {
-          content: "",
-          answerOrder: i + 1,
-          exerciseOptionId: crypto.randomUUID(),
-        },
-    );
-    form.setFieldValue(`exercises[${exerciseIndex}].correctOptions`, synced);
-  }, [gapCount, exerciseIndex, form]);
-
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-emerald-400">Gap Answers</p>
-        <p className="text-xs text-ludoAltText/60">
-          {gapCount} {gapCount === 1 ? "gap" : "gaps"} detected
-        </p>
-      </div>
-      {gapCount === 0 ? (
-        <p className="text-xs text-ludoAltText/50 py-2">
-          Add ___ to your prompt to create gaps
-        </p>
-      ) : (
-        <form.Field
-          name={`exercises[${exerciseIndex}].correctOptions`}
-          mode="array"
-          children={(correctField: {
-            state: {
-              value: { exerciseOptionId: string; content: string }[];
-            };
-          }) => (
-            <div className="flex flex-col gap-2">
-              {correctField.state.value
-                .slice(0, gapCount)
-                .map(
-                  (
-                    option: { exerciseOptionId: string; content: string },
-                    i: number,
-                  ) => (
-                    <div
-                      key={option.exerciseOptionId}
-                      className="flex items-center gap-2"
-                    >
-                      <div className="w-6 h-6 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                        <span className="text-xs text-emerald-400">
-                          {i + 1}
-                        </span>
-                      </div>
-                      <form.Field
-                        name={`exercises[${exerciseIndex}].correctOptions[${i}].content`}
-                        children={(field: {
-                          state: { value: unknown };
-                          handleChange: (v: string) => void;
-                        }) => (
-                          <LudoInput
-                            value={String(field.state.value ?? "")}
-                            setValue={(v: string) => field.handleChange(v)}
-                            placeholder={`Gap ${i + 1} answer`}
-                          />
-                        )}
-                      />
-                    </div>
-                  ),
-                )}
-            </div>
-          )}
-        />
-      )}
-    </div>
-  );
-}

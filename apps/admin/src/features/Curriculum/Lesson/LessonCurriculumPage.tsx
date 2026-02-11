@@ -12,6 +12,7 @@ import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPr
 import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
 import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
+import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
 
 type LessonCurriculumPageProps = {};
 
@@ -24,7 +25,19 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
     qo.lessonCurriculumSnapshot(lessonId),
   );
 
-  const [isArranging, setIsArranging] = useState(true);
+  const { data: courses } = useSuspenseQuery(qo.allCourses());
+  const courseName =
+    courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
+
+  const { data: curriculumSnap } = useSuspenseQuery(
+    qo.curriculumSnapshot(courseId),
+  );
+  const lessonName =
+    curriculumSnap.modules
+      .flatMap((m) => m.lessons)
+      .find((l) => l.id === lessonId)?.title ?? "Untitled Lesson";
+
+  const [isArranging, setIsArranging] = useState(false);
 
   const form = useAppForm({
     defaultValues: {
@@ -50,13 +63,16 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   const handleSaveOrEdit = () => {
     if (isArranging) {
       form.handleSubmit();
+      setSelectedExercise(null);
     } else {
+      setSelectedExercise(null);
       setIsArranging(true);
     }
   };
 
   const cancelEditing = () => {
     form.reset();
+    setSelectedExercise(null);
     setIsArranging(false);
   };
 
@@ -72,7 +88,12 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
       >
         <div className="w-full flex justify-between border-b border-b-ludo-accent-muted pb-6">
           <div className="w-full flex gap-4 flex-col">
-            <h1 className="text-white text-3xl font-bold">Print Statements</h1>
+            <CurriculumBreadcrumbs
+              courseId={courseId}
+              courseName={courseName}
+              lessonName={lessonName}
+            />
+            <h1 className="text-white text-3xl font-bold">{lessonName}</h1>
           </div>
         </div>
 

@@ -1,23 +1,14 @@
-import type { CurriculumDraftLessonForm, ExerciseType } from "@ludocode/types";
+import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/Curriculum/types";
 import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions";
 import { SortableExerciseContainer } from "./SortableExerciseContainer";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@ludocode/external/ui/select";
+import { AddExerciseSelect } from "./AddExerciseSelect";
 import { createNewExerciseTemplate } from "./templates";
-import { ExerciseTypePill } from "./ExerciseTypePill";
 import {
   CurriculumPreviewContent,
   CurriculumPreviewFooter,
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
-
-const exerciseTypes: ExerciseType[] = ["INFO", "CLOZE", "TRIVIA", "ANALYZE"];
 
 export const LessonCurriculumEditor = withForm({
   defaultValues: {
@@ -69,32 +60,11 @@ export const LessonCurriculumEditor = withForm({
                 <p className="text-xs">
                   {exercisesField.state.value.length} exercises
                 </p>
-                <Select
-                  value=""
-                  onValueChange={(type) =>
-                    exercisesField.pushValue(
-                      createNewExerciseTemplate(type as ExerciseType),
-                    )
+                <AddExerciseSelect
+                  onAdd={(type) =>
+                    exercisesField.pushValue(createNewExerciseTemplate(type))
                   }
-                >
-                  <SelectTrigger className="w-auto h-auto gap-2 px-3 py-1 rounded-sm bg-ludo-surface border-transparent !text-white text-sm hover:bg-ludo-accent/20 transition-colors focus:ring-0 focus-visible:ring-0">
-                    <SelectValue placeholder="+ Add Exercise" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-ludo-surface border-ludo-border">
-                    {exerciseTypes.map((type) => (
-                      <SelectItem
-                        key={type}
-                        value={type}
-                        className="text-white hover:bg-ludo-background cursor-pointer"
-                      >
-                        <div className="flex items-center gap-2">
-                          <ExerciseTypePill type={type} />
-                          <span>{type}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                />
               </div>
             )}
           </form.Field>

@@ -7,10 +7,7 @@ type CurriculumLayoutProps = {};
 
 export function CurriculumLayout({}: CurriculumLayoutProps) {
   return (
-    <MainGridWrapper className="max-h-dvh min-h-0" gridRows={"SITE"}>
-      <HeaderWithBar device="Both">
-        <div className="col-start-2 col-end-12 flex items-center justify-start"></div>
-      </HeaderWithBar>
+    <MainGridWrapper className="max-h-dvh min-h-0" gridRows={"ONE"}>
       <Suspense fallback={<div />}>
         <div className="layout-grid col-span-full h-full min-h-0 py-6 px-8 lg:px-0">
           <div className="col-span-1 lg:bg-ludo-background" />

@@ -13,6 +13,7 @@ import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
 import { CurriculumPreview } from "./Components/Preview/CurriculumPreview";
 import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
 import { LessonDetailPreview } from "./Components/LessonDetailPreview";
+import { CurriculumBreadcrumbs } from "./Components/CurriculumBreadcrumbs";
 
 type CurriculumPageProps = {};
 
@@ -24,7 +25,11 @@ export function CurriculumPage({}: CurriculumPageProps) {
     qo.curriculumSnapshot(courseId),
   );
 
-  const [isEditing, setIsEditing] = useState(true);
+  const { data: courses } = useSuspenseQuery(qo.allCourses());
+  const courseName =
+    courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
+
+  const [isEditing, setIsEditing] = useState(false);
 
   const submitMutation = useUpdateCourse({
     courseId,
@@ -82,7 +87,11 @@ export function CurriculumPage({}: CurriculumPageProps) {
       >
         <div className="w-full flex justify-between border-b border-b-ludo-accent-muted pb-6">
           <div className="w-full flex gap-4 flex-col">
-            <h1 className="text-white text-3xl font-bold">Python Developer</h1>
+            <CurriculumBreadcrumbs
+              courseId={courseId}
+              courseName={courseName}
+            />
+            <h1 className="text-white text-3xl font-bold">{courseName}</h1>
             <CurriculumHero />
           </div>
         </div>
