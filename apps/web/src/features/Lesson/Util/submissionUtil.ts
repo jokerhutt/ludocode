@@ -16,11 +16,13 @@ export function convertStagedAttemptIntoExerciseSubmission(
 }
 
 export function convertToLessonSubmission(
+  courseId: string,
   lessonId: string,
   submissions: ExerciseSubmission[],
 ): LessonSubmission {
   return {
     submissionId: crypto.randomUUID(),
+    courseId: courseId,
     lessonId: lessonId,
     submissions: submissions,
   };

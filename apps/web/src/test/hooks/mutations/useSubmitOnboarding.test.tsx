@@ -78,7 +78,6 @@ describe("useSubmitOnboarding", () => {
           id: "cp1",
           userId: "u1",
           courseId: "course-1",
-          currentLessonId: "lesson-1",
           moduleId: "module-1",
           isComplete: false,
           updatedAt: new Date().toISOString(),

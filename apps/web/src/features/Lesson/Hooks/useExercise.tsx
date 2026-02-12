@@ -12,7 +12,7 @@ import {
 import { useCommittedSubmissions } from "@/features/Lesson/Hooks/useCommittedSubmissions.tsx";
 import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 
-type Args = { exercises: LudoExercise[]; lesson: LudoLesson; position: number; config: LessonConfig };
+type Args = { courseId: string; exercises: LudoExercise[]; lesson: LudoLesson; position: number; config: LessonConfig };
 
 export type LessonConfig = {
   audioEnabled: boolean;
@@ -21,6 +21,7 @@ export type LessonConfig = {
 export function useExercise({
   exercises,
   lesson,
+  courseId,
   position,
   config,
 }: Args): useExerciseResponse {
@@ -49,6 +50,7 @@ export function useExercise({
   } = stagedAttempt;
 
   const { commitStagedAttemptIntoSubmissions } = useCommittedSubmissions({
+    courseId,
     currentExercise,
     position,
     exercises,

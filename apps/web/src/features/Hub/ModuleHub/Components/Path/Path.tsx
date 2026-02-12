@@ -6,7 +6,7 @@ import React from "react";
 import type { LessonStatus, LudoLesson } from "@ludocode/types";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LockIcon } from "@ludocode/design-system/primitives/custom-icon";
-import {CompletionRibbon} from "@ludocode/design-system/primitives/ribbon"
+import { CompletionRibbon } from "@ludocode/design-system/primitives/ribbon";
 import { cn } from "@ludocode/design-system/cn-utils";
 
 type PathRowProps = {
@@ -61,11 +61,13 @@ export function ModulePathRow({
   );
 }
 
-type ModulePathProps = { lessons: LudoLesson[]; currentLessonId: string };
+type ModulePathProps = { lessons: LudoLesson[] };
 
-export function ModulePath({ lessons, currentLessonId }: ModulePathProps) {
+export function ModulePath({ lessons }: ModulePathProps) {
+  const currentLesson = lessons.find((l) => !l.isCompleted);
   return lessons.map((lesson: LudoLesson, i: number) => {
-    const isCurrent = currentLessonId === lesson.id;
+    // const isModuleComplete = currentLesson === undefined;
+    const isCurrent = currentLesson?.id === lesson.id;
 
     return (
       <ModulePathRow
@@ -98,5 +100,5 @@ export const PathButton = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
     );
-  }
+  },
 );

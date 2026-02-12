@@ -20,7 +20,7 @@ export function useLessonButton({
   const isLocked = !lesson.isCompleted && !isCurrent;
 
   const lessonType: LessonStatus = isCurrent
-    ? "COMPLETE"
+    ? "DEFAULT"
     : isCompleted
       ? "MASTERED"
       : isLocked
