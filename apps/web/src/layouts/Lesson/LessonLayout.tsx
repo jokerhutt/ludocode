@@ -28,6 +28,7 @@ export function LessonLayout() {
   const { data: preferences } = useSuspenseQuery(qo.preferences());
 
   const state = useExercise({
+    courseId,
     exercises,
     lesson,
     position: exercisePosition,

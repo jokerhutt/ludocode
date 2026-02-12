@@ -15,7 +15,7 @@ export function ModuleHubLayout() {
   const { courseId, moduleId } = moduleHubRoute.useParams();
   const { tree, allCourses } = moduleHubRoute.useLoaderData();
 
-  const { courseProgress, modules, lessons } = useTreeData({
+  const { modules, lessons } = useTreeData({
     tree,
     courseId,
     moduleId,
@@ -42,7 +42,6 @@ export function ModuleHubLayout() {
         <ModulePage
           lessons={lessons}
           course={currentCourse}
-          courseProgress={courseProgress}
           modules={modules}
         />
       ) : (

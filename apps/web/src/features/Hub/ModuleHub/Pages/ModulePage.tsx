@@ -10,14 +10,12 @@ type ModulePageProps = {
   lessons: LudoLesson[];
   modules: LudoModule[];
   course?: LudoCourse;
-  courseProgress: CourseProgress;
 };
 
 export function ModulePage({
   lessons,
   modules,
   course,
-  courseProgress,
 }: ModulePageProps) {
   if (!course) return null;
 

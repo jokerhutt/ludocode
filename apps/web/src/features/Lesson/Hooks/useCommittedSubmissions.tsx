@@ -18,6 +18,7 @@ type Args = {
   clearStaged: () => void;
   position: number;
   exercises: LudoExercise[];
+  courseId: string;
   lessonId: string;
 };
 
@@ -27,12 +28,13 @@ export function useCommittedSubmissions({
   exercises,
   clearExerciseInputs,
   clearStaged,
+  courseId,
   lessonId,
 }: Args) {
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
     useState<ExerciseSubmission[]>([]);
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
-    const lessonSubmission = convertToLessonSubmission(lessonId, merged);
+    const lessonSubmission = convertToLessonSubmission(courseId, lessonId, merged);
     router.navigate(
       ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
     );

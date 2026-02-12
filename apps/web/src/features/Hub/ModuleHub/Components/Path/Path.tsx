@@ -27,14 +27,12 @@ export function PathRow({ children, index }: PathRowProps) {
 type ModulePathRowProps = {
   lesson: LudoLesson;
   isCurrent: boolean;
-  isComplete: boolean;
   index: number;
 };
 
 export function ModulePathRow({
   lesson,
   isCurrent,
-  isComplete,
   index,
 }: ModulePathRowProps) {
   const { courseId, moduleId } = useCurrentCourseContext();
@@ -63,11 +61,11 @@ export function ModulePathRow({
   );
 }
 
-type ModulePathProps = { lessons: LudoLesson[]; };
+type ModulePathProps = { lessons: LudoLesson[] };
 
-export function ModulePath({ lessons}: ModulePathProps) {
+export function ModulePath({ lessons }: ModulePathProps) {
+  const currentLesson = lessons.find((l) => !l.isCompleted);
   return lessons.map((lesson: LudoLesson, i: number) => {
-    const currentLesson = lessons.find((l) => !l.isCompleted);
     // const isModuleComplete = currentLesson === undefined;
     const isCurrent = currentLesson?.id === lesson.id;
 
@@ -75,7 +73,6 @@ export function ModulePath({ lessons}: ModulePathProps) {
       <ModulePathRow
         key={lesson.id}
         lesson={lesson}
-        isComplete={lesson.isCompleted}
         isCurrent={isCurrent}
         index={i}
       />

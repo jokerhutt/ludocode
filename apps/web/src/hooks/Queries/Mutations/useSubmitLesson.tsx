@@ -32,13 +32,8 @@ export function useSubmitLesson({ oldStreak }: Args) {
       const lessonId = updatedCompletedLesson.id;
 
       qc.setQueryData(qk.lesson(lessonId), updatedCompletedLesson);
-      qc.setQueryData(
-        qk.courseProgress(newCourseProgress.id),
-        newCourseProgress,
-      );
       qc.setQueryData(qk.userCoins(newCoins.id), newCoins);
       qc.setQueryData(qk.streak(newCoins.id), newStreak);
-
       qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
       qc.invalidateQueries({ queryKey: qk.courseStats(newCourseProgress.id) });
 

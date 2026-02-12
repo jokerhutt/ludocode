@@ -3,6 +3,7 @@ import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
 export type LessonSubmission = {
   submissionId: string;
   lessonId: string;
+  courseId: string;
   submissions: ExerciseSubmission[];
 };
 
