@@ -1,9 +1,12 @@
-import type { LudoExercise, LudoLesson } from "@ludocode/types";
+import type { LudoCourse, LudoExercise, LudoLesson } from "@ludocode/types";
 
+export const c1Id = crypto.randomUUID();
 const l1Id = crypto.randomUUID();
 const e1Id = crypto.randomUUID();
 const e2Id = crypto.randomUUID();
 const e3Id = crypto.randomUUID();
+
+
 
 export const l1: LudoLesson = {
   id: l1Id,
