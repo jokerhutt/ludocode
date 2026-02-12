@@ -9,6 +9,7 @@ import {
   type LudoUser,
   type LudoCourseSubject,
   type CurriculumDraft,
+  type CurriculumDraftLessonForm,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
@@ -43,6 +44,17 @@ export const qo = {
       queryFn: () =>
         ludoGet<CurriculumDraft>(
           adminApi.snapshots.byCourseCurriculum(courseId),
+          true,
+        ),
+      staleTime: 60_000 * 10,
+    }),
+
+  lessonCurriculumSnapshot: (lessonId: string) =>
+    queryOptions({
+      queryKey: qk.curriculumLesson(lessonId),
+      queryFn: () =>
+        ludoGet<CurriculumDraftLessonForm>(
+          adminApi.snapshots.byLessonCurriculum(lessonId),
           true,
         ),
       staleTime: 60_000 * 10,

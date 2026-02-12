@@ -1,0 +1,60 @@
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import {
+  CurriculumPreviewContent,
+  CurriculumPreviewFooter,
+  CurriculumPreviewHeader,
+} from "@/features/Curriculum/Components/CurriculumList";
+import { ExercisePreviewItem } from "./ExercisePreviewItem";
+import { ExerciseTypePill } from "../Editor/ExerciseTypePill";
+import type {
+  CurriculumDraftLessonExercise,
+  CurriculumDraftLessonExercises,
+} from "@ludocode/types";
+
+type LessonCurriculumPreviewProps = {
+  exercises: CurriculumDraftLessonExercises;
+  selectedExercise: CurriculumDraftLessonExercise | null;
+  setSelectedExercise: (value: CurriculumDraftLessonExercise) => void;
+  onArrangeClick: () => void;
+  canArrange: boolean;
+};
+
+export function LessonCurriculumPreview({
+  exercises,
+  selectedExercise,
+  setSelectedExercise,
+  onArrangeClick,
+  canArrange,
+}: LessonCurriculumPreviewProps) {
+  return (
+    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+      <CurriculumPreviewHeader>
+        <p className="text-white font-bold">Exercises Preview</p>
+        <LudoButton
+          className="w-auto h-auto px-4 py-1 rounded-sm"
+          shadow={false}
+          variant="alt"
+          onClick={() => onArrangeClick()}
+          disabled={!canArrange}
+        >
+          <p className="text-sm">Arrange Exercises</p>
+        </LudoButton>
+      </CurriculumPreviewHeader>
+      <CurriculumPreviewContent className="gap-4">
+        {exercises.map((exercise) => (
+          <div key={exercise.id} className="flex items-center gap-2">
+            <ExercisePreviewItem
+              onClick={() => setSelectedExercise(exercise)}
+              title={exercise.title ?? ""}
+              isSelected={selectedExercise?.id === exercise.id}
+            />
+            <ExerciseTypePill type={exercise.exerciseType} />
+          </div>
+        ))}
+      </CurriculumPreviewContent>
+      <CurriculumPreviewFooter>
+        <p className="text-xs">{exercises.length} exercises</p>
+      </CurriculumPreviewFooter>
+    </div>
+  );
+}

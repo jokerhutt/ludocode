@@ -1,9 +1,11 @@
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ShadowLessButton } from "../ShadowLessButton";
 
 type EditorActionsProps = {
   isSubmitting: boolean;
   onSave: () => void;
   onCancel: () => void;
+  className?: string;
   canSubmit: boolean;
 };
 
@@ -11,10 +13,11 @@ export function EditorActions({
   isSubmitting,
   onCancel,
   canSubmit,
+  className,
   onSave,
 }: EditorActionsProps) {
   return (
-    <div className="flex gap-2">
+    <div className={cn("flex gap-2", className)}>
       <ShadowLessButton variant="white" onClick={onCancel}>
         Cancel
       </ShadowLessButton>

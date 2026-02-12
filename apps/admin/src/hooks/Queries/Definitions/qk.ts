@@ -4,6 +4,8 @@ export const qk = {
   subjects: () => ["subjects"] as const,
   courseSnapshot: (courseId: string) => ["snapshot", courseId] as const,
   curriculum: (courseId: string) => ["curriculum", courseId] as const,
+  curriculumLesson: (lessonId: string) =>
+    ["lessonCurriculum", lessonId] as const,
   user: (userId: string) => ["user", userId] as const,
   currentUser: () => ["currentUser"] as const,
   runtimes: () => ["runtimes"] as const,

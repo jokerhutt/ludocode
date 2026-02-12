@@ -16,7 +16,149 @@ export const curriculumDraftSchema = z.object({
 });
 
 export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
-export type CurriculumDraftModules = CurriculumDraft["modules"]
-export type CurriculumDraftModule = CurriculumDraftModules[number]
-export type CurriculumDraftLessons = CurriculumDraftModule["lessons"]
-export type CurriculumDraftLesson = CurriculumDraftLessons[number]
+export type CurriculumDraftModules = CurriculumDraft["modules"];
+export type CurriculumDraftModule = CurriculumDraftModules[number];
+export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
+export type CurriculumDraftLesson = CurriculumDraftLessons[number];
+
+export const CurriculumDraftOption = z.object({
+  content: z.string().min(1),
+  answerOrder: z.number().int().positive().nullable().optional(),
+  exerciseOptionId: z.string(),
+});
+
+const Base = z.object({
+  id: z.string(),
+  title: z.string().optional().nullable(),
+  subtitle: z.string().optional().nullable(),
+  media: z.string().optional().nullable(),
+  prompt: z.string().optional().nullable(),
+  correctOptions: z.array(CurriculumDraftOption),
+  distractors: z.array(CurriculumDraftOption),
+});
+
+function countGaps(s?: string | null) {
+  if (!s) return 0;
+  return (s.match(/___/g) ?? []).length;
+}
+
+export const Cloze = Base.extend({
+  exerciseType: z.literal("CLOZE"),
+}).superRefine((v, ctx) => {
+  const gaps = countGaps(v.prompt);
+  if (!v.title)
+    ctx.addIssue({
+      code: "custom",
+      path: ["title"],
+      message: "Title required",
+    });
+  if (!v.prompt)
+    ctx.addIssue({
+      code: "custom",
+      path: ["prompt"],
+      message: "Prompt required",
+    });
+  if (v.correctOptions.length !== gaps) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["correctOptions"],
+      message: `Must have exactly ${gaps} correct options to match the ${gaps} gap(s)`,
+    });
+  }
+});
+
+export const Analyze = Base.extend({
+  exerciseType: z.literal("ANALYZE"),
+}).superRefine((v, ctx) => {
+  if (!v.title)
+    ctx.addIssue({
+      code: "custom",
+      path: ["title"],
+      message: "Title required",
+    });
+  if (!v.prompt)
+    ctx.addIssue({
+      code: "custom",
+      path: ["prompt"],
+      message: "Prompt required",
+    });
+  if (v.correctOptions.length !== 1)
+    ctx.addIssue({
+      code: "custom",
+      path: ["correctOptions"],
+      message: "Exactly one correct answer",
+    });
+  if (v.distractors.length < 1)
+    ctx.addIssue({
+      code: "custom",
+      path: ["distractors"],
+      message: "At least one distractor",
+    });
+});
+
+export const Trivia = Base.extend({
+  exerciseType: z.literal("TRIVIA"),
+}).superRefine((v, ctx) => {
+  if (!v.title)
+    ctx.addIssue({
+      code: "custom",
+      path: ["title"],
+      message: "Title Required",
+    });
+  if (v.correctOptions.length !== 1)
+    ctx.addIssue({
+      code: "custom",
+      path: ["correctOptions"],
+      message: "Exactly one correct answer",
+    });
+  if (v.distractors.length < 1)
+    ctx.addIssue({
+      code: "custom",
+      path: ["distractors"],
+      message: "At least one distractor",
+    });
+});
+
+export const Info = Base.extend({
+  exerciseType: z.literal("INFO"),
+}).superRefine((v, ctx) => {
+  if (!v.title)
+    ctx.addIssue({
+      code: "custom",
+      path: ["title"],
+      message: "Title required",
+    });
+  if (v.correctOptions.length !== 0)
+    ctx.addIssue({
+      code: "custom",
+      path: ["correctOptions"],
+      message: "INFO must not have Correct Options",
+    });
+  if (v.distractors.length !== 0)
+    ctx.addIssue({
+      code: "custom",
+      path: ["distractors"],
+      message: "INFO must not have distractors",
+    });
+});
+
+export const CurriculumDraftExerciseSchema = z.discriminatedUnion(
+  "exerciseType",
+  [Cloze, Analyze, Trivia, Info],
+);
+
+export const CurriculumDraftLessonSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, "Lesson title required"),
+  exercises: z.array(CurriculumDraftExerciseSchema),
+});
+
+export type CurriculumDraftLessonForm = z.infer<
+  typeof CurriculumDraftLessonSchema
+>;
+
+export type CurriculumDraftLessonExercises =
+  CurriculumDraftLessonForm["exercises"];
+
+export type CurriculumDraftLessonExercise =
+  CurriculumDraftLessonExercises[number];

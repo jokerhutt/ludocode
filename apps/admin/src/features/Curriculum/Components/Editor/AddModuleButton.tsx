@@ -1,10 +1,14 @@
 import { Plus } from "lucide-react";
 
-type AddModuleButtonProps = {
+type AddCurriculumItemButtonProps = {
   onAdd: () => void;
+  text: string;
 };
 
-export function AddModuleButton({ onAdd }: AddModuleButtonProps) {
+export function AddCurriculumItemButton({
+  onAdd,
+  text,
+}: AddCurriculumItemButtonProps) {
   return (
     <div
       role="button"
@@ -14,7 +18,7 @@ export function AddModuleButton({ onAdd }: AddModuleButtonProps) {
                  flex items-center border-ludo-accent rounded-sm gap-4"
     >
       <Plus />
-      <p>Add Module</p>
+      <p>{text}</p>
     </div>
   );
 }
