@@ -13,6 +13,8 @@ import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPrevie
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
 import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
 import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
+import { useUpdateLanguage } from "@/features/Language/hooks/useUpdateLanguage";
+import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
 
 type LessonCurriculumPageProps = {};
 
@@ -39,17 +41,23 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
 
   const [isArranging, setIsArranging] = useState(false);
 
+  const submitMutation = useUpdateLesson({ lessonId });
+
   const form = useAppForm({
     defaultValues: {
-      id: lessonCurriculum.id,
-      title: lessonCurriculum.title,
       exercises: lessonCurriculum.exercises,
     } satisfies CurriculumDraftLessonForm,
     validators: {
       onSubmit: CurriculumDraftLessonSchema,
     },
     onSubmit: async ({ value }) => {
-      setIsArranging(false);
+      submitMutation.mutate(value, {
+        onSuccess: async (payload) => {
+          await submitMutation.mutateAsync(value);
+          form.reset(value);
+          setIsArranging(false);
+        },
+      });
     },
   });
 
@@ -112,41 +120,58 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
             const submit = canSubmit as boolean;
             const submitting = isSubmitting as boolean;
             return (
-              <div className="flex gap-4 min-h-0 w-full flex-1">
-                <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
-                  {!isArranging ? (
-                    <LessonCurriculumPreview
-                      canArrange={!isArranging}
-                      onArrangeClick={handleSaveOrEdit}
-                      setSelectedExercise={setSelectedExercise}
-                      exercises={form.state.values.exercises}
-                      selectedExercise={selectedExercise}
-                    />
-                  ) : (
-                    <LessonCurriculumEditor
-                      form={form}
-                      onSave={handleSaveOrEdit}
-                      onCancel={cancelEditing}
-                      canSubmit={submit}
-                      isSubmitting={submitting}
-                      selectedExerciseId={selectedExerciseId}
-                      onSelectExercise={setSelectedExerciseId}
-                    />
-                  )}
-                </aside>
+              <>
+                <form.Subscribe
+                  selector={(state) => state.errorMap.onSubmit}
+                  children={(onSubmitError) =>
+                    onSubmitError ? (
+                      <div className="bg-red-900/40 border border-red-500 rounded-lg p-3 text-red-300 text-sm">
+                        <p className="font-bold mb-1">Validation errors:</p>
+                        <pre className="whitespace-pre-wrap text-xs">
+                          {typeof onSubmitError === "string"
+                            ? onSubmitError
+                            : JSON.stringify(onSubmitError, null, 2)}
+                        </pre>
+                      </div>
+                    ) : null
+                  }
+                />
+                <div className="flex gap-4 min-h-0 w-full flex-1">
+                  <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
+                    {!isArranging ? (
+                      <LessonCurriculumPreview
+                        canArrange={!isArranging}
+                        onArrangeClick={handleSaveOrEdit}
+                        setSelectedExercise={setSelectedExercise}
+                        exercises={form.state.values.exercises}
+                        selectedExercise={selectedExercise}
+                      />
+                    ) : (
+                      <LessonCurriculumEditor
+                        form={form}
+                        onSave={handleSaveOrEdit}
+                        onCancel={cancelEditing}
+                        canSubmit={submit}
+                        isSubmitting={submitting}
+                        selectedExerciseId={selectedExerciseId}
+                        onSelectExercise={setSelectedExerciseId}
+                      />
+                    )}
+                  </aside>
 
-                <aside className="w-1/2 flex min-h-0 flex-col">
-                  {!isArranging && selectedExercise && (
-                    <ExerciseDetailPreview
-                      courseId={courseId}
-                      exercise={selectedExercise}
-                    />
-                  )}
-                  {isArranging && idx >= 0 && (
-                    <ExerciseDetailEditor form={form} exerciseIndex={idx} />
-                  )}
-                </aside>
-              </div>
+                  <aside className="w-1/2 flex min-h-0 flex-col">
+                    {!isArranging && selectedExercise && (
+                      <ExerciseDetailPreview
+                        courseId={courseId}
+                        exercise={selectedExercise}
+                      />
+                    )}
+                    {isArranging && idx >= 0 && (
+                      <ExerciseDetailEditor form={form} exerciseIndex={idx} />
+                    )}
+                  </aside>
+                </div>
+              </>
             );
           }}
         />

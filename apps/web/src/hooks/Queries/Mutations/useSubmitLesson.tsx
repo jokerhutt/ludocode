@@ -35,6 +35,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
       qc.setQueryData(qk.userCoins(newCoins.id), newCoins);
       qc.setQueryData(qk.streak(newCoins.id), newStreak);
       qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
+      qc.invalidateQueries({ queryKey: qk.courseProgress(courseId) });
       qc.invalidateQueries({ queryKey: qk.courseStats(newCourseProgress.id) });
 
       const { coins } = newCoins;

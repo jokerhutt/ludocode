@@ -18,7 +18,7 @@ export function CourseCard({ course, onClick, enrolled }: CourseCardProps) {
   const { data: stats } = useSuspenseQuery(qo.courseStats(course.id));
   const { completedLessons, totalLessons } = stats;
   const statsValue =
-    (completedLessons != 0 ? totalLessons / completedLessons : 0) * 100;
+    totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
   return (
     <LudoButton onClick={() => onClick()} className="w-full h-24">

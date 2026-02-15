@@ -18,8 +18,6 @@ import {
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
-    id: "",
-    title: "",
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {

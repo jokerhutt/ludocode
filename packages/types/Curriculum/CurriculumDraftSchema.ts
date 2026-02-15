@@ -148,8 +148,6 @@ export const CurriculumDraftExerciseSchema = z.discriminatedUnion(
 );
 
 export const CurriculumDraftLessonSchema = z.object({
-  id: z.string(),
-  title: z.string().min(1, "Lesson title required"),
   exercises: z.array(CurriculumDraftExerciseSchema),
 });
 

@@ -14,8 +14,6 @@ import { EditorExercise } from "./EditorExercise";
 
 export const SortableExerciseContainer = withForm({
   defaultValues: {
-    id: "",
-    title: "",
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {

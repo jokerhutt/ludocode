@@ -11,8 +11,6 @@ import { ExerciseTypePill } from "./ExerciseTypePill";
 
 export const EditorExercise = withForm({
   defaultValues: {
-    id: "",
-    title: "",
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {

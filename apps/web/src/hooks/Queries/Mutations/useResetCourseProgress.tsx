@@ -14,6 +14,7 @@ export function useResetCourseProgress() {
       qc.setQueryData(qk.courseProgress(payload.courseId), payload);
       qc.invalidateQueries({ queryKey: ["lesson"] });
       qc.invalidateQueries({ queryKey: ["module"] });
+      qc.invalidateQueries({queryKey: qk.courseStats(payload.courseId)})
       router.navigate(
         ludoNavigation.hub.module.toModule(payload.courseId, payload.moduleId, true)
       );
