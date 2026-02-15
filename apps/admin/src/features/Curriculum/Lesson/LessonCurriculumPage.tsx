@@ -13,7 +13,6 @@ import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPrevie
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
 import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
 import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
-import { useUpdateLanguage } from "@/features/Language/hooks/useUpdateLanguage";
 import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
 
 type LessonCurriculumPageProps = {};
@@ -39,7 +38,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
       .flatMap((m) => m.lessons)
       .find((l) => l.id === lessonId)?.title ?? "Untitled Lesson";
 
-  const [isArranging, setIsArranging] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const submitMutation = useUpdateLesson({ lessonId });
 
@@ -55,7 +54,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
         onSuccess: async (payload) => {
           await submitMutation.mutateAsync(value);
           form.reset(value);
-          setIsArranging(false);
+          setIsEditing(false);
         },
       });
     },
@@ -69,19 +68,19 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   );
 
   const handleSaveOrEdit = () => {
-    if (isArranging) {
+    if (isEditing) {
       form.handleSubmit();
       setSelectedExercise(null);
     } else {
       setSelectedExercise(null);
-      setIsArranging(true);
+      setIsEditing(true);
     }
   };
 
   const cancelEditing = () => {
     form.reset();
     setSelectedExercise(null);
-    setIsArranging(false);
+    setIsEditing(false);
   };
 
   return (
@@ -138,10 +137,10 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                 />
                 <div className="flex gap-4 min-h-0 w-full flex-1">
                   <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
-                    {!isArranging ? (
+                    {!isEditing ? (
                       <LessonCurriculumPreview
-                        canArrange={!isArranging}
-                        onArrangeClick={handleSaveOrEdit}
+                        canEdit={!isEditing}
+                        onEditClick={handleSaveOrEdit}
                         setSelectedExercise={setSelectedExercise}
                         exercises={form.state.values.exercises}
                         selectedExercise={selectedExercise}
@@ -160,13 +159,13 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                   </aside>
 
                   <aside className="w-1/2 flex min-h-0 flex-col">
-                    {!isArranging && selectedExercise && (
+                    {!isEditing && selectedExercise && (
                       <ExerciseDetailPreview
                         courseId={courseId}
                         exercise={selectedExercise}
                       />
                     )}
-                    {isArranging && idx >= 0 && (
+                    {isEditing && idx >= 0 && (
                       <ExerciseDetailEditor
                         form={form}
                         exerciseIndex={idx}

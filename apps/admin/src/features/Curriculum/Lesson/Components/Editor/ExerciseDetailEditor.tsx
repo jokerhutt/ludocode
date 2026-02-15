@@ -16,6 +16,7 @@ import {
   CurriculumPreviewFooter,
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
@@ -46,24 +47,26 @@ export const ExerciseDetailEditor = withForm({
     return (
       <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
         <CurriculumPreviewHeader>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-3">
-              <p className="text-white font-bold">
-                Exercise {exerciseIndex + 1}
-              </p>
-              <ExerciseTypePill type={exercise.exerciseType} />
-            </div>
-            {onDelete && (
-              <button
-                type="button"
-                onClick={onDelete}
-                className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10"
-                title="Delete exercise"
-              >
-                <Trash2 size={16} />
-              </button>
-            )}
+          <div className="flex items-center gap-3">
+            <p className="text-white font-bold">Exercise {exerciseIndex + 1}</p>
+            <ExerciseTypePill type={exercise.exerciseType} />
           </div>
+          {onDelete && (
+            <div className="shrink-0">
+              <DeleteDialog
+                onClick={() => onDelete()}
+                targetName={exercise.title ?? "This exercise"}
+              >
+                <button
+                  type="button"
+                  className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10"
+                  title="Delete exercise"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </DeleteDialog>
+            </div>
+          )}
         </CurriculumPreviewHeader>
 
         <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">

@@ -15,16 +15,16 @@ type LessonCurriculumPreviewProps = {
   exercises: CurriculumDraftLessonExercises;
   selectedExercise: CurriculumDraftLessonExercise | null;
   setSelectedExercise: (value: CurriculumDraftLessonExercise) => void;
-  onArrangeClick: () => void;
-  canArrange: boolean;
+  onEditClick: () => void;
+  canEdit: boolean;
 };
 
 export function LessonCurriculumPreview({
   exercises,
   selectedExercise,
   setSelectedExercise,
-  onArrangeClick,
-  canArrange,
+  onEditClick,
+  canEdit,
 }: LessonCurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
@@ -34,10 +34,10 @@ export function LessonCurriculumPreview({
           className="w-auto h-auto px-4 py-1 rounded-sm"
           shadow={false}
           variant="alt"
-          onClick={() => onArrangeClick()}
-          disabled={!canArrange}
+          onClick={() => onEditClick()}
+          disabled={!canEdit}
         >
-          <p className="text-sm">Arrange Exercises</p>
+          <p className="text-sm">Edit Exercises</p>
         </LudoButton>
       </CurriculumPreviewHeader>
       <CurriculumPreviewContent className="gap-4">
