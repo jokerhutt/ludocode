@@ -167,7 +167,14 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                       />
                     )}
                     {isArranging && idx >= 0 && (
-                      <ExerciseDetailEditor form={form} exerciseIndex={idx} />
+                      <ExerciseDetailEditor
+                        form={form}
+                        exerciseIndex={idx}
+                        onDelete={() => {
+                          form.removeFieldValue("exercises", idx);
+                          setSelectedExerciseId(null);
+                        }}
+                      />
                     )}
                   </aside>
                 </div>
