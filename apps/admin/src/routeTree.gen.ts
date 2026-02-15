@@ -18,10 +18,8 @@ import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppLanguageCreateRouteImport } from './routes/_app/language/create'
 import { Route as AppLanguageLanguageIdRouteImport } from './routes/_app/language/$languageId'
 import { Route as AppCoursesCourseIdRouteImport } from './routes/_app/courses/$courseId'
-import { Route as AppBuildCourseIdRouteImport } from './routes/_app/build/$courseId'
 import { Route as AppHubLanguagesRouteImport } from './routes/_app/_hub/languages'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
-import { Route as AppHubBuilderRouteImport } from './routes/_app/_hub/builder'
 import { Route as AppCurriculumCourseIdIndexRouteImport } from './routes/_app/curriculum/$courseId/index'
 import { Route as AppCurriculumCourseIdLessonLessonIdRouteImport } from './routes/_app/curriculum/$courseId/lesson/$lessonId'
 
@@ -68,11 +66,6 @@ const AppCoursesCourseIdRoute = AppCoursesCourseIdRouteImport.update({
   path: '/courses/$courseId',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppBuildCourseIdRoute = AppBuildCourseIdRouteImport.update({
-  id: '/build/$courseId',
-  path: '/build/$courseId',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppHubLanguagesRoute = AppHubLanguagesRouteImport.update({
   id: '/languages',
   path: '/languages',
@@ -81,11 +74,6 @@ const AppHubLanguagesRoute = AppHubLanguagesRouteImport.update({
 const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
-  getParentRoute: () => AppHubRouteRoute,
-} as any)
-const AppHubBuilderRoute = AppHubBuilderRouteImport.update({
-  id: '/builder',
-  path: '/builder',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
 const AppCurriculumCourseIdIndexRoute =
@@ -106,10 +94,8 @@ export interface FileRoutesByFullPath {
   '/language': typeof AppLanguageRouteRouteWithChildren
   '/': typeof AppIndexRoute
   '/auth': typeof AuthIndexRoute
-  '/builder': typeof AppHubBuilderRoute
   '/courses': typeof AppHubCoursesRoute
   '/languages': typeof AppHubLanguagesRoute
-  '/build/$courseId': typeof AppBuildCourseIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
@@ -121,10 +107,8 @@ export interface FileRoutesByTo {
   '/language': typeof AppLanguageRouteRouteWithChildren
   '/': typeof AppIndexRoute
   '/auth': typeof AuthIndexRoute
-  '/builder': typeof AppHubBuilderRoute
   '/courses': typeof AppHubCoursesRoute
   '/languages': typeof AppHubLanguagesRoute
-  '/build/$courseId': typeof AppBuildCourseIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
@@ -139,10 +123,8 @@ export interface FileRoutesById {
   '/_app/language': typeof AppLanguageRouteRouteWithChildren
   '/_app/': typeof AppIndexRoute
   '/auth/': typeof AuthIndexRoute
-  '/_app/_hub/builder': typeof AppHubBuilderRoute
   '/_app/_hub/courses': typeof AppHubCoursesRoute
   '/_app/_hub/languages': typeof AppHubLanguagesRoute
-  '/_app/build/$courseId': typeof AppBuildCourseIdRoute
   '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/_app/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/_app/language/create': typeof AppLanguageCreateRoute
@@ -156,10 +138,8 @@ export interface FileRouteTypes {
     | '/language'
     | '/'
     | '/auth'
-    | '/builder'
     | '/courses'
     | '/languages'
-    | '/build/$courseId'
     | '/courses/$courseId'
     | '/language/$languageId'
     | '/language/create'
@@ -171,10 +151,8 @@ export interface FileRouteTypes {
     | '/language'
     | '/'
     | '/auth'
-    | '/builder'
     | '/courses'
     | '/languages'
-    | '/build/$courseId'
     | '/courses/$courseId'
     | '/language/$languageId'
     | '/language/create'
@@ -188,10 +166,8 @@ export interface FileRouteTypes {
     | '/_app/language'
     | '/_app/'
     | '/auth/'
-    | '/_app/_hub/builder'
     | '/_app/_hub/courses'
     | '/_app/_hub/languages'
-    | '/_app/build/$courseId'
     | '/_app/courses/$courseId'
     | '/_app/language/$languageId'
     | '/_app/language/create'
@@ -269,13 +245,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCoursesCourseIdRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/build/$courseId': {
-      id: '/_app/build/$courseId'
-      path: '/build/$courseId'
-      fullPath: '/build/$courseId'
-      preLoaderRoute: typeof AppBuildCourseIdRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/_app/_hub/languages': {
       id: '/_app/_hub/languages'
       path: '/languages'
@@ -288,13 +257,6 @@ declare module '@tanstack/react-router' {
       path: '/courses'
       fullPath: '/courses'
       preLoaderRoute: typeof AppHubCoursesRouteImport
-      parentRoute: typeof AppHubRouteRoute
-    }
-    '/_app/_hub/builder': {
-      id: '/_app/_hub/builder'
-      path: '/builder'
-      fullPath: '/builder'
-      preLoaderRoute: typeof AppHubBuilderRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
     '/_app/curriculum/$courseId/': {
@@ -315,13 +277,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppHubRouteRouteChildren {
-  AppHubBuilderRoute: typeof AppHubBuilderRoute
   AppHubCoursesRoute: typeof AppHubCoursesRoute
   AppHubLanguagesRoute: typeof AppHubLanguagesRoute
 }
 
 const AppHubRouteRouteChildren: AppHubRouteRouteChildren = {
-  AppHubBuilderRoute: AppHubBuilderRoute,
   AppHubCoursesRoute: AppHubCoursesRoute,
   AppHubLanguagesRoute: AppHubLanguagesRoute,
 }
@@ -362,7 +322,6 @@ interface AppRouteRouteChildren {
   AppCurriculumRouteRoute: typeof AppCurriculumRouteRouteWithChildren
   AppLanguageRouteRoute: typeof AppLanguageRouteRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
-  AppBuildCourseIdRoute: typeof AppBuildCourseIdRoute
   AppCoursesCourseIdRoute: typeof AppCoursesCourseIdRoute
 }
 
@@ -371,7 +330,6 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppCurriculumRouteRoute: AppCurriculumRouteRouteWithChildren,
   AppLanguageRouteRoute: AppLanguageRouteRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
-  AppBuildCourseIdRoute: AppBuildCourseIdRoute,
   AppCoursesCourseIdRoute: AppCoursesCourseIdRoute,
 }
 

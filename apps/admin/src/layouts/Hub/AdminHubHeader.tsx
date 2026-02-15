@@ -1,5 +1,5 @@
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell";
-import { AdminNavigationIconGroup } from "../Group/AdminNavigationIconGroup";
+import { AdminNavigationIconGroup } from "./AdminNavigationIconGroup";
 
 export function AdminHubHeader() {
   return (

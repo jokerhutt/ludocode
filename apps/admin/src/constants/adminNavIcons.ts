@@ -11,11 +11,6 @@ export type NavIcon = {
 
 export const getAdminNavIcons = (): NavIcon[] => [
   {
-    name: "Builder",
-    path: "/builder",
-    onClick: () => router.navigate(adminNavigation.hub.builder.toBuilderHub()),
-  },
-  {
     name: "Courses",
     path: "/courses",
     onClick: () =>
