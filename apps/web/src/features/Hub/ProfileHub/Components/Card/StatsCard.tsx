@@ -19,7 +19,7 @@ export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
           {children}
           {score && <p className="text-lg">{score}</p>}
         </div>
-        <p className="text-lg">{text}</p>
+        <p className="lg:text-lg">{text}</p>
       </LudoButton>
     </div>
   );

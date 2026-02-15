@@ -31,7 +31,7 @@ export function ProfilePage({}: ProfilePageProps) {
     <div className="col-span-full px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <UserCard user={user} />
       <AccountActionsGroup userId={user.id} />
-      <div className="w-full h-full flex flex-col gap-5">
+      <div className="w-full h-full flex pb-6 flex-col gap-5">
         <ProfileCardContainer header="STATS">
           <UserStatsGroup />
         </ProfileCardContainer>

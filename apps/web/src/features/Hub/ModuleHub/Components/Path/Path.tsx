@@ -66,7 +66,7 @@ type ModulePathProps = { lessons: LudoLesson[] };
 export function ModulePath({ lessons }: ModulePathProps) {
   const currentLesson = lessons.find((l) => !l.isCompleted);
   return lessons.map((lesson: LudoLesson, i: number) => {
-    // const isModuleComplete = currentLesson === undefined;
+    const isModuleComplete = currentLesson === undefined;
     const isCurrent = currentLesson?.id === lesson.id;
 
     return (

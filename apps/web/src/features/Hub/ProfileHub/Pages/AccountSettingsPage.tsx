@@ -44,15 +44,15 @@ export function AccountSettingsPage() {
   };
 
   return (
-    <div className="col-span-full px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
+    <div className="col-span-full px-4  relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <div className="w-full flex gap-4 py-4">
-        <Avatar className="h-20 w-20" src={userPfpSrc} />
+        <Avatar className="h-20 w-22" src={userPfpSrc} />
         <div className="flex flex-col gap-1">
-          <h2 className=" text-2xl lg:text-2xl">{user.displayName}</h2>
-          <h3 className="lg:text-lg text-md">{joinTime}</h3>
+          <h2 className=" text-xl lg:text-2xl">{user.displayName}</h2>
+          <h3 className="lg:text-lg text-base">{joinTime}</h3>
         </div>
       </div>
-      <div className="w-full h-full flex flex-col gap-5">
+      <div className="w-full flex pb-6 flex-col gap-5">
         <LudoButton
           isLoading={editPreferencesMutation.isPending}
           onClick={() => handleSubmission()}

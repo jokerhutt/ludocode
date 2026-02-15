@@ -20,7 +20,7 @@ export function AICreditBalanceCard({
   ];
 
   return (
-    <LudoCard shadow={false} className="grid h-auto p-4 grid-cols-[2fr_1fr] grid-rows-4">
+    <LudoCard shadow={false} className="grid h-auto p-4 text-sm lg:text-md grid-cols-[2fr_1fr] grid-rows-4">
       {fields.map((f) => (
         <React.Fragment key={f.label}>
           <p className="text-left">{f.label}</p>
