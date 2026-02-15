@@ -1,5 +1,5 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import { ShadowLessButton } from "../ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 
 type EditorActionsProps = {
   isSubmitting: boolean;

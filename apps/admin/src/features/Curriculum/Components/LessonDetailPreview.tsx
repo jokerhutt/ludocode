@@ -4,7 +4,7 @@ import {
   CurriculumPreviewHeader,
 } from "./CurriculumList";
 import type { CurriculumDraftLesson } from "@ludocode/types";
-import { ShadowLessButton } from "./ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
 

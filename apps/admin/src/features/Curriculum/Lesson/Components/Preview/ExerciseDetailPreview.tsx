@@ -4,7 +4,7 @@ import {
   CurriculumPreviewFooter,
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
-import { ShadowLessButton } from "@/features/Curriculum/Components/ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { ExerciseLabel } from "./Exercise/ExerciseLabel";
 import { ExerciseInstruction } from "./Exercise/ExerciseInstruction";
 import { ExerciseMedia } from "./Exercise/ExerciseMedia";

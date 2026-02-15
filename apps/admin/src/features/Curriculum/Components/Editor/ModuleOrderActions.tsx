@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { ShadowLessButton } from "../ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 
 type ModuleOrderActionsProps = {
   moduleIndex: number;

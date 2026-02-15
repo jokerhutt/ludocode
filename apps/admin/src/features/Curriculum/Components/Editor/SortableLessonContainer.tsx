@@ -11,7 +11,7 @@ import {
 } from "@dnd-kit/sortable";
 import { withForm } from "../../types";
 import { EditorLesson } from "./EditorLesson";
-import { ShadowLessButton } from "../ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { createNewLessonTemplate } from "./templates";
 
 export const SortableLessonContainer = withForm({

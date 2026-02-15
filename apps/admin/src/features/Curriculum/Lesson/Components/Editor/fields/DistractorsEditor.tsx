@@ -1,5 +1,5 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { ShadowLessButton } from "@/features/Curriculum/Components/ShadowLessButton";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { X } from "lucide-react";
 
 type DistractorsEditorProps = {
