@@ -1,4 +1,5 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import React from "react";
 
 type AICreditBalanceCardProps = {
@@ -19,7 +20,7 @@ export function AICreditBalanceCard({
   ];
 
   return (
-    <LudoButton shadow={false} className="grid h-auto p-4 grid-cols-[2fr_1fr] grid-rows-4">
+    <LudoCard shadow={false} className="grid h-auto p-4 grid-cols-[2fr_1fr] grid-rows-4">
       {fields.map((f) => (
         <React.Fragment key={f.label}>
           <p className="text-left">{f.label}</p>
@@ -33,6 +34,6 @@ export function AICreditBalanceCard({
           Get Ludo Pro
         </LudoButton>
       </div>
-    </LudoButton>
+    </LudoCard>
   );
 }
