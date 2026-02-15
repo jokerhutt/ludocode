@@ -1,8 +1,11 @@
-import type { CurriculumDraftLesson, CurriculumDraftModules } from "@ludocode/types";
+import type {
+  CurriculumDraftLesson,
+  CurriculumDraftModules,
+} from "@ludocode/types";
 import { withForm } from "../../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Grip } from "lucide-react";
+import { Grip, Trash2 } from "lucide-react";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 
 export const EditorLesson = withForm({
@@ -13,8 +16,15 @@ export const EditorLesson = withForm({
     moduleIndex: 0,
     lessonIndex: 0,
     lesson: {} as CurriculumDraftLesson,
+    onDelete: undefined as undefined | (() => void),
   },
-  render: function Render({ form, moduleIndex, lessonIndex, lesson }) {
+  render: function Render({
+    form,
+    moduleIndex,
+    lessonIndex,
+    lesson,
+    onDelete,
+  }) {
     const lessonId = lesson.id;
 
     const {
@@ -54,6 +64,16 @@ export const EditorLesson = withForm({
             />
           )}
         />
+        {onDelete && (
+          <button
+            type="button"
+            onClick={onDelete}
+            className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10 shrink-0"
+            title="Delete lesson"
+          >
+            <Trash2 size={14} />
+          </button>
+        )}
       </div>
     );
   },

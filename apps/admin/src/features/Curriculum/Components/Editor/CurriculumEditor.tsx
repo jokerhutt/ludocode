@@ -43,6 +43,7 @@ export const CurriculumEditor = withForm({
                       onMoveDown={() =>
                         modulesField.swapValues(moduleIndex, moduleIndex + 1)
                       }
+                      onDelete={() => modulesField.removeValue(moduleIndex)}
                     />
 
                     <AddCurriculumItemButton

@@ -1,5 +1,6 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import type { CurriculumDraft } from "@ludocode/types";
+import { Trash2 } from "lucide-react";
 import { withForm } from "../../types";
 
 import { ModuleOrderActions } from "./ModuleOrderActions";
@@ -14,8 +15,15 @@ export const EditorModule = withForm({
     onSave: () => {},
     onMoveUp: () => {},
     onMoveDown: () => {},
+    onDelete: undefined as undefined | (() => void),
   },
-  render: function Render({ form, moduleIndex, onMoveUp, onMoveDown }) {
+  render: function Render({
+    form,
+    moduleIndex,
+    onMoveUp,
+    onMoveDown,
+    onDelete,
+  }) {
     const modules = form.state.values.modules;
 
     return (
@@ -37,6 +45,16 @@ export const EditorModule = withForm({
                 />
               )}
             />
+            {onDelete && (
+              <button
+                type="button"
+                onClick={onDelete}
+                className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10 shrink-0"
+                title="Delete module"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
           </div>
 
           <SortableLessonContainer form={form} moduleIndex={moduleIndex} />
