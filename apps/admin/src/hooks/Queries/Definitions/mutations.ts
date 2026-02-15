@@ -42,7 +42,7 @@ export const mutations = {
       mutationKey: ["updateLesson"],
       mutationFn: (variables) =>
         ludoPut<CurriculumDraftLessonForm, CurriculumDraftLessonForm>(
-          adminApi.snapshots.byLessonCurriculum(lessonId),
+          adminApi.lessons.byLessonCurriculum(lessonId),
           variables,
           true,
         ),

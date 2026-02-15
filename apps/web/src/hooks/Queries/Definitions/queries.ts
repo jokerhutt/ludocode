@@ -152,7 +152,7 @@ export const qo = {
     queryOptions<LudoExercise[]>({
       queryKey: qk.exercises(lessonId),
       queryFn: () =>
-        ludoGet<LudoExercise[]>(api.catalog.lessonExercises(lessonId)),
+        ludoGet<LudoExercise[]>(api.lessons.lessonExercises(lessonId)),
       staleTime: 60_000,
     }),
 

@@ -54,7 +54,7 @@ export const qo = {
       queryKey: qk.curriculumLesson(lessonId),
       queryFn: () =>
         ludoGet<CurriculumDraftLessonForm>(
-          adminApi.snapshots.byLessonCurriculum(lessonId),
+          adminApi.lessons.byLessonCurriculum(lessonId),
           true,
         ),
       staleTime: 60_000 * 10,

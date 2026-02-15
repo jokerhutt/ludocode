@@ -9,7 +9,7 @@ import { makeIdBatcher } from "@ludocode/api/batcherFactory.ts";
 
 export const lessonBatcher = makeIdBatcher<LudoLesson>({
   name: "lesson",
-  getUrlFn: api.catalog.lessons,
+  getUrlFn: api.lessons.lessons,
   idsKey: "lessonIds",
   scheduler: windowScheduler(10),
   createFn: create,

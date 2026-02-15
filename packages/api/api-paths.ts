@@ -39,9 +39,6 @@ export function createApiPaths({
       courseTree: (courseId: string) =>
         `${BASE}/catalog/courses/${courseId}/tree`,
       modules: (moduleIds: string) => `${BASE}/catalog/modules?${moduleIds}`,
-      lessons: (lessonIds: string) => `${BASE}/catalog/lessons?${lessonIds}`,
-      lessonExercises: (lessonId: string) =>
-        `${BASE}/catalog/lessons/${lessonId}/exercises`,
     },
 
     credits: {
@@ -58,6 +55,14 @@ export function createApiPaths({
       byId: (languageId: number) => `${BASE}/languages/${languageId}`,
       byAdminId: (languageId: number) =>
         `${ADMIN_BASE}/languages/${languageId}`,
+    },
+
+    lessons: {
+      base: `${BASE}/lessons`,
+      adminBase: `${ADMIN_BASE}/lessons`,
+      lessons: (lessonIds: string) => `${BASE}/lessons?${lessonIds}`,
+      lessonExercises: (lessonId: string) => `${BASE}/lessons/${lessonId}/exercises`,
+      byLessonCurriculum: (lessonId: string) => `${ADMIN_BASE}/lessons/${lessonId}`
     },
 
     progress: {
@@ -101,8 +106,6 @@ export function createApiPaths({
       course: `${ADMIN_BASE}/snapshots/course`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
-      byLessonCurriculum: (lessonId: string) =>
-        `${ADMIN_BASE}/snapshots/curriculum/lesson/${lessonId}`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 

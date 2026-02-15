@@ -50,7 +50,7 @@ export function useAdminFirebaseAuthEntry() {
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
 
-      router.navigate(adminNavigation.builder.toBuilderHub());
+      router.navigate(adminNavigation.hub.courses.toCoursesHub());
     } catch (err: any) {
       console.log(err);
     }

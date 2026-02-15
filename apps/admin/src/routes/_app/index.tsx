@@ -3,6 +3,6 @@ import { adminNavigation } from "@/constants/adminNavigation";
 
 export const Route = createFileRoute("/_app/")({
   beforeLoad: async () => {
-    throw redirect(adminNavigation.builder.toBuilderHub());
+    throw redirect(adminNavigation.hub.courses.toCoursesHub());
   },
 });

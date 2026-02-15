@@ -17,7 +17,7 @@ export function CurrentCourseCard({
 }: CurrentCourseCardProps) {
   const { completedLessons, totalLessons } = courseStats;
   const value =
-    (completedLessons != 0 ? totalLessons / completedLessons : 0) * 100;
+    totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
   return (
     <div className="w-full flex">
