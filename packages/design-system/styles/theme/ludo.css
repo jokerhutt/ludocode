@@ -4,6 +4,10 @@
   --color-ludo-code-surface: #2f3553;
   --color-ludo-accent-muted: #9eb2ff;
   --color-ludoAltText: #d1d5dc;
+
+  --color-ludo-text-dim: #ffffff66;
+  --color-ludo-text-disabled: #ffffff40;
+
   --color-ludo-accent: #5c6fd6;
   --color-ludo-danger: #e57373;
   --color-ludo-progress: #6a7cff;

@@ -1,7 +1,6 @@
 import { cn } from "@ludocode/design-system/cn-utils";
 import type { SubscriptionPlan } from "@ludocode/types";
 
-
 const tierStyles: Record<
   SubscriptionPlan,
   { bg: string; text: string; glow: string; label: string }
@@ -19,9 +18,9 @@ const tierStyles: Record<
     label: "CORE",
   },
   PRO: {
-    bg: "bg-gradient-to-r from-amber-500 to-yellow-400",
-    text: "text-black",
-    glow: "shadow-[0_0_8px_rgba(245,158,11,0.4)]",
+    bg: "bg-gradient-to-r from-purple-500 to-fuchsia-400",
+    text: "text-white",
+    glow: "shadow-[0_0_8px_rgba(131,105,214,0.4)]",
     label: "PRO",
   },
 };

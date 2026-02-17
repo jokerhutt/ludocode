@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export function SubscriptionLayout() {
   return (
-    <MainGridWrapper gridRows={"ONE"}>
+    <MainGridWrapper className="py-12" gridRows={"ONE"}>
       <Suspense fallback={<div className="col-span-full" />}>
         <Outlet />
       </Suspense>
