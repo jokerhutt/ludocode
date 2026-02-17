@@ -104,7 +104,7 @@ export const qo = {
   subscription: () =>
     queryOptions<UserSubscription>({
       queryKey: qk.subscription(),
-      queryFn: () => ludoGet<UserSubscription>(api.subjects.base, true),
+      queryFn: () => ludoGet<UserSubscription>(api.subscriptions.base, true),
       staleTime: 60_000,
     }),
 

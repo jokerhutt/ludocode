@@ -14,9 +14,12 @@ import { Route as DemoIndexRouteImport } from './routes/demo/index'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AppSubscriptionRouteRouteImport } from './routes/_app/subscription/route'
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
+import { Route as AppSubscriptionSuccessRouteImport } from './routes/_app/subscription/success'
+import { Route as AppSubscriptionComparisonRouteImport } from './routes/_app/subscription/comparison'
 import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
@@ -53,6 +56,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSubscriptionRouteRoute = AppSubscriptionRouteRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppHubRouteRoute = AppHubRouteRouteImport.update({
   id: '/_hub',
   getParentRoute: () => AppRouteRoute,
@@ -66,6 +74,17 @@ const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
   path: '/sync/$lessonId',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppSubscriptionSuccessRoute = AppSubscriptionSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => AppSubscriptionRouteRoute,
+} as any)
+const AppSubscriptionComparisonRoute =
+  AppSubscriptionComparisonRouteImport.update({
+    id: '/comparison',
+    path: '/comparison',
+    getParentRoute: () => AppSubscriptionRouteRoute,
+  } as any)
 const AppOnboardingStageRoute = AppOnboardingStageRouteImport.update({
   id: '/onboarding/$stage',
   path: '/onboarding/$stage',
@@ -130,6 +149,7 @@ const AppLessonCourseIdModuleIdLessonIdIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/subscription': typeof AppSubscriptionRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
@@ -137,6 +157,8 @@ export interface FileRoutesByFullPath {
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/subscription/comparison': typeof AppSubscriptionComparisonRoute
+  '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
@@ -148,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRoutesByTo {
+  '/subscription': typeof AppSubscriptionRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
@@ -155,6 +178,8 @@ export interface FileRoutesByTo {
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/subscription/comparison': typeof AppSubscriptionComparisonRoute
+  '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
@@ -168,6 +193,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren
   '/_app/_desktopguard': typeof AppDesktopguardRouteRouteWithChildren
   '/_app/_hub': typeof AppHubRouteRouteWithChildren
+  '/_app/subscription': typeof AppSubscriptionRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/_app/': typeof AppIndexRoute
@@ -175,6 +201,8 @@ export interface FileRoutesById {
   '/_app/_hub/courses': typeof AppHubCoursesRoute
   '/_app/_hub/projects': typeof AppHubProjectsRoute
   '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/_app/subscription/comparison': typeof AppSubscriptionComparisonRoute
+  '/_app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/_app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
@@ -188,6 +216,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/subscription'
     | '/auth/login'
     | '/auth/register'
     | '/'
@@ -195,6 +224,8 @@ export interface FileRouteTypes {
     | '/courses'
     | '/projects'
     | '/onboarding/$stage'
+    | '/subscription/comparison'
+    | '/subscription/success'
     | '/sync/$lessonId'
     | '/project/$projectId'
     | '/profile/$userId'
@@ -206,6 +237,7 @@ export interface FileRouteTypes {
     | '/lesson/$courseId/$moduleId/$lessonId/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/subscription'
     | '/auth/login'
     | '/auth/register'
     | '/'
@@ -213,6 +245,8 @@ export interface FileRouteTypes {
     | '/courses'
     | '/projects'
     | '/onboarding/$stage'
+    | '/subscription/comparison'
+    | '/subscription/success'
     | '/sync/$lessonId'
     | '/project/$projectId'
     | '/learn/$courseId/$moduleId'
@@ -225,6 +259,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/_app/_desktopguard'
     | '/_app/_hub'
+    | '/_app/subscription'
     | '/auth/login'
     | '/auth/register'
     | '/_app/'
@@ -232,6 +267,8 @@ export interface FileRouteTypes {
     | '/_app/_hub/courses'
     | '/_app/_hub/projects'
     | '/_app/onboarding/$stage'
+    | '/_app/subscription/comparison'
+    | '/_app/subscription/success'
     | '/_app/sync/$lessonId'
     | '/_app/_desktopguard/project/$projectId'
     | '/_app/_hub/profile/$userId'
@@ -287,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/subscription': {
+      id: '/_app/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof AppSubscriptionRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/_app/_hub': {
       id: '/_app/_hub'
       path: ''
@@ -307,6 +351,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/sync/$lessonId'
       preLoaderRoute: typeof AppSyncLessonIdRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/_app/subscription/success': {
+      id: '/_app/subscription/success'
+      path: '/success'
+      fullPath: '/subscription/success'
+      preLoaderRoute: typeof AppSubscriptionSuccessRouteImport
+      parentRoute: typeof AppSubscriptionRouteRoute
+    }
+    '/_app/subscription/comparison': {
+      id: '/_app/subscription/comparison'
+      path: '/comparison'
+      fullPath: '/subscription/comparison'
+      preLoaderRoute: typeof AppSubscriptionComparisonRouteImport
+      parentRoute: typeof AppSubscriptionRouteRoute
     }
     '/_app/onboarding/$stage': {
       id: '/_app/onboarding/$stage'
@@ -430,6 +488,19 @@ const AppHubRouteRouteWithChildren = AppHubRouteRoute._addFileChildren(
   AppHubRouteRouteChildren,
 )
 
+interface AppSubscriptionRouteRouteChildren {
+  AppSubscriptionComparisonRoute: typeof AppSubscriptionComparisonRoute
+  AppSubscriptionSuccessRoute: typeof AppSubscriptionSuccessRoute
+}
+
+const AppSubscriptionRouteRouteChildren: AppSubscriptionRouteRouteChildren = {
+  AppSubscriptionComparisonRoute: AppSubscriptionComparisonRoute,
+  AppSubscriptionSuccessRoute: AppSubscriptionSuccessRoute,
+}
+
+const AppSubscriptionRouteRouteWithChildren =
+  AppSubscriptionRouteRoute._addFileChildren(AppSubscriptionRouteRouteChildren)
+
 interface AppLessonCourseIdModuleIdLessonIdRouteRouteChildren {
   AppLessonCourseIdModuleIdLessonIdIndexRoute: typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
@@ -448,6 +519,7 @@ const AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren =
 interface AppRouteRouteChildren {
   AppDesktopguardRouteRoute: typeof AppDesktopguardRouteRouteWithChildren
   AppHubRouteRoute: typeof AppHubRouteRouteWithChildren
+  AppSubscriptionRouteRoute: typeof AppSubscriptionRouteRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
   AppOnboardingStageRoute: typeof AppOnboardingStageRoute
   AppSyncLessonIdRoute: typeof AppSyncLessonIdRoute
@@ -458,6 +530,7 @@ interface AppRouteRouteChildren {
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppDesktopguardRouteRoute: AppDesktopguardRouteRouteWithChildren,
   AppHubRouteRoute: AppHubRouteRouteWithChildren,
+  AppSubscriptionRouteRoute: AppSubscriptionRouteRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
   AppOnboardingStageRoute: AppOnboardingStageRoute,
   AppSyncLessonIdRoute: AppSyncLessonIdRoute,

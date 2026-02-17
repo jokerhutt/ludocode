@@ -1,9 +1,9 @@
 import { cn } from "@ludocode/design-system/cn-utils";
+import type { SubscriptionPlan } from "@ludocode/types";
 
-type SubscriptionTier = "FREE" | "CORE" | "PRO";
 
 const tierStyles: Record<
-  SubscriptionTier,
+  SubscriptionPlan,
   { bg: string; text: string; glow: string; label: string }
 > = {
   FREE: {
@@ -27,7 +27,7 @@ const tierStyles: Record<
 };
 
 type SubscriptionBadgeProps = {
-  tier: SubscriptionTier;
+  tier: SubscriptionPlan;
   className?: string;
 };
 

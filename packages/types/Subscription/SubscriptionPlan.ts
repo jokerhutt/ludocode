@@ -1,5 +1,1 @@
-export enum SubscriptionPlan {
-  FREE = "FREE",
-  SUPPORTER = "SUPPORTER",
-  PATRON = "PATRON"
-}
+export type SubscriptionPlan = "FREE" | "CORE" | "PRO"

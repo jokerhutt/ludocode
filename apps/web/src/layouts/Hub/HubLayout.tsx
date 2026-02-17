@@ -25,18 +25,19 @@ export function HubLayout() {
     qo.courseProgress(currentCourseId),
   );
 
+
   const { coins } = coinPacket;
 
   return (
     <CurrentCourseContext.Provider value={courseProgress}>
       <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
-        <MainGridWrapper gridRows={"SITE"}>
-          <HubHeader title={title} />
-          <Suspense fallback={<div className="col-span-full" />}>
-            <Outlet />
-          </Suspense>
-          <NavigationFooter />
-        </MainGridWrapper>
+          <MainGridWrapper gridRows={"SITE"}>
+            <HubHeader title={title} />
+            <Suspense fallback={<div className="col-span-full" />}>
+              <Outlet />
+            </Suspense>
+            <NavigationFooter />
+          </MainGridWrapper>
       </StatsContext.Provider>
     </CurrentCourseContext.Provider>
   );
