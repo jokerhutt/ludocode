@@ -14,7 +14,7 @@ export function LudoPopover({ children, trigger }: BasePopoverProps) {
       <PopoverContent
         align={"center"}
         side="bottom"
-        className="rounded-xl relative mx-10 flex justify-between pt-3 min-w-80 flex-row mt-2 bg-ludo-surface border-2 border-ludo-accent"
+        className="rounded-xl relative mx-10 flex justify-between pt-3 min-w-80 flex-row mt-2 bg-ludo-background border-2 border-ludo-accent"
       >
         <PopoverArrow
           className="fill-ludo-surface stroke-ludo-accent"
