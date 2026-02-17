@@ -116,6 +116,10 @@ export function createApiPaths({
       byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`,
     },
 
+    subscriptions: {
+      base: `${BASE}/subscription`
+    },
+
     preferences: {
       base: `${BASE}/preferences`,
     },

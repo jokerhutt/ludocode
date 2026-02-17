@@ -24,7 +24,11 @@ import {
 } from "@ludocode/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
 import { api } from "@/constants/api/api";
-import { type CourseStats, type LanguageMetadata } from "@ludocode/types";
+import {
+  type CourseStats,
+  type LanguageMetadata,
+  type UserSubscription,
+} from "@ludocode/types";
 
 export const qo = {
   user: (userId: string) =>
@@ -45,7 +49,7 @@ export const qo = {
     queryOptions<CourseStats>({
       queryKey: qk.courseStats(courseId),
       queryFn: () => courseStatsBatcher.fetch(courseId),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
   preferences: () =>
@@ -73,7 +77,7 @@ export const qo = {
     queryOptions<LanguageMetadata[]>({
       queryKey: qk.languages(),
       queryFn: () => ludoGet<LanguageMetadata[]>(api.languages.base, true),
-      staleTime: 60_00
+      staleTime: 60_00,
     }),
 
   credits: () =>
@@ -94,6 +98,13 @@ export const qo = {
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
       queryFn: () => ludoGet<UserStreak>(api.progress.streak.base, true),
+      staleTime: 60_000,
+    }),
+
+  subscription: () =>
+    queryOptions<UserSubscription>({
+      queryKey: qk.subscription(),
+      queryFn: () => ludoGet<UserSubscription>(api.subjects.base, true),
       staleTime: 60_000,
     }),
 
