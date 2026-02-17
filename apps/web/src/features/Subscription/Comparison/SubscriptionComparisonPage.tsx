@@ -1,11 +1,35 @@
+import { XIcon } from "lucide-react";
 import { SubscriptionOverviewCard } from "./Components/SubscriptionOverviewCard";
-import { subscriptionTiers } from "./content";
+import { router } from "@/main";
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 
 export function SubscriptionComparisonPage() {
+  const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
+  const { data: currentCourseProgress } = useSuspenseQuery(
+    qo.courseProgress(currentCourseId),
+  );
+
+  const {data: plans} = useSuspenseQuery(qo.plans())
+
   return (
     <div className="w-full h-full grid grid-cols-12">
       <div className="col-span-1 h-full" />
-      <div className="flex flex-col items-center col-span-10 gap-8">
+      <div className="flex flex-col items-center col-span-10 relative gap-8">
+        <div className="absolute hover:cursor-pointer top-0 right-0">
+          <XIcon
+            onClick={() =>
+              router.navigate(
+                ludoNavigation.hub.module.toModule(
+                  currentCourseProgress.courseId,
+                  currentCourseProgress.moduleId,
+                ),
+              )
+            }
+            className="text-ludoAltText"
+          />
+        </div>
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl lg:text-3xl font-bold text-white">
             Choose Your Plan
@@ -15,8 +39,8 @@ export function SubscriptionComparisonPage() {
           </p>
         </div>
         <div className="flex flex-col lg:flex-row w-full justify-center gap-5 items-stretch max-w-4xl">
-          {subscriptionTiers.map((plan) => (
-            <SubscriptionOverviewCard plan={plan}/>
+          {plans.map((plan) => (
+            <SubscriptionOverviewCard plan={plan} />
           ))}
         </div>
       </div>

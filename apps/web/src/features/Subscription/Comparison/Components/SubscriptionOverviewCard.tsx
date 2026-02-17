@@ -1,25 +1,25 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import {
-  subscriptionFeatures,
-  type TierConfig,
-} from "../content";
+import { planStyles, type PlanStyleConfig } from "../content";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { FeatureRow } from "./FeatureRow";
-import {
-  LudoButton,
-} from "@ludocode/design-system/primitives/ludo-button";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import type { PlanOverview } from "@ludocode/types";
 
-type SubscriptionOverviewCardProps = { plan: TierConfig };
+type SubscriptionOverviewCardProps = { plan: PlanOverview };
 
-export function SubscriptionOverviewCard({ plan }: SubscriptionOverviewCardProps) {
+export function SubscriptionOverviewCard({
+  plan,
+}: SubscriptionOverviewCardProps) {
+  const styles = planStyles[plan.tier];
+
   return (
     <LudoCard
       key={plan.tier}
       shadow
       className={cn(
         "flex-1 flex flex-col gap-5 p-6 rounded-lg relative",
-        plan.borderAccent,
-        plan.glow,
+        styles.borderAccent,
+        styles.glow,
       )}
     >
       {plan.recommended && (
@@ -30,31 +30,34 @@ export function SubscriptionOverviewCard({ plan }: SubscriptionOverviewCardProps
         </div>
       )}
 
-      <SubscriptionTierHeader config={plan} />
+      <SubscriptionTierHeader plan={plan} style={styles} />
 
       <div className="h-px bg-ludo-border" />
 
       <div className="flex flex-col flex-1">
-        {subscriptionFeatures.map((f) => (
-          <FeatureRow
-            key={f.label}
-            included={f[plan.featureKey]}
-            label={f.label}
-          />
+        {plan.features.map((f) => (
+          <FeatureRow key={f.title} included={f.enabled} label={f.title} />
         ))}
       </div>
 
       <div className="h-px bg-ludo-border" />
 
-      <SubscriptionLimitsOverview config={plan} />
+      <SubscriptionLimitsOverview plan={plan} style={styles} />
 
-      <SubscriptionOverviewButton config={plan} />
+      <SubscriptionOverviewButton plan={plan} style={styles} />
     </LudoCard>
   );
 }
 
-function SubscriptionTierHeader({ config }: { config: TierConfig }) {
-  const { badge, badgeBg, badgeText, price, period, description } = config;
+function SubscriptionTierHeader({
+  plan,
+  style,
+}: {
+  plan: PlanOverview;
+  style: PlanStyleConfig;
+}) {
+  const { badge, badgeBg, badgeText } = style;
+  const { price, period, description } = plan;
 
   return (
     <div className="flex flex-col gap-3">
@@ -78,8 +81,13 @@ function SubscriptionTierHeader({ config }: { config: TierConfig }) {
   );
 }
 
-function SubscriptionLimitsOverview({ config }: { config: TierConfig }) {
-  const { limits } = config;
+function SubscriptionLimitsOverview({
+  plan,
+}: {
+  plan: PlanOverview;
+  style: PlanStyleConfig;
+}) {
+  const { limits } = plan;
   return (
     <div className="flex flex-col gap-2">
       <span className="text-[11px] font-semibold tracking-wider uppercase text-ludo-accent-muted">
@@ -87,10 +95,10 @@ function SubscriptionLimitsOverview({ config }: { config: TierConfig }) {
       </span>
       <div className="flex flex-col gap-1.5">
         {limits.map((limit) => (
-          <div key={limit.label} className="flex items-center justify-between">
-            <span className="text-xs text-ludo-text-dim">{limit.label}</span>
+          <div key={limit.title} className="flex items-center justify-between">
+            <span className="text-xs text-ludo-text-dim">{limit.title}</span>
             <span className="text-xs font-medium text-ludoAltText">
-              {limit.value}
+              {limit.limit}
             </span>
           </div>
         ))}
@@ -99,8 +107,15 @@ function SubscriptionLimitsOverview({ config }: { config: TierConfig }) {
   );
 }
 
-function SubscriptionOverviewButton({ config }: { config: TierConfig }) {
-  const { buttonLabel, buttonVariant, tier } = config;
+function SubscriptionOverviewButton({
+  plan,
+  style,
+}: {
+  plan: PlanOverview;
+  style: PlanStyleConfig;
+}) {
+  const { tier } = plan;
+  const { buttonVariant } = style;
 
   return (
     <LudoButton
@@ -112,7 +127,7 @@ function SubscriptionOverviewButton({ config }: { config: TierConfig }) {
           "bg-linear-to-r! from-purple-500! to-fuchsia-400! text-white! shadow-[0_7px_0_#6b21a8]!",
       )}
     >
-      <span className="text-sm font-semibold">{buttonLabel}</span>
+      <span className="text-sm font-semibold">{tier}</span>
     </LudoButton>
   );
 }

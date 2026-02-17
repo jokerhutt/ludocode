@@ -117,7 +117,8 @@ export function createApiPaths({
     },
 
     subscriptions: {
-      base: `${BASE}/subscription`
+      base: `${BASE}/subscription`,
+      plans: `${BASE}/subscription/plans`
     },
 
     preferences: {

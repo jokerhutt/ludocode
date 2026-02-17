@@ -9,6 +9,7 @@ export const qk = {
   streak: (userId: string) => ["streak", userId] as const,
   streakPastWeek: () => ["pastWeekStreak"] as const,
   subscription: () => ["subscription"] as const,
+  plans: () => ["plans"] as const,
   languages: () => ["languages"] as const,
   lesson: (lessonId: string) => ["lesson", lessonId] as const,
   exercises: (lessonId: string) => ["exercises", lessonId] as const,

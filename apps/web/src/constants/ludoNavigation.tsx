@@ -18,6 +18,9 @@ import { Route as lessonPageRoute } from "@/routes/_app/lesson/$courseId/$module
 // DESKTOP-GUARD GROUP
 import { Route as projectPageRoute } from "@/routes/_app/_desktopguard/project/$projectId.tsx";
 
+// SUBSCRIPTION
+import { Route as subscriptionComparisonRoute } from "@/routes/_app/subscription/comparison";
+
 // SYNC + COMPLETION
 import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
 import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$moduleId/$lessonId.tsx";
@@ -53,8 +56,8 @@ export const ludoNavigation = {
       }),
       toSettings: (userId: string) => ({
         to: accountSettingsRoute.to,
-        params: {userId}
-      })
+        params: { userId },
+      }),
     },
   },
 
@@ -95,6 +98,12 @@ export const ludoNavigation = {
       params: { stage: "name" as StageKey },
       replace: true,
     }),
+  },
+
+  subscription: {
+    toSubscriptionComparisonPage: () => ({
+      to: subscriptionComparisonRoute.to,
+    })
   },
 
   completion: {

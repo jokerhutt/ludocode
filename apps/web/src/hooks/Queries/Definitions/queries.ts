@@ -27,6 +27,7 @@ import { api } from "@/constants/api/api";
 import {
   type CourseStats,
   type LanguageMetadata,
+  type PlanOverview,
   type UserSubscription,
 } from "@ludocode/types";
 
@@ -105,6 +106,13 @@ export const qo = {
     queryOptions<UserSubscription>({
       queryKey: qk.subscription(),
       queryFn: () => ludoGet<UserSubscription>(api.subscriptions.base, true),
+      staleTime: 60_000,
+    }),
+
+  plans: () =>
+    queryOptions<PlanOverview[]>({
+      queryKey: qk.subscription(),
+      queryFn: () => ludoGet<PlanOverview[]>(api.subscriptions.plans, true),
       staleTime: 60_000,
     }),
 
