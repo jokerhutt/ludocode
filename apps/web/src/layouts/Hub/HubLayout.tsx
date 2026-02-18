@@ -8,6 +8,7 @@ import { HubHeader } from "@/features/Hub/Components/Zone/HubHeader.tsx";
 import { NavigationFooter } from "@/features/Hub/Components/Zone/NavigationFooter.tsx";
 import { CurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 import { Suspense } from "react";
+import { SubscriptionContext } from "@/features/Hub/Context/SubscriptionContext";
 
 export function HubLayout() {
   const matches = useMatches();
@@ -20,17 +21,19 @@ export function HubLayout() {
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
   const { data: streakPacket } = useSuspenseQuery(qo.streak(currentUserId));
 
+  const { data: subscription } = useSuspenseQuery(qo.subscription());
+
   const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
   const { data: courseProgress } = useSuspenseQuery(
     qo.courseProgress(currentCourseId),
   );
-
 
   const { coins } = coinPacket;
 
   return (
     <CurrentCourseContext.Provider value={courseProgress}>
       <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
+        <SubscriptionContext.Provider value={subscription}>
           <MainGridWrapper gridRows={"SITE"}>
             <HubHeader title={title} />
             <Suspense fallback={<div className="col-span-full" />}>
@@ -38,6 +41,7 @@ export function HubLayout() {
             </Suspense>
             <NavigationFooter />
           </MainGridWrapper>
+        </SubscriptionContext.Provider>
       </StatsContext.Provider>
     </CurrentCourseContext.Provider>
   );

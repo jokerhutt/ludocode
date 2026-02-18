@@ -111,7 +111,7 @@ export const qo = {
 
   plans: () =>
     queryOptions<PlanOverview[]>({
-      queryKey: qk.subscription(),
+      queryKey: qk.plans(),
       queryFn: () => ludoGet<PlanOverview[]>(api.subscriptions.plans, true),
       staleTime: 60_000,
     }),
