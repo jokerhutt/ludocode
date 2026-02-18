@@ -1,29 +1,49 @@
-import type { SubscriptionPlan } from "@ludocode/types";
-import { XIcon } from "lucide-react";
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { useSubmitCheckoutConfirmation } from "@/hooks/Queries/Mutations/useSubmitCheckoutConfirmation";
+import { router } from "@/main";
+import { useSearch } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { PropagateLoader } from "react-spinners";
 
 type SubscriptionSuccessPageProps = {};
 
 export function SubscriptionSuccessPage({}: SubscriptionSuccessPageProps) {
-  const chosenPlan: SubscriptionPlan = "CORE";
+  const search = useSearch({ from: "/_app/subscription/success" });
+  const sessionId = search.session_id;
+
+  const confirmMutation = useSubmitCheckoutConfirmation();
+
+  useEffect(() => {
+    if (!sessionId) {
+      router.navigate({ to: "/subscription" });
+      return;
+    }
+
+    if (confirmMutation.isPending || confirmMutation.isSuccess) {
+      return;
+    }
+
+    confirmMutation.mutate(
+      { sessionId },
+      {
+        onSuccess: () => {
+          router.navigate(
+            ludoNavigation.subscription.toSubscriptionConfirmedPage(),
+          );
+        },
+        onError: () => {
+          router.navigate({ to: "/subscription" });
+        },
+      },
+    );
+  }, [sessionId, confirmMutation]);
 
   return (
-    <div className="w-full h-full grid grid-cols-12">
-      <div className="col-span-1 h-full" />
-      <div className="flex flex-col items-center col-span-10 relative gap-8">
-        <div className="absolute hover:cursor-pointer top-0 right-0">
-          <XIcon className="text-ludoAltText" />
-        </div>
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">
-            Welcome to Core!
-          </h1>
-          <p className="text-ludo-accent-muted text-sm lg:text-base max-w-md">
-            Thank you for your support! You will now be able to access various
-            features
-          </p>
-        </div>
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-8">
+        <h1 className="text-2xl text-white">Syncing your subscription</h1>
+        <PropagateLoader color="white" />
       </div>
-      <div className="col-span-1 h-full" />
     </div>
   );
 }

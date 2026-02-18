@@ -20,6 +20,7 @@ import { Route as projectPageRoute } from "@/routes/_app/_desktopguard/project/$
 
 // SUBSCRIPTION
 import { Route as subscriptionComparisonRoute } from "@/routes/_app/subscription/comparison";
+import { Route as subscriptionConfirmedRoute } from "@/routes/_app/subscription/confirm";
 
 // SYNC + COMPLETION
 import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
@@ -103,7 +104,10 @@ export const ludoNavigation = {
   subscription: {
     toSubscriptionComparisonPage: () => ({
       to: subscriptionComparisonRoute.to,
-    })
+    }),
+    toSubscriptionConfirmedPage: () => ({
+      to: subscriptionConfirmedRoute.to,
+    }),
   },
 
   completion: {

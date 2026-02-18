@@ -23,6 +23,8 @@ import type {
   UserPreferences,
   EditProfileRequest,
   LudoUser,
+  UserSubscription,
+  ConfirmRequest,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -40,6 +42,18 @@ export const mutations = {
           true,
         ),
     });
+  },
+
+  submitCheckoutConfirmation: () => {
+       return mutationOptions<UserSubscription, Error, ConfirmRequest>({
+      mutationKey: ["submitCheckout"],
+      mutationFn: (variables) =>
+        ludoPost<UserSubscription, ConfirmRequest>(
+          api.subscriptions.confirm,
+          variables,
+          true,
+        ),
+    }); 
   },
 
   runCode: () => {

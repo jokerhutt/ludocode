@@ -60,6 +60,7 @@ export * from "./Static/DevInfoContent";
 export * from "./Subscription/SubscriptionPlan";
 export * from "./Subscription/UserSubscription";
 export * from "./Subscription/PlanOverview"
+export * from "./Subscription/ConfirmRequest"
 
 // User
 export * from "./User/ChangeCourseType";

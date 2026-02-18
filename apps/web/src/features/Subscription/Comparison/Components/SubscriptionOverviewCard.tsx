@@ -3,12 +3,19 @@ import { planStyles, type PlanStyleConfig } from "../content";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { FeatureRow } from "./FeatureRow";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import type { Feature, PlanOverview } from "@ludocode/types";
+import type { Feature, PlanOverview, SubscriptionPlan } from "@ludocode/types";
+import { useStripeCheckout } from "@/hooks/Queries/Mutations/useStripeCheckout";
 
-type SubscriptionOverviewCardProps = { plan: PlanOverview };
+type SubscriptionOverviewCardProps = {
+  plan: PlanOverview;
+  current: SubscriptionPlan;
+  navToCurrent: () => void;
+};
 
 export function SubscriptionOverviewCard({
   plan,
+  current,
+  navToCurrent,
 }: SubscriptionOverviewCardProps) {
   const styles = planStyles[plan.tier];
 
@@ -61,7 +68,12 @@ export function SubscriptionOverviewCard({
 
       <SubscriptionLimitsOverview plan={plan} style={styles} />
 
-      <SubscriptionOverviewButton plan={plan} style={styles} />
+      <SubscriptionOverviewButton
+        navToCurrent={navToCurrent}
+        current={current}
+        plan={plan}
+        style={styles}
+      />
     </LudoCard>
   );
 }
@@ -131,24 +143,60 @@ function SubscriptionLimitsOverview({
 function SubscriptionOverviewButton({
   plan,
   style,
+  current,
+  navToCurrent,
 }: {
   plan: PlanOverview;
   style: PlanStyleConfig;
+  current: SubscriptionPlan;
+  navToCurrent: () => void;
 }) {
   const { tier } = plan;
   const { buttonVariant } = style;
 
+  const { startCheckout } = useStripeCheckout();
+
+  if (tier === "FREE" && current !== "FREE") {
+    return null;
+  }
+
+  let text: string;
+  let disabled = false;
+
+  if (tier === current) {
+    text = "Current";
+    disabled = true;
+  } else if (current === "FREE") {
+    text = `Upgrade to ${tier}`;
+  } else if (current === "CORE" && tier === "PRO") {
+    text = "Upgrade to PRO";
+  } else if (current === "PRO" && tier === "CORE") {
+    text = "Downgrade to CORE";
+  } else {
+    text = `Switch to ${tier}`;
+  }
+
+  const handleClick = () => {
+    if (tier === "FREE" || tier === current) {
+      navToCurrent()
+    } else {
+      startCheckout(tier)
+    }
+  };
+
   return (
     <LudoButton
       shadow
+      disabled={disabled}
       variant={buttonVariant}
       className={cn(
         "mt-auto",
         tier === "PRO" &&
           "bg-linear-to-r! from-purple-500! to-fuchsia-400! text-white! shadow-[0_7px_0_#6b21a8]!",
       )}
+      onClick={() => handleClick()}
     >
-      <span className="text-sm font-semibold">{tier}</span>
+      <span className="text-sm font-semibold">{text}</span>
     </LudoButton>
   );
 }

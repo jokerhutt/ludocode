@@ -118,6 +118,8 @@ export function createApiPaths({
 
     subscriptions: {
       base: `${BASE}/subscription`,
+      checkout: `${BASE}/subscription/checkout`,
+      confirm: `${BASE}/subscription/confirm`,
       plans: `${BASE}/subscription/plans`
     },
 
