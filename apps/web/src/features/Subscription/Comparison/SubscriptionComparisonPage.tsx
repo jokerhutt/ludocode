@@ -26,8 +26,8 @@ export function SubscriptionComparisonPage() {
   return (
     <div className="w-full h-full grid grid-cols-12">
       <div className="col-span-1 h-full" />
-      <div className="flex flex-col items-center col-span-10 relative gap-8">
-        <div className="absolute hover:cursor-pointer top-0 right-0">
+      <div className="flex flex-col items-center min-h-0 overflow-y-auto pb-6 col-span-10 relative gap-8">
+        <div className="absolute hover:cursor-pointer top-1 right-0">
           <XIcon
             onClick={() => navigateToCurrentModule()}
             className="text-ludoAltText"
@@ -41,7 +41,7 @@ export function SubscriptionComparisonPage() {
             Level up your coding journey with the plan that fits your goals.
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row w-full justify-center gap-5 items-stretch max-w-4xl">
+        <div className="flex flex-col lg:flex-row w-full justify-center gap-6 lg:gap-5 items-stretch max-w-4xl">
           {plans.map((plan) => (
             <SubscriptionOverviewCard
               navToCurrent={navigateToCurrentModule}
