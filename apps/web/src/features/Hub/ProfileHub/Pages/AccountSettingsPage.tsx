@@ -14,13 +14,19 @@ import { useState } from "react";
 import { useEditPreferences } from "@/hooks/Queries/Mutations/useEditPreferences";
 import type { TogglePreferencesRequest } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
+import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
 
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: preferences } = useSuspenseQuery(qo.preferences());
   const { avatarIndex, avatarVersion, createdAt, displayName } = user;
-  const joinTime = parseToDate(createdAt)
+  const joinTime = parseToDate(createdAt);
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
+
+  const { data: subscription } = useSuspenseQuery(qo.subscription());
+  const { monthlyCreditAllowance, currentPeriodEnd } = subscription;
+  const renewalDate = parseToDigitDate(Number(currentPeriodEnd));
+  const { data: aiCredits } = useSuspenseQuery(qo.credits());
 
   const [audioEnabled, setAudioEnabled] = useState(preferences.audioEnabled);
   const [aiEnabled, setAiEnabled] = useState(preferences.aiEnabled);
@@ -70,7 +76,11 @@ export function AccountSettingsPage() {
         </ProfileCardContainer>
 
         <ProfileCardContainer header="AI">
-          <AICreditBalanceCard remaining={0} allowance={0} renewalDate="" />
+          <AICreditBalanceCard
+            remaining={aiCredits}
+            allowance={monthlyCreditAllowance}
+            renewalDate={renewalDate}
+          />
         </ProfileCardContainer>
 
         <ProfileCardContainer className="gap-5" header="DANGER ZONE">
