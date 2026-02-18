@@ -3,7 +3,7 @@ import { planStyles, type PlanStyleConfig } from "../content";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { FeatureRow } from "./FeatureRow";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import type { PlanOverview } from "@ludocode/types";
+import type { Feature, PlanOverview } from "@ludocode/types";
 
 type SubscriptionOverviewCardProps = { plan: PlanOverview };
 
@@ -11,6 +11,15 @@ export function SubscriptionOverviewCard({
   plan,
 }: SubscriptionOverviewCardProps) {
   const styles = planStyles[plan.tier];
+
+  const ALL_FEATURES: { code: Feature; title: string }[] = [
+    { code: "CORE_COURSES", title: "Core Courses" },
+    { code: "CODE_EDITOR", title: "Built-in Code Editor" },
+    { code: "PUBLISH_PROJECTS", title: "Publish Projects" },
+    { code: "SKILL_PATHS", title: "Skill Paths" },
+    { code: "AI_ASSISTANT", title: "AI Assistant" },
+    { code: "PRIORITY_SUPPORT", title: "Priority Support" },
+  ];
 
   return (
     <LudoCard
@@ -35,9 +44,17 @@ export function SubscriptionOverviewCard({
       <div className="h-px bg-ludo-border" />
 
       <div className="flex flex-col flex-1">
-        {plan.features.map((f) => (
-          <FeatureRow key={f.title} included={f.enabled} label={f.title} />
-        ))}
+        {ALL_FEATURES.map((feature) => {
+          const included = plan.features.includes(feature.code);
+
+          return (
+            <FeatureRow
+              key={feature.code}
+              included={included}
+              label={feature.title}
+            />
+          );
+        })}
       </div>
 
       <div className="h-px bg-ludo-border" />
@@ -94,14 +111,18 @@ function SubscriptionLimitsOverview({
         Limits
       </span>
       <div className="flex flex-col gap-1.5">
-        {limits.map((limit) => (
-          <div key={limit.title} className="flex items-center justify-between">
-            <span className="text-xs text-ludo-text-dim">{limit.title}</span>
-            <span className="text-xs font-medium text-ludoAltText">
-              {limit.limit}
-            </span>
-          </div>
-        ))}
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-ludo-text-dim">Max Projects</span>
+          <span className="text-xs font-medium text-ludoAltText">
+            {limits.maxProjects}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-ludo-text-dim">Monthly AI credits</span>
+          <span className="text-xs font-medium text-ludoAltText">
+            {limits.monthlyAiCredits}
+          </span>
+        </div>
       </div>
     </div>
   );

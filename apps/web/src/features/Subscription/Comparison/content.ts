@@ -9,10 +9,12 @@ export type PlanStyleConfig = {
   buttonVariant: "default" | "alt";
   glow: string;
   recommended?: boolean;
+  title: string;
 };
 
 export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
   FREE: {
+    title: "Access to core courses",
     featureKey: "free",
     badge: "FREE",
     badgeBg: "bg-ludo-surface",
@@ -23,6 +25,7 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
   },
 
   CORE: {
+    title: "Unlock the full learning experience",
     featureKey: "core",
     badge: "CORE",
     badgeBg: "bg-gradient-to-r from-ludo-accent to-ludo-progress",
@@ -34,6 +37,7 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
   },
 
   PRO: {
+    title: "Everything, plus AI and priority perks",
     featureKey: "pro",
     badge: "PRO",
     badgeBg: "bg-gradient-to-r from-purple-500 to-fuchsia-400",
