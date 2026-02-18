@@ -3,9 +3,14 @@ import { StatsGroup } from "@/features/Hub/Stats/Components/Group/StatsGroup.tsx
 import { SubscriptionBadge } from "@/features/Hub/Components/Zone/SubscriptionBadge.tsx";
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell";
 import { Suspense } from "react";
+import { useSubscriptionContext } from "../../Context/SubscriptionContext";
 type HubHeaderProps = { title: string };
 
 export function HubHeader({ title }: HubHeaderProps) {
+
+  const subscription = useSubscriptionContext()
+  const plan = subscription.planCode
+  
   return (
     <HeaderWithBar device="Both">
       <Suspense fallback={<div />}>
@@ -14,7 +19,7 @@ export function HubHeader({ title }: HubHeaderProps) {
           <NavigationIconGroup groupClassName="hidden lg:flex" />
           <div className="flex justify-end gap-4 items-center">
             <StatsGroup />
-            <SubscriptionBadge tier={"PRO"} />
+            <SubscriptionBadge tier={plan} />
           </div>
         </div>
       </Suspense>

@@ -12,7 +12,7 @@ export function useFinalizeLogin() {
   const router = useRouter();
 
   return async (idToken: string) => {
-    const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
+    const { user, userCoins, userStreak, subscription }: LoginUserResponse = await ludoPost(
       api.auth.firebase,
       {},
       true,
@@ -23,6 +23,7 @@ export function useFinalizeLogin() {
     queryClient.setQueryData(qk.currentUser(), user);
     queryClient.setQueryData(qk.userCoins(user.id), userCoins);
     queryClient.setQueryData(qk.streak(user.id), userStreak);
+    queryClient.setQueryData(qk.subscription(), subscription)
 
     if (!user.hasOnboarded) {
       router.navigate(ludoNavigation.onboarding.start());
