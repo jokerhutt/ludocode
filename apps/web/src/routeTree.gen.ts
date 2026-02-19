@@ -21,6 +21,7 @@ import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonI
 import { Route as AppSubscriptionSuccessRouteImport } from './routes/_app/subscription/success'
 import { Route as AppSubscriptionConfirmRouteImport } from './routes/_app/subscription/confirm'
 import { Route as AppSubscriptionComparisonRouteImport } from './routes/_app/subscription/comparison'
+import { Route as AppSubscriptionCancelRouteImport } from './routes/_app/subscription/cancel'
 import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
@@ -91,6 +92,11 @@ const AppSubscriptionComparisonRoute =
     path: '/comparison',
     getParentRoute: () => AppSubscriptionRouteRoute,
   } as any)
+const AppSubscriptionCancelRoute = AppSubscriptionCancelRouteImport.update({
+  id: '/cancel',
+  path: '/cancel',
+  getParentRoute: () => AppSubscriptionRouteRoute,
+} as any)
 const AppOnboardingStageRoute = AppOnboardingStageRouteImport.update({
   id: '/onboarding/$stage',
   path: '/onboarding/$stage',
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/subscription/confirm': typeof AppSubscriptionConfirmRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/subscription/confirm': typeof AppSubscriptionConfirmRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/_app/_hub/courses': typeof AppHubCoursesRoute
   '/_app/_hub/projects': typeof AppHubProjectsRoute
   '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/_app/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/_app/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/_app/subscription/confirm': typeof AppSubscriptionConfirmRoute
   '/_app/subscription/success': typeof AppSubscriptionSuccessRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/projects'
     | '/onboarding/$stage'
+    | '/subscription/cancel'
     | '/subscription/comparison'
     | '/subscription/confirm'
     | '/subscription/success'
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/projects'
     | '/onboarding/$stage'
+    | '/subscription/cancel'
     | '/subscription/comparison'
     | '/subscription/confirm'
     | '/subscription/success'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '/_app/_hub/courses'
     | '/_app/_hub/projects'
     | '/_app/onboarding/$stage'
+    | '/_app/subscription/cancel'
     | '/_app/subscription/comparison'
     | '/_app/subscription/confirm'
     | '/_app/subscription/success'
@@ -383,6 +395,13 @@ declare module '@tanstack/react-router' {
       path: '/comparison'
       fullPath: '/subscription/comparison'
       preLoaderRoute: typeof AppSubscriptionComparisonRouteImport
+      parentRoute: typeof AppSubscriptionRouteRoute
+    }
+    '/_app/subscription/cancel': {
+      id: '/_app/subscription/cancel'
+      path: '/cancel'
+      fullPath: '/subscription/cancel'
+      preLoaderRoute: typeof AppSubscriptionCancelRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
     '/_app/onboarding/$stage': {
@@ -508,12 +527,14 @@ const AppHubRouteRouteWithChildren = AppHubRouteRoute._addFileChildren(
 )
 
 interface AppSubscriptionRouteRouteChildren {
+  AppSubscriptionCancelRoute: typeof AppSubscriptionCancelRoute
   AppSubscriptionComparisonRoute: typeof AppSubscriptionComparisonRoute
   AppSubscriptionConfirmRoute: typeof AppSubscriptionConfirmRoute
   AppSubscriptionSuccessRoute: typeof AppSubscriptionSuccessRoute
 }
 
 const AppSubscriptionRouteRouteChildren: AppSubscriptionRouteRouteChildren = {
+  AppSubscriptionCancelRoute: AppSubscriptionCancelRoute,
   AppSubscriptionComparisonRoute: AppSubscriptionComparisonRoute,
   AppSubscriptionConfirmRoute: AppSubscriptionConfirmRoute,
   AppSubscriptionSuccessRoute: AppSubscriptionSuccessRoute,

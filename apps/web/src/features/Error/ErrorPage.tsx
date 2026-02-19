@@ -2,6 +2,7 @@ import { Button } from "@ludocode/external/ui/button";
 import { errorMap, type ErrorStatus } from "@/constants/content/ErrorData.ts";
 import { FallbackLayout } from "@/layouts/Fallback/FallbackLayout.tsx";
 import { useRouter } from "@tanstack/react-router";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 type ErrorPageProps = { errorCode: ErrorStatus };
 
@@ -12,23 +13,43 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
 
   return (
     <FallbackLayout>
-      <h1 className="text-center text-6xl text-ludoAltText">{status}</h1>
-      <div className="p-6 text-center flex flex-col gap-6 rounded-lg bg-ludo-surface/70">
-        <div className="flex flex-col gap-2">
-          <p className="text-ludoAltText">{title}</p>
-          <p className="text-ludoAltText">{suggestion}</p>
-        </div>
+      <div className="w-full h-full grid grid-cols-12">
+        <div className="flex flex-col col-span-12 items-center justify-center text-center gap-10">
+          {/* Status */}
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-7xl lg:text-8xl font-bold text-ludoAltText/20 tracking-widest">
+              {status}
+            </span>
 
-        {fallbackAction && (
-          <Button
-            onClick={() => {
-              const nav = fallbackAction?.();
-              if (nav) router.navigate(nav);
-            }}
-          >
-            {actionText}
-          </Button>
-        )}
+            <div className="w-12 h-[2px] bg-ludo-accent/40 rounded-full" />
+          </div>
+
+          {/* Message */}
+          <div className="flex flex-col gap-3 max-w-md">
+            <h1 className="text-xl lg:text-2xl font-semibold text-white">
+              {title}
+            </h1>
+            <p className="text-sm lg:text-base text-ludo-accent-muted">
+              {suggestion}
+            </p>
+          </div>
+
+          {/* Action */}
+          {fallbackAction && (
+            <div className="flex gap-4">
+              <LudoButton
+                className="w-auto px-4"
+                variant="white"
+                onClick={() => {
+                  const nav = fallbackAction();
+                  if (nav) router.navigate(nav);
+                }}
+              >
+                {actionText}
+              </LudoButton>
+            </div>
+          )}
+        </div>
       </div>
     </FallbackLayout>
   );
