@@ -1,7 +1,7 @@
 import type { SubscriptionPlan } from "@ludocode/types";
 
 export type PlanStyleConfig = {
-  featureKey: "free" | "core" | "pro";
+  featureKey: "free" | "supporter" | "patron";
   badge: string;
   badgeBg: string;
   badgeText: string;
@@ -24,10 +24,10 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
     glow: "",
   },
 
-  CORE: {
+  SUPPORTER: {
     title: "Unlock the full learning experience",
-    featureKey: "core",
-    badge: "CORE",
+    featureKey: "supporter",
+    badge: "SUPPORTER",
     badgeBg: "bg-gradient-to-r from-ludo-accent to-ludo-progress",
     badgeText: "text-white",
     borderAccent: "border border-ludo-accent/60",
@@ -36,10 +36,10 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
     recommended: true,
   },
 
-  PRO: {
+  PATRON: {
     title: "Everything, plus AI and priority perks",
-    featureKey: "pro",
-    badge: "PRO",
+    featureKey: "patron",
+    badge: "Patron",
     badgeBg: "bg-gradient-to-r from-purple-500 to-fuchsia-400",
     badgeText: "text-white",
     borderAccent: "border border-purple-500/40",

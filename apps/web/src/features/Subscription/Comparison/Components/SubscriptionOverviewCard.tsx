@@ -168,10 +168,10 @@ function SubscriptionOverviewButton({
     disabled = true;
   } else if (current === "FREE") {
     text = `Upgrade to ${tier}`;
-  } else if (current === "CORE" && tier === "PRO") {
-    text = "Upgrade to PRO";
-  } else if (current === "PRO" && tier === "CORE") {
-    text = "Downgrade to CORE";
+  } else if (current === "SUPPORTER" && tier === "PATRON") {
+    text = "Upgrade to PATRON";
+  } else if (current === "PATRON" && tier === "SUPPORTER") {
+    text = "Downgrade to SUPPORTER";
   } else {
     text = `Switch to ${tier}`;
   }
@@ -191,7 +191,7 @@ function SubscriptionOverviewButton({
       variant={buttonVariant}
       className={cn(
         "mt-auto",
-        tier === "PRO" &&
+        tier === "PATRON" &&
           "bg-linear-to-r! from-purple-500! to-fuchsia-400! text-white! shadow-[0_7px_0_#6b21a8]!",
       )}
       onClick={() => handleClick()}

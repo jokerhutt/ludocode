@@ -1,1 +1,1 @@
-export type SubscriptionPlan = "FREE" | "CORE" | "PRO"
+export type SubscriptionPlan = "FREE" | "SUPPORTER" | "PATRON"

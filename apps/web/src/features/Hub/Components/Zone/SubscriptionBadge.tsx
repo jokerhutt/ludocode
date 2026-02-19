@@ -11,17 +11,17 @@ const tierStyles: Record<
     glow: "",
     label: "FREE",
   },
-  CORE: {
+  SUPPORTER: {
     bg: "bg-gradient-to-r from-ludo-accent to-ludo-progress",
     text: "text-white",
     glow: "shadow-[0_0_8px_rgba(106,124,255,0.4)]",
-    label: "CORE",
+    label: "SUPPORTER",
   },
-  PRO: {
+  PATRON: {
     bg: "bg-gradient-to-r from-purple-500 to-fuchsia-400",
     text: "text-white",
     glow: "shadow-[0_0_8px_rgba(131,105,214,0.4)]",
-    label: "PRO",
+    label: "PATRON",
   },
 };
 
