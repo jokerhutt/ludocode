@@ -15,7 +15,6 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
     <FallbackLayout>
       <div className="w-full h-full grid grid-cols-12">
         <div className="flex flex-col col-span-12 items-center justify-center text-center gap-10">
-          {/* Status */}
           <div className="flex flex-col items-center gap-4">
             <span className="text-7xl lg:text-8xl font-bold text-ludoAltText/20 tracking-widest">
               {status}
@@ -24,7 +23,6 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
             <div className="w-12 h-[2px] bg-ludo-accent/40 rounded-full" />
           </div>
 
-          {/* Message */}
           <div className="flex flex-col gap-3 max-w-md">
             <h1 className="text-xl lg:text-2xl font-semibold text-white">
               {title}
@@ -34,7 +32,6 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
             </p>
           </div>
 
-          {/* Action */}
           {fallbackAction && (
             <div className="flex gap-4">
               <LudoButton
