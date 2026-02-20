@@ -24,7 +24,7 @@ export function AccountSettingsPage() {
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   const { data: subscription } = useSuspenseQuery(qo.subscription());
-  const { monthlyCreditAllowance, currentPeriodEnd } = subscription;
+  const { monthlyCreditAllowance, currentPeriodEnd, planCode } = subscription;
   const renewalDate = parseToDigitDate(Number(currentPeriodEnd));
   const { data: aiCredits } = useSuspenseQuery(qo.credits());
 
@@ -77,6 +77,7 @@ export function AccountSettingsPage() {
 
         <ProfileCardContainer header="AI">
           <AICreditBalanceCard
+            planCode={planCode}
             remaining={aiCredits}
             allowance={monthlyCreditAllowance}
             renewalDate={renewalDate}

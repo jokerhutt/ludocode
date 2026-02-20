@@ -15,7 +15,7 @@ export function ProjectFileTree() {
   );
 
   return (
-    <div className="flex px-4 py-3 overflow-y-auto min-h-0 h-full bg-ludo-background gap-2 text-white flex-col w-full">
+    <div className="flex px-4 py-3 overflow-y-auto overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-white flex-col w-full">
       {files.map((file, index) => {
         const key = file.id ?? file.tempId!;
         return (

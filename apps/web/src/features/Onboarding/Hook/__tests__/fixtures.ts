@@ -26,7 +26,8 @@ export const testUser: LoginUserResponse = {
     planId: "plan_patron",
     monthlyCreditAllowance: 10,
     maxProjects: 3,
-    currentPeriodEnd: "next month"
+    currentPeriodEnd: "next month",
+    cancelAtPeriodEnd: false
   }
 };
 

@@ -7,4 +7,5 @@ export type UserSubscription = {
   monthlyCreditAllowance: number;
   maxProjects: number;
   currentPeriodEnd: string;
+  cancelAtPeriodEnd: boolean;
 };
