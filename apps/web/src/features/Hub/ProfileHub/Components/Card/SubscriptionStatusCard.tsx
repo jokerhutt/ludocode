@@ -16,47 +16,39 @@ export function SubscriptionStatusCard({
 }: SubscriptionStatusCardProps) {
   const isFree = planCode === "FREE";
 
-  const statusLabel = isFree
-    ? "Free Plan"
+  const statusColor = isFree
+    ? "text-white/60"
     : cancelAtPeriodEnd
-      ? "Cancelling"
-      : "Active";
+      ? "text-red-400"
+      : "text-green-400";
 
-  const renewalLabel = isFree
-    ? "—"
-    : cancelAtPeriodEnd
-      ? `Ends on`
-      : `Renews on`;
-
-  const renewalValue = isFree
+  const renewalText = isFree
     ? "Upgrade to unlock more features"
-    : parseToDigitDate(Number(currentPeriodEnd));
+    : cancelAtPeriodEnd
+      ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
+      : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;
 
   return (
-    <LudoCard
-      shadow={false}
-      className="grid h-auto p-4 text-sm lg:text-md grid-cols-[2fr_1fr] grid-rows-4"
-    >
-      <p className="text-left">Current plan:</p>
-      <p className="text-right font-medium">{planCode}</p>
+    <LudoCard shadow={false} className="p-5 flex flex-col h-full">
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <p className="text-xs uppercase tracking-wide opacity-60">
+            Current Plan
+          </p>
+          <p className="text-xl font-semibold">{planCode}</p>
+        </div>
 
-      <p className="text-left">Status:</p>
-      <p
-        className={`text-right font-medium ${
-          cancelAtPeriodEnd ? "text-red-400" : "text-green-400"
-        }`}
-      >
-        {statusLabel}
-      </p>
+        <div className={`text-sm font-medium ${statusColor}`}>
+          {isFree ? "Free" : cancelAtPeriodEnd ? "Cancelling" : "Active"}
+        </div>
+      </div>
 
-      <p className="text-left">{renewalLabel}</p>
-      <p className="text-right">{renewalValue}</p>
+      <div className="mt-auto w-full md:w-auto flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <p className="text-sm opacity-70">{renewalText}</p>
 
-      <div className="col-span-2 flex justify-between items-center">
-        <p className="text-left">
-          {isFree ? "Upgrade plan" : "Manage billing"}
-        </p>
-        <SubscriptionActionButton plan={planCode} />
+        <div className="w-full">
+          <SubscriptionActionButton plan={planCode} />
+        </div>
       </div>
     </LudoCard>
   );

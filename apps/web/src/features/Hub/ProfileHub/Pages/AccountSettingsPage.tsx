@@ -58,7 +58,7 @@ export function AccountSettingsPage() {
   return (
     <div className="col-span-full px-4  relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <div className="w-full flex gap-4 py-4">
-        <Avatar className="h-20 w-22" src={userPfpSrc} />
+        <Avatar className="h-20 w-20" src={userPfpSrc} />
         <div className="flex flex-col gap-1">
           <h2 className=" text-xl lg:text-2xl">{user.displayName}</h2>
           <h3 className="lg:text-lg text-base">{joinTime}</h3>
@@ -81,21 +81,26 @@ export function AccountSettingsPage() {
           />
         </ProfileCardContainer>
 
-        <ProfileCardContainer header="AI">
-          <AICreditBalanceCard
-            remaining={aiCredits}
-            allowance={monthlyCreditAllowance}
-            renewalDate={renewalDate}
-          />
-        </ProfileCardContainer>
+        <div className="grid gap-5 md:grid-cols-2 items-stretch">
+          <ProfileCardContainer
+            className="flex flex-col h-full"
+            header="SUBSCRIPTION"
+          >
+            <SubscriptionStatusCard
+              planCode={planCode}
+              currentPeriodEnd={currentPeriodEnd}
+              cancelAtPeriodEnd={cancelAtPeriodEnd}
+            />
+          </ProfileCardContainer>
 
-        <ProfileCardContainer header="SUBSCRIPTION">
-          <SubscriptionStatusCard
-            planCode={planCode}
-            currentPeriodEnd={currentPeriodEnd}
-            cancelAtPeriodEnd={cancelAtPeriodEnd}
-          />
-        </ProfileCardContainer>
+          <ProfileCardContainer className="flex flex-col h-full" header="AI">
+            <AICreditBalanceCard
+              remaining={aiCredits}
+              allowance={monthlyCreditAllowance}
+              renewalDate={renewalDate}
+            />
+          </ProfileCardContainer>
+        </div>
 
         <ProfileCardContainer className="gap-5" header="DANGER ZONE">
           <LogoutButton />
