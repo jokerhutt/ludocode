@@ -11,14 +11,12 @@ type AICreditBalanceCardProps = {
   remaining: number;
   allowance: number;
   renewalDate: string;
-  planCode: SubscriptionPlan;
 };
 
 export function AICreditBalanceCard({
   remaining,
   allowance,
   renewalDate,
-  planCode,
 }: AICreditBalanceCardProps) {
   const fields: Array<{ label: string; value: React.ReactNode }> = [
     { label: "Credits remaining:", value: remaining },
@@ -29,7 +27,7 @@ export function AICreditBalanceCard({
   return (
     <LudoCard
       shadow={false}
-      className="grid h-auto p-4 text-sm lg:text-md grid-cols-[2fr_1fr] grid-rows-4"
+      className="grid h-auto p-4 text-sm lg:text-md grid-cols-[2fr_1fr] grid-rows-3"
     >
       {fields.map((f) => (
         <React.Fragment key={f.label}>
@@ -37,11 +35,6 @@ export function AICreditBalanceCard({
           <p className="text-right">{f.value}</p>
         </React.Fragment>
       ))}
-
-      <div className="col-span-2 flex justify-between items-center">
-        <p className="text-left">Need more?</p>
-        <SubscriptionActionButton plan={planCode}/>
-      </div>
     </LudoCard>
   );
 }
