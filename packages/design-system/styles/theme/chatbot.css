@@ -40,6 +40,7 @@
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --border: #22273e;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -53,7 +54,6 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -67,24 +67,20 @@
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
 
 .chatbot-content pre {
-  background: #1c1c2e !important;
-  color: #f8f8f2 !important;
   padding: 12px;
-  border-radius: 8px;
+  border: #22273e !important;
+  border-radius: 0px !important;
   white-space: pre-wrap !important;
   word-break: break-word !important;
-  border: 1px solid #303966;
 }
 
 .chatbot-content code {
   background: #2a2a3d !important;
-  color: #ffea8a !important;
-  padding: 2px 4px;
-  border-radius: 4px;
+  border: #22273e !important;
+  border-radius: 0px !important;
   font-family: "DMMono", monospace;
 }

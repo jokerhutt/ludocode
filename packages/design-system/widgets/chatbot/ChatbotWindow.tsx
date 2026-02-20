@@ -34,12 +34,12 @@ const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
   return (
     <div
       className={cn(
-        "min-h-0 w-full text-white mx-auto relative h-90 max-h-90",
+        "min-h-0 min-w-0 w-full text-white mx-auto relative h-90 max-h-90",
         className
       )}
     >
-      <div className="flex flex-col h-full">
-        <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto">
+      <div className="flex flex-col min-w-0 h-full">
+        <div ref={scrollRef} className="flex-1 min-h-0 min-w-0 overflow-y-auto">
           <ChatBotConversation messages={messages} />
         </div>
 

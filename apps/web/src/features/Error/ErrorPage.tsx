@@ -8,8 +8,7 @@ type ErrorPageProps = { errorCode: ErrorStatus };
 
 export function ErrorPage({ errorCode }: ErrorPageProps) {
   const router = useRouter();
-  const { status, title, suggestion, actionText, fallbackAction } =
-    errorMap[errorCode];
+  const { status, title, suggestion, actions } = errorMap[errorCode];
 
   return (
     <FallbackLayout>
@@ -32,18 +31,22 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
             </p>
           </div>
 
-          {fallbackAction && (
+          {actions && (
             <div className="flex gap-4">
-              <LudoButton
-                className="w-auto px-4"
-                variant="white"
-                onClick={() => {
-                  const nav = fallbackAction();
-                  if (nav) router.navigate(nav);
-                }}
-              >
-                {actionText}
-              </LudoButton>
+              {actions.map((action, i) => {
+                const Icon = action.icon;
+                return (
+                  <LudoButton
+                    key={i}
+                    className="w-auto px-4 flex items-center gap-2"
+                    variant={action.variant ?? "white"}
+                    onClick={() => action.handler(router)}
+                  >
+                    {Icon && <Icon className="size-4" />}
+                    {action.text}
+                  </LudoButton>
+                );
+              })}
             </div>
           )}
         </div>

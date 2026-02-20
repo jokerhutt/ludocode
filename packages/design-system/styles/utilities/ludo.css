@@ -1,7 +1,7 @@
 @layer utilities {
   .scrollbar-ludo-accent {
     scrollbar-width: thin;
-    scrollbar-color: #8369d6 transparent;
+    scrollbar-color: #5c6fd6 transparent;
   }
 
   .scrollbar-none {

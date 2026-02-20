@@ -5,8 +5,8 @@ type FallbackLayoutProps = { children: ReactNode };
 
 export function FallbackLayout({ children }: FallbackLayoutProps) {
   return (
-    <MainGridWrapper gridRows={"ONE"}>
+    <div className="h-dvh w-dvw bg-ludo-background fixed">
       {children}
-    </MainGridWrapper>
+    </div>
   );
 }

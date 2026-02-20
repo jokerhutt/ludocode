@@ -754,7 +754,7 @@ export const PromptInput = ({
         onSubmit={handleSubmit}
         {...props}
       >
-        <InputGroup className="overflow-hidden">{children}</InputGroup>
+        <InputGroup className="overflow-hidden border-none">{children}</InputGroup>
       </form>
     </>
   );
@@ -865,7 +865,7 @@ export const PromptInputTextarea = ({
 
   return (
     <InputGroupTextarea
-      className={cn("field-sizing-content max-h-30 min-h-10", className)}
+      className={cn("resize-none min-w-0 w-full h-10 min-h-10 max-h-20 scrollbar-none overflow-x-auto overflow-y-hidden whitespace-nowrap", className)}
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}

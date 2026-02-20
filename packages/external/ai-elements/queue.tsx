@@ -215,7 +215,7 @@ export const QueueSectionTrigger = ({
   <CollapsibleTrigger asChild>
     <button
       className={cn(
-        "group flex w-full items-center justify-between rounded-md bg-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
+        "group flex w-full items-center justify-between rounded-md bg-ludo-accent-muted/40 px-3 py-2 text-left font-medium text-muted-foreground text-sm transition-colors hover:bg-muted",
         className
       )}
       type="button"

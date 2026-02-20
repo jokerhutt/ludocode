@@ -19,6 +19,7 @@ import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
 import { Route as AppSubscriptionSuccessRouteImport } from './routes/_app/subscription/success'
+import { Route as AppSubscriptionManageRouteImport } from './routes/_app/subscription/manage'
 import { Route as AppSubscriptionConfirmRouteImport } from './routes/_app/subscription/confirm'
 import { Route as AppSubscriptionComparisonRouteImport } from './routes/_app/subscription/comparison'
 import { Route as AppSubscriptionCancelRouteImport } from './routes/_app/subscription/cancel'
@@ -79,6 +80,11 @@ const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
 const AppSubscriptionSuccessRoute = AppSubscriptionSuccessRouteImport.update({
   id: '/success',
   path: '/success',
+  getParentRoute: () => AppSubscriptionRouteRoute,
+} as any)
+const AppSubscriptionManageRoute = AppSubscriptionManageRouteImport.update({
+  id: '/manage',
+  path: '/manage',
   getParentRoute: () => AppSubscriptionRouteRoute,
 } as any)
 const AppSubscriptionConfirmRoute = AppSubscriptionConfirmRouteImport.update({
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/subscription/manage': typeof AppSubscriptionManageRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
@@ -195,6 +202,7 @@ export interface FileRoutesByTo {
   '/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/subscription/manage': typeof AppSubscriptionManageRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/_app/subscription/cancel': typeof AppSubscriptionCancelRoute
   '/_app/subscription/comparison': typeof AppSubscriptionComparisonRoute
   '/_app/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/_app/subscription/manage': typeof AppSubscriptionManageRoute
   '/_app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/subscription/cancel'
     | '/subscription/comparison'
     | '/subscription/confirm'
+    | '/subscription/manage'
     | '/subscription/success'
     | '/sync/$lessonId'
     | '/project/$projectId'
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
     | '/subscription/cancel'
     | '/subscription/comparison'
     | '/subscription/confirm'
+    | '/subscription/manage'
     | '/subscription/success'
     | '/sync/$lessonId'
     | '/project/$projectId'
@@ -292,6 +303,7 @@ export interface FileRouteTypes {
     | '/_app/subscription/cancel'
     | '/_app/subscription/comparison'
     | '/_app/subscription/confirm'
+    | '/_app/subscription/manage'
     | '/_app/subscription/success'
     | '/_app/sync/$lessonId'
     | '/_app/_desktopguard/project/$projectId'
@@ -381,6 +393,13 @@ declare module '@tanstack/react-router' {
       path: '/success'
       fullPath: '/subscription/success'
       preLoaderRoute: typeof AppSubscriptionSuccessRouteImport
+      parentRoute: typeof AppSubscriptionRouteRoute
+    }
+    '/_app/subscription/manage': {
+      id: '/_app/subscription/manage'
+      path: '/manage'
+      fullPath: '/subscription/manage'
+      preLoaderRoute: typeof AppSubscriptionManageRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
     '/_app/subscription/confirm': {
@@ -530,6 +549,7 @@ interface AppSubscriptionRouteRouteChildren {
   AppSubscriptionCancelRoute: typeof AppSubscriptionCancelRoute
   AppSubscriptionComparisonRoute: typeof AppSubscriptionComparisonRoute
   AppSubscriptionConfirmRoute: typeof AppSubscriptionConfirmRoute
+  AppSubscriptionManageRoute: typeof AppSubscriptionManageRoute
   AppSubscriptionSuccessRoute: typeof AppSubscriptionSuccessRoute
 }
 
@@ -537,6 +557,7 @@ const AppSubscriptionRouteRouteChildren: AppSubscriptionRouteRouteChildren = {
   AppSubscriptionCancelRoute: AppSubscriptionCancelRoute,
   AppSubscriptionComparisonRoute: AppSubscriptionComparisonRoute,
   AppSubscriptionConfirmRoute: AppSubscriptionConfirmRoute,
+  AppSubscriptionManageRoute: AppSubscriptionManageRoute,
   AppSubscriptionSuccessRoute: AppSubscriptionSuccessRoute,
 }
 

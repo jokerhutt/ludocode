@@ -22,11 +22,11 @@ export function ProjectPage() {
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
-      <div className="col-span-1 min-h-0 bg-ludo-background border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludo-surface lg:col-span-3">
+      <div className="col-span-1 min-w-0 w-full min-h-0 bg-ludo-background border-r-2 grid grid-rows-[auto_1fr_auto] border-r-ludo-surface lg:col-span-3">
         <FileTreeWinbar />
         <ProjectFileTree />
         {aiEnabled && (
-          <div className="min-h-0 w-full h-full flex flex-col justify-end">
+          <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
             <ChatBotProvider
               credits={chatbotCredits}
               targetId={project.projectId}
