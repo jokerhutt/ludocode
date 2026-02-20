@@ -15,6 +15,7 @@ import { useEditPreferences } from "@/hooks/Queries/Mutations/useEditPreferences
 import type { TogglePreferencesRequest } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
+import { SubscriptionStatusCard } from "../Components/Card/SubscriptionStatusCard";
 
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
@@ -24,7 +25,12 @@ export function AccountSettingsPage() {
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   const { data: subscription } = useSuspenseQuery(qo.subscription());
-  const { monthlyCreditAllowance, currentPeriodEnd, planCode } = subscription;
+  const {
+    monthlyCreditAllowance,
+    currentPeriodEnd,
+    planCode,
+    cancelAtPeriodEnd,
+  } = subscription;
   const renewalDate = parseToDigitDate(Number(currentPeriodEnd));
   const { data: aiCredits } = useSuspenseQuery(qo.credits());
 
@@ -77,10 +83,17 @@ export function AccountSettingsPage() {
 
         <ProfileCardContainer header="AI">
           <AICreditBalanceCard
-            planCode={planCode}
             remaining={aiCredits}
             allowance={monthlyCreditAllowance}
             renewalDate={renewalDate}
+          />
+        </ProfileCardContainer>
+
+        <ProfileCardContainer header="SUBSCRIPTION">
+          <SubscriptionStatusCard
+            planCode={planCode}
+            currentPeriodEnd={currentPeriodEnd}
+            cancelAtPeriodEnd={cancelAtPeriodEnd}
           />
         </ProfileCardContainer>
 

@@ -25,7 +25,7 @@ export function SubscriptionActionButton({
   return (
     <LudoButton
       onClick={() => onClick()}
-      className="w-1/2 h-auto py-1"
+      className="w-1/3 h-auto py-1"
       variant="alt"
     >
       {text}
