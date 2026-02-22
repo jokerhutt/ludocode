@@ -5,7 +5,7 @@ import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
 
 type SubscriptionStatusCardProps = {
   planCode: SubscriptionPlan;
-  currentPeriodEnd: string;
+  currentPeriodEnd: number;
   cancelAtPeriodEnd: boolean;
 };
 
@@ -23,7 +23,7 @@ export function SubscriptionStatusCard({
       : "text-green-400";
 
   const renewalText = isFree
-    ? "Upgrade to unlock more features"
+    ? "Subscribe to support"
     : cancelAtPeriodEnd
       ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
       : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;

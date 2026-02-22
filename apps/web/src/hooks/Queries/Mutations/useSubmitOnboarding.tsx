@@ -16,7 +16,7 @@ export function useSubmitOnboarding() {
       qc.setQueryData(qk.currentUser(), refreshedUser);
       qc.setQueryData(qk.preferences(), preferences);
       const { courseProgress } = courseProgressResponse;
-      const { courseId, moduleId } = courseProgress;
+      const { courseId } = courseProgress;
 
       qc.setQueryData(qk.courseProgress(courseId), courseProgress);
       qc.setQueryData(qk.currentCourseId(), courseId);

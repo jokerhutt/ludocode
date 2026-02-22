@@ -14,7 +14,6 @@ import { useState } from "react";
 import { useEditPreferences } from "@/hooks/Queries/Mutations/useEditPreferences";
 import type { TogglePreferencesRequest } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
-import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
 import { SubscriptionStatusCard } from "../Components/Card/SubscriptionStatusCard";
 
 export function AccountSettingsPage() {
@@ -31,7 +30,6 @@ export function AccountSettingsPage() {
     planCode,
     cancelAtPeriodEnd,
   } = subscription;
-  const renewalDate = parseToDigitDate(Number(currentPeriodEnd));
   const { data: aiCredits } = useSuspenseQuery(qo.credits());
 
   const [audioEnabled, setAudioEnabled] = useState(preferences.audioEnabled);
@@ -97,7 +95,7 @@ export function AccountSettingsPage() {
             <AICreditBalanceCard
               remaining={aiCredits}
               allowance={monthlyCreditAllowance}
-              renewalDate={renewalDate}
+              currentPeriodEnd={currentPeriodEnd}
             />
           </ProfileCardContainer>
         </div>
