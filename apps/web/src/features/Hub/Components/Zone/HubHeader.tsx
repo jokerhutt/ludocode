@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { useSubscriptionContext } from "../../Context/SubscriptionContext";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { getUserAvatar } from "@/constants/avatars/avatars";
-import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { ProfileActionsPopover } from "../Popover/ProfileActionsPopover";
 type HubHeaderProps = { title: string };
@@ -28,7 +28,7 @@ export function HubHeader({ title }: HubHeaderProps) {
           <NavigationIconGroup groupClassName="hidden lg:flex" />
           <div className="flex justify-end gap-4 items-center">
             <StatsGroup />
-            <SubscriptionBadge className="hidden md:dlex" tier={plan} />
+            <SubscriptionBadge className="hidden md:flex" tier={plan} />
             <ProfileActionsPopover
               userId={user.id}
               trigger={
