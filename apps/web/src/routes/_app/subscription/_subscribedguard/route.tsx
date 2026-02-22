@@ -1,0 +1,15 @@
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/_app/subscription/_subscribedguard")({
+  beforeLoad: async ({ context }) => {
+    const currentSubscription = await context.queryClient.ensureQueryData(
+      qo.subscription(),
+    );
+
+    if (currentSubscription.planCode != "FREE") {
+      throw redirect(ludoNavigation.subscription.toAlreadySubscribedPage());
+    }
+  },
+});
