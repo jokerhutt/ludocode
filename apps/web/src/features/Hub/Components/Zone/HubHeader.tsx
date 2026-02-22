@@ -4,13 +4,22 @@ import { SubscriptionBadge } from "@/features/Hub/Components/Zone/SubscriptionBa
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell";
 import { Suspense } from "react";
 import { useSubscriptionContext } from "../../Context/SubscriptionContext";
+import { Avatar } from "@ludocode/design-system/primitives/avatar";
+import { getUserAvatar } from "@/constants/avatars/avatars";
+import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
+import { ProfileActionsPopover } from "../Popover/ProfileActionsPopover";
 type HubHeaderProps = { title: string };
 
 export function HubHeader({ title }: HubHeaderProps) {
+  const { data: user } = useSuspenseQuery(qo.currentUser());
+  const { avatarVersion, avatarIndex } = user;
 
-  const subscription = useSubscriptionContext()
-  const plan = subscription.planCode
-  
+  const subscription = useSubscriptionContext();
+  const plan = subscription.planCode;
+
+  const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
+
   return (
     <HeaderWithBar device="Both">
       <Suspense fallback={<div />}>
@@ -19,7 +28,18 @@ export function HubHeader({ title }: HubHeaderProps) {
           <NavigationIconGroup groupClassName="hidden lg:flex" />
           <div className="flex justify-end gap-4 items-center">
             <StatsGroup />
-            <SubscriptionBadge tier={plan} />
+            <SubscriptionBadge className="hidden md:dlex" tier={plan} />
+            <ProfileActionsPopover
+              userId={user.id}
+              trigger={
+                <button>
+                  <Avatar
+                    className="h-6 w-6 hover:cursor-pointer max-h-8 max-w-8"
+                    src={userPfpSrc}
+                  />
+                </button>
+              }
+            />
           </div>
         </div>
       </Suspense>
