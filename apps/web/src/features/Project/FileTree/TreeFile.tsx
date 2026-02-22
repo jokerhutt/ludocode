@@ -15,17 +15,18 @@ type TreeFileProps = {
   id: string;
   index: number;
   isSelected: boolean;
+  readOnly?: boolean;
   onClick: () => void;
 };
 
 export function TreeFile({
   fileName,
   icon,
+  readOnly,
   id,
   isSelected,
   onClick,
 }: TreeFileProps) {
-
   const { renameFile, deleteFile } = useProjectContext();
 
   return (
@@ -33,13 +34,15 @@ export function TreeFile({
       <FileInfoRow fileName={fileName}>
         <CustomIcon color="white" className="h-4" iconName={icon} />
       </FileInfoRow>
-      <FileActionsButton
-        itemType={"File"}
-        renameItem={renameFile}
-        deleteItem={deleteFile}
-        targetId={id}
-        fileName={fileName}
-      />
+      {!readOnly && (
+        <FileActionsButton
+          itemType={"File"}
+          renameItem={renameFile}
+          deleteItem={deleteFile}
+          targetId={id}
+          fileName={fileName}
+        />
+      )}
     </FileWrapper>
   );
 }

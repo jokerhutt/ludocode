@@ -9,11 +9,12 @@ import {
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { router } from "@/main";
 import { parseToDate } from "@ludocode/util";
+import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { projectId, projectName, projectLanguage, updatedAt } = project;
+  const { projectId, projectName, projectLanguage, updatedAt, deleteAt } = project;
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
@@ -27,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(projectId));
       }}
-      className="w-full h-20 flex items-start text-white hover:cursor-pointer justify-between p-4"
+      className="w-full h-22 flex items-start text-white hover:cursor-pointer justify-between p-4"
     >
       <div className="w-full items-start text-white flex gap-4">
         <CustomIcon
@@ -40,6 +41,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <p className="m-0 text-xs text-ludoAltText leading-tight">
             Last modified: {updatedAtTime}
           </p>
+          {deleteAt && (
+            <p className="m-0 text-xs text-red-400 leading-tight">
+              Scheduled for deletion on {parseToDigitDate(Number(deleteAt))}
+            </p>
+          )}
         </div>
       </div>
       <div>
