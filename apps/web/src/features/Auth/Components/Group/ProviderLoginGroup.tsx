@@ -1,9 +1,9 @@
-import type { AuthProviderMode } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry";
+import type { AuthProviderMode } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry.tsx";
 import {
   GithubIcon,
   GoogleIcon,
-} from "@ludocode/design-system/primitives/custom-icon";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 
 type ProviderLoginGroupProps = {
   onLogin: (provider: AuthProviderMode) => void;

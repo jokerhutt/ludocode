@@ -1,15 +1,13 @@
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
 import { useFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useFirebaseAuthEntry";
-import { EmailAuthForm } from "../Components/EmailAuthForm";
-import { ProviderLoginGroup } from "../Components/ProviderLoginGroup";
+import { EmailAuthForm } from "../Components/Form/EmailAuthForm.tsx";
+import { ProviderLoginGroup } from "../Components/Group/ProviderLoginGroup.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
 import { useFirebaseEmailAuth } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth";
 
-type AuthPageProps = {};
-
-export function RegistrationPage({}: AuthPageProps) {
+export function RegistrationPage() {
   const firebaseLogin = useFirebaseAuthEntry();
   const emailAuth = useFirebaseEmailAuth();
   return (

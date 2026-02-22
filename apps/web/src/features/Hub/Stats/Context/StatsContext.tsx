@@ -6,6 +6,6 @@ export const StatsContext = createContext<LudoStats | null>(null);
 export function useStatsContext() {
   const ctx = useContext(StatsContext);
   if (!ctx)
-    throw new Error("useStatsContext must be used inside a Stats.Provider");
+    throw new Error("useStatsContext must be used inside a Group.Provider");
   return ctx;
 }

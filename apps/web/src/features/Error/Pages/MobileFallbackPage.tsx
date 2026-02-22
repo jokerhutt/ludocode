@@ -1,4 +1,4 @@
-import { Button } from "@ludocode/external/ui/button";
+import { Button } from "@ludocode/external/ui/button.tsx";
 import { useRouter } from "@tanstack/react-router";
 
 export function MobileFallbackPage() {

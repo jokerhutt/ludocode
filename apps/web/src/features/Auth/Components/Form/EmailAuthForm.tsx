@@ -1,8 +1,8 @@
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { Checkbox } from "@ludocode/external/ui/checkbox";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { Checkbox } from "@ludocode/external/ui/checkbox.tsx";
 import { useState } from "react";
-import { cn } from "@ludocode/design-system/cn-utils";
-import type { EmailLoginMode } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
+import type { EmailLoginMode } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth.tsx";
 import {LudoInput} from "@ludocode/design-system/primitives/input.tsx";
 
 type EmailAuthFormProps = {

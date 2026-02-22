@@ -7,7 +7,7 @@ export function useCurrentCourseContext() {
   const ctx = useContext(CurrentCourseContext);
   if (!ctx)
     throw new Error(
-      "useCurrentCourseContext must be used inside a Stats.Provider"
+      "useCurrentCourseContext must be used inside a Group.Provider"
     );
   return ctx;
 }
