@@ -5,7 +5,11 @@ import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerConte
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { LudoSpinner } from "@ludocode/design-system/primitives/ludo-spinner.tsx";
 
-export function ProjectEditor() {
+type ProjectEditorProps = {
+  isMarkedForDeletion?: boolean
+}
+
+export function ProjectEditor({isMarkedForDeletion = false}: ProjectEditorProps) {
   const { active, updateContent } = useProjectContext();
   const { content, language, path } = active;
   const { runCode } = useCodeRunnerContext();
@@ -14,7 +18,7 @@ export function ProjectEditor() {
 
   function handleMount(
     editor: monacoTypes.editor.IStandaloneCodeEditor,
-    monaco: typeof monacoTypes
+    monaco: typeof monacoTypes,
   ) {
     editor.onKeyDown((e) => {
       const isCmdEnter = e.metaKey && e.keyCode === monaco.KeyCode.Enter;
@@ -44,7 +48,10 @@ export function ProjectEditor() {
       }
       onMount={handleMount}
       language={language.editorId}
-      options={editorOptions}
+      options={{
+        ...editorOptions,
+        readOnly: isMarkedForDeletion,
+      }}
     />
   );
 }

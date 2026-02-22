@@ -3,7 +3,9 @@ import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 
 export function ProjectFileTree() {
-  const { files, current, setCurrent } = useProjectContext();
+  const { files, current, setCurrent, project } = useProjectContext();
+
+  const readOnly = !!project.deleteAt
 
   console.log(
     "files ids",
@@ -22,6 +24,7 @@ export function ProjectFileTree() {
           <TreeFile
             key={key}
             id={key}
+            readOnly={readOnly}
             onClick={() => setCurrent(index)}
             fileName={file.path}
             icon={file.language.iconName as IconName}

@@ -44,7 +44,7 @@ export function ProjectPage() {
         <>
           <div className="col-span-10 min-h-0 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
             <EditorWinbar />
-            <ProjectEditor />
+            <ProjectEditor isMarkedForDeletion={!!project.deleteAt}/>
             <RunCodeButton />
           </div>
 
