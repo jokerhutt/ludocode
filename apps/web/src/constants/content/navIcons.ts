@@ -10,9 +10,8 @@ export type NavIcon = {
 };
 
 export const getNavIcons = (
-  userId: string,
   courseId: string,
-  moduleId: string
+  moduleId: string,
 ): NavIcon[] => [
   {
     name: "Courses",
@@ -30,11 +29,5 @@ export const getNavIcons = (
     path: "/projects",
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
     desktopOnly: true,
-  },
-  {
-    name: "Profile",
-    path: "/profile",
-    onClick: () =>
-      router.navigate(ludoNavigation.hub.profile.toProfile(userId)),
   },
 ];
