@@ -17,6 +17,12 @@ const tierStyles: Record<
     glow: "shadow-[0_0_8px_rgba(106,124,255,0.4)]",
     label: "SUPPORTER",
   },
+  DEV: {
+    bg: "bg-gradient-to-r from-ludo-accent to-ludo-progress",
+    text: "text-white",
+    glow: "shadow-[0_0_8px_rgba(106,124,255,0.4)]",
+    label: "DEV",
+  },
 };
 
 type SubscriptionBadgeProps = {

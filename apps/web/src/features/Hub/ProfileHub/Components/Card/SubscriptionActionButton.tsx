@@ -9,11 +9,17 @@ type SubscriptionActionButtonProps = { plan: SubscriptionPlan };
 export function SubscriptionActionButton({
   plan,
 }: SubscriptionActionButtonProps) {
-  const text = plan === "FREE" ? "Upgrade" : "Manage plan";
+  const isDisabled = plan === "DEV";
+  const text = isDisabled
+    ? "Disabled"
+    : plan === "FREE"
+      ? "Upgrade"
+      : "Manage plan";
 
   const { openManagePortal } = useStripeManage();
 
   const onClick = () => {
+    if (isDisabled) return;
     if (plan == "SUPPORTER") {
       openManagePortal();
     } else {
@@ -26,7 +32,8 @@ export function SubscriptionActionButton({
   return (
     <LudoButton
       onClick={() => onClick()}
-      className="w-1/3 md:w-full h-auto py-1"
+      disabled={isDisabled}
+      className="w-1/2 md:w-full h-auto py-1"
       variant="alt"
     >
       {text}

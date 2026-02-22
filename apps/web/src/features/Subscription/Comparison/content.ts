@@ -7,7 +7,7 @@ export type PlanStyleConfig = {
   badgeBg: string;
   badgeText: string;
   borderAccent: string;
-  buttonVariant: LudoButtonVariant
+  buttonVariant: LudoButtonVariant;
   glow: string;
   recommended?: boolean;
   title: string;
@@ -35,5 +35,16 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
     buttonVariant: "alt",
     glow: "shadow-[0_0_20px_rgba(106,124,255,0.15)]",
     recommended: true,
+  },
+
+  DEV: {
+    title: "Have fun!",
+    featureKey: "supporter",
+    badge: "DEV",
+    badgeBg: "bg-gradient-to-r from-ludo-accent to-ludo-progress",
+    badgeText: "text-white",
+    borderAccent: "border border-ludo-accent/60",
+    buttonVariant: "alt",
+    glow: "shadow-[0_0_20px_rgba(106,124,255,0.15)]",
   },
 };

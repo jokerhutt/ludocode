@@ -93,6 +93,7 @@ export function AccountSettingsPage() {
 
           <ProfileCardContainer className="flex flex-col h-full" header="AI">
             <AICreditBalanceCard
+              isDev={planCode === "DEV"}
               remaining={aiCredits}
               allowance={monthlyCreditAllowance}
               currentPeriodEnd={currentPeriodEnd}

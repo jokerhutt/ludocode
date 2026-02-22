@@ -14,6 +14,7 @@ export function SubscriptionStatusCard({
   currentPeriodEnd,
   cancelAtPeriodEnd,
 }: SubscriptionStatusCardProps) {
+  const isDisabled = planCode === "DEV";
   const isFree = planCode === "FREE";
 
   const statusColor = isFree
@@ -22,11 +23,13 @@ export function SubscriptionStatusCard({
       ? "text-red-400"
       : "text-green-400";
 
-  const renewalText = isFree
-    ? "Subscribe to support"
-    : cancelAtPeriodEnd
-      ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
-      : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;
+  const renewalText = isDisabled
+    ? "Stripe disabled"
+    : isFree
+      ? "Subscribe to support"
+      : cancelAtPeriodEnd
+        ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
+        : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;
 
   return (
     <LudoCard shadow={false} className="p-5 flex flex-col h-full">
@@ -39,7 +42,7 @@ export function SubscriptionStatusCard({
         </div>
 
         <div className={`text-sm font-medium ${statusColor}`}>
-          {isFree ? "Free" : cancelAtPeriodEnd ? "Cancelling" : "Active"}
+          {isFree ? "Free" : isDisabled ? "Dev" : cancelAtPeriodEnd ? "Cancelling" : "Active"}
         </div>
       </div>
 
