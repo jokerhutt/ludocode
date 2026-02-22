@@ -7,5 +7,4 @@ export type LoginUserResponse = {
   user: LudoUser;
   userCoins: UserCoins;
   userStreak: UserStreak;
-  subscription: UserSubscription;
 };

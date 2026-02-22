@@ -1,15 +1,16 @@
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
+import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
 
 type AICreditBalanceCardProps = {
   remaining: number;
   allowance: number;
-  renewalDate: string;
+  currentPeriodEnd: number;
 };
 
 export function AICreditBalanceCard({
   remaining,
   allowance,
-  renewalDate,
+  currentPeriodEnd,
 }: AICreditBalanceCardProps) {
   const percent = Math.round((remaining / allowance) * 100);
 
@@ -35,7 +36,7 @@ export function AICreditBalanceCard({
       </div>
 
       <div className="mt-auto w-full md:w-auto flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <p className="text-sm opacity-70">Renews {renewalDate}</p>
+        <p className="text-sm opacity-70">Renews {parseToDigitDate(Number(currentPeriodEnd))}</p>
         <div className="w-full md:w-auto" />
       </div>
     </LudoCard>

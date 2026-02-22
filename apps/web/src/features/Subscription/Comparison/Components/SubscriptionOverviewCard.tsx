@@ -23,8 +23,8 @@ export function SubscriptionOverviewCard({
     { code: "CORE_COURSES", title: "Core Courses" },
     { code: "CODE_EDITOR", title: "Built-in Code Editor" },
     { code: "PUBLISH_PROJECTS", title: "Publish Projects" },
-    { code: "SKILL_PATHS", title: "Skill Paths" },
     { code: "AI_ASSISTANT", title: "AI Assistant" },
+    { code: "SKILL_PATHS", title: "Skill Paths" },
     { code: "PRIORITY_SUPPORT", title: "Priority Support" },
   ];
 
@@ -160,27 +160,15 @@ function SubscriptionOverviewButton({
     return null;
   }
 
-  let text: string;
   let disabled = false;
 
-  if (tier === current) {
-    text = "Current";
-    disabled = true;
-  } else if (current === "FREE") {
-    text = `Upgrade to ${tier}`;
-  } else if (current === "SUPPORTER" && tier === "PATRON") {
-    text = "Upgrade to PATRON";
-  } else if (current === "PATRON" && tier === "SUPPORTER") {
-    text = "Downgrade to SUPPORTER";
-  } else {
-    text = `Switch to ${tier}`;
-  }
+  const text = tier == "FREE" ? "Continue with Free" : "Become a supporter"
 
   const handleClick = () => {
     if (tier === "FREE" || tier === current) {
-      navToCurrent()
+      navToCurrent();
     } else {
-      startCheckout(tier)
+      startCheckout(tier);
     }
   };
 
@@ -189,11 +177,7 @@ function SubscriptionOverviewButton({
       shadow
       disabled={disabled}
       variant={buttonVariant}
-      className={cn(
-        "mt-auto",
-        tier === "PATRON" &&
-          "bg-linear-to-r! from-purple-500! to-fuchsia-400! text-white! shadow-[0_7px_0_#6b21a8]!",
-      )}
+      className={cn("mt-auto")}
       onClick={() => handleClick()}
     >
       <span className="text-sm font-semibold">{text}</span>

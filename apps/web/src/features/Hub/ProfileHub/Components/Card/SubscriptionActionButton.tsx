@@ -9,11 +9,12 @@ type SubscriptionActionButtonProps = { plan: SubscriptionPlan };
 export function SubscriptionActionButton({
   plan,
 }: SubscriptionActionButtonProps) {
-  const text = plan == "PATRON" ? "Manage plan" : "Upgrade plan";
+  const text = plan === "FREE" ? "Upgrade" : "Manage plan";
+
   const { openManagePortal } = useStripeManage();
 
   const onClick = () => {
-    if (plan == "PATRON") {
+    if (plan == "SUPPORTER") {
       openManagePortal();
     } else {
       router.navigate(

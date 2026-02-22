@@ -1,3 +1,4 @@
+import type { LudoButtonVariant } from "@ludocode/design-system/primitives/ludo-button";
 import type { SubscriptionPlan } from "@ludocode/types";
 
 export type PlanStyleConfig = {
@@ -6,7 +7,7 @@ export type PlanStyleConfig = {
   badgeBg: string;
   badgeText: string;
   borderAccent: string;
-  buttonVariant: "default" | "alt";
+  buttonVariant: LudoButtonVariant
   glow: string;
   recommended?: boolean;
   title: string;
@@ -14,13 +15,13 @@ export type PlanStyleConfig = {
 
 export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
   FREE: {
-    title: "Access to core courses",
+    title: "Access to core features",
     featureKey: "free",
     badge: "FREE",
     badgeBg: "bg-ludo-surface",
     badgeText: "text-ludo-accent-muted",
     borderAccent: "",
-    buttonVariant: "default",
+    buttonVariant: "white",
     glow: "",
   },
 
@@ -34,16 +35,5 @@ export const planStyles: Record<SubscriptionPlan, PlanStyleConfig> = {
     buttonVariant: "alt",
     glow: "shadow-[0_0_20px_rgba(106,124,255,0.15)]",
     recommended: true,
-  },
-
-  PATRON: {
-    title: "Everything, plus AI and priority perks",
-    featureKey: "patron",
-    badge: "Patron",
-    badgeBg: "bg-gradient-to-r from-purple-500 to-fuchsia-400",
-    badgeText: "text-white",
-    borderAccent: "border border-purple-500/40",
-    buttonVariant: "default",
-    glow: "shadow-[0_0_20px_rgba(131,105,214,0.2)]",
   },
 };

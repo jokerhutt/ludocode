@@ -20,8 +20,6 @@ async function appPreloader(
     throw redirect({ to: "/auth/login", replace: true });
   }
 
-  await queryClient.ensureQueryData(qo.subscription())
-
   const isOnboarding = location.pathname.startsWith("/onboarding");
 
   if (!isOnboarding && !user.hasOnboarded) {
