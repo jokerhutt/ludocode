@@ -22,6 +22,7 @@ export * from "./Completion/SyncState";
 export * from "./Curriculum/CurriculumDraftSchema";
 export * from "./Curriculum/SubjectDraftSchema"
 export * from "./Curriculum/ChangeSubjectRequest"
+export * from "./Curriculum/CreateCourseSchema"
 
 // Exercise
 export * from "./Exercise/AnswerToken";
