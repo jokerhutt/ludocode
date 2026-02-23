@@ -3,7 +3,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { AdminHubLayout } from "@/layouts/Hub/AdminHubLayout";
 
-export const Route = createFileRoute("/_app/_hub")({
+export const Route = createFileRoute("/_app/hub")({
   loader: async ({ context }) => hubLoader(context.queryClient),
   component: AdminHubLayout,
 });
