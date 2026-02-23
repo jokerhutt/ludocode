@@ -1,6 +1,7 @@
 import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/Curriculum/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
+import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
@@ -60,13 +61,7 @@ export const ExerciseDetailEditor = withForm({
                   onClick={() => onDelete()}
                   targetName={exercise.title ?? "This exercise"}
                 >
-                  <button
-                    type="button"
-                    className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10"
-                    title="Delete exercise"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                    <LudoTrashIcon/>
                 </DeleteDialog>
               ) : (
                 <button

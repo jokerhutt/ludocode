@@ -5,6 +5,7 @@ import { withForm } from "../../types";
 
 import { ModuleOrderActions } from "./ModuleOrderActions";
 import { SortableLessonContainer } from "./SortableLessonContainer";
+import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 
 export const EditorModule = withForm({
   defaultValues: {
@@ -48,24 +49,10 @@ export const EditorModule = withForm({
               )}
             />
             {onDelete && (
-              <button
-                type="button"
+              <LudoTrashIcon
                 onClick={canDelete ? onDelete : undefined}
                 disabled={!canDelete}
-                className={`transition-colors p-1 rounded shrink-0
-      ${
-        canDelete
-          ? "text-red-400 hover:text-red-300 hover:bg-red-400/10"
-          : "text-red-400/40 cursor-not-allowed"
-      }`}
-                title={
-                  canDelete
-                    ? "Delete module"
-                    : "At least one module is required"
-                }
-              >
-                <Trash2 size={16} />
-              </button>
+              />
             )}
           </div>
 
