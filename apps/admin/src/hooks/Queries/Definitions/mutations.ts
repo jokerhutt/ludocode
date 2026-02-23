@@ -4,6 +4,8 @@ import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRe
 import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
 import {
+  type ChangeLanguageRequest,
+  type ChangeSubjectRequest,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type LanguageMetadata,
@@ -96,6 +98,28 @@ export const mutations = {
         ),
     });
   },
+  changeCourseSubject: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, ChangeSubjectRequest>({
+      mutationKey: ["changeCourseSubject"],
+      mutationFn: (variables) =>
+        ludoPut<LudoCourse[], ChangeSubjectRequest>(
+          adminApi.snapshots.byCourseCurriculumSubject(courseId),
+          variables,
+          true,
+        ),
+    });
+  },
+  changeCourseLanguage: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, ChangeLanguageRequest>({
+      mutationKey: ["changeCourseLanguage"],
+      mutationFn: (variables) =>
+        ludoPut<LudoCourse[], ChangeLanguageRequest>(
+          adminApi.snapshots.byCourseCurriculumLanguage(courseId),
+          variables,
+          true,
+        ),
+    });
+  },
   deleteSubject: (subjectid: number) => {
     return mutationOptions<SubjectsDraftSnapshot[], Error, void>({
       mutationKey: ["deleteSubject"],
@@ -107,7 +131,11 @@ export const mutations = {
     });
   },
   createSubject: () => {
-    return mutationOptions<SubjectsDraftSnapshot[], Error, SubjectsDraftSnapshot>({
+    return mutationOptions<
+      SubjectsDraftSnapshot[],
+      Error,
+      SubjectsDraftSnapshot
+    >({
       mutationKey: ["createSubject"],
       mutationFn: (variables) =>
         ludoPost<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(

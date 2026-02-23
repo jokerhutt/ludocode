@@ -6,6 +6,7 @@ type LudoSelectProps = {
   value: string;
   setValue: (v: string) => void;
   title?: string;
+  variant?: "default" | "dark";
   children: React.ReactNode;
   containerClassName?: string;
   error?: string;
@@ -15,10 +16,14 @@ export function LudoSelect({
   value,
   setValue,
   title,
+  variant = "default",
   children,
   containerClassName,
   error,
 }: LudoSelectProps) {
+  const variantStyle =
+    variant == "default" ? "bg-ludo-surface" : "bg-ludo-background";
+
   return (
     <div
       className={cn(
@@ -32,10 +37,11 @@ export function LudoSelect({
         <Select.Trigger
           className={cn(
             "h-12 w-full rounded-md px-3",
-            "bg-ludo-surface text-white",
+            "text-white",
             "border border-transparent",
             "flex items-center justify-between",
             error && "border-red-400",
+            variantStyle,
           )}
         >
           <Select.Value placeholder="Select…" />
@@ -54,7 +60,8 @@ export function LudoSelect({
             className={cn(
               "z-50 rounded-md overflow-hidden rounded-md",
               "border-4 p-2 border-ludo-accent",
-              "bg-ludo-surface shadow-lg",
+              "shadow-lg",
+              variantStyle,
             )}
           >
             <Select.Viewport className="p-1 max-h-50 overflow-y-auto">

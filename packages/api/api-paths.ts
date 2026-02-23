@@ -61,8 +61,10 @@ export function createApiPaths({
       base: `${BASE}/lessons`,
       adminBase: `${ADMIN_BASE}/lessons`,
       lessons: (lessonIds: string) => `${BASE}/lessons?${lessonIds}`,
-      lessonExercises: (lessonId: string) => `${BASE}/lessons/${lessonId}/exercises`,
-      byLessonCurriculum: (lessonId: string) => `${ADMIN_BASE}/lessons/${lessonId}`
+      lessonExercises: (lessonId: string) =>
+        `${BASE}/lessons/${lessonId}/exercises`,
+      byLessonCurriculum: (lessonId: string) =>
+        `${ADMIN_BASE}/lessons/${lessonId}`,
     },
 
     progress: {
@@ -106,6 +108,10 @@ export function createApiPaths({
       course: `${ADMIN_BASE}/snapshots/course`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
+      byCourseCurriculumSubject: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/${courseId}/subject`,
+      byCourseCurriculumLanguage: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/${courseId}/language`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 
@@ -121,7 +127,7 @@ export function createApiPaths({
       checkout: `${BASE}/subscription/checkout`,
       confirm: `${BASE}/subscription/confirm`,
       manage: `${BASE}/subscription/manage`,
-      plans: `${BASE}/subscription/plans`
+      plans: `${BASE}/subscription/plans`,
     },
 
     preferences: {
