@@ -16,6 +16,7 @@ export const EditorModule = withForm({
     onMoveUp: () => {},
     onMoveDown: () => {},
     onDelete: undefined as undefined | (() => void),
+    canDelete: true,
   },
   render: function Render({
     form,
@@ -23,6 +24,7 @@ export const EditorModule = withForm({
     onMoveUp,
     onMoveDown,
     onDelete,
+    canDelete,
   }) {
     const modules = form.state.values.modules;
 
@@ -48,9 +50,19 @@ export const EditorModule = withForm({
             {onDelete && (
               <button
                 type="button"
-                onClick={onDelete}
-                className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10 shrink-0"
-                title="Delete module"
+                onClick={canDelete ? onDelete : undefined}
+                disabled={!canDelete}
+                className={`transition-colors p-1 rounded shrink-0
+      ${
+        canDelete
+          ? "text-red-400 hover:text-red-300 hover:bg-red-400/10"
+          : "text-red-400/40 cursor-not-allowed"
+      }`}
+                title={
+                  canDelete
+                    ? "Delete module"
+                    : "At least one module is required"
+                }
               >
                 <Trash2 size={16} />
               </button>
