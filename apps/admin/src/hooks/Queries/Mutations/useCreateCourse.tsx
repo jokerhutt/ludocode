@@ -3,14 +3,13 @@ import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { mutations } from "@/hooks/Queries/Definitions/mutations";
 
-export function useCreateCourse(closeModal?: () => void) {
+export function useCreateCourse() {
   const qc = useQueryClient();
 
   return useMutation({
     ...mutations.createCourse(),
     onSuccess: (payload: LudoCourse[]) => {
       qc.setQueryData(qk.courses(), payload);
-      closeModal?.();
     },
   });
 }

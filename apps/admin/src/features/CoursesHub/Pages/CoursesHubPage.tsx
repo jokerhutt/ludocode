@@ -6,10 +6,14 @@ import { coursesHeroContent } from "../content";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
+import { useState } from "react";
+import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog";
 
 export function CoursesHubPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
   const { data: subjects } = useSuspenseQuery(qo.allSubjects());
+
+  const [openCreateCourse, setOpenCreateCourse] = useState(false);
 
   return (
     <>
@@ -21,9 +25,18 @@ export function CoursesHubPage() {
               <LudoButton className="w-1/3 px-2" variant="alt">
                 Instructions
               </LudoButton>
-              <LudoButton variant="alt" className="w-1/3 px-2">
-                Create Course
-              </LudoButton>
+              <CreateCourseDialog
+                open={openCreateCourse}
+                close={() => setOpenCreateCourse(false)}
+              >
+                <LudoButton
+                  variant="alt"
+                  className="w-1/3 px-2"
+                  onClick={() => setOpenCreateCourse(true)}
+                >
+                  Create Course
+                </LudoButton>
+              </CreateCourseDialog>
             </div>
           </Hero>
           <div className="w-full grid grid-cols-12 gap-10">
