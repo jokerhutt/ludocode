@@ -26,21 +26,49 @@ export function SubjectDetailPane({
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const [original, setOriginal] = useState<SubjectsDraftSnapshot | null>(null);
+
+  const startEditing = () => {
+    setOriginal(subject);
+    setIsEditing(true);
+  };
+
+  const stopEditing = () => {
+    setIsEditing(false);
+    setOriginal(null);
+  };
+
+  const diffs = original
+    ? [
+        {
+          field: "name",
+          oldValue: original.name,
+          newValue: subject.name,
+          hasChanged: original.name !== subject.name,
+        },
+        {
+          field: "slug",
+          oldValue: original.slug,
+          newValue: subject.slug,
+          hasChanged: original.slug !== subject.slug,
+        },
+      ].filter((d) => d.hasChanged)
+    : [];
+
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumPreviewHeader>
         <p className="text-white font-bold">Subject</p>
         <div className="flex gap-3">
           {isEditing && (
-            <ShadowLessButton
-              variant="white"
-              onClick={() => setIsEditing((v) => !v)}
-            >
+            <ShadowLessButton variant="white" onClick={stopEditing}>
               <p className="text-sm">Abort</p>
             </ShadowLessButton>
           )}
 
-          <ShadowLessButton onClick={() => setIsEditing((v) => !v)}>
+          <ShadowLessButton
+            onClick={() => (isEditing ? stopEditing() : startEditing())}
+          >
             <p className="text-sm">{isEditing ? "Save" : "Edit Subject"}</p>
           </ShadowLessButton>
         </div>
@@ -84,6 +112,37 @@ export function SubjectDetailPane({
           )}
         </div>
 
+        {isEditing && diffs.length > 0 && (
+          <>
+            <div className="border-t border-ludo-border w-full" />
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xs text-ludoAltText">Changes</p>
+
+              {diffs.map((d) => (
+                <div
+                  key={d.field}
+                  className="flex items-center gap-4 text-sm text-ludoAltText"
+                >
+                  <span className="font-medium text-white capitalize">
+                    {d.field}
+                  </span>
+
+                  <span>:</span>
+
+                  <span className="line-through text-red-400">
+                    {d.oldValue || "∅"}
+                  </span>
+
+                  <span>→</span>
+
+                  <span className="text-green-400">{d.newValue || "∅"}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
         {/* DIVIDER */}
         <div className="border-t border-ludo-border w-full" />
 
@@ -101,7 +160,7 @@ export function SubjectDetailPane({
       <CurriculumPreviewFooter>
         <p className="text-xs">Attached to 3 courses</p>
         <ShadowLessButton
-          disabled={coursesForSubject.length > 0}  
+          disabled={coursesForSubject.length > 0}
           variant="danger"
           onClick={() => setIsEditing((v) => !v)}
         >
