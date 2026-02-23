@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type SubjectsDraftSnapshot = {
-    id: string;
+    id: number;
     slug: string;
     name: string;
 }
@@ -10,7 +10,7 @@ export const subjectsDraftSchema = z.object({
   subjects: z
     .array(
       z.object({
-        id: z.string(),
+        id: z.number(),
         slug: z
           .string()
           .min(1, "Slug is required")

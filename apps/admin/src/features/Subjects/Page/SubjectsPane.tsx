@@ -9,8 +9,8 @@ import type { SubjectsDraftSnapshot } from "@ludocode/types";
 
 type SubjectsPaneProps = {
   subjects: SubjectsDraftSnapshot[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
+  selectedId: number | null;
+  onSelect: (id: number) => void;
 };
 
 export function SubjectsPane({

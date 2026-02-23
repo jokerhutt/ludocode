@@ -1,34 +1,63 @@
 import { useState } from "react";
 
 import { SubjectsPane } from "./SubjectsPane";
-import type { SubjectsDraftSnapshot } from "@ludocode/types";
+import { subjectsDraftSchema, type SubjectsDraftSnapshot } from "@ludocode/types";
 import { SubjectDetailPane } from "./SubjectDetailPane";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
+import { useAppForm } from "../types";
+
 
 
 export function SubjectsPage() {
+  const { data: courses } = useSuspenseQuery(qo.allCourses());
+  const { data: subjectsFromApi } = useSuspenseQuery(qo.allSubjects());
 
+  const form = useAppForm({
+    defaultValues: {
+      subjects: subjectsFromApi,
+    },
+    validators: {
+      onSubmit: subjectsDraftSchema,
+    },
+    onSubmit: async ({ value }) => {
+      console.log("Submit subjects", value);
+    },
+  });
 
-  const {data: courses} = useSuspenseQuery(qo.allCourses())
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const [subjects, setSubjects] = useState<SubjectsDraftSnapshot[]>([
-    { id: "1", name: "Python", slug: "python" },
-    { id: "2", name: "Java", slug: "java" },
-  ]);
+  const subjects = form.state.values.subjects;
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected =
+    selectedId == null
+      ? null
+      : subjects.find((s) => s.id === selectedId) ?? null;
 
-  const selected = subjects.find((s) => s.id === selectedId) ?? null;
+  const updateSubject = (
+    id: number,
+    patch: { name?: string; slug?: string }
+  ) => {
+    const index = subjects.findIndex((s) => s.id === id);
+    if (index === -1) return;
 
-  const updateSubject = (id: string, patch: Partial<SubjectsDraftSnapshot>) =>
-    setSubjects((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, ...patch } : s)),
-    );
+    if (patch.name !== undefined) {
+      form.setFieldValue(`subjects[${index}].name`, patch.name);
+    }
+
+    if (patch.slug !== undefined) {
+      form.setFieldValue(`subjects[${index}].slug`, patch.slug);
+    }
+  };
 
   return (
-    <div className="col-span-10 min-h-0 w-full h-full flex flex-col gap-8">
-      {/* HEADER */}
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="col-span-10 min-h-0 w-full h-full flex flex-col gap-8"
+    >
       <div className="border-b border-b-ludo-accent-muted pb-6">
         <h1 className="text-white text-3xl font-bold">Subjects</h1>
         <p className="text-ludoAltText text-sm">
@@ -36,7 +65,6 @@ export function SubjectsPage() {
         </p>
       </div>
 
-      {/* BODY */}
       <div className="flex gap-4 min-h-0 flex-1">
         <aside className="w-1/2 flex flex-col min-h-0">
           <SubjectsPane
@@ -49,13 +77,23 @@ export function SubjectsPage() {
         <aside className="w-1/2 flex flex-col min-h-0">
           {selected && (
             <SubjectDetailPane
-              courses={courses}  
+              courses={courses}
               subject={selected}
               onUpdate={(patch) => updateSubject(selected.id, patch)}
             />
           )}
         </aside>
       </div>
-    </div>
+
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          disabled={!form.state.canSubmit}
+          className="bg-ludo-accent px-4 py-2 rounded-sm text-sm"
+        >
+          Save
+        </button>
+      </div>
+    </form>
   );
 }
