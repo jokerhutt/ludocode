@@ -14,11 +14,21 @@ export function ModuleOrderActions({
   onMoveUp,
   onMoveDown,
 }: ModuleOrderActionsProps) {
+  const handleMoveUp = () => {
+    if (moduleIndex === 0) return;
+    onMoveUp();
+  };
+
+  const handleMoveDown = () => {
+    if (moduleIndex === totalModules - 1) return;
+    onMoveDown();
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <ShadowLessButton
         disabled={moduleIndex === 0}
-        onClick={onMoveUp}
+        onClick={() => handleMoveUp()}
         className="w-6 h-6 rounded-sm"
       >
         <ArrowUp className="h-4 w-4" />
@@ -26,7 +36,7 @@ export function ModuleOrderActions({
 
       <ShadowLessButton
         disabled={moduleIndex === totalModules - 1}
-        onClick={onMoveDown}
+        onClick={() => handleMoveDown()}
         className="w-6 h-6 rounded-sm"
       >
         <ArrowDown className="h-4 w-4" />
