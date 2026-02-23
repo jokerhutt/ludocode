@@ -4,73 +4,57 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
-import type { LudoCourse, SubjectsDraftSnapshot } from "@ludocode/types";
-import { useState } from "react";
+import type { LudoCourse } from "@ludocode/types";
+import type { UseSubjectFormResponse } from "./useSubjectForm";
+import type { SubjectFieldDiff } from "../Hooks/useSubjectDiffs";
+import { X } from "lucide-react";
 
 type SubjectDetailPaneProps = {
   courses: LudoCourse[];
-  subject: SubjectsDraftSnapshot;
-  onUpdate: (patch: Partial<SubjectsDraftSnapshot>) => void;
+  formHook: UseSubjectFormResponse;
+  isEditing: boolean;
+  onEdit: () => void;
+  onClose: () => void;
+  onAbort: () => void;
+  onSave: () => void;
+  subjectDiffs: SubjectFieldDiff[];
+  hasAnyChange: boolean;
 };
 
 export function SubjectDetailPane({
   courses,
-  subject,
-  onUpdate,
+  formHook,
+  onClose,
+  isEditing,
+  onEdit,
+  onAbort,
+  onSave,
+  subjectDiffs,
+  hasAnyChange,
 }: SubjectDetailPaneProps) {
-  const coursesForSubject = courses.filter(
-    (c) => c.subject.slug === subject.slug,
-  );
+  const { name, slug, setName, setSlug, errors } = formHook;
 
-  const [isEditing, setIsEditing] = useState(false);
-
-  const [original, setOriginal] = useState<SubjectsDraftSnapshot | null>(null);
-
-  const startEditing = () => {
-    setOriginal(subject);
-    setIsEditing(true);
-  };
-
-  const stopEditing = () => {
-    setIsEditing(false);
-    setOriginal(null);
-  };
-
-  const diffs = original
-    ? [
-        {
-          field: "name",
-          oldValue: original.name,
-          newValue: subject.name,
-          hasChanged: original.name !== subject.name,
-        },
-        {
-          field: "slug",
-          oldValue: original.slug,
-          newValue: subject.slug,
-          hasChanged: original.slug !== subject.slug,
-        },
-      ].filter((d) => d.hasChanged)
-    : [];
+  const coursesForSubject = courses.filter((c) => c.subject.slug === slug);
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumPreviewHeader>
         <p className="text-white font-bold">Subject</p>
-        <div className="flex gap-3">
+
+        <div className="flex gap-3 items-center">
           {isEditing && (
-            <ShadowLessButton variant="white" onClick={stopEditing}>
+            <ShadowLessButton variant="white" onClick={onAbort}>
               <p className="text-sm">Abort</p>
             </ShadowLessButton>
           )}
 
-          <ShadowLessButton
-            onClick={() => (isEditing ? stopEditing() : startEditing())}
-          >
+          <ShadowLessButton onClick={isEditing ? onSave : onEdit}>
             <p className="text-sm">{isEditing ? "Save" : "Edit Subject"}</p>
           </ShadowLessButton>
+          {!isEditing && (
+            <X onClick={() => onClose()} className="h-4 hover:cursor-pointer"/>
+          )}
         </div>
       </CurriculumPreviewHeader>
 
@@ -81,64 +65,64 @@ export function SubjectDetailPane({
             <>
               <div className="flex flex-col gap-1 w-1/2">
                 <p className="text-xs text-ludoAltText">Name</p>
-                <p className="text-sm">{subject.name}</p>
+                <p className="text-sm">{name}</p>
               </div>
 
               <div className="flex flex-col gap-1 w-1/2">
                 <p className="text-xs text-ludoAltText">Slug</p>
-                <p className="text-sm text-ludo-accent-muted">
-                  /{subject.slug}
-                </p>
+                <p className="text-sm text-ludo-accent-muted">/{slug}</p>
               </div>
             </>
           ) : (
             <>
-              <div className="flex flex-col gap-2 w-1/2">
-                <p className="text-xs text-ludoAltText">Name</p>
-                <LudoInput
-                  value={subject.name}
-                  setValue={(v) => onUpdate({ name: v })}
-                />
-              </div>
+              <LudoInput
+                containerClassName="w-1/2"
+                title="Name"
+                value={name}
+                setValue={setName}
+                error={errors.name}
+              />
 
-              <div className="flex flex-col gap-2 w-1/2">
-                <p className="text-xs text-ludoAltText">Slug</p>
-                <LudoInput
-                  value={subject.slug}
-                  setValue={(v) => onUpdate({ slug: v })}
-                />
-              </div>
+              <LudoInput
+                containerClassName="w-1/2"
+                title="Slug"
+                value={slug}
+                setValue={setSlug}
+                error={errors.slug}
+              />
             </>
           )}
         </div>
 
-        {isEditing && diffs.length > 0 && (
+        {isEditing && hasAnyChange && (
           <>
             <div className="border-t border-ludo-border w-full" />
 
             <div className="flex flex-col gap-3">
               <p className="text-xs text-ludoAltText">Changes</p>
 
-              {diffs.map((d) => (
-                <div
-                  key={d.field}
-                  className="flex items-center gap-4 text-sm text-ludoAltText"
-                >
-                  <span className="font-medium text-white capitalize">
-                    {d.field}
-                  </span>
+              {subjectDiffs
+                .filter((d) => d.hasChanged)
+                .map((d) => (
+                  <div
+                    key={d.field}
+                    className="flex items-center gap-4 text-sm text-ludoAltText"
+                  >
+                    <span className="font-medium text-white capitalize">
+                      {d.field}
+                    </span>
 
-                  <span>:</span>
+                    <span>:</span>
 
-                  <span className="line-through text-red-400">
-                    {d.oldValue || "∅"}
-                  </span>
+                    <span className="line-through text-red-400">
+                      {d.oldValue || "∅"}
+                    </span>
 
-                  <span>→</span>
+                    <span>→</span>
 
-                  <span className="text-green-400">{d.newValue || "∅"}</span>
-                </div>
-              ))}
+                    <span className="text-green-400">{d.newValue || "∅"}</span>
+                  </div>
+                ))}
             </div>
           </>
         )}
@@ -149,8 +133,16 @@ export function SubjectDetailPane({
         {/* COURSES SECTION */}
         <div className="flex flex-col gap-3">
           <p className="text-xs text-ludoAltText">Attached Courses</p>
+
+          {coursesForSubject.length === 0 && (
+            <p className="text-sm text-ludoAltText/60">No courses attached</p>
+          )}
+
           {coursesForSubject.map((course) => (
-            <div className="bg-ludo-surface rounded-sm px-4 py-2 text-sm text-ludoAltText">
+            <div
+              key={course.id}
+              className="bg-ludo-surface rounded-sm px-4 py-2 text-sm text-ludoAltText"
+            >
               {course.title}
             </div>
           ))}
@@ -158,11 +150,14 @@ export function SubjectDetailPane({
       </CurriculumPreviewContent>
 
       <CurriculumPreviewFooter>
-        <p className="text-xs">Attached to 3 courses</p>
+        <p className="text-xs">
+          Attached to {coursesForSubject.length} course
+          {coursesForSubject.length === 1 ? "" : "s"}
+        </p>
+
         <ShadowLessButton
           disabled={coursesForSubject.length > 0}
           variant="danger"
-          onClick={() => setIsEditing((v) => !v)}
         >
           <p className="text-sm">Delete</p>
         </ShadowLessButton>
