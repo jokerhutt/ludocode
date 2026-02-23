@@ -59,7 +59,7 @@
     "nanoid": "^5.1.6",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react-dom": "19.2.4",
     "react-markdown": "^10.1.0",
     "react-responsive": "^10.0.1",
     "react-spinners": "^0.17.0",
