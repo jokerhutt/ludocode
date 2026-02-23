@@ -58,7 +58,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       danger: "shadow-[0_5px_0_#C85A5A]/50",
     };
 
-    const clickableStyles = clickable ? "hover:cursor-pointer" : "";
+    const clickableStyles = disabled ? "hover:cursor-not-allowed" : clickable ? "hover:cursor-pointer" : "";
     const clickableShadowStyle =
       clickable && shadow ? "active:translate-y-1 active:shadow-none" : "";
 

@@ -10,6 +10,13 @@ import type { UseSubjectFormResponse } from "./useSubjectForm";
 import type { SubjectFieldDiff } from "../Hooks/useSubjectDiffs";
 import { X } from "lucide-react";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@ludocode/external/ui/tooltip";
+
 type SubjectDetailPaneProps = {
   courses: LudoCourse[];
   formHook: UseSubjectFormResponse;
@@ -17,6 +24,7 @@ type SubjectDetailPaneProps = {
   onEdit: () => void;
   onClose: () => void;
   onAbort: () => void;
+  onDelete: () => void;
   onSave: () => void;
   subjectDiffs: SubjectFieldDiff[];
   hasAnyChange: boolean;
@@ -26,6 +34,7 @@ export function SubjectDetailPane({
   courses,
   formHook,
   onClose,
+  onDelete,
   isEditing,
   onEdit,
   onAbort,
@@ -36,6 +45,8 @@ export function SubjectDetailPane({
   const { name, slug, setName, setSlug, errors } = formHook;
 
   const coursesForSubject = courses.filter((c) => c.subject.slug === slug);
+
+  const canDelete = coursesForSubject.length === 0;
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
@@ -53,7 +64,7 @@ export function SubjectDetailPane({
             <p className="text-sm">{isEditing ? "Save" : "Edit Subject"}</p>
           </ShadowLessButton>
           {!isEditing && (
-            <X onClick={() => onClose()} className="h-4 hover:cursor-pointer"/>
+            <X onClick={() => onClose()} className="h-4 hover:cursor-pointer" />
           )}
         </div>
       </CurriculumPreviewHeader>
@@ -155,12 +166,30 @@ export function SubjectDetailPane({
           {coursesForSubject.length === 1 ? "" : "s"}
         </p>
 
-        <ShadowLessButton
-          disabled={coursesForSubject.length > 0}
-          variant="danger"
-        >
-          <p className="text-sm">Delete</p>
-        </ShadowLessButton>
+        <TooltipProvider>
+          <Tooltip >
+            <TooltipTrigger asChild>
+              <span>
+                <ShadowLessButton
+                  disabled={!canDelete}
+                  variant="danger"
+                  onClick={() => {
+                    if (!canDelete) return;
+                    onDelete();
+                  }}
+                >
+                  <p className="text-sm">Delete</p>
+                </ShadowLessButton>
+              </span>
+            </TooltipTrigger>
+
+            {!canDelete && (
+              <TooltipContent className="bg-ludo-surface" side="top">
+                You must first delete attached courses.
+              </TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
       </CurriculumPreviewFooter>
     </div>
   );

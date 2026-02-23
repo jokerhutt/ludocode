@@ -7,6 +7,7 @@ import { useSubjectForm } from "./useSubjectForm";
 import { useSubjectDiffs } from "../Hooks/useSubjectDiffs";
 import { useUpdateSubject } from "../Hooks/useUpdateSubject";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
+import { useDeleteSubject } from "../Hooks/useDeleteSubject";
 
 export function SubjectsPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
@@ -41,6 +42,20 @@ export function SubjectsPage() {
 
     updateMutation.mutate(payload, {
       onSuccess: () => setIsEditing(false),
+    });
+  };
+
+  const deleteMutation = useDeleteSubject({ subjectId: selected?.id ?? 0 });
+
+  const handleDelete = () => {
+    if (!selected) return;
+
+    deleteMutation.mutate(undefined, {
+      onSuccess: () => {
+        setIsEditing(false);
+        setSelectedId(null);
+        formHook.reset();
+      },
     });
   };
 
@@ -86,6 +101,7 @@ export function SubjectsPage() {
               courses={courses}
               formHook={formHook}
               isEditing={isEditing}
+              onDelete={handleDelete}
               onEdit={() => setIsEditing(true)}
               onAbort={cancelEditing}
               onSave={handleSave}
