@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   subjectsDraftSchema,
   type SubjectsDraftSnapshot,
@@ -9,24 +9,22 @@ type Args = {
   existingSubjects: SubjectsDraftSnapshot[];
 };
 
-export function useSubjectForm({
-  currentSubject,
-  existingSubjects,
-}: Args) {
+export function useSubjectForm({ currentSubject, existingSubjects }: Args) {
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [errors, setErrors] = useState<{ name?: string; slug?: string }>({});
 
-  const didInitRef = useRef(false);
-
   useEffect(() => {
-    if (!currentSubject) return;
-    if (didInitRef.current) return;
+    if (!currentSubject) {
+      setName("");
+      setSlug("");
+      return;
+    }
 
     setName(currentSubject.name);
     setSlug(currentSubject.slug);
-    didInitRef.current = true;
-  }, [currentSubject]);
+    setErrors({});
+  }, [currentSubject?.id]);
 
   const validate = () => {
     const data = {

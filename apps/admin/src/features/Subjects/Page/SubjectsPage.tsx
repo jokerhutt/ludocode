@@ -8,6 +8,9 @@ import { useSubjectDiffs } from "../Hooks/useSubjectDiffs";
 import { useUpdateSubject } from "../Hooks/useUpdateSubject";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
 import { useDeleteSubject } from "../Hooks/useDeleteSubject";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { router } from "@/main";
+import { adminNavigation } from "@/constants/adminNavigation";
 
 export function SubjectsPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
@@ -74,15 +77,26 @@ export function SubjectsPage() {
 
   return (
     <div className="col-span-10 min-h-0 w-full h-full flex flex-col gap-8">
-      {/* HEADER */}
-      <div className="border-b border-b-ludo-accent-muted pb-6">
-        <h1 className="text-white text-3xl font-bold">Subjects</h1>
-        <p className="text-ludoAltText text-sm">
-          Manage available learning subjects.
-        </p>
+      <div className="border-b flex items-center justify-between border-b-ludo-accent-muted pb-6">
+        <div>
+          <h1 className="text-white text-3xl font-bold">Subjects</h1>
+          <p className="text-ludoAltText text-sm">
+            Manage available learning subjects.
+          </p>
+        </div>
+        <div className="flex flex-col justify-end h-full">
+          <LudoButton
+            className="w-auto h-8 px-4"
+            onClick={() =>
+              router.navigate(adminNavigation.hub.courses.toCoursesHub())
+            }
+            variant="alt"
+          >
+            Exit
+          </LudoButton>
+        </div>
       </div>
 
-      {/* BODY */}
       <div className="flex gap-4 min-h-0 flex-1">
         <aside className="w-1/2 flex flex-col min-h-0">
           <SubjectsPane

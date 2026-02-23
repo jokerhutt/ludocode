@@ -4,8 +4,10 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
-
+import { CreateSubjectDialog } from "../Components/Dialog/CreateSubjectDialog";
+import { useState } from "react";
 
 type SubjectsPaneProps = {
   subjects: SubjectsDraftSnapshot[];
@@ -18,10 +20,24 @@ export function SubjectsPane({
   selectedId,
   onSelect,
 }: SubjectsPaneProps) {
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumPreviewHeader>
         <p className="font-bold">Subjects</p>
+
+        <CreateSubjectDialog
+          open={isCreateOpen}
+          close={() => setIsCreateOpen(false)}
+        >
+          <ShadowLessButton
+            variant="white"
+            onClick={() => setIsCreateOpen(true)}
+          >
+            <p className="text-sm">Add Subject</p>
+          </ShadowLessButton>
+        </CreateSubjectDialog>
       </CurriculumPreviewHeader>
 
       <CurriculumPreviewContent className="gap-2">

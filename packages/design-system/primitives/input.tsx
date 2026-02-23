@@ -44,7 +44,7 @@ type LudoInputProps = {
   containerClassName?: string;
   className?: string;
   ring?: boolean;
-  variant?: "default" | "alt";
+  variant?: "default" | "alt" | "dark";
   error?: string;
 };
 
@@ -65,7 +65,9 @@ export function LudoInput({
   const variantStyle =
     variant == "default"
       ? "border-transparent"
-      : "border-3 border-ludo-accent focus:border-ludo-accent focus-visible:border-ludo-accent font-bold";
+      : variant == "dark"
+        ? "bg-ludo-background"
+        : "border-3 border-ludo-accent focus:border-ludo-accent focus-visible:border-ludo-accent font-bold";
 
   const [isHidden, setIsHidden] = useState<boolean>(isProtected ?? false);
 

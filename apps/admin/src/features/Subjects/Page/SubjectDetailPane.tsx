@@ -138,10 +138,8 @@ export function SubjectDetailPane({
           </>
         )}
 
-        {/* DIVIDER */}
         <div className="border-t border-ludo-border w-full" />
 
-        {/* COURSES SECTION */}
         <div className="flex flex-col gap-3">
           <p className="text-xs text-ludoAltText">Attached Courses</p>
 

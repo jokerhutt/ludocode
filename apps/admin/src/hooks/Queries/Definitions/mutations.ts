@@ -106,4 +106,15 @@ export const mutations = {
         ),
     });
   },
+  createSubject: () => {
+    return mutationOptions<SubjectsDraftSnapshot[], Error, SubjectsDraftSnapshot>({
+      mutationKey: ["createSubject"],
+      mutationFn: (variables) =>
+        ludoPost<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(
+          adminApi.subjects.adminBase,
+          variables,
+          true,
+        ),
+    });
+  },
 };
