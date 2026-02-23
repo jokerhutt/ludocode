@@ -17,12 +17,14 @@ export const EditorLesson = withForm({
     lessonIndex: 0,
     lesson: {} as CurriculumDraftLesson,
     onDelete: undefined as undefined | (() => void),
+    canDelete: true,
   },
   render: function Render({
     form,
     moduleIndex,
     lessonIndex,
     lesson,
+    canDelete,
     onDelete,
   }) {
     const lessonId = lesson.id;
@@ -67,11 +69,19 @@ export const EditorLesson = withForm({
         {onDelete && (
           <button
             type="button"
-            onClick={onDelete}
-            className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10 shrink-0"
-            title="Delete lesson"
+            onClick={canDelete ? onDelete : undefined}
+            disabled={!canDelete}
+            className={`transition-colors p-1 rounded shrink-0
+      ${
+        canDelete
+          ? "text-red-400 hover:text-red-300 hover:bg-red-400/10"
+          : "text-red-400/40 cursor-not-allowed"
+      }`}
+            title={
+              canDelete ? "Delete lesson" : "At least one lesson is required"
+            }
           >
-            <Trash2 size={14} />
+            <Trash2 size={16} />
           </button>
         )}
       </div>

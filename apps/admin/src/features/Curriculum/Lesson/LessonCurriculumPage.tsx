@@ -173,6 +173,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                           form.removeFieldValue("exercises", idx);
                           setSelectedExerciseId(null);
                         }}
+                        canDelete={form.state.values.exercises.length > 1}
                       />
                     )}
                   </aside>

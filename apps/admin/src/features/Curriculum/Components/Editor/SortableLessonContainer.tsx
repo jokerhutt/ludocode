@@ -63,6 +63,7 @@ export const SortableLessonContainer = withForm({
                         moduleIndex={moduleIndex}
                         lessonIndex={lessonIndex}
                         onDelete={() => lessonsField.removeValue(lessonIndex)}
+                        canDelete={lessons.length > 1}
                       />
                     ))}
                   </SortableContext>
