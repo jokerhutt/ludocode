@@ -5,6 +5,7 @@ import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { coursesHeroContent } from "../content";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 
 export function CoursesHubPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
@@ -25,8 +26,8 @@ export function CoursesHubPage() {
               </LudoButton>
             </div>
           </Hero>
-          <div className="w-full grid grid-cols-4 gap-10">
-            <div className="flex flex-col col-span-3 gap-6">
+          <div className="w-full grid grid-cols-12 gap-10">
+            <div className="flex flex-col col-span-8 gap-6">
               <h1 className="text-lg text-ludoAltText font-bold">Courses</h1>
               {courses.map((course) => (
                 <LudoButton
@@ -44,7 +45,16 @@ export function CoursesHubPage() {
               ))}
             </div>
             <div className="flex flex-col gap-6">
-              <h1 className="text-lg text-ludoAltText font-bold">Subjects</h1>
+              <div className="flex gap-2 items-center">
+                <h1 className="text-lg text-ludoAltText font-bold">Subjects</h1>
+                <ShadowLessButton
+                  onClick={() =>
+                    router.navigate(adminNavigation.subjects.toSubjects())
+                  }
+                >
+                  Edit
+                </ShadowLessButton>
+              </div>
               {subjects.map((subject) => (
                 <div className="w-full flex flex-col text-white gap-2 pb-4 border-b h-auto justify-start items-start">
                   <div className="flex w-full gap-4">
