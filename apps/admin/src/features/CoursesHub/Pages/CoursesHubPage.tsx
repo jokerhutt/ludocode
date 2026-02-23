@@ -8,6 +8,9 @@ import { adminNavigation } from "@/constants/adminNavigation";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import { useState } from "react";
 import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog";
+import { CourseCard } from "../Components/Card/CourseCard";
+import { SubjectsPane } from "../Components/Pane/SubjectsPane";
+import { CoursesPane } from "../Components/Pane/CoursesPane";
 
 export function CoursesHubPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
@@ -16,83 +19,41 @@ export function CoursesHubPage() {
   const [openCreateCourse, setOpenCreateCourse] = useState(false);
 
   return (
-    <>
-      <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
-        <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
-        <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-          <Hero {...coursesHeroContent}>
-            <div className="flex w-full justify-end items-end gap-4">
-              <LudoButton className="w-1/3 px-2" variant="alt">
-                Instructions
-              </LudoButton>
-              <CreateCourseDialog
-                open={openCreateCourse}
-                close={() => setOpenCreateCourse(false)}
+    <div className="layout-grid col-span-full scrollable py-10 px-6 lg:px-0">
+      <div className="col-span-1 lg:bg-ludo-background lg:col-span-2" />
+
+      <div className="col-span-10 lg:col-span-8 flex flex-col gap-12 min-w-0">
+        {/* HERO */}
+        <Hero {...coursesHeroContent}>
+          <div className="flex w-full justify-end gap-4">
+            <LudoButton variant="white" className="px-6">
+              Instructions
+            </LudoButton>
+
+            <CreateCourseDialog
+              open={openCreateCourse}
+              close={() => setOpenCreateCourse(false)}
+            >
+              <LudoButton
+                variant="alt"
+                className="px-6"
+                onClick={() => setOpenCreateCourse(true)}
               >
-                <LudoButton
-                  variant="alt"
-                  className="w-1/3 px-2"
-                  onClick={() => setOpenCreateCourse(true)}
-                >
-                  Create Course
-                </LudoButton>
-              </CreateCourseDialog>
-            </div>
-          </Hero>
-          <div className="w-full grid grid-cols-12 gap-10">
-            <div className="flex flex-col col-span-8 gap-6">
-              <h1 className="text-lg text-ludoAltText font-bold">Courses</h1>
-              {courses.map((course) => (
-                <LudoButton
-                  onClick={() =>
-                    router.navigate(
-                      adminNavigation.curriculum.toCourse(course.id),
-                    )
-                  }
-                  className="w-full flex p-6 h-auto items-start flex-col"
-                >
-                  <p className="text-lg font-bold">{course.title}</p>
-                  <p className="">Subject: {course.subject.name}</p>
-                  <p className="">Language: {course.language?.name}</p>
-                </LudoButton>
-              ))}
-            </div>
-            <div className="flex flex-col gap-6">
-              <div className="flex gap-2 items-center">
-                <h1 className="text-lg text-ludoAltText font-bold">Subjects</h1>
-                <ShadowLessButton
-                  onClick={() =>
-                    router.navigate(adminNavigation.subjects.toSubjects())
-                  }
-                >
-                  Edit
-                </ShadowLessButton>
-              </div>
-              {subjects.map((subject) => (
-                <div className="w-full flex flex-col text-white gap-2 pb-4 border-b h-auto justify-start items-start">
-                  <div className="flex w-full gap-4">
-                    <p>
-                      {subject.name}
-                      <span className="text-sm pl-2 text-ludoAltText">
-                        ({subject.slug})
-                      </span>
-                    </p>
-                    <LudoButton
-                      className="h-6 w-8 rounded-sm"
-                      variant="alt"
-                    ></LudoButton>
-                    <LudoButton
-                      className="h-6 w-8 rounded-sm"
-                      variant="danger"
-                    ></LudoButton>
-                  </div>
-                </div>
-              ))}
-            </div>
+                Create Course
+              </LudoButton>
+            </CreateCourseDialog>
           </div>
+        </Hero>
+
+        {/* CONTENT */}
+        <div className="grid grid-cols-12 gap-12">
+          <CoursesPane className="col-span-8" courses={courses} />
+
+          <SubjectsPane className="col-span-4" subjects={subjects} />
         </div>
-        <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
       </div>
-    </>
+
+      <div className="col-span-1 lg:bg-ludo-background lg:col-span-2" />
+    </div>
   );
 }
