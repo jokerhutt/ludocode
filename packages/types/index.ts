@@ -20,6 +20,7 @@ export * from "./Completion/SyncState";
 
 // Curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
+export * from "./Curriculum/SubjectDraftSchema"
 
 // Exercise
 export * from "./Exercise/AnswerToken";

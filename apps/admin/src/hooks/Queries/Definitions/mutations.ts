@@ -8,6 +8,7 @@ import {
   type CurriculumDraftLessonForm,
   type LanguageMetadata,
   type ModifyLanguageRequest,
+  type SubjectsDraftSnapshot,
 } from "@ludocode/types";
 
 export const mutations = {
@@ -75,6 +76,42 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<LanguageMetadata[], ModifyLanguageRequest>(
           adminApi.languages.adminBase,
+          variables,
+          true,
+        ),
+    });
+  },
+  updateSubject: (subjectId: number) => {
+    return mutationOptions<
+      SubjectsDraftSnapshot[],
+      Error,
+      SubjectsDraftSnapshot
+    >({
+      mutationKey: ["updateSubject"],
+      mutationFn: (variables) =>
+        ludoPut<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(
+          adminApi.subjects.byAdminId(subjectId),
+          variables,
+          true,
+        ),
+    });
+  },
+  deleteSubject: (subjectid: number) => {
+    return mutationOptions<SubjectsDraftSnapshot[], Error, void>({
+      mutationKey: ["deleteSubject"],
+      mutationFn: () =>
+        ludoDelete<SubjectsDraftSnapshot[]>(
+          adminApi.subjects.byAdminId(subjectid),
+          true,
+        ),
+    });
+  },
+  createSubject: () => {
+    return mutationOptions<SubjectsDraftSnapshot[], Error, SubjectsDraftSnapshot>({
+      mutationKey: ["createSubject"],
+      mutationFn: (variables) =>
+        ludoPost<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(
+          adminApi.subjects.adminBase,
           variables,
           true,
         ),

@@ -25,7 +25,7 @@ export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
   isGcsEnabled: {
     env: "GCS_ENABLED",
     title: "Google Cloud Storage",
-    description: "The Projects Page requires a Google Cloud Storage set up.",
+    description: "The Projects Pages requires a Google Cloud Storage set up.",
   },
   isPistonEnabled: {
     env: "PISTON_ENABLED",

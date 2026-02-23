@@ -15,6 +15,7 @@ import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppLanguageRouteRouteImport } from './routes/_app/language/route'
 import { Route as AppCurriculumRouteRouteImport } from './routes/_app/curriculum/route'
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
+import { Route as AppSubjectsIndexRouteImport } from './routes/_app/subjects/index'
 import { Route as AppLanguageCreateRouteImport } from './routes/_app/language/create'
 import { Route as AppLanguageLanguageIdRouteImport } from './routes/_app/language/$languageId'
 import { Route as AppCoursesCourseIdRouteImport } from './routes/_app/courses/$courseId'
@@ -49,6 +50,11 @@ const AppCurriculumRouteRoute = AppCurriculumRouteRouteImport.update({
 } as any)
 const AppHubRouteRoute = AppHubRouteRouteImport.update({
   id: '/_hub',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSubjectsIndexRoute = AppSubjectsIndexRouteImport.update({
+  id: '/subjects/',
+  path: '/subjects/',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppLanguageCreateRoute = AppLanguageCreateRouteImport.update({
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
+  '/subjects': typeof AppSubjectsIndexRoute
   '/curriculum/$courseId': typeof AppCurriculumCourseIdIndexRoute
   '/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
+  '/subjects': typeof AppSubjectsIndexRoute
   '/curriculum/$courseId': typeof AppCurriculumCourseIdIndexRoute
   '/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/_app/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/_app/language/create': typeof AppLanguageCreateRoute
+  '/_app/subjects/': typeof AppSubjectsIndexRoute
   '/_app/curriculum/$courseId/': typeof AppCurriculumCourseIdIndexRoute
   '/_app/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/courses/$courseId'
     | '/language/$languageId'
     | '/language/create'
+    | '/subjects'
     | '/curriculum/$courseId'
     | '/curriculum/$courseId/lesson/$lessonId'
   fileRoutesByTo: FileRoutesByTo
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/courses/$courseId'
     | '/language/$languageId'
     | '/language/create'
+    | '/subjects'
     | '/curriculum/$courseId'
     | '/curriculum/$courseId/lesson/$lessonId'
   id:
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/_app/courses/$courseId'
     | '/_app/language/$languageId'
     | '/_app/language/create'
+    | '/_app/subjects/'
     | '/_app/curriculum/$courseId/'
     | '/_app/curriculum/$courseId/lesson/$lessonId'
   fileRoutesById: FileRoutesById
@@ -222,6 +234,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AppHubRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/subjects/': {
+      id: '/_app/subjects/'
+      path: '/subjects'
+      fullPath: '/subjects'
+      preLoaderRoute: typeof AppSubjectsIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/language/create': {
@@ -323,6 +342,7 @@ interface AppRouteRouteChildren {
   AppLanguageRouteRoute: typeof AppLanguageRouteRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
   AppCoursesCourseIdRoute: typeof AppCoursesCourseIdRoute
+  AppSubjectsIndexRoute: typeof AppSubjectsIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
@@ -331,6 +351,7 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppLanguageRouteRoute: AppLanguageRouteRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
   AppCoursesCourseIdRoute: AppCoursesCourseIdRoute,
+  AppSubjectsIndexRoute: AppSubjectsIndexRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

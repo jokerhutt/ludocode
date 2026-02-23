@@ -1,6 +1,6 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { type QueryClient } from "@tanstack/react-query";
-import { ErrorPage } from "@/features/Error/ErrorPage.tsx";
+import { ErrorPage } from "@/features/Error/Pages/ErrorPage.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "@/constants/environment/env.ts";
 

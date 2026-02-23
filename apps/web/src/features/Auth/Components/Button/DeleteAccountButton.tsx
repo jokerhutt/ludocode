@@ -1,7 +1,7 @@
-import { useDeleteAccount } from "@/hooks/Queries/Mutations/useDeleteAccount";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
-import type { DestructiveActionConfirmation } from "@ludocode/design-system/templates/dialog/WarningDialog";
+import { useDeleteAccount } from "@/hooks/Queries/Mutations/useDeleteAccount.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
+import type { DestructiveActionConfirmation } from "@ludocode/design-system/templates/dialog/WarningDialog.tsx";
 
 type DeleteAccountButtonProps = {
   username: string;

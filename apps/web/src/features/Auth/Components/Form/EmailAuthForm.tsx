@@ -1,9 +1,9 @@
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { Checkbox } from "@ludocode/external/ui/checkbox";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { Checkbox } from "@ludocode/external/ui/checkbox.tsx";
 import { useState } from "react";
-import { AuthInputField } from "./Input/AuthInputField";
-import { cn } from "@ludocode/design-system/cn-utils";
-import type { EmailLoginMode } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
+import type { EmailLoginMode } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth.tsx";
+import {LudoInput} from "@ludocode/design-system/primitives/input.tsx";
 
 type EmailAuthFormProps = {
   mode: EmailLoginMode;
@@ -34,19 +34,19 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex flex-col gap-2">
-        <AuthInputField
+        <LudoInput
           value={emailInput}
           setValue={setEmailInput}
           title="Email"
-          placeHolder="Your email"
+          placeholder="Your email"
         />
         <div className="relative">
-          <AuthInputField
+          <LudoInput
             value={passwordInput}
             isProtected
             setValue={setPasswordInput}
             title="Password"
-            placeHolder="Your password"
+            placeholder="Your password"
           />
         </div>
 

@@ -1,7 +1,7 @@
 import { useOnboardingContext } from "../Context/OnboardingContext";
 import { OnboardingStageShell } from "../Components/Zone/OnboardingStageShell";
-import { AuthInputField } from "@/features/Auth/Components/Input/AuthInputField";
 import { WideOnboardingOption } from "../Components/WideOnboardingOption";
+import {LudoInput} from "@ludocode/design-system/primitives/input.tsx";
 
 export function CareerChoiceStep() {
   const { content, draftApi } = useOnboardingContext();
@@ -76,7 +76,7 @@ export function UsernameChoiceStep() {
 
   return (
     <OnboardingStageShell title={stepTitles.name}>
-      <AuthInputField
+      <LudoInput
         value={draft.username ?? ""}
         setValue={(value) => setDraft({ username: value })}
         title="Choose your username"

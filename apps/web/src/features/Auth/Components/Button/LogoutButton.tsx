@@ -1,5 +1,5 @@
 import { useLogout } from "@/hooks/Queries/Mutations/useLogout.tsx";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 
 type LogoutButtonProps = {};
 

@@ -1,6 +1,5 @@
 import { useChangeCourse } from "@/hooks/Queries/Mutations/useChangeCourse.tsx";
 import { CourseCard } from "@/features/Hub/CourseHub/Components/Card/CourseCard.tsx";
-import { CourseCardGrid } from "@/features/Hub/CourseHub/Components/Group/CourseCardGrid.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import { Hero } from "@ludocode/design-system/zones/hero";
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
@@ -32,7 +31,7 @@ export function CoursePage() {
     <div className="layout-grid col-span-full">
       <div className="main-col-wide flex flex-col gap-6 py-6 px-8 lg:px-0 justify-start h-full min-w-0">
         <Hero title="Library" subtitle="Here you will all available courses" />
-        <CourseCardGrid>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {allCourses.map((course: LudoCourse) => (
             <CourseCard
               enrolled={enrolledSet.has(course.id)}
@@ -41,7 +40,7 @@ export function CoursePage() {
               course={course}
             />
           ))}
-        </CourseCardGrid>
+        </div>
       </div>
     </div>
   );
