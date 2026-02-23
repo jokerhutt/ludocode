@@ -2,42 +2,53 @@ import type { ComponentType, JSX } from "react";
 
 type IconProps = { className?: string; color?: string };
 
-export const Icons = {
-  Commit: CommitIcon,
-  Python: PythonIcon,
-  R: RIcon,
-  Swift: SwiftIcon,
-  CSharp: CSharpIcon,
-  Golang: GoIcon,
-  Google: GoogleIcon,
-  Github: GithubIcon,
-  Facebook: FacebookIcon,
-  Lua: LuaIcon,
-  Javascript: JavascriptIcon,
-  Cloze: ClozeIcon,
-  Trivia: TriviaIcon,
-  Analyze: AnalyzeIcon,
-  Question: QuestionIcon,
-  CloudError: CloudErrorIcon,
-  CloudLoad: CloudLoadIcon,
-  CloudYes: CloudYesIcon,
-  AICredit: AICreditIcon,
-} as const satisfies Record<string, ComponentType<IconProps>>;
+type IconCategory = "language" | "exercise" | "auth" | "cloud" | "misc";
 
-export type IconName = keyof typeof Icons;
+type IconDefinition = {
+  component: ComponentType<IconProps>;
+  category: IconCategory;
+};
 
-type CustomIconProps = IconProps & { iconName: IconName; color?: string };
+export const IconRegistry = {
+  Commit: { component: CommitIcon, category: "misc" },
+  Python: { component: PythonIcon, category: "language" },
+  R: { component: RIcon, category: "language" },
+  Swift: { component: SwiftIcon, category: "language" },
+  CSharp: { component: CSharpIcon, category: "language" },
+  Golang: { component: GoIcon, category: "language" },
+  Lua: { component: LuaIcon, category: "language" },
+  Javascript: { component: JavascriptIcon, category: "language" },
+
+  Cloze: { component: ClozeIcon, category: "exercise" },
+  Trivia: { component: TriviaIcon, category: "exercise" },
+  Analyze: { component: AnalyzeIcon, category: "exercise" },
+
+  Google: { component: GoogleIcon, category: "auth" },
+  Github: { component: GithubIcon, category: "auth" },
+  Facebook: { component: FacebookIcon, category: "auth" },
+
+  CloudError: { component: CloudErrorIcon, category: "cloud" },
+  CloudLoad: { component: CloudLoadIcon, category: "cloud" },
+  CloudYes: { component: CloudYesIcon, category: "cloud" },
+
+  AICredit: { component: AICreditIcon, category: "misc" },
+  Question: { component: QuestionIcon, category: "misc" },
+} as const satisfies Record<string, IconDefinition>;
+
+export type IconName = keyof typeof IconRegistry;
+
+export const Icons = Object.fromEntries(
+  Object.entries(IconRegistry).map(([key, value]) => [key, value.component]),
+) as {
+  [K in IconName]: (typeof IconRegistry)[K]["component"];
+};
+
+type CustomIconProps = IconProps & {
+  iconName: IconName;
+};
 
 export function CustomIcon({ iconName, className, color }: CustomIconProps) {
-  const Icon = Icons[iconName];
-  if (!Icon) {
-    console.error(
-      "❌ CUSTOM ICON FAILED:",
-      iconName,
-      "is not in hero-icon map",
-    );
-    return null;
-  }
+  const Icon = IconRegistry[iconName].component;
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
 }
 

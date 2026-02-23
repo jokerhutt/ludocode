@@ -1,6 +1,6 @@
 import {
   CustomIcon,
-  Icons,
+  IconRegistry,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon";
 import {
@@ -19,6 +19,10 @@ export function LanguageIconSelect({
   setValue,
   errors,
 }: LanguageIconSelectProps) {
+  const languageIcons = Object.entries(IconRegistry)
+    .filter(([_, def]) => def.category === "language")
+    .map(([name]) => name as IconName);
+
   return (
     <LudoSelect
       value={currentValue}
@@ -26,10 +30,10 @@ export function LanguageIconSelect({
       title="Icon"
       error={errors}
     >
-      {(Object.keys(Icons) as IconName[]).map((name) => (
+      {languageIcons.map((name) => (
         <LudoSelectItem key={name} value={name}>
           <span className="flex items-center gap-2">
-            <CustomIcon iconName={name} className="h-4 w-4" color="white" />
+            <CustomIcon iconName={name} color="white" className="h-4 w-4" />
             <span>{name}</span>
           </span>
         </LudoSelectItem>
