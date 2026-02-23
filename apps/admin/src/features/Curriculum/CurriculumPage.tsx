@@ -29,6 +29,12 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseName =
     courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
 
+  const courseSubject =
+    courses.find((c) => c.id === courseId)?.subject;
+
+  const courseLanguage = 
+    courses.find((c) => c.id == courseId)?.language
+
   const [isEditing, setIsEditing] = useState(false);
 
   const submitMutation = useUpdateCourse({
@@ -92,7 +98,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
               courseName={courseName}
             />
             <h1 className="text-white text-3xl font-bold">{courseName}</h1>
-            <CurriculumHero />
+            <CurriculumHero courseLanguage={courseLanguage} courseId={courseId} courseSubject={courseSubject} />
           </div>
         </div>
 

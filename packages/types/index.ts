@@ -21,6 +21,7 @@ export * from "./Completion/SyncState";
 // Curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
 export * from "./Curriculum/SubjectDraftSchema"
+export * from "./Curriculum/ChangeSubjectRequest"
 
 // Exercise
 export * from "./Exercise/AnswerToken";
@@ -35,6 +36,7 @@ export * from "./FeatureFlags/FeatureFlags";
 // Languages
 export * from "./Languages/ModifyLanguageRequest";
 export * from "./Languages/CreateLanguageFormSchema";
+export * from "./Languages/ChangeLanguageRequest";
 
 // Onboarding
 export * from "./Onboarding/OnboardingCourse";
