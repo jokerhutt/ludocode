@@ -15,6 +15,7 @@ export function canAdvanceStage(stage: StageKey, d: OnboardingDraft): boolean {
 
 export function firstInvalidStep(d: OnboardingDraft): StageKey | null {
   for (const step of stepOrder) {
+    console.log("Step is " + step)
     if (!validators[step](d)) return step;
   }
   return null;

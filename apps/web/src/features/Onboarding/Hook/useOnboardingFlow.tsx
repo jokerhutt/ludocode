@@ -49,7 +49,10 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     if (submitOnboardingMutation.isPending) return;
     if (!canAdvance) return;
 
+    console.log("Can advance")
+
     if (!atLast) {
+      console.log("Not at last")
       goto(stepOrder[idx + 1]);
       return;
     }

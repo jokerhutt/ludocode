@@ -23,6 +23,7 @@ export function useOnboardingDraft(): UseOnboardingDraftReturn {
     queryKey: qk.onboardingDraft(),
     initialData: {},
     staleTime: Infinity,
+    enabled: false,
   });
 
   const setDraft = (patch: Partial<OnboardingDraft>) =>
