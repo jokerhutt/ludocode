@@ -1,24 +1,23 @@
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "./CurriculumList";
 import type { CurriculumDraftLesson } from "@ludocode/types";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
+import { LudoPreviewPanel } from "@ludocode/design-system/widgets/ludo-preview-panel";
 
 type LessonDetailPreviewProps = {
   lesson: CurriculumDraftLesson;
   courseId: string;
 };
 
-export function LessonDetailPreview({ lesson, courseId }: LessonDetailPreviewProps) {
+export function LessonDetailPreview({
+  lesson,
+  courseId,
+}: LessonDetailPreviewProps) {
   const { title } = lesson;
 
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border max-h-1/2 flex-col w-full">
-      <CurriculumPreviewHeader>
+    <LudoPreviewPanel>
+      <LudoPreviewPanel.Header>
         <p className="text-white font-bold">{title}</p>
         <ShadowLessButton
           onClick={() =>
@@ -29,18 +28,18 @@ export function LessonDetailPreview({ lesson, courseId }: LessonDetailPreviewPro
         >
           <p className="text-sm">Edit Exercises</p>
         </ShadowLessButton>
-      </CurriculumPreviewHeader>
+      </LudoPreviewPanel.Header>
 
-      <CurriculumPreviewContent>
+      <LudoPreviewPanel.Content>
         <div className="h-200"></div>
-      </CurriculumPreviewContent>
+      </LudoPreviewPanel.Content>
 
-      <CurriculumPreviewFooter>
+      <LudoPreviewPanel.Footer>
         <p className="text-xs">Last Modified: 6th of January at 18:32</p>
         <ShadowLessButton variant="white">
           <p className="text-sm">Cheatsheet</p>
         </ShadowLessButton>
-      </CurriculumPreviewFooter>
-    </div>
+      </LudoPreviewPanel.Footer>
+    </LudoPreviewPanel>
   );
 }

@@ -1,8 +1,3 @@
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import type { LudoCourse } from "@ludocode/types";
@@ -16,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ludocode/external/ui/tooltip";
+import { LudoPreviewPanel } from "@ludocode/design-system/widgets/ludo-preview-panel";
 
 type SubjectDetailPaneProps = {
   courses: LudoCourse[];
@@ -49,8 +45,8 @@ export function SubjectDetailPane({
   const canDelete = coursesForSubject.length === 0;
 
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumPreviewHeader>
+    <LudoPreviewPanel>
+      <LudoPreviewPanel.Header>
         <p className="text-white font-bold">Subject</p>
 
         <div className="flex gap-3 items-center">
@@ -67,9 +63,9 @@ export function SubjectDetailPane({
             <X onClick={() => onClose()} className="h-4 hover:cursor-pointer" />
           )}
         </div>
-      </CurriculumPreviewHeader>
+      </LudoPreviewPanel.Header>
 
-      <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
+      <LudoPreviewPanel.Content variant="alt" className="p-6 gap-6">
         {/* TOP ROW */}
         <div className="flex gap-8 items-start">
           {!isEditing ? (
@@ -156,16 +152,16 @@ export function SubjectDetailPane({
             </div>
           ))}
         </div>
-      </CurriculumPreviewContent>
+      </LudoPreviewPanel.Content>
 
-      <CurriculumPreviewFooter>
+      <LudoPreviewPanel.Footer>
         <p className="text-xs">
           Attached to {coursesForSubject.length} course
           {coursesForSubject.length === 1 ? "" : "s"}
         </p>
 
         <TooltipProvider>
-          <Tooltip >
+          <Tooltip>
             <TooltipTrigger asChild>
               <span>
                 <ShadowLessButton
@@ -188,7 +184,7 @@ export function SubjectDetailPane({
             )}
           </Tooltip>
         </TooltipProvider>
-      </CurriculumPreviewFooter>
-    </div>
+      </LudoPreviewPanel.Footer>
+    </LudoPreviewPanel>
   );
 }

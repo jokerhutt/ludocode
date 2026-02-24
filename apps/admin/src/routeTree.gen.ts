@@ -97,18 +97,18 @@ const AppCurriculumCourseIdLessonLessonIdRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof AppIndexRoute
   '/curriculum': typeof AppCurriculumRouteRouteWithChildren
   '/hub': typeof AppHubRouteRouteWithChildren
   '/language': typeof AppLanguageRouteRouteWithChildren
-  '/': typeof AppIndexRoute
-  '/auth': typeof AuthIndexRoute
+  '/auth/': typeof AuthIndexRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/hub/courses': typeof AppHubCoursesRoute
   '/hub/languages': typeof AppHubLanguagesRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
-  '/subjects': typeof AppSubjectsIndexRoute
-  '/curriculum/$courseId': typeof AppCurriculumCourseIdIndexRoute
+  '/subjects/': typeof AppSubjectsIndexRoute
+  '/curriculum/$courseId/': typeof AppCurriculumCourseIdIndexRoute
   '/curriculum/$courseId/lesson/$lessonId': typeof AppCurriculumCourseIdLessonLessonIdRoute
 }
 export interface FileRoutesByTo {
@@ -146,18 +146,18 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/curriculum'
     | '/hub'
     | '/language'
-    | '/'
-    | '/auth'
+    | '/auth/'
     | '/courses/$courseId'
     | '/hub/courses'
     | '/hub/languages'
     | '/language/$languageId'
     | '/language/create'
-    | '/subjects'
-    | '/curriculum/$courseId'
+    | '/subjects/'
+    | '/curriculum/$courseId/'
     | '/curriculum/$courseId/lesson/$lessonId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -202,14 +202,14 @@ declare module '@tanstack/react-router' {
     '/_app': {
       id: '/_app'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/': {
       id: '/auth/'
       path: '/auth'
-      fullPath: '/auth'
+      fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -244,7 +244,7 @@ declare module '@tanstack/react-router' {
     '/_app/subjects/': {
       id: '/_app/subjects/'
       path: '/subjects'
-      fullPath: '/subjects'
+      fullPath: '/subjects/'
       preLoaderRoute: typeof AppSubjectsIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
@@ -286,7 +286,7 @@ declare module '@tanstack/react-router' {
     '/_app/curriculum/$courseId/': {
       id: '/_app/curriculum/$courseId/'
       path: '/$courseId'
-      fullPath: '/curriculum/$courseId'
+      fullPath: '/curriculum/$courseId/'
       preLoaderRoute: typeof AppCurriculumCourseIdIndexRouteImport
       parentRoute: typeof AppCurriculumRouteRoute
     }

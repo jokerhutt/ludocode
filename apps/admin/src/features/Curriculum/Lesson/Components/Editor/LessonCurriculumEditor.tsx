@@ -4,11 +4,7 @@ import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorAct
 import { SortableExerciseContainer } from "./SortableExerciseContainer";
 import { AddExerciseSelect } from "./AddExerciseSelect";
 import { createNewExerciseTemplate } from "./templates";
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
+import { LudoPreviewPanel } from "@ludocode/design-system/widgets/ludo-preview-panel";
 
 export const LessonCurriculumEditor = withForm({
   defaultValues: {
@@ -32,8 +28,8 @@ export const LessonCurriculumEditor = withForm({
     onSelectExercise,
   }) {
     return (
-      <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-        <CurriculumPreviewHeader>
+      <LudoPreviewPanel>
+        <LudoPreviewPanel.Header>
           <p className="text-white font-bold">Editing Exercises</p>
           <EditorActions
             onSave={onSave}
@@ -41,17 +37,17 @@ export const LessonCurriculumEditor = withForm({
             canSubmit={canSubmit}
             isSubmitting={isSubmitting}
           />
-        </CurriculumPreviewHeader>
+        </LudoPreviewPanel.Header>
 
-        <CurriculumPreviewContent className="p-0 bg-ludo-surface">
+        <LudoPreviewPanel.Content className="p-0 bg-ludo-surface">
           <SortableExerciseContainer
             form={form}
             selectedExerciseId={selectedExerciseId}
             onSelectExercise={onSelectExercise}
           />
-        </CurriculumPreviewContent>
+        </LudoPreviewPanel.Content>
 
-        <CurriculumPreviewFooter>
+        <LudoPreviewPanel.Footer>
           <form.Field name="exercises" mode="array">
             {(exercisesField) => (
               <div className="flex justify-between w-full items-center">
@@ -66,8 +62,8 @@ export const LessonCurriculumEditor = withForm({
               </div>
             )}
           </form.Field>
-        </CurriculumPreviewFooter>
-      </div>
+        </LudoPreviewPanel.Footer>
+      </LudoPreviewPanel>
     );
   },
 });

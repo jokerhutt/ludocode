@@ -6,7 +6,7 @@ import { Spinner } from "@ludocode/external/ui/spinner";
 import {
   LudoSelect,
   LudoSelectItem,
-} from "@ludocode/design-system/primitives/select";
+} from "@ludocode/design-system/primitives/ludo-select";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { useChangeSubject } from "../../Hooks/useChangeSubject";

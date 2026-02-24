@@ -6,7 +6,7 @@ import { Spinner } from "@ludocode/external/ui/spinner";
 import {
   LudoSelect,
   LudoSelectItem,
-} from "@ludocode/design-system/primitives/select";
+} from "@ludocode/design-system/primitives/ludo-select";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { useChangeLanguage } from "../../Hooks/useChangeLanguage";
@@ -79,13 +79,14 @@ export function ChangeLanguageDialog({
           setValue={(v) => setSelectedLanguageId(Number(v))}
         >
           {languages.map((lang) => (
-            <LudoSelectItem key={lang.languageId} value={lang.languageId.toString()}>
+            <LudoSelectItem
+              key={lang.languageId}
+              value={lang.languageId.toString()}
+            >
               <span className="flex items-center gap-2">
                 <span>{lang.name}</span>
                 {lang.slug && (
-                  <span className="text-xs text-ludoAltText">
-                    /{lang.slug}
-                  </span>
+                  <span className="text-xs text-ludoAltText">/{lang.slug}</span>
                 )}
               </span>
             </LudoSelectItem>

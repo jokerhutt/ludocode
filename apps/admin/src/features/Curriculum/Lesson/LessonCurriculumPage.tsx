@@ -161,7 +161,6 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                   <aside className="w-1/2 flex min-h-0 flex-col">
                     {!isEditing && selectedExercise && (
                       <ExerciseDetailPreview
-                        courseId={courseId}
                         exercise={selectedExercise}
                       />
                     )}

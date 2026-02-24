@@ -4,7 +4,6 @@ import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { useEffect } from "react";
-import { Trash2 } from "lucide-react";
 import { ExerciseTypePill } from "./ExerciseTypePill";
 import {
   ClozeGapAnswers,
@@ -12,13 +11,8 @@ import {
   AnalyzeCorrectOptions,
   DistractorsEditor,
 } from "./fields";
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
-import { boolean } from "zod";
+import { LudoPreviewPanel } from "@ludocode/design-system/widgets/ludo-preview-panel";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
@@ -48,8 +42,8 @@ export const ExerciseDetailEditor = withForm({
     }, [exercise.exerciseType, exerciseIndex, form]);
 
     return (
-      <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-        <CurriculumPreviewHeader>
+      <LudoPreviewPanel>
+        <LudoPreviewPanel.Header>
           <div className="flex items-center gap-3">
             <p className="text-white font-bold">Exercise {exerciseIndex + 1}</p>
             <ExerciseTypePill type={exercise.exerciseType} />
@@ -61,23 +55,16 @@ export const ExerciseDetailEditor = withForm({
                   onClick={() => onDelete()}
                   targetName={exercise.title ?? "This exercise"}
                 >
-                    <LudoTrashIcon/>
+                  <LudoTrashIcon />
                 </DeleteDialog>
               ) : (
-                <button
-                  type="button"
-                  disabled
-                  className="text-red-400/40 cursor-not-allowed p-1 rounded"
-                  title="At least one exercise is required"
-                >
-                  <Trash2 size={16} />
-                </button>
+                <LudoTrashIcon disabled />
               )}
             </div>
           )}
-        </CurriculumPreviewHeader>
+        </LudoPreviewPanel.Header>
 
-        <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
+        <LudoPreviewPanel.Content className="bg-ludo-background p-6 gap-6">
           <div className="flex flex-col gap-2">
             <p className="text-sm text-ludoAltText">Title</p>
             <form.Field
@@ -170,9 +157,9 @@ export const ExerciseDetailEditor = withForm({
           {exercise.exerciseType !== "INFO" && (
             <DistractorsEditor form={form} exerciseIndex={exerciseIndex} />
           )}
-        </CurriculumPreviewContent>
+        </LudoPreviewPanel.Content>
 
-        <CurriculumPreviewFooter>
+        <LudoPreviewPanel.Footer>
           {exercise.exerciseType === "INFO" ? (
             <p className="text-xs">No options</p>
           ) : exercise.exerciseType === "CLOZE" ? (
@@ -195,8 +182,8 @@ export const ExerciseDetailEditor = withForm({
               {exercise.distractors.length} distractors
             </p>
           )}
-        </CurriculumPreviewFooter>
-      </div>
+        </LudoPreviewPanel.Footer>
+      </LudoPreviewPanel>
     );
   },
 });

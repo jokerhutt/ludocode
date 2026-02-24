@@ -10,7 +10,7 @@ import {
 } from "@ludocode/types";
 import { useAppForm } from "./types";
 import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
-import { CurriculumPreview } from "./Components/Preview/CurriculumPreview";
+import { CurriculumPreviewPanel } from "./Components/Preview/CurriculumPreviewPanel";
 import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
 import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 import { CurriculumBreadcrumbs } from "./Components/CurriculumBreadcrumbs";
@@ -29,11 +29,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseName =
     courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
 
-  const courseSubject =
-    courses.find((c) => c.id === courseId)?.subject;
+  const courseSubject = courses.find((c) => c.id === courseId)?.subject;
 
-  const courseLanguage = 
-    courses.find((c) => c.id == courseId)?.language
+  const courseLanguage = courses.find((c) => c.id == courseId)?.language;
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -98,7 +96,11 @@ export function CurriculumPage({}: CurriculumPageProps) {
               courseName={courseName}
             />
             <h1 className="text-white text-3xl font-bold">{courseName}</h1>
-            <CurriculumHero courseLanguage={courseLanguage} courseId={courseId} courseSubject={courseSubject} />
+            <CurriculumHero
+              courseLanguage={courseLanguage}
+              courseId={courseId}
+              courseSubject={courseSubject}
+            />
           </div>
         </div>
 
@@ -108,7 +110,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
             <div className="flex gap-4 min-h-0">
               <div className="w-full flex flex-col h-full">
                 {!isEditing ? (
-                  <CurriculumPreview
+                  <CurriculumPreviewPanel
                     selectedLesson={selectedLesson}
                     onLessonClick={setSelectedLesson}
                     modules={form.state.values.modules}
