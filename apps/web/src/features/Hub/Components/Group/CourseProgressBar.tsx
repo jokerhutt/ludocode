@@ -7,10 +7,13 @@ export function CourseProgressBar({
   className,
   value,
 }: CourseProgressBarProps) {
+
+  const rounded = value.toFixed(2)
+
   return (
     <div className={cn("w-full gap-4 flex items-center", className)}>
       <Progress value={value} />
-      <p>{value}%</p>
+      <p>{rounded}%</p>
     </div>
   );
 }
