@@ -1,10 +1,10 @@
-import { adminNavigation } from "@/constants/adminNavigation";
-import { router } from "@/main";
+import { adminNavigation } from "@/constants/adminNavigation.tsx";
+import { router } from "@/main.tsx";
 import {
   CustomIcon,
   type IconName,
-} from "@ludocode/design-system/primitives/custom-icon";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import type { LanguageMetadata } from "@ludocode/types";
 
 type LanguageCardProps = { language: LanguageMetadata };

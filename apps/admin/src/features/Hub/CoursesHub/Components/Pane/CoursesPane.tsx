@@ -1,6 +1,6 @@
 import type { LudoCourse } from "@ludocode/types";
-import { CourseCard } from "../Card/CourseCard";
-import { cn } from "@ludocode/design-system/cn-utils";
+import { CourseCard } from "../Card/CourseCard.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 type CoursesPaneProps = {className?: string; courses: LudoCourse[]};
 

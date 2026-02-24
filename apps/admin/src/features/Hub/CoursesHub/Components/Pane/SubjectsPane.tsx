@@ -1,7 +1,7 @@
-import { adminNavigation } from "@/constants/adminNavigation";
-import { router } from "@/main";
-import { cn } from "@ludocode/design-system/cn-utils";
-import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
+import { adminNavigation } from "@/constants/adminNavigation.tsx";
+import { router } from "@/main.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
 
 type SubjectsPaneProps = {className?: string, subjects: SubjectsDraftSnapshot[]};

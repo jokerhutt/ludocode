@@ -1,4 +1,4 @@
-import type { HeroContentProps } from "@ludocode/design-system/zones/hero";
+import type { HeroContentProps } from "@ludocode/design-system/zones/hero.tsx";
 
 export const coursesHeroContent: HeroContentProps = {
   title: "Courses",

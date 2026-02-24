@@ -2,15 +2,15 @@ import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
-import { coursesHeroContent } from "../content";
-import { router } from "@/main";
-import { adminNavigation } from "@/constants/adminNavigation";
-import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
+import { coursesHeroContent } from "../content.ts";
+import { router } from "@/main.tsx";
+import { adminNavigation } from "@/constants/adminNavigation.tsx";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { useState } from "react";
-import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog";
-import { CourseCard } from "../Components/Card/CourseCard";
-import { SubjectsPane } from "../Components/Pane/SubjectsPane";
-import { CoursesPane } from "../Components/Pane/CoursesPane";
+import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog.tsx";
+import { CourseCard } from "../Components/Card/CourseCard.tsx";
+import { SubjectsPane } from "../Components/Pane/SubjectsPane.tsx";
+import { CoursesPane } from "../Components/Pane/CoursesPane.tsx";
 
 export function CoursesHubPage() {
   const { data: courses } = useSuspenseQuery(qo.allCourses());

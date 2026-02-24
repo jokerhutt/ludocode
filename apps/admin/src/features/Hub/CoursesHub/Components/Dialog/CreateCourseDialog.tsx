@@ -1,16 +1,16 @@
-import { DialogTitle } from "@ludocode/external/ui/dialog";
+import { DialogTitle } from "@ludocode/external/ui/dialog.tsx";
 import { type ReactNode, useState } from "react";
-import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { Spinner } from "@ludocode/external/ui/spinner";
+import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import { Spinner } from "@ludocode/external/ui/spinner.tsx";
 import {
   LudoSelect,
   LudoSelectItem,
-} from "@ludocode/design-system/primitives/ludo-select";
+} from "@ludocode/design-system/primitives/ludo-select.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
-import { useCreateCourse } from "@/hooks/Queries/Mutations/useCreateCourse";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { useCreateCourse } from "@/hooks/Queries/Mutations/useCreateCourse.tsx";
 import { createCourseSchema, type CourseType } from "@ludocode/types";
 
 type Props = {

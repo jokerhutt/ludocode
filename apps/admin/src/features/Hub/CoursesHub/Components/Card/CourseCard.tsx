@@ -1,5 +1,5 @@
-import { adminNavigation } from "@/constants/adminNavigation";
-import { router } from "@/main";
+import { adminNavigation } from "@/constants/adminNavigation.tsx";
+import { router } from "@/main.tsx";
 import type { LudoCourse } from "@ludocode/types";
 
 type CourseCardProps = { course: LudoCourse };

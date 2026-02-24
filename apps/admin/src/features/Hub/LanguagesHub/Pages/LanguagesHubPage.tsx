@@ -1,11 +1,11 @@
-import { Hero } from "@ludocode/design-system/zones/hero";
-import { languagesHeroContent } from "../content";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { Hero } from "@ludocode/design-system/zones/hero.tsx";
+import { languagesHeroContent } from "../content.ts";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
-import { LanguageCard } from "../Components/Card/LanguageCard";
-import { router } from "@/main";
-import { adminNavigation } from "@/constants/adminNavigation";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { LanguageCard } from "../Components/Card/LanguageCard.tsx";
+import { router } from "@/main.tsx";
+import { adminNavigation } from "@/constants/adminNavigation.tsx";
 
 type LanguagesHubPageProps = {};
 

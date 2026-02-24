@@ -1,6 +1,6 @@
 import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
-import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
+import { LabelPair } from "@ludocode/design-system/primitives/label-pair.tsx";
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 import { useIsMobile } from "@ludocode/hooks";

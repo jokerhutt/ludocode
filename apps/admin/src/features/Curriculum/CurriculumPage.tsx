@@ -15,9 +15,7 @@ import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
 import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 import { CurriculumBreadcrumbs } from "./Components/CurriculumBreadcrumbs";
 
-type CurriculumPageProps = {};
-
-export function CurriculumPage({}: CurriculumPageProps) {
+export function CurriculumPage() {
   const routeApi = getRouteApi("/_app/curriculum/$courseId/");
   const { courseId } = routeApi.useParams();
 

@@ -1,5 +1,5 @@
 import { useStatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
-import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
+import { LabelPair } from "@ludocode/design-system/primitives/label-pair.tsx";
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
 import { CommitIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { FireIcon } from "@heroicons/react/24/solid";

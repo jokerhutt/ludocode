@@ -1,4 +1,4 @@
-import { LanguagesHubPage } from "@/features/LanguagesHub/Pages/LanguagesHubPage";
+import { LanguagesHubPage } from "@/features/Hub/LanguagesHub/Pages/LanguagesHubPage";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
