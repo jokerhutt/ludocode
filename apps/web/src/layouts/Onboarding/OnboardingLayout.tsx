@@ -12,7 +12,6 @@ import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-co
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { useOnboardingDraft } from "@/features/Onboarding/Hook/useOnboardingDraft";
-import { useEffect } from "react";
 import type { StageKey } from "@ludocode/types";
 import { OnboardingHeader } from "@/features/Onboarding/Components/Zone/OnboardingHeader";
 
@@ -26,12 +25,6 @@ export function OnboardingLayout() {
 
   const draftApi = useOnboardingDraft();
   const flow = useOnboardingFlow({ stage });
-
-  useEffect(() => {
-    if (draftApi.draft.username === undefined && currentUser.displayName) {
-      draftApi.setDraft({ username: currentUser.displayName });
-    }
-  }, [currentUser.displayName, draftApi.draft.username]);
 
   const content = onboardingContent;
   const contextValue: OnboardingContextType = {

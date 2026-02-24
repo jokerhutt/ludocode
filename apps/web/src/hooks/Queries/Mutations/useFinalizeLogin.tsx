@@ -12,11 +12,11 @@ export function useFinalizeLogin() {
   const router = useRouter();
 
   return async (idToken: string) => {
-    const { user, userCoins, userStreak}: LoginUserResponse = await ludoPost(
+    const { user, userCoins, userStreak }: LoginUserResponse = await ludoPost(
       api.auth.firebase,
       {},
       true,
-      { Authorization: `Bearer ${idToken}` }
+      { Authorization: `Bearer ${idToken}` },
     );
 
     queryClient.setQueryData(qk.user(user.id), user);
@@ -25,20 +25,24 @@ export function useFinalizeLogin() {
     queryClient.setQueryData(qk.streak(user.id), userStreak);
 
     if (!user.hasOnboarded) {
+      queryClient.setQueryData(qk.onboardingDraft(), {
+        username: user.displayName?.trim() || undefined,
+      });
+
       router.navigate(ludoNavigation.onboarding.start());
     } else {
       const currentCourseId = await queryClient.ensureQueryData(
-        qo.currentCourseId()
+        qo.currentCourseId(),
       );
       const currentCourseProgress = await queryClient.ensureQueryData(
-        qo.courseProgress(currentCourseId)
+        qo.courseProgress(currentCourseId),
       );
       router.navigate(
         ludoNavigation.hub.module.toModule(
           currentCourseProgress.courseId,
           currentCourseProgress.moduleId,
-          true
-        )
+          true,
+        ),
       );
     }
   };
