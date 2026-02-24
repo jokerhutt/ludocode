@@ -29,7 +29,7 @@ export default defineConfig({
     baseURL: 'https://davids-macbook-pro.taile2b7a3.ts.net',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
   },
 
   /* Configure projects for major browsers */

@@ -8,6 +8,7 @@ type IconButtonProps = {
   className?: string;
   iconClassName?: string;
   variant?: "large" | "default";
+  dataTestId?: string;
   iconName: IconName;
   onClick?: () => void;
 };
@@ -16,6 +17,7 @@ export function IconButton({
   className,
   iconClassName,
   onClick,
+  dataTestId,
   variant = "default",
   iconName,
 }: IconButtonProps) {
@@ -23,6 +25,7 @@ export function IconButton({
 
   return (
     <button
+      data-testid={dataTestId}
       onClick={() => onClick?.()}
       className={cn(
         "p-1 hover:cursor-pointer hover:bg-ludo-accent-muted/60 rounded-full",
