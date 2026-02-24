@@ -52,6 +52,7 @@ export function PathPopover({
         </PopoverClose>
         <PopoverClose asChild>
           <LudoButton
+            data-testid={`path-popover-button-${lesson.id}`}
             onClick={() => goToLesson()}
             className="h-7 w-20 lg:w-26 rounded-sm"
             variant="alt"

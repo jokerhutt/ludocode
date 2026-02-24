@@ -10,10 +10,10 @@ export function CompletionStatsGroup({ userStats }: CompletionStatsRowProps) {
 
   return (
     <LabelPair className="bg-ludo-surface p-4 rounded-lg gap-4 justify-center">
-      <HollowSlotButton>
+      <HollowSlotButton dataTestId={`completion-coins`}>
         <p className=" px-2 lg:px-4">Coins: {coins}</p>
       </HollowSlotButton>
-      <HollowSlotButton>
+      <HollowSlotButton dataTestId={`completion-accuracy`}>
         <p className="px-2 lg:px-4">Accuracy: {scaledAccuracy}%</p>
       </HollowSlotButton>
     </LabelPair>

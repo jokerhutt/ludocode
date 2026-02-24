@@ -52,6 +52,7 @@ export function ModulePathRow({
         lesson={lesson}
         trigger={
           <PathButton
+            dataTestId={`path-button-${lesson.id}`}
             lessonState={lessonType}
             className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none"
           />
@@ -82,15 +83,17 @@ export function ModulePath({ lessons }: ModulePathProps) {
 
 type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   lessonState: LessonStatus;
+  dataTestId?: string
   isCurrent?: boolean;
 };
 
 export const PathButton = React.forwardRef<HTMLButtonElement, PathButtonProps>(
-  ({ lessonState, isCurrent, className, ...props }, ref) => {
+  ({ dataTestId, lessonState, isCurrent, className, ...props }, ref) => {
     const isLocked = lessonState === "LOCKED";
 
     return (
       <LudoButton
+        data-testid={dataTestId}
         ref={ref}
         selected={isCurrent}
         className={cn("relative w-20 h-20 overflow-hidden", className)}

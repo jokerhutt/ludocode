@@ -19,6 +19,7 @@ export function ClickableOption({
 
   return (
     <div
+      data-testId={`exercise-option-${content}`}
       onClick={() => handleClick()}
       className={`py-2 code hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludo-surface rounded-xl`}
     >
@@ -47,7 +48,11 @@ export function WideClickableOption({
   };
 
   return (
-    <WideButton active={isSelected} onClick={() => handleChange()}>
+    <WideButton
+      data-testId={`exercise-option-wide-${option.content}`}
+      active={isSelected}
+      onClick={() => handleChange()}
+    >
       <p className="text-left text-white">{option.content}</p>
     </WideButton>
   );

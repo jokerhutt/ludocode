@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 type HollowSlotButtonProps = {
   children: ReactNode;
   active?: boolean;
+  dataTestId?: string;
   onClick?: () => void;
   className?: string;
 };
@@ -13,10 +14,12 @@ export function HollowSlotButton({
   children,
   active = false,
   onClick,
+  dataTestId,
   className,
 }: HollowSlotButtonProps) {
   return (
     <Button
+      data-testid={dataTestId}
       onClick={onClick}
       className={cn(
         "flex items-center text-white justify-center  gap-2",

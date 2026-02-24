@@ -43,7 +43,7 @@ export function StreakIncreasePage() {
         className="w-full h-80"
       />
       <IncrementingCounter oldCount={oldStreak} newCount={newStreak} />
-      <p className="text-center text-3xl">Day Streak!</p>
+      <p data-testid={`streak-complete-text`} className="text-center text-3xl">Day Streak!</p>
     </>
   );
 }
@@ -54,11 +54,11 @@ export function CourseCompletePage() {
   return (
     <>
       <div className="flex text-center gap-8 flex-col">
-        <h2 className="text-3xl">Course Complete!</h2>
-        <p className="text-lg">
+        <h2 data-testid={`course-complete-header`} className="text-3xl">Course Complete!</h2>
+        <p data-testid={`course-complete-congratulation`} className="text-lg">
           Congratulations on completing the {courseName} course!
         </p>
-        <p>You've earned the {courseName} badge!</p>
+        <p data-testid={`course-complete-badge-text`}>You've earned the {courseName} badge!</p>
         <div className="w-full flex items-center justify-center">
           <BadgeSingleCard clickable={false} icon={courseName as IconName} />
         </div>
