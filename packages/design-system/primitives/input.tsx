@@ -44,6 +44,8 @@ type LudoInputProps = {
   containerClassName?: string;
   className?: string;
   ring?: boolean;
+  dataTestId?: string;
+
   variant?: "default" | "alt" | "dark";
   error?: string;
 };
@@ -55,6 +57,7 @@ export function LudoInput({
   placeholder,
   isProtected,
   containerClassName,
+  dataTestId,
   className,
   ring = false,
   variant = "default",
@@ -81,9 +84,14 @@ export function LudoInput({
       {title && <p className="text-sm">{title}</p>}
       <div className="relative w-full">
         <Input
+          data-testid={dataTestId}
           type={isHidden ? "password" : "text"}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            console.log("CHANGE FIRED", e.target.value);
+
+            setValue(e.target.value);
+          }}
           className={cn(
             "bg-ludo-surface placeholder:text-ludoGray pr-10 h-12 border border-transparent text-white",
             ringStyle,

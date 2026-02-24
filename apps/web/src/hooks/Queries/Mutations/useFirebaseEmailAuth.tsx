@@ -29,6 +29,8 @@ export function useFirebaseEmailAuth() {
       const idToken = await result.user.getIdToken();
       await finalizeLogin(idToken);
     } catch (err) {
+      console.error(err);
+
       handleFirebaseAuthError(err as FirebaseError, mode);
     }
   };

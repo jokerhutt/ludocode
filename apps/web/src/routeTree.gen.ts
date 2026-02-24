@@ -180,11 +180,11 @@ const AppLessonCourseIdModuleIdLessonIdIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
   '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/demo/': typeof DemoIndexRoute
+  '/': typeof AppIndexRoute
+  '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
@@ -205,10 +205,10 @@ export interface FileRoutesByFullPath {
   '/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AppIndexRoute
   '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/': typeof AppIndexRoute
   '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/projects': typeof AppHubProjectsRoute
@@ -260,11 +260,11 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/subscription'
     | '/auth/login'
     | '/auth/register'
-    | '/demo/'
+    | '/'
+    | '/demo'
     | '/courses'
     | '/projects'
     | '/onboarding/$stage'
@@ -285,10 +285,10 @@ export interface FileRouteTypes {
     | '/lesson/$courseId/$moduleId/$lessonId/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/subscription'
     | '/auth/login'
     | '/auth/register'
+    | '/'
     | '/demo'
     | '/courses'
     | '/projects'
@@ -349,14 +349,14 @@ declare module '@tanstack/react-router' {
     '/_app': {
       id: '/_app'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/': {
       id: '/demo/'
       path: '/demo'
-      fullPath: '/demo/'
+      fullPath: '/demo'
       preLoaderRoute: typeof DemoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -391,14 +391,14 @@ declare module '@tanstack/react-router' {
     '/_app/_hub': {
       id: '/_app/_hub'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AppHubRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/_desktopguard': {
       id: '/_app/_desktopguard'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AppDesktopguardRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }

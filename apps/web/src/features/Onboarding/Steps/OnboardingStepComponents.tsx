@@ -1,7 +1,7 @@
 import { useOnboardingContext } from "../Context/OnboardingContext";
 import { OnboardingStageShell } from "../Components/Zone/OnboardingStageShell";
 import { WideOnboardingOption } from "../Components/WideOnboardingOption";
-import {LudoInput} from "@ludocode/design-system/primitives/input.tsx";
+import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 
 export function CareerChoiceStep() {
   const { content, draftApi } = useOnboardingContext();
@@ -9,11 +9,11 @@ export function CareerChoiceStep() {
 
   const { careerContent, stepTitles } = content;
 
-
   return (
     <OnboardingStageShell title={stepTitles.career}>
       {careerContent.map((cContent) => (
         <WideOnboardingOption
+          dataTestId={`onb-career-${cContent.careerType}`}
           isSelected={cContent.careerType == draft.career}
           onClick={() => setDraft({ career: cContent.careerType })}
         >
@@ -38,6 +38,7 @@ export function CourseChoiceStep() {
     <OnboardingStageShell title={stepTitles.course}>
       {courseContent.map((cContent) => (
         <WideOnboardingOption
+          dataTestId={`onb-course-${cContent.courseId}`}
           isSelected={cContent.courseId == selectedCourse}
           onClick={() => setDraft({ course: cContent.courseId })}
         >
@@ -59,6 +60,7 @@ export function HasExperienceStep() {
     <OnboardingStageShell title={stepTitles.experience}>
       {previousExperienceContent.map((peContent) => (
         <WideOnboardingOption
+          dataTestId={`onb-exp-${String(peContent.value)}`}
           onClick={() => setDraft({ experience: peContent.value })}
           isSelected={peContent.value == selectedExperience}
         >
@@ -77,6 +79,7 @@ export function UsernameChoiceStep() {
   return (
     <OnboardingStageShell title={stepTitles.name}>
       <LudoInput
+        dataTestId="username-input"
         value={draft.username ?? ""}
         setValue={(value) => setDraft({ username: value })}
         title="Choose your username"

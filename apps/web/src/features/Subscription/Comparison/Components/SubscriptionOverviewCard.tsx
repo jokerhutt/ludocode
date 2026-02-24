@@ -174,6 +174,7 @@ function SubscriptionOverviewButton({
 
   return (
     <LudoButton
+      data-testid={`sub-compare-${plan.tier}`}
       shadow
       disabled={disabled}
       variant={buttonVariant}
