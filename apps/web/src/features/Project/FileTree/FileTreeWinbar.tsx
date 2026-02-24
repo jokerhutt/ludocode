@@ -8,7 +8,7 @@ export function FileTreeWinbar() {
       <div className="flex h-full text-white justify-between items-center">
         <p>Files</p>
         <NewFilePopover>
-          <IconButton iconName="PlusIcon" />
+          <IconButton dataTestId="open-file-popover-icon" iconName="PlusIcon" />
         </NewFilePopover>
       </div>
     </Winbar>

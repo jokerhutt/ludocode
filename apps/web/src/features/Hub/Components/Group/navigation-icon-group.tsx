@@ -7,11 +7,13 @@ import { useIsMobile } from "@ludocode/hooks";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;
+  dataTestIdPrefix?: "header" | "footer";
   buttonClassName?: string;
 };
 
 export function NavigationIconGroup({
   groupClassName,
+  dataTestIdPrefix = "header",
   buttonClassName,
 }: NavigationIconGroupProps) {
   const { courseId, moduleId } = useCurrentCourseContext();
@@ -34,6 +36,7 @@ export function NavigationIconGroup({
     <LabelPair className={groupClassName}>
       {iconsToRender.map((icon) => (
         <HollowSlotButton
+          dataTestId={`nav-button-${dataTestIdPrefix}-${icon.name}`}
           className={buttonClassName}
           active={isActive(icon.path)}
           key={icon.name}

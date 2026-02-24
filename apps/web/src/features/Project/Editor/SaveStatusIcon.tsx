@@ -24,7 +24,7 @@ export function SaveStatusIcon({
         : "CloudError";
 
   return (
-    <div className="flex items-center gap-4">
+    <div data-testid={`project-cloud-icon-${status}`} className="flex items-center gap-4">
       <CustomIcon className="h-5" iconName={status} />
     </div>
   );

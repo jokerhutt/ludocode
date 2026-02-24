@@ -10,7 +10,7 @@ export function RunnerWinbar() {
     <Winbar>
       <div className="flex h-full text-white justify-between items-center">
         <p className="">Output</p>
-        <IconButton iconName="TrashIcon" onClick={clearOutput} />
+        <IconButton dataTestId="clear-output-icon" iconName="TrashIcon" onClick={clearOutput} />
       </div>
     </Winbar>
   );

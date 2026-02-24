@@ -12,6 +12,7 @@ export function RunCodeButton() {
 
   return (
     <LudoButton
+      data-testid={`run-code-button`}
       onClick={() => {
         if (isRunning) return;
         runCode();

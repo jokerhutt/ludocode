@@ -41,6 +41,7 @@ export function NewFilePopover({ children }: NewFilePopoverProps) {
       </PopoverTrigger>
       <PopoverContent className="text-white bg-ludo-surface">
         <FileWrapper
+          dataTestId={`new-file-button`}
           disabled={readOnly}
           isSelected={false}
           onClick={() => handleClick()}

@@ -13,6 +13,7 @@ type TreeFileProps = {
   fileName: string;
   icon: IconName;
   id: string;
+  dataTestId?: string;
   index: number;
   isSelected: boolean;
   readOnly?: boolean;
@@ -22,6 +23,7 @@ type TreeFileProps = {
 export function TreeFile({
   fileName,
   icon,
+  dataTestId,
   readOnly,
   id,
   isSelected,
@@ -30,7 +32,7 @@ export function TreeFile({
   const { renameFile, deleteFile } = useProjectContext();
 
   return (
-    <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
+    <FileWrapper dataTestId={`tree-file-${fileName}`} isSelected={isSelected} onClick={() => onClick()}>
       <FileInfoRow fileName={fileName}>
         <CustomIcon color="white" className="h-4" iconName={icon} />
       </FileInfoRow>
