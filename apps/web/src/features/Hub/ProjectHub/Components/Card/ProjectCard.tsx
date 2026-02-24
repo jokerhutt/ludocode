@@ -25,6 +25,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <LudoButton
+      data-testid={`project-hub-card`}
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(projectId));
       }}

@@ -39,6 +39,7 @@ export function ProjectHubPage() {
             <div className="w-full flex flex-col gap-3 items-end">
               <div className="flex justify-between items-center text-sm">
                 <span
+                  data-testid={`project-limits`}
                   className={
                     isAtLimit ? "text-ludo-danger" : "text-ludoAltTdxt"
                   }
@@ -53,6 +54,7 @@ export function ProjectHubPage() {
                 close={() => closeCreateProject()}
               >
                 <LudoButton
+                  data-testid={`create-project-dialog-button`}
                   className="w-full lg:w-1/3 lg:h-10 h-full px-4"
                   variant="alt"
                   onClick={() => {

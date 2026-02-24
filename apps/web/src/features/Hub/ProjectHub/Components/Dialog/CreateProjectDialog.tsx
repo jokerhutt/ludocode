@@ -30,7 +30,7 @@ export function CreateProjectDialog({
 
   const createProjectMutation = useCreateProject(() => close());
 
-  const possibleOptions = useSuspenseQuery(qo.languages()).data
+  const possibleOptions = useSuspenseQuery(qo.languages()).data;
   const [projectName, setProjectName] = useState<string>("Untitled Project");
   const [projectLanguage, setProjectLanguage] =
     useState<LanguageMetadata | null>(null);
@@ -66,6 +66,7 @@ export function CreateProjectDialog({
         <div className="flex w-full gap-4">
           {possibleOptions.map((option: LanguageMetadata) => (
             <LudoButton
+              data-testid={`create-project-language-option-${option.name}`}
               onClick={() => setProjectLanguage(option)}
               variant={projectLanguage == option ? "alt" : "white"}
             >
@@ -77,6 +78,7 @@ export function CreateProjectDialog({
 
       <div className="py-2 mt-2 flex gap-2 justify-center items-center">
         <LudoButton
+          data-testid={`create-project-button`}
           disabled={isSubmitLoading}
           variant="alt"
           onClick={() => submitProject()}

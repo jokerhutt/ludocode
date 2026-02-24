@@ -6,6 +6,7 @@ export function NavigationFooter() {
     <FooterShell className="lg:hidden border-t border-t-ludo-background">
       <div className="col-span-full flex justify-center items-center">
         <NavigationIconGroup
+          dataTestIdPrefix="footer"
           groupClassName="gap-4"
           buttonClassName="text-sm px-3"
         />
