@@ -1,7 +1,7 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { LessonLayout } from "@/layouts/Lesson/LessonLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { LessonLayout } from "./-components/LessonLayout";
 
 export const Route = createFileRoute(
   "/_app/lesson/$courseId/$moduleId/$lessonId"

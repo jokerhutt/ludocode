@@ -23,7 +23,7 @@ import { Route as AppSubscriptionManageRouteImport } from './routes/_app/subscri
 import { Route as AppSubscriptionConfirmRouteImport } from './routes/_app/subscription/confirm'
 import { Route as AppSubscriptionCancelRouteImport } from './routes/_app/subscription/cancel'
 import { Route as AppSubscriptionAlreadySubscribedRouteImport } from './routes/_app/subscription/already-subscribed'
-import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
+import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding/$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
 import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './routes/_app/subscription/_subscribedguard/route'

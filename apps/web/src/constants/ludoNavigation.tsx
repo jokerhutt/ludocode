@@ -28,7 +28,7 @@ import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
 import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$moduleId/$lessonId.tsx";
 
 // ONBOARDING
-import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.tsx";
+import { Route as onboardingStageRoute } from "@/routes/_app/onboarding/$stage.tsx";
 import type { LessonSubmission, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {

@@ -1,7 +1,7 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { ProjectLayout } from "@/layouts/Project/ProjectLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { ProjectLayout } from "./-components/ProjectLayout";
 
 export const Route = createFileRoute("/_app/_desktopguard/project/$projectId")({
   loader: async ({ params, context }) =>

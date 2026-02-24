@@ -1,10 +1,10 @@
-import { OnboardingLayout } from "@/layouts/Onboarding/OnboardingLayout.tsx";
 import { stepOrder } from "@/features/Onboarding/Steps/OnboardingSteps";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { firstInvalidStep } from "@/features/Onboarding/Util/validators";
 import type { OnboardingDraft } from "@/features/Onboarding/Hook/useOnboardingDraft";
 import { qk } from "@/hooks/Queries/Definitions/qk";
 import type { StageKey } from "@ludocode/types";
+import { OnboardingLayout } from "./-components/OnboardingLayout";
 
 export const Route = createFileRoute("/_app/onboarding/$stage")({
   parseParams: (p) => ({
