@@ -36,14 +36,12 @@ export function useTreeData({ tree, courseId, moduleId }: Args) {
     moduleMetaData!.lessons.map((lesson: FlatLesson) => qo.lesson(lesson.id)),
   );
 
-  // All lessons across all modules (pre-fetched in route loader)
   const allLessons = useSuspenseDataArray<LudoLesson>(
     tree.modules.flatMap((module: FlatModule) =>
       module.lessons.map((lesson: FlatLesson) => qo.lesson(lesson.id)),
     ),
   );
 
-  // Build per-module progress map
   const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
   const moduleProgress = new Map<string, ModuleProgress>(
     tree.modules.map((m) => [

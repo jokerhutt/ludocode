@@ -1,36 +1,49 @@
-import { CourseProgressBar } from "@/features/Hub/Components/Group/CourseProgressBar";
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import type { LudoCourse } from "@ludocode/types";
+import { cn } from "@ludocode/design-system/cn-utils";
+import {ProgressSummary} from "@ludocode/design-system/primitives/ProgressSummary"
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-// import type { IconName } from "@/components/design-system/primitives/custom-icon";
-
 type CourseCardProps = {
-  course: LudoCourse;
-  onClick: () => void;
-  enrolled: boolean;
+  courseId: string;
+  title: string;
+  onClick?: () => void;
+  showProgress?: boolean;
 };
 
-export function CourseCard({ course, onClick, enrolled }: CourseCardProps) {
-  const { title } = course;
-
-  const { data: stats } = useSuspenseQuery(qo.courseStats(course.id));
+export function CourseCard({
+  courseId,
+  title,
+  onClick,
+  showProgress = true,
+}: CourseCardProps) {
+  const { data: stats } = useSuspenseQuery(qo.courseStats(courseId));
   const { completedLessons, totalLessons } = stats;
-  const statsValue =
-    totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+
+  const Component = onClick ? "button" : "div";
 
   return (
-    <LudoButton onClick={() => onClick()} className="w-full h-24">
-      <div className="w-full h-full flex flex-col gap-1 items-start px-4 justify-center">
-        <p className="text-ludo-accent-muted text-sm">COURSE</p>
-        <div className="w-full flex gap-4 justify-start">
-          <h1 className="text-white font-bold text-xl">{title}</h1>
-        </div>
-        <div className="w-full flex gap-4 justify-start">
-          {enrolled && <CourseProgressBar value={statsValue} />}
-        </div>
+    <Component
+      {...(onClick && { type: "button", onClick })}
+      className={cn("rounded-xl bg-ludo-surface/50 p-4 flex flex-col gap-3 text-left transition-colors", onClick && "hover:bg-ludo-surface/70 hover:cursor-pointer")}
+    >
+      <div>
+        <p className="text-white/40 text-xs font-semibold uppercase tracking-widest">
+          Course
+        </p>
+        <h2 className="text-white text-lg font-bold leading-tight mt-0.5 truncate">
+          {title}
+        </h2>
       </div>
-    </LudoButton>
+
+      {showProgress && (
+        <ProgressSummary
+          variant="col"
+          detailed
+          name="lessons"
+          total={totalLessons}
+          current={completedLessons}
+        />
+      )}
+    </Component>
   );
 }

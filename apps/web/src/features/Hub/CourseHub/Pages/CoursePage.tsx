@@ -35,10 +35,11 @@ export function CoursePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {allCourses.map((course: LudoCourse) => (
             <CourseCard
-              enrolled={enrolledSet.has(course.id)}
+              showProgress={enrolledSet.has(course.id)}
               key={course.id}
               onClick={() => handleSelectCourse(course.id)}
-              course={course}
+              title={course.title}
+              courseId={course.id}
             />
           ))}
         </div>

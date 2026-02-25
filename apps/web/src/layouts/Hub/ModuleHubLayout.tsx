@@ -1,14 +1,8 @@
 import { useTreeData } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
-import {
-  ModuleSelectionTabs,
-  type MobileModuleTabs,
-} from "@/features/Hub/ModuleHub/Components/Selection/ModuleSelectionTabs.tsx";
-import { useEffect } from "react";
 import { ModulePage } from "@/features/Hub/ModuleHub/Pages/ModulePage.tsx";
-import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/Pages/ModuleSelectionPage.tsx";
+import { MobileModuleSlideOver } from "@/features/Hub/ModuleHub/Components/Navigator/MobileModuleSlideOver";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
-import { useTab } from "@ludocode/hooks";
 
 export function ModuleHubLayout() {
   const moduleHubRoute = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
@@ -25,29 +19,20 @@ export function ModuleHubLayout() {
     (course: LudoCourse) => course.id == courseId,
   );
 
-  const mainTab: MobileModuleTabs = "Path";
-  const { activeTab, setTab } = useTab<MobileModuleTabs>(mainTab);
-  useEffect(() => {
-    if (activeTab != mainTab) setTab(mainTab);
-  }, [moduleId]);
-
   return (
-    <div className="layout-grid lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludo-background">
-      <ModuleSelectionTabs
-        activeTab={activeTab}
-        changeTab={setTab}
-        className="lg:hidden col-span-full"
+    <div className="layout-grid overflow-y-auto [scrollbar-gutter:stable] lg:grid-rows-1 grid-rows-[1fr] bg-ludo-background">
+      <ModulePage
+        lessons={lessons}
+        course={currentCourse}
+        modules={modules}
+        moduleProgress={moduleProgress}
       />
-      {activeTab == mainTab ? (
-        <ModulePage
-          lessons={lessons}
-          course={currentCourse}
-          modules={modules}
-          moduleProgress={moduleProgress}
-        />
-      ) : (
-        <ModuleSelectionPage modules={modules} currentCourse={currentCourse} />
-      )}
+      <MobileModuleSlideOver
+        modules={modules}
+        courseId={courseId}
+        courseName={currentCourse?.title ?? ""}
+        moduleProgress={moduleProgress}
+      />
     </div>
   );
 }
