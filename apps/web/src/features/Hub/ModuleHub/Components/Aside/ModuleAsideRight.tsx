@@ -26,7 +26,7 @@ export function ModuleAsideRight({
   const isResettingCourse = resetCourseProgressMutation.isPending;
 
   return (
-    <Aside orientation="RIGHT_WIDE" innerClassName="py-6 px-12">
+    <>
       <ModulesList modules={modules} header={{ courseName }} />
       <div className="mt-6">
         <LudoButton
@@ -39,6 +39,6 @@ export function ModuleAsideRight({
           {isResettingCourse && <Spinner className="text-ludo-accent-muted" />}
         </LudoButton>
       </div>
-    </Aside>
+    </>
   );
 }

@@ -3,12 +3,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { coursesHeroContent } from "../content";
-import { router } from "@/main";
-import { adminNavigation } from "@/constants/adminNavigation";
-import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import { useState } from "react";
 import { CreateCourseDialog } from "../Components/Dialog/CreateCourseDialog";
-import { CourseCard } from "../Components/Card/CourseCard";
 import { SubjectsPane } from "../Components/Pane/SubjectsPane";
 import { CoursesPane } from "../Components/Pane/CoursesPane";
 
@@ -20,9 +16,9 @@ export function CoursesHubPage() {
 
   return (
     <div className="layout-grid col-span-full scrollable py-10 px-6 lg:px-0">
-      <div className="col-span-1 lg:bg-ludo-background lg:col-span-2" />
+      <div className="col-span-1 lg:bg-ludo-background" />
 
-      <div className="col-span-10 lg:col-span-8 flex flex-col gap-12 min-w-0">
+      <div className="col-span-10 flex flex-col gap-12 min-w-0">
         {/* HERO */}
         <Hero {...coursesHeroContent}>
           <div className="flex w-full justify-end gap-4">
@@ -53,7 +49,7 @@ export function CoursesHubPage() {
         </div>
       </div>
 
-      <div className="col-span-1 lg:bg-ludo-background lg:col-span-2" />
+      <div className="col-span-1 lg:bg-ludo-background" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { uuid } from "@tanstack/react-form";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { ProjectCard } from "@/features/Hub/ProjectHub/Components/Card/ProjectCard.tsx";
 import { CreateProjectDialog } from "@/features/Hub/ProjectHub/Components/Dialog/CreateProjectDialog.tsx";
@@ -34,7 +34,8 @@ export function ProjectHubPage() {
   return (
     <>
       <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
-        <div className=" relative main-col-wide flex flex-col gap-6 justify-start min-w-0">
+        <div className="col-span-1" />
+        <div className="relative col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
             <div className="w-full flex flex-col gap-3 items-end">
               <div className="flex justify-between items-center text-sm">
@@ -80,6 +81,7 @@ export function ProjectHubPage() {
             ))}
           </div>
         </div>
+        <div className="col-span-1" />
       </div>
     </>
   );
