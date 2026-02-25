@@ -27,7 +27,7 @@ export function HubHeader({ title }: HubHeaderProps) {
           <h1 className="lg:hidden text-lg font-bold text-white">{title}</h1>
           <NavigationIconGroup groupClassName="hidden lg:flex" />
           <div className="flex justify-end gap-4 items-center">
-            <StatsGroup />
+            <StatsGroup groupClassName="gap-0 lg:gap-4" />
             <SubscriptionBadge className="hidden md:flex" tier={plan} />
             <ProfileDrawer
               user={user}
