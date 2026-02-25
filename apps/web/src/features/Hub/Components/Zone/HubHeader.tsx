@@ -8,7 +8,7 @@ import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { getUserAvatar } from "@/constants/avatars/avatars";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
-import { ProfileActionsPopover } from "../Popover/ProfileActionsPopover";
+import { ProfileDrawer } from "../Drawer/ProfileDrawer";
 type HubHeaderProps = { title: string };
 
 export function HubHeader({ title }: HubHeaderProps) {
@@ -29,10 +29,12 @@ export function HubHeader({ title }: HubHeaderProps) {
           <div className="flex justify-end gap-4 items-center">
             <StatsGroup />
             <SubscriptionBadge className="hidden md:flex" tier={plan} />
-            <ProfileActionsPopover
-              userId={user.id}
+            <ProfileDrawer
+              user={user}
+              avatarSrc={userPfpSrc}
+              plan={plan}
               trigger={
-                <button>
+                <button type="button">
                   <Avatar
                     className="h-6 w-6 hover:cursor-pointer max-h-8 max-w-8"
                     src={userPfpSrc}
