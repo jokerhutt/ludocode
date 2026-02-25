@@ -17,14 +17,12 @@ import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 type ProfileDrawerProps = {
   trigger: ReactElement;
   user: LudoUser;
-  avatarSrc: string;
   plan: SubscriptionPlan;
 };
 
 export function ProfileDrawer({
   trigger,
   user,
-  avatarSrc,
   plan,
 }: ProfileDrawerProps) {
   return (

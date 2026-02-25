@@ -31,7 +31,6 @@ export function HubHeader({ title }: HubHeaderProps) {
             <SubscriptionBadge className="hidden md:flex" tier={plan} />
             <ProfileDrawer
               user={user}
-              avatarSrc={userPfpSrc}
               plan={plan}
               trigger={
                 <button type="button">
