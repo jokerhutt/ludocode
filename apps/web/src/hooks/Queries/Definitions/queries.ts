@@ -25,6 +25,7 @@ import {
 import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
 import { api } from "@/constants/api/api";
 import {
+  type LudoCareer,
   type CourseStats,
   type LanguageMetadata,
   type PlanOverview,
@@ -144,6 +145,13 @@ export const qo = {
       queryKey: qk.courses(),
       queryFn: () => ludoGet<LudoCourse[]>(api.catalog.courses),
       staleTime: 60_000,
+    }),
+
+  allCareers: () =>
+    queryOptions({
+      queryKey: qk.careers(),
+      queryFn: () => ludoGet<LudoCareer[]>(api.preferences.careers),
+      staleTime: 60_000
     }),
 
   allProjects: () =>

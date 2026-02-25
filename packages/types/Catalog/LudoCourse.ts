@@ -7,6 +7,7 @@ export type LudoCourse = {
   courseType: CourseType;
   subject: LudoCourseSubject;
   language?: LanguageMetadata;
+  description: string;
 };
 
 export type CourseType = "COURSE" | "SKILL_PATH";

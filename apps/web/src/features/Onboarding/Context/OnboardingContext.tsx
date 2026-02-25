@@ -1,14 +1,12 @@
-import type { OnboardingFormContent } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
 import { createContext, useContext } from "react";
 import type { UseOnboardingFlowReturn } from "@/features/Onboarding/Hook/useOnboardingFlow.tsx";
-import type { LudoUser } from "@ludocode/types";
-import type { UseOnboardingDraftReturn } from "../Hook/useOnboardingDraft";
+import type { LudoCareer, LudoCourse, LudoUser } from "@ludocode/types";
 
 export type OnboardingContextType = {
-  content: OnboardingFormContent;
-  flow: UseOnboardingFlowReturn;
-  draftApi: UseOnboardingDraftReturn;
   currentUser: LudoUser;
+  courses: LudoCourse[];
+  careers: LudoCareer[];
+  flow: UseOnboardingFlowReturn;
 };
 
 export const OnboardingContext = createContext<OnboardingContextType | null>(

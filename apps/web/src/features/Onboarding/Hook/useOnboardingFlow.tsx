@@ -6,7 +6,7 @@ import type {
 import { stepOrder } from "@/features/Onboarding/Steps/OnboardingSteps";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback } from "react";
-import { useOnboardingDraft } from "./useOnboardingDraft";
+import { useOnboardingDraftStore } from "../Store/OnboardingDraft";
 import { canAdvanceStage } from "../Util/validators";
 
 type Args = { stage: StageKey };
@@ -28,7 +28,7 @@ export type UseOnboardingFlowReturn = {
 export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   const nav = useNavigate();
   const submitOnboardingMutation = useSubmitOnboarding();
-  const { draft } = useOnboardingDraft();
+  const { draft, clearDraft } = useOnboardingDraftStore();
 
   const idx = stepOrder.indexOf(stage);
   const atFirst = idx <= 0;
@@ -36,7 +36,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
 
   const goto = useCallback(
     (s: StageKey) => nav({ to: "/onboarding/$stage", params: { stage: s } }),
-    [nav]
+    [nav],
   );
 
   const prev = useCallback(() => {
@@ -49,10 +49,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     if (submitOnboardingMutation.isPending) return;
     if (!canAdvance) return;
 
-    console.log("Can advance")
-
     if (!atLast) {
-      console.log("Not at last")
       goto(stepOrder[idx + 1]);
       return;
     }
@@ -65,7 +62,16 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     };
 
     submitOnboardingMutation.mutate(submission);
-  }, [atLast, canAdvance, draft, goto, idx, submitOnboardingMutation]);
+  }, [
+    atLast,
+    canAdvance,
+    clearDraft,
+    draft,
+    goto,
+    idx,
+    nav,
+    submitOnboardingMutation,
+  ]);
 
   return {
     goto,

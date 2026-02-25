@@ -132,6 +132,7 @@ export function createApiPaths({
 
     preferences: {
       base: `${BASE}/preferences`,
+      careers: `${BASE}/preferences/careers`
     },
 
     users: {

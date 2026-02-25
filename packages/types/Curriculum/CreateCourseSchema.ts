@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { CourseType } from "@ludocode/types";
 
 export const createCourseSchema = z.object({
   courseTitle: z.string().min(1, "Title is required"),
