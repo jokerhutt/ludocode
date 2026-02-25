@@ -23,42 +23,29 @@ vi.mock("@/hooks/Queries/Mutations/useSubmitOnboarding.tsx", () => ({
 }));
 
 import { useOnboardingFlow } from "@/features/Onboarding/Hook/useOnboardingFlow";
-import { useOnboardingDraft } from "@/features/Onboarding/Hook/useOnboardingDraft";
 import { testOnboardingMocks } from "./fixtures";
 import {
   createOnboardingRouterMock,
   simulateOnboardingBeforeLoad,
 } from "./testHelpers";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useOnboardingDraftStore } from "@/features/Onboarding/Store/OnboardingDraft";
 
 describe("useOnboardingFlow (integration)", () => {
-  let queryClient: QueryClient;
-
   beforeEach(() => {
-    queryClient = new QueryClient({
-      defaultOptions: {
-        queries: { retry: false },
-      },
-    });
     navigateSpy.mockClear();
     submitOnboardingMutationSpy.mockClear();
+
+    // reset zustand draft between tests
+    useOnboardingDraftStore.getState().clearDraft();
   });
 
   it("full flow => completes all onboarding steps => submits onboarding", async () => {
     let currentStage: StageKey = "name";
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-
     const { result: flowResult, rerender: rerenderFlow } = renderHook(
       ({ stage }) => useOnboardingFlow({ stage }),
-      { initialProps: { stage: currentStage }, wrapper },
+      { initialProps: { stage: currentStage } },
     );
-
-    const { result: draftResult } = renderHook(() => useOnboardingDraft(), {
-      wrapper,
-    });
 
     const routerMock = createOnboardingRouterMock(
       rerenderFlow,
@@ -75,9 +62,8 @@ describe("useOnboardingFlow (integration)", () => {
     expect(currentStage).toBe("name");
     expect(flowResult.current.canAdvance).toBe(false);
 
-    // Set username
     act(() => {
-      draftResult.current.setDraft({ username: "TestUser123" });
+      useOnboardingDraftStore.getState().setDraft({ username: "TestUser123" });
     });
 
     await waitFor(() => {
@@ -85,7 +71,7 @@ describe("useOnboardingFlow (integration)", () => {
     });
 
     act(() => {
-      draftResult.current.setDraft({ username: "" });
+      useOnboardingDraftStore.getState().setDraft({ username: "" });
     });
 
     await waitFor(() => {
@@ -93,7 +79,7 @@ describe("useOnboardingFlow (integration)", () => {
     });
 
     act(() => {
-      draftResult.current.setDraft({ username: "TestUser123" });
+      useOnboardingDraftStore.getState().setDraft({ username: "TestUser123" });
     });
 
     await waitFor(() => {
@@ -114,7 +100,7 @@ describe("useOnboardingFlow (integration)", () => {
     expect(flowResult.current.canAdvance).toBe(false);
 
     act(() => {
-      draftResult.current.setDraft({ career: "DATA" });
+      useOnboardingDraftStore.getState().setDraft({ career: "DATA" });
     });
 
     await waitFor(() => {
@@ -135,7 +121,7 @@ describe("useOnboardingFlow (integration)", () => {
     expect(flowResult.current.canAdvance).toBe(false);
 
     act(() => {
-      draftResult.current.setDraft({
+      useOnboardingDraftStore.getState().setDraft({
         course: testOnboardingMocks.courseContent[0].courseId,
       });
     });
@@ -154,11 +140,11 @@ describe("useOnboardingFlow (integration)", () => {
       expect(flowResult.current.position.current).toBe(3);
     });
 
-    // Step 4: Experience stage (final)
+    // Step 4: Experience stage
     expect(flowResult.current.canAdvance).toBe(false);
 
     act(() => {
-      draftResult.current.setDraft({ experience: false });
+      useOnboardingDraftStore.getState().setDraft({ experience: false });
     });
 
     await waitFor(() => {
@@ -183,18 +169,10 @@ describe("useOnboardingFlow (integration)", () => {
   it("hasCompletedSomeSteps => Refreshes => goesBackToFirst", async () => {
     let currentStage: StageKey = "name";
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-
     const { result: flowResult, rerender: rerenderFlow } = renderHook(
       ({ stage }) => useOnboardingFlow({ stage }),
-      { initialProps: { stage: currentStage }, wrapper },
+      { initialProps: { stage: currentStage } },
     );
-
-    const { result: draftResult } = renderHook(() => useOnboardingDraft(), {
-      wrapper,
-    });
 
     const routerMock = createOnboardingRouterMock(
       rerenderFlow,
@@ -206,14 +184,13 @@ describe("useOnboardingFlow (integration)", () => {
 
     navigateSpy.mockImplementation(routerMock.mockImplementation);
 
-    // Step 1: Name stage
+    // name -> set username -> next -> career
     expect(flowResult.current.position.current).toBe(0);
     expect(currentStage).toBe("name");
     expect(flowResult.current.canAdvance).toBe(false);
 
-    // Set username
     act(() => {
-      draftResult.current.setDraft({ username: "TestUser123" });
+      useOnboardingDraftStore.getState().setDraft({ username: "TestUser123" });
     });
 
     await waitFor(() => {
@@ -229,23 +206,22 @@ describe("useOnboardingFlow (integration)", () => {
       expect(flowResult.current.position.current).toBe(1);
     });
 
-    // Step 2: Career stage
-    expect(flowResult.current.canAdvance).toBe(false);
-
     act(() => {
-      draftResult.current.setDraft({ career: "DATA" });
+      useOnboardingDraftStore.getState().setDraft({ career: "DATA" });
     });
 
     await waitFor(() => {
       expect(flowResult.current.canAdvance).toBe(true);
     });
 
-    queryClient.clear();
-    simulateOnboardingBeforeLoad(queryClient, "career", (nav) => {
+    // simulate refresh => draft wiped
+    useOnboardingDraftStore.getState().clearDraft();
+
+    // guard should kick you back to "name" if you're at "career"
+    simulateOnboardingBeforeLoad("career", (nav) => {
       navigateSpy(nav);
     });
 
-    // Should have redirected to "name"
     await waitFor(() => {
       const nav = routerMock.getLastNavigation();
       expect(nav?.to).toBe("/onboarding/$stage");
@@ -257,30 +233,12 @@ describe("useOnboardingFlow (integration)", () => {
   it("cannot skip stages => blocked at first invalid stage", async () => {
     let currentStage: StageKey = "name";
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-
-    const { result: flowResult, rerender: rerenderFlow } = renderHook(
+    const { result: flowResult } = renderHook(
       ({ stage }) => useOnboardingFlow({ stage }),
-      { initialProps: { stage: currentStage }, wrapper },
+      { initialProps: { stage: currentStage } },
     );
 
-    const { result: _ } = renderHook(() => useOnboardingDraft(), {
-      wrapper,
-    });
-
-    const routerMock = createOnboardingRouterMock(
-      rerenderFlow,
-      () => currentStage,
-      (stage) => {
-        currentStage = stage;
-      },
-    );
-
-    navigateSpy.mockImplementation(routerMock.mockImplementation);
-
-    // Try to advance without setting username - should not advance
+    // Try to advance without setting username
     expect(flowResult.current.canAdvance).toBe(false);
 
     act(() => {

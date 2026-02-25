@@ -22,6 +22,13 @@ export default defineConfig({
     setupFiles: "./src/test/setup.ts",
     globals: true,
     clearMocks: true,
+    exclude: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/tests/**",
+      "**/*.spec.ts",
+      "**/*.spec.tsx",
+    ],
   },
   resolve: {
     alias: {

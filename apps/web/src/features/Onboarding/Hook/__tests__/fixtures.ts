@@ -20,15 +20,6 @@ export const testUser: LoginUserResponse = {
     id: testUserId,
     coins: 0,
   },
-  subscription: {
-    userId: testUserId,
-    planCode: "PATRON",
-    planId: "plan_patron",
-    monthlyCreditAllowance: 10,
-    maxProjects: 3,
-    currentPeriodEnd: "next month",
-    cancelAtPeriodEnd: false
-  }
 };
 
 export const testOnboardingMocks: OnboardingFormContent = {

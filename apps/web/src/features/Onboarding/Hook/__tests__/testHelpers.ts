@@ -1,10 +1,8 @@
 import type { RenderHookResult } from "@testing-library/react";
 import type { StageKey } from "@ludocode/types";
 import { stepOrder } from "@/features/Onboarding/Steps/OnboardingSteps";
-import type { OnboardingDraft } from "@/features/Onboarding/Hook/useOnboardingDraft";
 import { firstInvalidStep } from "@/features/Onboarding/Util/validators";
-import type { QueryClient } from "@tanstack/react-query";
-import { qk } from "@/hooks/Queries/Definitions/qk";
+import { useOnboardingDraftStore } from "@/features/Onboarding/Store/OnboardingDraft";
 
 export interface OnboardingNavigationCapture {
   to: string;
@@ -15,12 +13,11 @@ export interface OnboardingNavigationCapture {
 }
 
 export function simulateOnboardingBeforeLoad(
-  queryClient: QueryClient,
   targetStage: StageKey,
   navigateFn: (nav: OnboardingNavigationCapture) => void,
 ) {
-  const draft =
-    queryClient.getQueryData<OnboardingDraft>(qk.onboardingDraft()) ?? {};
+  // zustand draft (not query client)
+  const draft = useOnboardingDraftStore.getState().draft;
   const invalid = firstInvalidStep(draft);
 
   if (!invalid) return;
@@ -45,7 +42,6 @@ export function createOnboardingRouterMock(
   const navigations: OnboardingNavigationCapture[] = [];
 
   const mockImplementation = (navOptions: any) => {
-    // Capture navigation
     const capture: OnboardingNavigationCapture = {
       to: navOptions.to,
       params: navOptions.params,
@@ -56,7 +52,6 @@ export function createOnboardingRouterMock(
 
     navigations.push(capture);
 
-    // If navigating to onboarding stage, update the stage and rerender
     if (navOptions.to === "/onboarding/$stage" && navOptions.params?.stage) {
       const newStage = navOptions.params.stage as StageKey;
       setCurrentStage(newStage);
