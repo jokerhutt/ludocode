@@ -1,4 +1,4 @@
-import { SubscriptionPlan } from "./SubscriptionPlan"
+import { type SubscriptionPlan } from "./SubscriptionPlan"
 
 export type Feature =
   | "CORE_COURSES"

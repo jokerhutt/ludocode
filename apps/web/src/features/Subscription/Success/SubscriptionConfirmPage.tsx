@@ -4,7 +4,7 @@ import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { CheckCircle2, XIcon } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function SubscriptionConfirmPage() {
