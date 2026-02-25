@@ -29,6 +29,10 @@ import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$mo
 
 // ONBOARDING
 import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.tsx";
+
+// LEADERBOARD
+import { Route as leaderboardHubRoute } from "@/routes/_app/_hub/leaderboard";
+
 import type { LessonSubmission, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {
@@ -49,6 +53,9 @@ export const ludoNavigation = {
     },
     project: {
       toProjectHub: () => ({ to: projectHubRoute.to }),
+    },
+    leaderboard: {
+      toLeaderboardHub: () => ({ to: leaderboardHubRoute.to })
     },
     profile: {
       toProfile: (userId: string, replace?: boolean) => ({

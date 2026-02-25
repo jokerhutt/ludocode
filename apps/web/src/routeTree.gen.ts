@@ -25,6 +25,7 @@ import { Route as AppSubscriptionCancelRouteImport } from './routes/_app/subscri
 import { Route as AppSubscriptionAlreadySubscribedRouteImport } from './routes/_app/subscription/already-subscribed'
 import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
 import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
+import { Route as AppHubLeaderboardRouteImport } from './routes/_app/_hub/leaderboard'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
 import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './routes/_app/subscription/_subscribedguard/route'
 import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/_app/subscription/_subscribedguard/comparison'
@@ -115,6 +116,11 @@ const AppHubProjectsRoute = AppHubProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
+const AppHubLeaderboardRoute = AppHubLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => AppHubRouteRoute,
+} as any)
 const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
+  '/leaderboard': typeof AppHubLeaderboardRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
+  '/leaderboard': typeof AppHubLeaderboardRoute
   '/projects': typeof AppHubProjectsRoute
   '/onboarding/$stage': typeof AppOnboardingStageRoute
   '/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
@@ -239,6 +247,7 @@ export interface FileRoutesById {
   '/demo/': typeof DemoIndexRoute
   '/_app/subscription/_subscribedguard': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/_app/_hub/courses': typeof AppHubCoursesRoute
+  '/_app/_hub/leaderboard': typeof AppHubLeaderboardRoute
   '/_app/_hub/projects': typeof AppHubProjectsRoute
   '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
   '/_app/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
@@ -266,6 +275,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo'
     | '/courses'
+    | '/leaderboard'
     | '/projects'
     | '/onboarding/$stage'
     | '/subscription/already-subscribed'
@@ -291,6 +301,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo'
     | '/courses'
+    | '/leaderboard'
     | '/projects'
     | '/onboarding/$stage'
     | '/subscription/already-subscribed'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/demo/'
     | '/_app/subscription/_subscribedguard'
     | '/_app/_hub/courses'
+    | '/_app/_hub/leaderboard'
     | '/_app/_hub/projects'
     | '/_app/onboarding/$stage'
     | '/_app/subscription/already-subscribed'
@@ -458,6 +470,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubProjectsRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
+    '/_app/_hub/leaderboard': {
+      id: '/_app/_hub/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AppHubLeaderboardRouteImport
+      parentRoute: typeof AppHubRouteRoute
+    }
     '/_app/_hub/courses': {
       id: '/_app/_hub/courses'
       path: '/courses'
@@ -564,6 +583,7 @@ const AppHubProfileUserIdRouteWithChildren =
 
 interface AppHubRouteRouteChildren {
   AppHubCoursesRoute: typeof AppHubCoursesRoute
+  AppHubLeaderboardRoute: typeof AppHubLeaderboardRoute
   AppHubProjectsRoute: typeof AppHubProjectsRoute
   AppHubProfileUserIdRoute: typeof AppHubProfileUserIdRouteWithChildren
   AppHubLearnCourseIdModuleIdRoute: typeof AppHubLearnCourseIdModuleIdRoute
@@ -571,6 +591,7 @@ interface AppHubRouteRouteChildren {
 
 const AppHubRouteRouteChildren: AppHubRouteRouteChildren = {
   AppHubCoursesRoute: AppHubCoursesRoute,
+  AppHubLeaderboardRoute: AppHubLeaderboardRoute,
   AppHubProjectsRoute: AppHubProjectsRoute,
   AppHubProfileUserIdRoute: AppHubProfileUserIdRouteWithChildren,
   AppHubLearnCourseIdModuleIdRoute: AppHubLearnCourseIdModuleIdRoute,

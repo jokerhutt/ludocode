@@ -9,10 +9,7 @@ export type NavIcon = {
   desktopOnly?: boolean;
 };
 
-export const getNavIcons = (
-  courseId: string,
-  moduleId: string,
-): NavIcon[] => [
+export const getNavIcons = (courseId: string, moduleId: string): NavIcon[] => [
   {
     name: "Courses",
     path: "/courses",
@@ -29,5 +26,10 @@ export const getNavIcons = (
     path: "/projects",
     onClick: () => router.navigate(ludoNavigation.hub.project.toProjectHub()),
     desktopOnly: true,
+  },
+  {
+    name: "Leaderboard",
+    path: "/leaderboard",
+    onClick: () => router.navigate(ludoNavigation.hub.leaderboard.toLeaderboardHub()),
   },
 ];
