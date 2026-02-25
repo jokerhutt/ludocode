@@ -19,11 +19,11 @@ export function ModulePage({ lessons, modules, course }: ModulePageProps) {
   return (
     <>
       <div className="col-span-1" />
-      <div className="col-span-10 gap-10 flex justify-end">
-        <div className="overflow-y-auto w-auto flex flex-col lg:gap-8 items-center px-5 lg:px-0 min-w-0">
+      <div className="col-span-10 py-6 gap-10 flex justify-end">
+        <div className="overflow-y-auto w-auto flex flex-col lg:gap-8 items-center lg:px-0 min-w-0">
           <ModulePath lessons={lessons} />
         </div>
-        <div className="col-span-3 min-w-80">
+        <div className="col-span-3 hidden lg:block min-w-80">
           <ModuleAsideRight
             modules={modules}
             courseId={courseId}

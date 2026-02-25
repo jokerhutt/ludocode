@@ -37,18 +37,17 @@ export function ProjectHubPage() {
         <div className="col-span-1" />
         <div className="relative col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
-            <div className="w-full flex flex-col gap-3 items-end">
-              <div className="flex justify-between items-center text-sm">
+            <div className="w-full flex flex-col gap-2 items-end">
+              <div className="flex justify-between items-center text-xs">
                 <span
                   data-testid={`project-limits`}
                   className={
-                    isAtLimit ? "text-ludo-danger" : "text-ludoAltTdxt"
+                    isAtLimit ? "text-ludo-danger" : "text-ludoAltText"
                   }
                 >
                   Projects {currentProjects} / {maxProjects}
                 </span>
               </div>
-
               <CreateProjectDialog
                 hash={uuid()}
                 open={createProjectOpen}
@@ -56,7 +55,7 @@ export function ProjectHubPage() {
               >
                 <LudoButton
                   data-testid={`create-project-dialog-button`}
-                  className="w-full lg:w-1/3 lg:h-10 h-full px-4"
+                  className="w-full lg:w-1/4 lg:h-8 h-full px-4"
                   variant="alt"
                   onClick={() => {
                     if (isAtLimit) {
