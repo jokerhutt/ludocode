@@ -15,14 +15,14 @@ export function ModuleHubLayout() {
   const { courseId, moduleId } = moduleHubRoute.useParams();
   const { tree, allCourses } = moduleHubRoute.useLoaderData();
 
-  const { modules, lessons } = useTreeData({
+  const { modules, lessons, moduleProgress } = useTreeData({
     tree,
     courseId,
     moduleId,
   });
 
   const currentCourse = allCourses.find(
-    (course: LudoCourse) => course.id == courseId
+    (course: LudoCourse) => course.id == courseId,
   );
 
   const mainTab: MobileModuleTabs = "Path";
@@ -43,6 +43,7 @@ export function ModuleHubLayout() {
           lessons={lessons}
           course={currentCourse}
           modules={modules}
+          moduleProgress={moduleProgress}
         />
       ) : (
         <ModuleSelectionPage modules={modules} currentCourse={currentCourse} />

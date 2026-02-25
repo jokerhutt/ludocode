@@ -6,6 +6,12 @@ import type {
 } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseDataArray } from "@/hooks/Queries/Util/useSuspenseDataArray.tsx";
+import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
+
+export type ModuleProgress = {
+  total: number;
+  completed: number;
+};
 
 type Args = {
   tree: FlatCourseTree;
@@ -15,20 +21,40 @@ type Args = {
 
 export function useTreeData({ tree, courseId, moduleId }: Args) {
   const { data: courseProgress } = useSuspenseQuery(
-    qo.courseProgress(courseId)
+    qo.courseProgress(courseId),
   );
 
   const moduleMetaData = tree.modules.find(
-    (module: FlatModule) => module.id == moduleId
+    (module: FlatModule) => module.id == moduleId,
   );
 
   const modules = useSuspenseDataArray(
-    tree.modules.map((module: FlatModule) => qo.module(module.id))
+    tree.modules.map((module: FlatModule) => qo.module(module.id)),
   );
 
   const lessons = useSuspenseDataArray(
-    moduleMetaData!.lessons.map((lesson: FlatLesson) => qo.lesson(lesson.id))
+    moduleMetaData!.lessons.map((lesson: FlatLesson) => qo.lesson(lesson.id)),
   );
 
-  return { courseProgress, modules, lessons };
+  // All lessons across all modules (pre-fetched in route loader)
+  const allLessons = useSuspenseDataArray<LudoLesson>(
+    tree.modules.flatMap((module: FlatModule) =>
+      module.lessons.map((lesson: FlatLesson) => qo.lesson(lesson.id)),
+    ),
+  );
+
+  // Build per-module progress map
+  const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
+  const moduleProgress = new Map<string, ModuleProgress>(
+    tree.modules.map((m) => [
+      m.id,
+      {
+        total: m.lessons.length,
+        completed: m.lessons.filter((l) => lessonMap.get(l.id)?.isCompleted)
+          .length,
+      },
+    ]),
+  );
+
+  return { courseProgress, modules, lessons, moduleProgress };
 }

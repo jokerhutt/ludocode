@@ -18,6 +18,7 @@ export function StatsGroup({
   const { coins, userStreak } = useStatsContext();
   const { current } = userStreak;
 
+
   return (
     <>
       <LabelPair className={groupClassName}>
