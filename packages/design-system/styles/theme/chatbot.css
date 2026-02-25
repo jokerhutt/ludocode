@@ -70,9 +70,14 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+.chatbot-content div {
+  border: 1px solid #2a304f !important;
+}
+
 .chatbot-content pre {
   padding: 12px;
-  border: #22273e !important;
+  background: #22273e !important;
+  border: 1px solid #2a304f !important;
   border-radius: 0px !important;
   white-space: pre-wrap !important;
   word-break: break-word !important;
@@ -80,7 +85,7 @@
 
 .chatbot-content code {
   background: #2a2a3d !important;
-  border: #22273e !important;
+  border: 1px solid #2a304f !important;
   border-radius: 0px !important;
   font-family: "DMMono", monospace;
 }
