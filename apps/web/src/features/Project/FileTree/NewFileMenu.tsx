@@ -1,0 +1,47 @@
+import type { ReactNode } from "react";
+import { useProjectContext } from "@/features/Project/Context/ProjectContext";
+import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu";
+import {
+  CustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon";
+
+type NewFileMenuProps = {
+  trigger: ReactNode;
+};
+
+export function NewFileMenu({ trigger }: NewFileMenuProps) {
+  const { project, addFile } = useProjectContext();
+
+  const readOnly = !!project.deleteAt;
+  const iconName = project.projectLanguage.iconName as IconName;
+  const choice = project.projectLanguage.name;
+
+  return (
+    <LudoMenu>
+      <LudoMenu.Trigger>{trigger}</LudoMenu.Trigger>
+
+      <LudoMenu.Content align="end" className="w-48">
+        <p className="text-[10px] uppercase tracking-wider text-white/30 px-2 pb-1.5">
+          New file
+        </p>
+
+        <LudoMenu.Item
+          disabled={readOnly}
+          onSelect={() => {
+            if (readOnly) return;
+            addFile();
+          }}
+          className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
+        >
+          <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
+            <LudoMenu.Icon>
+              <CustomIcon color="white" className="h-4" iconName={iconName} />
+            </LudoMenu.Icon>
+            <LudoMenu.Label>{choice}</LudoMenu.Label>
+          </LudoMenu.Row>
+        </LudoMenu.Item>
+      </LudoMenu.Content>
+    </LudoMenu>
+  );
+}

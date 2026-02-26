@@ -1,4 +1,3 @@
-import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button.tsx";
 import { useModifyProject } from "@/hooks/Queries/Mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
@@ -10,11 +9,14 @@ import {
 import { router } from "@/main";
 import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
+import { FileActionsMenu } from "@/features/Project/FileTree/FileActionsMenu";
+import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon";
 
 type ProjectCardProps = { project: ProjectSnapshot };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { projectId, projectName, projectLanguage, updatedAt, deleteAt } = project;
+  const { projectId, projectName, projectLanguage, updatedAt, deleteAt } =
+    project;
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
@@ -50,12 +52,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
       <div>
-        <FileActionsButton
-          size="lg"
-          itemType="Project"
+        <FileActionsMenu
+          trigger={
+            <div
+              role="button"
+              className={
+                "hover:cursor-pointer rounded-full p-1 hover:text-ludo-accent-muted"
+              }
+            >
+              <HeroIcon className={"h-6"} iconName="EllipsisVerticalIcon" />
+            </div>
+          }
+          itemType={"Project"}
           targetId={projectId}
-          variant="secondary"
-          fileName={projectName}
+          targetName={projectName}
           renameItem={handleRenameProject}
           deleteItem={handleDeleteProject}
         />

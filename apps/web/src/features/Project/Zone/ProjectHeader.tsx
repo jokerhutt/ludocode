@@ -4,11 +4,10 @@ import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/Project/Editor/SaveStatusIcon.tsx";
-import { useRouter } from "@tanstack/react-router";
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
+import { router } from "@/main";
 
 export function ProjectHeader() {
-  const router = useRouter();
   const { project, files } = useProjectContext();
   const { projectName } = project;
 

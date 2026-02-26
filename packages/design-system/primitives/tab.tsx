@@ -1,29 +1,53 @@
 import { cn } from "@ludocode/design-system/cn-utils";
 import type { ReactNode } from "react";
 
-type EditorTabProps = {
+type LudoTabGroupProps = {
   children: ReactNode;
   className?: string;
-  isActive?: boolean;
 };
 
-export function EditorTab({
-  children,
-  className,
-  isActive = true,
-}: EditorTabProps) {
-  const style = cn(
-    "px-4 py-1.5 text-sm font-medium rounded-t-md  w-auto flex justify-center items-center gap-2 transition-colors select-none",
-    isActive
-      ? "bg-ludo-background text-white border-t border-x border-ludo-accent-muted/40"
-      : "bg-transparent text-white/50 hover:text-white/80 hover:bg-white/5 hover:cursor-pointer",
-    className,
-  );
-
+function Group({ children, className }: LudoTabGroupProps) {
   return (
-    <div className={style}>
+    <div className={cn("flex w-full h-full gap-1 items-end", className)}>
       {children}
-      {isActive && <span className="bg-ludo-background" />}
     </div>
   );
 }
+
+type LudoTabItemProps = {
+  children: ReactNode;
+  className?: string;
+  isActive?: boolean;
+  onClick?: () => void;
+};
+
+function Item({
+  children,
+  className,
+  isActive = false,
+  onClick,
+}: LudoTabItemProps) {
+  return (
+    <div
+      role="tab"
+      onClick={onClick}
+      className={cn(
+        "px-4 py-1.5 text-sm font-medium rounded-t-md w-auto flex justify-center items-center gap-2 transition-colors select-none",
+        isActive
+          ? "bg-ludo-background text-white border-t border-x border-ludo-accent-muted/40"
+          : "bg-transparent text-white/50 hover:text-white/80 hover:bg-white/5 hover:cursor-pointer",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+export const LudoTab = Object.assign(
+  {},
+  {
+    Group,
+    Item,
+  },
+);

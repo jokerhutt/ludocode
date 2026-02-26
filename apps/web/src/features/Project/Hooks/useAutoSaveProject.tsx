@@ -22,6 +22,8 @@ export function useAutoSaveProject({
   files,
   debounceMs = 1000,
 }: Args): SaveStatusType {
+  const hasSavedOnceRef = useRef(false);
+
   const lastPayloadRef = useRef<string | null>(null);
   const lastSavedAtRef = useRef<Date | null>(null);
 
@@ -31,6 +33,7 @@ export function useAutoSaveProject({
     ...mutations.saveProject(),
     onSuccess: () => {
       lastSavedAtRef.current = new Date();
+      hasSavedOnceRef.current = true;
     },
   });
 
@@ -56,7 +59,7 @@ export function useAutoSaveProject({
 
   return {
     isSaving: saveMutation.isPending,
-    isSaved: saveMutation.isSuccess,
+    isSaved: !saveMutation.isPending && !saveMutation.isError,
     error: saveMutation.error,
     lastSavedAt: lastSavedAtRef.current,
   };

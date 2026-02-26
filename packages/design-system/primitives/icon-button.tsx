@@ -1,41 +1,49 @@
+import * as React from "react";
 import { cn } from "@ludocode/design-system/cn-utils";
 import {
   HeroIcon,
   type IconName,
 } from "@ludocode/design-system/primitives/hero-icon";
 
-type IconButtonProps = {
-  className?: string;
+type IconButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   iconClassName?: string;
   variant?: "large" | "default";
   dataTestId?: string;
   iconName: IconName;
-  onClick?: () => void;
 };
 
-export function IconButton({
-  className,
-  iconClassName,
-  onClick,
-  dataTestId,
-  variant = "default",
-  iconName,
-}: IconButtonProps) {
-  const variantSize = variant == "large" ? "h-6 w-6" : "h-4 w-4";
+export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      className,
+      iconClassName,
+      dataTestId,
+      variant = "default",
+      iconName,
+      ...props
+    },
+    ref,
+  ) => {
+    const variantSize = variant === "large" ? "h-6 w-6" : "h-4 w-4";
 
-  return (
-    <button
-      data-testid={dataTestId}
-      onClick={() => onClick?.()}
-      className={cn(
-        "p-1 hover:cursor-pointer hover:bg-ludo-accent-muted/60 rounded-full",
-        className
-      )}
-    >
-      <HeroIcon
-        className={cn("text-white", variantSize, iconClassName)}
-        iconName={iconName}
-      />
-    </button>
-  );
-}
+    return (
+      <button
+        ref={ref}
+        data-testid={dataTestId}
+        type="button"
+        className={cn(
+          "p-1 hover:bg-ludo-accent-muted/60 hover:cursor-pointer rounded-full",
+          className,
+        )}
+        {...props}
+      >
+        <HeroIcon
+          className={cn("text-white", variantSize, iconClassName)}
+          iconName={iconName}
+        />
+      </button>
+    );
+  },
+);
+
+IconButton.displayName = "IconButton";
