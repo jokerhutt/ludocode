@@ -6,10 +6,12 @@ import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx
 import { LudoSpinner } from "@ludocode/design-system/primitives/ludo-spinner.tsx";
 
 type ProjectEditorProps = {
-  isMarkedForDeletion?: boolean
-}
+  isMarkedForDeletion?: boolean;
+};
 
-export function ProjectEditor({isMarkedForDeletion = false}: ProjectEditorProps) {
+export function ProjectEditor({
+  isMarkedForDeletion = false,
+}: ProjectEditorProps) {
   const { active, updateContent } = useProjectContext();
   const { content, language, path } = active;
   const { runCode } = useCodeRunnerContext();
@@ -33,10 +35,11 @@ export function ProjectEditor({isMarkedForDeletion = false}: ProjectEditorProps)
 
   return (
     <Editor
+      key={path}
       path={path}
       height="100%"
       theme="custom-theme"
-      value={content}
+      defaultValue={content}
       onChange={(v) => updateContent(v ?? "")}
       beforeMount={beforeMount}
       loading={

@@ -3,9 +3,9 @@ import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
 import type { ModuleProgress } from "@/features/Modules/Hooks/useTreeData";
 import { useState } from "react";
-import { LudoList } from "@ludocode/design-system/widgets/LudoList";
+import { LudoList } from "@ludocode/design-system/widgets/ludo-list";
 import { FloatingTriggerButton } from "../Path/FloatingTriggerButton";
-import { LudoSlideOver } from "@ludocode/design-system/widgets/LudoSlideOver";
+import { LudoSlideOver } from "@ludocode/design-system/widgets/ludo-slideover";
 type MobileModuleSlideOverProps = {
   modules: LudoModule[];
   courseId: string;

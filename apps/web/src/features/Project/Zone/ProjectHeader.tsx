@@ -23,7 +23,7 @@ export function ProjectHeader() {
   };
 
   return (
-    <HeaderWithBar device="Desktop">
+    <HeaderWithBar className="border-b lg:border-b"  device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
         <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />

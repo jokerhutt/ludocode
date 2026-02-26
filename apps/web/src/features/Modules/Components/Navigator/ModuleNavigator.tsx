@@ -2,7 +2,7 @@ import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import type { ModuleProgress } from "@/features/Modules/Hooks/useTreeData";
 import { CourseCard } from "@/features/Courses/Components/CourseCard";
 import { ResetProgressButton } from "../Path/ResetProgressButton";
-import { LudoList } from "@ludocode/design-system/widgets/LudoList";
+import { LudoList } from "@ludocode/design-system/widgets/ludo-list";
 
 type ModuleNavigatorProps = {
   modules: LudoModule[];

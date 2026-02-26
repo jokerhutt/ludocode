@@ -1,5 +1,4 @@
 import { ProjectEditor } from "@/features/Project/Editor/ProjectEditor.tsx";
-import { EditorWinbar } from "@/features/Project/Editor/EditorWinbar.tsx";
 import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
 import { RunCodeButton } from "@/features/Project/Editor/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "@/features/Project/Context/CodeRunnerContext.tsx";

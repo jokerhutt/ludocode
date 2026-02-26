@@ -1,4 +1,4 @@
-import { LudoPath } from "@ludocode/design-system/widgets/LudoPath";
+import { LudoPath } from "@ludocode/design-system/widgets/ludo-path";
 import type { LudoLesson } from "@ludocode/types";
 import { useLessonButton } from "../../Hooks/useLessonButton";
 import { PathPopover } from "./PathPopover";
