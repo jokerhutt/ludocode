@@ -1,7 +1,7 @@
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
-import type { ModuleProgress } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
-import { CourseCard } from "@/features/Hub/CourseHub/Components/Card/CourseCard";
-import { ResetProgressButton } from "../Button/ResetProgressButton";
+import type { ModuleProgress } from "@/features/Modules/Hooks/useTreeData";
+import { CourseCard } from "@/features/Courses/Components/CourseCard";
+import { ResetProgressButton } from "../Path/ResetProgressButton";
 import { LudoList } from "@ludocode/design-system/widgets/LudoList";
 
 type ModuleNavigatorProps = {

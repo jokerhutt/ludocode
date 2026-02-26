@@ -1,6 +1,6 @@
-import { useTreeData } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
-import { ModulePage } from "@/features/Hub/ModuleHub/Pages/ModulePage.tsx";
-import { MobileModuleSlideOver } from "@/features/Hub/ModuleHub/Components/Navigator/MobileModuleSlideOver";
+import { useTreeData } from "@/features/Modules/Hooks/useTreeData";
+import { ModulePage } from "@/features/Modules/Pages/ModulePage";
+import { MobileModuleSlideOver } from "@/features/Modules/Components/Navigator/MobileModuleSlideOver";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
 
@@ -21,12 +21,15 @@ export function ModuleHubLayout() {
 
   return (
     <div className="layout-grid overflow-y-auto [scrollbar-gutter:stable] lg:grid-rows-1 grid-rows-[1fr] bg-ludo-background">
+      <aside className="col-span-1" />
       <ModulePage
+        className="col-span-10"
         lessons={lessons}
         course={currentCourse}
         modules={modules}
         moduleProgress={moduleProgress}
       />
+      <aside className="col-span-1" />
       <MobileModuleSlideOver
         modules={modules}
         courseId={courseId}

@@ -15,8 +15,8 @@ export function CoinsDialog({ children, coins }: CoinsDialogProps) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogWrapper className="max-w-sm">
         <div className="flex flex-col items-center gap-4 py-2">
-          <div className="w-14 h-14 rounded-full bg-pythonYellow/15 flex items-center justify-center">
-            <CommitIcon className="h-7 w-7 text-pythonYellow" />
+          <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center">
+            <CommitIcon className="h-7 w-7 text-white" />
           </div>
           <DialogTitle className="text-white font-bold text-xl">
             Your Commits
@@ -24,7 +24,7 @@ export function CoinsDialog({ children, coins }: CoinsDialogProps) {
         </div>
         <div className="bg-ludo-background/50 rounded-xl p-4 flex items-center justify-between">
           <span className="text-white/50 text-sm">Total earned</span>
-          <span className="text-pythonYellow text-2xl font-bold tabular-nums">
+          <span className="text-white text-2xl font-bold tabular-nums">
             {coins}
           </span>
         </div>

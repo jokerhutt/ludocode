@@ -1,18 +1,20 @@
 import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
-import type { ModuleProgress } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
+import type { ModuleProgress } from "@/features/Modules/Hooks/useTreeData";
 import { ModuleNavigator } from "../Components/Navigator/ModuleNavigator";
 
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
 import { ModulePath } from "../Components/Path/ModulePath";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type ModulePageProps = {
   lessons: LudoLesson[];
   modules: LudoModule[];
   course?: LudoCourse;
   moduleProgress: Map<string, ModuleProgress>;
+  className?: string;
 };
 
 export function ModulePage({
@@ -20,6 +22,7 @@ export function ModulePage({
   modules,
   course,
   moduleProgress,
+  className,
 }: ModulePageProps) {
   if (!course) return null;
 
@@ -39,31 +42,32 @@ export function ModulePage({
   const currentLessonId = lessons.find((l) => !l.isCompleted)?.id;
 
   return (
-    <>
-      <aside className="col-span-1" />
-      <div className="col-span-10 py-6 gap-12 lg:gap-20 flex justify-center lg:justify-end">
-        <div className="w-60 flex flex-col lg:gap-8 items-center lg:px-0 min-w-0">
-          <ModulePath
-            lessons={lessons}
-            currentLessonId={currentLessonId}
+    <div
+      className={cn(
+        "py-6 gap-12 lg:gap-20 2xl:gap-40 flex justify-center lg:justify-end",
+        className,
+      )}
+    >
+      <div className="w-60 flex flex-col lg:gap-8 items-center lg:px-0 min-w-0">
+        <ModulePath
+          lessons={lessons}
+          currentLessonId={currentLessonId}
+          courseId={courseId}
+          moduleId={moduleId}
+        />
+      </div>
+      <div className="hidden lg:block w-90 2xl:w-140 min-w-72 max-w-90 2xl:max-w-140">
+        <div className="sticky top-6">
+          <ModuleNavigator
+            currentModuleId={moduleId}
+            selectModule={selectModule}
+            modules={modules}
             courseId={courseId}
-            moduleId={moduleId}
+            courseName={courseTitle}
+            moduleProgress={moduleProgress}
           />
         </div>
-        <div className="col-span-3 hidden lg:block w-80 min-w-72 max-w-80">
-          <div className="sticky top-6">
-            <ModuleNavigator
-              currentModuleId={moduleId}
-              selectModule={selectModule}
-              modules={modules}
-              courseId={courseId}
-              courseName={courseTitle}
-              moduleProgress={moduleProgress}
-            />
-          </div>
-        </div>
       </div>
-      <aside className="col-span-1" />
-    </>
+    </div>
   );
 }

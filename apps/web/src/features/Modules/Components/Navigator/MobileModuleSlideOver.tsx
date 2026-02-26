@@ -1,10 +1,10 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
-import type { ModuleProgress } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
+import type { ModuleProgress } from "@/features/Modules/Hooks/useTreeData";
 import { useState } from "react";
 import { LudoList } from "@ludocode/design-system/widgets/LudoList";
-import { FloatingTriggerButton } from "../Button/FloatingTriggerButton";
+import { FloatingTriggerButton } from "../Path/FloatingTriggerButton";
 import { LudoSlideOver } from "@ludocode/design-system/widgets/LudoSlideOver";
 type MobileModuleSlideOverProps = {
   modules: LudoModule[];

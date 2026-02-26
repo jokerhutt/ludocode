@@ -25,11 +25,11 @@ export function StatsGroup({
           className={cn(
             "flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all",
             "bg-ludo-surface/60 hover:bg-ludo-surface hover:cursor-pointer",
-            "border border-transparent hover:border-pythonYellow/30",
+            "border border-transparent hover:border-white/30",
             buttonClassName,
           )}
         >
-          <CommitIcon className="h-4 w-4 text-pythonYellow" />
+          <CommitIcon className="h-4 w-4 text-white" />
           <span className="text-white text-sm font-semibold tabular-nums">
             {coins}
           </span>
