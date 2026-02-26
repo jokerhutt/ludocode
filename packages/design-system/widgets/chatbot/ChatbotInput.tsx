@@ -41,15 +41,17 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       <ChatbotCreditsTab credits={credits} />
       <PromptInputBody className="min-w-0">
         <PromptInputTextarea
-        
           placeholder="Ask your question here."
           onChange={(e: any) => setInput(e.target.value)}
           value={input}
         />
       </PromptInputBody>
-      <PromptInputFooter className="py-0">
+      <PromptInputFooter className="py-1">
         <PromptInputTools />
-        <PromptInputSubmit className="bg-ludo-accent" disabled={(!input && !status) || creditsEmpty} />
+        <PromptInputSubmit
+          className="bg-ludo-accent hover:bg-ludo-accent/80 text-white rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          disabled={(!input && !status) || creditsEmpty}
+        />
       </PromptInputFooter>
     </PromptInput>
   );

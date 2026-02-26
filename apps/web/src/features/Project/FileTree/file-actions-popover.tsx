@@ -36,18 +36,8 @@ export function FileActionsPopover({
         <PopoverContent
           onClick={(e) => e.stopPropagation()}
           align="end"
-          className="text-white hover:cursor-default flex flex-col gap-2 p-4 bg-ludo-surface"
+          className="text-white hover:cursor-default flex flex-col gap-0.5 p-1.5 bg-ludo-surface border border-white/10 rounded-lg shadow-lg shadow-black/30 w-40"
         >
-          <DeleteDialog
-            onClick={() => deleteItem()}
-            targetName={targetName}
-          >
-            <FileWrapper isSelected={false}>
-              <FileInfoRow fileName={"Delete"}>
-                <HeroIcon iconName="TrashIcon" className="h-4 text-white" />
-              </FileInfoRow>
-            </FileWrapper>
-          </DeleteDialog>
           <RenameDialog
             itemCategory={itemType}
             key={`rename-${targetId}`}
@@ -56,11 +46,18 @@ export function FileActionsPopover({
           >
             <FileWrapper isSelected={false}>
               <FileInfoRow fileName={"Rename"}>
-                <HeroIcon iconName="PencilIcon" className="h-4 text-white" />
+                <HeroIcon iconName="PencilIcon" className="h-4 text-white/70" />
               </FileInfoRow>
-              <div></div>
             </FileWrapper>
           </RenameDialog>
+          <div className="h-px bg-white/10 mx-1 my-0.5" />
+          <DeleteDialog onClick={() => deleteItem()} targetName={targetName}>
+            <FileWrapper isSelected={false}>
+              <FileInfoRow fileName={"Delete"}>
+                <HeroIcon iconName="TrashIcon" className="h-4 text-red-400" />
+              </FileInfoRow>
+            </FileWrapper>
+          </DeleteDialog>
         </PopoverContent>
       </Popover>
     </>

@@ -39,7 +39,10 @@ export function NewFilePopover({ children }: NewFilePopoverProps) {
       <PopoverTrigger asChild>
         <div>{children}</div>
       </PopoverTrigger>
-      <PopoverContent className="text-white bg-ludo-surface">
+      <PopoverContent className="text-white bg-ludo-surface border border-white/10 rounded-lg p-2 shadow-lg shadow-black/30 w-48">
+        <p className="text-[10px] uppercase tracking-wider text-white/30 px-2 pb-1.5">
+          New file
+        </p>
         <FileWrapper
           dataTestId={`new-file-button`}
           disabled={readOnly}
