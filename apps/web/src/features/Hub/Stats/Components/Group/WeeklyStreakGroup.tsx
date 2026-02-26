@@ -1,6 +1,6 @@
 import { cn } from "@ludocode/design-system/cn-utils";
 import type { DailyGoalMet } from "@ludocode/types/User/UserStreak";
-import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon";
+import { FireIcon } from "@heroicons/react/24/solid";
 
 type WeeklyStreakGroupProps = {
   history: DailyGoalMet[];
@@ -21,27 +21,39 @@ export function WeeklyStreakGroup({
 
   return (
     <div
-      className={cn("w-full flex text-ludoAltText flex-col gap-4", className)}
+      className={cn("w-full flex text-ludoAltText flex-col gap-2", className)}
     >
-      {title && <h3 className="text-start">{title}</h3>}
+      {title && (
+        <h3 className="text-white/40 text-xs font-semibold uppercase tracking-widest">
+          {title}
+        </h3>
+      )}
       <div
         className={cn(
-          "w-full flex gap-4 bg-ludo-surface rounded-lg",
-          innerClassName
+          "w-full flex justify-between gap-2 bg-ludo-background/50 rounded-xl p-3",
+          innerClassName,
         )}
       >
         {history.map((day, index) => (
-          <div className="flex flex-col gap-1">
-            <div className="rounded-sm h-7 w-7 bg-ludo-background p-1 flex items-center justify-center">
-              {day.met && (
-                <HeroIcon
-                  iconName="FireIcon"
-                  solid
-                  className="text-orange-400 h-4 w-4"
-                />
+          <div key={index} className="flex flex-col items-center gap-1.5">
+            <div
+              className={cn(
+                "rounded-lg h-9 w-9 flex items-center justify-center transition-colors",
+                day.met ? "bg-orange-400/15" : "bg-white/5",
               )}
+            >
+              {day.met && <FireIcon className="text-orange-400 h-4 w-4" />}
             </div>
-            {showDates && <p className="text-center">{dates[index]}</p>}
+            {showDates && (
+              <p
+                className={cn(
+                  "text-[10px] font-medium",
+                  day.met ? "text-orange-400/70" : "text-white/25",
+                )}
+              >
+                {dates[index]}
+              </p>
+            )}
           </div>
         ))}
       </div>

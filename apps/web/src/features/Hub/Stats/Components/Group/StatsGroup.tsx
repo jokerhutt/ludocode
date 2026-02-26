@@ -1,12 +1,11 @@
 import { useStatsContext } from "@/features/Hub/Stats/Context/StatsContext.tsx";
-import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
-import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
 import { CommitIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { FireIcon } from "@heroicons/react/24/solid";
 import { CoinsDialog } from "@/features/Hub/Stats/Components/Dialog/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/features/Hub/Stats/Components/Dialog/StreakStatsDialog.tsx";
 import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type StatsGroupProps = { groupClassName?: string; buttonClassName?: string };
 
@@ -19,25 +18,43 @@ export function StatsGroup({
   const { current } = userStreak;
 
   return (
-    <>
-      <LabelPair className={groupClassName}>
-        <CoinsDialog coins={coins}>
-          <HollowSlotButton className={buttonClassName}>
-            <CommitIcon className="h-5 text-pythonYellow" />
-            <p className="text-white text-sm">{coins}</p>
-          </HollowSlotButton>
-        </CoinsDialog>
-
-        <StreakStatsDialog
-          pastWeekStreak={pastWeekStreak ?? []}
-          streak={userStreak}
+    <div className={cn("flex items-center gap-1.5", groupClassName)}>
+      <CoinsDialog coins={coins}>
+        <button
+          type="button"
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all",
+            "bg-ludo-surface/60 hover:bg-ludo-surface hover:cursor-pointer",
+            "border border-transparent hover:border-white/30",
+            buttonClassName,
+          )}
         >
-          <HollowSlotButton>
-            <FireIcon className="h-5 text-orange-400" />
-            <p className="text-sm">{current}</p>
-          </HollowSlotButton>
-        </StreakStatsDialog>
-      </LabelPair>
-    </>
+          <CommitIcon className="h-4 w-4 text-white" />
+          <span className="text-white text-sm font-semibold tabular-nums">
+            {coins}
+          </span>
+        </button>
+      </CoinsDialog>
+
+      <StreakStatsDialog
+        pastWeekStreak={pastWeekStreak ?? []}
+        streak={userStreak}
+      >
+        <button
+          type="button"
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all",
+            "bg-ludo-surface/60 hover:bg-ludo-surface hover:cursor-pointer",
+            "border border-transparent hover:border-orange-400/30",
+            buttonClassName,
+          )}
+        >
+          <FireIcon className="h-4 w-4 text-orange-400" />
+          <span className="text-white text-sm font-semibold tabular-nums">
+            {current}
+          </span>
+        </button>
+      </StreakStatsDialog>
+    </div>
   );
 }

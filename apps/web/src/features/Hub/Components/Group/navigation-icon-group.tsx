@@ -1,9 +1,8 @@
 import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
-import { LabelPair } from "@ludocode/design-system/primitives/LabelPair";
-import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot";
 import { useCurrentCourseContext } from "@/features/Hub/Context/CurrentCourseContext.tsx";
 import { useIsMobile } from "@ludocode/hooks";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;
@@ -33,18 +32,36 @@ export function NavigationIconGroup({
   };
 
   return (
-    <LabelPair className={groupClassName}>
-      {iconsToRender.map((icon) => (
-        <HollowSlotButton
-          dataTestId={`nav-button-${dataTestIdPrefix}-${icon.name}`}
-          className={buttonClassName}
-          active={isActive(icon.path)}
-          key={icon.name}
-          onClick={() => !!icon.onClick && icon.onClick()}
-        >
-          <p>{icon.name}</p>
-        </HollowSlotButton>
-      ))}
-    </LabelPair>
+    <div className={cn("flex items-center gap-1", groupClassName)}>
+      {iconsToRender.map((navItem) => {
+        const active = isActive(navItem.path);
+        const Icon = navItem.icon;
+
+        return (
+          <button
+            key={navItem.name}
+            type="button"
+            data-testid={`nav-button-${dataTestIdPrefix}-${navItem.name}`}
+            onClick={() => navItem.onClick?.()}
+            className={cn(
+              "flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-150",
+              "hover:cursor-pointer text-sm font-medium",
+              active
+                ? "bg-ludo-accent/15 text-white"
+                : "text-white/50 hover:text-white hover:bg-white/5",
+              buttonClassName,
+            )}
+          >
+            <Icon
+              className={cn(
+                "w-4 h-4 shrink-0 transition-colors",
+                active ? "text-ludo-accent" : "text-current",
+              )}
+            />
+            <span>{navItem.name}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }

@@ -1,52 +1,41 @@
-import { useTreeData } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
-import {
-  ModuleSelectionTabs,
-  type MobileModuleTabs,
-} from "@/features/Hub/ModuleHub/Components/Selection/ModuleSelectionTabs.tsx";
-import { useEffect } from "react";
-import { ModulePage } from "@/features/Hub/ModuleHub/Pages/ModulePage.tsx";
-import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/Pages/ModuleSelectionPage.tsx";
+import { useTreeData } from "@/features/Modules/Hooks/useTreeData";
+import { ModulePage } from "@/features/Modules/Pages/ModulePage";
+import { MobileModuleSlideOver } from "@/features/Modules/Components/Navigator/MobileModuleSlideOver";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
-import { useTab } from "@ludocode/hooks";
 
 export function ModuleHubLayout() {
   const moduleHubRoute = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
   const { courseId, moduleId } = moduleHubRoute.useParams();
   const { tree, allCourses } = moduleHubRoute.useLoaderData();
 
-  const { modules, lessons } = useTreeData({
+  const { modules, lessons, moduleProgress } = useTreeData({
     tree,
     courseId,
     moduleId,
   });
 
   const currentCourse = allCourses.find(
-    (course: LudoCourse) => course.id == courseId
+    (course: LudoCourse) => course.id == courseId,
   );
 
-  const mainTab: MobileModuleTabs = "Path";
-  const { activeTab, setTab } = useTab<MobileModuleTabs>(mainTab);
-  useEffect(() => {
-    if (activeTab != mainTab) setTab(mainTab);
-  }, [moduleId]);
-
   return (
-    <div className="layout-grid lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludo-background">
-      <ModuleSelectionTabs
-        activeTab={activeTab}
-        changeTab={setTab}
-        className="lg:hidden col-span-full"
+    <div className="layout-grid overflow-y-auto [scrollbar-gutter:stable] lg:grid-rows-1 grid-rows-[1fr] bg-ludo-background">
+      <aside className="col-span-1" />
+      <ModulePage
+        className="col-span-10"
+        lessons={lessons}
+        course={currentCourse}
+        modules={modules}
+        moduleProgress={moduleProgress}
       />
-      {activeTab == mainTab ? (
-        <ModulePage
-          lessons={lessons}
-          course={currentCourse}
-          modules={modules}
-        />
-      ) : (
-        <ModuleSelectionPage modules={modules} currentCourse={currentCourse} />
-      )}
+      <aside className="col-span-1" />
+      <MobileModuleSlideOver
+        modules={modules}
+        courseId={courseId}
+        courseName={currentCourse?.title ?? ""}
+        moduleProgress={moduleProgress}
+      />
     </div>
   );
 }
