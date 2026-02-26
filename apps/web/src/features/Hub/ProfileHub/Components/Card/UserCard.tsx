@@ -1,7 +1,7 @@
 import { getUserAvatar } from "@/constants/avatars/avatars";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import type { LudoUser } from "@ludocode/types";
-import {parseToDate} from "@ludocode/util"
+import { parseToDate } from "@ludocode/util";
 
 type UserCardProps = {
   user: LudoUser;
@@ -17,19 +17,26 @@ export function UserCard({
   showUsername = true,
 }: UserCardProps) {
   const { displayName, createdAt, avatarVersion, avatarIndex } = user;
-  const joinTime = parseToDate(createdAt)
+  const joinTime = parseToDate(createdAt);
 
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   return (
-    <div className="flex flex-col items-center gap-4 lg:gap-6 lg:w-full p-4 rounded-md">
-      {showAvatar && <Avatar className="h-24 w-24" src={userPfpSrc} />}
-      <div className="flex flex-col gap-1 items-center">
+    <div className="flex flex-col items-center gap-3 lg:gap-4 lg:w-full pb-6 px-4 rounded-xl">
+      {showAvatar && (
+        <div className="relative">
+          <div className="absolute -inset-1.5 rounded-full bg-ludo-accent/20 blur-md" />
+          <Avatar className="h-24 w-24 relative" src={userPfpSrc} />
+        </div>
+      )}
+      <div className="flex flex-col gap-0.5 items-center">
         {showUsername && (
-          <h2 className=" text-2xl lg:text-2xl">{displayName}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">
+            {displayName}
+          </h2>
         )}
         {showJoinDate && (
-          <h3 className="lg:text-lg text-md">Joined: {joinTime}</h3>
+          <p className="text-sm text-ludoAltText/60">Joined {joinTime}</p>
         )}
       </div>
     </div>

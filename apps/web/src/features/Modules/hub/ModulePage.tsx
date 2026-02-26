@@ -56,8 +56,8 @@ export function ModulePage({
           moduleId={moduleId}
         />
       </div>
-      <div className="hidden lg:block w-90 2xl:w-140 min-w-72 max-w-90 2xl:max-w-140">
-        <div className="sticky top-6">
+      <div className="hidden lg:block w-90  2xl:w-140 min-w-72 max-w-90 2xl:max-w-140">
+        <div className="sticky pb-6 top-6">
           <ModuleNavigator
             currentModuleId={moduleId}
             selectModule={selectModule}

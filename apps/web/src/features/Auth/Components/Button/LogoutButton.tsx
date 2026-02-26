@@ -1,5 +1,4 @@
 import { useLogout } from "@/hooks/Queries/Mutations/useLogout.tsx";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 
 type LogoutButtonProps = {};
 
@@ -12,8 +11,12 @@ export function LogoutButton({}: LogoutButtonProps) {
   };
 
   return (
-    <LudoButton variant="white" onClick={() => handleLogout()}>
-      Log Out
-    </LudoButton>
+    <button
+      type="button"
+      onClick={() => handleLogout()}
+      className="text-sm text-ludoAltText/70 text-start hover:text-white transition-colors hover:cursor-pointer"
+    >
+      Log out
+    </button>
   );
 }

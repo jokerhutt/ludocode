@@ -17,7 +17,7 @@ export function ModulePath({
   moduleId,
 }: ModulePathProps) {
   return (
-    <LudoPath>
+    <LudoPath className="pb-6">
       {lessons.map((lesson, index) => (
         <LudoPath.Row index={index}>
           <ModulePathButton

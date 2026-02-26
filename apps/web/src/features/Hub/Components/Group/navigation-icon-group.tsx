@@ -44,7 +44,7 @@ export function NavigationIconGroup({
             data-testid={`nav-button-${dataTestIdPrefix}-${navItem.name}`}
             onClick={() => navItem.onClick?.()}
             className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-150",
+              "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150",
               "hover:cursor-pointer text-sm font-medium",
               active
                 ? "bg-ludo-accent/15 text-white"

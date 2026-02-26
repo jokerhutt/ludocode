@@ -33,7 +33,7 @@ export function SubscriptionActionButton({
     <LudoButton
       onClick={() => onClick()}
       disabled={isDisabled}
-      className="w-1/2 md:w-full h-auto py-1"
+      className="w-full h-auto py-1"
       variant="alt"
     >
       {text}

@@ -8,6 +8,7 @@ type DeleteDialogProps = {
   targetName: string;
   destructiveConfirmation?: DestructiveActionConfirmation;
   description?: string;
+  triggerClassName?: string;
   canDelete?: boolean;
   onClick: () => void;
   children: ReactNode;
@@ -18,6 +19,7 @@ export function DeleteDialog({
   canDelete = true,
   targetName,
   description,
+  triggerClassName = "w-full",
   destructiveConfirmation,
   children,
 }: DeleteDialogProps) {
@@ -27,6 +29,7 @@ export function DeleteDialog({
     <WarningDialog
       onClick={onClick}
       title={title}
+      triggerClassName={triggerClassName}
       description={description}
       destructiveConfirmation={destructiveConfirmation}
       subtitle="This action is irreversible"
