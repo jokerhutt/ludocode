@@ -10,6 +10,7 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useModal } from "@ludocode/hooks";
 import { router } from "@/main";
 import { ludoNavigation } from "@/constants/ludoNavigation";
+import { PlusIcon } from "lucide-react";
 
 export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
@@ -17,11 +18,6 @@ export function ProjectHubPage() {
 
   const { maxProjects, planCode } = useSuspenseQuery(qo.subscription()).data;
   const currentProjects = allProjects.length;
-
-  const percent =
-    maxProjects > 0
-      ? Math.min(100, Math.round((currentProjects / maxProjects) * 100))
-      : 0;
 
   const isAtLimit = currentProjects >= maxProjects;
 
@@ -37,26 +33,23 @@ export function ProjectHubPage() {
         <div className="col-span-1" />
         <div className="relative col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
-            <div className="w-full flex flex-col gap-2 items-end">
-              <div className="flex justify-between items-center text-xs">
-                <span
-                  data-testid={`project-limits`}
-                  className={
-                    isAtLimit ? "text-ludo-danger" : "text-ludoAltText"
-                  }
-                >
-                  Projects {currentProjects} / {maxProjects}
-                </span>
-              </div>
+            <div className="flex items-center gap-4">
+              <span
+                data-testid="project-limits"
+                className={`text-xs font-medium tabular-nums ${isAtLimit ? "text-ludo-danger" : "text-ludoAltText"}`}
+              >
+                {currentProjects}/{maxProjects}
+              </span>
               <CreateProjectDialog
                 hash={uuid()}
                 open={createProjectOpen}
                 close={() => closeCreateProject()}
               >
                 <LudoButton
-                  data-testid={`create-project-dialog-button`}
-                  className="w-full lg:w-1/4 lg:h-8 h-full px-4"
+                  data-testid="create-project-dialog-button"
+                  className="h-10 px-5 rounded-lg text-sm font-semibold gap-2"
                   variant="alt"
+                  shadow={true}
                   onClick={() => {
                     if (isAtLimit) {
                       router.navigate(
@@ -68,7 +61,8 @@ export function ProjectHubPage() {
                   }}
                   title={isAtLimit ? "Project limit reached" : undefined}
                 >
-                  {isAtLimit ? "Upgrade" : "Create"}
+                  <PlusIcon className="h-4 w-4" />
+                  {isAtLimit ? "Upgrade" : "New Project"}
                 </LudoButton>
               </CreateProjectDialog>
             </div>

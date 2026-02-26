@@ -28,12 +28,12 @@ export function CoursePage() {
   };
 
   return (
-    <div className="layout-grid col-span-full">
+    <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
       <div className="col-span-1" />
-      <div className="col-span-10 flex flex-col gap-6 py-6 justify-start h-full min-w-0">
+      <div className="col-span-10 flex flex-col gap-6 justify-start min-w-0">
         <Hero
           title="Library"
-          subtitle="Here you will find all available courses"
+          subtitle="Browse all available courses and pick your next adventure"
         />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {allCourses.map((course: LudoCourse) => (
