@@ -5,7 +5,7 @@ type EditorTabGroupProps = { children: ReactNode; className?: string };
 
 export function EditorTabGroup({ children, className }: EditorTabGroupProps) {
   return (
-    <div className={cn("flex h-full gap-4 pt-2 px-6 items-center", className)}>
+    <div className={cn("flex w-full h-full gap-1 items-end", className)}>
       {children}
     </div>
   );

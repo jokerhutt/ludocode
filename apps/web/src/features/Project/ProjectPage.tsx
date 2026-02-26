@@ -75,7 +75,7 @@ export function ProjectPage() {
 
       <CodeRunnerProvider project={project} files={files}>
         <>
-          <Workbench.Pane className="col-span-10 min-h-0 grid relative lg:col-span-6 gap-4 items-stretch justify-start min-w-0">
+          <Workbench.Pane className="col-span-10 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0">
             <Workbench.Pane.Winbar>
               <EditorTabGroup>
                 {current !== null && current !== undefined && (

@@ -45,16 +45,25 @@ function Winbar({ children, className }: WinbarProps) {
         className,
       )}
     >
-      <div className={cn("flex h-full text-white justify-between items-center")}>
+      <div
+        className={cn("flex h-full text-white justify-between items-center")}
+      >
         {children}
       </div>
     </div>
   );
 }
 
-function Content({ children, className }: WinbarProps) {
+type ContentProps = {
+  children: ReactNode;
+  className?: string;
+  dataTestId?: string;
+};
+
+function Content({ children, className, dataTestId }: ContentProps) {
   return (
     <div
+      data-testid={dataTestId}
       className={cn(
         "flex px-4 py-3 overflow-y-auto overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-white flex-col w-full",
         className,
