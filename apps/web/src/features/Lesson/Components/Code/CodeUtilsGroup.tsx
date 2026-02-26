@@ -17,33 +17,43 @@ export function CodeUtilsGroup({
 }: CodeUtilsGroupProps) {
   if (visible)
     return (
-      <div className="w-full flex items-end gap-6">
-        <div
+      <div className="flex items-center gap-1 px-4 py-1.5 bg-ludo-surface/40">
+        <button
+          type="button"
           onClick={() => {
             if (!enabled) return;
             clearExerciseInputs();
           }}
+          className="p-1.5 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30"
+          disabled={!enabled || isEmpty}
         >
           <HeroIcon
             iconName="TrashIcon"
-            className={`h-6 hover:cursor-pointer ${
-              isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
-            } w-6`}
+            className={`h-4 w-4 ${
+              isEmpty
+                ? "text-ludoAltText/30"
+                : "text-ludoAltText hover:text-white"
+            } transition-colors`}
           />
-        </div>
-        <div
+        </button>
+        <button
+          type="button"
           onClick={() => {
             if (!enabled) return;
             popLast();
           }}
+          className="p-1.5 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30"
+          disabled={!enabled || isEmpty}
         >
           <HeroIcon
             iconName="BackspaceIcon"
-            className={`h-6 hover:cursor-pointer ${
-              isEmpty ? "text-ludoAltText/40" : "text-ludoAltText"
-            } w-6`}
+            className={`h-4 w-4 ${
+              isEmpty
+                ? "text-ludoAltText/30"
+                : "text-ludoAltText hover:text-white"
+            } transition-colors`}
           />
-        </div>
+        </button>
       </div>
     );
 }

@@ -51,11 +51,10 @@ export function useExerciseInput({
   const popLastAnswer = useCallback(() => {
     setCurrentExerciseInputs((prev) => {
       const next = prev.slice();
-      // find last filled slot
       const lastFilled = [...next].reverse().findIndex((t) => t.value !== "");
       if (lastFilled !== -1) {
         const realIndex = next.length - 1 - lastFilled;
-        next[realIndex] = makeEmpty(); // clear it
+        next[realIndex] = makeEmpty();
       }
       return next;
     });

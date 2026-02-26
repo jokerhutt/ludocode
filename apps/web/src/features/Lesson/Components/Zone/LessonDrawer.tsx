@@ -13,7 +13,7 @@ export function LessonFeedbackDrawer() {
   const typeDescriptions: Record<ExercisePhase, ResultStyle> = {
     DEFAULT: { border: "", text: "" },
     CORRECT: { border: "border-green-400/80", text: "Great work!" },
-    INCORRECT: { border: "border-red-400/80", text: "Not quite!" },
+    INCORRECT: { border: "border-[#D97777]", text: "Not quite!" },
   };
 
   const isVisible = phase !== "DEFAULT";

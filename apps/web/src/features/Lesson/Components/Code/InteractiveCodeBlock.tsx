@@ -11,6 +11,7 @@ type InteractiveCodeBlockProps = {
   options: LudoExerciseOption[];
   withGaps?: boolean;
   userResponses: AnswerToken[];
+  typing?: boolean;
   setAnswerAt: (index: number, value: AnswerToken) => void;
 };
 
@@ -18,6 +19,7 @@ export function InteractiveCodeBlock({
   answerField,
   withGaps = false,
   options,
+  typing,
   userResponses,
   setAnswerAt,
 }: InteractiveCodeBlockProps) {
@@ -26,7 +28,7 @@ export function InteractiveCodeBlock({
 
   const parts = useMemo(
     () => splitPromptGaps(answerField, "___"),
-    [answerField]
+    [answerField],
   );
   const gaps = parts.length - 1;
 
@@ -34,9 +36,9 @@ export function InteractiveCodeBlock({
     () =>
       Array.from(
         { length: gaps },
-        (_, i) => userResponses[i] ?? { id: undefined, value: "" }
+        (_, i) => userResponses[i] ?? { id: undefined, value: "" },
       ),
-    [gaps, userResponses]
+    [gaps, userResponses],
   );
 
   const handleChange = useCallback(
@@ -47,32 +49,55 @@ export function InteractiveCodeBlock({
       setAnswerAt(index, { id: match?.id, value: trimmed });
       jumpOnValidWord(index, rawValue);
     },
-    [options, setAnswerAt, jumpOnValidWord]
+    [options, setAnswerAt, jumpOnValidWord],
   );
 
   return (
-    <p
-      className="  text-white text-lg text-start items-center leading-loose font-light
+    <div className="flex items-start gap-3 md:gap-5 min-w-0">
+      <div className="select-none shrink-0 pt-0.5">
+        {Array.from(
+          {
+            length: Math.max(
+              1,
+              parts.filter((p) => p.includes("\n")).length + 1,
+            ),
+          },
+          (_, i) => (
+            <div
+              key={i}
+              className="text-xs md:text-sm leading-8 md:leading-9 text-white/15 text-right font-mono tabular-nums w-5 md:w-6"
+            >
+              {i + 1}
+            </div>
+          ),
+        )}
+      </div>
+
+      <p
+        className="text-white text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
   flex flex-wrap
-  *:mr-1
+  *:mr-1 sm:*:mr-1.5
   [&>*:last-child]:mr-0
   gap-y-2
-  overflow-x-hidden"
-    >
-      {parts.map((part, index) => (
-        <Fragment key={index}>
-          <InlineCode lineHeight="26px" code={part} />
-          {withGaps && index < parts.length - 1 && (
-            <OptionInputSlot
-              value={responses[index].value}
-              onChange={(value) => handleChange(index, value)}
-              ref={(el: HTMLInputElement) => (refs.current[index] = el)}
-              onBackspaceIfEmpty={() => focusPrev(index)}
-              onTokenFinished={() => focusNextEmptyAfter(index)}
-            />
-          )}
-        </Fragment>
-      ))}
-    </p>
+  overflow-x-auto
+  min-w-0 flex-1"
+      >
+        {parts.map((part, index) => (
+          <Fragment key={index}>
+            <InlineCode lineHeight="36px" code={part} />
+            {withGaps && index < parts.length - 1 && (
+              <OptionInputSlot
+                disabled={!typing}
+                value={responses[index].value}
+                onChange={(value) => handleChange(index, value)}
+                ref={(el: HTMLInputElement) => (refs.current[index] = el)}
+                onBackspaceIfEmpty={() => focusPrev(index)}
+                onTokenFinished={() => focusNextEmptyAfter(index)}
+              />
+            )}
+          </Fragment>
+        ))}
+      </p>
+    </div>
   );
 }

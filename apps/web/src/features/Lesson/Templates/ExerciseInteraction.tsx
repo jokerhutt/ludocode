@@ -12,6 +12,7 @@ import {
   WideClickableOption,
 } from "@ludocode/design-system/primitives/clickable-option.tsx";
 import type { AnswerToken } from "@ludocode/types";
+import { useIsMobile } from "@ludocode/hooks";
 
 export function ExerciseInteraction({
   config,
@@ -33,9 +34,12 @@ export function ExerciseInteraction({
 
   const { selectionMode, showAnswerField, optionLayout, withGaps } = config;
 
+  const isMobile = useIsMobile({})
+
   const { phase } = useLessonContext();
 
   const handleSelect = (token: AnswerToken) => {
+    if (phase !== "DEFAULT") return;
     if (selectionMode === "APPEND") {
       setAnswerAt(token);
     } else {
@@ -46,21 +50,41 @@ export function ExerciseInteraction({
   return (
     <div className={cn("flex flex-col h-full justify-start gap-8")}>
       {showAnswerField && (
-        <div className="w-full px-8 bg-ludo-code-surface lg:rounded-lg py-4 flex flex-col gap-3">
-          <InteractiveCodeBlock
-            withGaps={withGaps}
-            options={options}
-            answerField={prompt!}
-            userResponses={currentExerciseInputs}
-            setAnswerAt={replaceAnswerAt}
-          />
-          <CodeUtilsGroup
-            visible={withGaps}
-            enabled={phase == "DEFAULT"}
-            clearExerciseInputs={clearExerciseInputs}
-            popLast={popLastAnswer}
-            isEmpty={isEmpty}
-          />
+        <div className="w-full px-8 sm:px-8 lg:px-0">
+          <div className="w-full rounded-xl overflow-hidden shadow-lg shadow-black/15">
+            {/* Editor winbar */}
+            <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface/70">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+              </div>
+              <span className="text-[11px] text-white/30 tracking-wide select-none">
+                code
+              </span>
+            </div>
+
+            {/* Editor content area */}
+            <div className="bg-ludo-background py-6 sm:py-8 min-h-[120px] sm:min-h-[160px]">
+              <InteractiveCodeBlock
+                withGaps={withGaps}
+                typing={!isMobile}
+                options={options}
+                answerField={prompt!}
+                userResponses={currentExerciseInputs}
+                setAnswerAt={replaceAnswerAt}
+              />
+            </div>
+
+            {/* Utility toolbar */}
+            <CodeUtilsGroup
+              visible={withGaps}
+              enabled={phase == "DEFAULT"}
+              clearExerciseInputs={clearExerciseInputs}
+              popLast={popLastAnswer}
+              isEmpty={isEmpty}
+            />
+          </div>
         </div>
       )}
 
@@ -74,6 +98,7 @@ export function ExerciseInteraction({
 
           return config.optionLayout === "ROW" ? (
             <ClickableOption
+              enabled={phase === "DEFAULT"}
               key={option.id}
               handleClick={handleClick}
               content={option.content}
@@ -81,6 +106,8 @@ export function ExerciseInteraction({
             />
           ) : (
             <WideClickableOption
+              status={phase}
+              enabled={phase === "DEFAULT"}
               key={option.id}
               option={option}
               userSelections={currentExerciseInputs}

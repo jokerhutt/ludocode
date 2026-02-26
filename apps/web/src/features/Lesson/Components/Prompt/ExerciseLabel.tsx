@@ -22,9 +22,13 @@ export function ExerciseLabel({ exerciseType, className, dataTestId }: ExerciseL
   return (
     <div
       data-testid={dataTestId}
-      className={cn("flex gap-2 text-ludo-accent-muted items-center", className)}
+      className={cn(
+        "flex gap-2 items-center",
+        "text-xs sm:text-sm font-semibold uppercase tracking-widest text-ludo-accent-muted",
+        className,
+      )}
     >
-      <CustomIcon iconName={"Analyze"} />
+      <CustomIcon iconName={iconName} className="h-4 w-4 sm:h-5 sm:w-5" />
       <p>{description}</p>
     </div>
   );
