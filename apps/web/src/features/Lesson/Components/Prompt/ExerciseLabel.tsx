@@ -5,11 +5,19 @@ import {
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
 
-type ExerciseLabelProps = {dataTestId?: string; exerciseType: ExerciseType; className?: string };
+type ExerciseLabelProps = {
+  dataTestId?: string;
+  exerciseType: ExerciseType;
+  className?: string;
+};
 
 type ExerciseTypeContent = { description: string; iconName: IconName };
 
-export function ExerciseLabel({ exerciseType, className, dataTestId }: ExerciseLabelProps) {
+export function ExerciseLabel({
+  exerciseType,
+  className,
+  dataTestId,
+}: ExerciseLabelProps) {
   const typeDescriptions: Record<ExerciseType, ExerciseTypeContent> = {
     CLOZE: { description: "Fill in the Blanks", iconName: "Cloze" },
     INFO: { description: "Informational", iconName: "Question" },
@@ -17,7 +25,7 @@ export function ExerciseLabel({ exerciseType, className, dataTestId }: ExerciseL
     ANALYZE: { description: "Analyse Code", iconName: "Analyze" },
   };
 
-  const { description, iconName } = typeDescriptions[exerciseType];
+  const { description } = typeDescriptions[exerciseType];
 
   return (
     <div
@@ -28,7 +36,6 @@ export function ExerciseLabel({ exerciseType, className, dataTestId }: ExerciseL
         className,
       )}
     >
-      <CustomIcon iconName={iconName} className="h-4 w-4 sm:h-5 sm:w-5" />
       <p>{description}</p>
     </div>
   );

@@ -1,18 +1,13 @@
-import { InteractiveCodeBlock } from "@/features/Lesson/Components/Code/InteractiveCodeBlock.tsx";
-import { useSelectOption } from "@/features/Lesson/Hooks/useSelectOption.tsx";
-
 import type { ExerciseInteractionConfig } from "@/features/Lesson//Pages/LessonPage.tsx";
 import type { useExerciseBodyData } from "@/features/Lesson//Hooks/useExerciseBodyData.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { CodeUtilsGroup } from "@/features/Lesson/Components/Code/CodeUtilsGroup.tsx";
 import { useLessonContext } from "@/features/Lesson//Context/useLessonContext.tsx";
 import { OptionListWrapper } from "@/features/Lesson/Components/Code/option-list-wrapper.tsx";
-import {
-  ClickableOption,
-  WideClickableOption,
-} from "@ludocode/design-system/primitives/clickable-option.tsx";
 import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
+import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
+import {LudoOption} from "@ludocode/design-system/primitives/ludo-option"
+
 
 export function ExerciseInteraction({
   config,
@@ -28,13 +23,12 @@ export function ExerciseInteraction({
     setAnswerAt,
     replaceAnswerAt,
     popLastAnswer,
-    isEmpty,
     clearExerciseInputs,
   } = body;
 
   const { selectionMode, showAnswerField, optionLayout, withGaps } = config;
 
-  const isMobile = useIsMobile({})
+  const isMobile = useIsMobile({});
 
   const { phase } = useLessonContext();
 
@@ -48,67 +42,57 @@ export function ExerciseInteraction({
   };
 
   return (
-    <div className={cn("flex flex-col h-full justify-start gap-8")}>
+    <div className={cn("flex flex-col h-full justify-start gap-6")}>
       {showAnswerField && (
-        <div className="w-full px-8 sm:px-8 lg:px-0">
-          <div className="w-full rounded-xl overflow-hidden shadow-lg shadow-black/15">
-            {/* Editor winbar */}
-            <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface/70">
-              <div className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
-              </div>
-              <span className="text-[11px] text-white/30 tracking-wide select-none">
-                code
-              </span>
-            </div>
-
-            {/* Editor content area */}
-            <div className="bg-ludo-background py-6 sm:py-8 min-h-[120px] sm:min-h-[160px]">
-              <InteractiveCodeBlock
-                withGaps={withGaps}
-                typing={!isMobile}
-                options={options}
-                answerField={prompt!}
-                userResponses={currentExerciseInputs}
-                setAnswerAt={replaceAnswerAt}
-              />
-            </div>
-
-            {/* Utility toolbar */}
-            <CodeUtilsGroup
-              visible={withGaps}
-              enabled={phase == "DEFAULT"}
-              clearExerciseInputs={clearExerciseInputs}
-              popLast={popLastAnswer}
-              isEmpty={isEmpty}
-            />
-          </div>
+        <div className="w-full">
+          <LudoCodePreview
+            prompt={prompt!}
+            options={options}
+            userResponses={currentExerciseInputs}
+            typing={!isMobile && phase === "DEFAULT"}
+            onChange={replaceAnswerAt}
+            clear={clearExerciseInputs}
+            popLast={popLastAnswer}
+            className="shadow-lg shadow-black/15"
+          >
+            <LudoCodePreview.Header />
+            <LudoCodePreview.Code withGaps={withGaps} />
+            {withGaps && (
+              <LudoCodePreview.Footer>
+                <LudoCodePreview.DeleteButton />
+                <LudoCodePreview.BackspaceButton />
+              </LudoCodePreview.Footer>
+            )}
+          </LudoCodePreview>
         </div>
       )}
 
-      <OptionListWrapper className="px-8 lg:px-0" type={optionLayout}>
+      <OptionListWrapper type={optionLayout}>
         {options.map((option) => {
-          const { isSelected, handleClick } = useSelectOption({
-            option,
-            currentExerciseInputs,
-            addSelection: handleSelect,
-          });
+          const isSelected =
+            currentExerciseInputs.find((t) => t.id === option.id) != null;
 
-          return config.optionLayout === "ROW" ? (
-            <ClickableOption
-              enabled={phase === "DEFAULT"}
+          if (optionLayout === "ROW") {
+            return (
+              <LudoOption
+                key={option.id}
+                variant="pill"
+                enabled={phase === "DEFAULT"}
+                content={option.content}
+                isSelected={isSelected}
+                onSelect={() =>
+                  handleSelect({ id: option.id, value: option.content })
+                }
+              />
+            );
+          }
+
+          return (
+            <LudoOption
               key={option.id}
-              handleClick={handleClick}
-              content={option.content}
-              isSelected={isSelected}
-            />
-          ) : (
-            <WideClickableOption
+              variant="wideSingleSelect"
+              enabled={phase === "DEFAULT"}
               status={phase}
-              enabled={phase === "DEFAULT"}
-              key={option.id}
               option={option}
               userSelections={currentExerciseInputs}
               setAnswerAt={replaceAnswerAt}

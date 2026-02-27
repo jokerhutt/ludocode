@@ -1,7 +1,10 @@
 import { Progress } from "@ludocode/external/ui/progress.tsx";
 import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog.tsx";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
-import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
+import {
+  HeaderShell,
+  HeaderWithBar,
+} from "@ludocode/design-system/zones/header-shell.tsx";
 
 type LessonHeaderProps = {
   total: number;
@@ -13,7 +16,7 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (
-    <HeaderWithBar className="px-4" device="Both">
+    <HeaderShell className="px-4" device="Both">
       <div className="col-start-1 col-end-2 flex items-center h-full">
         {onExit && (
           <LeaveUnsavedDialog
@@ -32,6 +35,6 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
           value={(completed / total) * 100}
         />
       </div>
-    </HeaderWithBar>
+    </HeaderShell>
   );
 }

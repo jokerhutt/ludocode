@@ -4,8 +4,8 @@
   --color-ludo-code-surface: #2f3553;
   --color-ludo-accent-muted: #9eb2ff;
   --color-ludoAltText: #d1d5dc;
-  --color-ludo-text-dim: #FFFFFF80;
-  --color-ludo-text-hover: #FFFFFFCC;
+  --color-ludo-text-dim: #ffffff80;
+  --color-ludo-text-hover: #ffffffcc;
 
   --color-ludo-text-dim: #ffffff66;
   --color-ludo-text-disabled: #ffffff40;
@@ -15,10 +15,12 @@
   --color-ludo-progress: #6a7cff;
   --color-ludo-border: #2a304f;
 
+  --color-ludo-correct: #4ade8080;
+  --color-ludo-incorrect: #f8717180;
 
   /* normal shadows */
-  --shadow-ludo-surface: 0 7px 0 #303966;
-  --shadow-ludo-accent: 0 7px 0 #8369d6;
+  --shadow-ludo-surface: 0 7px 0 --alpha(var(--color-ludo-surface) / 50%);
+  --shadow-ludo-accent: 0 7px 0 --alpha(var(--color-ludo-accent) / 50%);
   --shadow-ludo-white: 0 7px 0 #ffffff;
   --shadow-ludo-danger: 0 7px 0 #c85a5a;
 
@@ -26,7 +28,6 @@
   --shadow-ludo-surface-disabled: 0 5px 0 #30396680;
   --shadow-ludo-accent-disabled: 0 5px 0 #8369d680;
   --shadow-ludo-white-disabled: 0 5px 0 #ffffff80;
-
 
   /* Shadows Guidelines */
 
@@ -37,5 +38,4 @@
   hover: /30
   
   */
-
 }

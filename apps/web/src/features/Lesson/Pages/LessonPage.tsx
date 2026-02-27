@@ -9,6 +9,7 @@ import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/F
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
+import { AnimatePresence, motion } from "motion/react";
 
 export type OptionLayout = "ROW" | "COLUMN";
 export type SelectionMode = "APPEND" | "REPLACE";
@@ -67,24 +68,29 @@ export function LessonPage() {
       </div>
 
       {currentExercise && (
-        <div className="col-span-full lg:px-0 lg:col-span-6 flex flex-col gap-8 py-8 items-stretch justify-start h-full min-w-0">
-          <div className="flex flex-col gap-4 lg:px-0 px-8">
-            <ExerciseLabel
-              dataTestId={`exercise-label-${currentExercise.orderIndex}`}
-              exerciseType={currentExercise.exerciseType}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentExercise.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0"
+          >
+            <div className="flex flex-col gap-4 items-center">
+              <ExerciseInstruction currentExercise={currentExercise} />
+
+              {currentExercise.exerciseMedia && (
+                <ExerciseMedia media={currentExercise.exerciseMedia} />
+              )}
+            </div>
+
+            <ExerciseInteraction
+              config={configByType[currentExercise.exerciseType]}
+              body={body}
             />
-            <ExerciseInstruction currentExercise={currentExercise} />
-
-            {currentExercise.exerciseMedia && (
-              <ExerciseMedia media={currentExercise.exerciseMedia} />
-            )}
-          </div>
-
-          <ExerciseInteraction
-            config={configByType[currentExercise.exerciseType]}
-            body={body}
-          />
-        </div>
+          </motion.div>
+        </AnimatePresence>
       )}
     </>
   );
