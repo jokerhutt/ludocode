@@ -34,7 +34,12 @@ export function useCommittedSubmissions({
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
     useState<ExerciseSubmission[]>([]);
   const handleLastExercise = (merged: ExerciseSubmission[]) => {
-    const lessonSubmission = convertToLessonSubmission(courseId, lessonId, merged);
+    const lessonSubmission = convertToLessonSubmission(
+      courseId,
+      lessonId,
+      merged,
+      exercises,
+    );
     router.navigate(
       ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
     );
@@ -42,12 +47,12 @@ export function useCommittedSubmissions({
   const handleCorrectAttempt = () =>
     router.navigate(ludoNavigation.lesson.toNextExercise(position));
 
-  const isInfoExercise = currentExercise.exerciseType === "INFO";
+  const isInfoExercise = !currentExercise.interaction;
   const isLastExercise = position === exercises.length;
 
   const commitStagedAttemptIntoSubmissions = useCallback(
     (staged: ExerciseAttempt | null) => {
-      if (staged == null && currentExercise.exerciseType !== "INFO") return;
+      if (staged == null && !isInfoExercise) return;
 
       const filteredStagedAttempt =
         staged && !isInfoExercise

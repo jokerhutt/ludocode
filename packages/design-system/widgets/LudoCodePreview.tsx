@@ -1,4 +1,4 @@
-import { AnswerToken, LudoExerciseOption } from "@ludocode/types";
+import type { AnswerToken } from "@ludocode/types";
 import {
   createContext,
   useContext,
@@ -38,13 +38,14 @@ function usePreview() {
 
 type RootProps = {
   prompt: string;
-  options: LudoExerciseOption[];
+  options: { id: string; content: string }[];
   userResponses: AnswerToken[];
   typing?: boolean;
   onChange: (index: number, value: AnswerToken) => void;
   clear: () => void;
   popLast: () => void;
   className?: string;
+  shadow?: boolean;
   children: ReactNode;
 };
 
@@ -54,6 +55,7 @@ function Root({
   userResponses,
   typing,
   onChange,
+  shadow,
   clear,
   popLast,
   className,
@@ -61,6 +63,8 @@ function Root({
 }: RootProps) {
   const parts = useMemo(() => prompt.split("___"), [prompt]);
   const gaps = parts.length - 1;
+
+  const shadowStyle = shadow ? "shadow-lg shadow-black/15" : ""
 
   const responses = useMemo(
     () =>
@@ -121,7 +125,7 @@ function Root({
         isEmpty,
       }}
     >
-      <Shell className={cn("bg-ludo-surface", className)}>{children}</Shell>
+      <Shell className={cn("bg-ludo-surface", shadowStyle, className)}>{children}</Shell>
     </Ctx.Provider>
   );
 }

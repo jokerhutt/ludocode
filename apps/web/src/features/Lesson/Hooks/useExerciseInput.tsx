@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { getGapCount } from "@/features/Lesson/Util/inputUtil.ts";
 import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { AnswerToken } from "@ludocode/types";
 
@@ -29,7 +28,7 @@ export function useExerciseInput({
 
   const isEmpty = useMemo(
     () => currentExerciseInputs.every((t) => t.value === ""),
-    [currentExerciseInputs]
+    [currentExerciseInputs],
   );
 
   const initializeInputs = useCallback(
@@ -38,14 +37,14 @@ export function useExerciseInput({
         const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
           typeof a === "string"
             ? { id: undefined, value: a }
-            : { id: a.id, value: a.value ?? "" }
+            : { id: a.id, value: a.value ?? "" },
         );
         setCurrentExerciseInputs(tokens);
       } else {
         setCurrentExerciseInputs(Array.from({ length: gapCount }, makeEmpty));
       }
     },
-    [gapCount]
+    [gapCount],
   );
 
   const popLastAnswer = useCallback(() => {
@@ -60,7 +59,6 @@ export function useExerciseInput({
     });
   }, []);
 
-  //TODO these names arent fully correct
   const setAnswerAt = useCallback((token: AnswerToken) => {
     setCurrentExerciseInputs((prev) => {
       const next = prev.slice();
@@ -93,3 +91,13 @@ export function useExerciseInput({
     initializeInputs,
   };
 }
+
+const getGapCount = (exercise: LudoExercise): number => {
+  if (exercise.interaction?.type === "CLOZE") {
+    return exercise.interaction.blanks.length;
+  }
+  if (exercise.interaction?.type === "SELECT") {
+    return 1;
+  }
+  return 0;
+};

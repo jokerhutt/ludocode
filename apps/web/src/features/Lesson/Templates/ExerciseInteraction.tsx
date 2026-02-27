@@ -1,4 +1,3 @@
-import type { ExerciseInteractionConfig } from "@/features/Lesson//Pages/LessonPage.tsx";
 import type { useExerciseBodyData } from "@/features/Lesson//Hooks/useExerciseBodyData.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useLessonContext } from "@/features/Lesson//Context/useLessonContext.tsx";
@@ -6,27 +5,26 @@ import { OptionListWrapper } from "@/features/Lesson/Components/Code/option-list
 import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
-import {LudoOption} from "@ludocode/design-system/primitives/ludo-option"
+import { LudoOption } from "@ludocode/design-system/primitives/ludo-option";
 
+export type OptionLayout = "ROW" | "COLUMN";
+export type SelectionMode = "APPEND" | "REPLACE";
 
 export function ExerciseInteraction({
-  config,
   body,
 }: {
-  config: ExerciseInteractionConfig;
   body: ReturnType<typeof useExerciseBodyData>;
 }) {
   const {
     options,
-    prompt,
+    interactionFile,
     currentExerciseInputs,
+    exerciseType,
     setAnswerAt,
     replaceAnswerAt,
     popLastAnswer,
     clearExerciseInputs,
   } = body;
-
-  const { selectionMode, showAnswerField, optionLayout, withGaps } = config;
 
   const isMobile = useIsMobile({});
 
@@ -41,38 +39,43 @@ export function ExerciseInteraction({
     }
   };
 
+  const selectionMode: SelectionMode =
+    exerciseType == "CLOZE" ? "APPEND" : "REPLACE";
+  const optionsLayout: OptionLayout =
+    exerciseType == "CLOZE" ? "ROW" : "COLUMN";
+
   return (
     <div className={cn("flex flex-col h-full justify-start gap-6")}>
-      {showAnswerField && (
+      {/* INTERACTIVE CODE BLOCK — rendered when interaction has a file */}
+      {interactionFile && (
         <div className="w-full">
           <LudoCodePreview
-            prompt={prompt!}
+            prompt={interactionFile.content}
             options={options}
             userResponses={currentExerciseInputs}
             typing={!isMobile && phase === "DEFAULT"}
             onChange={replaceAnswerAt}
             clear={clearExerciseInputs}
             popLast={popLastAnswer}
-            className="shadow-lg shadow-black/15"
+            shadow
           >
             <LudoCodePreview.Header />
-            <LudoCodePreview.Code withGaps={withGaps} />
-            {withGaps && (
-              <LudoCodePreview.Footer>
-                <LudoCodePreview.DeleteButton />
-                <LudoCodePreview.BackspaceButton />
-              </LudoCodePreview.Footer>
-            )}
+            <LudoCodePreview.Code withGaps={true} />
+            <LudoCodePreview.Footer>
+              <LudoCodePreview.DeleteButton />
+              <LudoCodePreview.BackspaceButton />
+            </LudoCodePreview.Footer>
           </LudoCodePreview>
         </div>
       )}
 
-      <OptionListWrapper type={optionLayout}>
+      {/* OPTIONS */}
+      <OptionListWrapper type={optionsLayout}>
         {options.map((option) => {
           const isSelected =
             currentExerciseInputs.find((t) => t.id === option.id) != null;
 
-          if (optionLayout === "ROW") {
+          if (optionsLayout === "ROW") {
             return (
               <LudoOption
                 key={option.id}

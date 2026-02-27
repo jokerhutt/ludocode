@@ -12,7 +12,13 @@ import {
 import { useCommittedSubmissions } from "@/features/Lesson/Hooks/useCommittedSubmissions.tsx";
 import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 
-type Args = { courseId: string; exercises: LudoExercise[]; lesson: LudoLesson; position: number; config: LessonConfig };
+type Args = {
+  courseId: string;
+  exercises: LudoExercise[];
+  lesson: LudoLesson;
+  position: number;
+  config: LessonConfig;
+};
 
 export type LessonConfig = {
   audioEnabled: boolean;
@@ -29,7 +35,7 @@ export function useExercise({
   const currentExercise = exercises[index];
   const currentExerciseId = currentExercise.id;
   const lessonId = lesson.id;
-  const isInfo = currentExercise.exerciseType === "INFO";
+  const isInfo = !currentExercise.interaction;
 
   const exerciseInput = useExerciseInput({ currentExercise });
   const { currentExerciseInputs, clearExerciseInputs, initializeInputs } =
@@ -38,7 +44,7 @@ export function useExercise({
   const stagedAttempt = useStagedAttempt({
     currentExerciseInputs,
     currentExercise,
-    playAudio: config.audioEnabled
+    playAudio: config.audioEnabled,
   });
   const {
     stageAttempt,
@@ -70,7 +76,7 @@ export function useExercise({
     }
   }, [
     canSubmit,
-    currentExercise.exerciseType,
+    isInfo,
     hasStaged,
     currentlyStagedAttempt,
     commitStagedAttemptIntoSubmissions,

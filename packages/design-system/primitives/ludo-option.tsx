@@ -1,5 +1,4 @@
 import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
-import type { LudoExerciseOption } from "@ludocode/types";
 import { cn } from "../cn-utils";
 
 export type OptionStatus = "DEFAULT" | "CORRECT" | "INCORRECT";
@@ -20,7 +19,7 @@ type PillProps = BaseProps & {
 
 type WideSingleSelectProps = BaseProps & {
   variant: "wideSingleSelect";
-  option: LudoExerciseOption;
+  option: { id: string; content: string };
   userSelections: AnswerToken[];
   setAnswerAt: (index: number, value: AnswerToken) => void;
   testId?: string;

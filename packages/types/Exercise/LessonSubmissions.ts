@@ -1,10 +1,24 @@
 import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
 
-export type LessonSubmission = {
+export type ExerciseAnswer =
+  | { type: "SELECT"; pickedValue: string }
+  | { type: "CLOZE"; valuesByBlank: string[] };
+
+export type ExerciseAttemptRequest = {
+  answer: ExerciseAnswer;
+};
+
+export type ExerciseSubmissionRequest = {
+  exerciseId: string;
+  version: number;
+  attempts: ExerciseAttemptRequest[];
+};
+
+export type LessonSubmissionRequest = {
   submissionId: string;
   lessonId: string;
   courseId: string;
-  submissions: ExerciseSubmission[];
+  exercises: ExerciseSubmissionRequest[];
 };
 
 export type ExerciseSubmission = {

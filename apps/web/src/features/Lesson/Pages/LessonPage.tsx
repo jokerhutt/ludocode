@@ -1,51 +1,14 @@
-import { ExerciseMedia } from "@/features/Lesson/Components/Media/ExerciseMedia.tsx";
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
-import { ExerciseInstruction } from "@/features/Lesson/Components/Prompt/ExerciseInstruction.tsx";
-import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
+import { BlockRenderer } from "@/features/Lesson/Components/Prompt/BlockRenderer";
 import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInteraction.tsx";
-import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
+import {
+  useExerciseBodyData,
+} from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
 import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 import { AnimatePresence, motion } from "motion/react";
-
-export type OptionLayout = "ROW" | "COLUMN";
-export type SelectionMode = "APPEND" | "REPLACE";
-
-export type ExerciseInteractionConfig = {
-  showAnswerField: boolean;
-  optionLayout: OptionLayout;
-  selectionMode: SelectionMode;
-  withGaps: boolean;
-};
-
-export const configByType: Record<ExerciseType, ExerciseInteractionConfig> = {
-  CLOZE: {
-    showAnswerField: true,
-    optionLayout: "ROW",
-    selectionMode: "APPEND",
-    withGaps: true,
-  },
-  TRIVIA: {
-    showAnswerField: false,
-    optionLayout: "COLUMN",
-    selectionMode: "REPLACE",
-    withGaps: false,
-  },
-  ANALYZE: {
-    showAnswerField: true,
-    optionLayout: "COLUMN",
-    selectionMode: "REPLACE",
-    withGaps: false,
-  },
-  INFO: {
-    showAnswerField: false,
-    optionLayout: "COLUMN",
-    selectionMode: "REPLACE",
-    withGaps: false,
-  },
-};
 
 export function LessonPage() {
   const { inputState, currentExercise } = useLessonContext();
@@ -77,17 +40,12 @@ export function LessonPage() {
             className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0"
           >
             <div className="flex flex-col gap-4 items-center">
-              <ExerciseInstruction currentExercise={currentExercise} />
-
-              {currentExercise.exerciseMedia && (
-                <ExerciseMedia media={currentExercise.exerciseMedia} />
-              )}
+              {currentExercise.blocks.map((block, index) => (
+                <BlockRenderer key={index} block={block} />
+              ))}
             </div>
 
-            <ExerciseInteraction
-              config={configByType[currentExercise.exerciseType]}
-              body={body}
-            />
+            <ExerciseInteraction body={body} />
           </motion.div>
         </AnimatePresence>
       )}

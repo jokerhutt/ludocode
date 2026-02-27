@@ -8,25 +8,45 @@ export function areAllFilled(buffer: AnswerToken[]) {
 }
 
 export function areAllValid(buffer: AnswerToken[], exercise: LudoExercise) {
-  const allowed = new Set(
-    [...exercise.correctOptions, ...exercise.distractors].map((o) =>
-      norm(o.content)
-    )
-  );
+  if (!exercise.interaction) return false;
+
+  const allowed = new Set<string>();
+
+  if (exercise.interaction.type === "CLOZE") {
+    for (const opt of exercise.interaction.options) {
+      allowed.add(norm(opt));
+    }
+  } else if (exercise.interaction.type === "SELECT") {
+    for (const item of exercise.interaction.items) {
+      allowed.add(norm(item));
+    }
+  }
+
   return buffer.every((t) => allowed.has(norm(t.value)));
 }
 
 export function checkCorrect(
   buffer: AnswerToken[],
-  exercise: LudoExercise
+  exercise: LudoExercise,
 ): boolean {
-  const correct = exercise.correctOptions
-    .slice()
-    .sort((a, b) => a.answerOrder! - b.answerOrder!)
-    .map((o) => norm(o.content));
+  if (!exercise.interaction) return false;
 
-  const candidate = buffer.map((t) => norm(t.value));
+  if (exercise.interaction.type === "CLOZE") {
+    const blanks = exercise.interaction.blanks
+      .slice()
+      .sort((a, b) => a.index - b.index);
 
-  if (candidate.length !== correct.length) return false;
-  return candidate.every((c, i) => c === correct[i]);
+    if (buffer.length !== blanks.length) return false;
+
+    return blanks.every((blank, i) =>
+      blank.correctOptions.map(norm).includes(norm(buffer[i].value)),
+    );
+  }
+
+  if (exercise.interaction.type === "SELECT") {
+    if (buffer.length !== 1) return false;
+    return norm(buffer[0].value) === norm(exercise.interaction.correctValue);
+  }
+
+  return false;
 }

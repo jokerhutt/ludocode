@@ -29,7 +29,6 @@ export * from "./Exercise/AnswerToken";
 export * from "./Exercise/ExerciseType";
 export * from "./Exercise/LessonSubmissions";
 export * from "./Exercise/LudoExercise";
-export * from "./Exercise/LudoExerciseOption";
 
 // Feature Flags
 export * from "./FeatureFlags/FeatureFlags";
