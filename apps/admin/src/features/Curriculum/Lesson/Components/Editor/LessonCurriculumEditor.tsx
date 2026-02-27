@@ -2,8 +2,8 @@ import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/Curriculum/types";
 import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions";
 import { SortableExerciseContainer } from "./SortableExerciseContainer";
-import { AddExerciseSelect } from "./AddExerciseSelect";
 import { createNewExerciseTemplate } from "./templates";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import {
   CurriculumPreviewContent,
   CurriculumPreviewFooter,
@@ -58,11 +58,14 @@ export const LessonCurriculumEditor = withForm({
                 <p className="text-xs">
                   {exercisesField.state.value.length} exercises
                 </p>
-                <AddExerciseSelect
-                  onAdd={(type) =>
-                    exercisesField.pushValue(createNewExerciseTemplate(type))
+                <ShadowLessButton
+                  type="button"
+                  onClick={() =>
+                    exercisesField.pushValue(createNewExerciseTemplate())
                   }
-                />
+                >
+                  + Add Exercise
+                </ShadowLessButton>
               </div>
             )}
           </form.Field>

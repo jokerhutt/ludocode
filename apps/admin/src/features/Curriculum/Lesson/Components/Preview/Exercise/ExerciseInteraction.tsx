@@ -1,7 +1,6 @@
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { InlineCode } from "@ludocode/design-system/primitives/inline-code.tsx";
 import type { CurriculumDraftLessonExercise } from "@ludocode/types";
-import type { ExerciseInteractionConfig } from "./types";
 import { Fragment, useMemo } from "react";
 
 type StaticOptionProps = {
@@ -61,50 +60,63 @@ function StaticCodeBlock({ prompt }: { prompt: string }) {
 }
 
 export function ExerciseInteraction({
-  config,
   exercise,
 }: {
-  config: ExerciseInteractionConfig;
   exercise: CurriculumDraftLessonExercise;
 }) {
-  const { showAnswerField, optionLayout, withGaps } = config;
+  const { interaction } = exercise;
 
-  const allOptions = useMemo(
-    () => [
-      ...exercise.correctOptions.map((o) => ({ ...o, isCorrect: true })),
-      ...exercise.distractors.map((o) => ({ ...o, isCorrect: false })),
-    ],
-    [exercise.correctOptions, exercise.distractors],
-  );
+  if (!interaction) return null;
 
-  const rowStyle = "flex justify-center flex-wrap items-center gap-4";
-  const colStyle = "flex flex-col items-center gap-6";
-  const optionContainerStyle = optionLayout === "ROW" ? rowStyle : colStyle;
-
-  return (
-    <div className={cn("flex flex-col h-full justify-start gap-8")}>
-      {showAnswerField && exercise.prompt && (
-        <div className="w-full px-8 bg-ludo-code-surface lg:rounded-lg py-4 flex flex-col gap-3">
-          {withGaps ? (
-            <StaticCodeBlock prompt={exercise.prompt} />
-          ) : (
-            <InlineCode lineHeight="26px" code={exercise.prompt} />
-          )}
-        </div>
-      )}
-
-      {allOptions.length > 0 && (
-        <div className={cn("w-full px-8 lg:px-0", optionContainerStyle)}>
-          {allOptions.map((option) => (
+  if (interaction.type === "SELECT") {
+    return (
+      <div className={cn("flex flex-col h-full justify-start gap-8")}>
+        <div
+          className={cn("w-full px-8 lg:px-0 flex flex-col items-center gap-6")}
+        >
+          {interaction.items.map((item, idx) => (
             <StaticOption
-              key={option.exerciseOptionId}
-              content={option.content}
-              isCorrect={option.isCorrect}
-              layout={optionLayout}
+              key={idx}
+              content={item}
+              isCorrect={item === interaction.correctValue}
+              layout="COLUMN"
             />
           ))}
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
+
+  if (interaction.type === "CLOZE") {
+    return (
+      <div className={cn("flex flex-col h-full justify-start gap-8")}>
+        {interaction.file && (
+          <div className="w-full px-8 bg-ludo-code-surface lg:rounded-lg py-4 flex flex-col gap-3">
+            <StaticCodeBlock prompt={interaction.file.content} />
+          </div>
+        )}
+
+        {interaction.options.length > 0 && (
+          <div
+            className={cn(
+              "w-full px-8 lg:px-0 flex justify-center flex-wrap items-center gap-4",
+            )}
+          >
+            {interaction.options.map((option, idx) => (
+              <StaticOption
+                key={idx}
+                content={option}
+                isCorrect={interaction.blanks.some((b) =>
+                  b.correctOptions.includes(option),
+                )}
+                layout="ROW"
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return null;
 }

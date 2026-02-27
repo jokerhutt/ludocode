@@ -5,23 +5,18 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
-import { ExerciseLabel } from "./Exercise/ExerciseLabel";
-import { ExerciseInstruction } from "./Exercise/ExerciseInstruction";
-import { ExerciseMedia } from "./Exercise/ExerciseMedia";
+import { BlockPreview } from "./Exercise/BlockPreview";
 import { ExerciseInteraction } from "./Exercise/ExerciseInteraction";
-import { configByType } from "./Exercise/types";
+import { getExerciseTitle } from "@/features/Curriculum/Lesson/helpers";
 
 type ExerciseDetailPreviewProps = {
   exercise: CurriculumDraftLessonExercise;
-  courseId: string;
 };
 
 export function ExerciseDetailPreview({
   exercise,
-  courseId,
 }: ExerciseDetailPreviewProps) {
-  const { title } = exercise;
-  const config = configByType[exercise.exerciseType];
+  const title = getExerciseTitle(exercise);
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
@@ -34,17 +29,22 @@ export function ExerciseDetailPreview({
 
       <CurriculumPreviewContent className="bg-ludo-background">
         <div className="h-full flex gap-6 flex-col w-full p-4">
-          <ExerciseLabel exerciseType={exercise.exerciseType} />
-          <ExerciseInstruction currentExercise={exercise} />
-          {exercise.media && <ExerciseMedia media={exercise.media} />}
-          <ExerciseInteraction config={config} exercise={exercise} />
+          <div className="flex flex-col gap-3">
+            {exercise.blocks.map((block, index) => (
+              <BlockPreview key={index} block={block} />
+            ))}
+          </div>
+          <ExerciseInteraction exercise={exercise} />
         </div>
       </CurriculumPreviewContent>
 
       <CurriculumPreviewFooter>
         <p className="text-xs">
-          {exercise.correctOptions.length} correct ·{" "}
-          {exercise.distractors.length} distractors
+          {exercise.blocks.length}{" "}
+          {exercise.blocks.length === 1 ? "block" : "blocks"}
+          {exercise.interaction
+            ? ` · ${exercise.interaction.type} interaction`
+            : ""}
         </p>
       </CurriculumPreviewFooter>
     </div>

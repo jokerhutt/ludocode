@@ -110,7 +110,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
             state.isSubmitting,
             selectedExerciseId !== null
               ? state.values.exercises.findIndex(
-                  (e) => e.id === selectedExerciseId,
+                  (e) => e.exerciseId === selectedExerciseId,
                 )
               : -1,
           ]}
@@ -160,10 +160,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
 
                   <aside className="w-1/2 flex min-h-0 flex-col">
                     {!isEditing && selectedExercise && (
-                      <ExerciseDetailPreview
-                        courseId={courseId}
-                        exercise={selectedExercise}
-                      />
+                      <ExerciseDetailPreview exercise={selectedExercise} />
                     )}
                     {isEditing && idx >= 0 && (
                       <ExerciseDetailEditor

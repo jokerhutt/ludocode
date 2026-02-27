@@ -31,8 +31,8 @@ export const SortableExerciseContainer = withForm({
             if (!over) return;
             if (active.id === over.id) return;
 
-            const from = exercises.findIndex((e) => e.id === active.id);
-            const to = exercises.findIndex((e) => e.id === over.id);
+            const from = exercises.findIndex((e) => e.exerciseId === active.id);
+            const to = exercises.findIndex((e) => e.exerciseId === over.id);
 
             if (from === -1 || to === -1) return;
 
@@ -50,17 +50,17 @@ export const SortableExerciseContainer = withForm({
             >
               <div className="flex flex-col gap-4 p-4 w-full h-full">
                 <SortableContext
-                  items={exercises.map((e) => e.id)}
+                  items={exercises.map((e) => e.exerciseId)}
                   strategy={verticalListSortingStrategy}
                 >
                   {exercises.map((exercise, exerciseIndex) => (
                     <EditorExercise
                       exercise={exercise}
-                      key={exercise.id}
+                      key={exercise.exerciseId}
                       form={form}
                       exerciseIndex={exerciseIndex}
-                      isSelected={selectedExerciseId === exercise.id}
-                      onSelect={() => onSelectExercise(exercise.id)}
+                      isSelected={selectedExerciseId === exercise.exerciseId}
+                      onSelect={() => onSelectExercise(exercise.exerciseId)}
                     />
                   ))}
                 </SortableContext>

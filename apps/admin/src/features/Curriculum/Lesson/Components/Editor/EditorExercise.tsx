@@ -8,6 +8,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
 import { ExercisePreviewItem } from "../Preview/ExercisePreviewItem";
 import { ExerciseTypePill } from "./ExerciseTypePill";
+import {
+  getExerciseTitle,
+  deriveExerciseType,
+} from "@/features/Curriculum/Lesson/helpers";
 
 export const EditorExercise = withForm({
   defaultValues: {
@@ -20,13 +24,15 @@ export const EditorExercise = withForm({
     onSelect: (() => {}) as () => void,
   },
   render: function Render({
-    form,
-    exerciseIndex,
+    form: _form,
+    exerciseIndex: _exerciseIndex,
     exercise,
     isSelected,
     onSelect,
   }) {
-    const exerciseId = exercise.id;
+    const exerciseId = exercise.exerciseId;
+    const title = getExerciseTitle(exercise);
+    const exerciseType = deriveExerciseType(exercise);
 
     const {
       attributes,
@@ -54,19 +60,13 @@ export const EditorExercise = withForm({
           {...listeners}
         />
 
-        <form.Field
-          key={exerciseId}
-          name={`exercises[${exerciseIndex}].title`}
-          children={(field) => (
-            <ExercisePreviewItem
-              title={String(field.state.value) || "Untitled"}
-              isSelected={isSelected}
-              onClick={onSelect}
-            />
-          )}
+        <ExercisePreviewItem
+          title={title}
+          isSelected={isSelected}
+          onClick={onSelect}
         />
 
-        <ExerciseTypePill type={exercise.exerciseType} />
+        <ExerciseTypePill type={exerciseType} />
       </div>
     );
   },

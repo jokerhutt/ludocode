@@ -10,6 +10,10 @@ import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonExercises,
 } from "@ludocode/types";
+import {
+  getExerciseTitle,
+  deriveExerciseType,
+} from "@/features/Curriculum/Lesson/helpers";
 
 type LessonCurriculumPreviewProps = {
   exercises: CurriculumDraftLessonExercises;
@@ -42,13 +46,13 @@ export function LessonCurriculumPreview({
       </CurriculumPreviewHeader>
       <CurriculumPreviewContent className="gap-4">
         {exercises.map((exercise) => (
-          <div key={exercise.id} className="flex items-center gap-2">
+          <div key={exercise.exerciseId} className="flex items-center gap-2">
             <ExercisePreviewItem
               onClick={() => setSelectedExercise(exercise)}
-              title={exercise.title ?? ""}
-              isSelected={selectedExercise?.id === exercise.id}
+              title={getExerciseTitle(exercise)}
+              isSelected={selectedExercise?.exerciseId === exercise.exerciseId}
             />
-            <ExerciseTypePill type={exercise.exerciseType} />
+            <ExerciseTypePill type={deriveExerciseType(exercise)} />
           </div>
         ))}
       </CurriculumPreviewContent>

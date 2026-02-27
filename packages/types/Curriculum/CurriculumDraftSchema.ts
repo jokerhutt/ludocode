@@ -21,131 +21,77 @@ export type CurriculumDraftModule = CurriculumDraftModules[number];
 export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
 export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
-export const CurriculumDraftOption = z.object({
+// ─── Blocks ────────────────────────────────────────────────────────────
+
+export const HeaderBlockSchema = z.object({
+  type: z.literal("header"),
+  content: z.string().min(1, "Header content required"),
+});
+
+export const ParagraphBlockSchema = z.object({
+  type: z.literal("paragraph"),
+  content: z.string().min(1, "Paragraph content required"),
+});
+
+export const CodeBlockSchema = z.object({
+  type: z.literal("code"),
+  language: z.string().min(1, "Language required"),
+  content: z.string().min(1, "Code content required"),
+});
+
+export const MediaBlockSchema = z.object({
+  type: z.literal("media"),
+  src: z.string().min(1, "Media source required"),
+  alt: z.string().nullable().optional(),
+});
+
+export const BlockSchema = z.discriminatedUnion("type", [
+  HeaderBlockSchema,
+  ParagraphBlockSchema,
+  CodeBlockSchema,
+  MediaBlockSchema,
+]);
+
+// ─── Interaction ───────────────────────────────────────────────────────
+
+export const InteractionBlankSchema = z.object({
+  index: z.number().int().nonnegative(),
+  correctOptions: z.array(z.string().min(1)).min(1),
+});
+
+export const InteractionFileSchema = z.object({
+  language: z.string().min(1),
   content: z.string().min(1),
-  answerOrder: z.number().int().positive().nullable().optional(),
-  exerciseOptionId: z.string(),
 });
 
-const Base = z.object({
-  id: z.string(),
-  title: z.string().optional().nullable(),
-  subtitle: z.string().optional().nullable(),
-  media: z.string().optional().nullable(),
-  prompt: z.string().optional().nullable(),
-  correctOptions: z.array(CurriculumDraftOption),
-  distractors: z.array(CurriculumDraftOption),
+export const SelectInteractionSchema = z.object({
+  type: z.literal("SELECT"),
+  items: z.array(z.string().min(1)).min(2, "At least 2 items required"),
+  correctValue: z.string().min(1, "Correct value required"),
 });
 
-function countGaps(s?: string | null) {
-  if (!s) return 0;
-  return (s.match(/___/g) ?? []).length;
-}
-
-export const Cloze = Base.extend({
-  exerciseType: z.literal("CLOZE"),
-}).superRefine((v, ctx) => {
-  const gaps = countGaps(v.prompt);
-  if (!v.title)
-    ctx.addIssue({
-      code: "custom",
-      path: ["title"],
-      message: "Title required",
-    });
-  if (!v.prompt)
-    ctx.addIssue({
-      code: "custom",
-      path: ["prompt"],
-      message: "Prompt required",
-    });
-  if (v.correctOptions.length !== gaps) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["correctOptions"],
-      message: `Must have exactly ${gaps} correct options to match the ${gaps} gap(s)`,
-    });
-  }
+export const ClozeInteractionSchema = z.object({
+  type: z.literal("CLOZE"),
+  file: InteractionFileSchema,
+  blanks: z.array(InteractionBlankSchema).min(1, "At least 1 blank required"),
+  options: z.array(z.string().min(1)).min(1, "At least 1 option required"),
 });
 
-export const Analyze = Base.extend({
-  exerciseType: z.literal("ANALYZE"),
-}).superRefine((v, ctx) => {
-  if (!v.title)
-    ctx.addIssue({
-      code: "custom",
-      path: ["title"],
-      message: "Title required",
-    });
-  if (!v.prompt)
-    ctx.addIssue({
-      code: "custom",
-      path: ["prompt"],
-      message: "Prompt required",
-    });
-  if (v.correctOptions.length !== 1)
-    ctx.addIssue({
-      code: "custom",
-      path: ["correctOptions"],
-      message: "Exactly one correct answer",
-    });
-  if (v.distractors.length < 1)
-    ctx.addIssue({
-      code: "custom",
-      path: ["distractors"],
-      message: "At least one distractor",
-    });
+export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
+  SelectInteractionSchema,
+  ClozeInteractionSchema,
+]);
+
+// ─── Exercise ──────────────────────────────────────────────────────────
+
+export const CurriculumDraftExerciseSchema = z.object({
+  exerciseId: z.string(),
+  exerciseVersion: z.number().int().nonnegative(),
+  blocks: z.array(BlockSchema),
+  interaction: ExerciseInteractionSchema.nullable().optional(),
 });
 
-export const Trivia = Base.extend({
-  exerciseType: z.literal("TRIVIA"),
-}).superRefine((v, ctx) => {
-  if (!v.title)
-    ctx.addIssue({
-      code: "custom",
-      path: ["title"],
-      message: "Title Required",
-    });
-  if (v.correctOptions.length !== 1)
-    ctx.addIssue({
-      code: "custom",
-      path: ["correctOptions"],
-      message: "Exactly one correct answer",
-    });
-  if (v.distractors.length < 1)
-    ctx.addIssue({
-      code: "custom",
-      path: ["distractors"],
-      message: "At least one distractor",
-    });
-});
-
-export const Info = Base.extend({
-  exerciseType: z.literal("INFO"),
-}).superRefine((v, ctx) => {
-  if (!v.title)
-    ctx.addIssue({
-      code: "custom",
-      path: ["title"],
-      message: "Title required",
-    });
-  if (v.correctOptions.length !== 0)
-    ctx.addIssue({
-      code: "custom",
-      path: ["correctOptions"],
-      message: "INFO must not have Correct Options",
-    });
-  if (v.distractors.length !== 0)
-    ctx.addIssue({
-      code: "custom",
-      path: ["distractors"],
-      message: "INFO must not have distractors",
-    });
-});
-
-export const CurriculumDraftExerciseSchema = z.discriminatedUnion(
-  "exerciseType",
-  [Cloze, Analyze, Trivia, Info],
-);
+// ─── Lesson ────────────────────────────────────────────────────────────
 
 export const CurriculumDraftLessonSchema = z.object({
   exercises: z.array(CurriculumDraftExerciseSchema),
@@ -160,3 +106,8 @@ export type CurriculumDraftLessonExercises =
 
 export type CurriculumDraftLessonExercise =
   CurriculumDraftLessonExercises[number];
+
+export type CurriculumDraftBlock = z.infer<typeof BlockSchema>;
+export type CurriculumDraftInteraction = z.infer<
+  typeof ExerciseInteractionSchema
+>;

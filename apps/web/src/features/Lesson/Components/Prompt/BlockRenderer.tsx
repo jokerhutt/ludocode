@@ -30,6 +30,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             userResponses={[]}
             onChange={noop}
             clear={noop}
+            shadow
             popLast={noop}
           >
             <LudoCodePreview.Header />

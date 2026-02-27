@@ -10,13 +10,9 @@ const config: Record<ExerciseType, { label: string; className: string }> = {
     label: "Cloze",
     className: "bg-emerald-500/20 text-emerald-400",
   },
-  TRIVIA: {
-    label: "Trivia",
+  SELECT: {
+    label: "Select",
     className: "bg-amber-500/20 text-amber-400",
-  },
-  ANALYZE: {
-    label: "Analyze",
-    className: "bg-purple-500/20 text-purple-400",
   },
 };
 
