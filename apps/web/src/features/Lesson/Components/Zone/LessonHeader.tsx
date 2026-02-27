@@ -3,7 +3,6 @@ import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/lea
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import {
   HeaderShell,
-  HeaderWithBar,
 } from "@ludocode/design-system/zones/header-shell.tsx";
 
 type LessonHeaderProps = {

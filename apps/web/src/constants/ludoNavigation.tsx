@@ -33,7 +33,7 @@ import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.t
 // LEADERBOARD
 import { Route as leaderboardHubRoute } from "@/routes/_app/_hub/leaderboard";
 
-import type { LessonSubmission, StageKey } from "@ludocode/types";
+import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {
   auth: {
@@ -55,7 +55,7 @@ export const ludoNavigation = {
       toProjectHub: () => ({ to: projectHubRoute.to }),
     },
     leaderboard: {
-      toLeaderboardHub: () => ({ to: leaderboardHubRoute.to })
+      toLeaderboardHub: () => ({ to: leaderboardHubRoute.to }),
     },
     profile: {
       toProfile: (userId: string, replace?: boolean) => ({
@@ -123,7 +123,7 @@ export const ludoNavigation = {
   },
 
   completion: {
-    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
+    toSyncPage: (lessonId: string, submission: LessonSubmissionRequest) => ({
       to: syncRoute.to,
       params: { lessonId },
       state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),

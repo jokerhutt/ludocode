@@ -1,4 +1,4 @@
-import { CopyIcon, RefreshCcwIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import {
   PromptInput,
   PromptInputBody,

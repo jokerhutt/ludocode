@@ -1,6 +1,5 @@
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import {
-  CustomIcon,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
@@ -21,8 +20,7 @@ export function ExerciseLabel({
   const typeDescriptions: Record<ExerciseType, ExerciseTypeContent> = {
     CLOZE: { description: "Fill in the Blanks", iconName: "Cloze" },
     INFO: { description: "Informational", iconName: "Question" },
-    TRIVIA: { description: "Trivia", iconName: "Trivia" },
-    ANALYZE: { description: "Analyse Code", iconName: "Analyze" },
+    SELECT: { description: "Select Answer", iconName: "Trivia" },
   };
 
   const { description } = typeDescriptions[exerciseType];

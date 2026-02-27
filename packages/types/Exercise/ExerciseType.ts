@@ -1,3 +1,1 @@
-export type ExerciseType = "CLOZE" | "ANALYZE" | "TRIVIA" | "INFO"
-
-
+export type ExerciseType = "CLOZE" | "SELECT" | "INFO";

@@ -32,7 +32,7 @@ export function useStagedAttempt({
 }: useStagedAttemptProps): useStagedAttemptResponse {
   const allSlotsFilled = areAllFilled(currentExerciseInputs);
   const allSlotsValid =
-    currentExercise.exerciseType === "INFO" ||
+    !currentExercise.interaction ||
     (allSlotsFilled && areAllValid(currentExerciseInputs, currentExercise));
 
   const [currentlyStagedAttempt, setCurrentlyStagedAttempt] =
@@ -44,18 +44,18 @@ export function useStagedAttempt({
   );
 
   const playResultAudio = (isCorrect: boolean) => {
-      if (isCorrect) {
-        playSound("correct");
-      } else {
-        playSound("wrong");
-      }
+    if (isCorrect) {
+      playSound("correct");
+    } else {
+      playSound("wrong");
+    }
   };
 
   const stageAttempt = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(currentExerciseInputs, currentExercise);
     if (playAudio) {
-      playResultAudio(isCorrect)
+      playResultAudio(isCorrect);
     }
     setCurrentlyStagedAttempt({
       exerciseId: currentExercise.id,

@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen.ts";
 import { ErrorPage } from "@/features/Error/Pages/ErrorPage.tsx";
-import type { LessonSubmission } from "packages/types/Exercise/LessonSubmissions.ts";
+import type { LessonSubmissionRequest } from "packages/types/Exercise/LessonSubmissions.ts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const queryClient = new QueryClient();
@@ -24,7 +24,7 @@ declare module "@tanstack/react-router" {
   }
 
   interface HistoryState {
-    submission?: LessonSubmission;
+    submission?: LessonSubmissionRequest;
   }
 }
 
@@ -34,5 +34,5 @@ createRoot(document.getElementById("root")!).render(
       <RouterProvider router={router} />
       <ToastContainer />
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );

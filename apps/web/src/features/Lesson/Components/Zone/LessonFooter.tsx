@@ -11,7 +11,7 @@ export function LessonFooter() {
   const { handleExerciseButtonClick, canSubmit, phase, currentExercise } =
     useLessonContext();
 
-  const { exerciseType } = currentExercise;
+  const isInfo = !currentExercise.interaction;
   const [isLoading, setIsLoading] = useState(false);
 
   useHotkeys({
@@ -21,7 +21,7 @@ export function LessonFooter() {
   function trySubmit() {
     if (!canSubmit || isLoading) return;
 
-    if (phase !== "DEFAULT" || exerciseType == "INFO") {
+    if (phase !== "DEFAULT" || isInfo) {
       handleExerciseButtonClick();
     } else {
       setIsLoading(true);

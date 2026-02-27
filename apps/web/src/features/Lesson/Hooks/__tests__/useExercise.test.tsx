@@ -25,7 +25,13 @@ describe("useExercise Flow (integration)", () => {
 
     const { result, rerender } = renderHook(
       ({ position }) =>
-        useExercise({courseId: c1Id,  exercises: l1exercises, lesson: l1, position, config: {audioEnabled: true} }),
+        useExercise({
+          courseId: c1Id,
+          exercises: l1exercises,
+          lesson: l1,
+          position,
+          config: { audioEnabled: true },
+        }),
       { initialProps: { position: currentPosition } },
     );
 
@@ -39,12 +45,11 @@ describe("useExercise Flow (integration)", () => {
 
     navigateSpy.mockImplementation(routerMock.mockImplementation);
 
-    const selectedOption = l1exercises[0].distractors[0];
-
+    // Exercise 0 is CLOZE: wrong answer "/"
     act(() => {
       const wrong: AnswerToken = {
-        id: selectedOption.id,
-        value: selectedOption.content,
+        id: undefined,
+        value: "/",
       };
       result.current.inputState.replaceAnswerAt(0, wrong);
     });
@@ -65,12 +70,11 @@ describe("useExercise Flow (integration)", () => {
       expect(result.current.phase).toBe("DEFAULT");
     });
 
-    const selectedOptionB = l1exercises[0].correctOptions[0];
-
+    // Exercise 0: correct answer "+"
     act(() => {
       const correct: AnswerToken = {
-        id: selectedOptionB.id,
-        value: selectedOptionB.content,
+        id: undefined,
+        value: "+",
       };
       result.current.inputState.replaceAnswerAt(0, correct);
     });
@@ -92,21 +96,19 @@ describe("useExercise Flow (integration)", () => {
       expect(result.current.currentExercise.id).toBe(l1exercises[1].id);
     });
 
-    const selectedOptionC1 = l1exercises[1].correctOptions[0];
-    const selectedOptionC2 = l1exercises[1].correctOptions[1];
-
+    // Exercise 1 is CLOZE with 2 blanks: correct answers "+" then "-"
     act(() => {
       const s1: AnswerToken = {
-        id: selectedOptionC1.id,
-        value: selectedOptionC1.content,
+        id: undefined,
+        value: "+",
       };
       result.current.inputState.replaceAnswerAt(0, s1);
     });
 
     act(() => {
       const s2: AnswerToken = {
-        id: selectedOptionC2.id,
-        value: selectedOptionC2.content,
+        id: undefined,
+        value: "-",
       };
       result.current.inputState.replaceAnswerAt(1, s2);
     });
@@ -148,63 +150,62 @@ describe("useExercise Flow (integration)", () => {
       expect(
         syncNavigation!.computedState.submission.submissionId,
       ).toBeDefined();
-      expect(syncNavigation!.computedState.submission.submissions).toHaveLength(
+      expect(syncNavigation!.computedState.submission.exercises).toHaveLength(
         3,
       );
 
       // Verify all exercises were submitted
 
       expect(
-        syncNavigation!.computedState.submission.submissions[0].exerciseId,
+        syncNavigation!.computedState.submission.exercises[0].exerciseId,
       ).toBe(l1exercises[0].id);
 
       // Exercise 1 had 2 attempts
       expect(
-        syncNavigation!.computedState.submission.submissions[0].attempts,
+        syncNavigation!.computedState.submission.exercises[0].attempts,
       ).toHaveLength(2);
 
-      // Exercise 1 attempt 1 was INCORRECT
+      // Exercise 1 attempt 1 was INCORRECT (wrong CLOZE answer "/")
       expect(
-        syncNavigation!.computedState.submission.submissions[0].attempts[0]
-          .isCorrect,
-      ).toBe(false);
+        syncNavigation!.computedState.submission.exercises[0].attempts[0]
+          .answer,
+      ).toEqual({ type: "CLOZE", valuesByBlank: ["/"] });
 
-      // Exercise 1 attempt 2 was CORRECT
+      // Exercise 1 attempt 2 was CORRECT (correct CLOZE answer "+")
       expect(
-        syncNavigation!.computedState.submission.submissions[0].attempts[1]
-          .isCorrect,
-      ).toBe(true);
+        syncNavigation!.computedState.submission.exercises[0].attempts[1]
+          .answer,
+      ).toEqual({ type: "CLOZE", valuesByBlank: ["+"] });
 
       expect(
-        syncNavigation!.computedState.submission.submissions[1].exerciseId,
+        syncNavigation!.computedState.submission.exercises[1].exerciseId,
       ).toBe(l1exercises[1].id);
 
       // Exercise 2 had 1 attempt
       expect(
-        syncNavigation!.computedState.submission.submissions[1].attempts,
+        syncNavigation!.computedState.submission.exercises[1].attempts,
       ).toHaveLength(1);
 
-      // Exercise 2 attempt 1 was CORRECT
+      // Exercise 2 attempt 1 was CORRECT (correct CLOZE answer "+", "-")
       expect(
-        syncNavigation!.computedState.submission.submissions[1].attempts[0]
-          .isCorrect,
-      ).toBe(true);
+        syncNavigation!.computedState.submission.exercises[1].attempts[0]
+          .answer,
+      ).toEqual({ type: "CLOZE", valuesByBlank: ["+", "-"] });
 
       expect(
-        syncNavigation!.computedState.submission.submissions[2].exerciseId,
+        syncNavigation!.computedState.submission.exercises[2].exerciseId,
       ).toBe(l1exercises[2].id);
 
       // Exercise 3 had 1 attempt
       expect(
-        syncNavigation!.computedState.submission.submissions[2].attempts,
+        syncNavigation!.computedState.submission.exercises[2].attempts,
       ).toHaveLength(1);
 
-      // Exercise 3 attempt 1 was CORRECT
-
+      // Exercise 3 is INFO => MCQ with "INFO"
       expect(
-        syncNavigation!.computedState.submission.submissions[2].attempts[0]
-          .isCorrect,
-      ).toBe(true);
+        syncNavigation!.computedState.submission.exercises[2].attempts[0]
+          .answer,
+      ).toEqual({ type: "MCQ", pickedValue: "INFO" });
     });
   });
 });
@@ -214,15 +215,19 @@ describe("useExercise Phase (integration)", () => {
 
   it("wrong answer => INCORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({courseId: c1Id,   exercises: l1exercises, lesson: l1, position: 1, config: {audioEnabled: true} }),
+      useExercise({
+        courseId: c1Id,
+        exercises: l1exercises,
+        lesson: l1,
+        position: 1,
+        config: { audioEnabled: true },
+      }),
     );
-
-    const selectedOptionA = l1exercises[0].distractors[0];
 
     act(() => {
       const wrong: AnswerToken = {
-        id: selectedOptionA.id,
-        value: selectedOptionA.content,
+        id: undefined,
+        value: "/",
       };
       result.current.inputState.replaceAnswerAt(0, wrong);
     });
@@ -240,15 +245,19 @@ describe("useExercise Phase (integration)", () => {
 
   it("correct answer => CORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({courseId: c1Id,   exercises: l1exercises, lesson: l1, position: 1, config: {audioEnabled: true} }),
+      useExercise({
+        courseId: c1Id,
+        exercises: l1exercises,
+        lesson: l1,
+        position: 1,
+        config: { audioEnabled: true },
+      }),
     );
-
-    const selectedOption = l1exercises[0].correctOptions[0];
 
     act(() => {
       const correct: AnswerToken = {
-        id: selectedOption.id,
-        value: selectedOption.content,
+        id: undefined,
+        value: "+",
       };
       result.current.inputState.replaceAnswerAt(0, correct);
     });
@@ -266,7 +275,13 @@ describe("useExercise Phase (integration)", () => {
 
   it("INFO answer => DEFAULT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({courseId: c1Id,   exercises: l1exercises, lesson: l1, position: 3, config: {audioEnabled: true} }),
+      useExercise({
+        courseId: c1Id,
+        exercises: l1exercises,
+        lesson: l1,
+        position: 3,
+        config: { audioEnabled: true },
+      }),
     );
 
     act(() => {
@@ -282,24 +297,28 @@ describe("useExercise Phase (integration)", () => {
 
   it("incorrect answer order => INCORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({courseId: c1Id,   exercises: l1exercises, lesson: l1, position: 2, config: {audioEnabled: true} }),
+      useExercise({
+        courseId: c1Id,
+        exercises: l1exercises,
+        lesson: l1,
+        position: 2,
+        config: { audioEnabled: true },
+      }),
     );
 
-    const selectedOption1 = l1exercises[1].correctOptions[1];
-    const selectedOption2 = l1exercises[1].correctOptions[0];
-
+    // Wrong order: "-" then "+" (correct is "+" then "-")
     act(() => {
       const s1: AnswerToken = {
-        id: selectedOption1.id,
-        value: selectedOption1.content,
+        id: undefined,
+        value: "-",
       };
       result.current.inputState.replaceAnswerAt(0, s1);
     });
 
     act(() => {
       const s2: AnswerToken = {
-        id: selectedOption2.id,
-        value: selectedOption2.content,
+        id: undefined,
+        value: "+",
       };
       result.current.inputState.replaceAnswerAt(1, s2);
     });
@@ -317,24 +336,28 @@ describe("useExercise Phase (integration)", () => {
 
   it("correct answer order => CORRECT phase", async () => {
     const { result } = renderHook(() =>
-      useExercise({courseId: c1Id,   exercises: l1exercises, lesson: l1, position: 2, config: {audioEnabled: true} }),
+      useExercise({
+        courseId: c1Id,
+        exercises: l1exercises,
+        lesson: l1,
+        position: 2,
+        config: { audioEnabled: true },
+      }),
     );
 
-    const selectedOption1 = l1exercises[1].correctOptions[0];
-    const selectedOption2 = l1exercises[1].correctOptions[1];
-
+    // Correct order: "+" then "-"
     act(() => {
       const s1: AnswerToken = {
-        id: selectedOption1.id,
-        value: selectedOption1.content,
+        id: undefined,
+        value: "+",
       };
       result.current.inputState.replaceAnswerAt(0, s1);
     });
 
     act(() => {
       const s2: AnswerToken = {
-        id: selectedOption2.id,
-        value: selectedOption2.content,
+        id: undefined,
+        value: "-",
       };
       result.current.inputState.replaceAnswerAt(1, s2);
     });

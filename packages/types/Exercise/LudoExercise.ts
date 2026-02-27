@@ -1,6 +1,3 @@
-import type { ExerciseType } from "./ExerciseType";
-import type { LudoExerciseOption } from "./LudoExerciseOption";
-
 export type LudoExercise = {
   id: string;
   version: number;

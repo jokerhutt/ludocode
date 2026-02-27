@@ -10,7 +10,7 @@ export function InlineCode({
   code: string;
   lang?: string;
   fontSize?: string;
-  lineHeight: string;
+  lineHeight?: string;
 }) {
   return (
     <SyntaxHighlighter

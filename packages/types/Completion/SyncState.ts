@@ -1,3 +1,3 @@
-import { type LessonSubmission } from "../Exercise/LessonSubmissions";
+import { type LessonSubmissionRequest } from "../Exercise/LessonSubmissions";
 
-export type SyncState = { submission: LessonSubmission };
+export type SyncState = { submission: LessonSubmissionRequest };

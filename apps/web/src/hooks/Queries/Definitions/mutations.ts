@@ -1,6 +1,6 @@
 import { mutationOptions } from "@tanstack/react-query";
 import type { LessonCompletionPacket } from "@ludocode/types/Completion/LessonCompletionResponse.ts";
-import type { LessonSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
+import type { LessonSubmissionRequest } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { ChangeCourseType } from "@ludocode/types/User/ChangeCourseType.ts";
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
 import type { OnboardingResponse } from "@ludocode/types/Onboarding/OnboardingResponse.ts";
@@ -33,10 +33,14 @@ export interface ChangeCourseVariables {
 
 export const mutations = {
   submitLesson: () => {
-    return mutationOptions<LessonCompletionPacket, Error, LessonSubmission>({
+    return mutationOptions<
+      LessonCompletionPacket,
+      Error,
+      LessonSubmissionRequest
+    >({
       mutationKey: ["submitLesson"],
       mutationFn: (variables) =>
-        ludoPost<LessonCompletionPacket, LessonSubmission>(
+        ludoPost<LessonCompletionPacket, LessonSubmissionRequest>(
           api.progress.completion.base,
           variables,
           true,
@@ -45,7 +49,7 @@ export const mutations = {
   },
 
   submitCheckoutConfirmation: () => {
-       return mutationOptions<UserSubscription, Error, ConfirmRequest>({
+    return mutationOptions<UserSubscription, Error, ConfirmRequest>({
       mutationKey: ["submitCheckout"],
       mutationFn: (variables) =>
         ludoPost<UserSubscription, ConfirmRequest>(
@@ -53,7 +57,7 @@ export const mutations = {
           variables,
           true,
         ),
-    }); 
+    });
   },
 
   runCode: () => {
