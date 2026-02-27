@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { LudoButtonVariant } from "./ludo-button";
+import { type ReactNode } from "react";
+import { type LudoButtonVariant } from "./ludo-button";
 import { cn } from "../cn-utils";
 
 type LudoCardProps = {
@@ -14,7 +14,6 @@ type LudoCardProps = {
 export function LudoCard({
   className,
   children,
-  selected = false,
   disabled = false,
   shadow = false,
   variant = "default",

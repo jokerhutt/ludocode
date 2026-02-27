@@ -1,5 +1,5 @@
 import { XIcon } from "lucide-react";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { cn } from "../cn-utils";
 
 type LudoSlideOverProps = {

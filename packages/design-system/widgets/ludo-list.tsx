@@ -2,9 +2,9 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { CompletionBadge } from "@ludocode/design-system/primitives/CompletionBadge";
 import {
   ProgressSummary,
-  ProgressSummaryProps,
+  type ProgressSummaryProps,
 } from "@ludocode/design-system/primitives/ProgressSummary";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 type LudoListProps = { children?: ReactNode; className?: string };
 
@@ -20,7 +20,13 @@ function Header({ children }: { children?: ReactNode }) {
   );
 }
 
-function Content({ children, className }: { children?: ReactNode; className?: string }) {
+function Content({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return <div className={cn("flex flex-col gap-1", className)}>{children}</div>;
 }
 

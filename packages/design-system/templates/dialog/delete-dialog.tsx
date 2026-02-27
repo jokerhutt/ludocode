@@ -16,7 +16,6 @@ type DeleteDialogProps = {
 
 export function DeleteDialog({
   onClick,
-  canDelete = true,
   targetName,
   description,
   triggerClassName = "w-full",

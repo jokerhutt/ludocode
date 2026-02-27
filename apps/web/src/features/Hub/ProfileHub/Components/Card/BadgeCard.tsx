@@ -2,7 +2,6 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { AnimatedBadge, Badge } from "@ludocode/design-system/primitives/badge";
 import type { CourseStats, LudoCourse } from "@ludocode/types";
 import {
-  CustomIcon,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon";
 import { cn } from "@ludocode/design-system/cn-utils";
@@ -17,7 +16,6 @@ type BadgeCardListProps = {
 export function BadgeListCard({
   allCourses,
   allCourseStats,
-  clickable = true,
 }: BadgeCardListProps) {
   const completedCourseIds = new Set(
     allCourseStats

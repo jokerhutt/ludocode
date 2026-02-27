@@ -6,7 +6,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@ludocode/external/ui/drawer";
-import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { SubscriptionBadge } from "@/features/Hub/Components/Zone/SubscriptionBadge.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";

@@ -16,7 +16,7 @@ export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
   const allProjects = projectsPacket.projects;
 
-  const { maxProjects, planCode } = useSuspenseQuery(qo.subscription()).data;
+  const { maxProjects} = useSuspenseQuery(qo.subscription()).data;
   const currentProjects = allProjects.length;
 
   const isAtLimit = currentProjects >= maxProjects;

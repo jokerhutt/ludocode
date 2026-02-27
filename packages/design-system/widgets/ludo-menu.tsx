@@ -78,7 +78,7 @@ function Item({
     <Comp
       type={asChild ? undefined : "button"}
       disabled={disabled}
-      onClick={(e: React.MouseEvent) => {
+      onClick={() => {
         if (!disabled) onSelect?.();
       }}
       className={cn(

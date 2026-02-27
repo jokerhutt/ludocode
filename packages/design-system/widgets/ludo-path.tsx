@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { cn } from "../cn-utils";
-import { LessonStatus } from "@ludocode/types";
+import { type LessonStatus } from "@ludocode/types";
 import { LudoButton } from "../primitives/ludo-button";
 import { CompletionRibbon } from "../primitives/ribbon";
 import { LockIcon } from "../primitives/custom-icon";

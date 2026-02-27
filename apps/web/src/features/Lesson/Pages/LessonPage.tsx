@@ -1,6 +1,5 @@
 import { ExerciseMedia } from "@/features/Lesson/Components/Media/ExerciseMedia.tsx";
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
-import { ExerciseLabel } from "@/features/Lesson/Components/Prompt/ExerciseLabel.tsx";
 import { ExerciseInstruction } from "@/features/Lesson/Components/Prompt/ExerciseInstruction.tsx";
 import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
 import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInteraction.tsx";

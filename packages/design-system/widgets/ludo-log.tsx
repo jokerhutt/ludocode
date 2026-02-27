@@ -5,7 +5,7 @@ import {
   XCircleIcon,
 } from "lucide-react";
 import { cn } from "../cn-utils";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { createContext, useContext, useState } from "react";
 
