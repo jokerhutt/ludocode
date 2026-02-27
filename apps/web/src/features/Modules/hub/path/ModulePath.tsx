@@ -59,7 +59,13 @@ function ModulePathButton({
       goToLesson={goToLesson}
       lessonType={lessonType}
       lesson={lesson}
-      trigger={<LudoPath.Button state={lessonType} isCurrent={isCurrent} className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none" />}
+      trigger={
+        <LudoPath.Button
+          state={lessonType}
+          isCurrent={isCurrent}
+          className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none"
+        />
+      }
     />
   );
 }
