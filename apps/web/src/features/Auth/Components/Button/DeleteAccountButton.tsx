@@ -1,5 +1,4 @@
 import { useDeleteAccount } from "@/hooks/Queries/Mutations/useDeleteAccount.tsx";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
 import type { DestructiveActionConfirmation } from "@ludocode/design-system/templates/dialog/WarningDialog.tsx";
 
@@ -22,11 +21,18 @@ export function DeleteAccountButton({ username }: DeleteAccountButtonProps) {
 
   return (
     <DeleteDialog
+      triggerClassName=""
       targetName="your account"
       destructiveConfirmation={confirmation}
       onClick={() => handleDeleteAccount()}
+      
     >
-      <LudoButton variant="danger">Delete Account</LudoButton>
+      <button
+        type="button"
+        className="text-sm text-end w-full text-red-400/70 hover:text-red-300 transition-colors hover:cursor-pointer"
+      >
+        Delete account
+      </button>
     </DeleteDialog>
   );
 }

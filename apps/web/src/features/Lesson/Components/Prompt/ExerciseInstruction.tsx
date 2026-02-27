@@ -6,10 +6,12 @@ export function ExerciseInstruction({
   currentExercise,
 }: ExerciseInstructionProps) {
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-white text-start text-md">{currentExercise.title}</p>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-white text-center text-lg sm:text-xl font-semibold leading-snug">
+        {currentExercise.title}
+      </h2>
       {currentExercise.subtitle && (
-        <p className="text-white text-start text-md">
+        <p className="text-ludoAltText text-center text-sm sm:text-base leading-relaxed">
           {currentExercise.subtitle}
         </p>
       )}

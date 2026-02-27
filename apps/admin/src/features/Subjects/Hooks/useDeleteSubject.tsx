@@ -1,4 +1,4 @@
-// Hooks/useDeleteSubject.ts
+// hooks/useDeleteSubject.ts
 import { mutations } from "@/hooks/Queries/Definitions/mutations";
 import { qk } from "@/hooks/Queries/Definitions/qk";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";

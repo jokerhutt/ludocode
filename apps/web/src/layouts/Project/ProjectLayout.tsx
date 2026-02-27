@@ -1,7 +1,7 @@
-import { ProjectProvider } from "@/features/Project/Context/ProjectContext.tsx";
-import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
+import { ProjectProvider } from "@/features/Project/context/ProjectContext.tsx";
+import { WorkbenchPage } from "@/features/Project/workbench/WorkbenchPage.tsx";
 import { getRouteApi, useLoaderData } from "@tanstack/react-router";
-import { ProjectHeader } from "@/features/Project/Zone/ProjectHeader.tsx";
+import { ProjectHeader } from "@/features/Project/shared/ProjectHeader.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
@@ -19,7 +19,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
           <ProjectHeader />
-          <ProjectPage />
+          <WorkbenchPage />
         </MainGridWrapper>
       </ProjectProvider>
     </UserPreferencesContext.Provider>

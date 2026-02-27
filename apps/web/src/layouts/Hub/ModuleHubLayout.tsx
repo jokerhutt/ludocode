@@ -1,6 +1,6 @@
-import { useTreeData } from "@/features/Modules/Hooks/useTreeData";
-import { ModulePage } from "@/features/Modules/Pages/ModulePage";
-import { MobileModuleSlideOver } from "@/features/Modules/Components/Navigator/MobileModuleSlideOver";
+import { useTreeData } from "@/features/Modules/hooks/useTreeData";
+import { ModulePage } from "@/features/Modules/hub/ModulePage.tsx";
+import { MobileModuleSlideOver } from "@/features/Modules/hub/navigator/MobileModuleSlideOver.tsx";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
 

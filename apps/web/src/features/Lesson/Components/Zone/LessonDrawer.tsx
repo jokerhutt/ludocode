@@ -13,7 +13,7 @@ export function LessonFeedbackDrawer() {
   const typeDescriptions: Record<ExercisePhase, ResultStyle> = {
     DEFAULT: { border: "", text: "" },
     CORRECT: { border: "border-green-400/80", text: "Great work!" },
-    INCORRECT: { border: "border-red-400/80", text: "Not quite!" },
+    INCORRECT: { border: "border-[#D97777]", text: "Not quite!" },
   };
 
   const isVisible = phase !== "DEFAULT";
@@ -31,7 +31,7 @@ export function LessonFeedbackDrawer() {
     >
       <div
         className={cn(
-          "mx-auto lg:h-26 h-34 max-w-screen bg-ludo-surface border-t-4 border-green-400/8",
+          "mx-auto lg:h-26 h-34 max-w-screen bg-ludo-surface/50 border-t-4 border-green-400/8",
           border
         )}
       >

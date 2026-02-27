@@ -1,11 +1,11 @@
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
 import { UserCard } from "../Components/Card/UserCard";
-import { AccountActionsGroup } from "../Components/Group/AccountActionsGroup";
 import { ProfileCardContainer } from "../Components/Card/ProfileCardContainer";
 import { UserStatsGroup } from "../Components/Group/UserStatsGroup";
-import { CurrentCourseCard } from "../Components/Card/CurrentCourseCard";
 import { BadgeListCard } from "../Components/Card/BadgeCard";
+import { CourseCard } from "@/features/Courses/Components/CourseCard";
+import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 
 type ProfilePageProps = {};
 
@@ -23,25 +23,23 @@ export function ProfilePage({}: ProfilePageProps) {
     (course) => course.id === currentCourseId,
   );
 
-  const currentCourseStats = allCourseStats.find(
-    (courseStat) => courseStat.id === currentCourseId,
-  );
-
   return (
-    <div className="col-span-full px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
+    <div className="col-span-full px-4 relative pt-6 lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <UserCard user={user} />
-      <AccountActionsGroup userId={user.id} />
-      <div className="w-full h-full flex pb-6 flex-col gap-5">
+      <div className="w-full flex pb-6 flex-col gap-4">
         <ProfileCardContainer header="STATS">
           <UserStatsGroup />
         </ProfileCardContainer>
 
         <ProfileCardContainer header="CURRENT COURSE">
-          <CurrentCourseCard
-            courseName={currentCourseObject!!.title}
-            courseStats={currentCourseStats!!}
+          <CourseCard
+            iconName={currentCourseObject?.language?.iconName as IconName | undefined}
+            courseId={currentCourseId}
+            title={currentCourseObject?.title ?? ""}
+            showProgress
           />
         </ProfileCardContainer>
+
         <ProfileCardContainer header="BADGES">
           <BadgeListCard
             allCourses={allCourses}

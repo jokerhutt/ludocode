@@ -6,8 +6,6 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { AICreditBalanceCard } from "../Components/Card/AICreditBalanceCard";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { getUserAvatar } from "@/constants/avatars/avatars";
-import { DeleteAccountButton } from "@/features/Auth/Components/Button/DeleteAccountButton.tsx";
-import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton.tsx";
 import { router } from "@/main";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { useState } from "react";
@@ -19,7 +17,7 @@ import { SubscriptionStatusCard } from "../Components/Card/SubscriptionStatusCar
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: preferences } = useSuspenseQuery(qo.preferences());
-  const { avatarIndex, avatarVersion, createdAt, displayName } = user;
+  const { avatarIndex, avatarVersion, createdAt } = user;
   const joinTime = parseToDate(createdAt);
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
@@ -54,22 +52,21 @@ export function AccountSettingsPage() {
   };
 
   return (
-    <div className="col-span-full px-4  relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
-      <div className="w-full flex gap-4 py-4">
-        <Avatar className="h-20 w-20" src={userPfpSrc} />
-        <div className="flex flex-col gap-1">
-          <h2 className=" text-xl lg:text-2xl">{user.displayName}</h2>
-          <h3 className="lg:text-lg text-base">{joinTime}</h3>
+    <div className="col-span-full px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
+      <div className="w-full flex gap-4 py-6 items-center">
+        <div className="relative">
+          <div className="absolute -inset-1.5 rounded-full bg-ludo-accent/20 blur-md" />
+          <Avatar className="h-20 w-20 relative" src={userPfpSrc} />
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <h2 className="text-xl lg:text-2xl font-semibold tracking-tight">
+            {user.displayName}
+          </h2>
+          <p className="text-sm text-ludoAltText/60">{joinTime}</p>
         </div>
       </div>
-      <div className="w-full flex pb-6 flex-col gap-5">
-        <LudoButton
-          isLoading={editPreferencesMutation.isPending}
-          onClick={() => handleSubmission()}
-          variant="alt"
-        >
-          Save & Exit
-        </LudoButton>
+
+      <div className="w-full flex pb-6 flex-col gap-4">
         <ProfileCardContainer header="PREFERENCES">
           <FeatureToggleGroup
             audioEnabled={audioEnabled}
@@ -79,7 +76,7 @@ export function AccountSettingsPage() {
           />
         </ProfileCardContainer>
 
-        <div className="grid gap-5 md:grid-cols-2 items-stretch">
+        <div className="grid gap-4 md:grid-cols-2 items-stretch">
           <ProfileCardContainer
             className="flex flex-col h-full"
             header="SUBSCRIPTION"
@@ -101,10 +98,16 @@ export function AccountSettingsPage() {
           </ProfileCardContainer>
         </div>
 
-        <ProfileCardContainer className="gap-5" header="DANGER ZONE">
-          <LogoutButton />
-          <DeleteAccountButton username={displayName!!} />
-        </ProfileCardContainer>
+        <div className="w-full items-center border-t-2 pt-4 border-t-ludo-border">
+          <LudoButton
+            isLoading={editPreferencesMutation.isPending}
+            onClick={() => handleSubmission()}
+            variant="alt"
+            className="rounded-lg"
+          >
+            Save & Exit
+          </LudoButton>
+        </div>
       </div>
     </div>
   );

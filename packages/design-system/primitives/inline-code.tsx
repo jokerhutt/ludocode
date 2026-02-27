@@ -1,10 +1,10 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula as theme } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus as theme } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 export function InlineCode({
   code,
   lang = "py",
-  fontSize = "17px",
+  fontSize,
   lineHeight = "28px",
 }: {
   code: string;
@@ -24,7 +24,7 @@ export function InlineCode({
         padding: 0,
         margin: 0,
         fontFamily: "DMMono, ui-monospace, SFMono-Regular, Menlo, monospace",
-        fontSize,
+        fontSize: fontSize ?? "inherit",
         lineHeight,
       }}
       codeTagProps={{ style: { font: "inherit" } }}

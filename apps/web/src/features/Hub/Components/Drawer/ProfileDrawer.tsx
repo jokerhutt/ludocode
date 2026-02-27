@@ -13,6 +13,8 @@ import { router } from "@/main";
 import { LifeBuoy, Map, NotebookText, Settings, User, X } from "lucide-react";
 import type { ReactElement } from "react";
 import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
+import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton";
+import { DeleteAccountButton } from "@/features/Auth/Components/Button/DeleteAccountButton";
 
 type ProfileDrawerProps = {
   trigger: ReactElement;
@@ -20,16 +22,12 @@ type ProfileDrawerProps = {
   plan: SubscriptionPlan;
 };
 
-export function ProfileDrawer({
-  trigger,
-  user,
-  plan,
-}: ProfileDrawerProps) {
+export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
 
-      <DrawerContent className="w-full lg:w-1/3 lg:max-w-md sm:max-w-full rounded-none border-l border-ludo-border bg-ludo-background">
+      <DrawerContent className="w-full lg:w-1/3 lg:max-w-md sm:max-w-full rounded-none border-l flex flex-col border-ludo-border bg-ludo-background">
         <DrawerHeader className="relative border-b border-ludo-border px-6 py-4">
           <div className="flex items-center justify-between">
             <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-white">
@@ -48,7 +46,7 @@ export function ProfileDrawer({
           </div>
         </DrawerHeader>
 
-        <nav className="flex flex-col gap-1 p-4">
+        <nav className="flex-1 overflow-y-auto flex flex-col gap-1 p-4">
           <DrawerClose asChild>
             <NavItem
               icon={<User className="h-5 w-5" />}
@@ -95,6 +93,10 @@ export function ProfileDrawer({
             />
           </DrawerClose>
         </nav>
+        <div className="border-t border-ludo-border p-4 flex justify-between items-center gap-2">
+          <LogoutButton />
+          <DeleteAccountButton username={user.displayName!!} />
+        </div>
       </DrawerContent>
     </Drawer>
   );

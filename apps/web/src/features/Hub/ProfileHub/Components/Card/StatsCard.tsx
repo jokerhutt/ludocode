@@ -13,13 +13,15 @@ export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
     <div className="w-full flex">
       <LudoButton
         onClick={() => onClick?.()}
-        className="flex items-start px-4 py-2 h-auto gap-1 flex-col"
+        className="flex items-start px-4 py-3 h-auto gap-1.5 flex-col"
       >
         <div className="flex gap-2 items-center">
           {children}
-          {score && <p className="text-lg">{score}</p>}
+          {score !== undefined && (
+            <p className="text-xl font-semibold tabular-nums">{score}</p>
+          )}
         </div>
-        <p className="lg:text-lg">{text}</p>
+        <p className="text-sm text-ludoAltText/70">{text}</p>
       </LudoButton>
     </div>
   );

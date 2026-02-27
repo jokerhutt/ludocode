@@ -13,11 +13,14 @@ export function ProfileCardContainer({
   className,
 }: ProfileCardContainerProps) {
   return (
-    <div className={cn("w-full  flex gap-2 flex-col", className)}>
+    <div
+      className={cn(
+        "w-full flex gap-3 flex-col rounded-xl border border-white/5 bg-white/1 p-4",
+        className,
+      )}
+    >
       {header && (
-        <p
-          className={cn("text-lg text-ludoAltText font-bold")}
-        >
+        <p className="text-xs uppercase tracking-widest text-ludoAltText/70 font-semibold">
           {header}
         </p>
       )}

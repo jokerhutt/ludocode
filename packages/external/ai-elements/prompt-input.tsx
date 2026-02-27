@@ -71,7 +71,7 @@ import {
 } from "react";
 
 // ============================================================================
-// Provider Context & types
+// Provider context & types
 // ============================================================================
 
 export type AttachmentsContext = {
@@ -243,7 +243,7 @@ export function PromptInputProvider({
 }
 
 // ============================================================================
-// Component Context & hooks
+// Component context & hooks
 // ============================================================================
 
 const LocalAttachmentsContext = createContext<AttachmentsContext | null>(null);
