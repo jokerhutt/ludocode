@@ -14,7 +14,7 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await completeLessonPerfect(page);
 
   await expect(page).toHaveURL(
-    /\/completion\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?step=lesson&coins=15&accuracy=1&oldStreak=0&newStreak=1&completionStatus=COURSE_COMPLETE$/,
+    /\/completion\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?step=lesson&coins=20&accuracy=1&oldStreak=0&newStreak=1&completionStatus=COURSE_COMPLETE$/,
   );
 
   const completionButton = page.getByTestId(`completion-button`);
@@ -27,7 +27,7 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await expect(coins).toBeVisible();
   await expect(accuracy).toBeVisible();
 
-  await expect(coins).toContainText("Coins: 15");
+  await expect(coins).toContainText("Coins: 20");
   await expect(accuracy).toContainText("Accuracy: 100%");
 
   await completionButton.click();

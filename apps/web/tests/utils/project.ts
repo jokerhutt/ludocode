@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { test, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 export async function createProject(page: Page) {
   await expect(page).toHaveURL(/\/projects/);

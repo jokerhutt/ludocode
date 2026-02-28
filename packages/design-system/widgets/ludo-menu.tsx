@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@ludocode/external/ui/popover";
 import { Slot } from "@radix-ui/react-slot";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 type LudoMenuRootProps = {
   children: ReactNode;
@@ -60,6 +61,7 @@ type ItemProps = {
   onSelect?: () => void;
   disabled?: boolean;
   destructive?: boolean;
+  dataTestId?: string;
   className?: string;
   asChild?: boolean;
 };
@@ -68,6 +70,7 @@ function Item({
   children,
   onSelect,
   disabled,
+  dataTestId,
   destructive,
   className,
   asChild = false,
@@ -75,21 +78,24 @@ function Item({
   const Comp: any = asChild ? Slot : "button";
 
   return (
-    <Comp
-      type={asChild ? undefined : "button"}
-      disabled={disabled}
-      onClick={() => {
-        if (!disabled) onSelect?.();
-      }}
-      className={cn(
-        "flex w-full items-center justify-between gap-8 px-2 py-1 rounded-lg transition-colors",
-        disabled ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer",
-        destructive ? "hover:bg-red-500/10" : "hover:bg-ludo-accent-muted/50",
-        className,
-      )}
-    >
-      {children}
-    </Comp>
+    <PopoverClose asChild>
+      <Comp
+        data-testid={dataTestId}
+        type={asChild ? undefined : "button"}
+        disabled={disabled}
+        onClick={() => {
+          if (!disabled) onSelect?.();
+        }}
+        className={cn(
+          "flex w-full items-center justify-between gap-8 px-2 py-1 rounded-lg transition-colors",
+          disabled ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer",
+          destructive ? "hover:bg-red-500/10" : "hover:bg-ludo-accent-muted/50",
+          className,
+        )}
+      >
+        {children}
+      </Comp>
+    </PopoverClose>
   );
 }
 

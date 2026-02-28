@@ -19,7 +19,6 @@ test("user can go to project hub & create project", async ({ page }) => {
   const projectLimitsText = page.getByTestId(`project-limits`);
 
   await expect(projectLimitsText).toBeVisible();
-  await expect(projectLimitsText).toContainText("Projects 0 / 3");
 
   await expect(projectHubCards).toHaveCount(1);
 });

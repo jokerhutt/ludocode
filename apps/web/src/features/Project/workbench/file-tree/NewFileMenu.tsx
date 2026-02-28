@@ -27,6 +27,7 @@ export function NewFileMenu({ trigger }: NewFileMenuProps) {
         </p>
 
         <LudoMenu.Item
+          dataTestId={`new-file-button`}
           disabled={readOnly}
           onSelect={() => {
             if (readOnly) return;
