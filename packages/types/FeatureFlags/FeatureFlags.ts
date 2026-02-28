@@ -2,10 +2,11 @@ export type ActiveFeaturesResponse = {
   isAIEnabled: boolean;
   isGcsEnabled: boolean;
   isPistonEnabled: boolean;
+  paymentsEnabled: boolean;
+  stripeMode: "PROD" | "DEV_UNLIMITED" | "FREE_ONLY";
   isDemoEnabled: boolean;
   isAdminEnabled: boolean;
 };
-
 
 export type FeatureMeta = {
   env: string;
@@ -14,7 +15,6 @@ export type FeatureMeta = {
   docsUrl?: string;
   icon?: React.ReactNode;
 };
-
 
 export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
   isAIEnabled: {
@@ -35,11 +35,22 @@ export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
   isDemoEnabled: {
     env: "DEMO_ENABLED",
     title: "Demo Login",
-    description: "The Demo login process requires that the demo flag be enabled.",
+    description:
+      "The Demo login process requires that the demo flag be enabled.",
   },
   isAdminEnabled: {
     env: "SPRING_PROFILES_ACTIVE=admin",
     title: "Enable Admin to use misc.",
-    description: ""
-  }
+    description: "",
+  },
+  paymentsEnabled: {
+    env: "STRIPE_ENABLED=true",
+    title: "Enable tripe to use payments",
+    description: "",
+  },
+  stripeMode: {
+    env: "",
+    title: "",
+    description: "",
+  },
 };
