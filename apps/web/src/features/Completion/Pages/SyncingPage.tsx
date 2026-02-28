@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 import { PropagateLoader } from "react-spinners";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 
 const NO_SUBMISSION_GRACE_MS = 3_000;
 
@@ -20,6 +22,10 @@ export function SyncingPage() {
   const router = useRouter();
   const { oldStreak } = routeApi.useLoaderData();
   const submitLesson = useSubmitLesson({ oldStreak });
+  const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
+  const { data: courseProgress } = useSuspenseQuery(
+    qo.courseProgress(currentCourseId),
+  );
 
   const hasSubmittedRef = useRef(false);
   const submission = isSyncState(state) ? state.submission : null;
@@ -37,7 +43,12 @@ export function SyncingPage() {
 
     const id = setTimeout(() => {
       if (!hasSubmittedRef.current) {
-        router.navigate(ludoNavigation.courseRoot());
+        router.navigate(
+          ludoNavigation.hub.module.toModule(
+            currentCourseId,
+            courseProgress.moduleId,
+          ),
+        );
       }
     }, NO_SUBMISSION_GRACE_MS);
     return () => clearTimeout(id);
@@ -48,7 +59,12 @@ export function SyncingPage() {
 
     const id = setTimeout(() => {
       if (submitLesson.isPending) {
-        router.navigate(ludoNavigation.courseRoot());
+        router.navigate(
+          ludoNavigation.hub.module.toModule(
+            currentCourseId,
+            courseProgress.moduleId,
+          ),
+        );
       }
     }, SYNC_TIMEOUT_MS);
     return () => clearTimeout(id);
