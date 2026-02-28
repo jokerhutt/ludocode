@@ -21,25 +21,34 @@ export type CurriculumDraftModule = CurriculumDraftModules[number];
 export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
 export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
+
 // ─── Blocks ────────────────────────────────────────────────────────────
 
+const BaseClient = {
+  clientId: z.string().uuid(),
+};
+
 export const HeaderBlockSchema = z.object({
+  ...BaseClient,
   type: z.literal("header"),
   content: z.string().min(1, "Header content required"),
 });
 
 export const ParagraphBlockSchema = z.object({
+  ...BaseClient,
   type: z.literal("paragraph"),
   content: z.string().min(1, "Paragraph content required"),
 });
 
 export const CodeBlockSchema = z.object({
+  ...BaseClient,
   type: z.literal("code"),
   language: z.string().min(1, "Language required"),
   content: z.string().min(1, "Code content required"),
 });
 
 export const MediaBlockSchema = z.object({
+  ...BaseClient,
   type: z.literal("media"),
   src: z.string().min(1, "Media source required"),
   alt: z.string().nullable().optional(),

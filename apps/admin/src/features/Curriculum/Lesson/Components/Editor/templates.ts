@@ -6,7 +6,7 @@ import type {
 export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
   exerciseId: crypto.randomUUID(),
   exerciseVersion: 1,
-  blocks: [{ type: "header", content: "Untitled Exercise" }],
+  blocks: [{ clientId: crypto.randomUUID(), type: "header", content: "Untitled Exercise" }],
   interaction: null,
 });
 
@@ -15,12 +15,12 @@ type BlockType = CurriculumDraftBlock["type"];
 export const createBlockTemplate = (type: BlockType): CurriculumDraftBlock => {
   switch (type) {
     case "header":
-      return { type: "header", content: "" };
+      return { clientId: crypto.randomUUID(), type: "header", content: "" };
     case "paragraph":
-      return { type: "paragraph", content: "" };
+      return {clientId: crypto.randomUUID(), type: "paragraph", content: "" };
     case "code":
-      return { type: "code", language: "python", content: "" };
+      return {clientId: crypto.randomUUID(), type: "code", language: "python", content: "" };
     case "media":
-      return { type: "media", src: "", alt: null };
+      return {clientId: crypto.randomUUID(), type: "media", src: "", alt: null };
   }
 };

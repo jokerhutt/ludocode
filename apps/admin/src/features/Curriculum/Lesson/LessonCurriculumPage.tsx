@@ -11,7 +11,7 @@ import { useAppForm } from "../types";
 import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
 import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
 import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
-import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
+import { ExerciseDetailEditor } from "./Components/Editor/ExerciseEditor/ExerciseDetailEditor";
 import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
 import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
 

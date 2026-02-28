@@ -2,7 +2,7 @@ import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/Curriculum/types";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 import { Trash2 } from "lucide-react";
-import { ExerciseTypePill } from "./ExerciseTypePill";
+import { ExerciseTypePill } from "../ExerciseTypePill";
 import {
   CurriculumPreviewContent,
   CurriculumPreviewFooter,
@@ -10,7 +10,7 @@ import {
 } from "@/features/Curriculum/Components/CurriculumList";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 import { deriveExerciseType } from "@/features/Curriculum/Lesson/helpers";
-import { BlocksEditor, InteractionEditor } from "./fields";
+import { BlocksEditor, InteractionEditor } from "../fields";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
