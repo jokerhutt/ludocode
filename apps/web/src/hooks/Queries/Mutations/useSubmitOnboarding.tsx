@@ -11,8 +11,10 @@ export function useSubmitOnboarding() {
 
   return useMutation({
     ...mutations.submitOnboarding(),
-    onSuccess: (payload) => {
+    onSuccess: async (payload) => {
       const { refreshedUser, preferences, courseProgressResponse } = payload;
+
+      await qc.cancelQueries({ queryKey: qk.currentUser() });
 
       qc.setQueryData(qk.user(refreshedUser.id), refreshedUser);
       qc.setQueryData(qk.currentUser(), refreshedUser);
@@ -24,9 +26,11 @@ export function useSubmitOnboarding() {
       qc.setQueryData(qk.courseProgress(courseId), courseProgress);
       qc.setQueryData(qk.currentCourseId(), courseId);
 
-      onboardingDraftStore.getState().clearDraft(); // ✅ clear once, centrally
 
-      router.navigate(ludoNavigation.subscription.toSubscriptionComparisonPage());
+      await router.navigate(
+        ludoNavigation.subscription.toSubscriptionComparisonPage(),
+      );
+      onboardingDraftStore.getState().clearDraft();
     },
   });
 }

@@ -28,7 +28,7 @@ export type UseOnboardingFlowReturn = {
 export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   const nav = useNavigate();
   const submitOnboardingMutation = useSubmitOnboarding();
-  const { draft, clearDraft } = useOnboardingDraftStore();
+  const { draft } = useOnboardingDraftStore();
 
   const idx = stepOrder.indexOf(stage);
   const atFirst = idx <= 0;
@@ -65,7 +65,6 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   }, [
     atLast,
     canAdvance,
-    clearDraft,
     draft,
     goto,
     idx,
