@@ -14,6 +14,14 @@ import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEdit
 import { ExerciseDetailEditor } from "./Components/Editor/ExerciseEditor/ExerciseDetailEditor";
 import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
 import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
+import { Bell } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@ludocode/external/ui/dialog";
 
 type LessonCurriculumPageProps = {};
 
@@ -122,18 +130,39 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
               <>
                 <form.Subscribe
                   selector={(state) => state.errorMap.onSubmit}
-                  children={(onSubmitError) =>
-                    onSubmitError ? (
-                      <div className="bg-red-900/40 border border-red-500 rounded-lg p-3 text-red-300 text-sm">
-                        <p className="font-bold mb-1">Validation errors:</p>
-                        <pre className="whitespace-pre-wrap text-xs">
-                          {typeof onSubmitError === "string"
-                            ? onSubmitError
-                            : JSON.stringify(onSubmitError, null, 2)}
-                        </pre>
-                      </div>
-                    ) : null
-                  }
+                  children={(onSubmitError) => (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className={`relative p-1.5 rounded transition-colors ${
+                            onSubmitError
+                              ? "text-red-400 bg-red-400/10 hover:cursor-pointer"
+                              : "text-ludoAltText/30 cursor-default"
+                          }`}
+                        >
+                          <Bell size={18} />
+                          {onSubmitError && (
+                            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-ludo-background" />
+                          )}
+                        </button>
+                      </DialogTrigger>
+                      {onSubmitError && (
+                        <DialogContent className="bg-ludo-surface border-ludo-border">
+                          <DialogHeader>
+                            <DialogTitle className="text-red-400">
+                              Validation errors
+                            </DialogTitle>
+                          </DialogHeader>
+                          <pre className="whitespace-pre-wrap text-xs text-red-300 max-h-80 overflow-y-auto">
+                            {typeof onSubmitError === "string"
+                              ? onSubmitError
+                              : JSON.stringify(onSubmitError, null, 2)}
+                          </pre>
+                        </DialogContent>
+                      )}
+                    </Dialog>
+                  )}
                 />
                 <div className="flex gap-4 min-h-0 w-full flex-1">
                   <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
