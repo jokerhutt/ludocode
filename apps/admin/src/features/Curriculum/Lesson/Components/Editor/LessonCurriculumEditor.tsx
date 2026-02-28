@@ -43,7 +43,7 @@ export const LessonCurriculumEditor = withForm({
           />
         </CurriculumPreviewHeader>
 
-        <CurriculumPreviewContent className="p-0 bg-ludo-surface">
+        <CurriculumPreviewContent className="p-0 bg-ludo-background">
           <SortableExerciseContainer
             form={form}
             selectedExerciseId={selectedExerciseId}

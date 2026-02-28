@@ -44,7 +44,7 @@ export function LessonCurriculumPreview({
           <p className="text-sm">Edit Exercises</p>
         </LudoButton>
       </CurriculumPreviewHeader>
-      <CurriculumPreviewContent className="gap-4">
+      <CurriculumPreviewContent  className="gap-4 bg-ludo-background">
         {exercises.map((exercise) => (
           <div key={exercise.exerciseId} className="flex items-center gap-2">
             <ExercisePreviewItem

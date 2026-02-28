@@ -21,10 +21,7 @@ export function ExerciseDetailPreview({
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumPreviewHeader>
-        <p className="text-white font-bold">{title}</p>
-        <ShadowLessButton>
-          <p className="text-sm">Preview</p>
-        </ShadowLessButton>
+        <p className="text-white w-full text-center font-bold">{title}</p>
       </CurriculumPreviewHeader>
 
       <CurriculumPreviewContent className="bg-ludo-background">
