@@ -1,4 +1,4 @@
-import { LessonCurriculumPage } from '@/features/Curriculum/Lesson/LessonCurriculumPage'
+import { LessonCurriculumPage } from '@/features/Lesson/LessonCurriculumPage.tsx'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

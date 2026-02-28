@@ -1,5 +1,5 @@
 import type { ExerciseType } from "@ludocode/types";
-import { cn } from "@ludocode/design-system/cn-utils";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 const config: Record<ExerciseType, { label: string; className: string }> = {
   INFO: {

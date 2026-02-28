@@ -1,13 +1,9 @@
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
 import { CreateSubjectDialog } from "../Components/Dialog/CreateSubjectDialog";
 import { useState } from "react";
+import { CurriculumCardContent, CurriculumCardFooter, CurriculumCardHeader } from "@/features/Curriculum/Components/CurriculumList";
 
 type SubjectsPaneProps = {
   subjects: SubjectsDraftSnapshot[];
@@ -24,7 +20,7 @@ export function SubjectsPane({
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumPreviewHeader>
+      <CurriculumCardHeader>
         <p className="font-bold">Subjects</p>
 
         <CreateSubjectDialog
@@ -38,9 +34,9 @@ export function SubjectsPane({
             <p className="text-sm">Add Subject</p>
           </ShadowLessButton>
         </CreateSubjectDialog>
-      </CurriculumPreviewHeader>
+      </CurriculumCardHeader>
 
-      <CurriculumPreviewContent className="gap-2">
+      <CurriculumCardContent className="gap-2">
         {subjects.map((s) => (
           <div
             key={s.id}
@@ -54,11 +50,11 @@ export function SubjectsPane({
             <p className="text-xs text-ludo-accent-muted">/{s.slug}</p>
           </div>
         ))}
-      </CurriculumPreviewContent>
+      </CurriculumCardContent>
 
-      <CurriculumPreviewFooter>
+      <CurriculumCardFooter>
         <p className="text-xs">{subjects.length} subjects</p>
-      </CurriculumPreviewFooter>
+      </CurriculumCardFooter>
     </div>
   );
 }

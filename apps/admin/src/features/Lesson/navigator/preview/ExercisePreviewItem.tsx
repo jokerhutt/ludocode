@@ -1,4 +1,4 @@
-import { cn } from "@ludocode/design-system/cn-utils";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 type ExercisePreviewItemProps = {
   title: string;

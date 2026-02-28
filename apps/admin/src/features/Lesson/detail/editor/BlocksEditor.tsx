@@ -2,10 +2,10 @@ import type {
   CurriculumDraftBlock,
   CurriculumDraftLessonForm,
 } from "@ludocode/types";
-import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { Textarea } from "@ludocode/external/ui/textarea";
+import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import { X, ChevronUp, ChevronDown } from "lucide-react";
-import { withForm } from "@/features/Curriculum/types";
+import { withForm } from "@/features/Curriculum/types.ts";
 
 import {
   Select,
@@ -13,8 +13,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@ludocode/external/ui/select";
-import { createBlockTemplate } from "../templates";
+} from "@ludocode/external/ui/select.tsx";
+import { createBlockTemplate } from "./templates.ts";
 
 type BlockType = CurriculumDraftBlock["type"];
 const BLOCK_TYPES: { value: BlockType; label: string }[] = [

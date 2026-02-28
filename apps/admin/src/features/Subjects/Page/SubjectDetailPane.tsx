@@ -1,8 +1,4 @@
-import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
+
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import type { LudoCourse } from "@ludocode/types";
@@ -16,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ludocode/external/ui/tooltip";
+import { CurriculumCardContent, CurriculumCardFooter, CurriculumCardHeader } from "@/features/Curriculum/Components/CurriculumList";
 
 type SubjectDetailPaneProps = {
   courses: LudoCourse[];
@@ -50,7 +47,7 @@ export function SubjectDetailPane({
 
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumPreviewHeader>
+      <CurriculumCardHeader>
         <p className="text-white font-bold">Subject</p>
 
         <div className="flex gap-3 items-center">
@@ -67,9 +64,9 @@ export function SubjectDetailPane({
             <X onClick={() => onClose()} className="h-4 hover:cursor-pointer" />
           )}
         </div>
-      </CurriculumPreviewHeader>
+      </CurriculumCardHeader>
 
-      <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
+      <CurriculumCardContent className="bg-ludo-background p-6 gap-6">
         {/* TOP ROW */}
         <div className="flex gap-8 items-start">
           {!isEditing ? (
@@ -156,9 +153,9 @@ export function SubjectDetailPane({
             </div>
           ))}
         </div>
-      </CurriculumPreviewContent>
+      </CurriculumCardContent>
 
-      <CurriculumPreviewFooter>
+      <CurriculumCardFooter>
         <p className="text-xs">
           Attached to {coursesForSubject.length} course
           {coursesForSubject.length === 1 ? "" : "s"}
@@ -188,7 +185,7 @@ export function SubjectDetailPane({
             )}
           </Tooltip>
         </TooltipProvider>
-      </CurriculumPreviewFooter>
+      </CurriculumCardFooter>
     </div>
   );
 }

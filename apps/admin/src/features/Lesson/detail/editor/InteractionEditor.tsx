@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, useCallback } from "react";
 import type { CurriculumDraftInteraction } from "@ludocode/types";
-import { LudoInput } from "@ludocode/design-system/primitives/input";
-import { Textarea } from "@ludocode/external/ui/textarea";
+import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { X } from "lucide-react";
 import {
@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@ludocode/external/ui/select";
+} from "@ludocode/external/ui/select.tsx";
 
 type InteractionEditorProps = {
   form: any;

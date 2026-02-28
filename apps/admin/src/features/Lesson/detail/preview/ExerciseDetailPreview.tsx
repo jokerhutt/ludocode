@@ -1,14 +1,14 @@
 import type { CurriculumDraftLessonExercise } from "@ludocode/types";
 
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
-import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
-import { ExerciseInteraction } from "./Exercise/ExerciseInteraction";
-import { getExerciseTitle } from "@/features/Curriculum/Lesson/helpers";
+import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
+import { ExerciseInteraction } from "./ExerciseInteraction.tsx";
+import { getExerciseTitle } from "@/features/Lesson/helpers.ts";
 import {
   CurriculumCardContent,
   CurriculumCardFooter,
   CurriculumCardHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
 
 type ExerciseDetailPreviewProps = {
   exercise: CurriculumDraftLessonExercise;

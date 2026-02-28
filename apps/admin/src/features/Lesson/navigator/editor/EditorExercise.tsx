@@ -2,16 +2,16 @@ import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonForm,
 } from "@ludocode/types";
-import { withForm } from "@/features/Curriculum/types";
+import { withForm } from "@/features/Curriculum/types.ts";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
-import { ExerciseTypePill } from "./ExerciseTypePill";
+import { ExerciseTypePill } from "../../detail/ExerciseTypePill.tsx";
 import {
   getExerciseTitle,
   deriveExerciseType,
-} from "@/features/Curriculum/Lesson/helpers";
-import { cn } from "@ludocode/design-system/cn-utils";
+} from "@/features/Lesson/helpers.ts";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 export const EditorExercise = withForm({
   defaultValues: {

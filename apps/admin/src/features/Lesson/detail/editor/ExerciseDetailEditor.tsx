@@ -1,16 +1,17 @@
 import type { CurriculumDraftLessonForm } from "@ludocode/types";
-import { withForm } from "@/features/Curriculum/types";
-import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
+import { withForm } from "@/features/Curriculum/types.ts";
+import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon.tsx";
 import { Trash2 } from "lucide-react";
-import { ExerciseTypePill } from "../ExerciseTypePill";
+import { ExerciseTypePill } from "../ExerciseTypePill.tsx";
 import {
   CurriculumCardContent,
   CurriculumCardFooter,
   CurriculumCardHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
-import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
-import { deriveExerciseType } from "@/features/Curriculum/Lesson/helpers";
-import { BlocksEditor, InteractionEditor } from "../fields";
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
+import { deriveExerciseType } from "@/features/Lesson/helpers.ts";
+import { InteractionEditor } from "./InteractionEditor.tsx";
+import { BlocksEditor } from "./BlocksEditor.tsx";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {

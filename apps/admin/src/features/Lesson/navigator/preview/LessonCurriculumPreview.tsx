@@ -1,11 +1,11 @@
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import {
   CurriculumCardContent,
   CurriculumCardFooter,
   CurriculumCardHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
-import { ExercisePreviewItem } from "./ExercisePreviewItem";
-import { ExerciseTypePill } from "../Editor/ExerciseTypePill";
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
+import { ExercisePreviewItem } from "./ExercisePreviewItem.tsx";
+import { ExerciseTypePill } from "../../detail/ExerciseTypePill.tsx";
 import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonExercises,
@@ -13,7 +13,7 @@ import type {
 import {
   getExerciseTitle,
   deriveExerciseType,
-} from "@/features/Curriculum/Lesson/helpers";
+} from "@/features/Lesson/helpers.ts";
 
 type LessonCurriculumPreviewProps = {
   exercises: CurriculumDraftLessonExercises;

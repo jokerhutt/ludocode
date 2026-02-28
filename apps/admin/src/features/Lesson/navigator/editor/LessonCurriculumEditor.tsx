@@ -1,15 +1,15 @@
 import type { CurriculumDraftLessonForm } from "@ludocode/types";
-import { withForm } from "@/features/Curriculum/types";
-import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions";
-import { SortableExerciseContainer } from "./SortableExerciseContainer";
-import { createNewExerciseTemplate } from "./templates";
+import { withForm } from "@/features/Curriculum/types.ts";
+import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions.tsx";
+import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
+import { createNewExerciseTemplate } from "../../detail/editor/templates.ts";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import {
   CurriculumCard,
   CurriculumCardContent,
   CurriculumCardFooter,
   CurriculumCardHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
 
 export const LessonCurriculumEditor = withForm({
   defaultValues: {

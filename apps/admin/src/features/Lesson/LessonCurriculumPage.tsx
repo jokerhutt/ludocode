@@ -1,19 +1,19 @@
 import { getRouteApi } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import {
   CurriculumDraftLessonSchema,
   type CurriculumDraftLessonExercise,
   type CurriculumDraftLessonForm,
 } from "@ludocode/types";
 import { useState } from "react";
-import { useAppForm } from "../types";
-import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
-import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
-import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
-import { ExerciseDetailEditor } from "./Components/Editor/ExerciseEditor/ExerciseDetailEditor";
-import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
-import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
+import { useAppForm } from "../Curriculum/types.ts";
+import { LessonCurriculumPreview } from "@/features/Lesson/navigator/preview/LessonCurriculumPreview.tsx";
+import { ExerciseDetailPreview } from "@/features/Lesson/detail/preview/ExerciseDetailPreview.tsx";
+import { LessonCurriculumEditor } from "@/features/Lesson/navigator/editor/LessonCurriculumEditor.tsx";
+import { ExerciseDetailEditor } from "@/features/Lesson/detail/editor/ExerciseDetailEditor.tsx";
+import { CurriculumBreadcrumbs } from "../Curriculum/Components/CurriculumBreadcrumbs.tsx";
+import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson.tsx";
 import { Bell } from "lucide-react";
 import {
   Dialog,
@@ -21,7 +21,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@ludocode/external/ui/dialog";
+} from "@ludocode/external/ui/dialog.tsx";
 
 type LessonCurriculumPageProps = {};
 

@@ -9,8 +9,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { withForm } from "@/features/Curriculum/types";
-import { EditorExercise } from "./EditorExercise";
+import { withForm } from "@/features/Curriculum/types.ts";
+import { EditorExercise } from "../../navigator/editor/EditorExercise.tsx";
 
 export const SortableExerciseContainer = withForm({
   defaultValues: {
