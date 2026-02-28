@@ -8,6 +8,7 @@ type ModulePreviewItemProps = {
   title: string;
   lessons: CurriculumDraftLessons;
   onLessonClick: (lesson: CurriculumDraftLesson) => void;
+  onLessonNavigate?: (lesson: CurriculumDraftLesson) => void;
   selectedLesson: CurriculumDraftLesson | null;
 };
 
@@ -15,6 +16,7 @@ export function ModulePreviewItem({
   title,
   lessons,
   onLessonClick,
+  onLessonNavigate,
   selectedLesson,
 }: ModulePreviewItemProps) {
   return (
@@ -23,8 +25,12 @@ export function ModulePreviewItem({
       <div className="w-full flex flex-col gap-2 p-4">
         {lessons.map((lesson) => (
           <LessonPreviewItem
+            key={lesson.id}
             isSelected={selectedLesson?.id == lesson.id}
             onClick={() => onLessonClick(lesson)}
+            onNavigate={
+              onLessonNavigate ? () => onLessonNavigate(lesson) : undefined
+            }
             title={lesson.title}
           />
         ))}

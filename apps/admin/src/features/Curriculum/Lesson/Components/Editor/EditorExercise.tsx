@@ -6,12 +6,12 @@ import { withForm } from "@/features/Curriculum/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
-import { ExercisePreviewItem } from "../Preview/ExercisePreviewItem";
 import { ExerciseTypePill } from "./ExerciseTypePill";
 import {
   getExerciseTitle,
   deriveExerciseType,
 } from "@/features/Curriculum/Lesson/helpers";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 export const EditorExercise = withForm({
   defaultValues: {
@@ -52,19 +52,19 @@ export const EditorExercise = withForm({
       <div
         ref={setNodeRef}
         style={style}
-        className="w-full flex items-center gap-2"
+        onClick={onSelect}
+        className={cn(
+          "w-full flex items-center gap-2 bg-ludo-background rounded-sm px-3 h-10 hover:cursor-pointer",
+          isSelected && "border-2 border-ludo-accent",
+        )}
       >
         <Grip
-          className="h-5 w-5 text-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          className="h-4 w-4 shrink-0 text-ludoAltText focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
 
-        <ExercisePreviewItem
-          title={title}
-          isSelected={isSelected}
-          onClick={onSelect}
-        />
+        <p className="text-sm text-ludoAltText flex-1 truncate">{title}</p>
 
         <ExerciseTypePill type={exerciseType} />
       </div>

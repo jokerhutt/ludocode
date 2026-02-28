@@ -23,11 +23,10 @@ export const SortableExerciseContainer = withForm({
   render: function Render({ form, selectedExerciseId, onSelectExercise }) {
     return (
       <form.Subscribe
-        selector={(state) => state.values.exercises} // ← subscribe to fresh exercises array
+        selector={(state) => state.values.exercises}
         children={(exercises) => (
           <form.Field name="exercises" mode="array">
             {(exercisesField) => {
-              // No need for exercisesField.state.value anymore — use the subscribed exercises
               const handleDragEnd = (event: DragEndEvent) => {
                 const { active, over } = event;
                 if (!over || active.id === over.id) return;
@@ -50,7 +49,7 @@ export const SortableExerciseContainer = withForm({
                   onDragEnd={handleDragEnd}
                   collisionDetection={closestCenter}
                 >
-                  <div className="flex flex-col gap-4 p-4 w-full h-full">
+                  <div className="flex flex-col gap-2 p-4">
                     <SortableContext
                       items={exercises.map((e) => e.exerciseId)}
                       strategy={verticalListSortingStrategy}

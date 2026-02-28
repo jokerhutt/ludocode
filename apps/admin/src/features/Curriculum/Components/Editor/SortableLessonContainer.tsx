@@ -11,8 +11,8 @@ import {
 } from "@dnd-kit/sortable";
 import { withForm } from "../../types";
 import { EditorLesson } from "./EditorLesson";
-import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { createNewLessonTemplate } from "./templates";
+import { AddCurriculumItemButton } from "./AddModuleButton";
 
 export const SortableLessonContainer = withForm({
   defaultValues: {
@@ -41,7 +41,7 @@ export const SortableLessonContainer = withForm({
           };
 
           return (
-            <>
+            <div className="flex flex-col gap-2 p-4">
               <DndContext
                 autoScroll={false}
                 measuring={{
@@ -50,11 +50,11 @@ export const SortableLessonContainer = withForm({
                 onDragEnd={handleDragEnd}
                 collisionDetection={closestCenter}
               >
-                <div className="flex flex-col gap-4 p-4 w-full h-full">
-                  <SortableContext
-                    items={lessons.map((l) => l.id)}
-                    strategy={verticalListSortingStrategy}
-                  >
+                <SortableContext
+                  items={lessons.map((l) => l.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="flex flex-col gap-2">
                     {lessons.map((lesson, lessonIndex) => (
                       <EditorLesson
                         key={lesson.id}
@@ -66,22 +66,15 @@ export const SortableLessonContainer = withForm({
                         canDelete={lessons.length > 1}
                       />
                     ))}
-                  </SortableContext>
-                </div>
+                  </div>
+                </SortableContext>
               </DndContext>
 
-              <div className="w-full flex justify-end pr-4 items-center gap-4">
-                <ShadowLessButton
-                  type="button"
-                  variant="white"
-                  onClick={() =>
-                    lessonsField.pushValue(createNewLessonTemplate())
-                  }
-                >
-                  Add Lesson
-                </ShadowLessButton>
-              </div>
-            </>
+              <AddCurriculumItemButton
+                text="Add Lesson"
+                onAdd={() => lessonsField.pushValue(createNewLessonTemplate())}
+              />
+            </div>
           );
         }}
       </form.Field>

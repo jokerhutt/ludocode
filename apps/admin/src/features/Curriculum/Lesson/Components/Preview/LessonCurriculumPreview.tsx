@@ -1,8 +1,8 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { ExercisePreviewItem } from "./ExercisePreviewItem";
 import { ExerciseTypePill } from "../Editor/ExerciseTypePill";
@@ -32,7 +32,7 @@ export function LessonCurriculumPreview({
 }: LessonCurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumPreviewHeader>
+      <CurriculumCardHeader>
         <p className="text-white font-bold">Exercises Preview</p>
         <LudoButton
           className="w-auto h-auto px-4 py-1 rounded-sm"
@@ -43,8 +43,8 @@ export function LessonCurriculumPreview({
         >
           <p className="text-sm">Edit Exercises</p>
         </LudoButton>
-      </CurriculumPreviewHeader>
-      <CurriculumPreviewContent  className="gap-4 bg-ludo-background">
+      </CurriculumCardHeader>
+      <CurriculumCardContent  className="gap-4 bg-ludo-background">
         {exercises.map((exercise) => (
           <div key={exercise.exerciseId} className="flex items-center gap-2">
             <ExercisePreviewItem
@@ -55,10 +55,10 @@ export function LessonCurriculumPreview({
             <ExerciseTypePill type={deriveExerciseType(exercise)} />
           </div>
         ))}
-      </CurriculumPreviewContent>
-      <CurriculumPreviewFooter>
+      </CurriculumCardContent>
+      <CurriculumCardFooter>
         <p className="text-xs">{exercises.length} exercises</p>
-      </CurriculumPreviewFooter>
+      </CurriculumCardFooter>
     </div>
   );
 }

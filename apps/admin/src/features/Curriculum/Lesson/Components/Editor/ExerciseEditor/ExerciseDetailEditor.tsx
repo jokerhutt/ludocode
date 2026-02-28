@@ -4,9 +4,9 @@ import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 import { Trash2 } from "lucide-react";
 import { ExerciseTypePill } from "../ExerciseTypePill";
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 import { deriveExerciseType } from "@/features/Curriculum/Lesson/helpers";
@@ -31,7 +31,7 @@ export const ExerciseDetailEditor = withForm({
 
           return (
             <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-              <CurriculumPreviewHeader>
+              <CurriculumCardHeader>
                 <div className="flex items-center gap-3">
                   <p className="text-white font-bold">
                     Exercise {exerciseIndex + 1}
@@ -59,9 +59,9 @@ export const ExerciseDetailEditor = withForm({
                     )}
                   </div>
                 )}
-              </CurriculumPreviewHeader>
+              </CurriculumCardHeader>
 
-              <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
+              <CurriculumCardContent className="bg-ludo-background p-6 gap-6">
                 {/* ─── Blocks ─────────────────────────────────────────── */}
                 <BlocksEditor form={form} exerciseIndex={exerciseIndex} />
 
@@ -70,9 +70,9 @@ export const ExerciseDetailEditor = withForm({
 
                 {/* ─── Interaction ────────────────────────────────────── */}
                 <InteractionEditor form={form} exerciseIndex={exerciseIndex} />
-              </CurriculumPreviewContent>
+              </CurriculumCardContent>
 
-              <CurriculumPreviewFooter>
+              <CurriculumCardFooter>
                 <p className="text-xs">
                   {exercise.blocks.length}{" "}
                   {exercise.blocks.length === 1 ? "block" : "blocks"}
@@ -80,7 +80,7 @@ export const ExerciseDetailEditor = withForm({
                     ? ` · ${exercise.interaction.type} interaction`
                     : " · No interaction"}
                 </p>
-              </CurriculumPreviewFooter>
+              </CurriculumCardFooter>
             </div>
           );
         }}

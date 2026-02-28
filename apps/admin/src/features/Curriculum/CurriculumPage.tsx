@@ -14,6 +14,8 @@ import { CurriculumPreview } from "./Components/Preview/CurriculumPreview";
 import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
 import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 import { CurriculumBreadcrumbs } from "./Components/CurriculumBreadcrumbs";
+import { router } from "@/main";
+import { adminNavigation } from "@/constants/adminNavigation";
 
 type CurriculumPageProps = {};
 
@@ -29,11 +31,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseName =
     courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
 
-  const courseSubject =
-    courses.find((c) => c.id === courseId)?.subject;
+  const courseSubject = courses.find((c) => c.id === courseId)?.subject;
 
-  const courseLanguage = 
-    courses.find((c) => c.id == courseId)?.language
+  const courseLanguage = courses.find((c) => c.id == courseId)?.language;
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -81,6 +81,10 @@ export function CurriculumPage({}: CurriculumPageProps) {
     setIsEditing(false);
   };
 
+  const navigateToLesson = (lesson: CurriculumDraftLesson) => {
+    router.navigate(adminNavigation.curriculum.toLesson(courseId, lesson.id));
+  };
+
   return (
     <div className="col-span-10 min-h-0 w-full h-full flex flex-col gap-8 items-stretch justify-start min-w-0">
       <form
@@ -98,7 +102,11 @@ export function CurriculumPage({}: CurriculumPageProps) {
               courseName={courseName}
             />
             <h1 className="text-white text-3xl font-bold">{courseName}</h1>
-            <CurriculumHero courseLanguage={courseLanguage} courseId={courseId} courseSubject={courseSubject} />
+            <CurriculumHero
+              courseLanguage={courseLanguage}
+              courseId={courseId}
+              courseSubject={courseSubject}
+            />
           </div>
         </div>
 
@@ -111,6 +119,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                   <CurriculumPreview
                     selectedLesson={selectedLesson}
                     onLessonClick={setSelectedLesson}
+                    onLessonNavigate={navigateToLesson}
                     modules={form.state.values.modules}
                     onEditClick={handleSaveOrEdit}
                   />

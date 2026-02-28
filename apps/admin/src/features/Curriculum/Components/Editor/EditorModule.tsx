@@ -1,6 +1,5 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import type { CurriculumDraft } from "@ludocode/types";
-import { Trash2 } from "lucide-react";
 import { withForm } from "../../types";
 
 import { ModuleOrderActions } from "./ModuleOrderActions";
@@ -30,34 +29,33 @@ export const EditorModule = withForm({
     const modules = form.state.values.modules;
 
     return (
-      <div className="flex rounded-lg text-white border-3 p-4 gap-6 border-dashed border-ludo-accent h-full w-full">
-        <ModuleOrderActions
-          moduleIndex={moduleIndex}
-          totalModules={modules.length}
-          onMoveUp={onMoveUp}
-          onMoveDown={onMoveDown}
-        />
-        <div className="flex flex-col w-full h-full">
-          <div className="w-full flex items-center gap-4">
-            <form.Field
-              name={`modules[${moduleIndex}].title`}
-              children={(field) => (
-                <LudoInput
-                  setValue={(value) => field.handleChange(value)}
-                  value={String(field.state.value)}
-                />
-              )}
-            />
-            {onDelete && (
-              <LudoTrashIcon
-                onClick={canDelete ? onDelete : undefined}
-                disabled={!canDelete}
+      <div className="flex rounded-lg text-white border-3 border-ludo-border w-full flex-col">
+        <div className="flex items-center gap-3 border-b-3 border-b-ludo-border px-4 py-2 h-14">
+          <ModuleOrderActions
+            moduleIndex={moduleIndex}
+            totalModules={modules.length}
+            onMoveUp={onMoveUp}
+            onMoveDown={onMoveDown}
+          />
+          <form.Field
+            name={`modules[${moduleIndex}].title`}
+            children={(field) => (
+              <LudoInput
+                className="flex-1 h-8"
+                setValue={(value) => field.handleChange(value)}
+                value={String(field.state.value)}
               />
             )}
-          </div>
-
-          <SortableLessonContainer form={form} moduleIndex={moduleIndex} />
+          />
+          {onDelete && (
+            <LudoTrashIcon
+              onClick={canDelete ? onDelete : undefined}
+              disabled={!canDelete}
+            />
+          )}
         </div>
+
+        <SortableLessonContainer form={form} moduleIndex={moduleIndex} />
       </div>
     );
   },

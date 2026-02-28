@@ -48,10 +48,10 @@ export const EditorLesson = withForm({
       <div
         ref={setNodeRef}
         style={style}
-        className="w-full flex items-center gap-2"
+        className="w-full flex items-center gap-2 bg-ludo-background rounded-sm px-3 h-10"
       >
         <Grip
-          className="h-5 w-5 focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          className="h-4 w-4 shrink-0 text-ludoAltText focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
@@ -61,7 +61,7 @@ export const EditorLesson = withForm({
           name={`modules[${moduleIndex}].lessons[${lessonIndex}].title`}
           children={(field) => (
             <LudoInput
-              className="h-10 flex-1"
+              className="h-8 flex-1 border-none bg-ludo-surface/50"
               value={String(field.state.value)}
               setValue={(value) => field.handleChange(value)}
             />

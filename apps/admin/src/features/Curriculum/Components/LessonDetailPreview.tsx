@@ -1,46 +1,43 @@
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
+  CurriculumCard,
+  CurriculumCardContent,
+  CurriculumCardHeader,
 } from "./CurriculumList";
 import type { CurriculumDraftLesson } from "@ludocode/types";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
+import { FileText } from "lucide-react";
 
 type LessonDetailPreviewProps = {
   lesson: CurriculumDraftLesson;
   courseId: string;
 };
 
-export function LessonDetailPreview({ lesson, courseId }: LessonDetailPreviewProps) {
+export function LessonDetailPreview({
+  lesson,
+  courseId,
+}: LessonDetailPreviewProps) {
   const { title } = lesson;
 
+  const navigateToLesson = () =>
+    router.navigate(adminNavigation.curriculum.toLesson(courseId, lesson.id));
+
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border max-h-1/2 flex-col w-full">
-      <CurriculumPreviewHeader>
+    <CurriculumCard className="">
+      <CurriculumCardHeader>
         <p className="text-white font-bold">{title}</p>
-        <ShadowLessButton
-          onClick={() =>
-            router.navigate(
-              adminNavigation.curriculum.toLesson(courseId, lesson.id),
-            )
-          }
-        >
-          <p className="text-sm">Edit Exercises</p>
-        </ShadowLessButton>
-      </CurriculumPreviewHeader>
+      </CurriculumCardHeader>
 
-      <CurriculumPreviewContent>
-        <div className="h-200"></div>
-      </CurriculumPreviewContent>
-
-      <CurriculumPreviewFooter>
-        <p className="text-xs">Last Modified: 6th of January at 18:32</p>
-        <ShadowLessButton variant="white">
-          <p className="text-sm">Cheatsheet</p>
+      <CurriculumCardContent className="items-center bg-ludo-background justify-center gap-4">
+        <FileText className="h-10 w-10 text-ludoAltText" />
+        <p className="text-ludoAltText text-sm text-center">
+          View and edit this lesson's exercises
+        </p>
+        <ShadowLessButton variant="alt" onClick={navigateToLesson}>
+          Edit Exercises
         </ShadowLessButton>
-      </CurriculumPreviewFooter>
-    </div>
+      </CurriculumCardContent>
+    </CurriculumCard>
   );
 }

@@ -5,9 +5,10 @@ import { SortableExerciseContainer } from "./SortableExerciseContainer";
 import { createNewExerciseTemplate } from "./templates";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
+  CurriculumCard,
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 
 export const LessonCurriculumEditor = withForm({
@@ -32,8 +33,8 @@ export const LessonCurriculumEditor = withForm({
     onSelectExercise,
   }) {
     return (
-      <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-        <CurriculumPreviewHeader>
+      <CurriculumCard>
+        <CurriculumCardHeader>
           <p className="text-white font-bold">Editing Exercises</p>
           <EditorActions
             onSave={onSave}
@@ -41,17 +42,17 @@ export const LessonCurriculumEditor = withForm({
             canSubmit={canSubmit}
             isSubmitting={isSubmitting}
           />
-        </CurriculumPreviewHeader>
+        </CurriculumCardHeader>
 
-        <CurriculumPreviewContent className="p-0 bg-ludo-background">
+        <CurriculumCardContent className="p-0 bg-ludo-background">
           <SortableExerciseContainer
             form={form}
             selectedExerciseId={selectedExerciseId}
             onSelectExercise={onSelectExercise}
           />
-        </CurriculumPreviewContent>
+        </CurriculumCardContent>
 
-        <CurriculumPreviewFooter>
+        <CurriculumCardFooter>
           <form.Field name="exercises" mode="array">
             {(exercisesField) => (
               <div className="flex justify-between w-full items-center">
@@ -69,8 +70,8 @@ export const LessonCurriculumEditor = withForm({
               </div>
             )}
           </form.Field>
-        </CurriculumPreviewFooter>
-      </div>
+        </CurriculumCardFooter>
+      </CurriculumCard>
     );
   },
 });

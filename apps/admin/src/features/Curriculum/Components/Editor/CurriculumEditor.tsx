@@ -4,6 +4,11 @@ import { withForm } from "../../types";
 import { EditorActions } from "./EditorActions";
 import { AddCurriculumItemButton } from "./AddModuleButton";
 import { createNewModuleTemplate } from "./templates";
+import {
+  CurriculumCard,
+  CurriculumCardContent,
+  CurriculumCardHeader,
+} from "../CurriculumList";
 
 export const CurriculumEditor = withForm({
   defaultValues: {
@@ -17,22 +22,23 @@ export const CurriculumEditor = withForm({
   },
   render: function Render({ form, onSave, onCancel, canSubmit, isSubmitting }) {
     return (
-      <div className="w-full h-full min-h-0 flex flex-col">
-        <div className="w-full text-white flex justify-between pb-4 border-b border-b-ludo-accent">
-          <p>Editing Curriculum</p>
+      <CurriculumCard>
+        <CurriculumCardHeader>
+          <p className="text-white font-bold">Editing Curriculum</p>
           <EditorActions
             onSave={onSave}
             onCancel={onCancel}
             canSubmit={canSubmit}
             isSubmitting={isSubmitting}
           />
-        </div>
-        <div className="overflow-y-auto scrollbar-ludo-accent py-2 pr-2 h-full w-full min-h-0">
+        </CurriculumCardHeader>
+
+        <CurriculumCardContent className="bg-ludo-background gap-4">
           <form.Field name="modules" mode="array">
             {(modulesField) => (
               <>
-                {modulesField.state.value.map((module, moduleIndex) => (
-                  <div key={moduleIndex} className="flex flex-col pb-4 gap-4">
+                {modulesField.state.value.map((_module, moduleIndex) => (
+                  <div key={moduleIndex} className="flex flex-col gap-4">
                     <EditorModule
                       onSave={onSave}
                       form={form}
@@ -61,8 +67,8 @@ export const CurriculumEditor = withForm({
               </>
             )}
           </form.Field>
-        </div>
-      </div>
+        </CurriculumCardContent>
+      </CurriculumCard>
     );
   },
 });
