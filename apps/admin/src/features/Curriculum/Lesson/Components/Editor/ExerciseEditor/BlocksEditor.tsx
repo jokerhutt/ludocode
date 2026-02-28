@@ -38,12 +38,6 @@ const blockTypeColor: Record<BlockType, string> = {
   media: "text-purple-400",
 };
 
-// ─── BlocksEditor ──────────────────────────────────────────────────────
-// Mirrors the CurriculumEditor → EditorModule pattern:
-//   • form.Field mode="array" for the blocks list
-//   • swapValues / removeValue / pushValue on the field handle
-//   • stable key={block.clientId}
-
 export const BlocksEditor = withForm({
   defaultValues: {
     exercises: [] as CurriculumDraftLessonForm["exercises"],
@@ -141,9 +135,9 @@ export const BlocksEditor = withForm({
                 <SelectTrigger>
                   <SelectValue placeholder="+ Add Block" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-ludo-surface">
                   {BLOCK_TYPES.map((bt) => (
-                    <SelectItem key={bt.value} value={bt.value}>
+                    <SelectItem className={`${blockTypeColor[bt.value]}`} key={bt.value} value={bt.value}>
                       {bt.label}
                     </SelectItem>
                   ))}
@@ -156,10 +150,6 @@ export const BlocksEditor = withForm({
     );
   },
 });
-
-// ─── EditorBlock ───────────────────────────────────────────────────────
-// Mirrors EditorLesson / EditorModule: uses form.Field for each leaf field
-// so TanStack Form tracks and re-renders correctly.
 
 const EditorBlock = withForm({
   defaultValues: {
