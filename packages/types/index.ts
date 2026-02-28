@@ -25,7 +25,6 @@ export * from "./Curriculum/ChangeSubjectRequest"
 export * from "./Curriculum/CreateCourseSchema"
 
 // Exercise
-export * from "./Exercise/AnswerToken";
 export * from "./Exercise/ExerciseType";
 export * from "./Exercise/LessonSubmissions";
 export * from "./Exercise/LudoExercise";
