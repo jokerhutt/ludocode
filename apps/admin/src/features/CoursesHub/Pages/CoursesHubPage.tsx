@@ -22,10 +22,6 @@ export function CoursesHubPage() {
         {/* HERO */}
         <Hero {...coursesHeroContent}>
           <div className="flex w-full justify-end gap-4">
-            <LudoButton variant="white" className="px-6">
-              Instructions
-            </LudoButton>
-
             <CreateCourseDialog
               open={openCreateCourse}
               close={() => setOpenCreateCourse(false)}

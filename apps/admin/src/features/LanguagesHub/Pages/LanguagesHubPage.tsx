@@ -17,16 +17,13 @@ export function LanguagesHubPage({}: LanguagesHubPageProps) {
         <div className="col-span-1 lg:bg-ludo-background lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <Hero {...languagesHeroContent}>
-            <div className="flex w-full justify-end items-end gap-4">
-              <LudoButton className="w-1/3 px-2" variant="alt">
-                Instructions
-              </LudoButton>
+            <div className="flex w-full justify-end gap-4">
               <LudoButton
                 onClick={() =>
                   router.navigate(adminNavigation.language.toCreateLanguage())
                 }
                 variant="alt"
-                className="w-1/3 px-2"
+                className="px-6"
               >
                 Create Language
               </LudoButton>
