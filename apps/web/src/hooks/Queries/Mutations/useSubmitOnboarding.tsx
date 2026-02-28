@@ -5,6 +5,7 @@ import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main";
 
 import { onboardingDraftStore } from "@/features/Onboarding/Store/OnboardingDraft";
+import { qo } from "../Definitions/queries";
 
 export function useSubmitOnboarding() {
   const qc = useQueryClient();
@@ -26,10 +27,18 @@ export function useSubmitOnboarding() {
       qc.setQueryData(qk.courseProgress(courseId), courseProgress);
       qc.setQueryData(qk.currentCourseId(), courseId);
 
+      const features = await qc.ensureQueryData(qo.activeFeatures());
+      const isStripeEnabled = features.paymentsEnabled;
+      const stripeMode = features.stripeMode;
 
-      await router.navigate(
-        ludoNavigation.subscription.toSubscriptionComparisonPage(),
-      );
+      if (isStripeEnabled && stripeMode === "PROD") {
+        await router.navigate(
+          ludoNavigation.subscription.toSubscriptionComparisonPage(),
+        );
+      } else {
+        await router.navigate(ludoNavigation.hub.module.toModule(courseProgress.courseId, courseProgress.moduleId))
+      }
+
       onboardingDraftStore.getState().clearDraft();
     },
   });

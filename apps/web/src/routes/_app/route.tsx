@@ -32,6 +32,22 @@ async function appPreloader(
   }
 
   if (isOnboarding && user.hasOnboarded) {
-    throw redirect(ludoNavigation.subscription.toSubscriptionComparisonPage());
+    const courseId = await queryClient
+      .ensureQueryData(qo.currentCourseId())
+      .catch(() => null);
+
+    if (courseId) {
+      const progress = await queryClient
+        .ensureQueryData(qo.courseProgress(courseId))
+        .catch(() => null);
+
+      if (progress) {
+        throw redirect(
+          ludoNavigation.hub.module.toModule(courseId, progress.moduleId, true),
+        );
+      }
+    }
+
+    throw redirect(ludoNavigation.courseRoot());
   }
 }

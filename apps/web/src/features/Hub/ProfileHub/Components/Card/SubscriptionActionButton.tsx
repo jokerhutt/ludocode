@@ -4,12 +4,15 @@ import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { SubscriptionPlan } from "@ludocode/types";
 
-type SubscriptionActionButtonProps = { plan: SubscriptionPlan };
+type SubscriptionActionButtonProps = {
+  plan: SubscriptionPlan;
+  isDisabled: boolean;
+};
 
 export function SubscriptionActionButton({
   plan,
+  isDisabled,
 }: SubscriptionActionButtonProps) {
-  const isDisabled = plan === "DEV";
   const text = isDisabled
     ? "Disabled"
     : plan === "FREE"

@@ -2,6 +2,8 @@ import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { SubscriptionActionButton } from "./SubscriptionActionButton";
 import type { SubscriptionPlan } from "@ludocode/types";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 
 type SubscriptionStatusCardProps = {
   planCode: SubscriptionPlan;
@@ -14,7 +16,10 @@ export function SubscriptionStatusCard({
   currentPeriodEnd,
   cancelAtPeriodEnd,
 }: SubscriptionStatusCardProps) {
-  const isDisabled = planCode === "DEV";
+  const { data: features } = useSuspenseQuery(qo.activeFeatures());
+
+  const isDisabled =
+    !features.paymentsEnabled || features.stripeMode !== "PROD";
   const isFree = planCode === "FREE";
 
   const statusColor = isFree
@@ -23,13 +28,9 @@ export function SubscriptionStatusCard({
       ? "text-red-400"
       : "text-green-400";
 
-  const renewalText = isDisabled
-    ? "Stripe disabled"
-    : isFree
-      ? "Subscribe to support"
-      : cancelAtPeriodEnd
-        ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
-        : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;
+  const renewalText = cancelAtPeriodEnd
+    ? `Ends ${parseToDigitDate(Number(currentPeriodEnd))}`
+    : `Renews ${parseToDigitDate(Number(currentPeriodEnd))}`;
 
   return (
     <LudoCard shadow={false} className="p-5 flex flex-col h-full">
@@ -42,15 +43,21 @@ export function SubscriptionStatusCard({
         </div>
 
         <div className={`text-sm font-medium ${statusColor}`}>
-          {isFree ? "Free" : isDisabled ? "Dev" : cancelAtPeriodEnd ? "Cancelling" : "Active"}
+          {isFree
+            ? "Free"
+            : isDisabled
+              ? "Dev"
+              : cancelAtPeriodEnd
+                ? "Cancelling"
+                : "Active"}
         </div>
       </div>
 
       <div className="mt-auto w-full md:w-auto flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <p className="text-sm opacity-70">{renewalText}</p>
+        {!isDisabled && <p className="text-sm opacity-70">{renewalText}</p>}
 
         <div className="w-full">
-          <SubscriptionActionButton plan={planCode} />
+          <SubscriptionActionButton isDisabled={isDisabled} plan={planCode} />
         </div>
       </div>
     </LudoCard>
