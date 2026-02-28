@@ -1,6 +1,6 @@
 import type {
+  ExerciseAnswer,
   ExerciseAttempt,
-  ExerciseAttemptRequest,
   ExerciseSubmission,
   LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
@@ -20,18 +20,16 @@ export function convertStagedAttemptIntoExerciseSubmission(
 function convertAttemptToRequest(
   attempt: ExerciseAttempt,
   interactionType: "SELECT" | "CLOZE" | null | undefined,
-): ExerciseAttemptRequest {
+): ExerciseAnswer {
   if (!interactionType) {
-    return { answer: { type: "SELECT", pickedValue: "INFO" } };
+    return { type: "SELECT", pickedValue: "INFO" };
   }
   if (interactionType === "SELECT") {
-    return { answer: { type: "SELECT", pickedValue: attempt.answer[0].value } };
+    return { type: "SELECT", pickedValue: attempt.answer[0].value };
   }
   return {
-    answer: {
-      type: "CLOZE",
-      valuesByBlank: attempt.answer.map((t) => t.value),
-    },
+    type: "CLOZE",
+    valuesByBlank: attempt.answer.map((t) => t.value),
   };
 }
 

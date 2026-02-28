@@ -1,17 +1,12 @@
-import type { AnswerToken } from "@ludocode/types/Exercise/AnswerToken";
-
 export type ExerciseAnswer =
   | { type: "SELECT"; pickedValue: string }
   | { type: "CLOZE"; valuesByBlank: string[] };
 
-export type ExerciseAttemptRequest = {
-  answer: ExerciseAnswer;
-};
 
 export type ExerciseSubmissionRequest = {
   exerciseId: string;
   version: number;
-  attempts: ExerciseAttemptRequest[];
+  attempts: ExerciseAnswer[];
 };
 
 export type LessonSubmissionRequest = {
@@ -32,3 +27,5 @@ export type ExerciseAttempt = {
   isCorrect: boolean;
   answer: AnswerToken[];
 };
+
+export type AnswerToken = { id?: string; value: string };
