@@ -22,53 +22,59 @@ export const SortableExerciseContainer = withForm({
   },
   render: function Render({ form, selectedExerciseId, onSelectExercise }) {
     return (
-      <form.Field name="exercises" mode="array">
-        {(exercisesField) => {
-          const exercises = exercisesField.state.value;
+      <form.Subscribe
+        selector={(state) => state.values.exercises} // ← subscribe to fresh exercises array
+        children={(exercises) => (
+          <form.Field name="exercises" mode="array">
+            {(exercisesField) => {
+              // No need for exercisesField.state.value anymore — use the subscribed exercises
+              const handleDragEnd = (event: DragEndEvent) => {
+                const { active, over } = event;
+                if (!over || active.id === over.id) return;
 
-          const handleDragEnd = (event: DragEndEvent) => {
-            const { active, over } = event;
-            if (!over) return;
-            if (active.id === over.id) return;
+                const from = exercises.findIndex(
+                  (e) => e.exerciseId === active.id,
+                );
+                const to = exercises.findIndex((e) => e.exerciseId === over.id);
 
-            const from = exercises.findIndex((e) => e.exerciseId === active.id);
-            const to = exercises.findIndex((e) => e.exerciseId === over.id);
+                if (from === -1 || to === -1) return;
+                exercisesField.moveValue(from, to);
+              };
 
-            if (from === -1 || to === -1) return;
-
-            exercisesField.moveValue(from, to);
-          };
-
-          return (
-            <DndContext
-              autoScroll={false}
-              measuring={{
-                droppable: { strategy: MeasuringStrategy.Always },
-              }}
-              onDragEnd={handleDragEnd}
-              collisionDetection={closestCenter}
-            >
-              <div className="flex flex-col gap-4 p-4 w-full h-full">
-                <SortableContext
-                  items={exercises.map((e) => e.exerciseId)}
-                  strategy={verticalListSortingStrategy}
+              return (
+                <DndContext
+                  autoScroll={false}
+                  measuring={{
+                    droppable: { strategy: MeasuringStrategy.Always },
+                  }}
+                  onDragEnd={handleDragEnd}
+                  collisionDetection={closestCenter}
                 >
-                  {exercises.map((exercise, exerciseIndex) => (
-                    <EditorExercise
-                      exercise={exercise}
-                      key={exercise.exerciseId}
-                      form={form}
-                      exerciseIndex={exerciseIndex}
-                      isSelected={selectedExerciseId === exercise.exerciseId}
-                      onSelect={() => onSelectExercise(exercise.exerciseId)}
-                    />
-                  ))}
-                </SortableContext>
-              </div>
-            </DndContext>
-          );
-        }}
-      </form.Field>
+                  <div className="flex flex-col gap-4 p-4 w-full h-full">
+                    <SortableContext
+                      items={exercises.map((e) => e.exerciseId)}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {exercises.map((exercise, exerciseIndex) => (
+                        <EditorExercise
+                          exercise={exercise}
+                          key={exercise.exerciseId}
+                          form={form}
+                          exerciseIndex={exerciseIndex}
+                          isSelected={
+                            selectedExerciseId === exercise.exerciseId
+                          }
+                          onSelect={() => onSelectExercise(exercise.exerciseId)}
+                        />
+                      ))}
+                    </SortableContext>
+                  </div>
+                </DndContext>
+              );
+            }}
+          </form.Field>
+        )}
+      />
     );
   },
 });
