@@ -1,10 +1,9 @@
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
-import { BlockRenderer } from "@/features/Lesson/Components/Prompt/BlockRenderer";
 import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInteraction.tsx";
-import {
-  useExerciseBodyData,
-} from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
+import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
 import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
+import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
+
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";

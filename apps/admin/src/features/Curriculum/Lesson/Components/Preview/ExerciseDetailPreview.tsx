@@ -5,7 +5,7 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
-import { BlockPreview } from "./Exercise/BlockPreview";
+import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
 import { ExerciseInteraction } from "./Exercise/ExerciseInteraction";
 import { getExerciseTitle } from "@/features/Curriculum/Lesson/helpers";
 
@@ -31,7 +31,7 @@ export function ExerciseDetailPreview({
         <div className="h-full flex gap-6 flex-col w-full p-4">
           <div className="flex flex-col gap-3">
             {exercise.blocks.map((block, index) => (
-              <BlockPreview key={index} block={block} />
+              <BlockRenderer key={index} block={block} />
             ))}
           </div>
           <ExerciseInteraction exercise={exercise} />

@@ -2,7 +2,6 @@ import type {
   LudoExercise,
   Block,
 } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { ExerciseMedia } from "@/features/Lesson/Components/Media/ExerciseMedia.tsx";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
 
 const noop = () => {};
@@ -43,4 +42,14 @@ export function BlockRenderer({ block }: { block: Block }) {
     default:
       return null;
   }
+}
+
+type ExerciseMediaProps = { media: string };
+
+function ExerciseMedia({ media }: ExerciseMediaProps) {
+  return (
+    <div className="w-full items-center flex justify-center">
+      <img className="max-h-60 w-auto" src={media} />
+    </div>
+  );
 }
