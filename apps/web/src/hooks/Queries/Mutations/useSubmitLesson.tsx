@@ -15,7 +15,10 @@ export function useSubmitLesson({ oldStreak }: Args) {
   return useMutation({
     ...mutations.submitLesson(),
     onSuccess: (payload) => {
-      if (payload.status === "DUPLICATE") return;
+      if (payload.status === "DUPLICATE") {
+        router.navigate(ludoNavigation.courseRoot());
+        return;
+      }
 
       const {
         newCoins,
