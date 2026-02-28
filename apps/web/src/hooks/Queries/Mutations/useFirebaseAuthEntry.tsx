@@ -21,19 +21,27 @@ function getFirebaseProvider(mode: AuthProviderMode) {
   }
 }
 
+import { useRef } from "react";
+
 export function useFirebaseAuthEntry() {
   const finalizeLogin = useFinalizeLogin();
+  const isRunningRef = useRef(false);
 
   return async (provider: AuthProviderMode) => {
-    try {
-      const firebaseProvider = getFirebaseProvider(provider);
+    if (isRunningRef.current) return;
 
+    try {
+      isRunningRef.current = true;
+
+      const firebaseProvider = getFirebaseProvider(provider);
       const result = await signInWithPopup(auth, firebaseProvider);
       const idToken = await result.user.getIdToken();
 
       await finalizeLogin(idToken);
     } catch (err) {
       handleFirebaseAuthError(err as FirebaseError);
+    } finally {
+      isRunningRef.current = false;
     }
   };
 }
