@@ -54,7 +54,6 @@ export function PathPopover({
 
   return (
     <LudoPopover trigger={trigger} className="flex-col gap-3 min-w-72">
-      {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-0.5 min-w-0">
           <p className="text-sm font-bold text-white leading-snug">

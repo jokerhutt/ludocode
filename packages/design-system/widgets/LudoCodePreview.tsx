@@ -64,7 +64,7 @@ function Root({
   const parts = useMemo(() => prompt.split("___"), [prompt]);
   const gaps = parts.length - 1;
 
-  const shadowStyle = shadow ? "shadow-lg shadow-black/15" : ""
+  const shadowStyle = shadow ? "shadow-lg shadow-black/15" : "";
 
   const responses = useMemo(
     () =>
@@ -125,7 +125,9 @@ function Root({
         isEmpty,
       }}
     >
-      <Shell className={cn("bg-ludo-surface", shadowStyle, className)}>{children}</Shell>
+      <Shell className={cn("bg-ludo-surface", shadowStyle, className)}>
+        {children}
+      </Shell>
     </Ctx.Provider>
   );
 }
@@ -253,16 +255,17 @@ function Footer({ children }: { children: ReactNode }) {
 }
 
 function DeleteButton() {
-  const { clear, isEmpty, typing } = usePreview();
+  const { clear, isEmpty } = usePreview();
 
-  const cursorStyle =
-    !typing || isEmpty ? "hover:cursor-not-allowed" : "hover:cursor-pointer";
+  const cursorStyle = isEmpty
+    ? "hover:cursor-not-allowed"
+    : "hover:cursor-pointer";
 
   return (
     <button
       type="button"
-      onClick={() => typing && clear()}
-      disabled={!typing || isEmpty}
+      onClick={() => !isEmpty && clear()}
+      disabled={isEmpty}
       className={cn(
         "p-1.5 text-white/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
@@ -274,14 +277,15 @@ function DeleteButton() {
 }
 
 function BackspaceButton() {
-  const { popLast, isEmpty, typing } = usePreview();
-  const cursorStyle =
-    !typing || isEmpty ? "hover:cursor-not-allowed" : "hover:cursor-pointer";
+  const { popLast, isEmpty } = usePreview();
+  const cursorStyle = isEmpty
+    ? "hover:cursor-not-allowed"
+    : "hover:cursor-pointer";
   return (
     <button
       type="button"
-      onClick={() => typing && popLast()}
-      disabled={!typing || isEmpty}
+      onClick={() => !isEmpty && popLast()}
+      disabled={isEmpty}
       className={cn(
         "p-1.5 rounded-md text-white/70 hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
