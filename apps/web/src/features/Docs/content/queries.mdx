@@ -1,18 +1,29 @@
 ---
-title: Queries & State Management
+title: Queries & Data Fetching
 slug: queries
-section: Structure & Technology
-order: 2
-description: How TanStack Query is used for server-side data caching.
+section: Getting Started
+order: 3
+description: How TanStack Query powers data fetching, caching, batching, and mutations.
 ---
 
 ## Overview
 
-TanStack Query is used for server-side data caching and retrieval.
+Both the web and admin apps use **TanStack Query** for server-side data management. All server data — users, courses, lessons, streaks, projects, subscriptions — is stored under **query keys** and fetched through **query options**. Components read cached data reactively; they never hold server state themselves.
 
-Each piece of server data — such as user stats, lessons, courses, or progress — is stored under a **query key**. Query keys identify the data, and once fetched, the result is cached until invalidated. Components request data through these keys rather than holding it themselves.
+The data layer is structured into four files:
 
-A basic example for fetching and caching a user's streak:
+| File           | Purpose                                                                     |
+| -------------- | --------------------------------------------------------------------------- |
+| `qk.ts`        | Query key definitions — unique identifiers for each piece of data           |
+| `queries.ts`   | Query options (`qo`) — binds keys to fetch functions with stale-time config |
+| `mutations.ts` | Mutation options — POST/PATCH/DELETE operations with cache updates          |
+| `batchers.ts`  | Batcher instances — groups individual ID lookups into batched requests      |
+
+---
+
+## Query Keys & Options
+
+`qk` defines the cache keys. `qo` binds each key to a `queryOptions` object that describes how to fetch the data.
 
 ```ts
 const qk = {
@@ -23,79 +34,144 @@ const qo = {
   streak: (userId: string) =>
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
-      queryFn: () => ludoGet<UserStreak>(GET_USER_STREAK, true),
+      queryFn: () => ludoGet<UserStreak>(api.progress.streak.base, true),
       staleTime: 60_000,
     }),
 };
 ```
 
-`qk` holds the query key definitions. `qo` binds these keys to options describing how the data is fetched.
-
-To access the streak in a component:
+To consume in a component:
 
 ```ts
-const { data: streak } = useSuspenseQuery(qo.streak(currentUserId));
+const { data: streak } = useSuspenseQuery(qo.streak(userId));
 ```
 
-`useSuspenseQuery` blocks rendering until the requested data is available, so the component does not need to handle loading states or undefined values.
+`useSuspenseQuery` blocks rendering until data is available, eliminating loading/undefined checks in the component body.
+
+### Web App Query Catalog
+
+| Query                         | Returns                  | Description                |
+| ----------------------------- | ------------------------ | -------------------------- |
+| `qo.currentUser()`            | `LudoUser`               | Current authenticated user |
+| `qo.stats()`                  | `LudoStats`              | Coins & streak data        |
+| `qo.courseTree(courseId)`     | `FlatCourseTree`         | Module/lesson ID structure |
+| `qo.module(moduleId)`         | `LudoModule`             | Single module (batched)    |
+| `qo.lesson(lessonId)`         | `LudoLesson`             | Single lesson (batched)    |
+| `qo.exercises(lessonId)`      | `LudoExercise[]`         | Exercises for a lesson     |
+| `qo.courseProgress(courseId)` | `CourseProgress`         | User progress in a course  |
+| `qo.courseStats(courseId)`    | `CourseStats`            | Completion statistics      |
+| `qo.features()`               | `ActiveFeaturesResponse` | Feature flags from server  |
+| `qo.preferences()`            | `UserPreferences`        | AI/audio settings          |
+| `qo.subscription()`           | `UserSubscription`       | Active subscription info   |
+
+### Admin App Query Catalog
+
+| Query                                   | Returns                     | Description                   |
+| --------------------------------------- | --------------------------- | ----------------------------- |
+| `qo.currentUser()`                      | `LudoUser`                  | Admin user                    |
+| `qo.allCourses()`                       | `LudoCourse[]`              | All courses in the system     |
+| `qo.allSubjects()`                      | `SubjectsDraftSnapshot[]`   | All subjects                  |
+| `qo.languages()`                        | `LanguageMetadata[]`        | All programming languages     |
+| `qo.runtimes()`                         | `PistonRuntime[]`           | Available Piston runtimes     |
+| `qo.curriculumSnapshot(courseId)`       | `CurriculumDraft`           | Course curriculum for editing |
+| `qo.lessonCurriculumSnapshot(lessonId)` | `CurriculumDraftLessonForm` | Lesson exercises for editing  |
 
 ---
 
-## Batching Queries
+## Batching
 
-A course can contain many lessons. If each lesson has its own fetch, loading 10 lessons would normally trigger 10 separate requests. To avoid this, a **batcher** is used.
-
-When multiple queries request lessons, the batcher collects the missing lesson IDs and sends them to the backend in one combined request. Lessons already cached are resolved immediately, and only the missing ones are fetched.
+When a module contains many lessons, fetching each one individually would create excessive network requests. **Batchers** solve this by collecting individual ID lookups within a time window and sending them as a single request.
 
 <Tip variant="info" title="How batching works">
-  If the cache contains lessons `[1, 2, 5]` and the module has lessons `[1, 2,
-  3, 4, 5]`, then only `3` and `4` are sent to the backend. The data for `[1, 2,
-  5]` comes directly from the cache.
+  If the cache already has lessons `[1, 2, 5]` and the module needs `[1, 2, 3,
+  4, 5]`, only `3` and `4` are sent to the backend. Cached items resolve
+  immediately.
 </Tip>
+
+```ts
+export const lessonBatcher = makeIdBatcher<LudoLesson>({
+  name: "lesson",
+  getUrlFn: api.lessons.lessons, // URL builder accepting comma-separated IDs
+  idsKey: "lessonIds",
+  scheduler: windowScheduler(10), // 10ms collection window
+});
+```
+
+The query option uses the batcher as its fetch function:
 
 ```ts
 lesson: (lessonId: string) =>
   queryOptions<LudoLesson>({
     queryKey: qk.lesson(lessonId),
     queryFn: () => lessonBatcher.fetch(lessonId),
-    staleTime: 60_000,
   }),
 ```
 
-The batcher is created with a batcher factory:
-
-```ts
-export const lessonBatcher = makeIdBatcher<LudoLesson>({
-  name: "lesson",
-  getUrlFn: GET_LESSONS_FROM_IDS,
-  idsKey: "lessonIds",
-  scheduler: windowScheduler(10),
-  createFn: create,
-});
-```
+The `makeIdBatcher` factory (from `@ludocode/api`) handles URL construction, deduplication, and result mapping automatically.
 
 ---
 
-## Mutating and Invalidating Queries
+## Mutations
 
-When server-side data changes, the corresponding query in the cache must be updated. This is done either by directly replacing the cached value with `setQueryData()` or by forcing a refetch with `invalidateQueries()`.
+Mutations handle write operations. Each mutation hook wraps `useMutation` with appropriate cache updates in `onSuccess`.
 
-### Using setQueryData
+### Cache Update Strategies
 
-Use this when the server returns the updated data:
-
-```ts
-const qc = useQueryClient();
-const { updatedCompletedLesson } = serverResponse.content;
-
-qc.setQueryData(qk.lesson(updatedCompletedLesson.id), updatedCompletedLesson);
-```
-
-### Using invalidateQueries
-
-Use this when the server does not return the updated data:
+**Direct replacement** — when the server returns the updated object:
 
 ```ts
 const qc = useQueryClient();
-qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
+qc.setQueryData(qk.lesson(lesson.id), updatedLesson);
 ```
+
+**Invalidation** — when the server doesn't return updated data:
+
+```ts
+qc.invalidateQueries({ queryKey: qk.weeklyStreak() });
+```
+
+### Web App Mutations
+
+| Hook                            | Operation                                            |
+| ------------------------------- | ---------------------------------------------------- |
+| `useFirebaseAuthEntry`          | Firebase auth → POST token → cache user              |
+| `useFirebaseEmailAuth`          | Email/password auth                                  |
+| `useFinalizeLogin`              | Post-login setup (features, preferences, enrollment) |
+| `useSubmitLesson`               | POST lesson submission → receive completion packet   |
+| `useSubmitOnboarding`           | POST onboarding choices → enroll in course           |
+| `useChangeCourse`               | Switch active course                                 |
+| `useCreateProject`              | Create new code project                              |
+| `useModifyProject`              | Save/rename/delete project files                     |
+| `useResetCourseProgress`        | Reset progress for a course                          |
+| `useStripeCheckout`             | Initiate Stripe checkout session                     |
+| `useStripeManage`               | Open Stripe customer portal                          |
+| `useSubmitCheckoutConfirmation` | Confirm subscription after payment                   |
+| `useEditPreferences`            | Toggle AI/audio preferences                          |
+| `useDeleteAccount`              | Permanently delete user account                      |
+| `useLogout`                     | Sign out and clear cache                             |
+
+### Admin App Mutations
+
+| Hook                                                            | Operation                                 |
+| --------------------------------------------------------------- | ----------------------------------------- |
+| `useCreateCourse`                                               | Create a new course                       |
+| `useUpdateCourse`                                               | Save curriculum draft (modules + lessons) |
+| `useUpdateLesson`                                               | Save lesson exercises                     |
+| `useCreateLanguage` / `useUpdateLanguage` / `useDeleteLanguage` | Language CRUD                             |
+| `useCreateSubject` / `useUpdateSubject` / `useDeleteSubject`    | Subject CRUD                              |
+
+---
+
+## API Layer
+
+All fetch calls go through typed wrappers in `@ludocode/api/fetcher.ts`:
+
+| Function                 | HTTP Method | Notes                       |
+| ------------------------ | ----------- | --------------------------- |
+| `ludoGet<T>`             | GET         | Optional credential include |
+| `ludoPost<TRes, TBody>`  | POST        | Handles 204 No Content      |
+| `ludoPatch<TRes, TBody>` | PATCH       | Handles 204 No Content      |
+| `ludoPut<TRes, TBody>`   | PUT         | Handles 204 No Content      |
+| `ludoDelete<TRes>`       | DELETE      | Handles 204 No Content      |
+
+All throw descriptive `Error` on non-OK responses. API URLs are built by `createApiPaths()`, which generates a structured object covering 15+ domains (auth, catalog, lessons, progress, runner, subscriptions, etc.).

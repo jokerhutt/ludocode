@@ -1,0 +1,189 @@
+---
+title: Hooks & Utilities
+slug: hooks-and-utilities
+section: Component Library
+order: 13
+description: Shared React hooks, utility functions, and the API path factory.
+---
+
+## Overview
+
+Ludocode distributes cross-cutting logic across three shared packages:
+
+| Package             | Contents                                     |
+| ------------------- | -------------------------------------------- |
+| **@ludocode/hooks** | 8 reusable React hooks                       |
+| **@ludocode/util**  | Date parsing & formatting helpers            |
+| **@ludocode/api**   | API path factory, fetch wrappers, ID batcher |
+
+The web and admin apps also contain feature-specific hooks in their own `hooks/` directories.
+
+---
+
+## @ludocode/hooks
+
+Organized by concern into four subdirectories:
+
+### Animation Hooks
+
+| Hook               | Description                                                                                                    |
+| ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| **useLottie**      | Loads a Lottie animation ref with `lottie-web`. Accepts `animationData`, returns `{ containerRef, animation }` |
+| **useTimedLottie** | Extends `useLottie` with a timer — plays the animation once, then fires a callback after `duration` ms         |
+
+### Input Hooks
+
+| Hook             | Description                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| **useAutoWidth** | Resizes an `<input>` to fit its content using a hidden measuring `<span>`. Returns `{ inputRef, spanRef }`     |
+| **useHotkeys**   | Registers global keyboard shortcuts. Accepts a `Record<string, () => void>` map (e.g. `{ "mod+k": openChat }`) |
+
+### UI Hooks
+
+| Hook                  | Description                                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| **useAutoScrollDown** | Keeps a scrollable container pinned to the bottom as content grows (used in chatbot and logs)         |
+| **useIsMobile**       | Returns `true` when the viewport is below the mobile breakpoint (`768px`). Uses `matchMedia` listener |
+| **useModal**          | Simple `{ isOpen, open, close, toggle }` state manager                                                |
+| **useTab**            | Generic tab state — `{ activeTab, setActiveTab }` with initial tab parameter                          |
+
+---
+
+## @ludocode/util
+
+### Date Utilities
+
+```ts
+import { parseToDate } from "@ludocode/util";
+```
+
+| Function               | Description                                                                                               |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- |
+| **parseToDate(value)** | Converts ISO strings, Unix timestamps, or `Date` objects into a `Date`. Returns `null` for invalid input. |
+
+The function handles the common case of backend responses returning dates as strings or epoch numbers, normalizing them into native `Date` objects for display.
+
+---
+
+## @ludocode/api
+
+### API Path Factory
+
+`createApiPaths(baseUrl)` returns a typed object with path builders for every API domain:
+
+```ts
+const api = createApiPaths("https://api.ludocode.com");
+
+api.auth.login(); // POST /auth/login
+api.auth.register(); // POST /auth/register
+api.users.me(); // GET  /users/me
+api.users.profile(id); // GET  /users/:id
+api.courses.list(); // GET  /courses
+api.courses.tree(langId); // GET  /courses/tree/:langId
+api.lessons.get(id); // GET  /lessons/:id
+api.completions.sync(); // POST /completions/sync
+api.projects.list(); // GET  /projects
+api.projects.get(id); // GET  /projects/:id
+api.projects.run(id); // POST /projects/:id/run
+```
+
+All 15+ domains: `auth`, `users`, `courses`, `modules`, `lessons`, `exercises`, `completions`, `projects`, `languages`, `subjects`, `subscriptions`, `onboarding`, `preferences`, `featureFlags`, `ai`, `admin`.
+
+### Fetch Wrappers
+
+The `fetcher.ts` module provides typed wrappers around `fetch`:
+
+| Function                     | Description                                                            |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| **apiFetch(url, options)**   | Base wrapper — attaches Firebase ID token, parses JSON, handles errors |
+| **apiGet\<T\>(url)**         | Typed GET request                                                      |
+| **apiPost\<T\>(url, body)**  | Typed POST with JSON body                                              |
+| **apiPut\<T\>(url, body)**   | Typed PUT with JSON body                                               |
+| **apiPatch\<T\>(url, body)** | Typed PATCH with JSON body                                             |
+| **apiDelete(url)**           | DELETE request                                                         |
+
+Every request automatically includes the `Authorization: Bearer <token>` header from Firebase Auth.
+
+### ID Batcher
+
+`makeIdBatcher(fetchFn)` batches individual ID lookups into a single bulk request, then distributes results:
+
+```ts
+const batchUser = makeIdBatcher(async (ids: string[]) => {
+  return apiFetch(`/users/batch`, { body: { ids } });
+});
+
+// These calls within the same tick are batched into one request:
+const user1 = await batchUser("abc");
+const user2 = await batchUser("def");
+```
+
+Used by TanStack Query options to avoid N+1 fetch patterns on list pages.
+
+---
+
+## Web App Hooks
+
+The web app's `apps/web/src/hooks/` directory contains feature-specific hooks:
+
+### Query Hooks
+
+Located in `hooks/Queries/Definitions/`, these follow the `qk` / `qo` / `mutations` / `batchers` pattern:
+
+| File             | Queries                                                     | Mutations                                                                        |
+| ---------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **User**         | `me`, `profile`, `streak`, `coins`                          | `editProfile`, `deleteAccount`                                                   |
+| **Catalog**      | `courseTree`, `languages`, `subjects`                       | —                                                                                |
+| **Lesson**       | `lesson`, `lessonExercises`                                 | `submitLesson`                                                                   |
+| **Completion**   | `syncStatus`                                                | `syncCompletion`                                                                 |
+| **Project**      | `projects`, `project`                                       | `createProject`, `updateProject`, `deleteProject`, `runProject`                  |
+| **Subscription** | `plans`, `subscription`                                     | `checkout`, `cancelSubscription`                                                 |
+| **Onboarding**   | —                                                           | `submitOnboarding`                                                               |
+| **Preferences**  | `preferences`                                               | `updatePreferences`                                                              |
+| **FeatureFlags** | `activeFeatures`                                            | —                                                                                |
+| **AI**           | —                                                           | `sendMessage`                                                                    |
+| **Admin**        | `curriculumDrafts`, `languages`, `subjects`, `featureFlags` | `saveDraft`, `publishCourse`, `modifyLanguage`, `modifySubject`, `toggleFeature` |
+
+### Guard Hooks
+
+| Hook                | Description                                                                      |
+| ------------------- | -------------------------------------------------------------------------------- |
+| **useAuthGuard**    | Redirects unauthenticated users to `/login`. Used in `_app` layout.              |
+| **useDesktopGuard** | Redirects mobile users to a "desktop only" page. Used in `_desktopguard` layout. |
+
+### Feature Flag Hook
+
+```ts
+const isEnabled = useFeatureEnabledCheck("feature-key");
+```
+
+Reads from the `activeFeatures` query cache to determine if a flag is on.
+
+### Context Hooks
+
+| Hook                         | Description                                                                                    |
+| ---------------------------- | ---------------------------------------------------------------------------------------------- |
+| **useUserPreferenceContext** | Reads the global `UserPreferenceProvider` context. Returns `{ preferences, updatePreference }` |
+| **useSoundContext**          | Controls UI sound effects (click, success, error). Toggle via preferences.                     |
+| **useTreeData**              | Returns the current `FlatCourseTree` for a language from the catalog query cache               |
+
+---
+
+## Admin App Hooks
+
+The admin app at `apps/admin/src/hooks/` mirrors the query pattern:
+
+| Hook                    | Description                                              |
+| ----------------------- | -------------------------------------------------------- |
+| **useCurriculumDrafts** | Fetches all draft curricula for the editor               |
+| **useSaveDraft**        | Debounced auto-save mutation for curriculum changes      |
+| **useLanguageForm**     | TanStack Form + Zod for language CRUD                    |
+| **useLanguageDiffs**    | Computes diff between saved and edited language metadata |
+| **useSubjectForm**      | TanStack Form + Zod for subject management               |
+
+<Tip variant="tip" title="Hook Naming Convention">
+  Query option factories are always named `qo.entityName` (e.g.
+  `qo.courseTree`). Mutation hooks are always `use` + verb + noun (e.g.
+  `useSubmitLesson`, `useCreateProject`). This makes every data operation
+  discoverable via IDE autocomplete.
+</Tip>

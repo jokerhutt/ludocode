@@ -1,27 +1,36 @@
 ---
-title: Lesson Completions
+title: Completions & Sync
 slug: completions-flow
-section: Feature Breakdown
+section: Feature Flows
 order: 7
-description: How lesson submissions are processed and completion screens shown.
+description: How lesson submissions are processed, synced, and completion screens displayed.
 ---
 
 ## Overview
 
-This document describes how a lesson submission is processed, how the result is synchronized with the backend, and how the client determines which completion screen(s) to show.
+After a user completes all exercises in a lesson, the submission goes through a **sync** phase (sending data to the backend) and then a **completion** phase (displaying results). This flow updates the user's streak, coins, course progress, and lesson status.
 
 ---
 
 ## Sync Page
 
-When a user completes their lesson, the lesson page navigates to the sync page with a `LessonSubmission` object.
+When the final exercise is committed, the lesson page navigates to the **sync route** (`/sync/:lessonId`) carrying the `LessonSubmissionRequest` in router state:
 
-The sync page calls the `useSubmitLesson()` hook, which sends the submission to the backend and receives a `LessonCompletionPacket`:
+```ts
+router.navigate(ludoNavigation.completion.toSyncPage(lessonId, submission));
+```
+
+The `SyncingPage` calls `useSubmitLesson()`, which:
+
+1. POSTs the `LessonSubmissionRequest` to the backend
+2. Receives a `LessonCompletionPacket` in response
+3. Updates the query cache (lesson status, streak, coins, course progress)
+4. Navigates to the completion page with result data in search params
 
 ```ts
 export type LessonCompletionPacket = {
   content: LessonCompletionResponse;
-  status: LessonCompletionStatus;
+  status: LessonCompletionStatus; // "OK" | "COURSE_COMPLETE" | "DUPLICATE"
 };
 
 export type LessonCompletionResponse = {
@@ -33,26 +42,64 @@ export type LessonCompletionResponse = {
 };
 ```
 
----
-
-## Duplicate Submissions
-
-A unique identifier is generated for each submission. If the same lesson has been sent twice, the backend returns `"DUPLICATE"` as the `CompletionStatus`.
+<Tip variant="warning" title="Duplicate Prevention">
+  Each submission carries a unique `submissionId`. If the same lesson is
+  submitted twice, the backend returns `"DUPLICATE"` and the sync page redirects
+  back to the hub without showing completion screens.
+</Tip>
 
 ---
 
 ## Completion Pages
 
-The `CompletionState` object provides all the necessary information for displaying completion screens:
+After syncing, the user is navigated to the **completion route** (`/completion/:courseId/:moduleId/:lessonId`) with a `CompletionSearch` object in the URL search params:
 
-- **Lesson page** — overview of points & accuracy
-- **Streak page** — appears if the streak has increased (`oldStreak < newStreak`)
-- **Course page** — appears if the course was just completed (`completionStatus === "COURSE_COMPLETE"`)
+```ts
+export type CompletionSearch = {
+  step: "lesson" | "streak" | "course";
+  coins: number;
+  accuracy: number;
+  oldStreak: number;
+  newStreak: number;
+  completionStatus: LessonCompletionStatus;
+};
+```
 
-### Page Order Logic
+The `CompletionPage` reads the `step` parameter to determine which screen to show. The `CompletionContext` manages navigation between steps.
+
+### Step Flow
 
 ```text
-1. always → lesson
-2. if streak changed → streak
-3. if course complete → course
+1. lesson  →  Always shown. Displays coins earned and accuracy percentage.
+2. streak  →  Shown only if oldStreak < newStreak. Animated streak counter.
+3. course  →  Shown only if completionStatus === "COURSE_COMPLETE".
 ```
+
+Each step transitions to the next using `ludoNavigation.completion.toStreakIncrease()` and `ludoNavigation.completion.toCourseComplete()`, which update the `step` search param while preserving other values.
+
+---
+
+## Completion UI
+
+| Component                | Purpose                                                  |
+| ------------------------ | -------------------------------------------------------- |
+| **CompletionPage**       | Reads `step` and renders the appropriate screen          |
+| **CompletionStatsGroup** | Animated coin/accuracy display                           |
+| **CompletionFooter**     | Navigation buttons (Continue / Back to Hub)              |
+| **CompletionContext**    | Provides lesson/course/module IDs and navigation helpers |
+
+The completion screens use Lottie animations for visual celebration effects.
+
+---
+
+## Cache Updates
+
+During sync, the following query cache entries are updated:
+
+| Data            | Update Method       | Source                                            |
+| --------------- | ------------------- | ------------------------------------------------- |
+| Lesson status   | `setQueryData`      | `updatedCompletedLesson` with `isCompleted: true` |
+| User streak     | `setQueryData`      | `newStreak` from response                         |
+| User coins      | `setQueryData`      | `newCoins` from response                          |
+| Course progress | `setQueryData`      | `newCourseProgress` from response                 |
+| Weekly streak   | `invalidateQueries` | Forced refetch                                    |

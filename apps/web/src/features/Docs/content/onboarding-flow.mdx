@@ -1,0 +1,135 @@
+---
+title: Onboarding
+slug: onboarding-flow
+section: Feature Flows
+order: 10
+description: The multi-step onboarding flow for new users.
+---
+
+## Overview
+
+When a new user signs up and `hasOnboarded` is `false`, they are redirected to the onboarding flow at `/onboarding/:stage`. Onboarding collects the user's display name, preferred course, career path, and experience level before enrolling them in their first course.
+
+---
+
+## Stages
+
+The flow progresses through four stages, identified by the `StageKey` type:
+
+```ts
+export type StageKey = "name" | "course" | "career" | "experience";
+```
+
+| Stage          | Purpose                  | Input                                    |
+| -------------- | ------------------------ | ---------------------------------------- |
+| **name**       | Set display name         | Text input with validation               |
+| **course**     | Choose first course      | Course selection cards                   |
+| **career**     | Pick career path         | Career option cards (e.g., Data Science) |
+| **experience** | Declare experience level | Yes/No toggle                            |
+
+Each stage is rendered by the `OnboardingStagePage` using the `OnboardingStageShell` wrapper, which provides a consistent header, footer, and step indicator.
+
+---
+
+## Architecture
+
+```text
+features/Onboarding/
+├── Pages/OnboardingStagePage.tsx       # Route page – renders current stage
+├── Components/
+│   ├── WideOnboardingOption.tsx        # Selectable card component
+│   └── Zone/
+│       ├── OnboardingHeader.tsx        # Stage indicator + branding
+│       ├── OnboardingFooter.tsx        # Back / Continue buttons
+│       └── OnboardingStageShell.tsx    # Shell wrapper for all stages
+├── Context/OnboardingContext.tsx        # Shared onboarding state
+├── Hook/useOnboardingFlow.tsx          # Stage navigation & validation
+├── Steps/
+│   ├── OnboardingStepComponents.tsx   # React components for each stage
+│   └── OnboardingSteps.ts            # Stage configuration & content
+├── Store/OnboardingDraft.ts           # Draft state (selections in progress)
+└── Util/validators.ts                 # Username & selection validation
+```
+
+---
+
+## Flow Logic
+
+The `useOnboardingFlow` hook manages the entire flow:
+
+1. **Stage routing** — reads `$stage` from the URL param and renders the corresponding step
+2. **Draft state** — accumulates selections in `OnboardingDraft` as the user progresses
+3. **Validation** — each stage validates before allowing progression (e.g., name length, course selected)
+4. **Submission** — on the final stage, submits an `OnboardingSubmission` to the backend
+
+```ts
+export type OnboardingSubmission = {
+  selectedUsername: string;
+  chosenPath: string;
+  chosenCourse: string;
+  hasProgrammingExperience: boolean;
+};
+```
+
+---
+
+## Onboarding Content
+
+The content for each stage is defined in `OnboardingSteps.ts`:
+
+```ts
+export type OnboardingFormContent = {
+  stepTitles: Record<StageKey, string>;
+  courseContent: OnboardingCourseType[];
+  careerContent: OnboardingCareerType[];
+  previousExperienceContent: PreviousExperienceType[];
+};
+```
+
+Course options reference actual course IDs from the backend:
+
+```ts
+export type OnboardingCourseType = {
+  courseId: string;
+  title: string;
+  description: string;
+};
+```
+
+Career paths map to default courses:
+
+```ts
+export type OnboardingCareerType = {
+  careerType: CareerType; // e.g., "DATA"
+  title: string;
+  description: string;
+  topPath: string;
+};
+```
+
+---
+
+## Response & Enrollment
+
+After submission, the backend returns an `OnboardingResponse`:
+
+```ts
+export type OnboardingResponse = {
+  refreshedUser: LudoUser; // hasOnboarded now true
+  preferences: UserPreferences; // Saved career path & experience
+  courseProgressResponse: CourseProgressWithEnrolled; // Enrolled course(s)
+};
+```
+
+The `useSubmitOnboarding` mutation:
+
+1. POSTs the `OnboardingSubmission`
+2. Updates the user cache (`hasOnboarded: true`)
+3. Sets preferences and course progress in the query cache
+4. Navigates the user to the hub
+
+<Tip variant="info" title="One-Time Flow">
+  Onboarding only runs once per user. After completion, `hasOnboarded` is set to
+  `true` and the user is never redirected to onboarding again. Preferences can
+  be changed later from the profile settings page.
+</Tip>

@@ -1,105 +1,175 @@
 ---
-title: Routes & Layouts
+title: Routes & Navigation
 slug: routes-and-layouts
-section: Structure & Technology
-order: 3
-description: Routing architecture and layout system.
+section: Getting Started
+order: 2
+description: Routing architecture, layout system, and the ludoNavigation helper.
 ---
 
 ## Overview
 
-TanStack Router defines the structural and navigational rules of the application. Almost every route is a child of `authedRoute`, meaning authenticated users are expected to operate within this tree. Two routes are exceptions: `authRoute` and `demoRoute`.
+Both the **web** and **admin** apps use **TanStack Router** with file-based routing. Each file in the `routes/` directory corresponds to a URL segment. Layout routes (prefixed with `_`) define shared UI shells without adding to the URL path.
 
-The core route tree:
-
-```text
-root
-    auth
-    demoLogin
-    onboarding
-    app
-        hub
-            coursesHub
-            modulesHub
-            projectHub
-            builderHub
-        lessons
-        sync
-        completion
-        builder
-```
+The router is initialized in `main.tsx` with a `QueryClient` passed as context, enabling route loaders to prefetch data before rendering.
 
 ---
 
-## Core Structure
-
-### Route Definitions
-
-All route paths are defined as a `routes` object in:
+## Web App Route Tree
 
 ```text
-src/constants/router/-routes.ts
+__root.tsx                              # Global providers
+├── auth/
+│   ├── login.tsx                       # /auth/login
+│   └── register.tsx                    # /auth/register
+├── demo/
+│   └── index.tsx                       # /demo
+├── resources/
+│   ├── docs/index.tsx                  # /resources/docs
+│   └── legal/
+│       ├── privacy.tsx                 # /resources/legal/privacy
+│       └── tos.tsx                     # /resources/legal/tos
+└── _app/                               # Auth guard (layout route)
+    ├── index.tsx                       # Redirect → courses
+    ├── onboarding.$stage.tsx           # /onboarding/:stage
+    ├── _hub/                           # Hub layout (layout route)
+    │   ├── courses.tsx                 # / (default hub view)
+    │   ├── projects.tsx                # /projects
+    │   ├── leaderboard.tsx             # /leaderboard
+    │   └── learn/$courseId/$moduleId   # /learn/:courseId/:moduleId
+    │   └── profile/$userId/
+    │       ├── index.tsx               # /profile/:userId
+    │       └── settings.tsx            # /profile/:userId/settings
+    ├── _desktopguard/                  # Desktop-only guard
+    │   └── project/$projectId.tsx      # /project/:projectId
+    ├── lesson/$courseId/$moduleId/$lessonId/
+    │   ├── route.tsx                   # Lesson layout
+    │   └── index.tsx                   # Lesson page
+    ├── sync/$lessonId.tsx              # Submission sync
+    ├── completion/$courseId/$moduleId/$lessonId.tsx
+    └── subscription/
+        ├── confirm.tsx                 # Checkout confirmation
+        ├── success.tsx                 # Payment success
+        ├── cancel.tsx                  # Payment cancelled
+        ├── manage.tsx                  # Manage subscription
+        ├── already-subscribed.tsx
+        └── _subscribedguard/
+            └── comparison.tsx          # Plan comparison
 ```
 
-### Router Setup
+<Tip variant="info" title="Layout Routes">
+  Routes prefixed with `_` (like `_app`, `_hub`, `_desktopguard`) are **layout
+  routes**. They render a shell component with an `Outlet` but do not add a URL
+  segment. This is how Ludocode applies auth guards and shared navigation
+  without nesting URLs.
+</Tip>
 
-The route tree, loaders, and configurations are located in `src/routes`. The file `router.tsx` is where the full route registry is constructed.
+---
 
-### Navigation Helper
+## Layouts
 
-The `ludoNavigation` helper provides typed navigation utilities:
+Layouts are structural shells that wrap groups of routes. Each provides a consistent frame (header, footer, grid) and renders child routes via `<Outlet />`.
+
+| Layout                 | Wraps                          | Key Features                                                                  |
+| ---------------------- | ------------------------------ | ----------------------------------------------------------------------------- |
+| **HubLayout**          | Courses, Projects, Leaderboard | Navigation header with icon group, footer, `MainGridWrapper` with `SITE` rows |
+| **ModuleHubLayout**    | Module lesson list             | Nested under Hub, adds module-specific header                                 |
+| **ProfileHubLayout**   | Profile, Settings              | Profile header with avatar and stats                                          |
+| **LessonLayout**       | Active lesson                  | Lesson header (progress bar), drawer, footer                                  |
+| **OnboardingLayout**   | Onboarding stages              | Stage shell with header, footer, step indicators                              |
+| **CompletionLayout**   | Post-lesson screens            | Completion footer with navigation                                             |
+| **ProjectLayout**      | Code workbench                 | Project header with save status, 3-pane workbench                             |
+| **SubscriptionLayout** | Subscription pages             | Subscription-specific framing                                                 |
+| **FallbackLayout**     | Error/guard pages              | Desktop-only, subscribed guard, generic fallback                              |
+| **ResourcesLayout**    | Docs, Legal pages              | Resource navigation shell                                                     |
+
+All layouts use `MainGridWrapper` from the design system, which provides a full-height CSS grid with configurable row patterns (`FULL`, `SITE`, `ONE`, `SITE_INVERSE`).
+
+---
+
+## The `ludoNavigation` Helper
+
+The `ludoNavigation` object in `constants/ludoNavigation.tsx` provides **type-safe navigation** across the entire app. Every navigation target is a function that returns a TanStack Router navigation descriptor.
 
 ```ts
-router.navigate(ludoNavigation.hub.module.toCurrent());
+// Navigate to a module page
+router.navigate(ludoNavigation.hub.module.toModule(courseId, moduleId));
 
-router.navigate(
-  ludoNavigation.lesson.toNextExercise(lessonId, currentExercisePosition),
-);
+// Start the next exercise
+router.navigate(ludoNavigation.lesson.toNextExercise(currentIndex));
+
+// Begin onboarding
+router.navigate(ludoNavigation.onboarding.start());
+```
+
+### Available Navigation Targets
+
+| Namespace         | Methods                                                                                                       | Description                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `auth`            | `login()`, `register()`                                                                                       | Auth pages (with `replace: true`)      |
+| `app`             | `index()`                                                                                                     | App root                               |
+| `courseRoot`      | —                                                                                                             | Default courses view                   |
+| `hub.module`      | `toModule(courseId, moduleId)`                                                                                | Module lesson list                     |
+| `hub.project`     | `toProjectHub()`                                                                                              | Project hub                            |
+| `hub.leaderboard` | `toLeaderboardHub()`                                                                                          | Leaderboard                            |
+| `hub.profile`     | `toProfile(userId)`, `toSettings(userId)`                                                                     | Profile & settings                     |
+| `lesson`          | `start(courseId, moduleId, lessonId)`, `toLesson(...)`, `toNextExercise(n)`                                   | Lesson flow navigation                 |
+| `project`         | `toProject(projectId)`                                                                                        | Open a project workbench               |
+| `onboarding`      | `start()`                                                                                                     | Begin onboarding at the `"name"` stage |
+| `subscription`    | `toSubscriptionComparisonPage()`, `toSubscriptionConfirmedPage()`, `toAlreadySubscribedPage()`                | Subscription flow                      |
+| `completion`      | `toSyncPage(lessonId, submission)`, `toLessonComplete(...)`, `toStreakIncrease(...)`, `toCourseComplete(...)` | Post-lesson flow                       |
+| `resources`       | `toResourcesRoute()`, `toToS()`, `toPrivacy()`                                                                | Legal & docs pages                     |
+
+<Tip variant="tip" title="Type Safety">
+  Each method returns a properly typed object with `to`, `params`, `search`, and
+  optionally `state` or `replace` — all validated at compile time by TanStack
+  Router's route type system.
+</Tip>
+
+---
+
+## Route Path Constants
+
+The `constants/-routes.ts` file exports all raw route path strings for reference:
+
+```ts
+export const routes = {
+  auth: { login: "/auth/login", register: "/auth/register", demo: "/demo/" },
+  hub: {
+    courses: "/_app/_hub/courses",
+    project: "/_app/_hub/projects",
+    module: { moduleHub: "/_app/_hub/learn/$courseId/$moduleId" },
+    profile: { user: "/_app/_hub/profile/$userId" },
+  },
+  lesson: { lessonPage: "/_app/lesson/$courseId/$moduleId/$lessonId" },
+  completion: {
+    syncPage: "/_app/sync/$lessonId",
+    completionPage: "/_app/completion/$courseId/$moduleId/$lessonId",
+  },
+  project: { projectPage: "/_app/_desktopguard/project/$projectId" },
+  onboarding: { base: "/_app/onboarding/", start: "/_app/onboarding/career" },
+};
 ```
 
 ---
 
-## Primary Routes
+## Admin App Route Tree
 
-### Auth & Demo
+```text
+__root.tsx                              # GoogleOAuthProvider wrapper
+├── auth/index.tsx                      # /auth → Admin sign-in
+└── _app/                               # Auth guard (fetches currentUser)
+    ├── index.tsx                       # Redirect → /hub/courses
+    ├── hub/
+    │   ├── courses.tsx                 # Course management hub
+    │   └── languages.tsx               # Language management hub
+    ├── curriculum/$courseId/
+    │   ├── index.tsx                   # Curriculum editor
+    │   └── lesson/$lessonId.tsx        # Lesson exercise editor
+    ├── language/
+    │   ├── $languageId.tsx             # Modify language
+    │   └── create.tsx                  # Create language
+    ├── subjects/index.tsx              # Subject management
+    └── courses/$courseId.tsx            # Course detail (placeholder)
+```
 
-- **Auth** (`/auth`) — renders the login UI and guards the rest of the app.
-- **Demo** (`/demo`) — bypasses authentication, issuing a demo token that logs the user in immediately.
-
-### Onboarding
-
-`/onboarding/$stage` — displayed when an authenticated user has no current course or preferences.
-
----
-
-## App Route
-
-`/app` wraps all authenticated sections of the website. No screens under this route render unless authentication is satisfied.
-
----
-
-## Hub Routes
-
-The Hub acts as the user's primary navigation container.
-
-| Hub     | Path                                 | Purpose                                      |
-| ------- | ------------------------------------ | -------------------------------------------- |
-| Courses | `/`                                  | Default entry point, displays course options |
-| Module  | `/course/$courseId/module/$moduleId` | Lessons for a module                         |
-| Builder | `/builder/hub`                       | Courses available for editing                |
-| Project | `/project/hub`                       | Lists user projects                          |
-
----
-
-## Lessons
-
-Lessons are layout routes. The active lesson is defined by `courseId` and `lessonId`. Exercises are addressed using the `exercise` search parameter.
-
----
-
-## Sync & Completion
-
-After a lesson submission:
-
-1. **Sync route** sends submission data to the backend.
-2. **Completion route** displays lesson completion details using `step` in search params.
+The admin's `adminNavigation` helper works identically to `ludoNavigation`, providing typed navigation across curriculum, language, subject, and hub routes.

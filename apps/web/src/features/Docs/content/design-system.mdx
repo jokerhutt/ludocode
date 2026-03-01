@@ -1,0 +1,211 @@
+---
+title: Design System
+slug: design-system
+section: Component Library
+order: 11
+description: The custom UI component library — primitives, widgets, zones, and layouts.
+---
+
+## Overview
+
+The **`@ludocode/design-system`** package contains all custom UI components shared across the web and admin apps. It is organized into five layers: **primitives**, **widgets**, **zones**, **layouts**, and **styles**.
+
+The `@ludocode/external` package complements it with 27 shadcn/ui components and 30 Vercel AI elements.
+
+---
+
+## Architecture
+
+```text
+packages/design-system/
+├── cn-utils.ts          # Tailwind class merging utility
+├── primitives/          # 27 atomic UI components
+├── widgets/             # 14 compound components
+│   ├── chatbot/         # AI chatbot components
+│   └── exercise/        # Exercise block renderer
+├── zones/               # Page-level structural regions
+├── layouts/grid/        # CSS grid wrappers
+├── styles/
+│   ├── theme/           # Design tokens (colors, shadows)
+│   ├── components/      # Grid utility classes
+│   ├── utilities/       # Scrollbar utilities
+│   └── font/            # DMMono & NeueHaas font faces
+└── templates/dialog/    # Pre-built dialog templates
+```
+
+---
+
+## Design Tokens
+
+The theme is defined in CSS custom properties (`styles/theme/ludo.css`):
+
+| Token                       | Value     | Usage                             |
+| --------------------------- | --------- | --------------------------------- |
+| `--color-ludo-background`   | `#22273e` | App background                    |
+| `--color-ludo-surface`      | `#303966` | Cards, panels, headers            |
+| `--color-ludo-accent`       | `#5c6fd6` | Primary accent, active states     |
+| `--color-ludo-accent-muted` | `#9eb2ff` | Secondary accent, links           |
+| `--color-ludo-danger`       | `#e57373` | Error states, destructive actions |
+| `--color-ludo-progress`     | `#6a7cff` | Progress bars                     |
+
+Fonts: **NeueHaasDisplay** (headings, body) and **DMMono** (code, monospace).
+
+---
+
+## Primitives
+
+Primitives are the smallest reusable components. Each is self-contained with no feature-specific logic.
+
+### Core Components
+
+| Component       | Description                                     | Variants                            |
+| --------------- | ----------------------------------------------- | ----------------------------------- |
+| **LudoButton**  | Primary button with 3D shadow effect            | `default`, `alt`, `white`, `danger` |
+| **LudoCard**    | Card container                                  | Same variants as LudoButton         |
+| **LudoInput**   | Text input with password toggle & error display | `default`, `alt`, `dark`            |
+| **LudoSelect**  | Radix Select wrapper                            | `default`, `dark`                   |
+| **LudoSpinner** | Centered loading spinner                        | `wide` mode                         |
+| **LudoTab**     | Compound tab component (`.Group` + `.Item`)     | Active accent styling               |
+| **LudoOption**  | Exercise answer option                          | `pill`, `wideSingleSelect`          |
+
+### Display Components
+
+| Component                     | Description                                           |
+| ----------------------------- | ----------------------------------------------------- |
+| **Avatar**                    | Rounded avatar with loading shimmer and accent border |
+| **Badge** / **AnimatedBadge** | Icon badge with optional spring animation             |
+| **CompletionBadge**           | Numbered circle — green check when complete           |
+| **ProgressSummary**           | Progress bar + label (row or column layout)           |
+| **CompletionRibbon**          | Diagonal corner ribbons for lesson states             |
+| **IncrementingCounter**       | Animated number transition (slide up)                 |
+| **StatusDot**                 | Colored circle indicator (default/ok/error)           |
+| **LabelPair**                 | Simple label + value pair row                         |
+
+### Interactive Components
+
+| Component            | Description                                        |
+| -------------------- | -------------------------------------------------- |
+| **IconButton**       | Button wrapping HeroIcon with hover effect         |
+| **HollowSlotButton** | Ghost-style button with active accent border       |
+| **ShadowLessButton** | LudoButton without 3D shadow                       |
+| **OptionInputSlot**  | Inline code-gap input with auto-width              |
+| **InlineCode**       | Syntax-highlighted inline code snippet             |
+| **RouterBar**        | Animated loading bar (tracks router pending state) |
+
+### Icons
+
+The **CustomIcon** component renders from a built-in `IconRegistry` with categorized SVG icons:
+
+- **Languages** — Python, JavaScript, R, Swift, C#, Go, Lua
+- **Exercise Types** — Cloze, Trivia, Analyze
+- **Auth Providers** — Google, GitHub, Facebook
+- **Status** — Error, Load, Yes (cloud icons)
+- **Misc** — AICredit, Question, Commit
+
+**HeroIcon** wraps `@heroicons/react` for standard UI icons.
+
+---
+
+## Widgets
+
+Widgets are larger compound components that combine multiple primitives and manage internal state (often via React Context).
+
+### UI Widgets
+
+| Widget            | Subcomponents                                                          | Description                                              |
+| ----------------- | ---------------------------------------------------------------------- | -------------------------------------------------------- |
+| **LudoDialog**    | `DialogWrapper`                                                        | Radix Dialog with accent border, controlled/uncontrolled |
+| **LudoMenu**      | `.Trigger`, `.Content`, `.Item`, `.Row`, `.Label`, `.Icon`, `.Divider` | Popover-based dropdown menu                              |
+| **LudoList**      | `.Header`, `.Content`, `.Item`                                         | List with position badge, progress, active state         |
+| **LudoPopover**   | —                                                                      | Accent-bordered popover with arrow                       |
+| **LudoSidebar**   | —                                                                      | Collapsible sidebar (shadcn Sidebar primitives)          |
+| **LudoSlideOver** | `.Header`, `.Content`                                                  | Animated panel (bottom or right)                         |
+| **LudoPath**      | `.Row`, `.Button`                                                      | Lesson path with zigzag layout and completion ribbons    |
+| **LudoLog**       | `.Trigger`, `.Content`, `.Line`                                        | Collapsible code run log                                 |
+
+### Code & Editor Widgets
+
+| Widget              | Subcomponents                            | Description                                   |
+| ------------------- | ---------------------------------------- | --------------------------------------------- |
+| **LudoCodePreview** | `.Header`, `.Code`, `.Shell`, `.Gutter`  | Code preview with fill-in-the-gap exercise UI |
+| **LudoFileTree**    | `.Item`                                  | Context-based file tree with rename/delete    |
+| **Workbench**       | `.Pane`, `.Pane.Winbar`, `.Pane.Content` | 12-column grid workbench layout               |
+
+### Chatbot Widgets
+
+| Widget                    | Description                                                |
+| ------------------------- | ---------------------------------------------------------- |
+| **ChatBotWindow**         | Main chat window with auto-scroll and conversation display |
+| **ChatBotConversation**   | Message renderer with Shiki syntax highlighting            |
+| **ChatBotInput**          | Prompt input with credits check                            |
+| **ChatbotCreditsTab**     | Credits display bar (amber when low)                       |
+| **ChatBotAccordion**      | Toggleable accordion with `Cmd+K` hotkey                   |
+| **FloatingChatbotWindow** | Floating panel with toggle and provider wrapper            |
+
+### Exercise Widget
+
+**BlockRenderer** — renders exercise content blocks by type (`header`, `paragraph`, `code`, `media`).
+
+---
+
+## Zones
+
+Zones are page-level structural regions that define the layout frame.
+
+| Zone            | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| **HeaderShell** | `<nav>` with 12-column grid. **HeaderWithBar** adds animated `RouterBar` |
+| **FooterShell** | `<footer>` with 12-column grid                                           |
+| **Hero**        | Accent-bordered hero section with title, subtitle, and action slot       |
+| **Aside**       | Desktop-only sidebar column (hidden on mobile, sticky)                   |
+| **Winbar**      | 40px top bar with surface background                                     |
+
+---
+
+## Layouts
+
+The grid system is built on `MainGridWrapper`, which renders a full-height CSS grid with configurable row patterns:
+
+| Pattern        | Grid Template   | Usage                           |
+| -------------- | --------------- | ------------------------------- |
+| `FULL`         | `1fr`           | Single-area layouts             |
+| `SITE`         | `auto 1fr auto` | Header + content + footer       |
+| `ONE`          | `1fr`           | Content-only (no header/footer) |
+| `SITE_INVERSE` | `auto 1fr auto` | Inverted site layout            |
+
+Supporting components:
+
+- **MainContentWrapper** — `<main>` with scroll container
+- **SubGridWrapper** — Nested grid for two-row sections
+
+---
+
+## Dialog Templates
+
+Pre-built dialog configurations in `templates/dialog/`:
+
+| Template               | Description                                                 |
+| ---------------------- | ----------------------------------------------------------- |
+| **WarningDialog**      | Base warning with optional type-to-confirm                  |
+| **DeleteDialog**       | Pre-configured for deletion ("This action is irreversible") |
+| **RenameDialog**       | Text input for renaming items                               |
+| **DevInfoDialog**      | Markdown content dialog for developer info                  |
+| **LeaveUnsavedDialog** | Unsaved changes warning ("Quit" button)                     |
+
+---
+
+## External Components
+
+### shadcn/ui (`@ludocode/external/ui/`)
+
+27 Radix-based UI primitives styled with Ludo design tokens: `accordion`, `alert`, `badge`, `button`, `card`, `carousel`, `checkbox`, `collapsible`, `command`, `dialog`, `drawer`, `dropdown-menu`, `hover-card`, `input`, `input-group`, `popover`, `progress`, `scroll-area`, `select`, `separator`, `sheet`, `sidebar`, `skeleton`, `spinner`, `textarea`, `tooltip`, `button-group`.
+
+### AI Elements (`@ludocode/external/ai-elements/`)
+
+30 Vercel AI SDK components for building chat interfaces: `Canvas`, `Message`, `PromptInput`, `Artifact`, `Conversation`, `CodeBlock`, `ChainOfThought`, `Reasoning`, `Loader`, `ModelSelector`, and more.
+
+<Tip variant="tip" title="Using cn()">
+  The `cn()` utility (from `cn-utils.ts`) merges Tailwind classes using `clsx` +
+  `tailwind-merge`. Use it everywhere to combine conditional classes without
+  conflicts: `cn("text-white", isActive && "bg-accent")`.
+</Tip>

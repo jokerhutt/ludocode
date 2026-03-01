@@ -1,61 +1,169 @@
 ---
-title: Lessons Flow
+title: Lessons & Exercises
 slug: lessons-flow
-section: Feature Breakdown
+section: Feature Flows
 order: 6
-description: How users move through a lesson's exercises.
+description: How users move through a lesson's exercises, answer types, and submission lifecycle.
 ---
 
 ## Overview
 
-The lesson flow manages how a user moves through a lesson's exercises. It handles exercise ordering, locking and unlocking the next step, submission lifecycle, and scoring.
+The lesson flow is the core learning experience. A user enters a lesson, progresses through a sequence of exercises, submits answers, receives feedback, and upon completing all exercises, submits the full lesson for grading.
+
+The lesson feature lives in `features/Lesson/` and includes the page, exercise templates, context, and several hooks that manage the state machine.
+
+---
+
+## Lesson Architecture
+
+```text
+features/Lesson/
+├── Pages/LessonPage.tsx           # Top-level lesson renderer
+├── Context/useLessonContext.tsx   # Shared lesson state
+├── Templates/ExerciseInteraction  # Renders the active exercise UI
+├── Components/
+│   ├── Code/option-list-wrapper    # Cloze option layout
+│   └── Zone/                       # LessonHeader, LessonFooter, LessonDrawer
+├── Hooks/
+│   ├── useExercise.tsx             # Current exercise state
+│   ├── useExerciseInput.tsx        # User selection management
+│   ├── useExerciseBodyData.tsx     # Exercise content parsing
+│   ├── useStagedAttempt.tsx        # Answer evaluation
+│   ├── useCommittedSubmissions.tsx # Finalized submissions
+│   └── useChangeExercise.tsx       # Navigation between exercises
+└── Util/
+    ├── submissionUtil.ts          # Submission building
+    └── validationUtil.ts          # Answer validation
+```
+
+---
+
+## Exercise Types
+
+Every exercise has content **blocks** (educational material) and an optional **interaction** (the answerable element).
+
+### Blocks
+
+Blocks make up the instructional body of an exercise:
+
+| Block Type  | Content                                              |
+| ----------- | ---------------------------------------------------- |
+| `header`    | Section heading text                                 |
+| `paragraph` | Explanatory text                                     |
+| `code`      | Syntax-highlighted code snippet (language + content) |
+| `media`     | Image with alt text                                  |
+
+The `BlockRenderer` component in the design system renders each block by type.
+
+### Interaction Types
+
+| Type       | Description                                                      |
+| ---------- | ---------------------------------------------------------------- |
+| **SELECT** | Multiple choice — pick the correct answer from a list of options |
+| **CLOZE**  | Fill-in-the-gap — drag options into blanks within a code snippet |
+| **INFO**   | No interaction — purely instructional (read and continue)        |
+
+```ts
+export type ExerciseInteraction =
+  | { type: "SELECT"; items: string[]; correctValue: string }
+  | {
+      type: "CLOZE";
+      file: InteractionFile;
+      blanks: InteractionBlank[];
+      options: string[];
+    };
+```
+
+For `CLOZE` exercises, the `LudoCodePreview` widget splits the code content on `___` markers and renders each gap as an `OptionInputSlot`.
 
 ---
 
 ## The 3 Phases of an Exercise
 
-Each exercise in a lesson goes through 3 phases:
+Each exercise moves through a strict lifecycle:
 
-### 1. User Input Phase
+### 1. Input Phase
 
-The user interacts with the exercise by selecting options and forming a potential answer. Nothing is evaluated and no submission exists. This phase is purely about constructing input.
+The user interacts with the exercise by selecting options. Nothing is evaluated yet. Selections are stored in a local `useState` array of `AnswerToken`, allowing the user to revise, remove, or reorder choices freely.
 
-Selections are stored locally in a `useState` array of `AnswerToken`, allowing the user to revise, remove, or reorder choices without restrictions.
-
-The submit button stays disabled until the selection meets the basic requirements of a complete answer.
+The submit button stays disabled until the selection meets the requirements of a complete answer.
 
 ### 2. Staged Phase
 
-The user has submitted their answer. Input is now locked, and the exercise goes from interaction to evaluation.
+The user clicks **Submit**. Input is now locked and the answer is evaluated.
 
-The current selection is passed into the staging hook, which generates an `ExerciseAttempt`. This object represents the submitted answer. Its `isCorrect` property determines the feedback shown.
+The `useStagedAttempt` hook generates an `ExerciseAttempt` from the current selection:
+
+```ts
+export type ExerciseAttempt = {
+  exerciseId: string;
+  isCorrect: boolean;
+  answer: AnswerToken[];
+};
+```
+
+Visual feedback is shown — green for correct, red for incorrect.
 
 ### 3. Committed Phase
 
-The user has seen feedback and clicked **Continue**.
+The user clicks **Continue** after seeing feedback:
 
-- The staged attempt merges into `committedExerciseSubmissions`
-- If wrong: retry unlocked
-- If correct: next exercise unlocked
-- Once the final exercise is committed, all submissions roll up into a `LessonSubmissionType`
+- The staged attempt is merged into `committedExerciseSubmissions`
+- If **incorrect**: the exercise resets for retry
+- If **correct**: the next exercise unlocks
+- When the **final exercise** is committed, all submissions are rolled up into a `LessonSubmissionRequest`
 
 ---
 
-## Correctness Rules
-
-Evaluating correctness is done by sorting integers. Each option has an `answerOrder`:
-
-- Distractor → `null`
-- First answer → `1`
-- Second → `2`, etc.
-
-A submitted attempt is **correct** when the selected `answerOrder`s are strictly ascending:
+## Submission Structure
 
 ```ts
-[1, 2, 3, 4][(1, 3, 2, 4)][(1, null, 3, 4)]; // → correct // → wrong // → wrong (distractor picked)
+export type LessonSubmissionRequest = {
+  submissionId: string; // Unique per attempt (prevents duplicates)
+  lessonId: string;
+  courseId: string;
+  exercises: ExerciseSubmissionRequest[];
+};
+
+export type ExerciseSubmissionRequest = {
+  exerciseId: string;
+  version: number;
+  attempts: ExerciseAnswer[];
+};
+
+export type ExerciseAnswer =
+  | { type: "SELECT"; pickedValue: string }
+  | { type: "CLOZE"; valuesByBlank: string[] };
 ```
 
-<Tip variant="warning" title="Null = Distractor">
-  If any `null` value appears in the submitted answer order, it means a
-  distractor was picked and the attempt is automatically marked as incorrect.
+Each exercise records all attempts (including wrong ones), allowing the backend to calculate accuracy.
+
+---
+
+## Lesson UI Components
+
+| Component               | Purpose                                               |
+| ----------------------- | ----------------------------------------------------- |
+| **LessonHeader**        | Progress bar showing current exercise / total         |
+| **LessonFooter**        | Submit / Continue / Finish buttons                    |
+| **LessonDrawer**        | Side panel with lesson info and AI chatbot            |
+| **ExerciseInteraction** | Renders the active exercise with its interaction type |
+
+<Tip variant="info" title="AI Assistant">
+  During lessons, users with AI credits can open the chatbot drawer (Cmd+K) to
+  ask questions about the current exercise. The chatbot receives the exercise
+  context automatically.
 </Tip>
+
+---
+
+## Module Navigation
+
+The `ModulePath` component renders the lesson list as a visual path with zigzag layout. Each lesson node shows its completion status via colored ribbons:
+
+- **Locked** — grayed out with lock icon
+- **Default** — available to start
+- **Complete** — green check
+- **Mastered** — gold ribbon
+
+The `FloatingTriggerButton` provides quick access to the module navigator on mobile via a slide-over panel.

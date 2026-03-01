@@ -1,20 +1,67 @@
 ---
-title: Catalog Tree & Fetching
+title: Catalog & Course Structure
 slug: catalog-tree
-section: Structure & Technology
+section: Getting Started
 order: 4
-description: How the catalog tree is fetched and cached.
+description: How courses, modules, and lessons are structured and fetched.
 ---
 
 ## Overview
 
-The catalog tree is the tree that holds the modules and lessons for each course.
+The **catalog** is the structural backbone of Ludocode's learning content. It defines how courses are organized into modules, and modules into lessons. The catalog is fetched as a lightweight ID-only tree and then hydrated with full content using batched queries.
 
 ---
 
-## FlatCourseTree
+## Core Types
 
-The `FlatCourseTree` stores the structure of the catalog as IDs:
+### Course
+
+```ts
+export type LudoCourse = {
+  id: string;
+  title: string;
+  courseType: CourseType; // "COURSE" | "SKILL_PATH"
+  subject: LudoCourseSubject; // { slug, name }
+  language?: LanguageMetadata; // Associated programming language
+  description: string;
+};
+```
+
+Courses come in two types: `COURSE` (structured learning path) and `SKILL_PATH` (focused topic). Each course belongs to a **subject** (e.g., "Python Fundamentals") and optionally links to a **language** with its editor and runtime configuration.
+
+### Module
+
+```ts
+export type LudoModule = {
+  id: string;
+  title: string;
+  courseId: string;
+  orderIndex: number;
+};
+```
+
+Modules are ordered sections within a course. They group related lessons together.
+
+### Lesson
+
+```ts
+export type LudoLesson = {
+  id: string;
+  title: string;
+  orderIndex: number;
+  isCompleted: boolean;
+};
+
+export type LessonStatus = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
+```
+
+Lessons are the atomic learning units. Each lesson contains exercises and tracks its completion status.
+
+---
+
+## The FlatCourseTree
+
+The catalog tree stores structure as **IDs only** — no titles, no content, just references and ordering:
 
 ```ts
 export type FlatCourseTree = {
@@ -34,34 +81,24 @@ export type FlatLesson = {
 };
 ```
 
----
+This separation is intentional. The tree defines the **shape** of a course, while the actual module and lesson data is fetched and cached independently.
 
-## useTreeData Hook
-
-The `useTreeData()` hook takes the `FlatCourseTree` and:
-
-1. Fetches all modules for a course
-2. Fetches all lessons for the currently requested module
-3. Stores the fetched modules and lessons in the TanStack Query cache
-
-<Tip variant="note" title="Smart Caching">
-  If the user visits `/courses/1/modules/1`, `useTreeData()` fetches all modules
-  for course `1` and all of module `1`'s lessons. If the user then visits module
-  `2`, the modules are already cached — only module `2`'s lessons need to be
-  fetched.
+<Tip variant="tip" title="Why IDs?">
+  Storing the tree as IDs means updating a single lesson (e.g., marking it
+  complete) only invalidates that lesson's cache entry — not the entire tree.
+  The structural skeleton remains stable.
 </Tip>
 
 ---
 
-## Benefits of Using IDs
+## The `useTreeData` Hook
 
-By storing the tree as IDs and order indexes rather than the content itself, the static structure of the catalog is kept separate from the mutable content.
+The `useTreeData()` hook bridges the flat tree and the cached content:
 
-Each module and lesson is stored under its own query key. Updating a lesson (e.g. marking it as complete) can be done by invalidating that specific lesson's query, without refreshing the entire tree.
-
----
-
-## Using the Tree Data
+1. Receives the `FlatCourseTree` from the route loader
+2. Fetches all **modules** for the course (batched)
+3. Fetches all **lessons** for the currently viewed module (batched)
+4. Retrieves the user's **course progress**
 
 ```ts
 const { tree } = moduleRoute.useLoaderData();
@@ -73,8 +110,64 @@ const { courseProgress, modules, lessons } = useTreeData({
 });
 ```
 
-From there, the page has:
+<Tip variant="info" title="Smart Caching">
+  If the user visits module 1, all modules are fetched and cached. When they
+  navigate to module 2, the modules resolve from cache — only module 2's lessons
+  need to be fetched.
+</Tip>
 
-- `courseProgress` for the current user
-- The list of modules for the course
-- The list of lessons for the current module
+---
+
+## Subjects & Languages
+
+Every course is assigned a **subject** — a categorization like "Web Development" or "Data Science":
+
+```ts
+export type LudoCourseSubject = {
+  slug: string;
+  name: string;
+};
+```
+
+Courses that involve coding also reference a **language** with full metadata:
+
+```ts
+export type LanguageMetadata = {
+  languageId: number;
+  name: string; // e.g., "Python"
+  slug: string; // e.g., "python"
+  editorId: string; // Monaco language identifier
+  pistonId: string; // Piston runtime identifier
+  extension: string; // e.g., ".py"
+  base: string; // Base image
+  iconName: string; // Icon registry key
+  initialScript: string; // Default file content
+};
+```
+
+This metadata drives the project editor (Monaco language mode), code runner (Piston runtime), and UI (icon display).
+
+---
+
+## Course Progress
+
+User progress is tracked per course:
+
+```ts
+export type CourseProgress = {
+  id: string;
+  userId: string;
+  courseId: string;
+  moduleId: string; // Current module
+  isComplete: boolean;
+  updatedAt: string;
+};
+
+export type CourseStats = {
+  id: string;
+  totalLessons: number;
+  completedLessons: number;
+};
+```
+
+The `CourseProgressBar` component in the Hub uses `CourseStats` to render a visual completion indicator.
