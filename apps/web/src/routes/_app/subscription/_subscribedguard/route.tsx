@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_app/subscription/_subscribedguard")({
     );
 
     if (currentSubscription.planCode == "DEV") {
-        throw redirect(ludoNavigation.courseRoot())
+        throw redirect(ludoNavigation.app.index())
     }
 
     if (currentSubscription.planCode != "FREE") {

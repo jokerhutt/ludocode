@@ -1,0 +1,98 @@
+---
+title: Introduction
+slug: introduction
+section: Getting Started
+order: 0
+description: Welcome to the Ludocode frontend documentation.
+---
+
+## Welcome to Ludocode
+
+Ludocode is an interactive coding education platform that makes learning to program fun and engaging. Built as a monorepo with two applications and six shared packages, the frontend powers everything from interactive lessons and code projects to an admin curriculum builder.
+
+This documentation covers the internal architecture of the Ludocode frontend — its routing system, data-fetching patterns, feature flows, component library, type system, and project structure.
+
+<Tip variant="tip" title="New to Ludocode?">
+  Start with the **Directory Structure** article to understand how the codebase
+  is organized, then explore **Routes & Navigation** and the feature-specific
+  pages.
+</Tip>
+
+<Tabs
+  tabs={[
+    {
+      label: "Quick Setup",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-3">
+          <p>Get running in under a minute:</p>
+          <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode.git
+cd ludocode/apps/web
+npm i
+npm run dev`}</CodeBlock>
+          <Tip variant="info" title="Environment">
+            Make sure you have Node.js 20+ and npm 9+ installed. The project
+            uses Vite for blazingly fast HMR.
+          </Tip>
+        </div>
+      ),
+    },
+    {
+      label: "Full Setup",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-3">
+          <p>Full dev environment with both apps, testing, and linting:</p>
+          <CodeBlock language="bash">{`npm install
+
+# Web app
+
+cd apps/web
+npm run dev
+
+# Admin app (separate terminal)
+
+cd apps/admin
+npm run dev
+
+# E2E tests
+
+npx playwright test
+
+# Lint
+
+npm run lint`}</CodeBlock>
+          <Tip variant="info" title="Monorepo">
+            Running `npm install`at the root installs dependencies for all
+            workspaces. Both apps share packages via the`@ludocode/` scope.
+</Tip>
+</div>
+),
+},
+]}
+/>
+
+### Tech Stack
+
+| Layer        | Technology      | Purpose                                  |
+| ------------ | --------------- | ---------------------------------------- |
+| Framework    | React 19        | UI rendering with Suspense               |
+| Routing      | TanStack Router | File-based, type-safe routing            |
+| Server State | TanStack Query  | Data fetching, caching, mutations        |
+| Forms        | TanStack Form   | Type-safe form state (admin app)         |
+| Styling      | Tailwind CSS v4 | Utility-first CSS with design tokens     |
+| Editor       | Monaco Editor   | Code editing in projects & admin         |
+| Validation   | Zod             | Schema validation for all data contracts |
+| Build        | Vite 7          | Dev server & production bundling         |
+| Auth         | Firebase Auth   | Google, GitHub, Email/Password login     |
+| Payments     | Stripe          | Subscription checkout & management       |
+| AI           | Vercel AI SDK   | Chatbot streaming & AI components        |
+| Animation    | Motion + Lottie | UI transitions & celebration effects     |
+| DnD          | dnd-kit         | Drag-and-drop in admin builder           |
+| Testing      | Playwright      | End-to-end browser testing               |
+
+### Documentation Sections
+
+| Section               | Articles                                                                                                                         |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Getting Started**   | Introduction, Directory Structure, Routes & Navigation, Queries & Data Fetching, Catalog & Course Structure                      |
+| **Feature Flows**     | User Profile & Progress, Lessons & Exercises, Completions & Sync, Projects & Code Runner, Admin & Curriculum Builder, Onboarding |
+| **Component Library** | Design System, Types Reference, Hooks & Utilities                                                                                |

@@ -3,6 +3,8 @@ import { Checkbox } from "@ludocode/external/ui/checkbox.tsx";
 import { useState } from "react";
 import type { EmailLoginMode } from "@/hooks/Queries/Mutations/useFirebaseEmailAuth.tsx";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import { router } from "@/main";
+import { ludoNavigation } from "@/constants/ludoNavigation";
 
 type EmailAuthFormProps = {
   mode: EmailLoginMode;
@@ -24,9 +26,9 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
       passwordInput.length > 0 &&
       (mode === "LOGIN" || hasAgreedToToS);
 
-    console.log("Email Input: ", emailInput)
-    console.log("Password input ", passwordInput)
-    console.log("Mode: ", mode)
+    console.log("Email Input: ", emailInput);
+    console.log("Password input ", passwordInput);
+    console.log("Mode: ", mode);
     console.log("Has agreed to TOS:", hasAgreedToToS);
 
     if (!canSubmitNow) {
@@ -64,7 +66,15 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
               className="hover:cursor-pointer data-[state=checked]:bg-ludo-accent"
             />
             <p className="text-xs">
-              By signing up, you agree to Ludocode's Terms of Service
+              By signing up, you agree to Ludocode's{" "}
+              <a
+                onClick={() =>
+                  router.navigate(ludoNavigation.resources.toToS())
+                }
+                className="underline hover:cursor-pointer"
+              >
+                Terms of Service
+              </a>
             </p>
           </div>
         )}

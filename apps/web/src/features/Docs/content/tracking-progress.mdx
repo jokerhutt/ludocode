@@ -1,0 +1,212 @@
+---
+title: User Profile & Progress
+slug: tracking-progress
+section: Feature Flows
+order: 5
+description: User accounts, profiles, streaks, coins, subscriptions, and progress tracking.
+---
+
+## Overview
+
+Ludocode tracks user identity, learning progress, gamification stats, and subscription status. This data powers the profile page, hub dashboard, and lesson flow.
+
+---
+
+## User Model
+
+```ts
+export type LudoUser = {
+  id: string;
+  displayName: string | null;
+  avatarVersion: string;
+  avatarIndex: number;
+  email: string;
+  hasOnboarded: boolean;
+  createdAt: number; // Unix timestamp
+};
+```
+
+The `hasOnboarded` flag determines whether the user is redirected to the onboarding flow on login. The `avatarIndex` and `avatarVersion` together resolve to the user's selected avatar image.
+
+---
+
+## Authentication
+
+Auth is handled through **Firebase Authentication** with support for:
+
+- **Google OAuth** (popup-based)
+- **GitHub OAuth** (popup-based)
+- **Email/Password** (form-based)
+- **Demo Login** (bypasses auth with a demo token when enabled)
+
+The auth flow:
+
+1. Firebase authenticates the user and returns a token
+2. The token is POSTed to the Ludocode backend (`auth/firebase`)
+3. The backend returns a `LoginUserResponse` with user data, coins, and streak
+4. `useFinalizeLogin` fetches feature flags, preferences, and enrollment data
+5. If `hasOnboarded` is false, redirect to onboarding; otherwise, redirect to hub
+
+```ts
+export type LoginUserResponse = {
+  user: LudoUser;
+  userCoins: UserCoins;
+  userStreak: UserStreak;
+};
+```
+
+---
+
+## Streaks & Coins
+
+### Streaks
+
+```ts
+export type UserStreak = {
+  current: number; // Current consecutive days
+  best: number; // All-time best streak
+  lastMet?: string; // ISO date of last goal met
+};
+
+export type DailyGoalMet = {
+  date: string;
+  met: boolean;
+};
+```
+
+The `WeeklyStreakGroup` displays the past 7 days using `DailyGoalMet` data. The `StreakStatsDialog` shows detailed streak history.
+
+### Coins
+
+```ts
+export type UserCoins = {
+  id: string;
+  coins: number;
+};
+```
+
+Coins are earned by completing lessons. The amount depends on accuracy. The `CoinsDialog` and `StatsGroup` display coin totals in the hub.
+
+---
+
+## Course Progress
+
+Progress is tracked per-course with two types:
+
+```ts
+export type CourseProgress = {
+  id: string;
+  userId: string;
+  courseId: string;
+  moduleId: string; // User's current module
+  isComplete: boolean; // Whether the entire course is done
+  updatedAt: string;
+};
+
+export type CourseStats = {
+  id: string;
+  totalLessons: number;
+  completedLessons: number;
+};
+```
+
+Lesson completion status is determined by combining lesson data with course progress:
+
+- Lessons with `isCompleted: true` show as **Complete**
+- The lesson matching `courseProgress.moduleId` + lesson ordering determines the **Current** lesson
+- Lessons after the current one are **Locked**
+
+The `CourseProgressBar` uses `CourseStats` to render a visual indicator in the hub.
+
+---
+
+## Profile Feature
+
+The profile page (`/profile/:userId`) displays:
+
+| Component                  | Data Shown                       |
+| -------------------------- | -------------------------------- |
+| **UserCard**               | Avatar, display name, join date  |
+| **UserStatsGroup**         | Streak, coins, completed lessons |
+| **UserBadgeCard**          | Achievement badges               |
+| **SubscriptionStatusCard** | Current plan and period end      |
+| **AICreditBalanceCard**    | Remaining AI credits             |
+| **FeatureToggleCard**      | AI/audio preference toggles      |
+
+The account settings page (`/profile/:userId/settings`) provides:
+
+- Username editing
+- Avatar selection
+- Account deletion (with confirmation dialog)
+
+---
+
+## Subscriptions
+
+Ludocode uses **Stripe** for subscription management with three tiers:
+
+```ts
+export type SubscriptionPlan = "FREE" | "SUPPORTER" | "DEV";
+
+export type UserSubscription = {
+  userId: string;
+  planCode: SubscriptionPlan;
+  monthlyCreditAllowance: number;
+  maxProjects: number;
+  currentPeriodEnd: number;
+  cancelAtPeriodEnd: boolean;
+};
+```
+
+Plan features are defined by `PlanOverview`:
+
+```ts
+export type Feature =
+  | "CORE_COURSES"
+  | "CODE_EDITOR"
+  | "PUBLISH_PROJECTS"
+  | "SKILL_PATHS"
+  | "AI_ASSISTANT"
+  | "PRIORITY_SUPPORT";
+
+export type PlanOverview = {
+  tier: SubscriptionPlan;
+  price: number;
+  period: string;
+  description: string;
+  recommended: boolean;
+  features: Feature[];
+  limits: { monthlyAiCredits: number; maxProjects: number };
+};
+```
+
+The subscription flow:
+
+1. **Comparison page** — `SubscriptionComparisonPage` shows plan cards with feature matrix
+2. **Checkout** — `useStripeCheckout` creates a Stripe session and redirects
+3. **Confirmation** — `SubscriptionConfirmPage` confirms the payment with the backend
+4. **Success** — `SubscriptionSuccessPage` displays confirmation
+5. **Management** — `useStripeManage` opens the Stripe customer portal
+
+<Tip variant="info" title="Feature Gating">
+  The `SubscriptionContext` provides the user's active plan throughout the app.
+  Components like `SubscriptionBadge` in the hub header and
+  `SubscriptionActionButton` on the profile adjust their display based on the
+  current tier.
+</Tip>
+
+---
+
+## User Preferences
+
+```ts
+export type UserPreferences = {
+  userId: UUID;
+  hasExperience: boolean;
+  chosenPath: OnboardingCareerType;
+  aiEnabled: boolean;
+  audioEnabled: boolean;
+};
+```
+
+Preferences are set during onboarding and can be toggled later via `useEditPreferences`. The `aiEnabled` flag controls AI chatbot visibility, and `audioEnabled` controls sound effects.
