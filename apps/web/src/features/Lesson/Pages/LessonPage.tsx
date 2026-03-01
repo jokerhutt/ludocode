@@ -8,17 +8,19 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 import { AnimatePresence, motion } from "motion/react";
+import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
 
 export function LessonPage() {
   const { inputState, currentExercise } = useLessonContext();
   const { aiEnabled } = useUserPreferencesContext();
+  const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
 
   return (
     <>
       <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
-        {aiEnabled && (
+        {aiEnabled && aiFeature.enabled && (
           <FloatingChatbotWindow
             credits={credits}
             chatType="LESSON"

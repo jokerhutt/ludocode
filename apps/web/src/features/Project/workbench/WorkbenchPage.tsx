@@ -7,9 +7,11 @@ import { WorkbenchOutputPane } from "./output/WorkbenchOutputPane.tsx";
 import { LudoTab } from "@ludocode/design-system/primitives/tab.tsx";
 import { stripFileName } from "@/features/Project/util/filenameUtil.ts";
 import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
+import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 
 export function WorkbenchPage() {
   const { project, files, current } = useProjectContext();
+  const runnerFeature = useFeatureEnabledCheck({feature: "isPistonEnabled"})
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
@@ -27,7 +29,7 @@ export function WorkbenchPage() {
               </LudoTab.Group>
             </Workbench.Pane.Winbar>
             <ProjectEditor isMarkedForDeletion={!!project.deleteAt} />
-            <RunCodeButton />
+            <RunCodeButton disabled={!runnerFeature.enabled} />
           </Workbench.Pane>
 
           <WorkbenchOutputPane />
