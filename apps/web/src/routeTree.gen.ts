@@ -9,14 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as DemoIndexRouteImport } from './routes/demo/index'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as ResourcesLegalRouteRouteImport } from './routes/resources/legal/route'
 import { Route as AppSubscriptionRouteRouteImport } from './routes/_app/subscription/route'
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
+import { Route as ResourcesLegalTosRouteImport } from './routes/resources/legal/tos'
+import { Route as ResourcesLegalPrivacyRouteImport } from './routes/resources/legal/privacy'
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
 import { Route as AppSubscriptionSuccessRouteImport } from './routes/_app/subscription/success'
 import { Route as AppSubscriptionManageRouteImport } from './routes/_app/subscription/manage'
@@ -38,6 +43,16 @@ import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/_app/_
 import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/_app/lesson/$courseId/$moduleId/$lessonId/route'
 import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/_app/lesson/$courseId/$moduleId/$lessonId/index'
 
+const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
@@ -53,14 +68,19 @@ const AppIndexRoute = AppIndexRouteImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRouteImport,
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
-  getParentRoute: () => rootRouteImport,
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const ResourcesLegalRouteRoute = ResourcesLegalRouteRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const AppSubscriptionRouteRoute = AppSubscriptionRouteRouteImport.update({
   id: '/subscription',
@@ -74,6 +94,16 @@ const AppHubRouteRoute = AppHubRouteRouteImport.update({
 const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
   id: '/_desktopguard',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const ResourcesLegalTosRoute = ResourcesLegalTosRouteImport.update({
+  id: '/tos',
+  path: '/tos',
+  getParentRoute: () => ResourcesLegalRouteRoute,
+} as any)
+const ResourcesLegalPrivacyRoute = ResourcesLegalPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => ResourcesLegalRouteRoute,
 } as any)
 const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
   id: '/sync/$lessonId',
@@ -186,7 +216,10 @@ const AppLessonCourseIdModuleIdLessonIdIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/resources': typeof ResourcesRouteRouteWithChildren
   '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
+  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
@@ -201,6 +234,8 @@ export interface FileRoutesByFullPath {
   '/subscription/manage': typeof AppSubscriptionManageRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/resources/legal/tos': typeof ResourcesLegalTosRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
@@ -212,7 +247,10 @@ export interface FileRoutesByFullPath {
   '/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/resources': typeof ResourcesRouteRouteWithChildren
   '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
+  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
@@ -227,6 +265,8 @@ export interface FileRoutesByTo {
   '/subscription/manage': typeof AppSubscriptionManageRoute
   '/subscription/success': typeof AppSubscriptionSuccessRoute
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/resources/legal/tos': typeof ResourcesLegalTosRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
@@ -238,9 +278,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/resources': typeof ResourcesRouteRouteWithChildren
   '/_app/_desktopguard': typeof AppDesktopguardRouteRouteWithChildren
   '/_app/_hub': typeof AppHubRouteRouteWithChildren
   '/_app/subscription': typeof AppSubscriptionRouteRouteWithChildren
+  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/_app/': typeof AppIndexRoute
@@ -256,6 +299,8 @@ export interface FileRoutesById {
   '/_app/subscription/manage': typeof AppSubscriptionManageRoute
   '/_app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/resources/legal/tos': typeof ResourcesLegalTosRoute
   '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/_app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/_app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
@@ -269,7 +314,10 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/auth'
+    | '/resources'
     | '/subscription'
+    | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
     | '/'
@@ -284,6 +332,8 @@ export interface FileRouteTypes {
     | '/subscription/manage'
     | '/subscription/success'
     | '/sync/$lessonId'
+    | '/resources/legal/privacy'
+    | '/resources/legal/tos'
     | '/project/$projectId'
     | '/profile/$userId'
     | '/subscription/comparison'
@@ -295,7 +345,10 @@ export interface FileRouteTypes {
     | '/lesson/$courseId/$moduleId/$lessonId/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth'
+    | '/resources'
     | '/subscription'
+    | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
     | '/'
@@ -310,6 +363,8 @@ export interface FileRouteTypes {
     | '/subscription/manage'
     | '/subscription/success'
     | '/sync/$lessonId'
+    | '/resources/legal/privacy'
+    | '/resources/legal/tos'
     | '/project/$projectId'
     | '/subscription/comparison'
     | '/learn/$courseId/$moduleId'
@@ -320,9 +375,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_app'
+    | '/auth'
+    | '/resources'
     | '/_app/_desktopguard'
     | '/_app/_hub'
     | '/_app/subscription'
+    | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
     | '/_app/'
@@ -338,6 +396,8 @@ export interface FileRouteTypes {
     | '/_app/subscription/manage'
     | '/_app/subscription/success'
     | '/_app/sync/$lessonId'
+    | '/resources/legal/privacy'
+    | '/resources/legal/tos'
     | '/_app/_desktopguard/project/$projectId'
     | '/_app/_hub/profile/$userId'
     | '/_app/subscription/_subscribedguard/comparison'
@@ -351,13 +411,27 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
   DemoIndexRoute: typeof DemoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -381,17 +455,24 @@ declare module '@tanstack/react-router' {
     }
     '/auth/register': {
       id: '/auth/register'
-      path: '/auth/register'
+      path: '/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
     '/auth/login': {
       id: '/auth/login'
-      path: '/auth/login'
+      path: '/login'
       fullPath: '/auth/login'
       preLoaderRoute: typeof AuthLoginRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/resources/legal': {
+      id: '/resources/legal'
+      path: '/legal'
+      fullPath: '/resources/legal'
+      preLoaderRoute: typeof ResourcesLegalRouteRouteImport
+      parentRoute: typeof ResourcesRouteRoute
     }
     '/_app/subscription': {
       id: '/_app/subscription'
@@ -413,6 +494,20 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AppDesktopguardRouteRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/resources/legal/tos': {
+      id: '/resources/legal/tos'
+      path: '/tos'
+      fullPath: '/resources/legal/tos'
+      preLoaderRoute: typeof ResourcesLegalTosRouteImport
+      parentRoute: typeof ResourcesLegalRouteRoute
+    }
+    '/resources/legal/privacy': {
+      id: '/resources/legal/privacy'
+      path: '/privacy'
+      fullPath: '/resources/legal/privacy'
+      preLoaderRoute: typeof ResourcesLegalPrivacyRouteImport
+      parentRoute: typeof ResourcesLegalRouteRoute
     }
     '/_app/sync/$lessonId': {
       id: '/_app/sync/$lessonId'
@@ -681,10 +776,49 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
 
-const rootRouteChildren: RootRouteChildren = {
-  AppRouteRoute: AppRouteRouteWithChildren,
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
+interface ResourcesLegalRouteRouteChildren {
+  ResourcesLegalPrivacyRoute: typeof ResourcesLegalPrivacyRoute
+  ResourcesLegalTosRoute: typeof ResourcesLegalTosRoute
+}
+
+const ResourcesLegalRouteRouteChildren: ResourcesLegalRouteRouteChildren = {
+  ResourcesLegalPrivacyRoute: ResourcesLegalPrivacyRoute,
+  ResourcesLegalTosRoute: ResourcesLegalTosRoute,
+}
+
+const ResourcesLegalRouteRouteWithChildren =
+  ResourcesLegalRouteRoute._addFileChildren(ResourcesLegalRouteRouteChildren)
+
+interface ResourcesRouteRouteChildren {
+  ResourcesLegalRouteRoute: typeof ResourcesLegalRouteRouteWithChildren
+}
+
+const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
+  ResourcesLegalRouteRoute: ResourcesLegalRouteRouteWithChildren,
+}
+
+const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
+  ResourcesRouteRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  AppRouteRoute: AppRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
   DemoIndexRoute: DemoIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -33,12 +33,26 @@ import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.t
 // LEADERBOARD
 import { Route as leaderboardHubRoute } from "@/routes/_app/_hub/leaderboard";
 
+// APP
+
+import { Route as appIndexRoute } from "@/routes/_app/index";
+
+// RESOURCES
+
+import { Route as resourcesRootRoute } from "@/routes/resources/route";
+import { Route as tosRoute } from "@/routes/resources/legal/tos";
+import { Route as privacyRoute } from "@/routes/resources/legal/privacy";
+
 import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {
   auth: {
     login: () => ({ to: authLoginRoute.to, replace: true }),
     register: () => ({ to: authRegisterRoute.to, replace: true }),
+  },
+
+  app: {
+    index: () => ({ to: appIndexRoute.to }),
   },
 
   courseRoot: () => ({ to: coursesRoute.to }),
@@ -68,6 +82,12 @@ export const ludoNavigation = {
         params: { userId },
       }),
     },
+  },
+
+  resources: {
+    toResourcesRoute: () => ({ to: resourcesRootRoute.to }),
+    toToS: () => ({ to: tosRoute.to }),
+    toPrivacy: () => ({ to: privacyRoute.to }),
   },
 
   lesson: {

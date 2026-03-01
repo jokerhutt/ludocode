@@ -9,7 +9,16 @@ import {
 import { SubscriptionBadge } from "@/features/Hub/Components/Zone/SubscriptionBadge.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
-import { LifeBuoy, Map, NotebookText, Settings, User, X } from "lucide-react";
+import {
+  LifeBuoy,
+  LockIcon,
+  Map,
+  NotebookText,
+  Scroll,
+  Settings,
+  User,
+  X,
+} from "lucide-react";
 import type { ReactElement } from "react";
 import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton";
@@ -88,6 +97,24 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               label="Roadmap"
               onClick={() =>
                 router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
+              }
+            />
+          </DrawerClose>
+          <DrawerClose asChild>
+            <NavItem
+              icon={<LockIcon className="h-5 w-5" />}
+              label="Privacy Policy"
+              onClick={() =>
+                router.navigate(ludoNavigation.resources.toPrivacy())
+              }
+            />
+          </DrawerClose>
+          <DrawerClose asChild>
+            <NavItem
+              icon={<Scroll className="h-5 w-5" />}
+              label="Terms of service"
+              onClick={() =>
+                router.navigate(ludoNavigation.resources.toToS())
               }
             />
           </DrawerClose>

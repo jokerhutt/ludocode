@@ -96,7 +96,7 @@ export function SyncingPage() {
             <LudoButton
               variant="alt"
               className="h-10 px-5 rounded-lg text-sm font-semibold"
-              onClick={() => router.navigate(ludoNavigation.courseRoot())}
+              onClick={() => router.navigate(ludoNavigation.app.index())}
             >
               Back to Courses
             </LudoButton>
