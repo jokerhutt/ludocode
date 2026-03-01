@@ -1,0 +1,80 @@
+---
+title: Catalog Tree & Fetching
+slug: catalog-tree
+section: Structure & Technology
+order: 4
+description: How the catalog tree is fetched and cached.
+---
+
+## Overview
+
+The catalog tree is the tree that holds the modules and lessons for each course.
+
+---
+
+## FlatCourseTree
+
+The `FlatCourseTree` stores the structure of the catalog as IDs:
+
+```ts
+export type FlatCourseTree = {
+  courseId: string;
+  modules: FlatModule[];
+};
+
+export type FlatModule = {
+  id: string;
+  orderIndex: number;
+  lessons: FlatLesson[];
+};
+
+export type FlatLesson = {
+  id: string;
+  orderIndex: number;
+};
+```
+
+---
+
+## useTreeData Hook
+
+The `useTreeData()` hook takes the `FlatCourseTree` and:
+
+1. Fetches all modules for a course
+2. Fetches all lessons for the currently requested module
+3. Stores the fetched modules and lessons in the TanStack Query cache
+
+<Tip variant="note" title="Smart Caching">
+  If the user visits `/courses/1/modules/1`, `useTreeData()` fetches all modules
+  for course `1` and all of module `1`'s lessons. If the user then visits module
+  `2`, the modules are already cached — only module `2`'s lessons need to be
+  fetched.
+</Tip>
+
+---
+
+## Benefits of Using IDs
+
+By storing the tree as IDs and order indexes rather than the content itself, the static structure of the catalog is kept separate from the mutable content.
+
+Each module and lesson is stored under its own query key. Updating a lesson (e.g. marking it as complete) can be done by invalidating that specific lesson's query, without refreshing the entire tree.
+
+---
+
+## Using the Tree Data
+
+```ts
+const { tree } = moduleRoute.useLoaderData();
+
+const { courseProgress, modules, lessons } = useTreeData({
+  tree,
+  courseId,
+  moduleId,
+});
+```
+
+From there, the page has:
+
+- `courseProgress` for the current user
+- The list of modules for the course
+- The list of lessons for the current module

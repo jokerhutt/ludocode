@@ -1,0 +1,58 @@
+---
+title: Lesson Completions
+slug: completions-flow
+section: Feature Breakdown
+order: 7
+description: How lesson submissions are processed and completion screens shown.
+---
+
+## Overview
+
+This document describes how a lesson submission is processed, how the result is synchronized with the backend, and how the client determines which completion screen(s) to show.
+
+---
+
+## Sync Page
+
+When a user completes their lesson, the lesson page navigates to the sync page with a `LessonSubmission` object.
+
+The sync page calls the `useSubmitLesson()` hook, which sends the submission to the backend and receives a `LessonCompletionPacket`:
+
+```ts
+export type LessonCompletionPacket = {
+  content: LessonCompletionResponse;
+  status: LessonCompletionStatus;
+};
+
+export type LessonCompletionResponse = {
+  newCoins: UserCoins;
+  newStreak: UserStreak;
+  newCourseProgress: CourseProgress;
+  updatedCompletedLesson: LudoLesson;
+  accuracy: number;
+};
+```
+
+---
+
+## Duplicate Submissions
+
+A unique identifier is generated for each submission. If the same lesson has been sent twice, the backend returns `"DUPLICATE"` as the `CompletionStatus`.
+
+---
+
+## Completion Pages
+
+The `CompletionState` object provides all the necessary information for displaying completion screens:
+
+- **Lesson page** — overview of points & accuracy
+- **Streak page** — appears if the streak has increased (`oldStreak < newStreak`)
+- **Course page** — appears if the course was just completed (`completionStatus === "COURSE_COMPLETE"`)
+
+### Page Order Logic
+
+```text
+1. always → lesson
+2. if streak changed → streak
+3. if course complete → course
+```

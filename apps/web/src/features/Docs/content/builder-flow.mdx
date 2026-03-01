@@ -1,0 +1,63 @@
+---
+title: The Builder
+slug: builder-flow
+section: Feature Breakdown
+order: 9
+description: How the course builder and snapshot editing system works.
+---
+
+## Overview
+
+The builder feature allows users to edit a course's modules, lessons, exercises, and options. It provides an intuitive way to edit courses and their content with visual schema validation.
+
+---
+
+## Purpose
+
+Without the builder, courses would need to be made by manually editing database entries. The builder enforces schema constraints with visual feedback, so the editing user can clearly see invalid entries.
+
+---
+
+## Architecture
+
+The component structure uses higher-order components rather than context, driven by TanStack Form's nature. This created some challenges given the deeply nested nature of a course, but TanStack Form's type and validation safety was prioritized.
+
+---
+
+## Snapshots & Zod
+
+Courses are edited using **snapshots**. These contain all the information the frontend needs to edit content and all the information the backend needs to compute diffs. The frontend receives a snapshot and sends back a snapshot without any intermediate step.
+
+Snapshots are defined using Zod schemas in:
+
+```text
+src/types/Zod/SnapshotSchema
+```
+
+---
+
+## Builder UI Tree Nodes
+
+Modules and lessons are presented in a tree structure on a sidebar using `ModuleNodeForm` and `LessonNodeForm` components.
+
+---
+
+## Builder UI Exercise Nodes
+
+Exercises have their own separate section:
+
+- **ExerciseNodesList** — buttons for each exercise
+- **ExerciseNodeInfoForm** — form for editing exercise content (title, subtitle, prompt)
+- **ExerciseOptionsForm** — drag & drop interface for editing options (correct & distractors)
+
+---
+
+## Error Validation & Bubbling
+
+Validation uses the Zod snapshot schemas. Errors appear as red circles on the specific snapshot element as well as its parents.
+
+<Tip variant="tip" title="Error Propagation">
+  An error in an exercise will highlight that exercise, **plus** its parent
+  lesson and module — so users don't need to manually check each module to find
+  issues.
+</Tip>

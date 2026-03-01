@@ -20,6 +20,7 @@ import { Route as ResourcesLegalRouteRouteImport } from './routes/resources/lega
 import { Route as AppSubscriptionRouteRouteImport } from './routes/_app/subscription/route'
 import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
 import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
+import { Route as ResourcesDocsIndexRouteImport } from './routes/resources/docs/index'
 import { Route as ResourcesLegalTosRouteImport } from './routes/resources/legal/tos'
 import { Route as ResourcesLegalPrivacyRouteImport } from './routes/resources/legal/privacy'
 import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
@@ -94,6 +95,11 @@ const AppHubRouteRoute = AppHubRouteRouteImport.update({
 const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
   id: '/_desktopguard',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const ResourcesDocsIndexRoute = ResourcesDocsIndexRouteImport.update({
+  id: '/docs/',
+  path: '/docs/',
+  getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const ResourcesLegalTosRoute = ResourcesLegalTosRouteImport.update({
   id: '/tos',
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
   '/resources/legal/tos': typeof ResourcesLegalTosRoute
+  '/resources/docs': typeof ResourcesDocsIndexRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
   '/resources/legal/tos': typeof ResourcesLegalTosRoute
+  '/resources/docs': typeof ResourcesDocsIndexRoute
   '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
@@ -301,6 +309,7 @@ export interface FileRoutesById {
   '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
   '/resources/legal/tos': typeof ResourcesLegalTosRoute
+  '/resources/docs/': typeof ResourcesDocsIndexRoute
   '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/_app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/_app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
@@ -334,6 +343,7 @@ export interface FileRouteTypes {
     | '/sync/$lessonId'
     | '/resources/legal/privacy'
     | '/resources/legal/tos'
+    | '/resources/docs'
     | '/project/$projectId'
     | '/profile/$userId'
     | '/subscription/comparison'
@@ -365,6 +375,7 @@ export interface FileRouteTypes {
     | '/sync/$lessonId'
     | '/resources/legal/privacy'
     | '/resources/legal/tos'
+    | '/resources/docs'
     | '/project/$projectId'
     | '/subscription/comparison'
     | '/learn/$courseId/$moduleId'
@@ -398,6 +409,7 @@ export interface FileRouteTypes {
     | '/_app/sync/$lessonId'
     | '/resources/legal/privacy'
     | '/resources/legal/tos'
+    | '/resources/docs/'
     | '/_app/_desktopguard/project/$projectId'
     | '/_app/_hub/profile/$userId'
     | '/_app/subscription/_subscribedguard/comparison'
@@ -494,6 +506,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AppDesktopguardRouteRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/resources/docs/': {
+      id: '/resources/docs/'
+      path: '/docs'
+      fullPath: '/resources/docs'
+      preLoaderRoute: typeof ResourcesDocsIndexRouteImport
+      parentRoute: typeof ResourcesRouteRoute
     }
     '/resources/legal/tos': {
       id: '/resources/legal/tos'
@@ -805,10 +824,12 @@ const ResourcesLegalRouteRouteWithChildren =
 
 interface ResourcesRouteRouteChildren {
   ResourcesLegalRouteRoute: typeof ResourcesLegalRouteRouteWithChildren
+  ResourcesDocsIndexRoute: typeof ResourcesDocsIndexRoute
 }
 
 const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
   ResourcesLegalRouteRoute: ResourcesLegalRouteRouteWithChildren,
+  ResourcesDocsIndexRoute: ResourcesDocsIndexRoute,
 }
 
 const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(

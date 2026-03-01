@@ -1,0 +1,105 @@
+---
+title: Routes & Layouts
+slug: routes-and-layouts
+section: Structure & Technology
+order: 3
+description: Routing architecture and layout system.
+---
+
+## Overview
+
+TanStack Router defines the structural and navigational rules of the application. Almost every route is a child of `authedRoute`, meaning authenticated users are expected to operate within this tree. Two routes are exceptions: `authRoute` and `demoRoute`.
+
+The core route tree:
+
+```text
+root
+    auth
+    demoLogin
+    onboarding
+    app
+        hub
+            coursesHub
+            modulesHub
+            projectHub
+            builderHub
+        lessons
+        sync
+        completion
+        builder
+```
+
+---
+
+## Core Structure
+
+### Route Definitions
+
+All route paths are defined as a `routes` object in:
+
+```text
+src/constants/router/-routes.ts
+```
+
+### Router Setup
+
+The route tree, loaders, and configurations are located in `src/routes`. The file `router.tsx` is where the full route registry is constructed.
+
+### Navigation Helper
+
+The `ludoNavigation` helper provides typed navigation utilities:
+
+```ts
+router.navigate(ludoNavigation.hub.module.toCurrent());
+
+router.navigate(
+  ludoNavigation.lesson.toNextExercise(lessonId, currentExercisePosition),
+);
+```
+
+---
+
+## Primary Routes
+
+### Auth & Demo
+
+- **Auth** (`/auth`) — renders the login UI and guards the rest of the app.
+- **Demo** (`/demo`) — bypasses authentication, issuing a demo token that logs the user in immediately.
+
+### Onboarding
+
+`/onboarding/$stage` — displayed when an authenticated user has no current course or preferences.
+
+---
+
+## App Route
+
+`/app` wraps all authenticated sections of the website. No screens under this route render unless authentication is satisfied.
+
+---
+
+## Hub Routes
+
+The Hub acts as the user's primary navigation container.
+
+| Hub     | Path                                 | Purpose                                      |
+| ------- | ------------------------------------ | -------------------------------------------- |
+| Courses | `/`                                  | Default entry point, displays course options |
+| Module  | `/course/$courseId/module/$moduleId` | Lessons for a module                         |
+| Builder | `/builder/hub`                       | Courses available for editing                |
+| Project | `/project/hub`                       | Lists user projects                          |
+
+---
+
+## Lessons
+
+Lessons are layout routes. The active lesson is defined by `courseId` and `lessonId`. Exercises are addressed using the `exercise` search parameter.
+
+---
+
+## Sync & Completion
+
+After a lesson submission:
+
+1. **Sync route** sends submission data to the backend.
+2. **Completion route** displays lesson completion details using `step` in search params.

@@ -1,0 +1,59 @@
+---
+title: Tracking Course Progress
+slug: tracking-progress
+section: Structure & Technology
+order: 5
+description: How user progress is tracked and updated.
+---
+
+## Overview
+
+This section explains how the user's current lesson and completed lessons are calculated and updated.
+
+---
+
+## LudoLesson
+
+The `LudoLesson` type holds the data for a specific lesson, including whether it has been completed. The `isCompleted` property is computed by the backend.
+
+```ts
+export type LudoLesson = {
+  id: string;
+  title: string;
+  orderIndex: number;
+  isCompleted: boolean;
+};
+```
+
+---
+
+## CourseProgress
+
+The `CourseProgress` type holds data for the user's progress in a course. Each user can have exactly one course progress per course. The `currentLessonId` property is used to determine the user's current lesson.
+
+---
+
+## Deriving Completion on the UI
+
+Using `LudoLesson` and `CourseProgress`, completion states are derived:
+
+```ts
+lesson.isCompleted
+  ? "COMPLETED"
+  : courseProgress.currentLessonId === lesson.id
+    ? "CURRENT"
+    : "LOCKED";
+```
+
+---
+
+## Updating the Current Lesson
+
+When a user completes a lesson, the `LessonCompletionResponse` returns:
+
+```ts
+newCourseProgress: CourseProgress;
+updatedCompletedLesson: LudoLesson;
+```
+
+The query data for `qk.courseProgress()` and `qk.lesson(lessonId)` is then updated with the returned data.

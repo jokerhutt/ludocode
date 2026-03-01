@@ -1,0 +1,61 @@
+---
+title: Lessons Flow
+slug: lessons-flow
+section: Feature Breakdown
+order: 6
+description: How users move through a lesson's exercises.
+---
+
+## Overview
+
+The lesson flow manages how a user moves through a lesson's exercises. It handles exercise ordering, locking and unlocking the next step, submission lifecycle, and scoring.
+
+---
+
+## The 3 Phases of an Exercise
+
+Each exercise in a lesson goes through 3 phases:
+
+### 1. User Input Phase
+
+The user interacts with the exercise by selecting options and forming a potential answer. Nothing is evaluated and no submission exists. This phase is purely about constructing input.
+
+Selections are stored locally in a `useState` array of `AnswerToken`, allowing the user to revise, remove, or reorder choices without restrictions.
+
+The submit button stays disabled until the selection meets the basic requirements of a complete answer.
+
+### 2. Staged Phase
+
+The user has submitted their answer. Input is now locked, and the exercise goes from interaction to evaluation.
+
+The current selection is passed into the staging hook, which generates an `ExerciseAttempt`. This object represents the submitted answer. Its `isCorrect` property determines the feedback shown.
+
+### 3. Committed Phase
+
+The user has seen feedback and clicked **Continue**.
+
+- The staged attempt merges into `committedExerciseSubmissions`
+- If wrong: retry unlocked
+- If correct: next exercise unlocked
+- Once the final exercise is committed, all submissions roll up into a `LessonSubmissionType`
+
+---
+
+## Correctness Rules
+
+Evaluating correctness is done by sorting integers. Each option has an `answerOrder`:
+
+- Distractor → `null`
+- First answer → `1`
+- Second → `2`, etc.
+
+A submitted attempt is **correct** when the selected `answerOrder`s are strictly ascending:
+
+```ts
+[1, 2, 3, 4][(1, 3, 2, 4)][(1, null, 3, 4)]; // → correct // → wrong // → wrong (distractor picked)
+```
+
+<Tip variant="warning" title="Null = Distractor">
+  If any `null` value appears in the submitted answer order, it means a
+  distractor was picked and the attempt is automatically marked as incorrect.
+</Tip>

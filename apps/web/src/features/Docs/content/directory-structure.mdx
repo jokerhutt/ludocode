@@ -1,0 +1,67 @@
+---
+title: Directory Structure
+slug: directory-structure
+section: Structure & Technology
+order: 1
+description: Overview of the frontend directory structure.
+---
+
+## Overview
+
+This document provides a brief explanation of the directory structure.
+
+```text
+components     # design elements
+constants      # global constants
+features       # per-feature pages & UI
+hooks          # hooks, context, & queries
+layouts        # layouts
+routes         # router & routes
+sound
+types
+```
+
+## Components
+
+The `components` directory holds all feature-agnostic design elements for the project.
+
+The main part here is the `design-system` directory, which holds custom elements.
+
+It is split into:
+
+- **Atoms** — smallest elements
+- **Blocks** — composed of atoms
+- **Composites** — general standalone interactive components
+- **Layouts** — structural components such as grid wrappers or aside columns
+
+The `external` directory holds shadcn's UI elements as well as Vercel's AI elements.
+
+The `tanstack-form-components` directory holds form field elements for TanStack Form. These are kept separate from `design-system` as they are unique enough from the other elements.
+
+## Constants
+
+The `constants` directory holds static constants such as API endpoints, route paths, and environment definitions.
+
+```text
+api            # API endpoints
+environment    # environment definitions
+form           # form structure(s)
+mocks          # mock data (courses, etc)
+router         # route paths
+static-data    # info content, error content, etc.
+```
+
+## Features
+
+The `features` directory is structured along the lines of the routes & layouts:
+
+```text
+Auth           # Authentication Page
+Builder        # Builder Page
+Completion     # Lesson Completion & Sync Pages
+Error          # Error Pages (404, Desktop Only)
+Exercise       # Lesson & Exercise Pages
+Hub            # Pages under the hub routes
+    BuilderHub
+    CourseHub  # Course selection Page
+```

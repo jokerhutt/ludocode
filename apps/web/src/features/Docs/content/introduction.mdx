@@ -1,0 +1,61 @@
+---
+title: Introduction
+slug: introduction
+section: Getting Started
+order: 0
+description: Welcome to the Ludocode frontend documentation.
+---
+
+## Welcome to Ludocode
+
+Ludocode is an interactive coding education platform that makes learning to program fun and engaging. This documentation covers the internal architecture of the Ludocode frontend — its routing system, data-fetching patterns, feature flows, and project structure.
+
+<Tip variant="tip" title="New to Ludocode?">
+  Start with the **Directory Structure** article to understand how the codebase
+  is organized, then explore the feature-specific pages.
+</Tip>
+
+<Tabs
+  tabs={[
+    {
+      label: "Quick Setup",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-3">
+          <p>Get running in under a minute:</p>
+          <CodeBlock language="bash">{`git clone https://github.com/ludocode/ludocode-frontend.git
+cd ludocode-frontend && npm install && npm run dev`}</CodeBlock>
+        </div>
+      ),
+    },
+    {
+      label: "Advanced Setup",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-3">
+          <p>Full dev environment with testing & linting:</p>
+          <CodeBlock language="bash">{`npm install
+cd apps/web
+npm run dev          # Start dev server
+npx playwright test  # Run E2E tests
+npm run lint         # Lint check`}</CodeBlock>
+          <Tip variant="info" title="Environment">
+            Make sure you have Node.js 20+ and npm 9+ installed. The project
+            uses Vite for blazingly fast HMR.
+          </Tip>
+        </div>
+      ),
+    },
+  ]}
+/>
+
+### Tech Stack
+
+| Layer        | Technology      |
+| ------------ | --------------- |
+| Framework    | React 19        |
+| Routing      | TanStack Router |
+| Server State | TanStack Query  |
+| Forms        | TanStack Form   |
+| Styling      | Tailwind CSS v4 |
+| Editor       | Monaco Editor   |
+| Validation   | Zod             |
+| Build        | Vite            |

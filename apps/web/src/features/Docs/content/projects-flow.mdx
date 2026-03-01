@@ -1,0 +1,67 @@
+---
+title: Projects & Files
+slug: projects-flow
+section: Feature Breakdown
+order: 8
+description: How the project editor, autosave, and code runner work.
+---
+
+## Overview
+
+The projects feature allows users to write and execute code.
+
+Projects are separated into 2 core data structures: `ProjectSnapshot` and `ProjectFileSnapshot`. Each project and file has a `LanguageType`.
+
+```ts
+export type LanguageType = "python" | "javascript" | "lua";
+
+export type ProjectSnapshot = {
+  projectId: string;
+  projectName: string;
+  projectLanguage: LanguageType;
+  files: ProjectFileSnapshot[];
+};
+
+export type ProjectFileSnapshot = {
+  id?: string;
+  tempId?: string;
+  path: string;
+  language: LanguageType;
+  content: string;
+};
+```
+
+---
+
+## Autosave
+
+The editor has an autosave feature handled by the `useAutoSaveProject()` hook. It listens to key inputs with a small debounce, sending the `ProjectSnapshot` to the server. The server computes diffs and updates the project on the backend.
+
+A small cloud icon notifies whether an autosave is complete, in progress, or failed.
+
+---
+
+## The Editor
+
+Ludocode uses Microsoft's Monaco Editor. Theme and editor options are configured in the `useMonacoTheme()` hook.
+
+---
+
+## Running Code & Output
+
+The code runner is handled by the `useRunner()` hook, which sends the execution request and stores/formats the output. The `ProjectRunner.tsx` component displays the outputs as a list.
+
+---
+
+## File Operations
+
+### Adding Files
+
+New files are named `script.{ext}`. If that exists, `script-1.{ext}` is used, then `script-2.{ext}`, etc.
+
+### Editing Files
+
+<Tip variant="note" title="Extension Safety">
+  Renaming a file from `script.py` to `script.txt` will automatically become
+  `script.txt.py` to preserve the language extension.
+</Tip>
