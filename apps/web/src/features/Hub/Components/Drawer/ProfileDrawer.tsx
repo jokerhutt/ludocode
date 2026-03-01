@@ -23,6 +23,7 @@ import type { ReactElement } from "react";
 import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton";
 import { DeleteAccountButton } from "@/features/Auth/Components/Button/DeleteAccountButton";
+import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
 
 type ProfileDrawerProps = {
   trigger: ReactElement;
@@ -31,6 +32,8 @@ type ProfileDrawerProps = {
 };
 
 export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
+  const demoFeature = useFeatureEnabledCheck({ feature: "isDemoEnabled" });
+
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
@@ -113,16 +116,17 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
             <NavItem
               icon={<Scroll className="h-5 w-5" />}
               label="Terms of service"
-              onClick={() =>
-                router.navigate(ludoNavigation.resources.toToS())
-              }
+              onClick={() => router.navigate(ludoNavigation.resources.toToS())}
             />
           </DrawerClose>
         </nav>
-        <div className="border-t border-ludo-border p-4 flex justify-between items-center gap-2">
-          <LogoutButton />
-          <DeleteAccountButton username={user.displayName!!} />
-        </div>
+
+        {!demoFeature.enabled && (
+          <div className="border-t border-ludo-border p-4 flex justify-between items-center gap-2">
+            <LogoutButton />
+            <DeleteAccountButton username={user.displayName!!} />
+          </div>
+        )}
       </DrawerContent>
     </Drawer>
   );

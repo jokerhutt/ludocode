@@ -11,6 +11,7 @@ import {
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type SubjectsDraftSnapshot,
+  type ActiveFeaturesResponse,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
@@ -79,8 +80,16 @@ export const qo = {
   allSubjects: () =>
     queryOptions<SubjectsDraftSnapshot[]>({
       queryKey: qk.subjects(),
-      queryFn: () => ludoGet<SubjectsDraftSnapshot[]>(adminApi.subjects.base, true),
+      queryFn: () =>
+        ludoGet<SubjectsDraftSnapshot[]>(adminApi.subjects.base, true),
       staleTime: 60_000,
+    }),
+
+  activeFeatures: () =>
+    queryOptions<ActiveFeaturesResponse>({
+      queryKey: qk.activeFeatures(),
+      queryFn: () => ludoGet<ActiveFeaturesResponse>(adminApi.features.base),
+      staleTime: Infinity,
     }),
 
   allCourses: () =>
