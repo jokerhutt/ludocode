@@ -9,6 +9,7 @@ import { useCallback, useState, useRef, useEffect } from "react";
 type Args = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
+  disabled?: boolean;
 };
 
 export type OutputInfo = {
@@ -22,7 +23,11 @@ export type useRunnerResponse = {
   runCode: () => void;
 };
 
-export function useRunner({ project, files }: Args): useRunnerResponse {
+export function useRunner({
+  project,
+  files,
+  disabled,
+}: Args): useRunnerResponse {
   const [outputLog, setOutputLog] = useState<OutputPacket[]>([]);
   const filesRef = useRef<ProjectFileSnapshot[]>(files);
 
@@ -64,6 +69,10 @@ export function useRunner({ project, files }: Args): useRunnerResponse {
   });
 
   const runCode = useCallback(() => {
+    if (disabled) {
+      console.warn("Code execution is disabled")
+      return;
+    }
     if (!project.projectId) return;
     if (!filesRef.current || filesRef.current.length === 0) return;
 

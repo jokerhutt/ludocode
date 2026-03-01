@@ -11,7 +11,7 @@ const CodeRunnerContext = createContext<useRunnerResponse | null>(null);
 
 type CodeRunnerProviderProps = {
   children: ReactNode;
-
+  disabled?: boolean;
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
 };
@@ -19,9 +19,10 @@ type CodeRunnerProviderProps = {
 export function CodeRunnerProvider({
   children,
   project,
+  disabled,
   files,
 }: CodeRunnerProviderProps) {
-  const runner = useRunner({ project, files });
+  const runner = useRunner({ project, files, disabled });
 
   return (
     <CodeRunnerContext.Provider value={runner}>

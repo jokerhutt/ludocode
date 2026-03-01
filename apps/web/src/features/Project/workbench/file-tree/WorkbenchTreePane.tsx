@@ -16,6 +16,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 
 type WorkbenchTreePaneProps = { className?: string };
 
@@ -24,6 +25,8 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
     useProjectContext();
   const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
   const { aiEnabled } = useUserPreferencesContext();
+  const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
+
   return (
     <>
       <Workbench.Pane
@@ -95,7 +98,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
             })}
           </LudoFileTree>
         </Workbench.Pane.Content>
-        {aiEnabled && (
+        {aiEnabled && aiFeature.enabled && (
           <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
             <ChatBotProvider
               credits={chatbotCredits}
