@@ -14,7 +14,7 @@ export function RunCodeButton({disabled} : {disabled?: boolean}) {
     <LudoButton
       data-testid={`run-code-button`}
       onClick={() => {
-        if (isRunning || disabled) return;
+        if (isRunning) return;
         runCode();
       }}
       isLoading={isRunning}
