@@ -23,7 +23,7 @@ export function ResourcesLayout() {
     <MainGridWrapper gridRows={"SITE"}>
       <LudoHeader.Shell>
         <Suspense fallback={<div />}>
-          <div className="col-start-2 col-end-12 flex items-center justify-between">
+          <div className="col-span-full px-6 lg:px-18 flex items-center justify-between">
             <h1
               onClick={() => handleLogoClick()}
               className="text-2xl font-bold hover:cursor-pointer text-white"

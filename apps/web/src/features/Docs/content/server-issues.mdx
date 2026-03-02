@@ -1,31 +1,57 @@
 ---
-title: 500 errors
+title: 500 Errors
 slug: server-issues
 section: Troubleshooting
-order: 1
-description: Look here for help with server issues
+order: 11
+description: Diagnosing and resolving internal server errors.
 ---
 
-### Check the logs
+## Overview
 
-If you get a 500 error, first open the developer panel in your browser and check for errors in the console & network tabs.
+A **500** response means something went wrong on the backend. The steps below will help you narrow down the cause.
 
-Then, check the server logs for errors using 
+---
 
-```BASH
-docker logs -f ludocode-backend
-```
+### Check the Logs
 
-If you don't see any error logs on the backend, but you do see error logs on the frontend (or neither), its almost certainly a connection issue. Check through [#Connection Issues](#connection-issues).
+Start by opening your browser's developer tools and reviewing the **Console** and **Network** tabs for error details.
 
-### Try a hard refresh
+Then inspect the backend container logs:
 
-Sometimes, if you just deleted an account or otherwise did something such as switching from demo mode to firebase authentication, your cookies and cache might be stale. Try doing a hard refresh in your browser.
+<CodeBlock language="bash">{`docker logs -f ludocode-backend`}</CodeBlock>
 
+<Tip variant="info" title="No backend errors?">
+  If the backend logs are clean but you see errors on the frontend (or no errors
+  at all), the issue is most likely a misconfigured URL or CORS policy. Refer to
+  the <strong>403 & 404 Errors</strong> article in the Troubleshooting section.
+</Tip>
 
-### If you got a 500 error on the projects page
+---
 
-This usually means that a file was not found from the local storage. If this error is happening after you redeployed the application, it is probably because you did not use a persistent volume for the storage.
+### Try a Hard Refresh
 
-To solve this, you will need either delete your account in ludocode (go to the drawer -> delete account), or otherwise log in with a new user. If you want to keep the user, you can also clear the data in the `user_project` where the `user_id` is the user's ID, and delete the rows in `project_files` that are tied to that project.
+After actions like deleting an account or switching from demo mode to Firebase authentication, your browser may hold stale cookies or cached data.
 
+Perform a hard refresh:
+
+| OS      | Shortcut             |
+| ------- | -------------------- |
+| macOS   | **⌘ + Shift + R**    |
+| Windows | **Ctrl + Shift + R** |
+
+---
+
+### 500 on the Projects Page
+
+This typically means a project file could not be found in local storage — usually because the application was redeployed without a persistent volume.
+
+<Tip variant="warning" title="Data Loss">
+  Without persistent storage, uploaded project files are lost on every container
+  restart.
+</Tip>
+
+To recover:
+
+1. **Delete the account** — open the drawer → **Delete Account**, then create a new one.
+2. **Or** log in with a different user.
+3. **Or** manually clear the data: delete the rows in `user_project` for the affected `user_id`, then remove the corresponding rows in `project_files`.

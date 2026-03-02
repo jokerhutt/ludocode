@@ -1,44 +1,54 @@
 ---
-title: 403 and 404 errors
+title: 403 & 404 Errors
 slug: connection-issues
 section: Troubleshooting
-order: 0
-description: Look here for help with connection issues
+order: 10
+description: Diagnosing and resolving connection errors between the frontend and backend.
 ---
 
-### Check origins
+## Overview
 
-<p>
-Most of the time, the issue is that you have the wrong origin configured at some point.
+A **403** or **404** from the API almost always means the frontend and backend are not pointed at each other correctly. Work through the checks below in order.
 
-By default:
+---
 
-- the backend runs on `http://localhost:8080`
-- the frontend web app runs on `http://localhost:5173`
-- the frontend admin app runs on `http://localhost:5174`
-- the database runs on `postgresql://postgres:5432/ludocode`
+### Check Your Origins
 
-On the backend, ensure you have the correct frontend urls set.
+The default ports are:
 
-```ENV
-FRONTEND_ORIGINS=http://localhost:5173
-COOKIE_DOMAIN=localhost
-```
+| Service   | URL                                   |
+| --------- | ------------------------------------- |
+| Backend   | `http://localhost:8080`               |
+| Web App   | `http://localhost:5173`               |
+| Admin App | `http://localhost:5174`               |
+| Database  | `postgresql://postgres:5432/ludocode` |
 
-On the frontend, ensure you have the correct backend endpoint set
+#### Backend `.env`
 
-```ENV
-VITE_API_URL=http://localhost:8080
-```
+Make sure the allowed origins and cookie domain are set:
 
-<Tip variant="warning" title="Set the url in both apps">
-    Remember that both the web app and admin app have seperate env files. Make sure to set the backend endpoint in both apps.
+<CodeBlock language="bash">{`FRONTEND_ORIGINS=http://localhost:5173
+COOKIE_DOMAIN=localhost`}</CodeBlock>
+
+#### Frontend `.env`
+
+Make sure the API URL points to the backend:
+
+<CodeBlock language="bash">{`VITE_API_URL=http://localhost:8080`}</CodeBlock>
+
+<Tip variant="warning" title="Both apps need their own .env">
+  The web app and admin app have separate environment files. Set
+  <code>VITE_API_URL</code> in both <code>apps/web/.env</code> and
+  <code>apps/admin/.env</code>.
 </Tip>
-</p>
 
-### Check Firebase
+---
 
-<p>
-On firebase (if you are using it), go to **Authentication -> Settings -> Authorized Domains** and ensure
-that you have **localhost** as an authorized domain.
-</p>
+### Check Firebase Authorized Domains
+
+If you are using Firebase authentication, go to **Authentication → Settings → Authorized Domains** and make sure **localhost** is listed.
+
+<Tip variant="info" title="Production Domains">
+  When deploying, add your production domain to the authorized list as well —
+  otherwise OAuth redirects will fail.
+</Tip>

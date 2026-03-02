@@ -160,7 +160,7 @@ export const mdxComponents: MDXComponents = {
   ),
 
   // ── Horizontal rule ───────────────────────────────
-  hr: () => <hr className="border-ludo-border/50 my-8" />,
+  hr: () => <hr className="border-ludo-surface my-8" />,
 
   img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
     <img

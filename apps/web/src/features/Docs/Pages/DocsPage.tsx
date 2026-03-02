@@ -41,6 +41,7 @@ export function DocsPage() {
     return () => clearTimeout(timer);
   }, [activeSlug]);
 
+  // Close sidebar on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSidebarOpen(false);
@@ -50,7 +51,7 @@ export function DocsPage() {
   }, []);
 
   return (
-    <div className="relative grid grid-cols-1 lg:grid-cols-[240px_1fr_200px] gap-0 h-full min-h-0 max-w-350 mx-auto">
+    <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_4fr_1fr] gap-0 h-full min-h-0 max-w-350 mx-auto">
       {/* ── Mobile top bar ───────────────────────────────────────────── */}
       <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3 bg-ludo-surface/95 backdrop-blur border-b border-ludo-border/40">
         <button

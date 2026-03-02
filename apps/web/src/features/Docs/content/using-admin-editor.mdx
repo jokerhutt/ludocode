@@ -3,12 +3,12 @@ title: Editing Courses
 slug: admin-app-editor
 section: Getting Started
 order: 2
-description: Instructions on using the admin app & course editor
+description: A guide to the admin app, course editor, and custom language icons.
 ---
 
 ## Overview
 
-Ludocode allows you to make your own courses using the admin app. The backend handles diffing and versioning, and also ensures user progress is preserved for untouched lessons.
+Ludocode lets you create and manage your own courses through the admin app. The backend handles diffing and versioning automatically, and ensures that user progress is preserved for untouched lessons.
 
 ## Authenticating as admin
 
@@ -229,7 +229,6 @@ The subject can now be assigned to courses within that language.
 
 ---
 
-
 ### Custom Language Icons
 
 If you add a new language and want it to display a custom icon, you must register it in the design system.
@@ -281,7 +280,6 @@ export const IconRegistry = {
   Swift: { component: SwiftIcon, category: "language" },
 
   Javascript: { component: JavascriptIcon, category: "language" },
-
 } as const satisfies Record<string, IconDefinition>;
 ```
 

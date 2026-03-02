@@ -1,19 +1,39 @@
 ---
-title: Admin app issues
+title: Admin App Issues
 slug: admin-issues
 section: Troubleshooting
-order: 2
-description: Look here for help with issues surrounding accessing the admin app
+order: 12
+description: Resolving common issues with accessing or using the admin application.
 ---
 
-### Check your origins
-          <p>
-            The most common reason for this is either a misconfigured url or cors policy. Make sure to double check your environment variables, make sure that the `/apps/admin` has a `.env` file, and follow the instructioins in [403 & 404 errors](#connection-issues)
-          </p>
+## Overview
 
-### Check your Firebase
+If the admin app fails to load, returns errors, or refuses to authenticate, the cause is usually a missing environment file or an incorrect CORS/origin configuration.
 
-          <p>
-            If you are using firebase, you will need to set custom claims for admin users. Please follow the instructions in [Enabling Firebase Authentication](#enabling-features)
-          </p>
+---
 
+### Check Your Origins
+
+The most common cause is a misconfigured URL or CORS policy.
+
+1. Verify that `apps/admin/.env` exists and contains the correct `VITE_API_URL`.
+2. Confirm the backend's `FRONTEND_ORIGINS` includes the admin app's origin (`http://localhost:5174` by default).
+
+<Tip variant="info" title="Same Checks Apply">
+  The origin and environment checks are the same as for the web app. See the
+  <strong> 403 & 404 Errors</strong> article in the Troubleshooting section for
+  a full walkthrough.
+</Tip>
+
+---
+
+### Check Your Firebase Claims
+
+If Firebase authentication is enabled, admin access requires a **custom claim** on the user's Firebase account. Without it, the backend will treat the user as a regular (non-admin) user and deny access.
+
+Refer to the **Editing Courses** article, specifically the _Authenticating as admin_ section, for step-by-step instructions on assigning the `role: "admin"` claim.
+
+<Tip variant="warning" title="Remember to Re-login">
+  After setting a custom claim, the user must log out and log back in so that
+  the updated token is issued.
+</Tip>

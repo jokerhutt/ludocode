@@ -8,23 +8,27 @@ description: Welcome to the Ludocode documentation.
 
 ## Welcome to Ludocode
 
-Ludocode is an open source, interactive coding education platform that aspires to make learning to program interactive and accessible, and invites learners to explore, experiment, and build their own courses.
+Ludocode is an open-source, interactive coding education platform designed to make learning to program accessible and engaging. Learners can explore, experiment, and — with the admin app — build their own courses.
 
-This documentation covers the practical matters of setting up the project, enabling features, and using the application. It provides a brief overview of key sections and systems.
+This documentation covers project setup, feature configuration, and the key systems that make up the application.
 
-<Tip variant="warning" title="Work in progress">
-  For now, the documentation focuses on setup, features, and key areas. More
+<Tip variant="note" title="Work in Progress">
+  Documentation currently focuses on setup, features, and key areas. More
   detailed architecture documentation will follow.
 </Tip>
+
+---
+
+## Quick Setup
 
 <Tabs
   tabs={[
     {
-      label: "Quick Setup",
+      label: "1 — Backend",
       content: (
         <div className="text-sm text-ludoAltText space-y-4">
 
-          <p><strong>1. Start the Backend (API + Database)</strong></p>
+          <p>Clone the backend repository and start the API and database with Docker.</p>
 
           <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode-backend.git
 
@@ -35,10 +39,18 @@ docker compose -f docker-compose.db.yml up -d
 docker compose -f docker-compose.ludocode.yml up -d --build ludocode-backend`}</CodeBlock>
 
           <p>
-            Backend runs on <code>http://localhost:8080</code> with a pre-seeded demo user and course.
+            The API will be available at <code>http://localhost:8080</code> with a pre-seeded demo user and course.
           </p>
 
-          <p><strong>3. Start the Frontend (Web App)</strong></p>
+        </div>
+      ),
+    },
+    {
+      label: "2 — Web App",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-4">
+
+          <p>Clone the frontend monorepo and start the web application.</p>
 
           <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode.git
 
@@ -49,38 +61,47 @@ cp .env.example .env
 npm run dev`}</CodeBlock>
 
           <p>
-            Web runs on <code>http://localhost:5173</code>
+            The web app will be available at <code>http://localhost:5173</code>.
           </p>
 
-                    <p><strong>2. Start the Admin App</strong></p>
+        </div>
+      ),
+    },
+    {
+      label: "3 — Admin App",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-4">
 
-          <CodeBlock language="bash">{`
-cd ludocode
-npm install
-cd apps/admin
+          <p>From the same monorepo, start the admin application.</p>
+
+          <CodeBlock language="bash">{`cd apps/admin
+
 cp .env.example .env
 npm run dev`}</CodeBlock>
 
           <p>
-            Admin runs on <code>http://localhost:5174</code>
+            The admin app will be available at <code>http://localhost:5174</code>.
           </p>
-
-          <Tip variant="info" title="Features & Authentication">
-            This setup only starts the core app. To enable features such as OAuth, AI, & Code Execution, see [enabling features]
-          </Tip>
 
         </div>
       ),
-    }
+    },
 
 ]}
 />
 
-#### E2E Tests
+<Tip variant="info" title="Features & Authentication">
+  The steps above start the core app in demo mode. To enable OAuth, AI, or code
+  execution, see the **Enabling Features** article.
+</Tip>
+
+### Running E2E Tests
 
 <CodeBlock language="bash">{`npx playwright test`}</CodeBlock>
 
-### Tech Stack
+---
+
+## Tech Stack
 
 | Layer        | Technology      | Purpose                                  |
 | ------------ | --------------- | ---------------------------------------- |
@@ -99,10 +120,5 @@ npm run dev`}</CodeBlock>
 | DnD          | dnd-kit         | Drag-and-drop in admin builder           |
 | Testing      | Playwright      | End-to-end browser testing               |
 
-### Documentation Sections
+---
 
-| Section               | Articles                                                                                                                         |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **Getting Started**   | Introduction, Directory Structure, Routes & Navigation, Queries & Data Fetching, Catalog & Course Structure                      |
-| **Feature Flows**     | User Profile & Progress, Lessons & Exercises, Completions & Sync, Projects & Code Runner, Admin & Curriculum Builder, Onboarding |
-| **Component Library** | Design System, Types Reference, Hooks & Utilities                                                                                |
