@@ -64,6 +64,7 @@ type ItemProps = {
   dataTestId?: string;
   className?: string;
   asChild?: boolean;
+  closeOnSelect?: boolean;
 };
 
 function Item({
@@ -73,30 +74,33 @@ function Item({
   dataTestId,
   destructive,
   className,
+  closeOnSelect = true,
   asChild = false,
 }: ItemProps) {
   const Comp: any = asChild ? Slot : "button";
 
-  return (
-    <PopoverClose asChild>
-      <Comp
-        data-testid={dataTestId}
-        type={asChild ? undefined : "button"}
-        disabled={disabled}
-        onClick={() => {
-          if (!disabled) onSelect?.();
-        }}
-        className={cn(
-          "flex w-full items-center justify-between gap-8 px-2 py-1 rounded-lg transition-colors",
-          disabled ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer",
-          destructive ? "hover:bg-red-500/10" : "hover:bg-ludo-accent-muted/50",
-          className,
-        )}
-      >
-        {children}
-      </Comp>
-    </PopoverClose>
+  const content = (
+    <Comp
+      data-testid={dataTestId}
+      type={asChild ? undefined : "button"}
+      disabled={disabled}
+      onClick={() => {
+        if (!disabled) onSelect?.();
+      }}
+      className={cn(
+        "flex w-full items-center justify-between gap-8 px-2 py-1 rounded-lg transition-colors",
+        disabled ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer",
+        destructive ? "hover:bg-red-500/10" : "hover:bg-ludo-accent-muted/50",
+        className,
+      )}
+    >
+      {children}
+    </Comp>
   );
+
+  if (!closeOnSelect) return content;
+
+  return <PopoverClose asChild>{content}</PopoverClose>;
 }
 
 type RowProps = {

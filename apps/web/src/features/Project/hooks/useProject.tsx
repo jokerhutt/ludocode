@@ -12,12 +12,14 @@ export function useProject({ project }: Args): UseProjectResponse {
     project.files.map((f) => ({ ...f })),
   );
   const { projectLanguage } = project;
-  const {base, extension} = projectLanguage
+  const { base, extension } = projectLanguage;
 
   const [current, setCurrent] = useState(0);
 
   const deleteFile = useCallback((path: string) => {
     setFiles((prev) => {
+      if (prev.length <= 1) return prev;
+
       const idx = prev.findIndex((f) => f.path === path);
       if (idx === -1) return prev;
 
@@ -27,7 +29,6 @@ export function useProject({ project }: Args): UseProjectResponse {
       setCurrent((cur) => {
         if (next.length === 0) return 0;
         if (cur < idx) return cur;
-        if (cur === idx) return Math.max(0, cur - 1);
         return Math.max(0, cur - 1);
       });
 

@@ -26,13 +26,7 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
       passwordInput.length > 0 &&
       (mode === "LOGIN" || hasAgreedToToS);
 
-    console.log("Email Input: ", emailInput);
-    console.log("Password input ", passwordInput);
-    console.log("Mode: ", mode);
-    console.log("Has agreed to TOS:", hasAgreedToToS);
-
     if (!canSubmitNow) {
-      console.log("cant submit");
       return;
     }
 

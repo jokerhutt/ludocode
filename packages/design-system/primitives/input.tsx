@@ -88,8 +88,6 @@ export function LudoInput({
           type={isHidden ? "password" : "text"}
           value={value}
           onChange={(e) => {
-            console.log("CHANGE FIRED", e.target.value);
-
             setValue(e.target.value);
           }}
           className={cn(

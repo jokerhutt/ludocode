@@ -11,6 +11,7 @@ type FileActionsMenuProps = {
   targetName: string;
   renameItem: (oldPath: string, newPath: string) => void;
   deleteItem: () => void;
+  canDelete?: boolean;
 };
 
 export function FileActionsMenu({
@@ -20,6 +21,7 @@ export function FileActionsMenu({
   renameItem,
   itemType,
   deleteItem,
+  canDelete,
 }: FileActionsMenuProps) {
   return (
     <LudoMenu>
@@ -32,7 +34,7 @@ export function FileActionsMenu({
           itemName={targetName}
           onSubmit={renameItem}
         >
-          <LudoMenu.Item>
+          <LudoMenu.Item closeOnSelect={false}>
             <LudoMenu.Row>
               <LudoMenu.Icon>
                 <HeroIcon iconName="PencilIcon" className="h-4 text-white/70" />
@@ -42,18 +44,25 @@ export function FileActionsMenu({
           </LudoMenu.Item>
         </RenameDialog>
 
-        <LudoMenu.Divider />
+        {canDelete && (
+          <>
+            <LudoMenu.Divider />
 
-        <DeleteDialog onClick={() => deleteItem()} targetName={targetName}>
-          <LudoMenu.Item destructive>
-            <LudoMenu.Row>
-              <LudoMenu.Icon>
-                <HeroIcon iconName="TrashIcon" className="h-4 text-red-400" />
-              </LudoMenu.Icon>
-              <LudoMenu.Label>Delete</LudoMenu.Label>
-            </LudoMenu.Row>
-          </LudoMenu.Item>
-        </DeleteDialog>
+            <DeleteDialog onClick={() => deleteItem()} targetName={targetName}>
+              <LudoMenu.Item closeOnSelect={false} destructive>
+                <LudoMenu.Row>
+                  <LudoMenu.Icon>
+                    <HeroIcon
+                      iconName="TrashIcon"
+                      className="h-4 text-red-400"
+                    />
+                  </LudoMenu.Icon>
+                  <LudoMenu.Label>Delete</LudoMenu.Label>
+                </LudoMenu.Row>
+              </LudoMenu.Item>
+            </DeleteDialog>
+          </>
+        )}
       </LudoMenu.Content>
     </LudoMenu>
   );

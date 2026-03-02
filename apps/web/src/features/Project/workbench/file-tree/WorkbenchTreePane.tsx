@@ -27,6 +27,8 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
 
+  const canDeleteFiles = files.length > 1
+
   return (
     <>
       <Workbench.Pane
@@ -74,6 +76,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
                   actions={
                     !readOnly && (
                       <FileActionsMenu
+                        canDelete={canDeleteFiles}
                         trigger={
                           <div
                             onClick={(e) => e.stopPropagation()}
