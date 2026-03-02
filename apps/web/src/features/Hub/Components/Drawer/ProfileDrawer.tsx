@@ -92,7 +92,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               icon={<NotebookText className="h-5 w-5" />}
               label="Documentation"
               onClick={() =>
-                router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
+                router.navigate(ludoNavigation.resources.toDocs())
               }
             />
           </DrawerClose>
