@@ -7,7 +7,6 @@ import {
   type TocHeading,
 } from "../components/DocsScrollSpyTOC";
 
-// ─── Extract headings from the rendered DOM ─────────────────────────────────
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];
@@ -19,7 +18,6 @@ function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   }));
 }
 
-// ─── Page ───────────────────────────────────────────────────────────────────
 
 export function DocsPage() {
   const [activeSlug, setActiveSlug] = useState(defaultSlug);
@@ -36,7 +34,6 @@ export function DocsPage() {
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Re-extract headings after MDX renders
   useEffect(() => {
     const timer = setTimeout(() => {
       setHeadings(extractHeadingsFromDOM(contentRef.current));
@@ -44,7 +41,6 @@ export function DocsPage() {
     return () => clearTimeout(timer);
   }, [activeSlug]);
 
-  // Close sidebar on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSidebarOpen(false);

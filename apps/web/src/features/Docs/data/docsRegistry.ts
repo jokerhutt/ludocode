@@ -1,9 +1,3 @@
-// ─── Docs Registry ──────────────────────────────────────────────────────────
-// Auto-discovers all .mdx files in the content/ folder using Vite's
-// import.meta.glob, then organises them into navigable sections.
-// To add a new page: just drop a .mdx file in content/ with the right
-// frontmatter (title, slug, section, order).
-// ─────────────────────────────────────────────────────────────────────────────
 
 import type { ComponentType } from "react";
 import type { MDXComponents } from "mdx/types";
@@ -30,7 +24,7 @@ export type DocsSection = {
   entries: DocsEntry[];
 };
 
-// ─── Glob import (eager – everything bundled) ───────────────────────────────
+// ─── Glob import ───────────────────────────────
 
 const mdxModules = import.meta.glob<{
   default: MdxComponent;
@@ -47,7 +41,7 @@ const allEntries: DocsEntry[] = Object.values(mdxModules).map((mod) => ({
 // Sort globally by order
 allEntries.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
 
-// ─── Group into sections (preserving order of first appearance) ─────────────
+// ─── Group into sections ─────────────
 
 const sectionOrder: string[] = [];
 const sectionMap = new Map<string, DocsEntry[]>();

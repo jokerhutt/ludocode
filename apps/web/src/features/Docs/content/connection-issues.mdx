@@ -1,0 +1,44 @@
+---
+title: 403 and 404 errors
+slug: connection-issues
+section: Troubleshooting
+order: 0
+description: Look here for help with connection issues
+---
+
+### Check origins
+
+<p>
+Most of the time, the issue is that you have the wrong origin configured at some point.
+
+By default:
+
+- the backend runs on `http://localhost:8080`
+- the frontend web app runs on `http://localhost:5173`
+- the frontend admin app runs on `http://localhost:5174`
+- the database runs on `postgresql://postgres:5432/ludocode`
+
+On the backend, ensure you have the correct frontend urls set.
+
+```ENV
+FRONTEND_ORIGINS=http://localhost:5173
+COOKIE_DOMAIN=localhost
+```
+
+On the frontend, ensure you have the correct backend endpoint set
+
+```ENV
+VITE_API_URL=http://localhost:8080
+```
+
+<Tip variant="warning" title="Set the url in both apps">
+    Remember that both the web app and admin app have seperate env files. Make sure to set the backend endpoint in both apps.
+</Tip>
+</p>
+
+### Check Firebase
+
+<p>
+On firebase (if you are using it), go to **Authentication -> Settings -> Authorized Domains** and ensure
+that you have **localhost** as an authorized domain.
+</p>

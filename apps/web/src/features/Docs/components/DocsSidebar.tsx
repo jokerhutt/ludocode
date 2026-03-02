@@ -13,7 +13,7 @@ export function DocsSidebar({ activeSlug, onNavigate }: DocsSidebarProps) {
         <h2 className="text-lg font-bold text-white tracking-tight">
           Documentation
         </h2>
-        <p className="text-xs text-ludo-text-dim mt-0.5">Ludocode Frontend</p>
+        <p className="text-xs text-ludo-text-dim mt-0.5">Ludocode</p>
       </div>
 
       {/* Nav Sections */}

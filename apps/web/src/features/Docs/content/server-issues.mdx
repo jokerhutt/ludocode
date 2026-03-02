@@ -1,0 +1,31 @@
+---
+title: 500 errors
+slug: server-issues
+section: Troubleshooting
+order: 1
+description: Look here for help with server issues
+---
+
+### Check the logs
+
+If you get a 500 error, first open the developer panel in your browser and check for errors in the console & network tabs.
+
+Then, check the server logs for errors using 
+
+```BASH
+docker logs -f ludocode-backend
+```
+
+If you don't see any error logs on the backend, but you do see error logs on the frontend (or neither), its almost certainly a connection issue. Check through [#Connection Issues](#connection-issues).
+
+### Try a hard refresh
+
+Sometimes, if you just deleted an account or otherwise did something such as switching from demo mode to firebase authentication, your cookies and cache might be stale. Try doing a hard refresh in your browser.
+
+
+### If you got a 500 error on the projects page
+
+This usually means that a file was not found from the local storage. If this error is happening after you redeployed the application, it is probably because you did not use a persistent volume for the storage.
+
+To solve this, you will need either delete your account in ludocode (go to the drawer -> delete account), or otherwise log in with a new user. If you want to keep the user, you can also clear the data in the `user_project` where the `user_id` is the user's ID, and delete the rows in `project_files` that are tied to that project.
+

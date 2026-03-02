@@ -1,0 +1,158 @@
+---
+title: Enabling Features
+slug: enabling-features
+section: Getting Started
+order: 1
+description: Optional feature configuration for Ludocode.
+---
+
+## Optional Feature Configuration
+
+By default, Ludocode runs in demo mode with AI, code execution, and Firebase authentication disabled.  
+The sections below explain how to enable optional features.
+
+<Tabs
+  tabs={[
+{
+  label: "Firebase Authentication",
+  content: (
+    <div className="text-sm text-ludoAltText space-y-5">
+
+      <p className="font-semibold text-white">1. Create a Firebase Project</p>
+
+      <p>
+        Go to <code>https://console.firebase.google.com</code> → Create Project → Open the dashboard.
+      </p>
+
+      <p className="font-semibold text-white">2. Enable Authentication Providers</p>
+
+      <p>
+        Navigate to <code>Authentication → Sign-in method</code> and enable:
+      </p>
+
+      <ul className="list-disc ml-5 space-y-1">
+        <li>Google</li>
+        <li>GitHub</li>
+        <li>Email/Password</li>
+      </ul>
+
+      <p>
+        Under <code>Authentication → Settings → Authorized domains</code>, add:
+      </p>
+
+      <CodeBlock language="bash">{`localhost
+
+your-production-domain.com`}</CodeBlock>
+
+      <p className="font-semibold text-white">3. Configure Frontend Environment (Required)</p>
+
+      <p>
+        Add the following to both:
+      </p>
+
+      <ul className="list-disc ml-5">
+        <li><code>apps/web/.env</code></li>
+        <li><code>apps/admin/.env</code></li>
+      </ul>
+
+      <CodeBlock language="bash">{`VITE_FIREBASE_API_KEY=
+
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_APP_ID=`}</CodeBlock>
+
+      <p>
+        These values come from <code>Project Settings → General → Your Apps</code>.
+      </p>
+
+      <p className="font-semibold text-white">4. Configure OAuth Origins</p>
+
+      <p>Add to your OAuth provider settings:</p>
+
+      <p className="text-white">Authorized JavaScript origins</p>
+
+      <CodeBlock language="bash">{`http://localhost:5173
+
+http://localhost:5174
+https://your-frontend-domain.com`}</CodeBlock>
+
+      <p className="text-white">Authorized Redirect URIs</p>
+
+      <CodeBlock language="bash">{`http://localhost:5173
+
+http://localhost:5174
+https://your-frontend-domain.com`}</CodeBlock>
+
+      <p className="font-semibold text-white">5. Configure Backend Service Account</p>
+
+      <p>
+        Go to <code>Project Settings → Service Accounts</code> → Generate new private key.
+      </p>
+
+      <CodeBlock language="bash">{`FIREBASE_SERVICE_ACCOUNT_JSON={...full JSON content...}`}</CodeBlock>
+
+      <Tip variant="warning" title="Important">
+        If either frontend Firebase variables or backend service account JSON are missing,
+        authentication will be disabled and the app falls back to demo mode.
+      </Tip>
+
+    </div>
+
+),
+},
+
+    {
+      label: "AI Chatbot (Gemini)",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-5">
+
+          <p className="font-semibold text-white">1. Generate Gemini API Key</p>
+
+          <p>
+            Visit <code>https://aistudio.google.com</code> → Sign in → Create API Key.
+          </p>
+
+          <p className="font-semibold text-white">2. Configure Backend Environment</p>
+
+          <CodeBlock language="bash">{`AI_ENABLED=true
+
+GEMINI_API_KEY=your_api_key_here`}</CodeBlock>
+
+          <Tip variant="info" title="Optional">
+            If <code>AI_ENABLED</code> is not set to true, AI features remain disabled.
+          </Tip>
+
+        </div>
+      ),
+    },
+
+    {
+      label: "Code Runner",
+      content: (
+        <div className="text-sm text-ludoAltText space-y-5">
+
+          <p>
+            Code execution is disabled by default.
+          </p>
+
+          <p className="font-semibold text-white">1. Enable Feature Flag</p>
+
+          <CodeBlock language="bash">{`CODE_EXECUTION_ENABLED=true`}</CodeBlock>
+
+          <p className="font-semibold text-white">2. Ensure Runner Service Is Available</p>
+
+          <p>
+            The backend must have access to the configured code execution provider
+            (e.g., Piston or equivalent service).
+          </p>
+
+          <Tip variant="warning" title="Security">
+            Never expose execution services publicly without sandboxing and proper limits.
+          </Tip>
+
+        </div>
+      ),
+    },
+
+]}
+/>

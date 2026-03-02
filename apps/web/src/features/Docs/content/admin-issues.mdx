@@ -1,0 +1,19 @@
+---
+title: Admin app issues
+slug: admin-issues
+section: Troubleshooting
+order: 2
+description: Look here for help with issues surrounding accessing the admin app
+---
+
+### Check your origins
+          <p>
+            The most common reason for this is either a misconfigured url or cors policy. Make sure to double check your environment variables, make sure that the `/apps/admin` has a `.env` file, and follow the instructioins in [403 & 404 errors](#connection-issues)
+          </p>
+
+### Check your Firebase
+
+          <p>
+            If you are using firebase, you will need to set custom claims for admin users. Please follow the instructions in [Enabling Firebase Authentication](#enabling-features)
+          </p>
+

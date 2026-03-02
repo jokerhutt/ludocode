@@ -162,6 +162,13 @@ export const mdxComponents: MDXComponents = {
   // ── Horizontal rule ───────────────────────────────
   hr: () => <hr className="border-ludo-border/50 my-8" />,
 
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img
+      className="my-6 rounded-lg border border-ludo-border max-w-full"
+      {...props}
+    />
+  ),
+
   // ── Tables ────────────────────────────────────────
   table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
     <div className="overflow-x-auto my-5 rounded-lg border border-ludo-border">
@@ -184,10 +191,7 @@ export const mdxComponents: MDXComponents = {
     />
   ),
 
-  // ── Code ──────────────────────────────────────────
   pre: ({ children }: { children?: ReactNode }) => {
-    // MDX wraps code blocks in <pre><code>…</code></pre>.
-    // We extract the language from the inner <code> className.
     if (
       children &&
       typeof children === "object" &&
