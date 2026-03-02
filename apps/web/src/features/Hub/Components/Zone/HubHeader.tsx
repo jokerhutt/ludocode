@@ -9,19 +9,23 @@ import { getUserAvatar } from "@/constants/avatars/avatars";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { ProfileDrawer } from "../Drawer/ProfileDrawer";
-type HubHeaderProps = { title: string };
+type HubHeaderProps = { title: string};
 
-export function HubHeader({ title }: HubHeaderProps) {
+export function HubHeader({ title}: HubHeaderProps) {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { avatarVersion, avatarIndex } = user;
 
   const subscription = useSubscriptionContext();
   const plan = subscription.planCode;
 
+  const {data: features} = useSuspenseQuery(qo.activeFeatures())
+  const isInDemo = features.authMode == "DEMO"
+  const bannerText = isInDemo ? "Demo mode is enabled. Do not share the app until Firebase auth is enabled." : undefined
+
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   return (
-    <HeaderWithBar device="Both">
+    <HeaderWithBar bannerText={bannerText} device="Both">
       <Suspense fallback={<div />}>
         <div className="col-start-2 col-end-12 flex items-center justify-between">
           <h1 className="lg:hidden text-lg font-bold text-white">{title}</h1>
