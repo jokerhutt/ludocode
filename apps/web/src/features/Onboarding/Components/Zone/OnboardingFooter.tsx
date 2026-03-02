@@ -1,24 +1,24 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 import { useOnboardingContext } from "@/features/Onboarding/Context/OnboardingContext.tsx";
+import { stepOrder } from "@/features/Onboarding/Steps/OnboardingSteps";
 
 type OnboardingFooterProps = {};
 
 export function OnboardingFooter({}: OnboardingFooterProps) {
   const { flow: hook } = useOnboardingContext();
-  const { canAdvance, next } = hook;
+  const { canAdvance, next, position } = hook;
 
   return (
-    <FooterShell>
+    <FooterShell className="border-t border-t-ludo-border">
       <div className="flex w-full justify-between py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11">
-        <div />
         <LudoButton
-          className="h-10"
+          className="h-11 px-8 text-sm font-semibold"
           variant="alt"
           onClick={() => next()}
           disabled={!canAdvance}
         >
-          Continue
+          {position.current + 1 === stepOrder.length ? "Finish" : "Continue"}
         </LudoButton>
       </div>
     </FooterShell>

@@ -25,13 +25,15 @@ export function OnboardingHeader({ total, position }: OnboardingHeaderProps) {
             />
           )}
         </div>
-        <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
+        <div className="flex items-center justify-center gap-3 col-start-3 col-end-11 lg:col-start-4 lg:col-end-10">
           <Progress
-            className="border-ludo-accent-muted h-3"
+            className="border border-ludo-border h-3 bg-ludo-background/60"
             value={(completed / total) * 100}
           />
+          <span className="text-[11px] text-ludo-accent-muted tabular-nums whitespace-nowrap font-medium">
+            {completed}/{total}
+          </span>
         </div>
-        <LudoHeader.Bar />
       </LudoHeader.Shell>
     </LudoHeader>
   );

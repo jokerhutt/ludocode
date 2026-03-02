@@ -42,6 +42,7 @@ import { Route as appIndexRoute } from "@/routes/_app/index";
 import { Route as resourcesRootRoute } from "@/routes/resources/route";
 import { Route as tosRoute } from "@/routes/resources/legal/tos";
 import { Route as privacyRoute } from "@/routes/resources/legal/privacy";
+import { Route as docsRoute } from "@/routes/resources/docs/index";
 
 import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 
@@ -81,6 +82,9 @@ export const ludoNavigation = {
         to: accountSettingsRoute.to,
         params: { userId },
       }),
+      toDocs: () => ({
+        to: docsRoute.to,
+      }),
     },
   },
 
@@ -88,6 +92,7 @@ export const ludoNavigation = {
     toResourcesRoute: () => ({ to: resourcesRootRoute.to }),
     toToS: () => ({ to: tosRoute.to }),
     toPrivacy: () => ({ to: privacyRoute.to }),
+    toDocs: () => ({ to: docsRoute.to }),
   },
 
   lesson: {
