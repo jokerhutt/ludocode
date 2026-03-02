@@ -4,7 +4,7 @@ export type ActiveFeaturesResponse = {
   isPistonEnabled: boolean;
   paymentsEnabled: boolean;
   stripeMode: "PROD" | "DEV_UNLIMITED" | "FREE_ONLY";
-  isDemoEnabled: boolean;
+  authMode: "FIREBASE" | "DEMO"
   isAdminEnabled: boolean;
 };
 
@@ -32,11 +32,10 @@ export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
     title: "Coding Playground",
     description: "Running Code requires the Piston API enabled.",
   },
-  isDemoEnabled: {
-    env: "DEMO_ENABLED",
-    title: "Demo Login",
-    description:
-      "The Demo login process requires that the demo flag be enabled.",
+  authMode: {
+    env: "",
+    title: "",
+    description: ""
   },
   isAdminEnabled: {
     env: "SPRING_PROFILES_ACTIVE=admin",

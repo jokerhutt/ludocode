@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
-import { Route as DemoIndexRouteImport } from './routes/demo/index'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
@@ -56,11 +55,6 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoIndexRoute = DemoIndexRouteImport.update({
-  id: '/demo/',
-  path: '/demo/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -229,7 +223,6 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
-  '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/leaderboard': typeof AppHubLeaderboardRoute
   '/projects': typeof AppHubProjectsRoute
@@ -261,7 +254,6 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
-  '/demo': typeof DemoIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/leaderboard': typeof AppHubLeaderboardRoute
   '/projects': typeof AppHubProjectsRoute
@@ -295,7 +287,6 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/_app/': typeof AppIndexRoute
-  '/demo/': typeof DemoIndexRoute
   '/_app/subscription/_subscribedguard': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/_app/_hub/courses': typeof AppHubCoursesRoute
   '/_app/_hub/leaderboard': typeof AppHubLeaderboardRoute
@@ -330,7 +321,6 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/'
-    | '/demo'
     | '/courses'
     | '/leaderboard'
     | '/projects'
@@ -362,7 +352,6 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/'
-    | '/demo'
     | '/courses'
     | '/leaderboard'
     | '/projects'
@@ -395,7 +384,6 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/_app/'
-    | '/demo/'
     | '/_app/subscription/_subscribedguard'
     | '/_app/_hub/courses'
     | '/_app/_hub/leaderboard'
@@ -425,7 +413,6 @@ export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
-  DemoIndexRoute: typeof DemoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -449,13 +436,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AppRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/': {
-      id: '/demo/'
-      path: '/demo'
-      fullPath: '/demo'
-      preLoaderRoute: typeof DemoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/': {
@@ -840,7 +820,6 @@ const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
-  DemoIndexRoute: DemoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

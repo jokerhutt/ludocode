@@ -27,9 +27,6 @@ export function createApiPaths({
       base: `${BASE}/auth`,
       firebase: `${BASE}/auth/firebase`,
       me: `${BASE}/auth/me`,
-      demo: demoAuthToken
-        ? `${BASE}/auth/demo?token=${demoAuthToken}`
-        : undefined,
       logout: `${BASE}/auth/logout`,
     },
 

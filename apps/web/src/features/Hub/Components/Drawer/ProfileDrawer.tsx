@@ -24,6 +24,8 @@ import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton";
 import { DeleteAccountButton } from "@/features/Auth/Components/Button/DeleteAccountButton";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/hooks/Queries/Definitions/queries";
 
 type ProfileDrawerProps = {
   trigger: ReactElement;
@@ -32,7 +34,7 @@ type ProfileDrawerProps = {
 };
 
 export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
-  const demoFeature = useFeatureEnabledCheck({ feature: "isDemoEnabled" });
+  const {data: authMode} = useSuspenseQuery(qo.activeFeatures())
 
   return (
     <Drawer direction="right">
@@ -121,7 +123,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
           </DrawerClose>
         </nav>
 
-        {!demoFeature.enabled && (
+        {authMode.authMode !== "DEMO" && (
           <div className="border-t border-ludo-border p-4 flex justify-between items-center gap-2">
             <LogoutButton />
             <DeleteAccountButton username={user.displayName!!} />
