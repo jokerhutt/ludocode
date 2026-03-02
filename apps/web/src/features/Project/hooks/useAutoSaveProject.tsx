@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 type Args = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
+  entryFileId: string;
   debounceMs: number;
 };
 
@@ -20,6 +21,7 @@ export type SaveStatusType = {
 export function useAutoSaveProject({
   project,
   files,
+  entryFileId,
   debounceMs = 1000,
 }: Args): SaveStatusType {
   const hasSavedOnceRef = useRef(false);
@@ -51,8 +53,9 @@ export function useAutoSaveProject({
         projectLanguage: project.projectLanguage,
         projectName: project.projectName,
         files: files,
+        entryFileId,
       });
-    }, debounceMs);
+    }, debounceMs, entryFileId);
 
     return () => clearTimeout(timeoutId);
   }, [projectId, files, debounceMs, saveMutation]);

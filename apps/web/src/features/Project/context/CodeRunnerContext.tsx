@@ -14,6 +14,7 @@ type CodeRunnerProviderProps = {
   disabled?: boolean;
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
+  entryFileId: string;
 };
 
 export function CodeRunnerProvider({
@@ -21,8 +22,9 @@ export function CodeRunnerProvider({
   project,
   disabled,
   files,
+  entryFileId,
 }: CodeRunnerProviderProps) {
-  const runner = useRunner({ project, files, disabled });
+  const runner = useRunner({ project, files, disabled, entryFileId });
 
   return (
     <CodeRunnerContext.Provider value={runner}>

@@ -10,6 +10,7 @@ type Args = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
   disabled?: boolean;
+  entryFileId: string;
 };
 
 export type OutputInfo = {
@@ -27,6 +28,7 @@ export function useRunner({
   project,
   files,
   disabled,
+  entryFileId
 }: Args): useRunnerResponse {
   const [outputLog, setOutputLog] = useState<OutputPacket[]>([]);
   const filesRef = useRef<ProjectFileSnapshot[]>(files);
@@ -81,6 +83,7 @@ export function useRunner({
       projectLanguage: project.projectLanguage,
       projectName: project.projectName,
       files: filesRef.current,
+      entryFileId
     };
 
     runMutation.mutate(fresh);
@@ -88,6 +91,7 @@ export function useRunner({
     project.projectId,
     project.projectLanguage,
     project.projectName,
+    entryFileId,
     runMutation,
   ]);
 

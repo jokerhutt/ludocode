@@ -8,4 +8,5 @@ export type ProjectSnapshot = {
   deleteAt?: string;
   updatedAt?: number;
   files: ProjectFileSnapshot[];
+  entryFileId: string;
 };

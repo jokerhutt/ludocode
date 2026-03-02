@@ -8,13 +8,14 @@ import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
 import { router } from "@/main.tsx";
 
 export function ProjectHeader() {
-  const { project, files } = useProjectContext();
+  const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
 
   const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
     project,
     files,
     debounceMs: 1000,
+    entryFileId
   });
 
   const goToProjectHub = () => {

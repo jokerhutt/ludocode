@@ -17,17 +17,30 @@ import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
+import { Play } from "lucide-react";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@ludocode/external/ui/tooltip.tsx";
 
 type WorkbenchTreePaneProps = { className?: string };
 
 export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
-  const { renameFile, deleteFile, project, files, currentFileId, setCurrent } =
-    useProjectContext();
+  const {
+    renameFile,
+    deleteFile,
+    project,
+    files,
+    currentFileId,
+    setCurrent,
+    entryFileId,
+  } = useProjectContext();
   const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
 
-  const canDeleteFiles = files.length > 1
+  const canDeleteFiles = files.length > 1;
 
   return (
     <>
@@ -60,12 +73,27 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
             {files.map((file) => {
               const key = file.id ?? file.tempId!;
               const readOnly = !!project.deleteAt;
+              const isEntryFile = key === entryFileId;
               return (
                 <LudoFileTree.Item
                   dataTestId={`tree-file-${file.path}`}
                   key={key}
                   id={key}
                   name={file.path}
+                  indicator={
+                    isEntryFile ? (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span className="flex items-center">
+                            <Play className="h-3 w-3 fill-amber-400 text-amber-400" />
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" sideOffset={6}>
+                          This file is the entry point & can not be deleted
+                        </TooltipContent>
+                      </Tooltip>
+                    ) : null
+                  }
                   icon={
                     <CustomIcon
                       color="white"
@@ -76,7 +104,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
                   actions={
                     !readOnly && (
                       <FileActionsMenu
-                        canDelete={canDeleteFiles}
+                        canDelete={canDeleteFiles && !isEntryFile}
                         trigger={
                           <div
                             onClick={(e) => e.stopPropagation()}

@@ -1,3 +1,4 @@
+import { Indicator } from "@radix-ui/react-checkbox";
 import { cn } from "../cn-utils";
 
 import { createContext, useContext, type ReactNode } from "react";
@@ -51,16 +52,17 @@ type ItemProps = {
   name: string;
   icon?: ReactNode;
   actions?: ReactNode;
+  indicator?: ReactNode;
   dataTestId?: string;
 };
 
-function Item({ id, name, icon, actions, dataTestId }: ItemProps) {
+function Item({ id, name, icon, actions, indicator, dataTestId }: ItemProps) {
   const { selectedId, onSelect } = useFileTree();
   const isSelected = selectedId === id;
 
   return (
     <button
-        data-testid={dataTestId}
+      data-testid={dataTestId}
       onClick={() => onSelect?.(id)}
       className={cn(
         "flex w-full hover:cursor-pointer justify-between px-2 py-1 rounded-lg items-center",
@@ -74,7 +76,10 @@ function Item({ id, name, icon, actions, dataTestId }: ItemProps) {
         <span className="text-sm">{name}</span>
       </div>
 
-      {actions}
+      <div className="flex items-center gap-1">
+        {indicator}
+        {actions}
+      </div>
     </button>
   );
 }
