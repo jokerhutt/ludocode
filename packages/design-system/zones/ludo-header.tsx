@@ -6,29 +6,43 @@ import { X } from "lucide-react";
 
 export type DeviceType = "Mobile" | "Desktop" | "Both";
 
-export type HeaderShellProps = {
+export type BarState = "idle" | "loading" | "loadingDone";
+
+
+function LudoHeaderRoot({
+  children,
+  className,
+}: {
   children: ReactNode;
   className?: string;
-  device?: DeviceType;
-  bannerText?: string;
-};
+}) {
+  return (
+    <div className={cn("col-span-full flex flex-col", className)}>
+      {children}
+    </div>
+  );
+}
 
-export function HeaderShell({
+function Shell({
   children,
   className,
   device = "Both",
-}: HeaderShellProps) {
+}: {
+  children: ReactNode;
+  className?: string;
+  device?: DeviceType;
+}) {
   const visibility =
-    device == "Both"
+    device === "Both"
       ? "grid"
-      : device == "Desktop"
+      : device === "Desktop"
         ? "hidden lg:grid"
         : "lg:hidden";
 
   return (
     <nav
       className={cn(
-        `relative col-span-full grid  ${visibility} border-b border-b-ludo-background lg:border-b-2 lg:border-b-ludo-background grid-cols-12 min-h-14 bg-ludo-surface`,
+        `relative col-span-full grid ${visibility} border-b border-b-ludo-background lg:border-b-2 lg:border-b-ludo-background grid-cols-12 min-h-14 bg-ludo-surface`,
         className,
       )}
     >
@@ -37,29 +51,12 @@ export function HeaderShell({
   );
 }
 
-export type BarState = "idle" | "loading" | "loadingDone";
-
-export function HeaderWithBar({
-  children,
-  className,
-  device = "Both",
-  bannerText,
-}: HeaderShellProps) {
+function Bar() {
   const { barState } = useRouterBar();
-  const showBorder = bannerText ? "border-0 border-none" : "";
-
-  return (
-    <div className="col-span-full flex flex-col">
-      <HeaderShell className={cn(showBorder, className)} device={device}>
-        {children}
-        <RouterBar barState={barState} />
-      </HeaderShell>
-      {bannerText && <HeaderBanner text={bannerText} />}
-    </div>
-  );
+  return <RouterBar barState={barState} />;
 }
 
-function HeaderBanner({ text }: { text: string }) {
+function Banner({ text }: { text: string }) {
   const [visible, setVisible] = useState(true);
   const [height, setHeight] = useState<number | undefined>(undefined);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -111,3 +108,9 @@ export function useRouterBar() {
 
   return { barState };
 }
+
+export const LudoHeader = Object.assign(LudoHeaderRoot, {
+  Shell,
+  Bar,
+  Banner,
+});

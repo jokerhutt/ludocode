@@ -4,7 +4,7 @@ import { useProjectContext } from "@/features/Project/context/ProjectContext.tsx
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/Project/shared/SaveStatusIcon.tsx";
-import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
+import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import { router } from "@/main.tsx";
 
 export function ProjectHeader() {
@@ -15,7 +15,7 @@ export function ProjectHeader() {
     project,
     files,
     debounceMs: 1000,
-    entryFileId
+    entryFileId,
   });
 
   const goToProjectHub = () => {
@@ -23,22 +23,25 @@ export function ProjectHeader() {
   };
 
   return (
-    <HeaderWithBar className="border-b lg:border-b"  device="Desktop">
-      <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
-        <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
-          <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
-        </HollowSlotButton>
-      </div>
-      <div className="col-span-10 text-white flex items-center gap-4 justify-center lg:col-span-6 ">
-        <h1>{projectName}</h1>
-        <SaveStatusIcon
-          isSaved={isSaved}
-          isSaving={isSaving}
-          error={error}
-          lastSavedAt={lastSavedAt}
-        />
-      </div>
-      <div className="col-span-1 text-white lg:col-span-3"></div>
-    </HeaderWithBar>
+    <LudoHeader>
+      <LudoHeader.Shell className="border-b lg:border-b" device="Desktop">
+        <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
+          <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
+            <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
+          </HollowSlotButton>
+        </div>
+        <div className="col-span-10 text-white flex items-center gap-4 justify-center lg:col-span-6 ">
+          <h1>{projectName}</h1>
+          <SaveStatusIcon
+            isSaved={isSaved}
+            isSaving={isSaving}
+            error={error}
+            lastSavedAt={lastSavedAt}
+          />
+        </div>
+        <div className="col-span-1 text-white lg:col-span-3"></div>
+        <LudoHeader.Bar />
+      </LudoHeader.Shell>
+    </LudoHeader>
   );
 }

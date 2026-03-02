@@ -1,4 +1,4 @@
-import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell";
+import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import { AdminNavigationIconGroup } from "./AdminNavigationIconGroup";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
@@ -11,13 +11,20 @@ export function AdminHubHeader() {
     : undefined;
 
   return (
-    <HeaderWithBar bannerText={bannerText} device="Both">
-      <div className="col-start-2 col-end-12 flex items-center justify-start">
-        <h1 className="lg:hidden text-lg font-bold text-white">
-          Ludocode Admin Hub
-        </h1>
-        <AdminNavigationIconGroup />
-      </div>
-    </HeaderWithBar>
+    <LudoHeader>
+      <LudoHeader.Shell
+        className={bannerText ? "border-none" : ""}
+        device="Both"
+      >
+        <div className="col-start-2 col-end-12 flex items-center justify-start">
+          <h1 className="lg:hidden text-lg font-bold text-white">
+            Ludocode Admin Hub
+          </h1>
+          <AdminNavigationIconGroup />
+        </div>
+        <LudoHeader.Bar />
+      </LudoHeader.Shell>
+      {bannerText && <LudoHeader.Banner text={bannerText} />}
+    </LudoHeader>
   );
 }

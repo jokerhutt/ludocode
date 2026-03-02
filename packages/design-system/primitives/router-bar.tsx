@@ -1,4 +1,4 @@
-import type { BarState } from "@ludocode/design-system/zones/header-shell";
+import type { BarState } from "@ludocode/design-system/zones/ludo-header";
 
 type RouterBarProps = {
   barState: BarState;

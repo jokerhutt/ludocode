@@ -3,7 +3,7 @@ import { qo } from "@/hooks/Queries/Definitions/queries";
 import { router } from "@/main";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
-import { HeaderShell } from "@ludocode/design-system/zones/header-shell";
+import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import { useQuery } from "@tanstack/react-query";
 import { Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
@@ -21,7 +21,7 @@ export function ResourcesLayout() {
 
   return (
     <MainGridWrapper gridRows={"SITE"}>
-      <HeaderShell>
+      <LudoHeader.Shell>
         <Suspense fallback={<div />}>
           <div className="col-start-2 col-end-12 flex items-center justify-between">
             <h1
@@ -33,7 +33,7 @@ export function ResourcesLayout() {
             <div className="flex justify-end gap-4 items-center"></div>
           </div>
         </Suspense>
-      </HeaderShell>
+      </LudoHeader.Shell>
       <Suspense fallback={<div className="col-span-full" />}>
         <div className="col-span-full min-h-0 overflow-y-auto">
           <Outlet />

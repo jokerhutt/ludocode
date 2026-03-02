@@ -1,14 +1,19 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell";
+import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 
 type LanguageHeaderProps = {};
 
 export function LanguageHeader({}: LanguageHeaderProps) {
   return (
-    <HeaderWithBar device="Both">
-      <div className="col-start-3 col-end-11 flex items-center justify-between">
-        <h1 className="text-lg font-bold text-ludoAltText">Language Editor</h1>
-      </div>
-    </HeaderWithBar>
+    <LudoHeader>
+      <LudoHeader.Shell device="Both">
+        <div className="col-start-3 col-end-11 flex items-center justify-between">
+          <h1 className="text-lg font-bold text-ludoAltText">
+            Language Editor
+          </h1>
+        </div>
+        <LudoHeader.Bar />
+      </LudoHeader.Shell>
+    </LudoHeader>
   );
 }
