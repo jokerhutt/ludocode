@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "../Definitions/mutations";
-import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { qk } from "../Definitions/qk";
 
 type useUpdateLessonProps = {

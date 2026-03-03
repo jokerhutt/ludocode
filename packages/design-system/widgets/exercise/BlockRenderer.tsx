@@ -1,5 +1,4 @@
 import type {
-  LudoExercise,
   Block,
 } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";

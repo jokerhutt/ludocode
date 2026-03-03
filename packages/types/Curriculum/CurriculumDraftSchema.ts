@@ -84,6 +84,7 @@ export const ClozeInteractionSchema = z.object({
   file: InteractionFileSchema,
   blanks: z.array(InteractionBlankSchema).min(1, "At least 1 blank required"),
   options: z.array(z.string().min(1)).min(1, "At least 1 option required"),
+  output: z.string().optional()
 });
 
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [

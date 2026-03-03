@@ -1,4 +1,3 @@
-import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { LanguageMetadata, LudoCourseSubject } from "@ludocode/types";
 import { ArrowLeftRight } from "lucide-react";

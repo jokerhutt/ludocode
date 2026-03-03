@@ -23,7 +23,6 @@ import type { ReactElement } from "react";
 import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 import { LogoutButton } from "@/features/Auth/Components/Button/LogoutButton";
 import { DeleteAccountButton } from "@/features/Auth/Components/Button/DeleteAccountButton";
-import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 

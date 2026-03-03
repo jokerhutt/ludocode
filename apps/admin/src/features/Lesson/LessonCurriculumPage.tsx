@@ -59,7 +59,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
     },
     onSubmit: async ({ value }) => {
       submitMutation.mutate(value, {
-        onSuccess: async (payload) => {
+        onSuccess: async (_payload) => {
           await submitMutation.mutateAsync(value);
           form.reset(value);
           setIsEditing(false);

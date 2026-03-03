@@ -1,4 +1,4 @@
-import { AnswerToken } from "@ludocode/types";
+import { type AnswerToken } from "@ludocode/types";
 import { cn } from "../cn-utils";
 
 export type OptionStatus = "DEFAULT" | "CORRECT" | "INCORRECT";

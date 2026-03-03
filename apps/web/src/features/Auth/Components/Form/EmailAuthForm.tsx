@@ -57,7 +57,7 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
               data-testid="register-tos"
               checked={hasAgreedToToS}
               onCheckedChange={(checked) => setHasAgreedToToS(checked === true)}
-              className="hover:cursor-pointer data-[state=checked]:bg-ludo-accent"
+              className="hover:cursor-pointer  data-[state=checked]:bg-ludo-accent"
             />
             <p className="text-xs">
               By signing up, you agree to Ludocode's{" "}
@@ -65,9 +65,18 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
                 onClick={() =>
                   router.navigate(ludoNavigation.resources.toToS())
                 }
-                className="underline hover:cursor-pointer"
+                className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
               >
-                Terms of Service
+                Terms
+              </a>{" "}
+              &{" "}
+              <a
+                onClick={() =>
+                  router.navigate(ludoNavigation.resources.toPrivacy())
+                }
+                className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
+              >
+                Privacy Policy
               </a>
             </p>
           </div>

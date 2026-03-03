@@ -9,7 +9,6 @@ export function createApiPaths({
   apiPrefix = "/api/v1",
   apiUrl,
   adminPrefix,
-  demoAuthToken,
 }: ApiConfig) {
   const API_PREFIX = apiPrefix;
   const API_PATH = apiUrl;
@@ -26,6 +25,7 @@ export function createApiPaths({
     auth: {
       base: `${BASE}/auth`,
       firebase: `${BASE}/auth/firebase`,
+      checkAdmin: `${ADMIN_BASE}/auth/check`,
       me: `${BASE}/auth/me`,
       logout: `${BASE}/auth/logout`,
     },

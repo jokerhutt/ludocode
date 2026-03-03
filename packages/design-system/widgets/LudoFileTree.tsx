@@ -1,4 +1,3 @@
-import { Indicator } from "@radix-ui/react-checkbox";
 import { cn } from "../cn-utils";
 
 import { createContext, useContext, type ReactNode } from "react";

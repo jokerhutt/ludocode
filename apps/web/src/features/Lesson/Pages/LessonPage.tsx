@@ -19,7 +19,7 @@ export function LessonPage() {
 
   return (
     <>
-      <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
+      <div className="col-span-0 hidden lg:block lg:col-span-3  h-full min-h-0">
         {aiEnabled && aiFeature.enabled && (
           <FloatingChatbotWindow
             credits={credits}
@@ -38,7 +38,7 @@ export function LessonPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0"
+            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0 2xl:max-w-2xl 2xl:mx-auto w-full"
           >
             <div className="flex flex-col gap-4 items-center">
               {currentExercise.blocks.map((block, index) => (

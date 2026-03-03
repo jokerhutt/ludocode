@@ -1,4 +1,3 @@
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 
 type LanguageHeaderProps = {};

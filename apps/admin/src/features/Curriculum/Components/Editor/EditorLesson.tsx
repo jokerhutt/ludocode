@@ -5,7 +5,7 @@ import type {
 import { withForm } from "../../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Grip, Trash2 } from "lucide-react";
+import { Grip} from "lucide-react";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 

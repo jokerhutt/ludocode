@@ -6,7 +6,6 @@ import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { Spinner } from "@ludocode/external/ui/spinner";
 
 import { useCreateSubject } from "../../Hooks/useCreateSubject";
-import type { UseSubjectFormResponse } from "../../Page/useSubjectForm";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { subjectsDraftSchema } from "@ludocode/types";

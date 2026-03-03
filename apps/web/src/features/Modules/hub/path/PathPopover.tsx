@@ -59,9 +59,9 @@ export function PathPopover({
           <p className="text-sm font-bold text-white leading-snug">
             {lesson.title}
           </p>
-          <p className="text-xs text-ludoAltText leading-relaxed">
+          {/* <p className="text-xs text-ludoAltText leading-relaxed">
             Learn how to use Python to print text to the console!
-          </p>
+          </p> */}
         </div>
         <PopoverClose asChild>
           <button

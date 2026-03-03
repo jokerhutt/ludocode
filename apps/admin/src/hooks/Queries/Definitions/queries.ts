@@ -7,7 +7,6 @@ import {
   type LanguageMetadata,
   type LudoCourse,
   type LudoUser,
-  type LudoCourseSubject,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type SubjectsDraftSnapshot,

@@ -1,6 +1,5 @@
 import type { CurriculumDraftLessonExercise } from "@ludocode/types";
 
-import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
 import { ExerciseInteraction } from "./ExerciseInteraction.tsx";
 import { getExerciseTitle } from "@/features/Lesson/helpers.ts";

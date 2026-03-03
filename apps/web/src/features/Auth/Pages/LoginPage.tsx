@@ -42,10 +42,10 @@ export function LoginPage() {
                   Register here
                 </span>{" "}
               </p>
-              <p>
+              {/* <p>
                 Forgot your password?{" "}
                 <span className="font-bold underline">Reset your password</span>
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
