@@ -181,7 +181,7 @@ function SubscriptionOverviewButton({
       className={cn("mt-auto")}
       onClick={() => handleClick()}
     >
-      <span className="text-sm font-semibold">{text}</span>
+      <span className="text-sm font-semibold select-none pointer-events-none">{text}</span>
     </LudoButton>
   );
 }

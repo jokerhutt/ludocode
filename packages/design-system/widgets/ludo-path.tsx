@@ -49,6 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         data-testid={dataTestId}
         ref={ref}
         selected={isCurrent}
+        clickable={false}
         className={cn("relative w-20  h-20", className)}
         {...props}
       >

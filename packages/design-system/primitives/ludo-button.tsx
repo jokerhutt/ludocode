@@ -71,7 +71,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
         ref={ref}
         type="button"
         className={cn(
-          "transition-all duration-100",
+          "transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation",
           "h-10 w-full rounded-lg flex justify-center items-center gap-3",
           clickableStyles,
           shadow

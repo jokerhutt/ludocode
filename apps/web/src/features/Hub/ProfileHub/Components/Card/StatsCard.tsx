@@ -15,13 +15,13 @@ export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
         onClick={() => onClick?.()}
         className="flex items-start px-4 py-3 h-auto gap-1.5 flex-col"
       >
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 select-none pointer-events-none items-center">
           {children}
           {score !== undefined && (
-            <p className="text-xl font-semibold tabular-nums">{score}</p>
+            <p className="text-xl font-semibold select-none pointer-events-none tabular-nums">{score}</p>
           )}
         </div>
-        <p className="text-sm text-ludoAltText/70">{text}</p>
+        <p className="text-sm select-none pointer-events-none text-ludoAltText/70">{text}</p>
       </LudoButton>
     </div>
   );
