@@ -71,21 +71,20 @@ export function LudoOption(props: LudoOptionProps) {
       }
       onClick={handleClick}
       className={cn(
-        "py-2.5 px-5 code rounded-xl transition-all duration-100 select-none",
+        "py-2.5 px-5 code rounded-xl transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation select-none",
         isWide && "w-full",
-        "hover:cursor-pointer active:translate-y-[3px] active:shadow-none",
+        "hover:cursor-pointer active:shadow-none",
         isSelected
           ? isWide
-            ? "bg-ludo-accent/70 text-white/50 shadow-[0_5px_0_#262E57]/50 translate-y-[2px]"
-            : "bg-ludo-surface/60 text-white/50 shadow-[0_4px_0_#262E57]/50 translate-y-[2px]"
+            ? "bg-ludo-accent/70 text-white/50 shadow-[0_5px_0_#262E57]/50 translate-y-0.5"
+            : "bg-ludo-surface/60 text-white/50 shadow-[0_4px_0_#262E57]/50 translate-y-0.5"
           : "bg-ludo-surface text-white shadow-[0_5px_0_#262E57] hover:brightness-110",
         feedbackStyle,
         props.className,
+        isWide ? "text-center text-white" : "text-md",
       )}
     >
-      <p className={cn(isWide ? "text-center text-white" : "text-md")}>
-        {content}
-      </p>
+      {content}
     </div>
   );
 }

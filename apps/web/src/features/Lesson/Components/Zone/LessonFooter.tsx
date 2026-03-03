@@ -55,7 +55,7 @@ export function LessonFooter() {
           className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
           onClick={() => trySubmit()}
         >
-          <p data-testid={`lesson-submit-text`}>{text}</p>
+          <p data-testid={`lesson-submit-text`} className="select-none pointer-events-none">{text}</p>
         </LudoButton>
       </div>
     </FooterShell>

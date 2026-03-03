@@ -130,14 +130,20 @@ export const BlocksEditor = withForm({
               </form.Subscribe>
               <Select
                 value=""
-                onValueChange={(type: BlockType) => blocksField.pushValue(createBlockTemplate(type))}
+                onValueChange={(type: BlockType) =>
+                  blocksField.pushValue(createBlockTemplate(type))
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="+ Add Block" />
                 </SelectTrigger>
                 <SelectContent className="bg-ludo-surface">
                   {BLOCK_TYPES.map((bt) => (
-                    <SelectItem className={`${blockTypeColor[bt.value]}`} key={bt.value} value={bt.value}>
+                    <SelectItem
+                      className={`${blockTypeColor[bt.value]}`}
+                      key={bt.value}
+                      value={bt.value}
+                    >
                       {bt.label}
                     </SelectItem>
                   ))}
@@ -216,6 +222,16 @@ const EditorBlock = withForm({
                   onChange={(e) => field.handleChange(e.target.value)}
                   placeholder="Code content..."
                   className="bg-ludo-background border-transparent text-white placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
+                />
+              )}
+            />
+            <form.Field
+              name={`exercises[${exerciseIndex}].blocks[${blockIndex}].output`}
+              children={(field: any) => (
+                <LudoInput
+                  value={String(field.state.value ?? "")}
+                  setValue={(v: string) => field.handleChange(v || undefined)}
+                  placeholder="Output (optional)"
                 />
               )}
             />

@@ -45,6 +45,7 @@ export const CodeBlockSchema = z.object({
   type: z.literal("code"),
   language: z.string().min(1, "Language required"),
   content: z.string().min(1, "Code content required"),
+  output: z.string().optional()
 });
 
 export const MediaBlockSchema = z.object({

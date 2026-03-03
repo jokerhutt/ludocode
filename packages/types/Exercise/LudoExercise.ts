@@ -9,10 +9,10 @@ export type LudoExercise = {
 export type Block =
   | { type: "header"; content: string }
   | { type: "paragraph"; content: string }
-  | { type: "code"; language: string; content: string }
+  | { type: "code"; language: string; content: string; output?: string }
   | { type: "media"; src: string; alt?: string | null };
 
-  export type ExerciseInteraction =
+export type ExerciseInteraction =
   | {
       type: "SELECT";
       items: string[];
@@ -23,6 +23,7 @@ export type Block =
       file: InteractionFile;
       blanks: InteractionBlank[];
       options: string[];
+      output?: string;
     };
 
 export type InteractionBlank = {
@@ -34,4 +35,3 @@ export type InteractionFile = {
   language: string;
   content: string;
 };
-

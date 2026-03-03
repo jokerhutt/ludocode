@@ -64,7 +64,7 @@ function ModulePathButton({
           state={lessonType}
           isCurrent={isCurrent}
           dataTestId={`path-button-${lesson.id}`}
-          className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none"
+          className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
         />
       }
     />

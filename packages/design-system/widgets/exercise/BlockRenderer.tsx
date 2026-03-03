@@ -1,6 +1,4 @@
-import type {
-  Block,
-} from "@ludocode/types/Exercise/LudoExercise.ts";
+import type { Block } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
 
 const noop = () => {};
@@ -21,7 +19,7 @@ export function BlockRenderer({ block }: { block: Block }) {
       );
     case "code":
       return (
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-2">
           <LudoCodePreview
             prompt={block.content}
             options={[]}
@@ -34,6 +32,16 @@ export function BlockRenderer({ block }: { block: Block }) {
             <LudoCodePreview.Header />
             <LudoCodePreview.Code withGaps={false} />
           </LudoCodePreview>
+          {block.output && (
+            <div className="flex items-center gap-2 rounded-lg bg-ludo-surface/60 border border-ludo-border/40 px-4 py-2">
+              <span className="text-xs font-medium text-ludoAltText/60 shrink-0">
+                Output
+              </span>
+              <span className="text-sm text-white font-mono">
+                {block.output}
+              </span>
+            </div>
+          )}
         </div>
       );
     case "media":

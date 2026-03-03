@@ -19,10 +19,13 @@
   --color-ludo-incorrect: #f8717180;
 
   /* normal shadows */
-  --shadow-ludo-surface: 0 7px 0 --alpha(var(--color-ludo-surface) / 50%);
-  --shadow-ludo-accent: 0 7px 0 --alpha(var(--color-ludo-accent) / 50%);
-  --shadow-ludo-white: 0 7px 0 #ffffff;
-  --shadow-ludo-danger: 0 7px 0 #c85a5a;
+  --shadow-ludo-surface: 0 7px 0
+    color-mix(in srgb, var(--color-ludo-surface) 75%, black);
+  --shadow-ludo-accent: 0 7px 0
+    color-mix(in srgb, var(--color-ludo-accent) 75%, black);
+  --shadow-ludo-white: 0 7px 0 color-mix(in srgb, white 90%, black);
+  --shadow-ludo-danger: 0 7px 0
+    color-mix(in srgb, var(--color-ludo-danger) 75%, black);
 
   /* disabled shadows */
   --shadow-ludo-surface-disabled: 0 5px 0 #30396680;

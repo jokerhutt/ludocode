@@ -451,6 +451,19 @@ function ClozeInteractionFieldsInner({
           <span className="text-emerald-400 font-medium">{gapCount}</span> gap
           {gapCount !== 1 ? "s" : ""} detected
         </p>
+        <form.Field
+          name={`${basePath}.output`}
+          children={(field: {
+            state: { value: unknown };
+            handleChange: (v: string | undefined) => void;
+          }) => (
+            <LudoInput
+              value={String(field.state.value ?? "")}
+              setValue={(v: string) => field.handleChange(v || undefined)}
+              placeholder="Expected output (optional)"
+            />
+          )}
+        />
       </div>
 
       {/* Blanks — one per gap, user types the correct answer */}
