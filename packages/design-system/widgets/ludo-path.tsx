@@ -50,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         ref={ref}
         selected={isCurrent}
         clickable={false}
-        className={cn("relative w-20  h-20", className)}
+        className={cn("relative w-20 hover:cursor-pointer h-20", className)}
         {...props}
       >
         <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">

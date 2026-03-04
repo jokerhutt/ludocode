@@ -5,7 +5,6 @@ import type {
 
 export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
   exerciseId: crypto.randomUUID(),
-  exerciseVersion: 1,
   blocks: [{ clientId: crypto.randomUUID(), type: "header", content: "Untitled Exercise" }],
   interaction: null,
 });

@@ -20,17 +20,25 @@ export const CurriculumEditor = withForm({
     canSubmit: false,
     isSubmitting: false,
   },
-  render: function Render({ form, onSave, onCancel, canSubmit, isSubmitting }) {
+  render: function Render({
+    form,
+    onSave,
+    onCancel,
+    canSubmit,
+    isSubmitting,
+  }) {
+
+
     return (
       <CurriculumCard>
         <CurriculumCardHeader>
           <p className="text-white font-bold">Editing Curriculum</p>
-          <EditorActions
-            onSave={onSave}
-            onCancel={onCancel}
-            canSubmit={canSubmit}
-            isSubmitting={isSubmitting}
-          />
+            <EditorActions
+              onSave={onSave}
+              onCancel={onCancel}
+              canSubmit={canSubmit}
+              isSubmitting={isSubmitting}
+            />
         </CurriculumCardHeader>
 
         <CurriculumCardContent className="bg-ludo-background gap-4">

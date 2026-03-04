@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { CurriculumHero } from "./Components/Zone/CurriculumHero";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { getRouteApi } from "@tanstack/react-router";
@@ -10,12 +10,14 @@ import {
 } from "@ludocode/types";
 import { useAppForm } from "./types";
 import { useUpdateCourse } from "@/hooks/Queries/Mutations/useUpdateCourse";
+import { useUpdateYamlCourse } from "@/hooks/Queries/Mutations/useUpdateYamlCourse";
 import { CurriculumPreview } from "./Components/Preview/CurriculumPreview";
 import { CurriculumEditor } from "./Components/Editor/CurriculumEditor";
 import { LessonDetailPreview } from "./Components/LessonDetailPreview";
 import { CurriculumBreadcrumbs } from "./Components/CurriculumBreadcrumbs";
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
+import { adminApi } from "@/constants/api/adminApi";
 
 type CurriculumPageProps = {};
 
@@ -37,9 +39,14 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const qc = useQueryClient();
+
   const submitMutation = useUpdateCourse({
     courseId,
   });
+
+  const { mutate: uploadYamlCurriculum, isPending: isUploadingYaml } =
+    useUpdateYamlCourse({ courseId });
 
   const form = useAppForm({
     defaultValues: {
@@ -75,6 +82,25 @@ export function CurriculumPage({}: CurriculumPageProps) {
       setIsEditing(true);
     }
   };
+
+  async function downloadCurriculumYaml(courseId: string, courseName: string) {
+    const res = await fetch(
+      `${adminApi.snapshots.byCourseCurriculum(courseId)}?mode=yaml`,
+      { credentials: "include" },
+    );
+
+    if (!res.ok) throw new Error("Failed to download curriculum");
+
+    const blob = await res.blob();
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${courseName}.yaml`;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
 
   const cancelEditing = () => {
     form.reset();
@@ -122,6 +148,29 @@ export function CurriculumPage({}: CurriculumPageProps) {
                     onLessonNavigate={navigateToLesson}
                     modules={form.state.values.modules}
                     onEditClick={handleSaveOrEdit}
+                    onYamlUpload={(file) =>
+                      uploadYamlCurriculum(file, {
+                        onSuccess: async () => {
+                          const freshSnap = await qc.fetchQuery(
+                            qo.curriculumSnapshot(courseId),
+                          );
+                          form.reset({
+                            modules: freshSnap.modules.map((m) => ({
+                              id: m.id,
+                              title: m.title,
+                              lessons: m.lessons.map((l) => ({
+                                id: l.id,
+                                title: l.title,
+                              })),
+                            })),
+                          });
+                        },
+                      })
+                    }
+                    isUploadingYaml={isUploadingYaml}
+                    onDownload={() =>
+                      downloadCurriculumYaml(courseId, courseName)
+                    }
                   />
                 ) : (
                   <CurriculumEditor
