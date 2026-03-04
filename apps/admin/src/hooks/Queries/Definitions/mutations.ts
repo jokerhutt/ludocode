@@ -25,6 +25,24 @@ export const mutations = {
         ),
     });
   },
+  createCourseYaml: () => {
+    return mutationOptions<void, Error, File>({
+      mutationKey: ["createCourseYaml"],
+      mutationFn: async (file: File) => {
+        const yamlText = await file.text();
+        const res = await fetch(`${adminApi.snapshots.course}?mode=yaml`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-yaml",
+          },
+          credentials: "include",
+          body: yamlText,
+        });
+        if (!res.ok)
+          throw new Error(`Failed to upload YAML course → ${res.status}`);
+      },
+    });
+  },
   updateCourse: (courseId: string) => {
     return mutationOptions<CurriculumDraft, Error, CurriculumDraft>({
       mutationKey: ["updateCurriculum"],
@@ -34,6 +52,27 @@ export const mutations = {
           variables,
           true,
         ),
+    });
+  },
+  updateCourseYaml: (courseId: string) => {
+    return mutationOptions<void, Error, File>({
+      mutationKey: ["updateCourseYaml"],
+      mutationFn: async (file: File) => {
+        const yamlText = await file.text();
+        const res = await fetch(
+          `${adminApi.snapshots.byCourseCurriculum(courseId)}?mode=yaml`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/x-yaml",
+            },
+            credentials: "include",
+            body: yamlText,
+          },
+        );
+        if (!res.ok)
+          throw new Error(`Failed to upload YAML curriculum → ${res.status}`);
+      },
     });
   },
   updateLesson: (lessonId: string) => {

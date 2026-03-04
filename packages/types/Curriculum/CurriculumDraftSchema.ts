@@ -97,7 +97,6 @@ export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
 
 export const CurriculumDraftExerciseSchema = z.object({
   exerciseId: z.string(),
-  exerciseVersion: z.number().int().nonnegative(),
   blocks: z.array(BlockSchema),
   interaction: ExerciseInteractionSchema.nullable().optional(),
 });
