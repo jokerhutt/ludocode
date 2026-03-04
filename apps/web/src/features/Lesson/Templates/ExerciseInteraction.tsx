@@ -45,8 +45,7 @@ export function ExerciseInteraction({
     exerciseType == "CLOZE" ? "ROW" : "COLUMN";
 
   return (
-    <div className={cn("flex flex-col h-full justify-start gap-6")}>
-      {/* INTERACTIVE CODE BLOCK — rendered when interaction has a file */}
+    <div className={cn("flex flex-col justify-start gap-6")}>
       {interactionFile && (
         <div className="w-full">
           <LudoCodePreview
