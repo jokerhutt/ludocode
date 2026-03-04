@@ -15,17 +15,7 @@ import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceCont
 import { AnimatePresence, motion } from "motion/react";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
 import { useCallback, useMemo } from "react";
-import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-
-function getExerciseOutput(exercise: LudoExercise): string | null {
-  for (const block of exercise.blocks) {
-    if (block.type === "code" && block.output) return block.output;
-  }
-  if (exercise.interaction?.type === "CLOZE" && exercise.interaction.output) {
-    return exercise.interaction.output;
-  }
-  return null;
-}
+import { useIsMobile } from "@ludocode/hooks";
 
 export function LessonPage() {
   const { inputState, currentExercise, phase } = useLessonContext();
@@ -33,11 +23,13 @@ export function LessonPage() {
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
+  const isMobile = useIsMobile({});
 
-  const output = useMemo(
-    () => getExerciseOutput(currentExercise),
-    [currentExercise],
-  );
+  const interactionOutput = useMemo(() => {
+    const interaction = currentExercise.interaction;
+    if (interaction?.type === "CLOZE") return interaction.output ?? null;
+    return null;
+  }, [currentExercise]);
 
   const systemPrompt = useMemo(
     () => buildSystemPromptForExercise(currentExercise),
@@ -59,7 +51,7 @@ export function LessonPage() {
     return undefined;
   }, [currentExercise, inputState.currentExerciseInputs]);
 
-  const showOutput = phase === "CORRECT" && output !== null;
+  const showOutput = phase === "CORRECT";
 
   return (
     <>
@@ -83,53 +75,28 @@ export function LessonPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0 2xl:max-w-2xl 2xl:mx-auto w-full"
+            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0 w-full"
           >
             <div className="flex flex-col gap-4 items-center">
               {currentExercise.blocks.map((block, index) => (
-                <BlockRenderer key={index} block={block} />
+                <BlockRenderer
+                  key={index}
+                  block={block}
+                  showOutput={showOutput}
+                  mobile={isMobile}
+                />
               ))}
             </div>
 
-            <ExerciseInteraction body={body} />
+            <ExerciseInteraction
+              body={body}
+              output={interactionOutput}
+              showOutput={showOutput}
+              mobileOutput={isMobile}
+            />
           </motion.div>
         </AnimatePresence>
       )}
-
-      <div className="col-span-0 hidden lg:col-span-3 lg:flex items-center justify-start h-full min-h-0 pl-6">
-        <AnimatePresence>
-          {showOutput && (
-            <motion.div
-              key="output-panel"
-              initial={{ opacity: 0, x: 24, scale: 0.96 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 24, scale: 0.96 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 0.15,
-              }}
-              className="w-full h-1/2 max-w-xs"
-            >
-              <div className="rounded-xl h-full overflow-hidden border border-ludo-surface shadow-lg">
-                {/* Header */}
-                <div className="h-9 px-4 flex items-center gap-2 bg-ludo-surface">
-                  <div className="h-2 w-2 rounded-full bg-emerald-400/80 animate-pulse" />
-                  <span className="text-[11px] text-white/40 tracking-wide select-none uppercase">
-                    Output
-                  </span>
-                </div>
-                {/* Body */}
-                <div className="bg-ludo-background px-5 py-4">
-                  <pre className="font-mono text-sm text-emerald-300 whitespace-pre-wrap wrap-break-word leading-relaxed">
-                    {output}
-                  </pre>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
     </>
   );
 }

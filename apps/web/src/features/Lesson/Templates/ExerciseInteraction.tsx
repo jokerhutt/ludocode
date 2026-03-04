@@ -12,8 +12,14 @@ export type SelectionMode = "APPEND" | "REPLACE";
 
 export function ExerciseInteraction({
   body,
+  output = null,
+  showOutput = false,
+  mobileOutput = false,
 }: {
   body: ReturnType<typeof useExerciseBodyData>;
+  output?: string | null;
+  showOutput?: boolean;
+  mobileOutput?: boolean;
 }) {
   const {
     options,
@@ -45,9 +51,13 @@ export function ExerciseInteraction({
     exerciseType == "CLOZE" ? "ROW" : "COLUMN";
 
   return (
-    <div className={cn("flex flex-col justify-start gap-6")}>
+    <div className={cn("flex flex-col justify-start gap-8")}>
       {interactionFile && (
-        <div className="w-full">
+        <LudoCodePreview.WithOutput
+          output={output}
+          show={showOutput}
+          mobile={mobileOutput}
+        >
           <LudoCodePreview
             prompt={interactionFile.content}
             options={options}
@@ -65,7 +75,7 @@ export function ExerciseInteraction({
               <LudoCodePreview.BackspaceButton />
             </LudoCodePreview.Footer>
           </LudoCodePreview>
-        </div>
+        </LudoCodePreview.WithOutput>
       )}
 
       {/* OPTIONS */}

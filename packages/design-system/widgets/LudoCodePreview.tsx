@@ -4,10 +4,13 @@ import {
   useContext,
   useMemo,
   useCallback,
+  useEffect,
+  useState,
   useRef,
   type ReactNode,
   Fragment,
 } from "react";
+import { AnimatePresence, motion, useMotionValue, animate } from "motion/react";
 import { InlineCode } from "../primitives/inline-code";
 import { OptionInputSlot } from "../primitives/option-input-slot";
 import { HeroIcon } from "../primitives/hero-icon";
@@ -156,7 +159,7 @@ function Code({
   return (
     <div
       className={cn(
-        "bg-ludo-background py-6 sm:py-8 min-h-[120px] sm:min-h-[160px]",
+        "bg-ludo-background py-6 sm:py-8 min-h-30 sm:min-h-40",
         className,
       )}
     >
@@ -168,19 +171,29 @@ function Code({
   );
 }
 
-function Header({ title = "code" }: { title?: string }) {
+function Header({
+  title = "code",
+  children,
+}: {
+  title?: string;
+  children?: ReactNode;
+}) {
   return (
-    <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface/70 w-full">
-      <div className="flex items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
-      </div>
+    <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface w-full">
       <span className="text-[11px] text-white/30 tracking-wide select-none">
         {title}
       </span>
+      {children}
     </div>
   );
+}
+
+function TrafficLights({ className }: { className?: string }) {
+  <div className={cn("flex items-center gap-1.5", className)}>
+    <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+    <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+    <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+  </div>;
 }
 
 function Gutter() {
@@ -246,9 +259,20 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
   );
 }
 
-function Footer({ children }: { children: ReactNode }) {
+function Footer({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="flex items-center gap-1 px-4 py-1.5 bg-ludo-surface/40 w-full">
+    <div
+      className={cn(
+        "flex items-center h-9 gap-1 px-4 py-1.5 bg-ludo-surface w-full",
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -296,6 +320,194 @@ function BackspaceButton() {
   );
 }
 
+const OUTPUT_PANEL_W = 224;
+const OUTPUT_GAP = 16;
+const OUTPUT_TOTAL = OUTPUT_PANEL_W + OUTPUT_GAP;
+const OUTPUT_TRANSITION = { duration: 0.8, ease: [0.22, 1, 0.36, 1] } as const;
+
+function MobileSwipeOutput({
+  output,
+  show,
+  children,
+}: {
+  output: string | null;
+  show: boolean;
+  children: ReactNode;
+}) {
+  const hasOutput = show && !!output;
+  const [page, setPage] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+
+  const goTo = useCallback(
+    (p: number) => {
+      const w = containerRef.current?.offsetWidth ?? 0;
+      setPage(p);
+      animate(x, p === 0 ? 0 : -w, {
+        type: "spring",
+        stiffness: 320,
+        damping: 32,
+        mass: 0.8,
+      });
+    },
+    [x],
+  );
+
+  const prevHasOutput = useRef(false);
+  useEffect(() => {
+    if (!hasOutput) {
+      x.set(0);
+      setPage(0);
+      prevHasOutput.current = false;
+    } else if (!prevHasOutput.current) {
+      // AutoswipeAfterDelay
+      prevHasOutput.current = true;
+      const id = setTimeout(() => goTo(1), 350);
+      return () => clearTimeout(id);
+    }
+  }, [hasOutput, x, goTo]);
+
+  return (
+    <div className="flex flex-col gap-3 w-full">
+      <div className="w-full overflow-hidden" ref={containerRef}>
+        <motion.div
+          className="flex w-[200%]"
+          style={{ x }}
+          drag={hasOutput ? "x" : false}
+          dragElastic={hasOutput ? 0.08 : 0}
+          dragConstraints={hasOutput ? undefined : { left: 0, right: 0 }}
+          onDragEnd={(_, info) => {
+            if (!hasOutput) return;
+            const w = containerRef.current?.offsetWidth ?? 300;
+            const swipedLeft =
+              info.offset.x < -(w * 0.25) || info.velocity.x < -300;
+            const swipedRight =
+              info.offset.x > w * 0.25 || info.velocity.x > 300;
+            if (page === 0 && swipedLeft) goTo(1);
+            else if (page === 1 && swipedRight) goTo(0);
+            else goTo(page);
+          }}
+        >
+          <div className="w-1/2 shrink-0">{children}</div>
+          <div className="w-1/2 px-6 shrink-0">
+            {hasOutput && (
+              <div className="shadow-lg shadow-black/15">
+                <Shell>
+                  <Header title="output" />
+
+                  <div className="bg-ludo-background py-6 sm:py-8 min-h-30 sm:min-h-40 px-5">
+                    <pre className="font-mono text-sm text-emerald-300 whitespace-pre-wrap wrap-break-word leading-relaxed">
+                      {output}
+                    </pre>
+                  </div>
+
+                  <Footer />
+                </Shell>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="flex justify-center items-center gap-1.5 h-4">
+        {hasOutput && (
+          <>
+            <button
+              type="button"
+              onClick={() => goTo(0)}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                page === 0 ? "w-4 bg-white/50" : "w-1.5 bg-white/15",
+              )}
+            />
+            <button
+              type="button"
+              onClick={() => goTo(1)}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                page === 1 ? "w-4 bg-emerald-400/60" : "w-1.5 bg-white/15",
+              )}
+            />
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function WithOutput({
+  output,
+  show,
+  mobile = false,
+  children,
+}: {
+  output: string | null;
+  show: boolean;
+  mobile?: boolean;
+  children: ReactNode;
+}) {
+  if (mobile) {
+    return (
+      <MobileSwipeOutput output={output} show={show}>
+        {children}
+      </MobileSwipeOutput>
+    );
+  }
+
+  return (
+    <div className="flex items-start justify-center w-full">
+      <motion.div
+        layout="position"
+        transition={{ layout: OUTPUT_TRANSITION }}
+        className="w-full max-w-lg shrink-0"
+      >
+        {children}
+      </motion.div>
+      <Output output={output} show={show} />
+    </div>
+  );
+}
+
+function Output({ output, show }: { output: string | null; show: boolean }) {
+  return (
+    <AnimatePresence>
+      {show && output && (
+        <motion.div
+          key="code-output-clip"
+          initial={{ width: 0 }}
+          animate={{ width: OUTPUT_TOTAL }}
+          exit={{ width: 0 }}
+          transition={OUTPUT_TRANSITION}
+          className="shrink-0 overflow-hidden"
+        >
+          <motion.div
+            initial={{ x: -OUTPUT_TOTAL }}
+            animate={{ x: 0 }}
+            exit={{ x: -OUTPUT_TOTAL }}
+            transition={OUTPUT_TRANSITION}
+            style={{ width: OUTPUT_TOTAL }}
+            className="pl-4"
+          >
+            <div className="w-56 shadow-lg shadow-black/15">
+              <Shell>
+                <Header title="output" />
+
+                <div className="bg-ludo-background/95 py-6 sm:py-8 min-h-30 sm:min-h-40 px-5">
+                  <pre className="font-mono text-sm text-emerald-300 whitespace-pre-wrap wrap-break-word leading-relaxed">
+                    {output}
+                  </pre>
+                </div>
+
+                <Footer />
+              </Shell>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export const LudoCodePreview = Object.assign(Root, {
   Shell,
   Header,
@@ -305,4 +517,5 @@ export const LudoCodePreview = Object.assign(Root, {
   Footer,
   DeleteButton,
   BackspaceButton,
+  WithOutput,
 });
