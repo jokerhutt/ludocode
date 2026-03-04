@@ -3,21 +3,24 @@ import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInterac
 import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
 import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
+import {
+  buildSystemPromptForExercise,
+  buildClozeUserMessage,
+  buildSelectUserMessage,
+} from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
 import { AnimatePresence, motion } from "motion/react";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 
 function getExerciseOutput(exercise: LudoExercise): string | null {
-  // Check code blocks for output
   for (const block of exercise.blocks) {
     if (block.type === "code" && block.output) return block.output;
   }
-  // Check cloze interaction for output
   if (exercise.interaction?.type === "CLOZE" && exercise.interaction.output) {
     return exercise.interaction.output;
   }
@@ -36,6 +39,26 @@ export function LessonPage() {
     [currentExercise],
   );
 
+  const systemPrompt = useMemo(
+    () => buildSystemPromptForExercise(currentExercise),
+    [currentExercise],
+  );
+
+  const promptWrapper = useCallback((): string | undefined => {
+    const type = currentExercise.interaction?.type;
+    if (type === "CLOZE") {
+      return buildClozeUserMessage(
+        currentExercise,
+        inputState.currentExerciseInputs,
+      );
+    }
+    if (type === "SELECT") {
+      const selected = inputState.currentExerciseInputs[0]?.value || undefined;
+      return buildSelectUserMessage(currentExercise, selected);
+    }
+    return undefined;
+  }, [currentExercise, inputState.currentExerciseInputs]);
+
   const showOutput = phase === "CORRECT" && output !== null;
 
   return (
@@ -44,8 +67,9 @@ export function LessonPage() {
         {aiEnabled && aiFeature.enabled && (
           <FloatingChatbotWindow
             credits={credits}
-            chatType="LESSON"
-            targetId={currentExercise.id ?? null}
+            sessionId={currentExercise.id ?? null}
+            systemPrompt={systemPrompt}
+            promptWrapper={promptWrapper}
             outerClassName="pl-6 pr-10"
           />
         )}

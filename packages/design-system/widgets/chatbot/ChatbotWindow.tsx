@@ -1,20 +1,21 @@
 import { cn } from "@ludocode/design-system/cn-utils.js";
 import type { PromptInputMessage } from "../../../external/ai-elements/prompt-input.tsx";
-import {
-  ChatBotConversation,
-  type ChatBotChatType,
-} from "./ChatbotConversation";
+import { ChatBotConversation } from "./ChatbotConversation";
 import { ChatBotInput } from "./ChatbotInput";
 import { useAutoScrollDown } from "@ludocode/hooks";
 import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext.js";
 
 type ChatBotProps = {
   className?: string;
-  type: ChatBotChatType;
-  targetId: string | null;
+  systemPrompt: string;
+  promptWrapper?: () => string | undefined;
 };
 
-const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
+const ChatBotWindow = ({
+  systemPrompt,
+  promptWrapper,
+  className,
+}: ChatBotProps) => {
   const { chat } = useChatbot();
   const { messages, sendMessage } = chat;
 
@@ -23,8 +24,8 @@ const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
       role: "user",
       parts: [{ type: "text", text: message.text }],
       metadata: {
-        chatType: type,
-        targetId: targetId,
+        systemPrompt,
+        promptWrapper: promptWrapper?.(),
       },
     });
   };
@@ -35,7 +36,7 @@ const ChatBotWindow = ({ targetId, type, className }: ChatBotProps) => {
     <div
       className={cn(
         "min-h-0 min-w-0 w-full text-white mx-auto relative h-90 max-h-90",
-        className
+        className,
       )}
     >
       <div className="flex flex-col min-w-0 h-full">

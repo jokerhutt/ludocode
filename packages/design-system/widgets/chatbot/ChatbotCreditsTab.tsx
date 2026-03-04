@@ -35,8 +35,8 @@ export function ChatbotCreditsTab({
           )}
         >
           {empty
-            ? "No credits"
-            : `${credits} ${credits === 1 ? "credit" : "credits"}`}
+            ? "No messages"
+            : `${credits} ${credits === 1 ? "message" : "messages"}`}
         </span>
       </div>
       {!empty && (

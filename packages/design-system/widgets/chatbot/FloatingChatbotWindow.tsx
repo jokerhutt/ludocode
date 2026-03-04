@@ -1,4 +1,3 @@
-import type { ChatBotChatType } from "@ludocode/design-system/widgets/chatbot/ChatbotConversation";
 import { useHotkeys } from "@ludocode/hooks";
 import { useState } from "react";
 import { ChatBotProvider } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";
@@ -6,17 +5,21 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow";
 
 type FloatingChatBotWindowProps = {
-  chatType: ChatBotChatType;
-  targetId: string | null;
+  sessionId: string | null;
+  systemPrompt: string;
+  promptWrapper?: () => string | undefined;
   credits: number;
+  disabled?: boolean;
   outerClassName?: string;
 };
 
 export function FloatingChatbotWindow({
   outerClassName,
-  targetId,
+  sessionId,
+  systemPrompt,
+  promptWrapper,
   credits,
-  chatType,
+  disabled,
 }: FloatingChatBotWindowProps) {
   const [isOpen, setIsOpen] = useState(true);
   const toggleIsOpen = () => setIsOpen((open) => !open);
@@ -27,7 +30,7 @@ export function FloatingChatbotWindow({
   });
 
   return (
-    <ChatBotProvider credits={credits} targetId={targetId} type="LESSON">
+    <ChatBotProvider credits={credits} sessionId={sessionId} type="LESSON">
       <div
         className={cn("h-full w-full py-6 ", isVisibleStyle, outerClassName)}
       >
@@ -36,9 +39,9 @@ export function FloatingChatbotWindow({
             <p>Ludo Tutor (⌘+k)</p>
           </div>
           <ChatBotWindow
-            type={chatType}
+            systemPrompt={systemPrompt}
+            promptWrapper={promptWrapper}
             className="h-full bg-ludo-background pb-4 rounded-md max-h-full"
-            targetId={targetId}
           />
         </div>
       </div>

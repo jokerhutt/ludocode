@@ -25,7 +25,7 @@ export function WideOnboardingOption({
         "transition-all border-2 duration-200",
         isSelected
           ? "border-transparent"
-          : "border-transparent hover:border-ludo-accent/30 hover:scale-[1.02]",
+          : "border-transparent hover:scale-[1.02]",
       )}
     >
       {children}

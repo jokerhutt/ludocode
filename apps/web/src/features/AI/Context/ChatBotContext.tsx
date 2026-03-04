@@ -16,7 +16,7 @@ const ChatBotContext = createContext<ChatBotContextValue | null>(null);
 type ChatBotContextProps = {
   children: ReactNode;
   credits: number;
-  targetId: string | null;
+  sessionId: string | null;
   type: ChatBotChatType;
 };
 
@@ -27,7 +27,7 @@ type ChatBotContextValue = {
 
 export function ChatBotProvider({
   children,
-  targetId,
+  sessionId,
   credits,
   type,
 }: ChatBotContextProps) {
@@ -41,7 +41,7 @@ export function ChatBotProvider({
     onFinish() {
       queryClient.invalidateQueries({ queryKey: qk.credits() });
     },
-    id: `chatbot-${type}-${targetId}`,
+    id: `chatbot-${type}-${sessionId}`,
   });
 
   const value = {

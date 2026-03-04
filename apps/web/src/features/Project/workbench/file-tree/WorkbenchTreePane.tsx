@@ -12,6 +12,10 @@ import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
 import { ChatBotAccordion } from "@ludocode/design-system/widgets/chatbot/ChatbotAccordion.tsx";
 import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow.tsx";
+import {
+  buildProjectUserMessage,
+  PROJECT_SYSTEM_PROMPT,
+} from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import { useUserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext.tsx";
@@ -23,6 +27,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@ludocode/external/ui/tooltip.tsx";
+import { useCallback, useRef } from "react";
 
 type WorkbenchTreePaneProps = { className?: string };
 
@@ -32,6 +37,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
     deleteFile,
     project,
     files,
+    current,
     currentFileId,
     setCurrent,
     entryFileId,
@@ -39,6 +45,18 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
   const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
+  // Store latest live state in a ref so the promptWrapper callback is never stale.
+  const latestRef = useRef({
+    project,
+    files,
+    active: files[current] ?? files[0],
+  });
+  latestRef.current = { project, files, active: files[current] ?? files[0] };
+  const promptWrapper = useCallback(() => {
+    const { project, files, active } = latestRef.current;
+    const activeId = active?.id ?? active?.tempId ?? null;
+    return buildProjectUserMessage(project, files, activeId);
+  }, []);
 
   const canDeleteFiles = files.length > 1;
 
@@ -133,11 +151,14 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
           <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
             <ChatBotProvider
               credits={chatbotCredits}
-              targetId={project.projectId}
+              sessionId={project.projectId}
               type="PROJECT"
             >
               <ChatBotAccordion>
-                <ChatBotWindow type="PROJECT" targetId={currentFileId} />
+                <ChatBotWindow
+                  promptWrapper={promptWrapper}
+                  systemPrompt={PROJECT_SYSTEM_PROMPT}
+                />
               </ChatBotAccordion>
             </ChatBotProvider>
           </div>

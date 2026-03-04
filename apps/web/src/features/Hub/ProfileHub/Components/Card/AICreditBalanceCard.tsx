@@ -23,7 +23,7 @@ export function AICreditBalanceCard({
       <div className="flex justify-between items-start">
         <div>
           <p className="text-xs uppercase tracking-wide opacity-60">
-            AI Credits
+            AI Messages
           </p>
           <p className="text-2xl font-semibold">
             {remaining}

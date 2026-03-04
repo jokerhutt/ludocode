@@ -16,7 +16,10 @@ export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
   const allProjects = projectsPacket.projects;
 
-  const { maxProjects} = useSuspenseQuery(qo.subscription()).data;
+  const paymentsFeature = useSuspenseQuery(qo.activeFeatures()).data
+    .paymentsEnabled;
+
+  const { maxProjects } = useSuspenseQuery(qo.subscription()).data;
   const currentProjects = allProjects.length;
 
   const isAtLimit = currentProjects >= maxProjects;
@@ -51,6 +54,7 @@ export function ProjectHubPage() {
                   variant="alt"
                   shadow={true}
                   onClick={() => {
+                    if (!paymentsFeature) return;
                     if (isAtLimit) {
                       router.navigate(
                         ludoNavigation.subscription.toSubscriptionComparisonPage(),
@@ -61,8 +65,12 @@ export function ProjectHubPage() {
                   }}
                   title={isAtLimit ? "Project limit reached" : undefined}
                 >
-                  <PlusIcon className="h-4 w-4" />
-                  {isAtLimit ? "Upgrade" : "New Project"}
+                  {!isAtLimit && <PlusIcon className="h-4 w-4" />}
+                  {isAtLimit && paymentsFeature
+                    ? "Upgrade"
+                    : isAtLimit
+                      ? "At Limit"
+                      : "New Project"}
                 </LudoButton>
               </CreateProjectDialog>
             </div>
