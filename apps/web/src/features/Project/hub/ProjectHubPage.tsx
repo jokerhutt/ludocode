@@ -54,8 +54,8 @@ export function ProjectHubPage() {
                   variant="alt"
                   shadow={true}
                   onClick={() => {
-                    if (!paymentsFeature) return;
                     if (isAtLimit) {
+                      if (!paymentsFeature) return;
                       router.navigate(
                         ludoNavigation.subscription.toSubscriptionComparisonPage(),
                       );
