@@ -269,12 +269,6 @@ ${otherFileText}
 `;
 }
 
-/**
- * Builds the appropriate system prompt for a given exercise based on its interaction type.
- * - CLOZE → buildClozeSystemPrompt
- * - SELECT → buildSelectSystemPrompt
- * - INFO / no interaction → buildInformationalSystemPrompt
- */
 export function buildSystemPromptForExercise(exercise: LudoExercise): string {
   const type = exercise.interaction?.type;
 
