@@ -71,7 +71,7 @@ export function LudoOption(props: LudoOptionProps) {
       }
       onClick={handleClick}
       className={cn(
-        "py-2.5 px-5 code rounded-xl transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation select-none",
+        "py-2.5 px-5 code rounded-xl lg:transition-all lg:active:translate-y-[3px] lg:duration-100 transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation select-none",
         isWide && "w-full",
         "hover:cursor-pointer active:shadow-none",
         isSelected
