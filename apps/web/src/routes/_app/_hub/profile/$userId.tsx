@@ -1,5 +1,5 @@
 import { qo } from "@/queries/definitions/queries";
-import { ProfileHubLayout } from "@/layouts/Hub/ProfileHubLayout";
+import { ProfileHubLayout } from "@/layouts/hub/ProfileHubLayout";
 import type { LudoCourse } from "@ludocode/types";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

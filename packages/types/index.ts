@@ -18,7 +18,7 @@ export * from "./Completion/LessonCompletionResponse";
 export * from "./Completion/LessonStats";
 export * from "./Completion/SyncState";
 
-// Curriculum
+// curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
 export * from "./Curriculum/SubjectDraftSchema"
 export * from "./Curriculum/ChangeSubjectRequest"

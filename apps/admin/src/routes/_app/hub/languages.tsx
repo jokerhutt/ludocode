@@ -1,5 +1,5 @@
-import { LanguagesHubPage } from "@/features/LanguagesHub/Pages/LanguagesHubPage";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { LanguagesHubPage } from "@/features/languages-hub/LanguagesHubPage.tsx";
+import { qo } from "@/queries/definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 

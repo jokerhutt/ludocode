@@ -1,5 +1,5 @@
 import { errorMap, type ErrorStatus } from "@/constants/content/ErrorData.ts";
-import { FallbackLayout } from "@/layouts/Fallback/FallbackLayout.tsx";
+import { FallbackLayout } from "@/layouts/fallback/FallbackLayout.tsx";
 import { useRouter } from "@tanstack/react-router";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 

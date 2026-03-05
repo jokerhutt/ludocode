@@ -43,7 +43,7 @@ export const ParagraphBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: z.string().min(1, "Language required"),
+  language: z.string().min(1, "language required"),
   content: z.string().min(1, "Code content required"),
   output: z.string().optional()
 });

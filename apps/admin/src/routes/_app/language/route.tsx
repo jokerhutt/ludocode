@@ -1,5 +1,5 @@
-import { qo } from "@/hooks/Queries/Definitions/queries";
-import { LanguageLayout } from "@/layouts/Language/LanguageLayout";
+import { qo } from "@/queries/definitions/queries";
+import { LanguageLayout } from "@/layouts/language/LanguageLayout";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 

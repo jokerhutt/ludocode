@@ -1,6 +1,6 @@
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper";
-import { useAdminFirebaseAuthEntry } from "@/hooks/Queries/Mutations/useAdminFirebaseAuthEntry";
+import { useAdminFirebaseAuthEntry } from "@/queries/mutations/useAdminFirebaseAuthEntry";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { GoogleIcon } from "@ludocode/design-system/primitives/custom-icon";
 

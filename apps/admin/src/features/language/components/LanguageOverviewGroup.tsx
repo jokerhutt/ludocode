@@ -1,0 +1,29 @@
+import type { LudoCourse } from "@ludocode/types";
+import { LanguageAttachedCoursesSection } from "./LanguageAttachedCoursesSection.tsx";
+import { LanguageDiff } from "./LanguageDiff.tsx";
+import type { LanguageFieldDiff } from "../hooks/useLanguageDiffs.tsx";
+
+type LanguageOverviewGroupProps = {
+  attachedCourses: LudoCourse[];
+  languageDiffs: LanguageFieldDiff[];
+};
+
+export function LanguageOverviewGroup({
+  attachedCourses,
+  languageDiffs,
+}: LanguageOverviewGroupProps) {
+  return (
+    <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-col gap-4 text-ludo-white col-span-1">
+        <p>Attached Courses</p>
+        <LanguageAttachedCoursesSection attachedCourses={attachedCourses} />
+      </div>
+      <div className="flex flex-col gap-4 text-ludo-white col-span-3">
+        <p>Changes</p>
+        <div className="grid grid-cols-2">
+          <LanguageDiff languageDiffs={languageDiffs} />
+        </div>
+      </div>
+    </div>
+  );
+}

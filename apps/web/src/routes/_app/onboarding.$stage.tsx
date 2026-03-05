@@ -1,4 +1,4 @@
-import { OnboardingLayout } from "@/layouts/Onboarding/OnboardingLayout.tsx";
+import { OnboardingLayout } from "@/layouts/onboarding/OnboardingLayout.tsx";
 import { stepOrder } from "@/features/onboarding/steps/OnboardingSteps";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { firstInvalidStep } from "@/features/onboarding/util/validators";

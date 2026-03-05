@@ -80,8 +80,8 @@ const AppHubLanguagesRoute = AppHubLanguagesRouteImport.update({
   getParentRoute: () => AppHubRouteRoute,
 } as any)
 const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
-  id: '/course',
-  path: '/course',
+  id: '/courses',
+  path: '/courses',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
 const AppCoursesCourseIdRoute = AppCoursesCourseIdRouteImport.update({
@@ -288,7 +288,7 @@ declare module '@tanstack/react-router' {
     }
     '/_app/hub/courses': {
       id: '/_app/hub/courses'
-      path: '/course'
+      path: '/courses'
       fullPath: '/hub/courses'
       preLoaderRoute: typeof AppHubCoursesRouteImport
       parentRoute: typeof AppHubRouteRoute

@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/queries/definitions/queries.ts";
 import type { QueryClient } from "@tanstack/react-query";
-import { AdminHubLayout } from "@/layouts/Hub/AdminHubLayout";
+import { AdminHubLayout } from "@/layouts/hub/AdminHubLayout";
 
 export const Route = createFileRoute("/_app/hub")({
   loader: async ({ context }) => hubLoader(context.queryClient),

@@ -1,9 +1,9 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import { CompletionBadge } from "@ludocode/design-system/primitives/CompletionBadge";
+import { CompletionBadge } from "@ludocode/design-system/primitives/completion-badge";
 import {
   ProgressSummary,
   type ProgressSummaryProps,
-} from "@ludocode/design-system/primitives/ProgressSummary";
+} from "@ludocode/design-system/primitives/progress-summary";
 import { type ReactNode } from "react";
 
 type LudoListProps = { children?: ReactNode; className?: string };

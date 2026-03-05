@@ -4,7 +4,7 @@ import {
   CustomIcon,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import { ProgressSummary } from "@ludocode/design-system/primitives/ProgressSummary.tsx";
+import { ProgressSummary } from "@ludocode/design-system/primitives/progress-summary.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 type CourseCardProps = {

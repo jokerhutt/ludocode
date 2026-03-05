@@ -1,5 +1,5 @@
 import { qo } from "@/queries/definitions/queries.ts";
-import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
+import { ModuleHubLayout } from "@/layouts/hub/ModuleHubLayout.tsx";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

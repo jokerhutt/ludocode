@@ -1,4 +1,4 @@
-import streakAnimationData from "../../../public/Animations/STR_INCREASE.json";
+import streakAnimationData from "../../../public/animation/STR_INCREASE.json";
 import Lottie from "lottie-react";
 import { useCompletionContext } from "@/features/completion/context/CompletionContext.tsx";
 import { CompletionStatsGroup } from "@/features/completion/components/CompletionStatsGroup.tsx";
@@ -11,7 +11,7 @@ export function LessonCompletionPage() {
   const { search } = useCompletionContext();
   const { coins, accuracy } = search;
 
-  const trophyAnimation = useLottie("/Animations/LC_TROPHY.json");
+  const trophyAnimation = useLottie("/animation/LC_TROPHY.json");
 
   return (
     <>

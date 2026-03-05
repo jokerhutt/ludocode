@@ -1,5 +1,5 @@
 import { qo } from "@/queries/definitions/queries.ts";
-import { HubLayout } from "@/layouts/Hub/HubLayout.tsx";
+import { HubLayout } from "@/layouts/hub/HubLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import {createFileRoute, redirect} from "@tanstack/react-router";
 
