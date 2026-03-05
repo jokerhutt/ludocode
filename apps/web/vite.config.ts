@@ -52,6 +52,7 @@ export default defineConfig({
         __dirname,
         "../../packages/design-system",
       ),
+      "@ludocode/ludo-mdx": path.resolve(__dirname, "../../packages/ludo-mdx"),
       "@ludocode/hooks": path.resolve(__dirname, "../../packages/hooks"),
     },
   },

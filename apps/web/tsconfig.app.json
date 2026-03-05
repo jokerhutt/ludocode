@@ -22,7 +22,9 @@
       "@ludocode/design-system": ["packages/design-system"],
       "@ludocode/design-system/*": ["packages/design-system/*"],
       "@ludocode/hooks": ["packages/hooks"],
-      "@ludocode/hooks/*": ["packages/hooks/*"]
+      "@ludocode/hooks/*": ["packages/hooks/*"],
+      "@ludocode/ludo-mdx": ["packages/ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["packages/ludo-mdx/*"]
     },
 
     /* Bundler mode */

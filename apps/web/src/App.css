@@ -1,5 +1,6 @@
 @source "../../../packages/design-system/**/*.{ts,tsx,js,jsx}";
 @source "../../../packages/external/**/*.{ts,tsx,js,jsx}";
+@source "../../../packages/ludo-mdx/**/*.{ts,tsx,js,jsx,md,mdx}";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@ludocode/design-system/styles/components/ludo.css";
