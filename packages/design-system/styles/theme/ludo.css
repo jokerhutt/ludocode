@@ -1,8 +1,27 @@
 @theme {
+  /* == BACKGROUND == */
   --color-ludo-background: #22273e;
+
+  /* == SURFACE == */
   --color-ludo-surface: #303966;
-  --color-ludo-code-surface: #2f3553;
+  --color-ludo-surface-muted: color-mix(
+    in srgb,
+    var(--color-ludo-surface) 50%,
+    transparent
+  );
+  --color-ludo-surface-hover: color-mix(
+    in srgb,
+    var(--color-ludo-surface) 80%,
+    transparent
+  );
+
+  /* == ACCENT == */
+
+  /* == MUTED ACCENT == */
   --color-ludo-accent-muted: #9eb2ff;
+
+  /* == TEXT == */
+
   --color-ludoAltText: #d1d5dc;
   --color-ludo-text-dim: #ffffff80;
   --color-ludo-text-hover: #ffffffcc;
@@ -11,7 +30,8 @@
   --color-ludo-text-disabled: #ffffff40;
 
   --color-ludo-accent: #5c6fd6;
-  --color-ludo-danger: #e57373;
+  --color-ludo-danger: #d06060;
+  --color-ludo-danger-hover: oklch(80.8% 0.114 19.571);
   --color-ludo-progress: #6a7cff;
   --color-ludo-border: #2a304f;
 

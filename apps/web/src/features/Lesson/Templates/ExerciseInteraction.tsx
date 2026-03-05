@@ -51,7 +51,9 @@ export function ExerciseInteraction({
     exerciseType == "CLOZE" ? "ROW" : "COLUMN";
 
   return (
-    <div className={cn("flex flex-col w-full items-center justify-start gap-8")}>
+    <div
+      className={cn("flex flex-col w-full items-center justify-start gap-8")}
+    >
       {interactionFile && (
         <LudoCodePreview.WithOutput
           output={output}
@@ -105,7 +107,7 @@ export function ExerciseInteraction({
               key={option.id}
               variant="wideSingleSelect"
               enabled={phase === "DEFAULT"}
-              status={phase}
+              status={phase === "SUBMITTED" ? "DEFAULT" : phase}
               option={option}
               userSelections={currentExerciseInputs}
               setAnswerAt={replaceAnswerAt}

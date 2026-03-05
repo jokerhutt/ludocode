@@ -2,7 +2,7 @@ import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { useChangeExercise } from "@/features/Lesson/Hooks/useChangeExercise.tsx";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { useStagedAttempt } from "@/features/Lesson/Hooks/useStagedAttempt.tsx";
 import {
@@ -36,6 +36,15 @@ export function useExercise({
   const currentExerciseId = currentExercise.id;
   const lessonId = lesson.id;
   const isInfo = !currentExercise.interaction;
+  const hasCodeOutput = currentExercise.blocks.some(
+    (b) => b.type === "code" && b.output != null,
+  );
+
+  const [isInfoSubmitted, setIsInfoSubmitted] = useState(false);
+
+  useEffect(() => {
+    setIsInfoSubmitted(false);
+  }, [currentExerciseId]);
 
   const exerciseInput = useExerciseInput({ currentExercise });
   const { currentExerciseInputs, clearExerciseInputs, initializeInputs } =
@@ -49,11 +58,17 @@ export function useExercise({
   const {
     stageAttempt,
     clearStaged,
-    phase,
+    phase: stagedPhase,
     currentlyStagedAttempt,
     canSubmit,
     hasStaged,
   } = stagedAttempt;
+
+  const phase: ExercisePhase = isInfo
+    ? isInfoSubmitted
+      ? "SUBMITTED"
+      : "DEFAULT"
+    : stagedPhase;
 
   const { commitStagedAttemptIntoSubmissions } = useCommittedSubmissions({
     courseId,
@@ -69,7 +84,13 @@ export function useExercise({
 
   const handleExerciseButtonClick = useCallback(() => {
     if (!canSubmit) return;
-    if (isInfo || hasStaged) {
+    if (isInfo) {
+      if (hasCodeOutput && !isInfoSubmitted) {
+        setIsInfoSubmitted(true);
+      } else {
+        commitStagedAttemptIntoSubmissions(null);
+      }
+    } else if (hasStaged) {
       commitStagedAttemptIntoSubmissions(currentlyStagedAttempt);
     } else {
       stageAttempt();
@@ -77,6 +98,8 @@ export function useExercise({
   }, [
     canSubmit,
     isInfo,
+    hasCodeOutput,
+    isInfoSubmitted,
     hasStaged,
     currentlyStagedAttempt,
     commitStagedAttemptIntoSubmissions,

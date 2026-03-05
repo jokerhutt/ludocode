@@ -234,7 +234,7 @@ export const mdxComponents: MDXComponents = {
     // Inline code only; fenced blocks are handled by `pre` above.
     return (
       <code
-        className="px-1.5 py-0.5 rounded bg-ludo-code-surface border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
+        className="px-1.5 py-0.5 rounded bg-ludo-surface/50 border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
         {...props}
       />
     );

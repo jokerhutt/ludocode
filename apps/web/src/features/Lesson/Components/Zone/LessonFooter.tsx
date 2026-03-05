@@ -5,13 +5,11 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 
-export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
+export type ExercisePhase = "DEFAULT" | "SUBMITTED" | "CORRECT" | "INCORRECT";
 
 export function LessonFooter() {
-  const { handleExerciseButtonClick, canSubmit, phase, currentExercise } =
-    useLessonContext();
+  const { handleExerciseButtonClick, canSubmit, phase } = useLessonContext();
 
-  const isInfo = !currentExercise.interaction;
   const [isLoading, setIsLoading] = useState(false);
 
   useHotkeys({
@@ -21,7 +19,7 @@ export function LessonFooter() {
   function trySubmit() {
     if (!canSubmit || isLoading) return;
 
-    if (phase !== "DEFAULT" || isInfo) {
+    if (phase !== "DEFAULT") {
       handleExerciseButtonClick();
     } else {
       setIsLoading(true);
@@ -34,11 +32,11 @@ export function LessonFooter() {
   }
 
   const text =
-    phase == "DEFAULT"
+    phase === "DEFAULT"
       ? "CHECK"
-      : phase == "CORRECT"
-        ? "CONTINUE"
-        : "TRY AGAIN";
+      : phase === "INCORRECT"
+        ? "TRY AGAIN"
+        : "CONTINUE";
 
   return (
     <FooterShell
@@ -55,7 +53,12 @@ export function LessonFooter() {
           className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
           onClick={() => trySubmit()}
         >
-          <p data-testid={`lesson-submit-text`} className="select-none pointer-events-none">{text}</p>
+          <p
+            data-testid={`lesson-submit-text`}
+            className="select-none pointer-events-none"
+          >
+            {text}
+          </p>
         </LudoButton>
       </div>
     </FooterShell>

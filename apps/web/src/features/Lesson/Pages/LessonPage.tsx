@@ -51,7 +51,7 @@ export function LessonPage() {
     return undefined;
   }, [currentExercise, inputState.currentExerciseInputs]);
 
-  const showOutput = phase === "CORRECT";
+  const showOutput = phase === "CORRECT" || phase === "SUBMITTED";
 
   return (
     <>
@@ -67,22 +67,20 @@ export function LessonPage() {
           >
             <div className="flex flex-col gap-4 items-center">
               {currentExercise.blocks.map((block, index) => (
-                <div className="max-w-xl">
-                  <BlockRenderer
-                    key={index}
-                    block={block}
-                    showOutput={showOutput}
-                    mobile={isMobile}
-                  />
-                </div>
+                <BlockRenderer
+                  key={index}
+                  block={block}
+                  showOutput={showOutput}
+                  mobile={isMobile}
+                />
               ))}
             </div>
-              <ExerciseInteraction
-                body={body}
-                output={interactionOutput}
-                showOutput={showOutput}
-                mobileOutput={isMobile}
-              />
+            <ExerciseInteraction
+              body={body}
+              output={interactionOutput}
+              showOutput={showOutput}
+              mobileOutput={isMobile}
+            />
           </motion.div>
         </AnimatePresence>
       )}

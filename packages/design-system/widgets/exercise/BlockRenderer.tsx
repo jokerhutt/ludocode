@@ -15,24 +15,26 @@ export function BlockRenderer({
   switch (block.type) {
     case "header":
       return (
-        <h2 className="text-white text-center text-lg sm:text-xl font-semibold leading-snug">
+        <h2 className="text-white text-center text-lg sm:text-xl lg:max-w-xl font-semibold leading-snug">
           {block.content}
         </h2>
       );
     case "paragraph":
       return (
-        <p className="text-ludoAltText text-center text-sm sm:text-base leading-relaxed">
+        <p className="text-ludoAltText text-center lg:max-w-xl text-sm sm:text-base leading-relaxed">
           {block.content}
         </p>
       );
     case "code":
       return (
         <LudoCodePreview.WithOutput
+          outputFooter={false}
           output={block.output ?? null}
           show={showOutput}
           mobile={mobile}
         >
           <LudoCodePreview
+            className="lg:max-w-xl"
             prompt={block.content}
             options={[]}
             userResponses={[]}

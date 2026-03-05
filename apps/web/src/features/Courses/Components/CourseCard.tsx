@@ -29,14 +29,14 @@ export function CourseCard({
 
   const Component = onClick ? "button" : "div";
 
-  const colorStyle = opaque ? "bg-ludo-surface/50" : "bg-ludo-surface"
+  const colorStyle = opaque ? "bg-ludo-surface-muted" : "bg-ludo-surface"
 
   return (
     <Component
       {...(onClick && { type: "button", onClick })}
       className={cn(
-        "rounded-xl bg-ludo-surface/50 p-4 flex flex-col gap-3 text-left transition-colors",
-        onClick && "hover:bg-ludo-surface/70 hover:cursor-pointer",
+        "rounded-xl bg-ludo-surface-muted p-4 flex flex-col gap-3 text-left transition-colors",
+        onClick && "hover:bg-ludo-surface-hover hover:cursor-pointer",
         colorStyle
       )}
     >

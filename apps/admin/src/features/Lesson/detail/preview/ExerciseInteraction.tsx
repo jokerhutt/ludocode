@@ -91,7 +91,7 @@ export function ExerciseInteraction({
     return (
       <div className={cn("flex flex-col h-full justify-start gap-8")}>
         {interaction.file && (
-          <div className="w-full px-8 bg-ludo-code-surface lg:rounded-lg py-4 flex flex-col gap-3">
+          <div className="w-full px-8 bg-ludo-background lg:rounded-lg py-4 flex flex-col gap-3">
             <StaticCodeBlock prompt={interaction.file.content} />
           </div>
         )}

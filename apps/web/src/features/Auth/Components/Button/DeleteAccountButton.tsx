@@ -29,7 +29,7 @@ export function DeleteAccountButton({ username }: DeleteAccountButtonProps) {
     >
       <button
         type="button"
-        className="text-sm text-end w-full text-red-400/70 hover:text-red-300 transition-colors hover:cursor-pointer"
+        className="text-sm text-end w-full text-ludo-danger  hover:text-ludo-danger-hover transition-colors hover:cursor-pointer"
       >
         Delete account
       </button>

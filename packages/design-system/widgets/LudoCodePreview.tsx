@@ -280,7 +280,7 @@ function Footer({
 
 function DeleteButton() {
   const { clear, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing
+  const disabled = isEmpty || !typing;
   const cursorStyle = isEmpty
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -302,7 +302,7 @@ function DeleteButton() {
 
 function BackspaceButton() {
   const { popLast, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing
+  const disabled = isEmpty || !typing;
   const cursorStyle = disabled
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -329,10 +329,12 @@ const OUTPUT_TRANSITION = { duration: 0.8, ease: [0.22, 1, 0.36, 1] } as const;
 function MobileSwipeOutput({
   output,
   show,
+  outputFooter = true,
   children,
 }: {
   output: string | null;
   show: boolean;
+  outputFooter?: boolean;
   children: ReactNode;
 }) {
   const hasOutput = show && !!output;
@@ -356,17 +358,13 @@ function MobileSwipeOutput({
 
   const prevHasOutput = useRef(false);
   useEffect(() => {
-    if (!hasOutput) {
-      x.set(0);
-      setPage(0);
-      prevHasOutput.current = false;
-    } else if (!prevHasOutput.current) {
+    if (hasOutput && !prevHasOutput.current) {
       // AutoswipeAfterDelay
       prevHasOutput.current = true;
       const id = setTimeout(() => goTo(1), 350);
       return () => clearTimeout(id);
     }
-  }, [hasOutput, x, goTo]);
+  }, [hasOutput, goTo]);
 
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -402,7 +400,7 @@ function MobileSwipeOutput({
                     </pre>
                   </div>
 
-                  <Footer />
+                  {outputFooter && <Footer />}
                 </Shell>
               </div>
             )}
@@ -439,37 +437,53 @@ function MobileSwipeOutput({
 function WithOutput({
   output,
   show,
+  outputFooter = true,
   mobile = false,
   children,
 }: {
   output: string | null;
   show: boolean;
+  outputFooter?: boolean;
   mobile?: boolean;
   children: ReactNode;
 }) {
   if (mobile) {
     return (
-      <MobileSwipeOutput output={output} show={show}>
+      <MobileSwipeOutput
+        outputFooter={outputFooter}
+        output={output}
+        show={show}
+      >
         {children}
       </MobileSwipeOutput>
     );
   }
 
+  const hasOutput = show && !!output;
+
   return (
     <div className="flex items-start justify-center w-full">
       <motion.div
         layout="position"
-        transition={{ layout: OUTPUT_TRANSITION }}
+        transition={OUTPUT_TRANSITION}
         className="w-full max-w-lg shrink-0"
       >
         {children}
       </motion.div>
-      <Output output={output} show={show} />
+      <Output footer={outputFooter} output={output} show={show} />
     </div>
   );
 }
 
-function Output({ output, show }: { output: string | null; show: boolean }) {
+function Output({
+  output,
+  show,
+  footer = true,
+}: {
+  output: string | null;
+  show: boolean;
+  footer?: boolean;
+}) {
   return (
     <AnimatePresence>
       {show && output && (
@@ -487,7 +501,7 @@ function Output({ output, show }: { output: string | null; show: boolean }) {
             exit={{ x: -OUTPUT_TOTAL }}
             transition={OUTPUT_TRANSITION}
             style={{ width: OUTPUT_TOTAL }}
-            className="pl-4"
+            className="pl-4 "
           >
             <div className="w-56 shadow-lg shadow-black/15">
               <Shell>
@@ -499,7 +513,7 @@ function Output({ output, show }: { output: string | null; show: boolean }) {
                   </pre>
                 </div>
 
-                <Footer />
+                {footer && <Footer />}
               </Shell>
             </div>
           </motion.div>
