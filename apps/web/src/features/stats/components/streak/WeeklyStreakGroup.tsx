@@ -38,7 +38,7 @@ export function WeeklyStreakGroup({
           <div key={index} className="flex flex-col items-center gap-1.5">
             <div
               className={cn(
-                "rounded-lg h-9 w-9 flex items-center justify-center transition-colors",
+                "rounded-sm lg:rounded-lg h-6 w-6 lg:h-9 lg:w-9 flex items-center justify-center transition-colors",
                 day.met ? "bg-orange-400/15" : "bg-white/5",
               )}
             >

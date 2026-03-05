@@ -7,13 +7,13 @@ import {
 import { CommitIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import type { ReactNode } from "react";
 
-type CoinsDialogProps = { children: ReactNode; coins: number };
+type CoinsDialogProps = { children: ReactNode; coins: number; asChild?: boolean };
 
-export function CoinsDialog({ children, coins }: CoinsDialogProps) {
+export function CoinsDialog({ children, coins, asChild = true }: CoinsDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogWrapper className="max-w-sm">
+      <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+      <DialogWrapper>
         <div className="flex flex-col items-center gap-4 py-2">
           <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center">
             <CommitIcon className="h-7 w-7 text-ludo-white-bright" />
