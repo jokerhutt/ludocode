@@ -1,0 +1,8 @@
+{
+  "name": "@ludocode/ludo-mdx",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./*"
+  }
+}

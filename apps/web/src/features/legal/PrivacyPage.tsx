@@ -1,5 +1,5 @@
 import Privacy from "@/legal/privacy.mdx";
-import { legalComponents } from "./components/legalComponents.tsx";
+import { legalComponents } from "../../../../../packages/ludo-mdx/legal/legalComponents.tsx";
 
 export function PrivacyPage() {
   return (

@@ -1,4 +1,4 @@
-import { docsSections, type DocsSection } from "../data/docsRegistry";
+import { docsSections, type DocsSection } from "ludocode-frontend/src/features/webdocs/data/docsRegistry";
 
 type DocsSidebarProps = {
   activeSlug: string;

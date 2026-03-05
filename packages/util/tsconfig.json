@@ -12,6 +12,8 @@
       "@ludocode/types": ["../types"],
       "@ludocode/types/*": ["../types/*"],
       "@ludocode/hooks": ["../hooks"],
+      "@ludocode/ludo-mdx": ["../ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["../ludo-mdx/*"],
       "@ludocode/hooks/*": ["../hooks/*"],
       "@ludocode/external": ["../external"],
       "@ludocode/external/*": ["../external/*"]

@@ -14,7 +14,9 @@
       "@ludocode/hooks": ["../hooks"],
       "@ludocode/hooks/*": ["../hooks/*"],
       "@ludocode/external": ["."],
-      "@ludocode/external/*": ["./*"]
+      "@ludocode/external/*": ["./*"],
+      "@ludocode/ludo-mdx": ["../ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["../ludo-mdx/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

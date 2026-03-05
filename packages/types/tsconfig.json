@@ -11,6 +11,8 @@
       "@ludocode/design-system/*": ["../design-system/*"],
       "@ludocode/types": ["."],
       "@ludocode/types/*": ["./*"],
+      "@ludocode/ludo-mdx": ["../ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["../ludo-mdx/*"],
       "@ludocode/hooks": ["../hooks"],
       "@ludocode/hooks/*": ["../hooks/*"],
       "@ludocode/external": ["../external"],
