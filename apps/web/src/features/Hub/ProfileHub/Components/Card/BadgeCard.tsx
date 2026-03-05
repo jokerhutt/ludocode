@@ -1,9 +1,7 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { AnimatedBadge, Badge } from "@ludocode/design-system/primitives/badge";
 import type { CourseStats, LudoCourse } from "@ludocode/types";
-import {
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon";
+import { type IconName } from "@ludocode/design-system/primitives/custom-icon";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 
@@ -34,7 +32,7 @@ export function BadgeListCard({
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex items-center justify-between">
-        <p className="text-xs text-ludoAltText/50">
+        <p className="text-xs text-ludo-white-dim">
           {earnedCount} / {allCourses.length} earned
         </p>
       </div>
@@ -51,10 +49,10 @@ export function BadgeListCard({
           >
             {course.completed ? (
               <div className="relative">
-                <Badge icon={course.language?.iconName as IconName}/>
+                <Badge icon={course.language?.iconName as IconName} />
               </div>
             ) : (
-              <div className="h-10 w-10 bg-ludo-background/50 rounded-lg flex items-center justify-center ring-1 ring-white/5">
+              <div className="h-10 w-10 bg-ludo-background rounded-lg flex items-center justify-center ring-1 ring-white/5">
                 <LockClosedIcon className="h-4 w-4 text-white/20" />
               </div>
             )}

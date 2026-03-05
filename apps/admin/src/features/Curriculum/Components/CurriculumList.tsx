@@ -48,7 +48,7 @@ type CurriculumCardFooterProps = { children: ReactNode };
 
 export function CurriculumCardFooter({ children }: CurriculumCardFooterProps) {
   return (
-    <div className="flex justify-between border-t-3 border-t-ludo-border text-ludoAltText h-14 px-4 py-2 items-center">
+    <div className="flex justify-between border-t-3 border-t-ludo-border text-ludo-white h-14 px-4 py-2 items-center">
       {children}
     </div>
   );

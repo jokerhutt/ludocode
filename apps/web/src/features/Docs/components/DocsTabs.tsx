@@ -25,7 +25,7 @@ export function DocsTabs({ tabs }: DocsTabsProps) {
               ${
                 activeIndex === index
                   ? "text-ludo-accent-muted"
-                  : "text-ludo-text-dim hover:text-ludo-text-hover"
+                  : "text-ludo-white-dim hover:text-ludo-white-hover"
               }
             `}
           >
@@ -38,7 +38,7 @@ export function DocsTabs({ tabs }: DocsTabsProps) {
       </div>
 
       {/* Tab Content */}
-      <div className="p-4 sm:p-5 bg-ludo-background/50">
+      <div className="p-4 sm:p-5 bg-ludo-background">
         {tabs[activeIndex].content}
       </div>
     </div>

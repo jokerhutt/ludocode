@@ -48,7 +48,7 @@ export function NavigationIconGroup({
               "hover:cursor-pointer text-sm font-medium",
               active
                 ? "bg-ludo-accent/15 text-white"
-                : "text-white/50 hover:text-white hover:bg-white/5",
+                : "text-ludo-white-dim hover:text-white hover:bg-white/5",
               buttonClassName,
             )}
           >

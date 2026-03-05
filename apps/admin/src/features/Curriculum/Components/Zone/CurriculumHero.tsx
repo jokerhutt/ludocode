@@ -26,7 +26,7 @@ export function CurriculumHero({
         {/* SUBJECT CARD */}
         <div className="flex items-center justify-between bg-ludo-background border border-ludo-border rounded-lg px-4 py-3">
           <div className="flex flex-col">
-            <span className="text-xs text-ludoAltText uppercase tracking-wide">
+            <span className="text-xs text-ludo-white uppercase tracking-wide">
               Subject
             </span>
             <span className="text-white font-semibold">
@@ -59,7 +59,7 @@ export function CurriculumHero({
         {/* LANGUAGE CARD */}
         <div className="flex items-center justify-between bg-ludo-background border border-ludo-border rounded-lg px-4 py-3">
           <div className="flex flex-col">
-            <span className="text-xs text-ludoAltText uppercase tracking-wide">
+            <span className="text-xs text-ludo-white uppercase tracking-wide">
               Language
             </span>
             <span className="text-white font-semibold">

@@ -14,7 +14,7 @@ function LudoListRoot({ children, className }: LudoListProps) {
 
 function Header({ children }: { children?: ReactNode }) {
   return (
-    <p className="text-white/40 text-xs font-semibold uppercase tracking-widest px-1 mb-2">
+    <p className="text-ludo-white-dim text-xs font-semibold uppercase tracking-widest px-1 mb-2">
       {children}
     </p>
   );

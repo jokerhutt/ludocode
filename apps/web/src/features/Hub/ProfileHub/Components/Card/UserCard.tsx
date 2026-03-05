@@ -36,7 +36,7 @@ export function UserCard({
           </h2>
         )}
         {showJoinDate && (
-          <p className="text-sm text-ludoAltText/60">Joined {joinTime}</p>
+          <p className="text-sm text-ludo-white/60">Joined {joinTime}</p>
         )}
       </div>
     </div>

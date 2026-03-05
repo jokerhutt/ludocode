@@ -76,8 +76,8 @@ export function LudoOption(props: LudoOptionProps) {
         "hover:cursor-pointer active:shadow-none",
         isSelected
           ? isWide
-            ? "bg-ludo-accent/70 text-white/50 shadow-[0_5px_0_#262E57]/50 translate-y-0.5"
-            : "bg-ludo-surface/60 text-white/50 shadow-[0_4px_0_#262E57]/50 translate-y-0.5"
+            ? "bg-ludo-accent/70 text-ludo-white-dim shadow-[0_5px_0_#262E57]/50 translate-y-0.5"
+            : "bg-ludo-surface/60 text-ludo-white-dim shadow-[0_4px_0_#262E57]/50 translate-y-0.5"
           : "bg-ludo-surface text-white shadow-[0_5px_0_#262E57] hover:brightness-110",
         feedbackStyle,
         props.className,

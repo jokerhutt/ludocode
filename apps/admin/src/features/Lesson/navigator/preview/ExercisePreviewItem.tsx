@@ -19,7 +19,7 @@ export function ExercisePreviewItem({
     <div
       onClick={() => onClick()}
       className={cn(
-        "bg-ludo-background hover:cursor-pointer h-10 text-ludoAltText px-4 py-2  w-full rounded-sm",
+        "bg-ludo-background hover:cursor-pointer h-10 text-ludo-white px-4 py-2  w-full rounded-sm",
         borderStyle,
         className,
       )}

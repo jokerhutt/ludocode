@@ -59,12 +59,12 @@ export const EditorExercise = withForm({
         )}
       >
         <Grip
-          className="h-4 w-4 shrink-0 text-ludoAltText focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          className="h-4 w-4 shrink-0 text-ludo-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
 
-        <p className="text-sm text-ludoAltText flex-1 truncate">{title}</p>
+        <p className="text-sm text-ludo-white flex-1 truncate">{title}</p>
 
         <ExerciseTypePill type={exerciseType} />
       </div>

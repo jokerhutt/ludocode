@@ -41,7 +41,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         />
         <div className="flex flex-col gap-1 text-start">
           <p className="m-0 text-lg leading-tight">{projectName}</p>
-          <p className="m-0 text-xs text-ludoAltText leading-tight">
+          <p className="m-0 text-xs text-ludo-white leading-tight">
             Last modified: {updatedAtTime}
           </p>
           {deleteAt && (

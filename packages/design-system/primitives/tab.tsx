@@ -35,7 +35,7 @@ function Item({
         "px-4 py-1.5 text-sm font-medium rounded-t-md w-auto flex justify-center items-center gap-2 transition-colors select-none",
         isActive
           ? "bg-ludo-background text-white border-t border-x border-ludo-accent-muted/40"
-          : "bg-transparent text-white/50 hover:text-white/80 hover:bg-white/5 hover:cursor-pointer",
+          : "bg-transparent text-ludo-white-dim hover:text-white/80 hover:bg-white/5 hover:cursor-pointer",
         className,
       )}
     >

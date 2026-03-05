@@ -33,7 +33,7 @@ const blockTypeLabel: Record<BlockType, string> = {
 
 const blockTypeColor: Record<BlockType, string> = {
   header: "text-blue-400",
-  paragraph: "text-ludoAltText",
+  paragraph: "text-ludo-white",
   code: "text-emerald-400",
   media: "text-purple-400",
 };

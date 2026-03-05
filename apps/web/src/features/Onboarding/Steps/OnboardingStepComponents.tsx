@@ -22,7 +22,7 @@ export function CareerChoiceStep() {
           onClick={() => setDraft({ career: career.choice })}
         >
           <h1 className="text-white text-xl font-bold">{career.title}</h1>
-          <p className="text-ludoAltText text-sm leading-relaxed">
+          <p className="text-ludo-white text-sm leading-relaxed">
             {career.description}
           </p>
         </WideOnboardingOption>
@@ -70,7 +70,7 @@ export function HasExperienceStep() {
         onClick={() => setDraft({ experience: true })}
       >
         <span className="text-lg font-semibold">Yes</span>
-        <span className="text-ludoAltText text-sm">
+        <span className="text-ludo-white text-sm">
           I've written code before
         </span>
       </WideOnboardingOption>
@@ -81,7 +81,7 @@ export function HasExperienceStep() {
         onClick={() => setDraft({ experience: false })}
       >
         <span className="text-lg font-semibold">No</span>
-        <span className="text-ludoAltText text-sm">
+        <span className="text-ludo-white text-sm">
           I'm completely new to coding
         </span>
       </WideOnboardingOption>
@@ -108,7 +108,7 @@ export function UsernameChoiceStep() {
             variant="alt"
             placeholder="Enter a username…"
           />
-          <p className="mt-2 text-xs text-ludo-text-dim">
+          <p className="mt-2 text-xs text-ludo-white-dim">
             At least 3 characters
           </p>
         </div>

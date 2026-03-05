@@ -72,7 +72,7 @@ function CodeBlock({
   return (
     <div className="my-4 rounded-lg overflow-x-auto border border-ludo-border">
       <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface/60 border-b border-ludo-border">
-        <span className="text-xs font-medium text-ludo-text-dim uppercase tracking-wider">
+        <span className="text-xs font-medium text-ludo-white-dim uppercase tracking-wider">
           {language}
         </span>
       </div>
@@ -122,17 +122,17 @@ export const mdxComponents: MDXComponents = {
 
   // ── Body text ─────────────────────────────────────
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-sm text-ludoAltText leading-relaxed mb-4" {...props} />
+    <p className="text-sm text-ludo-white leading-relaxed mb-4" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
-      className="list-disc list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludoAltText"
+      className="list-disc list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludo-white"
       {...props}
     />
   ),
   ol: (props: React.OlHTMLAttributes<HTMLOListElement>) => (
     <ol
-      className="list-decimal list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludoAltText"
+      className="list-decimal list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludo-white"
       {...props}
     />
   ),
@@ -146,7 +146,7 @@ export const mdxComponents: MDXComponents = {
   // ── Blockquote ────────────────────────────────────
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
-      className="border-l-4 border-ludo-accent/40 bg-ludo-accent/5 pl-4 py-3 pr-3 my-4 rounded-r-md text-sm text-ludoAltText"
+      className="border-l-4 border-ludo-accent-disabled bg-ludo-accent/5 pl-4 py-3 pr-3 my-4 rounded-r-md text-sm text-ludo-white"
       {...props}
     />
   ),
@@ -186,7 +186,7 @@ export const mdxComponents: MDXComponents = {
   ),
   td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className="px-4 py-2.5 text-sm text-ludoAltText border-b border-ludo-border/40"
+      className="px-4 py-2.5 text-sm text-ludo-white border-b border-ludo-border/40"
       {...props}
     />
   ),
@@ -206,7 +206,7 @@ export const mdxComponents: MDXComponents = {
       return (
         <div className="my-4 rounded-lg overflow-x-auto border border-ludo-border">
           <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface/60 border-b border-ludo-border">
-            <span className="text-xs font-medium text-ludo-text-dim uppercase tracking-wider">
+            <span className="text-xs font-medium text-ludo-white-dim uppercase tracking-wider">
               {language}
             </span>
           </div>
@@ -234,7 +234,7 @@ export const mdxComponents: MDXComponents = {
     // Inline code only; fenced blocks are handled by `pre` above.
     return (
       <code
-        className="px-1.5 py-0.5 rounded bg-ludo-surface/50 border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
+        className="px-1.5 py-0.5 rounded bg-ludo-surface-dim border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
         {...props}
       />
     );

@@ -39,7 +39,7 @@ export function ProjectHubPage() {
             <div className="flex items-center gap-4">
               <span
                 data-testid="project-limits"
-                className={`text-xs font-medium tabular-nums ${isAtLimit ? "text-ludo-danger" : "text-ludoAltText"}`}
+                className={`text-xs font-medium tabular-nums ${isAtLimit ? "text-ludo-danger" : "text-ludo-white"}`}
               >
                 {currentProjects}/{maxProjects}
               </span>

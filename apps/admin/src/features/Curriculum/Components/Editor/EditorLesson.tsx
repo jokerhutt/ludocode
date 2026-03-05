@@ -5,7 +5,7 @@ import type {
 import { withForm } from "../../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Grip} from "lucide-react";
+import { Grip } from "lucide-react";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 
@@ -51,7 +51,7 @@ export const EditorLesson = withForm({
         className="w-full flex items-center gap-2 bg-ludo-background rounded-sm px-3 h-10"
       >
         <Grip
-          className="h-4 w-4 shrink-0 text-ludoAltText focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          className="h-4 w-4 shrink-0 text-ludo-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
@@ -61,7 +61,7 @@ export const EditorLesson = withForm({
           name={`modules[${moduleIndex}].lessons[${lessonIndex}].title`}
           children={(field) => (
             <LudoInput
-              className="h-8 flex-1 border-none bg-ludo-surface/50"
+              className="h-8 flex-1 border-none bg-ludo-surface-dim"
               value={String(field.state.value)}
               setValue={(value) => field.handleChange(value)}
             />

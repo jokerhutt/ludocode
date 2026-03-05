@@ -62,7 +62,7 @@ export function AccountSettingsPage() {
           <h2 className="text-xl lg:text-2xl font-semibold tracking-tight">
             {user.displayName}
           </h2>
-          <p className="text-sm text-ludoAltText/60">{joinTime}</p>
+          <p className="text-sm text-ludo-white/60">{joinTime}</p>
         </div>
       </div>
 

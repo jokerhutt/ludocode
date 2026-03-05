@@ -2,7 +2,13 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { CheckIcon } from "lucide-react";
 
-export function FeatureRow({ included, label }: { included: boolean; label: string }) {
+export function FeatureRow({
+  included,
+  label,
+}: {
+  included: boolean;
+  label: string;
+}) {
   return (
     <div className="flex items-center gap-2.5 py-1.5">
       {included ? (
@@ -13,7 +19,7 @@ export function FeatureRow({ included, label }: { included: boolean; label: stri
       <span
         className={cn(
           "text-sm",
-          included ? "text-ludoAltText" : "text-ludo-text-disabled",
+          included ? "text-ludo-white" : "text-ludo-white-disabled",
         )}
       >
         {label}

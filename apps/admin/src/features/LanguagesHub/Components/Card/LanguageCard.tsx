@@ -24,7 +24,7 @@ export function LanguageCard({ language }: LanguageCardProps) {
         iconName={language.iconName as IconName}
         color="white"
       />
-      <div className="w-full text-ludoAltText p-4 text-start flex flex-col gap-2">
+      <div className="w-full text-ludo-white p-4 text-start flex flex-col gap-2">
         <p>
           <span className="font-bold text-white">NAME:</span> {language.name}
         </p>

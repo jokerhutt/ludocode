@@ -14,7 +14,7 @@ export function LogoutButton({}: LogoutButtonProps) {
     <button
       type="button"
       onClick={() => handleLogout()}
-      className="text-sm text-ludoAltText/70 text-start hover:text-white transition-colors hover:cursor-pointer"
+      className="text-sm text-ludo-white/70 text-start hover:text-white transition-colors hover:cursor-pointer"
     >
       Log out
     </button>

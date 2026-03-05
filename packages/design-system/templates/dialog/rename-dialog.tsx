@@ -22,10 +22,15 @@ export function RenameDialog({
   const [open, setOpen] = useState(false);
 
   return (
-    <LudoDialog asChild={false} open={open} onOpenChange={setOpen} trigger={children}>
+    <LudoDialog
+      asChild={false}
+      open={open}
+      onOpenChange={setOpen}
+      trigger={children}
+    >
       <DialogTitle className="text-white">Rename {itemCategory}</DialogTitle>
       <Input
-        className="text-ludoAltText"
+        className="text-ludo-white"
         value={textBuffer}
         onChange={(e) => setTextBuffer(e.target.value)}
       />

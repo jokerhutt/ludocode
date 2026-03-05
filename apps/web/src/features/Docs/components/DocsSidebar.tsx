@@ -13,7 +13,7 @@ export function DocsSidebar({ activeSlug, onNavigate }: DocsSidebarProps) {
         <h2 className="text-lg font-bold text-white tracking-tight">
           Documentation
         </h2>
-        <p className="text-xs text-ludo-text-dim mt-0.5">Ludocode</p>
+        <p className="text-xs text-ludo-white-dim mt-0.5">Ludocode</p>
       </div>
 
       {/* Nav Sections */}
@@ -46,7 +46,7 @@ function SidebarSection({
 }: SidebarSectionProps) {
   return (
     <div>
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-ludo-text-dim mb-2 px-2">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-ludo-white-dim mb-2 px-2">
         {section.title}
       </h3>
       <ul className="flex flex-col gap-0.5">
@@ -61,7 +61,7 @@ function SidebarSection({
                   ${
                     isActive
                       ? "bg-ludo-accent/15 text-ludo-accent-muted font-medium"
-                      : "text-ludoAltText hover:text-white hover:bg-white/5"
+                      : "text-ludo-white hover:text-white hover:bg-white/5"
                   }
                 `}
               >

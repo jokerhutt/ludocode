@@ -21,7 +21,7 @@ export function BlockRenderer({
       );
     case "paragraph":
       return (
-        <p className="text-ludoAltText text-center lg:max-w-xl text-sm sm:text-base leading-relaxed">
+        <p className="text-ludo-white text-center lg:max-w-xl text-sm sm:text-base leading-relaxed">
           {block.content}
         </p>
       );

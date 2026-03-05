@@ -20,7 +20,7 @@ export function ProfileCardContainer({
       )}
     >
       {header && (
-        <p className="text-xs uppercase tracking-widest text-ludoAltText/70 font-semibold">
+        <p className="text-xs uppercase tracking-widest text-ludo-white/70 font-semibold">
           {header}
         </p>
       )}

@@ -15,7 +15,7 @@ export function RegistrationPage() {
       <MainContentWrapper>
         <div className="flex flex-col items-center justify-center h-full">
           <div className="flex flex-col gap-4 w-4/5 lg:w-1/3 items-center justify-center">
-            <h1 className="text-center text-3xl lg:text-6xl text-ludoAltText">
+            <h1 className="text-center text-3xl lg:text-6xl text-ludo-white">
               Ludocode
             </h1>
 
@@ -30,7 +30,7 @@ export function RegistrationPage() {
               <hr className="w-full" />
             </div>
 
-            <div className="w-full flex flex-col gap-0.5 text-sm text-ludoAltText">
+            <div className="w-full flex flex-col gap-0.5 text-sm text-ludo-white">
               <p>
                 Already have an account?{" "}
                 <span

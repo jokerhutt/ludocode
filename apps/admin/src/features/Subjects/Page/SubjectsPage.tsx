@@ -80,7 +80,7 @@ export function SubjectsPage() {
       <div className="border-b flex items-center justify-between border-b-ludo-accent-muted pb-6">
         <div>
           <h1 className="text-white text-3xl font-bold">Subjects</h1>
-          <p className="text-ludoAltText text-sm">
+          <p className="text-ludo-white text-sm">
             Manage available learning subjects.
           </p>
         </div>

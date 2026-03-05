@@ -18,10 +18,14 @@ export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
         <div className="flex gap-2 select-none pointer-events-none items-center">
           {children}
           {score !== undefined && (
-            <p className="text-xl font-semibold select-none pointer-events-none tabular-nums">{score}</p>
+            <p className="text-xl font-semibold select-none pointer-events-none tabular-nums">
+              {score}
+            </p>
           )}
         </div>
-        <p className="text-sm select-none pointer-events-none text-ludoAltText/70">{text}</p>
+        <p className="text-sm select-none pointer-events-none text-ludo-white/70">
+          {text}
+        </p>
       </LudoButton>
     </div>
   );

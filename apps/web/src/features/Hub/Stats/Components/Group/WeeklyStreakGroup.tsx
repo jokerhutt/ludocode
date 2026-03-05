@@ -21,16 +21,16 @@ export function WeeklyStreakGroup({
 
   return (
     <div
-      className={cn("w-full flex text-ludoAltText flex-col gap-2", className)}
+      className={cn("w-full flex text-ludo-white flex-col gap-2", className)}
     >
       {title && (
-        <h3 className="text-white/40 text-xs font-semibold uppercase tracking-widest">
+        <h3 className="text-ludo-white-dim text-xs font-semibold uppercase tracking-widest">
           {title}
         </h3>
       )}
       <div
         className={cn(
-          "w-full flex justify-between gap-2 bg-ludo-background/50 rounded-xl p-3",
+          "w-full flex justify-between gap-2 bg-ludo-background rounded-xl p-3",
           innerClassName,
         )}
       >

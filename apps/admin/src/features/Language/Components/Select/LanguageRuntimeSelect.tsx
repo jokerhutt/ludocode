@@ -31,7 +31,7 @@ export function LanguageRuntimeSelect({
         >
           <span className="flex items-center gap-2">
             <span>{rt.language}</span>
-            <span className="text-xs text-ludoAltText">{rt.version}</span>
+            <span className="text-xs text-ludo-white">{rt.version}</span>
           </span>
         </LudoSelectItem>
       ))}

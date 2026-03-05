@@ -61,7 +61,7 @@ export function DocsTipCard({
         <span>{config.icon}</span>
         <span>{displayTitle}</span>
       </div>
-      <div className="text-sm text-ludoAltText leading-relaxed">{children}</div>
+      <div className="text-sm text-ludo-white leading-relaxed">{children}</div>
     </div>
   );
 }

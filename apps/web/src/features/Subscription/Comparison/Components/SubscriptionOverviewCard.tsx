@@ -105,7 +105,7 @@ function SubscriptionTierHeader({
         <span className="text-3xl font-bold text-white">{price}</span>
         <span className="text-sm text-ludo-accent-muted">{period}</span>
       </div>
-      <p className="text-sm text-ludoAltText min-h-10">{description}</p>
+      <p className="text-sm text-ludo-white min-h-10">{description}</p>
     </div>
   );
 }
@@ -124,14 +124,16 @@ function SubscriptionLimitsOverview({
       </span>
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-ludo-text-dim">Max Projects</span>
-          <span className="text-xs font-medium text-ludoAltText">
+          <span className="text-xs text-ludo-white-dim">Max Projects</span>
+          <span className="text-xs font-medium text-ludo-white">
             {limits.maxProjects}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-ludo-text-dim">Monthly AI credits</span>
-          <span className="text-xs font-medium text-ludoAltText">
+          <span className="text-xs text-ludo-white-dim">
+            Monthly AI credits
+          </span>
+          <span className="text-xs font-medium text-ludo-white">
             {limits.monthlyAiCredits}
           </span>
         </div>
@@ -162,7 +164,7 @@ function SubscriptionOverviewButton({
 
   let disabled = false;
 
-  const text = tier == "FREE" ? "Continue with Free" : "Become a supporter"
+  const text = tier == "FREE" ? "Continue with Free" : "Become a supporter";
 
   const handleClick = () => {
     if (tier === "FREE" || tier === current) {
@@ -181,7 +183,9 @@ function SubscriptionOverviewButton({
       className={cn("mt-auto")}
       onClick={() => handleClick()}
     >
-      <span className="text-sm font-semibold select-none pointer-events-none">{text}</span>
+      <span className="text-sm font-semibold select-none pointer-events-none">
+        {text}
+      </span>
     </LudoButton>
   );
 }

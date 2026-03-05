@@ -30,7 +30,7 @@ export function SubscriptionComparisonPage() {
         <div className="absolute hover:cursor-pointer top-1 right-0">
           <XIcon
             onClick={() => navigateToCurrentModule()}
-            className="text-ludoAltText"
+            className="text-ludo-white"
           />
         </div>
         <div className="flex flex-col items-center gap-2 text-center">

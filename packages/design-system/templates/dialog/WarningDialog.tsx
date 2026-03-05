@@ -41,7 +41,11 @@ export function WarningDialog({
   };
 
   return (
-    <LudoDialog asChild={false} trigger={children} triggerClassName={triggerClassName}>
+    <LudoDialog
+      asChild={false}
+      trigger={children}
+      triggerClassName={triggerClassName}
+    >
       <DialogTitle className="text-white">{title}</DialogTitle>
       {subtitle && (
         <DialogDescription className="text-white code font-bold">
@@ -66,7 +70,7 @@ export function WarningDialog({
             to confirm
           </DialogDescription>
           <Input
-            className="text-ludoAltText"
+            className="text-ludo-white"
             onChange={(e) => setConfirmationValue(e.target.value)}
           />
         </>

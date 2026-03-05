@@ -244,7 +244,7 @@ function SelectInteractionFieldsInner({
       {/* Items list */}
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <p className="text-xs text-ludoAltText">Options ({items.length})</p>
+          <p className="text-xs text-ludo-white">Options ({items.length})</p>
           <ShadowLessButton
             type="button"
             onClick={() => itemsField.pushValue("")}
@@ -288,7 +288,7 @@ function SelectInteractionFieldsInner({
               <button
                 type="button"
                 onClick={() => handleRemoveItem(itemIndex)}
-                className="shrink-0 p-1 rounded hover:bg-ludo-background text-ludoAltText hover:text-red-400 transition-colors"
+                className="shrink-0 p-1 rounded hover:bg-ludo-background text-ludo-white hover:text-red-400 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -447,7 +447,7 @@ function ClozeInteractionFieldsInner({
             />
           )}
         />
-        <p className="text-xs text-ludoAltText/60">
+        <p className="text-xs text-ludo-white/60">
           <span className="text-emerald-400 font-medium">{gapCount}</span> gap
           {gapCount !== 1 ? "s" : ""} detected
         </p>
@@ -500,7 +500,7 @@ function ClozeInteractionFieldsInner({
       {/* Distractors */}
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <p className="text-xs text-ludoAltText">
+          <p className="text-xs text-ludo-white">
             Distractors ({distractors.length})
           </p>
           <ShadowLessButton type="button" onClick={handleAddDistractor}>
@@ -520,7 +520,7 @@ function ClozeInteractionFieldsInner({
             <button
               type="button"
               onClick={() => handleRemoveDistractor(dIdx)}
-              className="shrink-0 p-1 rounded hover:bg-ludo-background text-ludoAltText hover:text-red-400 transition-colors"
+              className="shrink-0 p-1 rounded hover:bg-ludo-background text-ludo-white hover:text-red-400 transition-colors"
             >
               <X className="h-3.5 w-3.5" />
             </button>

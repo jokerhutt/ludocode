@@ -47,7 +47,7 @@ export function ModifyLanguagePage({}: LanguagePageProps) {
 
   return (
     <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-      <div className="w-full text-ludoAltText">
+      <div className="w-full text-ludo-white">
         <h1 className="text-2xl font-bold">{formHook.languageName}</h1>
       </div>
       <LanguageFormInput formHook={formHook} />

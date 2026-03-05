@@ -26,7 +26,7 @@ export function ProgressSummary({
     <div className={cn("flex gap-1.5", alignment, className)}>
       {variant == "col" && detailed && (
         <div className="flex items-center justify-between">
-          <span className="text-white/50 text-xs">
+          <span className="text-ludo-white-dim text-xs">
             {current}/{total} {name ?? ""}
           </span>
           <span className="text-ludo-accent text-xs font-bold">{rounded}%</span>
@@ -34,7 +34,7 @@ export function ProgressSummary({
       )}
       <Progress value={percent} className="w-full h-1.5 rounded-full" />
       {variant == "row" && detailed && (
-        <span className="text-white/50 w-auto text-xs">
+        <span className="text-ludo-white-dim w-auto text-xs">
           {current}/{total} {name ?? ""}
         </span>
       )}

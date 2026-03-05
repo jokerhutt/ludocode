@@ -39,17 +39,21 @@ export function StreakStatsDialog({
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-ludo-background/50 rounded-xl p-4 flex flex-col items-center gap-1">
+          <div className="bg-ludo-background rounded-xl p-4 flex flex-col items-center gap-1">
             <span className="text-orange-400 text-2xl font-bold tabular-nums">
               {current}
             </span>
-            <span className="text-white/40 text-xs font-medium">Current</span>
+            <span className="text-ludo-white-dim text-xs font-medium">
+              Current
+            </span>
           </div>
-          <div className="bg-ludo-background/50 rounded-xl p-4 flex flex-col items-center gap-1">
+          <div className="bg-ludo-background rounded-xl p-4 flex flex-col items-center gap-1">
             <span className="text-ludo-accent text-2xl font-bold tabular-nums">
               {best}
             </span>
-            <span className="text-white/40 text-xs font-medium">Best</span>
+            <span className="text-ludo-white-dim text-xs font-medium">
+              Best
+            </span>
           </div>
         </div>
 

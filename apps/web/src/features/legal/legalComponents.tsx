@@ -17,7 +17,7 @@ export const legalComponents: MDXComponents = {
 
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
-      className="text-sm font-semibold uppercase tracking-wide text-white/50 mt-7 mb-2"
+      className="text-sm font-semibold uppercase tracking-wide text-ludo-white-dim mt-7 mb-2"
       {...props}
     />
   ),
@@ -49,7 +49,7 @@ export const legalComponents: MDXComponents = {
   ),
 
   em: (props: React.HTMLAttributes<HTMLElement>) => (
-    <em className="text-white/50 not-italic text-xs" {...props} />
+    <em className="text-ludo-white-dim not-italic text-xs" {...props} />
   ),
 
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (

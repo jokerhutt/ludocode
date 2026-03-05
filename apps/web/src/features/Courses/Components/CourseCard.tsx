@@ -29,20 +29,20 @@ export function CourseCard({
 
   const Component = onClick ? "button" : "div";
 
-  const colorStyle = opaque ? "bg-ludo-surface-muted" : "bg-ludo-surface"
+  const colorStyle = opaque ? "bg-ludo-surface-dim" : "bg-ludo-surface";
 
   return (
     <Component
       {...(onClick && { type: "button", onClick })}
       className={cn(
-        "rounded-xl bg-ludo-surface-muted p-4 flex flex-col gap-3 text-left transition-colors",
+        "rounded-xl bg-ludo-surface-dim p-4 flex flex-col gap-3 text-left transition-colors",
         onClick && "hover:bg-ludo-surface-hover hover:cursor-pointer",
-        colorStyle
+        colorStyle,
       )}
     >
       <div className="flex w-full justify-between gap-2">
         <div className="flex flex-col">
-          <p className="text-white/40 text-xs font-semibold uppercase tracking-widest">
+          <p className="text-ludo-white-dim text-xs font-semibold uppercase tracking-widest">
             Course
           </p>
           <h2 className="text-white text-lg font-bold leading-tight mt-0.5 truncate">

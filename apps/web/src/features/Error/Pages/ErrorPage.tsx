@@ -14,7 +14,7 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
       <div className="w-full h-full grid grid-cols-12">
         <div className="flex flex-col col-span-12 items-center justify-center text-center gap-10">
           <div className="flex flex-col items-center gap-4">
-            <span className="text-7xl lg:text-8xl font-bold text-ludoAltText/20 tracking-widest">
+            <span className="text-7xl lg:text-8xl font-bold text-ludo-white/20 tracking-widest">
               {status}
             </span>
 

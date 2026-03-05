@@ -14,11 +14,11 @@ export function LanguageOverviewGroup({
 }: LanguageOverviewGroupProps) {
   return (
     <div className="grid grid-cols-4 gap-6">
-      <div className="flex flex-col gap-4 text-ludoAltText col-span-1">
+      <div className="flex flex-col gap-4 text-ludo-white col-span-1">
         <p>Attached Courses</p>
         <LanguageAttachedCoursesSection attachedCourses={attachedCourses} />
       </div>
-      <div className="flex flex-col gap-4 text-ludoAltText col-span-3">
+      <div className="flex flex-col gap-4 text-ludo-white col-span-3">
         <p>Changes</p>
         <div className="grid grid-cols-2">
           <LanguageDiffSection languageDiffs={languageDiffs} />

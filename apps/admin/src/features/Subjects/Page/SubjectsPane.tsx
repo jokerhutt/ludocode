@@ -3,7 +3,11 @@ import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessB
 import type { SubjectsDraftSnapshot } from "@ludocode/types";
 import { CreateSubjectDialog } from "../Components/Dialog/CreateSubjectDialog";
 import { useState } from "react";
-import { CurriculumCardContent, CurriculumCardFooter, CurriculumCardHeader } from "@/features/Curriculum/Components/CurriculumList";
+import {
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
+} from "@/features/Curriculum/Components/CurriculumList";
 
 type SubjectsPaneProps = {
   subjects: SubjectsDraftSnapshot[];
@@ -42,7 +46,7 @@ export function SubjectsPane({
             key={s.id}
             onClick={() => onSelect(s.id)}
             className={cn(
-              "bg-ludo-background h-10 text-ludoAltText px-4 py-2 w-full rounded-sm flex items-center justify-between hover:cursor-pointer",
+              "bg-ludo-background h-10 text-ludo-white px-4 py-2 w-full rounded-sm flex items-center justify-between hover:cursor-pointer",
               selectedId === s.id && "border-2 border-ludo-accent",
             )}
           >

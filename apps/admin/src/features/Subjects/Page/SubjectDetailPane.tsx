@@ -1,4 +1,3 @@
-
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton";
 import type { LudoCourse } from "@ludocode/types";
@@ -12,7 +11,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ludocode/external/ui/tooltip";
-import { CurriculumCardContent, CurriculumCardFooter, CurriculumCardHeader } from "@/features/Curriculum/Components/CurriculumList";
+import {
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
+} from "@/features/Curriculum/Components/CurriculumList";
 
 type SubjectDetailPaneProps = {
   courses: LudoCourse[];
@@ -72,12 +75,12 @@ export function SubjectDetailPane({
           {!isEditing ? (
             <>
               <div className="flex flex-col gap-1 w-1/2">
-                <p className="text-xs text-ludoAltText">Name</p>
+                <p className="text-xs text-ludo-white">Name</p>
                 <p className="text-sm">{name}</p>
               </div>
 
               <div className="flex flex-col gap-1 w-1/2">
-                <p className="text-xs text-ludoAltText">Slug</p>
+                <p className="text-xs text-ludo-white">Slug</p>
                 <p className="text-sm text-ludo-accent-muted">/{slug}</p>
               </div>
             </>
@@ -107,14 +110,14 @@ export function SubjectDetailPane({
             <div className="border-t border-ludo-border w-full" />
 
             <div className="flex flex-col gap-3">
-              <p className="text-xs text-ludoAltText">Changes</p>
+              <p className="text-xs text-ludo-white">Changes</p>
 
               {subjectDiffs
                 .filter((d) => d.hasChanged)
                 .map((d) => (
                   <div
                     key={d.field}
-                    className="flex items-center gap-4 text-sm text-ludoAltText"
+                    className="flex items-center gap-4 text-sm text-ludo-white"
                   >
                     <span className="font-medium text-white capitalize">
                       {d.field}
@@ -138,16 +141,16 @@ export function SubjectDetailPane({
         <div className="border-t border-ludo-border w-full" />
 
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-ludoAltText">Attached Courses</p>
+          <p className="text-xs text-ludo-white">Attached Courses</p>
 
           {coursesForSubject.length === 0 && (
-            <p className="text-sm text-ludoAltText/60">No courses attached</p>
+            <p className="text-sm text-ludo-white/60">No courses attached</p>
           )}
 
           {coursesForSubject.map((course) => (
             <div
               key={course.id}
-              className="bg-ludo-surface rounded-sm px-4 py-2 text-sm text-ludoAltText"
+              className="bg-ludo-surface rounded-sm px-4 py-2 text-sm text-ludo-white"
             >
               {course.title}
             </div>
@@ -162,7 +165,7 @@ export function SubjectDetailPane({
         </p>
 
         <TooltipProvider>
-          <Tooltip >
+          <Tooltip>
             <TooltipTrigger asChild>
               <span>
                 <ShadowLessButton

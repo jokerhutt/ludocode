@@ -52,7 +52,7 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
         />
 
         {mode === "REGISTER" && (
-          <div className="w-full my-0.5 text-ludoAltText lg:items-center flex gap-2">
+          <div className="w-full my-0.5 text-ludo-white lg:items-center flex gap-2">
             <Checkbox
               data-testid="register-tos"
               checked={hasAgreedToToS}

@@ -77,7 +77,7 @@ export function LudoInput({
   return (
     <div
       className={cn(
-        "w-full text-ludoAltText items-start flex flex-col gap-2",
+        "w-full text-ludo-white items-start flex flex-col gap-2",
         containerClassName,
       )}
     >

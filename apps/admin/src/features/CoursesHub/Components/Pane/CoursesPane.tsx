@@ -2,17 +2,17 @@ import type { LudoCourse } from "@ludocode/types";
 import { CourseCard } from "../Card/CourseCard";
 import { cn } from "@ludocode/design-system/cn-utils";
 
-type CoursesPaneProps = {className?: string; courses: LudoCourse[]};
+type CoursesPaneProps = { className?: string; courses: LudoCourse[] };
 
-export function CoursesPane({className, courses}: CoursesPaneProps) {
+export function CoursesPane({ className, courses }: CoursesPaneProps) {
   return (
     <div className={cn("col-span-8 flex flex-col gap-6", className)}>
-      <h2 className="text-lg text-ludoAltText font-semibold tracking-wide">
+      <h2 className="text-lg text-ludo-white font-semibold tracking-wide">
         Courses
       </h2>
 
       {courses.length === 0 && (
-        <div className="text-ludoAltText text-sm opacity-60">
+        <div className="text-ludo-white text-sm opacity-60">
           No courses created yet.
         </div>
       )}

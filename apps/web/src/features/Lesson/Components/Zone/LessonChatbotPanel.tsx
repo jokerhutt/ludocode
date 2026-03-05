@@ -41,7 +41,7 @@ export function LessonChatbotPanel({
           >
             <HeroIcon
               iconName={isOpen ? "ChevronRightIcon" : "ChevronLeftIcon"}
-              className="h-4 w-4 text-white/50"
+              className="h-4 w-4 text-ludo-white-dim"
             />
           </button>
           {isOpen && (

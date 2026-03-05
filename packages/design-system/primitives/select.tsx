@@ -27,7 +27,7 @@ export function LudoSelect({
   return (
     <div
       className={cn(
-        "w-full text-ludoAltText flex flex-col gap-2",
+        "w-full text-ludo-white flex flex-col gap-2",
         containerClassName,
       )}
     >

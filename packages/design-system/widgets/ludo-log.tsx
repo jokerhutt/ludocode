@@ -60,9 +60,7 @@ type TriggerProps = {
   position?: number;
 };
 
-function Trigger({
-  position,
-}: TriggerProps) {
+function Trigger({ position }: TriggerProps) {
   const { collapsed, toggle, error, collapsible } = useLudoLog();
   if (!collapsible) return null;
   return (
@@ -75,9 +73,9 @@ function Trigger({
       )}
     >
       {collapsed ? (
-        <ChevronRightIcon className="w-3.5 h-3.5 text-white/40 shrink-0" />
+        <ChevronRightIcon className="w-3.5 h-3.5 text-ludo-white-dim shrink-0" />
       ) : (
-        <ChevronDownIcon className="w-3.5 h-3.5 text-white/40 shrink-0" />
+        <ChevronDownIcon className="w-3.5 h-3.5 text-ludo-white-dim shrink-0" />
       )}
       {error ? (
         <XCircleIcon className="w-3.5 h-3.5 text-red-400 shrink-0" />

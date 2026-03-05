@@ -24,12 +24,12 @@ export function OnboardingStageShell({
       </h1>
 
       {subtitle && (
-        <p className="mt-2 text-center text-ludoAltText text-sm max-w-md">
+        <p className="mt-2 text-center text-ludo-white text-sm max-w-md">
           {subtitle}
         </p>
       )}
 
-      <div className="mt-4 mb-2 h-px w-16 rounded-full bg-ludo-accent/40" />
+      <div className="mt-4 mb-2 h-px w-16 rounded-full bg-ludo-accent-disabled" />
 
       <div className="grid lg:grid-cols-2 py-6 gap-5 w-full">{children}</div>
     </motion.div>

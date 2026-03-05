@@ -48,7 +48,7 @@ export function MobileModuleSlideOver({
       <LudoSlideOver open={isOpen} onOpenChange={setIsOpen} side="bottom">
         <LudoSlideOver.Header onClose={() => setIsOpen(false)}>
           <div>
-            <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest">
+            <p className="text-ludo-white-dim text-[10px] font-semibold uppercase tracking-widest">
               {courseName}
             </p>
             <p className="text-white text-base font-bold">Select Module</p>

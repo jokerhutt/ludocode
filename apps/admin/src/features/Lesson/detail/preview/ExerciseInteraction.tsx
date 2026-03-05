@@ -17,7 +17,7 @@ function StaticOption({ content, isCorrect, layout }: StaticOptionProps) {
           "py-2 code px-4 border-3 rounded-xl",
           isCorrect
             ? "border-emerald-500/40 text-emerald-400"
-            : "border-ludo-surface/50 text-white",
+            : "border-ludo-surface-dim text-white",
         )}
       >
         <p className="text-md">{content}</p>

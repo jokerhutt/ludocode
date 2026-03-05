@@ -30,8 +30,8 @@ export function LessonDetailPreview({
       </CurriculumCardHeader>
 
       <CurriculumCardContent className="items-center bg-ludo-background justify-center gap-4">
-        <FileText className="h-10 w-10 text-ludoAltText" />
-        <p className="text-ludoAltText text-sm text-center">
+        <FileText className="h-10 w-10 text-ludo-white" />
+        <p className="text-ludo-white text-sm text-center">
           View and edit this lesson's exercises
         </p>
         <ShadowLessButton variant="alt" onClick={navigateToLesson}>

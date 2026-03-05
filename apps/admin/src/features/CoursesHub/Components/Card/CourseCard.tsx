@@ -27,12 +27,12 @@ export function CourseCard({ course }: CourseCardProps) {
       <div className="flex justify-between items-start">
         <h3 className="text-xl font-bold text-white">{course.title}</h3>
 
-        <span className="text-xs text-ludoAltText opacity-70">
+        <span className="text-xs text-ludo-white opacity-70">
           {course.courseType}
         </span>
       </div>
 
-      <div className="flex gap-6 text-sm text-ludoAltText">
+      <div className="flex gap-6 text-sm text-ludo-white">
         <div>
           <span className="opacity-60">Subject</span>
           <p className="text-white font-medium">{course.subject.name}</p>

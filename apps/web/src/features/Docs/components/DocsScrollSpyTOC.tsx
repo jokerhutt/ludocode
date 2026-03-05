@@ -67,7 +67,7 @@ export function DocsScrollSpyTOC({
 
   return (
     <aside className="sticky top-0 h-full overflow-y-auto scrollbar-none pt-1 pb-8">
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-ludo-text-dim mb-3 px-2">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-ludo-white-dim mb-3 px-2">
         On this page
       </h4>
       <ul className="flex flex-col gap-0.5">
@@ -85,7 +85,7 @@ export function DocsScrollSpyTOC({
                   ${
                     isActive
                       ? "text-ludo-accent-muted font-medium bg-ludo-accent/10"
-                      : "text-ludo-text-dim hover:text-ludoAltText"
+                      : "text-ludo-white-dim hover:text-ludo-white"
                   }
                 `}
               >

@@ -420,7 +420,7 @@ function MobileSwipeOutput({
               onClick={() => goTo(0)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                page === 0 ? "w-4 bg-white/50" : "w-1.5 bg-white/15",
+                page === 0 ? "w-4 bg-ludo-white-dim" : "w-1.5 bg-white/15",
               )}
             />
             <button

@@ -12,11 +12,11 @@ export function AdminAuthPage() {
       <MainContentWrapper>
         <div className="flex flex-col items-center justify-center h-full">
           <div className="flex flex-col gap-12 w-4/5 lg:w-1/2 items-center justify-center">
-            <h1 className="text-center text-3xl lg:text-6xl text-ludoAltText">
+            <h1 className="text-center text-3xl lg:text-6xl text-ludo-white">
               Welcome to Ludocode Admin
             </h1>
 
-            <p className="text-ludoAltText text-center text-xl">
+            <p className="text-ludo-white text-center text-xl">
               This is the admin dashboard for ludocode
             </p>
 
