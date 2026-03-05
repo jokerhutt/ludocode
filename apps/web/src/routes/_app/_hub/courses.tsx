@@ -1,5 +1,5 @@
-import { CoursePage } from "@/features/Courses/Pages/CoursePage";
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { CoursePage } from "@/features/course/hub/CoursePage.tsx";
+import { qo } from "@/queries/definitions/queries.ts";
 import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

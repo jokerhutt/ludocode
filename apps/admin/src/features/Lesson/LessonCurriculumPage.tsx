@@ -44,7 +44,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   const lessonName =
     curriculumSnap.modules
       .flatMap((m) => m.lessons)
-      .find((l) => l.id === lessonId)?.title ?? "Untitled Lesson";
+      .find((l) => l.id === lessonId)?.title ?? "Untitled lesson";
 
   const [isEditing, setIsEditing] = useState(false);
 

@@ -1,4 +1,4 @@
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/queries/definitions/queries";
 import { ProfileHubLayout } from "@/layouts/Hub/ProfileHubLayout";
 import type { LudoCourse } from "@ludocode/types";
 import type { QueryClient } from "@tanstack/react-query";

@@ -1,6 +1,6 @@
 import { useHotkeys } from "@ludocode/hooks";
 import { useState } from "react";
-import { ChatBotProvider } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";
+import { ChatBotProvider } from "../../../../apps/web/src/features/ai/context/ChatBotContext";
 import { cn } from "@ludocode/design-system/cn-utils";
 import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow";
 

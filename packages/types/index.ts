@@ -1,4 +1,4 @@
-// AI
+// ai
 export * from "./AI/AIMessagePart";
 
 // Builder
@@ -13,7 +13,7 @@ export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
 export * from "./Catalog/LudoCourseSubject";
 
-// Completion
+// completion
 export * from "./Completion/LessonCompletionResponse";
 export * from "./Completion/LessonStats";
 export * from "./Completion/SyncState";
@@ -37,14 +37,14 @@ export * from "./Languages/ModifyLanguageRequest";
 export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
 
-// Onboarding
+// onboarding
 export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";
 
 // Piston
 export * from "./Piston/Runtimes";
 
-// Project
+// project
 export * from "./Project/CreateProjectRequest";
 export * from "./Project/ProjectFileSnapshot";
 export * from "./Project/ProjectListResponse";
@@ -61,7 +61,7 @@ export * from "./Preferences/LudoCareer"
 // Static
 export * from "./Static/DevInfoContent";
 
-// Subscription
+// subscription
 export * from "./Subscription/SubscriptionPlan";
 export * from "./Subscription/UserSubscription";
 export * from "./Subscription/PlanOverview"

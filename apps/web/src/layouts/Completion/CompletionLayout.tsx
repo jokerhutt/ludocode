@@ -1,16 +1,16 @@
-import { CompletionFooter } from "@/features/Completion/Components/Zone/CompletionFooter.tsx";
+import { CompletionFooter } from "@/features/completion/zones/CompletionFooter.tsx";
 import {
   LessonCompletionPage,
   CourseCompletePage,
   StreakIncreasePage,
-} from "@/features/Completion/Pages/CompletionPage.tsx";
+} from "@/features/completion/CompletionPage.tsx";
 import type {
   CompletionSearch,
   CompletionState,
 } from "@ludocode/types/Completion/LessonCompletionResponse.ts";
-import { CompletionContext } from "@/features/Completion/Context/CompletionContext.tsx";
+import { CompletionContext } from "@/features/completion/context/CompletionContext.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/queries/definitions/queries.ts";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { getRouteApi } from "@tanstack/react-router";

@@ -243,7 +243,7 @@ export function PromptInputProvider({
 }
 
 // ============================================================================
-// Component context & hooks
+// Component context & queries
 // ============================================================================
 
 const LocalAttachmentsContext = createContext<AttachmentsContext | null>(null);

@@ -11,5 +11,5 @@ export const createNewModuleTemplate = (): CurriculumDraftModule => ({
 
 export const createNewLessonTemplate = (): CurriculumDraftLesson => ({
   id: crypto.randomUUID(),
-  title: "Untitled Lesson",
+  title: "Untitled lesson",
 })

@@ -1,5 +1,5 @@
 import { ludoNavigation } from "@/constants/ludoNavigation";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/queries/definitions/queries";
 import { router } from "@/main";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";

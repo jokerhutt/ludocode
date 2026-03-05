@@ -7,7 +7,7 @@ test("User visits hub pages without auth, is taken to auth", async ({ page }) =>
   await expect(page).toHaveURL(/\/auth\/login$/);
 
   await page.evaluate(() => {
-    window.location.href = "/courses";
+    window.location.href = "/course";
   });
 
   await expect(page).toHaveURL(/\/auth\/login$/);

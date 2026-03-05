@@ -190,7 +190,7 @@ function SelectInteractionFieldsInner({
     if (!correctIsValid && nonEmptyItems.length > 0) {
       form.setFieldValue(`${basePath}.correctValue`, nonEmptyItems[0]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
   }, [correctIsValid, nonEmptyItems.join("\0")]);
 
   const handleRemoveItem = useCallback(
@@ -205,7 +205,7 @@ function SelectInteractionFieldsInner({
         form.setFieldValue(`${basePath}.correctValue`, nextBest ?? "");
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
     [items, correctValue],
   );
 
@@ -370,7 +370,7 @@ function ClozeInteractionFieldsInner({
     const correctAnswers = nextBlanks.map((b) => b.correctOptions[0]);
     const existingDistractors = options.slice(prevGapCount.current);
     optionsField.handleChange([...correctAnswers, ...existingDistractors]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
   }, [gapCount]);
 
   // Sync options whenever a blank's correct answer changes
@@ -383,7 +383,7 @@ function ClozeInteractionFieldsInner({
     const correctAnswers = blanks.map((b) => b.correctOptions[0] ?? "");
     const existingDistractors = options.slice(blanks.length);
     optionsField.handleChange([...correctAnswers, ...existingDistractors]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
   }, [blanksKey]);
 
   // Distractors are everything after the first `gapCount` entries in options
@@ -394,7 +394,7 @@ function ClozeInteractionFieldsInner({
 
   const handleAddDistractor = useCallback(() => {
     optionsField.handleChange([...options, ""]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
   }, [options]);
 
   const handleRemoveDistractor = useCallback(
@@ -404,7 +404,7 @@ function ClozeInteractionFieldsInner({
         options.filter((_: string, i: number) => i !== optIdx),
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
     [options, gapCount],
   );
 
@@ -413,7 +413,7 @@ function ClozeInteractionFieldsInner({
       const optIdx = gapCount + dIdx;
       form.setFieldValue(`${basePath}.options[${optIdx}]`, value);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-queries/exhaustive-deps
     [gapCount],
   );
 

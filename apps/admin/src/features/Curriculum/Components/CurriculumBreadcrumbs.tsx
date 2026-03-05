@@ -22,7 +22,7 @@ export function CurriculumBreadcrumbs({
   lessonName,
 }: CurriculumBreadcrumbsProps) {
   const crumbs: Crumb[] = [
-    { label: "Courses", to: adminNavigation.hub.courses.toCoursesHub() },
+    { label: "courses", to: adminNavigation.hub.courses.toCoursesHub() },
     ...(lessonName
       ? [
           {

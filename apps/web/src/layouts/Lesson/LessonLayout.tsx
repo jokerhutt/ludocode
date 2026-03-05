@@ -1,17 +1,17 @@
 import { getRouteApi, Outlet, useRouter } from "@tanstack/react-router";
-import { LessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
+import { LessonContext } from "@/features/lesson/context/useLessonContext.tsx";
 
-import { useExercise } from "@/features/Lesson/Hooks/useExercise.tsx";
+import { useExercise } from "@/features/lesson/hooks/useExercise.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
+import { LessonHeader } from "@/features/lesson/zones/LessonHeader.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
-import { LessonFooter } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
+import { LessonFooter } from "@/features/lesson/zones/LessonFooter.tsx";
 import { Suspense } from "react";
-import { LessonFeedbackDrawer } from "@/features/Lesson/Components/Zone/LessonDrawer.tsx";
+import { LessonFeedbackDrawer } from "@/features/lesson/zones/LessonFeedbackDrawer.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
-import { UserPreferencesContext } from "@/hooks/Context/useUserPreferenceContext";
+import { qo } from "@/queries/definitions/queries";
+import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 
 export function LessonLayout() {
   const router = useRouter();

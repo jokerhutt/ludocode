@@ -1,0 +1,101 @@
+import {
+  type ExerciseAttempt,
+  type ExerciseSubmission,
+} from "@ludocode/types/Exercise/LessonSubmissions.ts";
+import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import { useCallback, useState } from "react";
+import {
+  convertToLessonSubmission,
+  createInfoExerciseAttempt,
+  mergeStagedAttemptIntoExerciseSubmissions,
+} from "@/features/lesson/util/submissionUtil.ts";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { router } from "@/main";
+
+type Args = {
+  currentExercise: LudoExercise;
+  clearExerciseInputs: () => void;
+  clearStaged: () => void;
+  position: number;
+  exercises: LudoExercise[];
+  courseId: string;
+  lessonId: string;
+};
+
+export function useCommittedSubmissions({
+  currentExercise,
+  position,
+  exercises,
+  clearExerciseInputs,
+  clearStaged,
+  courseId,
+  lessonId,
+}: Args) {
+  const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
+    useState<ExerciseSubmission[]>([]);
+  const handleLastExercise = (merged: ExerciseSubmission[]) => {
+    const lessonSubmission = convertToLessonSubmission(
+      courseId,
+      lessonId,
+      merged,
+      exercises,
+    );
+    router.navigate(
+      ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
+    );
+  };
+  const handleCorrectAttempt = () =>
+    router.navigate(ludoNavigation.lesson.toNextExercise(position));
+
+  const isInfoExercise = !currentExercise.interaction;
+  const isLastExercise = position === exercises.length;
+
+  const commitStagedAttemptIntoSubmissions = useCallback(
+    (staged: ExerciseAttempt | null) => {
+      if (staged == null && !isInfoExercise) return;
+
+      const filteredStagedAttempt =
+        staged && !isInfoExercise
+          ? staged
+          : createInfoExerciseAttempt(currentExercise.id);
+
+      //Convert the attempt into an exercise submission
+      //Merge the attempt into the exercise submissions
+      const merged = mergeStagedAttemptIntoExerciseSubmissions(
+        committedExerciseSubmissions,
+        filteredStagedAttempt,
+        currentExercise.version,
+      );
+      setCommittedExerciseSubmissions(merged);
+
+      //Navigate based on result
+      if (
+        isLastExercise &&
+        (filteredStagedAttempt.isCorrect || isInfoExercise)
+      ) {
+        handleLastExercise(merged);
+      } else if (filteredStagedAttempt.isCorrect) {
+        handleCorrectAttempt();
+      }
+
+      //Clear components
+      clearExerciseInputs();
+      clearStaged();
+
+      return;
+    },
+    [
+      isInfoExercise,
+      currentExercise.id,
+      currentExercise.version,
+      committedExerciseSubmissions,
+      isLastExercise,
+      handleLastExercise,
+      handleCorrectAttempt,
+      clearExerciseInputs,
+      clearStaged,
+    ],
+  );
+
+  return { commitStagedAttemptIntoSubmissions };
+}

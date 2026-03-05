@@ -91,8 +91,8 @@ const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ResourcesDocsIndexRoute = ResourcesDocsIndexRouteImport.update({
-  id: '/docs/',
-  path: '/docs/',
+  id: '/webdocs/',
+  path: '/webdocs/',
   getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const ResourcesLegalTosRoute = ResourcesLegalTosRouteImport.update({
@@ -111,8 +111,8 @@ const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSubscriptionSuccessRoute = AppSubscriptionSuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => AppSubscriptionRouteRoute,
 } as any)
 const AppSubscriptionManageRoute = AppSubscriptionManageRouteImport.update({
@@ -489,7 +489,7 @@ declare module '@tanstack/react-router' {
     }
     '/resources/docs/': {
       id: '/resources/docs/'
-      path: '/docs'
+      path: '/webdocs'
       fullPath: '/resources/docs'
       preLoaderRoute: typeof ResourcesDocsIndexRouteImport
       parentRoute: typeof ResourcesRouteRoute
@@ -517,7 +517,7 @@ declare module '@tanstack/react-router' {
     }
     '/_app/subscription/success': {
       id: '/_app/subscription/success'
-      path: '/success'
+      path: '/checkout'
       fullPath: '/subscription/success'
       preLoaderRoute: typeof AppSubscriptionSuccessRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute

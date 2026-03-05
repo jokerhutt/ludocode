@@ -1,4 +1,4 @@
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/queries/definitions/queries.ts";
 import { LessonLayout } from "@/layouts/Lesson/LessonLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

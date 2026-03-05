@@ -1,18 +1,18 @@
 import { getRouteApi, useParams } from "@tanstack/react-router";
-import { steps } from "@/features/Onboarding/Steps/OnboardingSteps";
+import { steps } from "@/features/onboarding/steps/OnboardingSteps";
 import {
   OnboardingContext,
   type OnboardingContextType,
-} from "@/features/Onboarding/Context/OnboardingContext.tsx";
-import { useOnboardingFlow } from "@/features/Onboarding/Hook/useOnboardingFlow.tsx";
-import { OnboardingFooter } from "@/features/Onboarding/Components/Zone/OnboardingFooter.tsx";
+} from "@/features/onboarding/context/OnboardingContext.tsx";
+import { useOnboardingFlow } from "@/features/onboarding/hooks/useOnboardingFlow.tsx";
+import { OnboardingFooter } from "@/features/onboarding/zone/OnboardingFooter.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/queries/definitions/queries";
 import type { StageKey } from "@ludocode/types";
-import { OnboardingHeader } from "@/features/Onboarding/Components/Zone/OnboardingHeader";
-import { useOnboardingDraftStore } from "@/features/Onboarding/Store/OnboardingDraft";
+import { OnboardingHeader } from "@/features/onboarding/zone/OnboardingHeader.tsx";
+import { useOnboardingDraftStore } from "@/features/onboarding/store/OnboardingDraft";
 import { useRef } from "react";
 
 export function OnboardingLayout() {

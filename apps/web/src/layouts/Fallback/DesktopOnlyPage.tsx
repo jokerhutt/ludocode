@@ -1,4 +1,4 @@
-import { MobileFallbackPage } from "@/features/Error/Pages/MobileFallbackPage.tsx";
+import { MobileFallbackPage } from "@/features/error/MobileFallbackPage.tsx";
 import { useIsMobile } from "@ludocode/hooks";
 import { Outlet } from "@tanstack/react-router";
 

@@ -2,7 +2,7 @@ import { Howl } from "howler";
 
 const sounds = {
   correct: new Howl({
-    src: ["/Audio/SFX/success.mp3"],
+    src: ["/Audio/SFX/checkout.mp3"],
     volume: 0.4,
     html5: true,
     onloaderror: (error) =>
