@@ -8,7 +8,7 @@ description: Enabling optional features such as authentication, AI, and code exe
 
 ## Optional Feature Configuration
 
-By default, Ludocode runs in **demo mode** with authentication, AI, and code execution disabled. The tabs below explain how to enable each feature.
+Without additional configuration, Ludocode runs with authentication, AI, and code execution disabled. The sections below explain how to enable each feature.
 
 <Tabs
   tabs={[
@@ -134,26 +134,71 @@ GEMINI_API_KEY=your_api_key_here`}</CodeBlock>
       content: (
         <div className="text-sm text-ludoAltText space-y-5">
 
-          <p>
-            Code execution is disabled by default.
-          </p>
-
-          <p className="font-semibold text-white">1. Enable Feature Flag</p>
-
-          <CodeBlock language="bash">{`CODE_EXECUTION_ENABLED=true`}</CodeBlock>
-
-          <p className="font-semibold text-white">2. Ensure Runner Service Is Available</p>
-
-          <p>
-            The backend must have access to the configured code execution provider
-            (e.g., Piston or equivalent service).
-          </p>
-
-          <Tip variant="warning" title="Security">
-            Never expose execution services publicly without sandboxing and proper limits.
+          <Tip variant="warning" title="Required">
+            Ensure you have a Linux environment, Docker, Node JS 15 or later, cgroup v2 enabled, and cgroup v1 disabled
           </Tip>
 
+          <p className="font-semibold text-white">1. Clone the Piston repo</p>
+
+          <CodeBlock language="bash">
+            {`# clone and enter repo
+
+git clone https://github.com/engineer-man/piston`}
+
+</CodeBlock>
+
+          <p className="font-semibold text-white">2. Start the API container & install the CLI</p>
+
+          <CodeBlock language="bash">
+            {`# Start the API container
+
+docker-compose up -d api
+
+# Install all the dependencies for the cli
+
+cd cli && npm i && cd -`}
+
+</CodeBlock>
+
+          <p className="font-semibold text-white">3. Install the runtimes you want (with Python example)</p>
+          <CodeBlock language="bash">
+            {`# List all available packages
+
+cli/index.js ppman list
+
+# Install latest python
+
+cli/index.js ppman install python
+
+# Install specific version of python
+
+cli/index.js ppman install python=3.9.4`}
+
+</CodeBlock>
+
+          <p className="font-semibold text-white">3. Set the Piston URL on the backend & enable Piston</p>
+          <CodeBlock language="bash">
+            {`# Set the URL
+
+PISTON_BASE=http://localhost:2000/api/v2
+
+# Enable Piston Runtime
+
+PISTON_ENABLED=true
+
+`}
+
+</CodeBlock>
+
+<hr/>
+
+          <Tip variant="info" title="Issues?">
+            For more in depth instructions on setting up Piston, see their repository page <a>https://github.com/engineer-man/piston</a>
+          </Tip>
+
+
         </div>
+
       ),
     },
 
