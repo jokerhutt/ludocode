@@ -279,8 +279,8 @@ function Footer({
 }
 
 function DeleteButton() {
-  const { clear, isEmpty } = usePreview();
-
+  const { clear, isEmpty, typing } = usePreview();
+  const disabled = isEmpty || !typing
   const cursorStyle = isEmpty
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -288,8 +288,8 @@ function DeleteButton() {
   return (
     <button
       type="button"
-      onClick={() => !isEmpty && clear()}
-      disabled={isEmpty}
+      onClick={() => !disabled && clear()}
+      disabled={disabled}
       className={cn(
         "p-1.5 text-white/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
@@ -301,15 +301,16 @@ function DeleteButton() {
 }
 
 function BackspaceButton() {
-  const { popLast, isEmpty } = usePreview();
-  const cursorStyle = isEmpty
+  const { popLast, isEmpty, typing } = usePreview();
+  const disabled = isEmpty || !typing
+  const cursorStyle = disabled
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
   return (
     <button
       type="button"
-      onClick={() => !isEmpty && popLast()}
-      disabled={isEmpty}
+      onClick={() => !disabled && popLast()}
+      disabled={disabled}
       className={cn(
         "p-1.5 rounded-md text-white/70 hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,

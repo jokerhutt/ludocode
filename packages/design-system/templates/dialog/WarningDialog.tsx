@@ -25,7 +25,7 @@ export function WarningDialog({
   title,
   subtitle,
   description,
-  triggerClassName = "w-full",
+  triggerClassName,
   onClick,
   buttonText,
   destructiveConfirmation,

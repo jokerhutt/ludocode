@@ -18,16 +18,6 @@ export function ChatbotCreditsTab({
       )}
     >
       <div className="flex items-center gap-2">
-        <SparklesIcon
-          className={cn(
-            "w-3.5 h-3.5",
-            empty
-              ? "text-white/20"
-              : low
-                ? "text-amber-400"
-                : "text-ludo-accent-muted",
-          )}
-        />
         <span
           className={cn(
             "font-medium",

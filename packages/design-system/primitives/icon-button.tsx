@@ -32,7 +32,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         data-testid={dataTestId}
         type="button"
         className={cn(
-          "p-1 hover:bg-ludo-accent-muted/60 hover:cursor-pointer rounded-full",
+          "p-1 hover:bg-ludo-accent/60 hover:cursor-pointer rounded-md",
           className,
         )}
         {...props}

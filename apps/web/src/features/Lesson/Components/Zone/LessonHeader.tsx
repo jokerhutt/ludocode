@@ -13,7 +13,7 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (
-    <LudoHeader.Shell className="px-4" device="Both">
+    <LudoHeader.Shell className="px-6" device="Both">
       <div className="col-start-1 col-end-2 flex items-center h-full">
         {onExit && (
           <LeaveUnsavedDialog

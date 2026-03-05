@@ -1,7 +1,7 @@
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { ExerciseInteraction } from "@/features/Lesson/Templates/ExerciseInteraction.tsx";
 import { useExerciseBodyData } from "@/features/Lesson/Hooks/useExerciseBodyData.tsx";
-import { FloatingChatbotWindow } from "@ludocode/design-system/widgets/chatbot/FloatingChatbotWindow.tsx";
+import { LessonChatbotPanel } from "@/features/Lesson/Components/Zone/LessonChatbotPanel.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
 import {
   buildSystemPromptForExercise,
@@ -55,18 +55,6 @@ export function LessonPage() {
 
   return (
     <>
-      <div className="col-span-0 hidden lg:block lg:col-span-3  h-full min-h-0">
-        {aiEnabled && aiFeature.enabled && (
-          <FloatingChatbotWindow
-            credits={credits}
-            sessionId={currentExercise.id ?? null}
-            systemPrompt={systemPrompt}
-            promptWrapper={promptWrapper}
-            outerClassName="pl-6 pr-10"
-          />
-        )}
-      </div>
-
       {currentExercise && (
         <AnimatePresence mode="wait">
           <motion.div
@@ -75,28 +63,40 @@ export function LessonPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="col-span-full lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0 w-full"
+            className="col-span-full lg:col-start-4 lg:col-span-6 flex flex-col gap-8 px-8 lg:px-0 py-8 items-stretch justify-center h-full min-w-0 w-full"
           >
             <div className="flex flex-col gap-4 items-center">
               {currentExercise.blocks.map((block, index) => (
-                <BlockRenderer
-                  key={index}
-                  block={block}
-                  showOutput={showOutput}
-                  mobile={isMobile}
-                />
+                <div className="max-w-xl">
+                  <BlockRenderer
+                    key={index}
+                    block={block}
+                    showOutput={showOutput}
+                    mobile={isMobile}
+                  />
+                </div>
               ))}
             </div>
-
-            <ExerciseInteraction
-              body={body}
-              output={interactionOutput}
-              showOutput={showOutput}
-              mobileOutput={isMobile}
-            />
+              <ExerciseInteraction
+                body={body}
+                output={interactionOutput}
+                showOutput={showOutput}
+                mobileOutput={isMobile}
+              />
           </motion.div>
         </AnimatePresence>
       )}
+
+      <div className="hidden lg:block lg:col-start-10 lg:col-span-3 h-full min-h-0 overflow-hidden">
+        {aiEnabled && aiFeature.enabled && (
+          <LessonChatbotPanel
+            credits={credits}
+            sessionId={currentExercise.id ?? null}
+            systemPrompt={systemPrompt}
+            promptWrapper={promptWrapper}
+          />
+        )}
+      </div>
     </>
   );
 }
