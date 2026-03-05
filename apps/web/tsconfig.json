@@ -18,6 +18,8 @@
       "@ludocode/external/*": ["packages/external/*"],
       "@ludocode/design-system": ["packages/design-system"],
       "@ludocode/design-system/*": ["packages/design-system/*"],
+      "@ludocode/ludo-mdx": ["packages/ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["packages/ludo-mdx/*"],
       "@ludocode/hooks": ["packages/hooks"],
       "@ludocode/hooks/*": ["packages/hooks/*"]
     }

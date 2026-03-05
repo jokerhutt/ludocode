@@ -11,10 +11,10 @@
       "@ludocode/design-system/*": ["../design-system/*"],
       "@ludocode/types": ["../types"],
       "@ludocode/types/*": ["../types/*"],
-      "@ludocode/hooks": ["."],
-      "@ludocode/hooks/*": ["./*"],
-      "@ludocode/ludo-mdx": ["../ludo-mdx"],
-      "@ludocode/ludo-mdx/*": ["../ludo-mdx/*"],
+      "@ludocode/hooks": ["../hooks"],
+      "@ludocode/hooks/*": ["../hooks/*"],
+      "@ludocode/ludo-mdx": ["."],
+      "@ludocode/ludo-mdx/*": ["./*"],
       "@ludocode/external": ["../external"],
       "@ludocode/external/*": ["../external/*"]
     }

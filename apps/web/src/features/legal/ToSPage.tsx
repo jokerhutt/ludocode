@@ -1,5 +1,5 @@
 import Terms from "@/legal/terms.mdx";
-import { legalComponents } from "./components/legalComponents.tsx";
+import { legalComponents } from "../../../../../packages/ludo-mdx/legal/legalComponents.tsx";
 
 export function ToSPage() {
   return (

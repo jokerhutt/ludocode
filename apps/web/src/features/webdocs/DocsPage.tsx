@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { defaultSlug, findEntry } from "./data/docsRegistry.ts";
-import { mdxComponents } from "./components/MdxComponents.tsx";
-import { DocsSidebar } from "./components/DocsSidebar.tsx";
+import { mdxComponents } from "@ludocode/ludo-mdx/webdocs/MdxComponents.tsx";
+import { DocsSidebar } from "@ludocode/ludo-mdx/webdocs/DocsSidebar.tsx";
 import {
   DocsScrollSpyTOC,
   type TocHeading,
-} from "./components/DocsScrollSpyTOC.tsx";
+} from "@ludocode/ludo-mdx/webdocs/DocsScrollSpyTOC.tsx";
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];

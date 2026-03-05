@@ -13,6 +13,8 @@
       "@ludocode/types/*": ["../types/*"],
       "@ludocode/hooks": ["../hooks"],
       "@ludocode/hooks/*": ["../hooks/*"],
+      "@ludocode/ludo-mdx": ["../ludo-mdx"],
+      "@ludocode/ludo-mdx/*": ["../ludo-mdx/*"],
       "@ludocode/external": ["../external"],
       "@ludocode/external/*": ["../external/*"]
     }
@@ -22,6 +24,7 @@
     "**/*.tsx",
     "../hooks/index.ts",
     "../types/index.ts",
+    "../ludo-mdx/**/*.mdx",
     "../external/**/*.ts",
     "../external/**/*.tsx"
   ]
