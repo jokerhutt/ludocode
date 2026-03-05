@@ -58,6 +58,7 @@ export function CourseCard({
 
       {showProgress && (
         <ProgressSummary
+          className="w-full"
           variant="col"
           detailed
           name="lessons"

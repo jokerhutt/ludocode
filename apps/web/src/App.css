@@ -26,11 +26,11 @@ body {
   }
   html {
     background: #22273e;
+    overscroll-behavior: none;
   }
   body {
     @apply text-foreground;
     background: #22273e;
-    overscroll-behavior: none;
     height: 100%;
     overflow: hidden;
     @apply bg-background text-foreground;

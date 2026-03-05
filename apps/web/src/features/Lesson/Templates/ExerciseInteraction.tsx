@@ -59,7 +59,7 @@ export function ExerciseInteraction({
           mobile={mobileOutput}
         >
           <LudoCodePreview
-            className="max-w-xl"
+            className="lg:max-w-xl"
             prompt={interactionFile.content}
             options={options}
             userResponses={currentExerciseInputs}
@@ -80,7 +80,7 @@ export function ExerciseInteraction({
       )}
 
       {/* OPTIONS */}
-      <OptionListWrapper className="max-w-xl" type={optionsLayout}>
+      <OptionListWrapper className="lg:max-w-xl max-w-xl" type={optionsLayout}>
         {options.map((option) => {
           const isSelected =
             currentExerciseInputs.find((t) => t.id === option.id) != null;

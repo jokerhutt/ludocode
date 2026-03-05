@@ -6,6 +6,7 @@ export type ProgressSummaryProps = {
   total: number;
   detailed?: boolean;
   variant?: "row" | "col";
+  className?: string;
   name?: string;
 };
 
@@ -13,6 +14,7 @@ export function ProgressSummary({
   current,
   total,
   detailed,
+  className,
   variant = "row",
   name,
 }: ProgressSummaryProps) {
@@ -21,7 +23,7 @@ export function ProgressSummary({
   const alignment = variant == "col" ? "flex-col" : "flex-row items-center";
 
   return (
-    <div className={cn("flex gap-1.5", alignment)}>
+    <div className={cn("flex gap-1.5", alignment, className)}>
       {variant == "col" && detailed && (
         <div className="flex items-center justify-between">
           <span className="text-white/50 text-xs">
