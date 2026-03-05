@@ -10,7 +10,7 @@ type StatsCardProps = {
 
 export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
   return (
-    <div className="w-full flex">
+
       <LudoButton
         onClick={() => onClick?.()}
         className="flex items-start px-4 py-3 h-auto gap-1.5 flex-col"
@@ -27,6 +27,5 @@ export function StatsCard({ score, text, children, onClick }: StatsCardProps) {
           {text}
         </p>
       </LudoButton>
-    </div>
   );
 }

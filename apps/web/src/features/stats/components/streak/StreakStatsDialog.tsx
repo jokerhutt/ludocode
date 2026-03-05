@@ -15,20 +15,22 @@ import { FireIcon } from "@heroicons/react/24/solid";
 type StreakStatsDialogProps = {
   children: ReactNode;
   streak: UserStreak;
+  asChild?: boolean;
   pastWeekStreak: DailyGoalMet[];
 };
 
 export function StreakStatsDialog({
   children,
   streak,
+  asChild = true,
   pastWeekStreak,
 }: StreakStatsDialogProps) {
   const { current, best } = streak;
 
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogWrapper className="max-w-sm">
+      <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+      <DialogWrapper>
         <div className="flex flex-col items-center gap-4 py-2">
           <div className="w-14 h-14 rounded-full bg-orange-400/15 flex items-center justify-center">
             <FireIcon className="h-7 w-7 text-orange-400" />
