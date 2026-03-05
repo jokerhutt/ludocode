@@ -14,7 +14,7 @@ export function FeatureRow({
       {included ? (
         <CheckIcon className="h-4 w-4 shrink-0 text-emerald-400" />
       ) : (
-        <XMarkIcon className="h-4 w-4 shrink-0 text-white/20" />
+        <XMarkIcon className="h-4 w-4 shrink-0 text-ludo-white-bright/20" />
       )}
       <span
         className={cn(

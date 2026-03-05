@@ -50,7 +50,7 @@ export function LessonChatbotPanel({
                 iconName="SparklesIcon"
                 className="h-3.5 w-3.5 text-ludo-accent-muted shrink-0"
               />
-              <span className="text-sm font-medium text-white/80 truncate">
+              <span className="text-sm font-medium text-ludo-white-bright/80 truncate">
                 Ludo Tutor
               </span>
             </div>

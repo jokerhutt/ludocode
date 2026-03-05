@@ -21,7 +21,9 @@ export function CareerChoiceStep() {
           isSelected={career.choice === draft.career}
           onClick={() => setDraft({ career: career.choice })}
         >
-          <h1 className="text-white text-xl font-bold">{career.title}</h1>
+          <h1 className="text-ludo-white-bright text-xl font-bold">
+            {career.title}
+          </h1>
           <p className="text-ludo-white text-sm leading-relaxed">
             {career.description}
           </p>
@@ -48,7 +50,9 @@ export function CourseChoiceStep() {
           isSelected={course.id === draft.course}
           onClick={() => setDraft({ course: course.id })}
         >
-          <h1 className="text-white text-xl font-bold">{course.title}</h1>
+          <h1 className="text-ludo-white-bright text-xl font-bold">
+            {course.title}
+          </h1>
         </WideOnboardingOption>
       ))}
     </OnboardingStageShell>

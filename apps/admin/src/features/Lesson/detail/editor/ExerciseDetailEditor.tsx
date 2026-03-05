@@ -31,10 +31,10 @@ export const ExerciseDetailEditor = withForm({
           const exerciseType = deriveExerciseType(exercise);
 
           return (
-            <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+            <div className="flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full">
               <CurriculumCardHeader>
                 <div className="flex items-center gap-3">
-                  <p className="text-white font-bold">
+                  <p className="text-ludo-white-bright font-bold">
                     Exercise {exerciseIndex + 1}
                   </p>
                   <ExerciseTypePill type={exerciseType} />
@@ -52,7 +52,7 @@ export const ExerciseDetailEditor = withForm({
                       <button
                         type="button"
                         disabled
-                        className="text-red-400/40 cursor-not-allowed p-1 rounded"
+                        className="text-ludo-incorrect cursor-not-allowed p-1 rounded"
                         title="At least one exercise is required"
                       >
                         <Trash2 size={16} />

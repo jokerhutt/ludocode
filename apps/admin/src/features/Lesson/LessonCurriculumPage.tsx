@@ -108,7 +108,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
               courseName={courseName}
               lessonName={lessonName}
             />
-            <h1 className="text-white text-3xl font-bold">{lessonName}</h1>
+            <h1 className="text-ludo-white-bright text-3xl font-bold">
+              {lessonName}
+            </h1>
           </div>
         </div>
 

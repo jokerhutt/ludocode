@@ -46,22 +46,22 @@ export function WarningDialog({
       trigger={children}
       triggerClassName={triggerClassName}
     >
-      <DialogTitle className="text-white">{title}</DialogTitle>
+      <DialogTitle className="text-ludo-white-bright">{title}</DialogTitle>
       {subtitle && (
-        <DialogDescription className="text-white code font-bold">
+        <DialogDescription className="text-ludo-white-bright code font-bold">
           {subtitle}
         </DialogDescription>
       )}
 
       {description && (
-        <DialogDescription className="text-white code font-bold">
+        <DialogDescription className="text-ludo-white-bright code font-bold">
           {description}
         </DialogDescription>
       )}
 
       {destructiveConfirmation && (
         <>
-          <DialogDescription className="text-white code font-bold">
+          <DialogDescription className="text-ludo-white-bright code font-bold">
             type
             <span className="text-ludo-danger">
               {" "}

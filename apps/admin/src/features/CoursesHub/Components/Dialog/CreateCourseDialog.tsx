@@ -83,7 +83,7 @@ export function CreateCourseDialog({ open, close, children }: Props) {
       }}
       className="max-w-3xl" // 👈 wider
     >
-      <DialogTitle className="text-white font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         Create Course
       </DialogTitle>
 

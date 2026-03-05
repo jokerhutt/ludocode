@@ -22,7 +22,7 @@ export function NewFileMenu({ trigger }: NewFileMenuProps) {
       <LudoMenu.Trigger>{trigger}</LudoMenu.Trigger>
 
       <LudoMenu.Content align="end" className="w-48">
-        <p className="text-[10px] uppercase tracking-wider text-white/30 px-2 pb-1.5">
+        <p className="text-[10px] uppercase tracking-wider text-ludo-white-bright/30 px-2 pb-1.5">
           New file
         </p>
 

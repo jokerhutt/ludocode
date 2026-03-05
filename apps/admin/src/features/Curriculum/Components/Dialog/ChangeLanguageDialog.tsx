@@ -67,7 +67,7 @@ export function ChangeLanguageDialog({
         close();
       }}
     >
-      <DialogTitle className="text-white font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         Change Language
       </DialogTitle>
 

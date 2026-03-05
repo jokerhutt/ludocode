@@ -29,7 +29,7 @@ export function CurriculumHero({
             <span className="text-xs text-ludo-white uppercase tracking-wide">
               Subject
             </span>
-            <span className="text-white font-semibold">
+            <span className="text-ludo-white-bright font-semibold">
               {courseSubject?.name ?? "No Subject"}
             </span>
             <span className="text-xs text-ludo-accent-muted">
@@ -62,7 +62,7 @@ export function CurriculumHero({
             <span className="text-xs text-ludo-white uppercase tracking-wide">
               Language
             </span>
-            <span className="text-white font-semibold">
+            <span className="text-ludo-white-bright font-semibold">
               {courseLanguage?.name ?? "No Language"}
             </span>
             <span className="text-xs text-ludo-accent-muted">

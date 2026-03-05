@@ -180,7 +180,7 @@ function Header({
 }) {
   return (
     <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface w-full">
-      <span className="text-[11px] text-white/30 tracking-wide select-none">
+      <span className="text-[11px] text-ludo-white-bright/30 tracking-wide select-none">
         {title}
       </span>
       {children}
@@ -209,7 +209,7 @@ function Gutter() {
       {Array.from({ length: lineCount }, (_, i) => (
         <div
           key={i}
-          className="text-xs md:text-sm leading-8 md:leading-9 text-white/15 text-right font-mono tabular-nums w-5 md:w-6"
+          className="text-xs md:text-sm leading-8 md:leading-9 text-ludo-white-bright/15 text-right font-mono tabular-nums w-5 md:w-6"
         >
           {i + 1}
         </div>
@@ -231,7 +231,7 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
 
   return (
     <p
-      className="text-white text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
+      className="text-ludo-white-bright text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
       flex flex-wrap
       *:mr-1 sm:*:mr-1.5
       [&>*:last-child]:mr-0
@@ -291,7 +291,7 @@ function DeleteButton() {
       onClick={() => !disabled && clear()}
       disabled={disabled}
       className={cn(
-        "p-1.5 text-white/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
+        "p-1.5 text-ludo-white-bright/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
       )}
     >
@@ -312,7 +312,7 @@ function BackspaceButton() {
       onClick={() => !disabled && popLast()}
       disabled={disabled}
       className={cn(
-        "p-1.5 rounded-md text-white/70 hover:bg-white/5 transition-colors disabled:opacity-30",
+        "p-1.5 rounded-md text-ludo-white-bright/70 hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
       )}
     >

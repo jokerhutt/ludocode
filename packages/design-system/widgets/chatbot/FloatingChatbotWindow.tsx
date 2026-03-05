@@ -35,7 +35,7 @@ export function FloatingChatbotWindow({
         className={cn("h-full w-full py-6 ", isVisibleStyle, outerClassName)}
       >
         <div className="h-full min-h-0 flex flex-col border-2 border-ludo-surface rounded-md">
-          <div className="h-10 border-b border-b-ludo-background w-full text-white rounded-t-md flex items-center justify-between px-4 bg-ludo-surface">
+          <div className="h-10 border-b border-b-ludo-background w-full text-ludo-white-bright rounded-t-md flex items-center justify-between px-4 bg-ludo-surface">
             <p>Ludo Tutor (⌘+k)</p>
           </div>
           <ChatBotWindow

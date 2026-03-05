@@ -25,7 +25,7 @@ export function UserCard({
     <div className="flex flex-col items-center gap-3 lg:gap-4 lg:w-full pb-6 px-4 rounded-xl">
       {showAvatar && (
         <div className="relative">
-          <div className="absolute -inset-1.5 rounded-full bg-ludo-accent/20 blur-md" />
+          <div className="absolute -inset-1.5 rounded-full bg-ludo-surface-hover blur-md" />
           <Avatar className="h-24 w-24 relative" src={userPfpSrc} />
         </div>
       )}

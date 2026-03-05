@@ -35,7 +35,7 @@ const ChatBotWindow = ({
   return (
     <div
       className={cn(
-        "min-h-0 min-w-0 w-full text-white mx-auto relative h-90 max-h-90",
+        "min-h-0 min-w-0 w-full text-ludo-white-bright mx-auto relative h-90 max-h-90",
         className,
       )}
     >

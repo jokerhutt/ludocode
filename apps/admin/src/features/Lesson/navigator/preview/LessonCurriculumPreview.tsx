@@ -31,9 +31,9 @@ export function LessonCurriculumPreview({
   canEdit,
 }: LessonCurriculumPreviewProps) {
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+    <div className="flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumCardHeader>
-        <p className="text-white font-bold">Exercises Preview</p>
+        <p className="text-ludo-white-bright font-bold">Exercises Preview</p>
         <LudoButton
           className="w-auto h-auto px-4 py-1 rounded-sm"
           shadow={false}
@@ -44,7 +44,7 @@ export function LessonCurriculumPreview({
           <p className="text-sm">Edit Exercises</p>
         </LudoButton>
       </CurriculumCardHeader>
-      <CurriculumCardContent  className="gap-4 bg-ludo-background">
+      <CurriculumCardContent className="gap-4 bg-ludo-background">
         {exercises.map((exercise) => (
           <div key={exercise.exerciseId} className="flex items-center gap-2">
             <ExercisePreviewItem

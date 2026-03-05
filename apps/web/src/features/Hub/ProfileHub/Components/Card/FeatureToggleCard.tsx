@@ -8,22 +8,25 @@ type FeatureToggleGroupProps = {
   setAiEnabled: (value: boolean) => void;
 };
 
-export function FeatureToggleGroup({audioEnabled, setAudioEnabled, aiEnabled, setAiEnabled}: FeatureToggleGroupProps) {
-
-
+export function FeatureToggleGroup({
+  audioEnabled,
+  setAudioEnabled,
+  aiEnabled,
+  setAiEnabled,
+}: FeatureToggleGroupProps) {
   return (
     <div className="w-full flex justify-between gap-4">
       <StatsCard
         onClick={() => setAudioEnabled(!audioEnabled)}
         text={`Audio: ${audioEnabled ? "ON" : "OFF"}`}
       >
-        <Volume2Icon className="h-6 text-white" />
+        <Volume2Icon className="h-6 text-ludo-white-bright" />
       </StatsCard>
       <StatsCard
         onClick={() => setAiEnabled(!aiEnabled)}
         text={`AI: ${aiEnabled ? "ON" : "OFF"}`}
       >
-        <BotIcon className="h-6 text-white" />
+        <BotIcon className="h-6 text-ludo-white-bright" />
       </StatsCard>
     </div>
   );

@@ -45,19 +45,21 @@ export function SubscriptionConfirmPage() {
             className="w-full max-w-xl flex flex-col items-center gap-8 p-10 text-center border border-ludo-border"
           >
             <div className="relative">
-              <div className="absolute inset-0 blur-2xl bg-ludo-accent/20 rounded-full" />
+              <div className="absolute inset-0 blur-2xl bg-ludo-surface-hover rounded-full" />
               <CheckCircle2 className="relative w-14 h-14 text-ludo-accent" />
             </div>
 
             <div className="flex flex-col gap-3">
-              <h1 className="text-3xl font-bold text-white tracking-tight">
+              <h1 className="text-3xl font-bold text-ludo-white-bright tracking-tight">
                 Subscription Activated
               </h1>
 
               <p className="text-ludo-accent-muted text-sm max-w-md">
                 You now have full access to the{" "}
-                <span className="text-white font-medium">{planCode}</span> plan.
-                Your new limits and features are active immediately.
+                <span className="text-ludo-white-bright font-medium">
+                  {planCode}
+                </span>{" "}
+                plan. Your new limits and features are active immediately.
               </p>
             </div>
 
@@ -65,7 +67,7 @@ export function SubscriptionConfirmPage() {
               <span className="text-xs uppercase tracking-wider text-ludo-accent-muted">
                 Active Plan
               </span>
-              <span className="text-lg font-semibold text-white">
+              <span className="text-lg font-semibold text-ludo-white-bright">
                 {planCode}
               </span>
             </div>

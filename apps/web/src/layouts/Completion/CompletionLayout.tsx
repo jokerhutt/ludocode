@@ -25,7 +25,7 @@ export function assertStep(step: string): Step {
 
 export function CompletionLayout() {
   const completionRoute = getRouteApi(
-    "/_app/completion/$courseId/$moduleId/$lessonId"
+    "/_app/completion/$courseId/$moduleId/$lessonId",
   );
   const { courseId, moduleId, lessonId } = completionRoute.useParams();
   const search: CompletionSearch = completionRoute.useSearch();
@@ -49,7 +49,7 @@ export function CompletionLayout() {
       <CompletionContext.Provider value={completionState}>
         <MainContentWrapper>
           <div className="col-span-full grid grid-cols-12 h-full">
-            <div className="text-white col-start-2 col-end-12 lg:col-start-5 lg:col-end-9 flex flex-col gap-4 justify-center min-w-0">
+            <div className="text-ludo-white-bright col-start-2 col-end-12 lg:col-start-5 lg:col-end-9 flex flex-col gap-4 justify-center min-w-0">
               {step === "lesson" && <LessonCompletionPage />}
 
               {step === "streak" && <StreakIncreasePage />}

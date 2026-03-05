@@ -28,7 +28,9 @@ export function RenameDialog({
       onOpenChange={setOpen}
       trigger={children}
     >
-      <DialogTitle className="text-white">Rename {itemCategory}</DialogTitle>
+      <DialogTitle className="text-ludo-white-bright">
+        Rename {itemCategory}
+      </DialogTitle>
       <Input
         className="text-ludo-white"
         value={textBuffer}

@@ -1,9 +1,8 @@
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { PropagateLoader } from "react-spinners";
-
 
 export function SubscriptionSuccessPage() {
   const queryClient = useQueryClient();
@@ -15,7 +14,7 @@ export function SubscriptionSuccessPage() {
       });
 
       router.navigate(
-        ludoNavigation.subscription.toSubscriptionConfirmedPage()
+        ludoNavigation.subscription.toSubscriptionConfirmedPage(),
       );
     }, 2000);
 
@@ -25,7 +24,7 @@ export function SubscriptionSuccessPage() {
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-8">
-        <h1 className="text-2xl text-white">
+        <h1 className="text-2xl text-ludo-white-bright">
           Syncing your subscription
         </h1>
         <PropagateLoader color="white" />

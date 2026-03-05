@@ -3,14 +3,14 @@ import type { MDXComponents } from "mdx/types";
 export const legalComponents: MDXComponents = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className="text-2xl font-bold text-white tracking-tight mb-2"
+      className="text-2xl font-bold text-ludo-white-bright tracking-tight mb-2"
       {...props}
     />
   ),
 
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
-      className="text-lg font-semibold text-white mt-10 mb-3 pb-2 border-b border-white/10"
+      className="text-lg font-semibold text-ludo-white-bright mt-10 mb-3 pb-2 border-b border-white/10"
       {...props}
     />
   ),
@@ -23,19 +23,22 @@ export const legalComponents: MDXComponents = {
   ),
 
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-sm leading-relaxed text-white/80 mb-4" {...props} />
+    <p
+      className="text-sm leading-relaxed text-ludo-white-bright/80 mb-4"
+      {...props}
+    />
   ),
 
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
-      className="list-disc list-outside ml-5 mb-5 space-y-1.5 text-sm text-white/80"
+      className="list-disc list-outside ml-5 mb-5 space-y-1.5 text-sm text-ludo-white-bright/80"
       {...props}
     />
   ),
 
   ol: (props: React.OlHTMLAttributes<HTMLOListElement>) => (
     <ol
-      className="list-decimal list-outside ml-5 mb-5 space-y-1.5 text-sm text-white/80"
+      className="list-decimal list-outside ml-5 mb-5 space-y-1.5 text-sm text-ludo-white-bright/80"
       {...props}
     />
   ),
@@ -45,7 +48,7 @@ export const legalComponents: MDXComponents = {
   ),
 
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
-    <strong className="font-semibold text-white" {...props} />
+    <strong className="font-semibold text-ludo-white-bright" {...props} />
   ),
 
   em: (props: React.HTMLAttributes<HTMLElement>) => (
@@ -54,7 +57,7 @@ export const legalComponents: MDXComponents = {
 
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className="text-ludo-accent-muted underline underline-offset-2 hover:text-white transition-colors"
+      className="text-ludo-accent-muted underline underline-offset-2 hover:text-ludo-white-bright transition-colors"
       {...props}
     />
   ),

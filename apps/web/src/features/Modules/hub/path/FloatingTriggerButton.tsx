@@ -2,13 +2,18 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { ChevronUpIcon, LayoutListIcon } from "lucide-react";
 
 type FloatingTriggerButtonProps = {
-    position?: number;
-    title: string;
-    chevron?: boolean;
-    onClick?: () => void;
+  position?: number;
+  title: string;
+  chevron?: boolean;
+  onClick?: () => void;
 };
 
-export function FloatingTriggerButton({position, title, onClick, chevron}: FloatingTriggerButtonProps) {
+export function FloatingTriggerButton({
+  position,
+  title,
+  onClick,
+  chevron,
+}: FloatingTriggerButtonProps) {
   return (
     <button
       type="button"
@@ -16,13 +21,13 @@ export function FloatingTriggerButton({position, title, onClick, chevron}: Float
       className={cn(
         "fixed bottom-24 right-4 z-40 lg:hidden",
         "flex items-center gap-2 px-4 py-2.5 rounded-full",
-        "bg-ludo-accent text-white shadow-lg shadow-ludo-accent/25",
+        "bg-ludo-accent text-ludo-white-bright shadow-lg shadow-ludo-accent/25",
         "hover:cursor-pointer active:scale-95 transition-transform",
       )}
     >
       <LayoutListIcon className="w-4 h-4" />
       <span className="text-sm font-semibold">
-          {position} {title}
+        {position} {title}
       </span>
       {chevron && <ChevronUpIcon className="w-3.5 h-3.5 opacity-60" />}
     </button>

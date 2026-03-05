@@ -37,7 +37,10 @@ export function FileActionsMenu({
           <LudoMenu.Item closeOnSelect={false}>
             <LudoMenu.Row>
               <LudoMenu.Icon>
-                <HeroIcon iconName="PencilIcon" className="h-4 text-white/70" />
+                <HeroIcon
+                  iconName="PencilIcon"
+                  className="h-4 text-ludo-white-bright/70"
+                />
               </LudoMenu.Icon>
               <LudoMenu.Label>Rename</LudoMenu.Label>
             </LudoMenu.Row>

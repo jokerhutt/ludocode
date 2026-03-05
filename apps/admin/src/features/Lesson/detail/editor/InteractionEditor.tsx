@@ -72,7 +72,9 @@ function InteractionEditorInner({
   if (!interaction) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-sm font-semibold text-white">Interaction</p>
+        <p className="text-sm font-semibold text-ludo-white-bright">
+          Interaction
+        </p>
         <Select
           value=""
           onValueChange={(type) => {
@@ -80,19 +82,19 @@ function InteractionEditorInner({
             interactionField.handleChange(template);
           }}
         >
-          <SelectTrigger className="w-auto h-auto gap-2 px-3 py-1 rounded-sm bg-ludo-surface border-transparent text-white! text-sm hover:bg-ludo-accent/20 transition-colors focus:ring-0 focus-visible:ring-0">
+          <SelectTrigger className="w-auto h-auto gap-2 px-3 py-1 rounded-sm bg-ludo-surface border-transparent text-ludo-white-bright! text-sm hover:bg-ludo-surface-hover transition-colors focus:ring-0 focus-visible:ring-0">
             <SelectValue placeholder="+ Add Interaction" />
           </SelectTrigger>
           <SelectContent className="bg-ludo-surface border-ludo-border">
             <SelectItem
               value="SELECT"
-              className="text-white hover:bg-ludo-background cursor-pointer"
+              className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
             >
               <span className="text-amber-400">Select</span> — Multiple choice
             </SelectItem>
             <SelectItem
               value="CLOZE"
-              className="text-white hover:bg-ludo-background cursor-pointer"
+              className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
             >
               <span className="text-emerald-400">Cloze</span> — Fill in blanks
             </SelectItem>
@@ -105,7 +107,7 @@ function InteractionEditorInner({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-white">
+        <p className="text-sm font-semibold text-ludo-white-bright">
           Interaction —{" "}
           <span
             className={
@@ -224,7 +226,7 @@ function SelectInteractionFieldsInner({
             form.setFieldValue(`${basePath}.correctValue`, v)
           }
         >
-          <SelectTrigger className="w-full h-auto gap-2 px-3 py-2 rounded-sm bg-ludo-background border-transparent text-white! text-sm focus:ring-0 focus-visible:ring-0">
+          <SelectTrigger className="w-full h-auto gap-2 px-3 py-2 rounded-sm bg-ludo-background border-transparent text-ludo-white-bright! text-sm focus:ring-0 focus-visible:ring-0">
             <SelectValue placeholder="Select correct answer" />
           </SelectTrigger>
           <SelectContent className="bg-ludo-surface border-ludo-border">
@@ -232,7 +234,7 @@ function SelectInteractionFieldsInner({
               <SelectItem
                 key={`${idx}-${item}`}
                 value={item}
-                className="text-white hover:bg-ludo-background cursor-pointer"
+                className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
               >
                 {item}
               </SelectItem>
@@ -443,7 +445,7 @@ function ClozeInteractionFieldsInner({
               value={String(field.state.value ?? "")}
               onChange={(e) => field.handleChange(e.target.value)}
               placeholder={`Use ___ for gaps\ne.g. print(___)`}
-              className="bg-ludo-background border-transparent text-white placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
+              className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
             />
           )}
         />

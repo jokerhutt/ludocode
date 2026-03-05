@@ -48,10 +48,10 @@ export function OptionInputSlot({
           "rounded-md h-7 text-xs sm:text-sm text-center",
           "px-0.5 sm:px-2",
           "outline-none transition-colors duration-100 font-mono",
-          "placeholder:text-white/20",
+          "placeholder:text-ludo-white-bright/20",
           hasValue
             ? "bg-ludo-accent/15 text-ludo-accent-muted border border-ludo-accent/30"
-            : "bg-white/5 text-white border border-dashed border-white/20 focus:border-ludo-accent-muted/60 focus:bg-ludo-accent/10",
+            : "bg-white/5 text-ludo-white-bright border border-dashed border-white/20 focus:border-ludo-accent-muted/60 focus:bg-ludo-accent/10",
         )}
         style={{ minWidth: hasValue ? undefined : "1.5rem" }}
       />

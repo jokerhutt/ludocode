@@ -31,7 +31,7 @@ export function LudoSelectLegacy({
         <SelectGroup>
           {Array.from({ length: count }).map((_, i) => (
             <SelectItem
-              className="border-2 border-ludo-accent-muted hover:cursor-pointer bg-ludo-background my-2 text-white"
+              className="border-2 border-ludo-accent-muted hover:cursor-pointer bg-ludo-background my-2 text-ludo-white-bright"
               key={i}
               value={String(i)}
             >

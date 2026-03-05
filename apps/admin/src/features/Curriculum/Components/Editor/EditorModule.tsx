@@ -29,7 +29,7 @@ export const EditorModule = withForm({
     const modules = form.state.values.modules;
 
     return (
-      <div className="flex rounded-lg text-white border-3 border-ludo-border w-full flex-col">
+      <div className="flex rounded-lg text-ludo-white-bright border-3 border-ludo-border w-full flex-col">
         <div className="flex items-center gap-3 border-b-3 border-b-ludo-border px-4 py-2 h-14">
           <ModuleOrderActions
             moduleIndex={moduleIndex}

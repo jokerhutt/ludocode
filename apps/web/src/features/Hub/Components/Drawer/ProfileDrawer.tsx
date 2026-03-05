@@ -42,7 +42,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
       <DrawerContent className="w-full lg:w-1/3 lg:max-w-md sm:max-w-full rounded-none border-l flex flex-col border-ludo-border bg-ludo-background">
         <DrawerHeader className="relative border-b border-ludo-border px-6 py-4">
           <div className="flex items-center justify-between">
-            <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-white">
+            <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-ludo-white-bright">
               Account
               <SubscriptionBadge className="mt-1" tier={plan} />
             </DrawerTitle>

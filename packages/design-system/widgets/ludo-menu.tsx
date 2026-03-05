@@ -45,7 +45,7 @@ function Content({ children, align = "end", className }: ContentProps) {
       onClick={(e) => e.stopPropagation()}
       align={align}
       className={cn(
-        "text-white hover:cursor-default flex flex-col gap-0.5 p-1.5",
+        "text-ludo-white-bright hover:cursor-default flex flex-col gap-0.5 p-1.5",
         "bg-ludo-surface border border-white/10 rounded-lg shadow-lg shadow-black/30",
         "w-40",
         className,

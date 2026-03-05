@@ -90,7 +90,7 @@ function Trigger({ position }: TriggerProps) {
       >
         Run #{position}
       </span>
-      <span className="text-[10px] text-white/25 ml-auto">
+      <span className="text-[10px] text-ludo-white-bright/25 ml-auto">
         {error ? "exited with error" : "success"}
       </span>
     </button>
@@ -107,7 +107,7 @@ function Content({ children }: { children: ReactNode }) {
       <div
         className={cn(
           "rounded-md bg-ludo-surface/30 px-3 py-2 font-mono text-xs",
-          error ? "text-red-300" : "text-white/90",
+          error ? "text-red-300" : "text-ludo-white-bright/90",
         )}
       >
         {children}

@@ -23,7 +23,7 @@ export function SubjectsPane({
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+    <div className="flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumCardHeader>
         <p className="font-bold">Subjects</p>
 

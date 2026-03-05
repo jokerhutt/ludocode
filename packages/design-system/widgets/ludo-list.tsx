@@ -73,7 +73,9 @@ function Item({
         <span
           className={cn(
             "text-sm font-medium truncate transition-colors",
-            isActive ? "text-white" : "text-white/60 group-hover:text-white/90",
+            isActive
+              ? "text-ludo-white-bright"
+              : "text-ludo-white-bright/60 group-hover:text-ludo-white-bright/90",
           )}
         >
           {title}

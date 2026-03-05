@@ -44,12 +44,14 @@ export function CurriculumBreadcrumbs({
             {crumb.to && !isLast ? (
               <Link
                 {...crumb.to}
-                className="hover:text-white transition-colors"
+                className="hover:text-ludo-white-bright transition-colors"
               >
                 {crumb.label}
               </Link>
             ) : (
-              <span className="text-white font-semibold">{crumb.label}</span>
+              <span className="text-ludo-white-bright font-semibold">
+                {crumb.label}
+              </span>
             )}
           </span>
         );

@@ -43,7 +43,7 @@ export function CurriculumPreview({
   return (
     <CurriculumCard>
       <CurriculumCardHeader>
-        <p className="text-white font-bold">Curriculum Preview</p>
+        <p className="text-ludo-white-bright font-bold">Curriculum Preview</p>
         <div className="flex items-center gap-3">
           <input
             ref={yamlInputRef}

@@ -32,13 +32,13 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         data-testid={dataTestId}
         type="button"
         className={cn(
-          "p-1 hover:bg-ludo-accent/60 hover:cursor-pointer rounded-md",
+          "p-1 hover:bg-ludo-accent-dim hover:cursor-pointer rounded-md",
           className,
         )}
         {...props}
       >
         <HeroIcon
-          className={cn("text-white", variantSize, iconClassName)}
+          className={cn("text-ludo-white-bright", variantSize, iconClassName)}
           iconName={iconName}
         />
       </button>

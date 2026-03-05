@@ -40,7 +40,7 @@ export function SubscriptionOverviewCard({
     >
       {plan.recommended && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="bg-ludo-accent text-white text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full">
+          <span className="bg-ludo-accent text-ludo-white-bright text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full">
             Recommended
           </span>
         </div>
@@ -102,7 +102,9 @@ function SubscriptionTierHeader({
         </span>
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="text-3xl font-bold text-white">{price}</span>
+        <span className="text-3xl font-bold text-ludo-white-bright">
+          {price}
+        </span>
         <span className="text-sm text-ludo-accent-muted">{period}</span>
       </div>
       <p className="text-sm text-ludo-white min-h-10">{description}</p>

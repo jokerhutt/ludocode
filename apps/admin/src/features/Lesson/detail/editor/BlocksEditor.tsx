@@ -51,7 +51,7 @@ export const BlocksEditor = withForm({
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-white">Blocks</p>
+          <p className="text-sm font-semibold text-ludo-white-bright">Blocks</p>
         </div>
 
         <form.Field name={blocksPath} mode="array">
@@ -195,7 +195,7 @@ const EditorBlock = withForm({
                 value={String(field.state.value ?? "")}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Paragraph text..."
-                className="bg-ludo-background border-transparent text-white placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none"
+                className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none"
               />
             )}
           />
@@ -221,7 +221,7 @@ const EditorBlock = withForm({
                   value={String(field.state.value ?? "")}
                   onChange={(e) => field.handleChange(e.target.value)}
                   placeholder="Code content..."
-                  className="bg-ludo-background border-transparent text-white placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
+                  className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
                 />
               )}
             />

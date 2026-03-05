@@ -45,7 +45,7 @@ export function CourseCard({
           <p className="text-ludo-white-dim text-xs font-semibold uppercase tracking-widest">
             Course
           </p>
-          <h2 className="text-white text-lg font-bold leading-tight mt-0.5 truncate">
+          <h2 className="text-ludo-white-bright text-lg font-bold leading-tight mt-0.5 truncate">
             {title}
           </h2>
         </div>

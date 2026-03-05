@@ -15,7 +15,7 @@ export function BlockRenderer({
   switch (block.type) {
     case "header":
       return (
-        <h2 className="text-white text-center text-lg sm:text-xl lg:max-w-xl font-semibold leading-snug">
+        <h2 className="text-ludo-white-bright text-center text-lg sm:text-xl lg:max-w-xl font-semibold leading-snug">
           {block.content}
         </h2>
       );

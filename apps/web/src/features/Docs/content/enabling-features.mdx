@@ -17,13 +17,13 @@ Without additional configuration, Ludocode runs with authentication, AI, and cod
   content: (
     <div className="text-sm text-ludo-white space-y-5">
 
-      <p className="font-semibold text-white">1. Create a Firebase Project</p>
+      <p className="font-semibold text-ludo-white-bright">1. Create a Firebase Project</p>
 
       <p>
         Go to <code>https://console.firebase.google.com</code> → Create Project → Open the dashboard.
       </p>
 
-      <p className="font-semibold text-white">2. Enable Authentication Providers</p>
+      <p className="font-semibold text-ludo-white-bright">2. Enable Authentication Providers</p>
 
       <p>
         Navigate to <code>Authentication → Sign-in method</code> and enable:
@@ -43,7 +43,7 @@ Without additional configuration, Ludocode runs with authentication, AI, and cod
 
 your-production-domain.com`}</CodeBlock>
 
-      <p className="font-semibold text-white">3. Configure Frontend Environment (Required)</p>
+      <p className="font-semibold text-ludo-white-bright">3. Configure Frontend Environment (Required)</p>
 
       <p>
         Add the following to both:
@@ -64,25 +64,25 @@ VITE_FIREBASE_APP_ID=`}</CodeBlock>
         These values come from <code>Project Settings → General → Your Apps</code>.
       </p>
 
-      <p className="font-semibold text-white">4. Configure OAuth Origins</p>
+      <p className="font-semibold text-ludo-white-bright">4. Configure OAuth Origins</p>
 
       <p>Add to your OAuth provider settings:</p>
 
-      <p className="text-white">Authorized JavaScript origins</p>
+      <p className="text-ludo-white-bright">Authorized JavaScript origins</p>
 
       <CodeBlock language="bash">{`http://localhost:5173
 
 http://localhost:5174
 https://your-frontend-domain.com`}</CodeBlock>
 
-      <p className="text-white">Authorized Redirect URIs</p>
+      <p className="text-ludo-white-bright">Authorized Redirect URIs</p>
 
       <CodeBlock language="bash">{`http://localhost:5173
 
 http://localhost:5174
 https://your-frontend-domain.com`}</CodeBlock>
 
-      <p className="font-semibold text-white">5. Configure Backend Service Account</p>
+      <p className="font-semibold text-ludo-white-bright">5. Configure Backend Service Account</p>
 
       <p>
         Go to <code>Project Settings → Service Accounts</code> → Generate new private key.
@@ -95,7 +95,7 @@ https://your-frontend-domain.com`}</CodeBlock>
         authentication will be disabled and the app falls back to demo mode.
       </Tip>
 
-        <p className="font-semibold text-white">6. Enable Firebase auth in the backend environment variables</p>
+        <p className="font-semibold text-ludo-white-bright">6. Enable Firebase auth in the backend environment variables</p>
 
         <CodeBlock language="bash">{`FIREBASE_AUTH=true`}</CodeBlock>
 
@@ -109,13 +109,13 @@ https://your-frontend-domain.com`}</CodeBlock>
       content: (
         <div className="text-sm text-ludo-white space-y-5">
 
-          <p className="font-semibold text-white">1. Generate Gemini API Key</p>
+          <p className="font-semibold text-ludo-white-bright">1. Generate Gemini API Key</p>
 
           <p>
             Visit <code>https://aistudio.google.com</code> → Sign in → Create API Key.
           </p>
 
-          <p className="font-semibold text-white">2. Configure Backend Environment</p>
+          <p className="font-semibold text-ludo-white-bright">2. Configure Backend Environment</p>
 
           <CodeBlock language="bash">{`AI_ENABLED=true
 
@@ -138,7 +138,7 @@ GEMINI_API_KEY=your_api_key_here`}</CodeBlock>
             Ensure you have a Linux environment, Docker, Node JS 15 or later, cgroup v2 enabled, and cgroup v1 disabled
           </Tip>
 
-          <p className="font-semibold text-white">1. Clone the Piston repo</p>
+          <p className="font-semibold text-ludo-white-bright">1. Clone the Piston repo</p>
 
           <CodeBlock language="bash">
             {`# clone and enter repo
@@ -147,7 +147,7 @@ git clone https://github.com/engineer-man/piston`}
 
 </CodeBlock>
 
-          <p className="font-semibold text-white">2. Start the API container & install the CLI</p>
+          <p className="font-semibold text-ludo-white-bright">2. Start the API container & install the CLI</p>
 
           <CodeBlock language="bash">
             {`# Start the API container
@@ -160,7 +160,7 @@ cd cli && npm i && cd -`}
 
 </CodeBlock>
 
-          <p className="font-semibold text-white">3. Install the runtimes you want (with Python example)</p>
+          <p className="font-semibold text-ludo-white-bright">3. Install the runtimes you want (with Python example)</p>
           <CodeBlock language="bash">
             {`# List all available packages
 
@@ -176,7 +176,7 @@ cli/index.js ppman install python=3.9.4`}
 
 </CodeBlock>
 
-          <p className="font-semibold text-white">3. Set the Piston URL on the backend & enable Piston</p>
+          <p className="font-semibold text-ludo-white-bright">3. Set the Piston URL on the backend & enable Piston</p>
           <CodeBlock language="bash">
             {`# Set the URL
 

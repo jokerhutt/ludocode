@@ -12,8 +12,10 @@ type DevInfoDialogProps = {
 export function DevInfoDialog({ content, children }: DevInfoDialogProps) {
   return (
     <LudoDialog trigger={<>{children}</>}>
-      <DialogTitle className="text-white">{content.title}</DialogTitle>
-      <div className="prose prose-invert  whitespace-pre-wrap text-white">
+      <DialogTitle className="text-ludo-white-bright">
+        {content.title}
+      </DialogTitle>
+      <div className="prose prose-invert  whitespace-pre-wrap text-ludo-white-bright">
         <ReactMarkdown>{content.body}</ReactMarkdown>
       </div>
     </LudoDialog>

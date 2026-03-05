@@ -26,7 +26,7 @@ export function LessonPreviewItem({
       <p className="text-sm">{title}</p>
       {isSelected && onNavigate && (
         <ExternalLink
-          className="h-4 w-4 text-ludo-accent hover:text-white shrink-0"
+          className="h-4 w-4 text-ludo-accent hover:text-ludo-white-bright shrink-0"
           onClick={(e) => {
             e.stopPropagation();
             onNavigate();

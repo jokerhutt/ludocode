@@ -31,9 +31,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(projectId));
       }}
-      className="w-full h-22 flex items-start text-white hover:cursor-pointer justify-between p-4"
+      className="w-full h-22 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
     >
-      <div className="w-full items-start text-white flex gap-4">
+      <div className="w-full items-start text-ludo-white-bright flex gap-4">
         <CustomIcon
           iconName={iconName}
           color="white"

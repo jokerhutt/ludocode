@@ -33,7 +33,7 @@ export function StreakStatsDialog({
           <div className="w-14 h-14 rounded-full bg-orange-400/15 flex items-center justify-center">
             <FireIcon className="h-7 w-7 text-orange-400" />
           </div>
-          <DialogTitle className="text-white font-bold text-xl">
+          <DialogTitle className="text-ludo-white-bright font-bold text-xl">
             Your Streak
           </DialogTitle>
         </div>
@@ -59,7 +59,7 @@ export function StreakStatsDialog({
 
         <WeeklyStreakGroup history={pastWeekStreak} />
 
-        <p className="text-white/30 text-xs text-center">
+        <p className="text-ludo-white-bright/30 text-xs text-center">
           Complete a lesson each day to keep your streak alive!
         </p>
       </DialogWrapper>

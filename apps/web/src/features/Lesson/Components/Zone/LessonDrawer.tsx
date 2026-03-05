@@ -36,7 +36,7 @@ export function LessonFeedbackDrawer() {
           border,
         )}
       >
-        <div className="py-3 px-8 text-white">
+        <div className="py-3 px-8 text-ludo-white-bright">
           <h3 className="lg:text-lg font-medium">{text}</h3>
         </div>
       </div>

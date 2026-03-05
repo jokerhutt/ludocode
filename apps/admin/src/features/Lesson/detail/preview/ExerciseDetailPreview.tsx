@@ -19,9 +19,11 @@ export function ExerciseDetailPreview({
   const title = getExerciseTitle(exercise);
 
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+    <div className="flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumCardHeader>
-        <p className="text-white w-full text-center font-bold">{title}</p>
+        <p className="text-ludo-white-bright w-full text-center font-bold">
+          {title}
+        </p>
       </CurriculumCardHeader>
 
       <CurriculumCardContent className="bg-ludo-background">

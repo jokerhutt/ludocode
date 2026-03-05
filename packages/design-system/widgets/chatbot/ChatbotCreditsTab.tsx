@@ -21,7 +21,11 @@ export function ChatbotCreditsTab({
         <span
           className={cn(
             "font-medium",
-            empty ? "text-white/30" : low ? "text-amber-400" : "text-white/60",
+            empty
+              ? "text-ludo-white-bright/30"
+              : low
+                ? "text-amber-400"
+                : "text-ludo-white-bright/60",
           )}
         >
           {empty
@@ -30,7 +34,7 @@ export function ChatbotCreditsTab({
         </span>
       </div>
       {!empty && (
-        <span className="text-[10px] text-white/25 tracking-wide uppercase">
+        <span className="text-[10px] text-ludo-white-bright/25 tracking-wide uppercase">
           remaining
         </span>
       )}

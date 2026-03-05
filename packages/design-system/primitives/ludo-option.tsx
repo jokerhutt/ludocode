@@ -77,11 +77,11 @@ export function LudoOption(props: LudoOptionProps) {
         isSelected
           ? isWide
             ? "bg-ludo-accent/70 text-ludo-white-dim shadow-[0_5px_0_#262E57]/50 translate-y-0.5"
-            : "bg-ludo-surface/60 text-ludo-white-dim shadow-[0_4px_0_#262E57]/50 translate-y-0.5"
-          : "bg-ludo-surface text-white shadow-[0_5px_0_#262E57] hover:brightness-110",
+            : "bg-ludo-surface-dim text-ludo-white-dim shadow-[0_4px_0_#262E57]/50 translate-y-0.5"
+          : "bg-ludo-surface text-ludo-white-bright shadow-[0_5px_0_#262E57] hover:brightness-110",
         feedbackStyle,
         props.className,
-        isWide ? "text-center text-white" : "text-md",
+        isWide ? "text-center text-ludo-white-bright" : "text-md",
       )}
     >
       {content}

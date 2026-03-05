@@ -26,24 +26,27 @@ export function LanguageCard({ language }: LanguageCardProps) {
       />
       <div className="w-full text-ludo-white p-4 text-start flex flex-col gap-2">
         <p>
-          <span className="font-bold text-white">NAME:</span> {language.name}
+          <span className="font-bold text-ludo-white-bright">NAME:</span>{" "}
+          {language.name}
         </p>
         <p>
-          <span className="font-bold text-white">ID:</span>{" "}
+          <span className="font-bold text-ludo-white-bright">ID:</span>{" "}
           {language.languageId}
         </p>
         <p>
-          <span className="font-bold text-white">BASE:</span> {language.base}
+          <span className="font-bold text-ludo-white-bright">BASE:</span>{" "}
+          {language.base}
         </p>
         <p>
-          <span className="font-bold text-white">EXTENSION:</span>{" "}
+          <span className="font-bold text-ludo-white-bright">EXTENSION:</span>{" "}
           {language.extension}
         </p>
         <p>
-          <span className="font-bold text-white">SLUG:</span> {language.slug}
+          <span className="font-bold text-ludo-white-bright">SLUG:</span>{" "}
+          {language.slug}
         </p>
         <p>
-          <span className="font-bold text-white">ICON NAME:</span>{" "}
+          <span className="font-bold text-ludo-white-bright">ICON NAME:</span>{" "}
           {language.iconName}
         </p>
       </div>

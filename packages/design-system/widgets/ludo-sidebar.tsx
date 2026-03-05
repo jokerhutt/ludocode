@@ -14,18 +14,18 @@ export function LudoSidebar({ title, children }: LudoSidebarProps) {
   return (
     <Sidebar collapsible="icon" className="border-r-ludo-accent-muted">
       <div className="w-full h-14 px-2 bg-ludo-surface flex items-center justify-start">
-        <SidebarTrigger className=" hover:cursor-pointer text-white" />
+        <SidebarTrigger className=" hover:cursor-pointer text-ludo-white-bright" />
       </div>
       <SidebarContent
         data-state="expanded"
-        className="bg-ludo-background p-2 text-white"
+        className="bg-ludo-background p-2 text-ludo-white-bright"
       >
         <SidebarGroup>
-          <SidebarGroupLabel className="text-lg text-white">
+          <SidebarGroupLabel className="text-lg text-ludo-white-bright">
             {title}
           </SidebarGroupLabel>
 
-          <SidebarGroupContent className="text-white pl-2 py-4 group-data-[collapsible=icon]:opacity-0 transition-[margin,opacity] duration-200 ease-linear">
+          <SidebarGroupContent className="text-ludo-white-bright pl-2 py-4 group-data-[collapsible=icon]:opacity-0 transition-[margin,opacity] duration-200 ease-linear">
             {children}
           </SidebarGroupContent>
         </SidebarGroup>

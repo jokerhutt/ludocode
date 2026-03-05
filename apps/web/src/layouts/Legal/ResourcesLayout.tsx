@@ -25,7 +25,7 @@ export function ResourcesLayout() {
           <div className="col-span-full px-6 lg:px-18 flex items-center justify-between">
             <h1
               onClick={() => handleLogoClick()}
-              className="text-2xl font-bold hover:cursor-pointer text-white"
+              className="text-2xl font-bold hover:cursor-pointer text-ludo-white-bright"
             >
               Ludocode
             </h1>

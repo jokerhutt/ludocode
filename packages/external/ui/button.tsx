@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default:
           "bg-ludo-accent-muted hover:cursor-pointer text-black hover:bg-ludo-accent-muted/80",
         destructive:
-          "bg-red-300 text-black hover:text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-red-300 text-black hover:text-ludo-white-bright hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-Input/30 dark:border-Input dark:hover:bg-Input/50",
         secondary:
@@ -36,7 +36,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 function Button({

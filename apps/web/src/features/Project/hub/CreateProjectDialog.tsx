@@ -58,7 +58,7 @@ export function CreateProjectDialog({
         closeModal();
       }}
     >
-      <DialogTitle className="text-white code font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright code font-bold text-xl">
         New Project
       </DialogTitle>
 

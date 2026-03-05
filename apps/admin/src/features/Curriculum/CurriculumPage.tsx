@@ -127,7 +127,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
               courseId={courseId}
               courseName={courseName}
             />
-            <h1 className="text-white text-3xl font-bold">{courseName}</h1>
+            <h1 className="text-ludo-white-bright text-3xl font-bold">
+              {courseName}
+            </h1>
             <CurriculumHero
               courseLanguage={courseLanguage}
               courseId={courseId}

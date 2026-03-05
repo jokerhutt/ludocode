@@ -36,7 +36,7 @@ export function ChatBotConversation({ messages }: ChatBotConversationProps) {
                             "catppuccin-macchiato",
                           ]}
                           parseIncompleteMarkdown
-                          className="text-white chatbot-content"
+                          className="text-ludo-white-bright chatbot-content"
                         >
                           {part.text}
                         </MessageResponse>

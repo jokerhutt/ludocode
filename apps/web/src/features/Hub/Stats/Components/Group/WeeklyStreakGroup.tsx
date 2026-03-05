@@ -48,7 +48,7 @@ export function WeeklyStreakGroup({
               <p
                 className={cn(
                   "text-[10px] font-medium",
-                  day.met ? "text-orange-400/70" : "text-white/25",
+                  day.met ? "text-orange-400/70" : "text-ludo-white-bright/25",
                 )}
               >
                 {dates[index]}

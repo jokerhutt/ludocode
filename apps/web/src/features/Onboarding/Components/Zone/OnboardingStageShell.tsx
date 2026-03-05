@@ -19,7 +19,7 @@ export function OnboardingStageShell({
       transition={{ duration: 0.6, ease: "easeInOut" }}
       className="flex flex-col items-center"
     >
-      <h1 className="text-3xl text-center font-bold text-white tracking-tight">
+      <h1 className="text-3xl text-center font-bold text-ludo-white-bright tracking-tight">
         {title}
       </h1>
 

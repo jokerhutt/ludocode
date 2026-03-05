@@ -1,7 +1,7 @@
 @theme {
   /* == BACKGROUND == */
   --color-ludo-background: #22273e;
-  
+
   /* == SURFACE == */
   --color-ludo-surface: #303966;
   --color-ludo-surface-dim: color-mix(
@@ -22,6 +22,11 @@
     var(--color-ludo-accent) 40%,
     transparent
   );
+  --color-ludo-accent-dim: color-mix(
+    in srgb,
+    var(--color-ludo-accent) 50%,
+    transparent
+  );
 
   /* == MUTED ACCENT == */
   --color-ludo-accent-muted: #9eb2ff;
@@ -37,7 +42,6 @@
   --color-ludo-white-dim: #ffffff80;
   --color-ludo-white-disabled: #ffffff40;
   --color-ludo-white-hover: #ffffffcc;
-
 
   --color-ludo-progress: #6a7cff;
   --color-ludo-border: #2a304f;

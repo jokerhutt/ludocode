@@ -19,10 +19,10 @@ export function LudoCard({
   variant = "default",
 }: LudoCardProps) {
   const variantStyles: Record<LudoButtonVariant, string> = {
-    default: "bg-ludo-surface text-white",
-    alt: "bg-ludo-accent text-white",
+    default: "bg-ludo-surface text-ludo-white-bright",
+    alt: "bg-ludo-accent text-ludo-white-bright",
     white: "bg-white text-black",
-    danger: "bg-ludo-danger text-white",
+    danger: "bg-ludo-danger text-ludo-white-bright",
   };
 
   const disabledVariantStyles: Record<LudoButtonVariant, string> = {

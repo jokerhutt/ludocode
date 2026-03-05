@@ -13,7 +13,7 @@ export function AddCurriculumItemButton({
     <div
       role="button"
       onClick={onAdd}
-      className="w-full hover:cursor-pointer hover:bg-ludo-accent/20
+      className="w-full hover:cursor-pointer hover:bg-ludo-surface-hover
                  text-ludo-accent border border-dashed py-2 px-4
                  flex items-center border-ludo-accent rounded-sm gap-4"
     >

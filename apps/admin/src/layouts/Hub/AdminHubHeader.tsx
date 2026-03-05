@@ -17,7 +17,7 @@ export function AdminHubHeader() {
         device="Both"
       >
         <div className="col-start-2 col-end-12 flex items-center justify-start">
-          <h1 className="lg:hidden text-lg font-bold text-white">
+          <h1 className="lg:hidden text-lg font-bold text-ludo-white-bright">
             Ludocode Admin Hub
           </h1>
           <AdminNavigationIconGroup />

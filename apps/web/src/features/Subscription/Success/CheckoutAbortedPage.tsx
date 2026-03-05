@@ -24,7 +24,7 @@ export function CheckoutAbortedPage() {
       <div className="col-span-1" />
       <div className="col-span-10 flex flex-col items-center justify-center text-center gap-8 py-20">
         <div className="flex flex-col gap-3 items-center">
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">
+          <h1 className="text-2xl lg:text-3xl font-bold text-ludo-white-bright">
             Checkout Canceled
           </h1>
 

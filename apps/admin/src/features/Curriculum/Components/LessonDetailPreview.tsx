@@ -26,7 +26,7 @@ export function LessonDetailPreview({
   return (
     <CurriculumCard className="">
       <CurriculumCardHeader>
-        <p className="text-white font-bold">{title}</p>
+        <p className="text-ludo-white-bright font-bold">{title}</p>
       </CurriculumCardHeader>
 
       <CurriculumCardContent className="items-center bg-ludo-background justify-center gap-4">

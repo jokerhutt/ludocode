@@ -8,7 +8,12 @@ type LabelPair = {
 
 export function LabelPair({ children, className }: LabelPair) {
   return (
-    <div className={cn("flex gap-4 text-white items-center", className)}>
+    <div
+      className={cn(
+        "flex gap-4 text-ludo-white-bright items-center",
+        className,
+      )}
+    >
       {children}
     </div>
   );

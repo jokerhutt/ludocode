@@ -17,7 +17,7 @@ function StaticOption({ content, isCorrect, layout }: StaticOptionProps) {
           "py-2 code px-4 border-3 rounded-xl",
           isCorrect
             ? "border-emerald-500/40 text-emerald-400"
-            : "border-ludo-surface-dim text-white",
+            : "border-ludo-surface-dim text-ludo-white-bright",
         )}
       >
         <p className="text-md">{content}</p>
@@ -34,7 +34,7 @@ function StaticOption({ content, isCorrect, layout }: StaticOptionProps) {
           : "border-ludo-surface bg-ludo-surface",
       )}
     >
-      <p className="text-left text-white">{content}</p>
+      <p className="text-left text-ludo-white-bright">{content}</p>
     </div>
   );
 }
@@ -44,7 +44,7 @@ function StaticCodeBlock({ prompt }: { prompt: string }) {
 
   return (
     <p
-      className="text-white text-lg text-start items-center leading-loose font-light
+      className="text-ludo-white-bright text-lg text-start items-center leading-loose font-light
         flex flex-wrap *:mr-1 [&>*:last-child]:mr-0 gap-y-2 overflow-x-hidden"
     >
       {parts.map((part, index) => (

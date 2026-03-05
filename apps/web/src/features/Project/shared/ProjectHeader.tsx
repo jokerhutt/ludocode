@@ -25,12 +25,12 @@ export function ProjectHeader() {
   return (
     <LudoHeader>
       <LudoHeader.Shell className="border-b lg:border-b" device="Desktop">
-        <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
+        <div className="col-span-1 text-ludo-white-bright pl-6 lg:col-span-3 flex items-center">
           <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
             <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
           </HollowSlotButton>
         </div>
-        <div className="col-span-10 text-white flex items-center gap-4 justify-center lg:col-span-6 ">
+        <div className="col-span-10 text-ludo-white-bright flex items-center gap-4 justify-center lg:col-span-6 ">
           <h1>{projectName}</h1>
           <SaveStatusIcon
             isSaved={isSaved}
@@ -39,7 +39,7 @@ export function ProjectHeader() {
             lastSavedAt={lastSavedAt}
           />
         </div>
-        <div className="col-span-1 text-white lg:col-span-3"></div>
+        <div className="col-span-1 text-ludo-white-bright lg:col-span-3"></div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
     </LudoHeader>

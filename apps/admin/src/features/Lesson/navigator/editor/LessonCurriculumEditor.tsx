@@ -35,7 +35,7 @@ export const LessonCurriculumEditor = withForm({
     return (
       <CurriculumCard>
         <CurriculumCardHeader>
-          <p className="text-white font-bold">Editing Exercises</p>
+          <p className="text-ludo-white-bright font-bold">Editing Exercises</p>
           <EditorActions
             onSave={onSave}
             onCancel={onCancel}

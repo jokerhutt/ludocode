@@ -7,7 +7,7 @@ export function CurriculumCard({ children, className }: CurriculumCardProps) {
   return (
     <div
       className={cn(
-        "flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full",
+        "flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full",
         className,
       )}
     >

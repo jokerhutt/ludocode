@@ -83,7 +83,7 @@ export function DocsPage() {
             </svg>
           )}
         </button>
-        <span className="text-sm font-medium text-white truncate">
+        <span className="text-sm font-medium text-ludo-white-bright truncate">
           {entry.frontmatter.title}
         </span>
       </div>
@@ -118,7 +118,7 @@ export function DocsPage() {
       >
         {/* Article title */}
         <div className="mb-2">
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-ludo-white-bright tracking-tight">
             {entry.frontmatter.title}
           </h1>
           {entry.frontmatter.description && (
@@ -126,7 +126,7 @@ export function DocsPage() {
               {entry.frontmatter.description}
             </p>
           )}
-          <div className="h-px bg-linear-to-r from-ludo-accent/60 to-transparent mt-3" />
+          <div className="h-px bg-linear-to-r from-ludo-accent-dim to-transparent mt-3" />
         </div>
 
         {/* MDX content */}

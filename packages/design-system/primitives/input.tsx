@@ -15,7 +15,7 @@ export function InputWrapper({
   return (
     <div
       className={cn(
-        "flex flex-col text-white w-full gap-2 items-start",
+        "flex flex-col text-ludo-white-bright w-full gap-2 items-start",
         className,
       )}
     >
@@ -91,7 +91,7 @@ export function LudoInput({
             setValue(e.target.value);
           }}
           className={cn(
-            "bg-ludo-surface placeholder:text-ludoGray pr-10 h-12 border border-transparent text-white",
+            "bg-ludo-surface placeholder:text-ludoGray pr-10 h-12 border border-transparent text-ludo-white-bright",
             ringStyle,
             errorStyle,
             variantStyle,

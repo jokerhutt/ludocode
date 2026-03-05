@@ -18,11 +18,11 @@ export function ErrorPage({ errorCode }: ErrorPageProps) {
               {status}
             </span>
 
-            <div className="w-12 h-[2px] bg-ludo-accent/40 rounded-full" />
+            <div className="w-12 h-[2px] bg-ludo-accent-dim rounded-full" />
           </div>
 
           <div className="flex flex-col gap-3 max-w-md">
-            <h1 className="text-xl lg:text-2xl font-semibold text-white">
+            <h1 className="text-xl lg:text-2xl font-semibold text-ludo-white-bright">
               {title}
             </h1>
             <p className="text-sm lg:text-base text-ludo-accent-muted">

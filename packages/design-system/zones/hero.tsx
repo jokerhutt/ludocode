@@ -11,10 +11,10 @@ export type HeroProps = HeroContentProps & {
 
 export function Hero({ title, subtitle, children }: HeroProps) {
   return (
-    <div className="relative rounded-xl bg-ludo-surface-dim px-6 py-5 flex w-full items-center justify-between text-white gap-x-8 gap-y-3 flex-wrap">
+    <div className="relative rounded-xl bg-ludo-surface-dim px-6 py-5 flex w-full items-center justify-between text-ludo-white-bright gap-x-8 gap-y-3 flex-wrap">
       <div className="flex flex-col gap-0.5 min-w-0">
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-        <p className="text-sm lg:text-base text-white/70 leading-relaxed">
+        <p className="text-sm lg:text-base text-ludo-white-bright/70 leading-relaxed">
           {subtitle}
         </p>
       </div>

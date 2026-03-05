@@ -10,7 +10,7 @@ export function DocsSidebar({ activeSlug, onNavigate }: DocsSidebarProps) {
     <aside className="sticky top-0 h-full overflow-y-auto scrollbar-ludo-accent pr-4 pb-8">
       {/* Logo / Title */}
       <div className="mb-6 pt-1">
-        <h2 className="text-lg font-bold text-white tracking-tight">
+        <h2 className="text-lg font-bold text-ludo-white-bright tracking-tight">
           Documentation
         </h2>
         <p className="text-xs text-ludo-white-dim mt-0.5">Ludocode</p>
@@ -61,7 +61,7 @@ function SidebarSection({
                   ${
                     isActive
                       ? "bg-ludo-accent/15 text-ludo-accent-muted font-medium"
-                      : "text-ludo-white hover:text-white hover:bg-white/5"
+                      : "text-ludo-white hover:text-ludo-white-bright hover:bg-white/5"
                   }
                 `}
               >

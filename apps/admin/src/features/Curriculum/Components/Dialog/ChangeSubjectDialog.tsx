@@ -68,7 +68,7 @@ export function ChangeSubjectDialog({
         close();
       }}
     >
-      <DialogTitle className="text-white font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         Change Subject
       </DialogTitle>
 

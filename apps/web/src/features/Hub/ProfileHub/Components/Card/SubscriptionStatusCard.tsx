@@ -23,7 +23,7 @@ export function SubscriptionStatusCard({
   const isFree = planCode === "FREE";
 
   const statusColor = isFree
-    ? "text-white/60"
+    ? "text-ludo-white-bright/60"
     : cancelAtPeriodEnd
       ? "text-red-400"
       : "text-green-400";

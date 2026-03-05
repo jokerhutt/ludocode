@@ -51,7 +51,9 @@ export function MobileModuleSlideOver({
             <p className="text-ludo-white-dim text-[10px] font-semibold uppercase tracking-widest">
               {courseName}
             </p>
-            <p className="text-white text-base font-bold">Select Module</p>
+            <p className="text-ludo-white-bright text-base font-bold">
+              Select Module
+            </p>
           </div>
         </LudoSlideOver.Header>
 

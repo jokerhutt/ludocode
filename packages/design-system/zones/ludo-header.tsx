@@ -8,7 +8,6 @@ export type DeviceType = "Mobile" | "Desktop" | "Both";
 
 export type BarState = "idle" | "loading" | "loadingDone";
 
-
 function LudoHeaderRoot({
   children,
   className,
@@ -78,12 +77,12 @@ function Banner({ text }: { text: string }) {
         ref={innerRef}
         className="flex w-full items-center justify-center gap-3 bg-ludo-incorrect px-4 py-1.5"
       >
-        <p className="text-xs font-medium text-white text-center flex-1">
+        <p className="text-xs font-medium text-ludo-white-bright text-center flex-1">
           {text}
         </p>
         <button
           onClick={() => setVisible(false)}
-          className="shrink-0 rounded-full p-0.5 text-xs lg:text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+          className="shrink-0 rounded-full p-0.5 text-xs lg:text-sm text-ludo-white-bright/70 hover:text-ludo-white-bright hover:bg-white/10 transition-colors"
           aria-label="Dismiss banner"
         >
           <X className="h-3.5 w-3.5" />

@@ -34,7 +34,9 @@ export function HubHeader({ title }: HubHeaderProps) {
       >
         <Suspense fallback={<div />}>
           <div className="col-start-2 col-end-12 flex items-center justify-between">
-            <h1 className="lg:hidden text-lg font-bold text-white">{title}</h1>
+            <h1 className="lg:hidden text-lg font-bold text-ludo-white-bright">
+              {title}
+            </h1>
             <NavigationIconGroup groupClassName="hidden lg:flex" />
             <div className="flex justify-end gap-4 items-center">
               <StatsGroup groupClassName="gap-0 lg:gap-4" />

@@ -34,7 +34,7 @@ export function SubscriptionComparisonPage() {
           />
         </div>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">
+          <h1 className="text-2xl lg:text-3xl font-bold text-ludo-white-bright">
             Choose Your Plan
           </h1>
           <p className="text-ludo-accent-muted text-sm lg:text-base max-w-md">

@@ -49,9 +49,9 @@ export function SubjectDetailPane({
   const canDelete = coursesForSubject.length === 0;
 
   return (
-    <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
+    <div className="flex rounded-lg min-h-0 text-ludo-white-bright border-3 border-ludo-border h-full flex-col w-full">
       <CurriculumCardHeader>
-        <p className="text-white font-bold">Subject</p>
+        <p className="text-ludo-white-bright font-bold">Subject</p>
 
         <div className="flex gap-3 items-center">
           {isEditing && (
@@ -119,7 +119,7 @@ export function SubjectDetailPane({
                     key={d.field}
                     className="flex items-center gap-4 text-sm text-ludo-white"
                   >
-                    <span className="font-medium text-white capitalize">
+                    <span className="font-medium text-ludo-white-bright capitalize">
                       {d.field}
                     </span>
 

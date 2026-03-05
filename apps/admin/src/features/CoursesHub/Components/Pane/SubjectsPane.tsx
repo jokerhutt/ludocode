@@ -32,7 +32,9 @@ export function SubjectsPane({ className, subjects }: SubjectsPaneProps) {
         <div className="flex flex-col rounded-lg border border-ludo-accent-muted/20 divide-y divide-ludo-accent-muted/20">
           {subjects.map((subject) => (
             <div key={subject.id} className="px-5 py-4 flex flex-col gap-1">
-              <p className="text-white font-medium">{subject.name}</p>
+              <p className="text-ludo-white-bright font-medium">
+                {subject.name}
+              </p>
 
               <p className="text-xs text-ludo-white">/{subject.slug}</p>
             </div>

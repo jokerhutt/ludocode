@@ -37,7 +37,7 @@ export function LudoSelect({
         <Select.Trigger
           className={cn(
             "h-12 w-full rounded-md px-3",
-            "text-white",
+            "text-ludo-white-bright",
             "border border-transparent",
             "flex items-center justify-between",
             error && "border-red-400",
@@ -87,7 +87,7 @@ export function LudoSelectItem({ value, children }: LudoSelectItemProps) {
       value={value}
       className={cn(
         "relative flex cursor-pointer select-none items-center rounded-sm px-8 py-2 text-sm",
-        "text-white outline-none",
+        "text-ludo-white-bright outline-none",
         "data-[highlighted]:bg-ludo-accent-muted/20",
         "data-[state=checked]:bg-ludo-accent-muted/30",
       )}

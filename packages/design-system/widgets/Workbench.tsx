@@ -46,7 +46,9 @@ function Winbar({ children, className }: WinbarProps) {
       )}
     >
       <div
-        className={cn("flex h-full text-white justify-between items-center")}
+        className={cn(
+          "flex h-full text-ludo-white-bright justify-between items-center",
+        )}
       >
         {children}
       </div>
@@ -65,7 +67,7 @@ function Content({ children, className, dataTestId }: ContentProps) {
     <div
       data-testid={dataTestId}
       className={cn(
-        "flex pl-4 pr-0 py-3 overflow-y-auto [scrollbar-gutter:stable] overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-white flex-col w-full",
+        "flex pl-4 pr-0 py-3 overflow-y-auto [scrollbar-gutter:stable] overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-ludo-white-bright flex-col w-full",
         className,
       )}
     >

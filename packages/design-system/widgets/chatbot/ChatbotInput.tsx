@@ -49,7 +49,7 @@ export function ChatBotInput({ handleSubmit }: ChatBotInputProps) {
       <PromptInputFooter className="py-1">
         <PromptInputTools />
         <PromptInputSubmit
-          className="bg-ludo-accent hover:bg-ludo-accent/80 text-white rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="bg-ludo-accent hover:bg-ludo-accent/80 text-ludo-white-bright rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           disabled={(!input && !status) || creditsEmpty}
         />
       </PromptInputFooter>
