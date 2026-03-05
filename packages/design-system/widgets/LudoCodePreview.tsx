@@ -358,13 +358,17 @@ function MobileSwipeOutput({
 
   const prevHasOutput = useRef(false);
   useEffect(() => {
-    if (hasOutput && !prevHasOutput.current) {
+    if (!hasOutput) {
+      x.set(0);
+      setPage(0);
+      prevHasOutput.current = false;
+    } else if (!prevHasOutput.current) {
       // AutoswipeAfterDelay
       prevHasOutput.current = true;
       const id = setTimeout(() => goTo(1), 350);
       return () => clearTimeout(id);
     }
-  }, [hasOutput, goTo]);
+  }, [hasOutput, x, goTo]);
 
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -459,13 +463,11 @@ function WithOutput({
     );
   }
 
-  const hasOutput = show && !!output;
-
   return (
     <div className="flex items-start justify-center w-full">
       <motion.div
         layout="position"
-        transition={OUTPUT_TRANSITION}
+        transition={{ layout: OUTPUT_TRANSITION }}
         className="w-full max-w-lg shrink-0"
       >
         {children}
