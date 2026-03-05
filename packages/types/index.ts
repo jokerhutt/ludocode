@@ -57,6 +57,7 @@ export * from "./Project/LanguageMetadata";
 
 // Preferences
 export * from "./Preferences/LudoCareer"
+export * from "./Preferences/TogglePreferencesRequest"
 
 // Static
 export * from "./Static/DevInfoContent";
@@ -79,7 +80,6 @@ export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
 export * from "./User/AvatarInfo";
 export * from "./User/EditProfileRequest";
-export * from "./User/TogglePreferencesRequest";
 
 // Zod
 export * from "./Zod/OnboardingSchema/OnboardingSnapSchema";
