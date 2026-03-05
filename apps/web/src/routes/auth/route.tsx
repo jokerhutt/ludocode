@@ -1,5 +1,5 @@
 import { ludoNavigation } from "@/constants/ludoNavigation";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/queries/definitions/queries";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/auth")({

@@ -1,4 +1,4 @@
-import { LessonPage } from "@/features/Lesson/Pages/LessonPage.tsx";
+import { LessonPage } from "@/features/lesson/LessonPage.tsx";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

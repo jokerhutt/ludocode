@@ -1,5 +1,5 @@
 import { adminNavigation } from "@/constants/adminNavigation";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/queries/definitions/queries";
 import { router } from "@/main";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

@@ -12,7 +12,7 @@ export type NavIcon = {
 export const getAdminNavIcons = (): NavIcon[] => [
   {
     name: "Courses",
-    path: "/courses",
+    path: "/course",
     onClick: () =>
       router.navigate(adminNavigation.hub.courses.toCoursesHub()),
   },

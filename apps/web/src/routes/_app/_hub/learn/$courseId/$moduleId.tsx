@@ -1,11 +1,11 @@
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
-import { ModuleHubLayout } from "@/layouts/Hub/ModuleHubLayout.tsx";
+import { qo } from "@/queries/definitions/queries.ts";
+import { ModuleHubLayout } from "@/layouts/hub/ModuleHubLayout.tsx";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_hub/learn/$courseId/$moduleId")({
-  staticData: { headerTitle: "Modules" },
+  staticData: { headerTitle: "modules" },
   loader: async ({ params, context }) =>
     modulePageLoader(params, context.queryClient),
   component: ModuleHubLayout,

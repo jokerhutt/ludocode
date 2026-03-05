@@ -1,4 +1,4 @@
-import { CompletionLayout } from "@/layouts/Completion/CompletionLayout.tsx";
+import { CompletionLayout } from "@/layouts/completion/CompletionLayout.tsx";
 import { createFileRoute } from "@tanstack/react-router";
 import z from "zod";
 

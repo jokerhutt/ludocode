@@ -19,8 +19,8 @@ export type FeatureMeta = {
 export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
   isAIEnabled: {
     env: "AI_ENABLED",
-    title: "AI Assistant",
-    description: "Without the AI feature enabled, the chatbot is unavailable",
+    title: "ai Assistant",
+    description: "Without the ai feature enabled, the chatbot is unavailable",
   },
   isGcsEnabled: {
     env: "GCS_ENABLED",

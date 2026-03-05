@@ -3,7 +3,7 @@ import type { PromptInputMessage } from "../../../external/ai-elements/prompt-in
 import { ChatBotConversation } from "./ChatbotConversation";
 import { ChatBotInput } from "./ChatbotInput";
 import { useAutoScrollDown } from "@ludocode/hooks";
-import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext.js";
+import { useChatbot } from "../../../../apps/web/src/features/ai/context/ChatBotContext.js";
 
 type ChatBotProps = {
   className?: string;

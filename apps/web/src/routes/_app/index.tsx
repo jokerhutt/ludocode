@@ -1,4 +1,4 @@
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/queries/definitions/queries.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 

@@ -1,0 +1,77 @@
+import type { CurriculumDraftLessonForm } from "@ludocode/types";
+import { withForm } from "@/features/curriculum/types.ts";
+import { EditorActions } from "@/features/curriculum/navigator/editor/EditorActions.tsx";
+import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
+import { createNewExerciseTemplate } from "../../detail/editor/templates.ts";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
+import {
+  CurriculumCard,
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
+} from "@/features/curriculum/components/CurriculumList.tsx";
+
+export const LessonCurriculumEditor = withForm({
+  defaultValues: {
+    exercises: [] as CurriculumDraftLessonForm["exercises"],
+  },
+  props: {
+    onSave: () => {},
+    onCancel: () => {},
+    canSubmit: false,
+    isSubmitting: false,
+    selectedExerciseId: null as string | null,
+    onSelectExercise: (() => {}) as (id: string | null) => void,
+  },
+  render: function Render({
+    form,
+    onSave,
+    onCancel,
+    canSubmit,
+    isSubmitting,
+    selectedExerciseId,
+    onSelectExercise,
+  }) {
+    return (
+      <CurriculumCard>
+        <CurriculumCardHeader>
+          <p className="text-ludo-white-bright font-bold">Editing Exercises</p>
+          <EditorActions
+            onSave={onSave}
+            onCancel={onCancel}
+            canSubmit={canSubmit}
+            isSubmitting={isSubmitting}
+          />
+        </CurriculumCardHeader>
+
+        <CurriculumCardContent className="p-0 bg-ludo-background">
+          <SortableExerciseContainer
+            form={form}
+            selectedExerciseId={selectedExerciseId}
+            onSelectExercise={onSelectExercise}
+          />
+        </CurriculumCardContent>
+
+        <CurriculumCardFooter>
+          <form.Field name="exercises" mode="array">
+            {(exercisesField) => (
+              <div className="flex justify-between w-full items-center">
+                <p className="text-xs">
+                  {exercisesField.state.value.length} exercises
+                </p>
+                <ShadowLessButton
+                  type="button"
+                  onClick={() =>
+                    exercisesField.pushValue(createNewExerciseTemplate())
+                  }
+                >
+                  + Add Exercise
+                </ShadowLessButton>
+              </div>
+            )}
+          </form.Field>
+        </CurriculumCardFooter>
+      </CurriculumCard>
+    );
+  },
+});

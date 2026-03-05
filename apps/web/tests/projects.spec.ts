@@ -27,7 +27,7 @@ test("user can go to created project & edit", async ({ page }) => {
   await initialiseUser(page);
 
   const projectHubButton = page.getByTestId("nav-button-header-Projects");
-  const projectHubCards = page.getByTestId("project-hub-card");
+  const projectHubCards = page.getByTestId("project-hub-components");
 
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
@@ -62,7 +62,7 @@ test("user can got to created project, run code, & clear output", async ({
   await initialiseUser(page);
 
   const projectHubButton = page.getByTestId("nav-button-header-Projects");
-  const projectHubCards = page.getByTestId("project-hub-card");
+  const projectHubCards = page.getByTestId("project-hub-components");
 
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
@@ -96,7 +96,7 @@ test("user can go to created project & create + import files", async ({
   await initialiseUser(page);
 
   const projectHubButton = page.getByTestId("nav-button-header-Projects");
-  const projectHubCards = page.getByTestId("project-hub-card");
+  const projectHubCards = page.getByTestId("project-hub-components");
 
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();

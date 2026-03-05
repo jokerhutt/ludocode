@@ -8,7 +8,7 @@ export const curriculumDraftSchema = z.object({
       lessons: z.array(
         z.object({
           id: z.string(),
-          title: z.string().min(1, "Lesson title required"),
+          title: z.string().min(1, "lesson title required"),
         }),
       ),
     }),
@@ -43,7 +43,7 @@ export const ParagraphBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: z.string().min(1, "Language required"),
+  language: z.string().min(1, "language required"),
   content: z.string().min(1, "Code content required"),
   output: z.string().optional()
 });
@@ -101,7 +101,7 @@ export const CurriculumDraftExerciseSchema = z.object({
   interaction: ExerciseInteractionSchema.nullable().optional(),
 });
 
-// ─── Lesson ────────────────────────────────────────────────────────────
+// ─── lesson ────────────────────────────────────────────────────────────
 
 export const CurriculumDraftLessonSchema = z.object({
   exercises: z.array(CurriculumDraftExerciseSchema),

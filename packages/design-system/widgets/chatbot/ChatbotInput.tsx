@@ -14,7 +14,7 @@ import {
   MessageActions,
 } from "@ludocode/external/ai-elements/message";
 import { ChatbotCreditsTab } from "./ChatbotCreditsTab";
-import { useChatbot } from "../../../../apps/web/src/features/AI/Context/ChatBotContext";
+import { useChatbot } from "../../../../apps/web/src/features/ai/context/ChatBotContext";
 
 type ChatBotInputProps = {
   handleSubmit: (message: PromptInputMessage) => void;

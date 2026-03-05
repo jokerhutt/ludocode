@@ -1,0 +1,153 @@
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@ludocode/external/ui/drawer.tsx";
+import { SubscriptionBadge } from "@/features/subscription/shared/components/SubscriptionBadge.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { router } from "@/main.tsx";
+import {
+  LockIcon,
+  NotebookText,
+  Scroll,
+  Settings,
+  User,
+  X,
+} from "lucide-react";
+import type { ReactElement } from "react";
+import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
+import { LogoutButton } from "@/features/auth/components/LogoutButton.tsx";
+import { DeleteAccountButton } from "@/features/auth/components/DeleteAccountButton.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/queries/definitions/queries.ts";
+
+type ProfileDrawerProps = {
+  trigger: ReactElement;
+  user: LudoUser;
+  plan: SubscriptionPlan;
+};
+
+export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
+  const { data: authMode } = useSuspenseQuery(qo.activeFeatures());
+
+  return (
+    <Drawer direction="right">
+      <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+
+      <DrawerContent className="w-full lg:w-1/3 lg:max-w-md sm:max-w-full rounded-none border-l flex flex-col border-ludo-border bg-ludo-background">
+        <DrawerHeader className="relative border-b border-ludo-border px-6 py-4">
+          <div className="flex items-center justify-between">
+            <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-ludo-white-bright">
+              Account
+              <SubscriptionBadge className="mt-1" tier={plan} />
+            </DrawerTitle>
+            <DrawerClose asChild>
+              <button
+                type="button"
+                aria-label="Close"
+                className="rounded-md p-1 hover:bg-ludo-surface transition-colors"
+              >
+                <X className="h-4 w-4 text-ludo-white" />
+              </button>
+            </DrawerClose>
+          </div>
+        </DrawerHeader>
+
+        <nav className="flex-1 overflow-y-auto flex flex-col gap-1 pl-2 p-4">
+          <DrawerClose asChild>
+            <NavItem
+              icon={<User className="h-5 w-5" />}
+              label="Profile"
+              onClick={() =>
+                router.navigate(ludoNavigation.hub.profile.toProfile(user.id))
+              }
+            />
+          </DrawerClose>
+          <DrawerClose asChild>
+            <NavItem
+              icon={<Settings className="h-5 w-5" />}
+              label="Settings"
+              onClick={() =>
+                router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
+              }
+            />
+          </DrawerClose>
+          {/* <DrawerClose asChild>
+            <NavItem
+              icon={<LifeBuoy className="h-5 w-5" />}
+              label="Support"
+              onClick={() =>
+                router.navigate(ludoNavigation.hub.user.toSettings(user.id))
+              }
+            />
+          </DrawerClose> */}
+          <DrawerClose asChild>
+            <NavItem
+              icon={<NotebookText className="h-5 w-5" />}
+              label="Documentation"
+              onClick={() => router.navigate(ludoNavigation.resources.toDocs())}
+            />
+          </DrawerClose>
+          {/* <DrawerClose asChild>
+            <NavItem
+              icon={<Map className="h-5 w-5" />}
+              label="Roadmap"
+              onClick={() =>
+                router.navigate(ludoNavigation.hub.user.toSettings(user.id))
+              }
+            />
+          </DrawerClose> */}
+          <DrawerClose asChild>
+            <NavItem
+              icon={<LockIcon className="h-5 w-5" />}
+              label="Privacy Policy"
+              onClick={() =>
+                router.navigate(ludoNavigation.resources.toPrivacy())
+              }
+            />
+          </DrawerClose>
+          <DrawerClose asChild>
+            <NavItem
+              icon={<Scroll className="h-5 w-5" />}
+              label="Terms of service"
+              onClick={() => router.navigate(ludoNavigation.resources.toToS())}
+            />
+          </DrawerClose>
+        </nav>
+
+        {authMode.authMode !== "DEMO" && (
+          <div className="border-t border-ludo-border p-4 flex justify-between items-center gap-2">
+            <LogoutButton />
+            <DeleteAccountButton username={user.displayName!!} />
+          </div>
+        )}
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+function NavItem({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: ReactElement;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      type="button"
+      className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-ludo-white transition-colors hover:cursor-pointer hover:bg-ludo-surface"
+    >
+      <span className="flex items-center justify-center text-ludo-muted">
+        {icon}
+      </span>
+      <span>{label}</span>
+    </button>
+  );
+}

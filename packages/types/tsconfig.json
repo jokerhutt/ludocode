@@ -20,6 +20,6 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "../../apps/web/src/features/Onboarding/Templates/OnboardingSteps.ts"
+    "../../apps/web/src/features/onboarding/Templates/OnboardingSteps.ts"
   ]
 }

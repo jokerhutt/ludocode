@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { qo } from "@/hooks/Queries/Definitions/queries.ts";
+import { qo } from "@/queries/definitions/queries.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { ludoGet } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";

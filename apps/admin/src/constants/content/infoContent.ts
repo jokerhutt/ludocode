@@ -1,7 +1,7 @@
 import { type DevInfoContent } from "@ludocode/types/Static/DevInfoContent";
 
 export const exTypeInfoContent: DevInfoContent = {
-  title: "Exercises: Lesson types",
+  title: "Exercises: lesson types",
   description:
     "When making exercises, you can select from one of four exercise types",
   body: `
