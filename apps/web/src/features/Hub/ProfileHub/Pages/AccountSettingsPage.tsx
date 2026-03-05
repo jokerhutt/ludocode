@@ -52,7 +52,7 @@ export function AccountSettingsPage() {
   };
 
   return (
-    <div className="col-span-full px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
+    <div className="col-span-full lg:px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <div className="w-full flex gap-4 py-6 items-center">
         <div className="relative">
           <div className="absolute -inset-1.5 rounded-full bg-ludo-accent/20 blur-md" />

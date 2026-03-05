@@ -2,7 +2,6 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import { router } from "@/main";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
-import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import { useQuery } from "@tanstack/react-query";
 import { Outlet } from "@tanstack/react-router";
@@ -20,7 +19,7 @@ export function ResourcesLayout() {
   };
 
   return (
-    <MainGridWrapper gridRows={"SITE"}>
+    <MainGridWrapper gridRows="FULL" className="grid-rows-[auto_1fr]">
       <LudoHeader.Shell>
         <Suspense fallback={<div />}>
           <div className="col-span-full px-6 lg:px-18 flex items-center justify-between">
@@ -39,9 +38,6 @@ export function ResourcesLayout() {
           <Outlet />
         </div>
       </Suspense>
-      <FooterShell className="lg:hidden">
-        <div></div>
-      </FooterShell>
     </MainGridWrapper>
   );
 }

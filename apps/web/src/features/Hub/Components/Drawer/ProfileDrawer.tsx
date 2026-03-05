@@ -58,7 +58,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
           </div>
         </DrawerHeader>
 
-        <nav className="flex-1 overflow-y-auto flex flex-col gap-1 p-4">
+        <nav className="flex-1 overflow-y-auto flex flex-col gap-1 pl-2 p-4">
           <DrawerClose asChild>
             <NavItem
               icon={<User className="h-5 w-5" />}
@@ -77,7 +77,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               }
             />
           </DrawerClose>
-          <DrawerClose asChild>
+          {/* <DrawerClose asChild>
             <NavItem
               icon={<LifeBuoy className="h-5 w-5" />}
               label="Support"
@@ -85,7 +85,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
                 router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
               }
             />
-          </DrawerClose>
+          </DrawerClose> */}
           <DrawerClose asChild>
             <NavItem
               icon={<NotebookText className="h-5 w-5" />}
@@ -95,7 +95,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               }
             />
           </DrawerClose>
-          <DrawerClose asChild>
+          {/* <DrawerClose asChild>
             <NavItem
               icon={<Map className="h-5 w-5" />}
               label="Roadmap"
@@ -103,7 +103,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
                 router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
               }
             />
-          </DrawerClose>
+          </DrawerClose> */}
           <DrawerClose asChild>
             <NavItem
               icon={<LockIcon className="h-5 w-5" />}

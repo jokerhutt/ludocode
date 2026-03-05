@@ -31,12 +31,12 @@ export function LessonFeedbackDrawer() {
     >
       <div
         className={cn(
-          "mx-auto lg:h-26 h-34 max-w-screen bg-ludo-background border-t-4",
+          "mx-auto lg:h-26 h-30 max-w-screen bg-ludo-background border-t-4",
           border
         )}
       >
-        <div className="py-4 px-8 text-white">
-          <h3 className="text-lg font-medium">{text}</h3>
+        <div className="py-3 px-8 text-white">
+          <h3 className="lg:text-lg font-medium">{text}</h3>
         </div>
       </div>
     </div>

@@ -62,7 +62,7 @@ export function LudoOption(props: LudoOptionProps) {
       : "";
 
   return (
-    <div
+    <button
       data-testId={
         props.testId ??
         (isWide
@@ -85,6 +85,6 @@ export function LudoOption(props: LudoOptionProps) {
       )}
     >
       {content}
-    </div>
+    </button>
   );
 }

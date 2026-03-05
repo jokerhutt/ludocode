@@ -51,7 +51,7 @@ export function ExerciseInteraction({
     exerciseType == "CLOZE" ? "ROW" : "COLUMN";
 
   return (
-    <div className={cn("flex flex-col justify-start gap-8")}>
+    <div className={cn("flex flex-col w-full items-center justify-start gap-8")}>
       {interactionFile && (
         <LudoCodePreview.WithOutput
           output={output}
@@ -59,6 +59,7 @@ export function ExerciseInteraction({
           mobile={mobileOutput}
         >
           <LudoCodePreview
+            className="lg:max-w-xl"
             prompt={interactionFile.content}
             options={options}
             userResponses={currentExerciseInputs}
@@ -79,7 +80,7 @@ export function ExerciseInteraction({
       )}
 
       {/* OPTIONS */}
-      <OptionListWrapper type={optionsLayout}>
+      <OptionListWrapper className="lg:max-w-xl max-w-xl" type={optionsLayout}>
         {options.map((option) => {
           const isSelected =
             currentExerciseInputs.find((t) => t.id === option.id) != null;
