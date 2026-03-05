@@ -3,9 +3,9 @@ import Lottie from "lottie-react";
 import { useCompletionContext } from "@/features/completion/context/CompletionContext.tsx";
 import { CompletionStatsGroup } from "@/features/completion/components/CompletionStatsGroup.tsx";
 import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter.tsx";
-import { useLottie, useTimedLottie } from "@ludocode/hooks";
 import { BadgeSingleCard } from "@/features/user/profile/components/BadgeCard.tsx";
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { useLottie, useTimedLottie } from "@ludocode/hooks";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();

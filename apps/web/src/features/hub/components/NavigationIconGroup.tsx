@@ -1,8 +1,8 @@
 import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
 import { useCurrentCourseContext } from "@/features/course/context/CurrentCourseContext.tsx";
-import { useIsMobile } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { useIsMobile } from "@ludocode/hooks";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;

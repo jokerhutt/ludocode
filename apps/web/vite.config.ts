@@ -52,7 +52,7 @@ export default defineConfig({
         __dirname,
         "../../packages/design-system",
       ),
-      "@ludocode/hooks": path.resolve(__dirname, "../../packages/queries"),
+      "@ludocode/hooks": path.resolve(__dirname, "../../packages/hooks"),
     },
   },
 });
