@@ -35,6 +35,8 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
   const courseLanguage = courses.find((c) => c.id == courseId)?.language;
 
+  const courseIcon = courses.find((c) => c.id === courseId)?.courseIcon;
+
   const [isEditing, setIsEditing] = useState(false);
 
   const qc = useQueryClient();
@@ -131,6 +133,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
             <CurriculumHero
               courseLanguage={courseLanguage}
               courseId={courseId}
+              courseIcon={courseIcon}
             />
           </div>
         </div>
