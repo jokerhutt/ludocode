@@ -2,15 +2,15 @@ import { Howl } from "howler";
 
 const sounds = {
   correct: new Howl({
-    src: ["/audio/SFX/checkout.mp3"],
-    volume: 0.4,
+    src: ["/audio/SFX/success.mp3"],
+    volume: 0.3,
     html5: true,
     onloaderror: (error) =>
       console.error("Failed to load correct sound:", error),
   }),
   wrong: new Howl({
     src: ["/audio/SFX/wrong.mp3"],
-    volume: 0.4,
+    volume: 0.3,
     html5: true,
     onloaderror: (error) =>
       console.error("Failed to load wrong sound:", error),
