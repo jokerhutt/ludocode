@@ -33,11 +33,13 @@ export function CompletionLayout() {
   const course = courses.find((course) => course.id == courseId);
   if (!course) return null;
   const courseName = course.title;
+  const courseIcon = course.courseIcon
 
   const completionState: CompletionState = {
     courseId,
     moduleId,
     courseName,
+    courseIcon,
     lessonId,
     search,
   };

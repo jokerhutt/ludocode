@@ -5,10 +5,10 @@ import {
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import type { LanguageMetadata } from "@ludocode/types";
-import { ArrowLeftRight, ChevronDown } from "lucide-react";
+import { ArrowLeftRight } from "lucide-react";
 import { ChangeLanguageDialog } from "./ChangeLanguageDialog.tsx";
-import { useState, useRef, useEffect } from "react";
-import { useChangeCourseIcon } from "@/features/curriculum/hooks/useChangeIcon.tsx";
+import { ChangeIconDialog } from "./ChangeIconDialog.tsx";
+import { useState } from "react";
 
 type CurriculumHeroProps = {
   courseId: string;
@@ -26,35 +26,18 @@ export function CurriculumHero({
   courseLanguage,
 }: CurriculumHeroProps) {
   const [openLanguageModal, setOpenLanguageModal] = useState(false);
-  const [iconPickerOpen, setIconPickerOpen] = useState(false);
-  const iconPickerRef = useRef<HTMLDivElement>(null);
-  const { mutate: changeCourseIcon, isPending: isChangingIcon } =
-    useChangeCourseIcon({ courseId });
+  const [openIconModal, setOpenIconModal] = useState(false);
 
   const currentIcon = languageIcons.includes(courseIcon as IconName)
     ? (courseIcon as IconName)
     : undefined;
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        iconPickerRef.current &&
-        !iconPickerRef.current.contains(e.target as Node)
-      ) {
-        setIconPickerOpen(false);
-      }
-    }
-    if (iconPickerOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [iconPickerOpen]);
-
   return (
     <div className="flex flex-col gap-6">
       {/* META CARDS ROW */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="relative flex items-center justify-between bg-ludo-background border border-ludo-border rounded-lg px-4 py-3">
+        {/* ICON CARD */}
+        <div className="flex items-center justify-between bg-ludo-background border border-ludo-border rounded-lg px-4 py-3">
           <div className="flex items-center gap-3">
             {currentIcon ? (
               <CustomIcon
@@ -75,50 +58,21 @@ export function CurriculumHero({
             </div>
           </div>
 
-          <LudoButton
-            onClick={() => setIconPickerOpen((prev) => !prev)}
-            variant="alt"
-            shadow={false}
-            disabled={isChangingIcon}
-            className="px-3 py-2 w-auto"
+          <ChangeIconDialog
+            open={openIconModal}
+            close={() => setOpenIconModal(false)}
+            courseId={courseId}
+            currentIcon={courseIcon}
           >
-            <ChevronDown className="h-4 w-4" />
-          </LudoButton>
-
-          {iconPickerOpen && (
-            <div
-              ref={iconPickerRef}
-              className="absolute top-full left-0 right-0 mt-1 z-50 max-h-64 overflow-y-auto rounded-lg border border-ludo-border bg-ludo-background shadow-xl"
+            <LudoButton
+              onClick={() => setOpenIconModal(true)}
+              variant="alt"
+              shadow={false}
+              className="px-3 py-2 w-10"
             >
-              {languageIcons.map((name) => (
-                <button
-                  key={name}
-                  type="button"
-                  className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition hover:bg-ludo-surface ${
-                    name === currentIcon
-                      ? "bg-ludo-surface text-ludo-white-bright"
-                      : "text-ludo-white"
-                  }`}
-                  onClick={() => {
-                    changeCourseIcon({ iconName: name });
-                    setIconPickerOpen(false);
-                  }}
-                >
-                  <CustomIcon
-                    iconName={name}
-                    color="white"
-                    className="h-5 w-5 shrink-0"
-                  />
-                  <span className="text-sm font-medium">{name}</span>
-                  {name === currentIcon && (
-                    <span className="ml-auto text-xs text-ludo-accent-muted">
-                      current
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
+              <ArrowLeftRight className="h-4 w-4" />
+            </LudoButton>
+          </ChangeIconDialog>
         </div>
 
         {/* LANGUAGE CARD */}
