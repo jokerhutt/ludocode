@@ -2,12 +2,17 @@ import { LudoPath } from "@ludocode/design-system/widgets/ludo-path.tsx";
 import type { LudoLesson } from "@ludocode/types";
 import { useLessonButton } from "@/features/modules/hooks/useLessonButton.tsx";
 import { PathPopover } from "./PathPopover.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { router } from "@/main.tsx";
 
 type ModulePathProps = {
   lessons: LudoLesson[];
   currentLessonId?: string;
   courseId: string;
   moduleId: string;
+  modulesLength: number;
+  nextModuleId?: string;
+  nextModuleTitle?: string;
 };
 
 export function ModulePath({
@@ -15,6 +20,8 @@ export function ModulePath({
   currentLessonId,
   courseId,
   moduleId,
+  nextModuleId,
+  nextModuleTitle
 }: ModulePathProps) {
   return (
     <LudoPath className="pb-6">
@@ -28,6 +35,19 @@ export function ModulePath({
           />
         </LudoPath.Row>
       ))}
+      {nextModuleId && (
+        <LudoPath.Row className="mt-10" index={lessons.length}>
+          <LudoPath.NextButton
+
+            title={nextModuleTitle}
+            onClick={() =>
+              router.navigate(
+                ludoNavigation.hub.module.toModule(courseId, nextModuleId),
+              )
+            }
+          />
+        </LudoPath.Row>
+      )}
     </LudoPath>
   );
 }

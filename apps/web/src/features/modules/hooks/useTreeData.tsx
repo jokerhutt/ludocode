@@ -25,8 +25,12 @@ export function useTreeData({ tree, courseId, moduleId }: Args) {
   );
 
   const moduleMetaData = tree.modules.find(
-    (module: FlatModule) => module.id == moduleId,
+    (module: FlatModule) => module.id === moduleId,
   );
+
+  if (!moduleMetaData) {
+    throw new Error(`Module ${moduleId} not found in tree`);
+  }
 
   const modules = useSuspenseDataArray(
     tree.modules.map((module: FlatModule) => qo.module(module.id)),
