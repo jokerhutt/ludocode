@@ -41,6 +41,9 @@ export function ModulePage({
 
   const currentLessonId = lessons.find((l) => !l.isCompleted)?.id;
 
+  const i = modules.findIndex((m) => m.id === moduleId);
+  const nextModule = i >= 0 ? modules[i + 1] : undefined;
+
   return (
     <div
       className={cn(
@@ -50,7 +53,10 @@ export function ModulePage({
     >
       <div className="w-60 flex flex-col lg:gap-8 items-center lg:px-0 min-w-0">
         <ModulePath
+          modulesLength={modules.length}
           lessons={lessons}
+          nextModuleId={nextModule?.id}
+          nextModuleTitle={nextModule?.title}
           currentLessonId={currentLessonId}
           courseId={courseId}
           moduleId={moduleId}

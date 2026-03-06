@@ -39,8 +39,8 @@ const popoverConfig: Record<
     icon: RotateCcwIcon,
     disabled: false,
   },
-  COMPLETE: { text: "Master", variant: "alt", icon: StarIcon, disabled: false },
-  DEFAULT: { text: "Start", variant: "alt", icon: PlayIcon, disabled: false },
+  COMPLETE: { text: "Master", variant: "default", icon: StarIcon, disabled: false },
+  DEFAULT: { text: "Start", variant: "default", icon: PlayIcon, disabled: false },
 };
 
 export function PathPopover({

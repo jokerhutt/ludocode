@@ -4,6 +4,7 @@ import { type LessonStatus } from "@ludocode/types";
 import { LudoButton } from "../primitives/ludo-button";
 import { CompletionRibbon } from "../primitives/ribbon";
 import { LockIcon } from "../primitives/custom-icon";
+import { ArrowRightIcon } from "lucide-react";
 
 type LudoPathProps = { children: ReactNode; className?: string };
 
@@ -23,13 +24,20 @@ function LudoPathRoot({ children, className }: LudoPathProps) {
 type RowProps = {
   children: ReactNode;
   index: number;
+  className?: string;
 };
 
-function Row({ children, index }: RowProps) {
+function Row({ children, index, className }: RowProps) {
   const position = index % 2 === 0 ? "flex-row-reverse" : "flex-row";
 
   return (
-    <div className={cn("w-full min-w-0 relative flex items-center", position)}>
+    <div
+      className={cn(
+        "w-full min-w-0 relative flex items-center",
+        position,
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -62,12 +70,42 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
   },
 );
 
+type NextButtonProps = {
+  dataTestId?: string;
+  className?: string;
+  title?: string;
+  onClick?: () => void;
+};
+
+const NextButton = React.forwardRef<HTMLButtonElement, NextButtonProps>(
+  ({ dataTestId, className, title, onClick, ...props }, ref) => {
+    return (
+      <LudoButton
+        data-testid={dataTestId}
+        ref={ref}
+        variant="default"
+        onClick={() => onClick?.()}
+        className={cn(
+          "relative w-full hover:cursor-pointer h-16 gap-3 flex items-center justify-center",
+          className,
+        )}
+        {...props}
+      >
+        <span className="font-semibold tracking-wide">{title ?? "Next"}</span>
+        <ArrowRightIcon className="h-5 w-5 shrink-0" />
+      </LudoButton>
+    );
+  },
+);
+
 type LudoPathComponent = React.FC<LudoPathProps> & {
   Row: typeof Row;
   Button: typeof Button;
+  NextButton: typeof NextButton;
 };
 
 export const LudoPath = Object.assign(LudoPathRoot, {
   Row,
+  NextButton,
   Button,
 }) as LudoPathComponent;
