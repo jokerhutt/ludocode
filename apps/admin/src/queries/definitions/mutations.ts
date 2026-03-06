@@ -12,6 +12,7 @@ import {
   type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
 } from "@ludocode/types";
+import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 
 export const mutations = {
   createCourse: () => {
@@ -154,6 +155,17 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPut<LudoCourse[], ChangeLanguageRequest>(
           adminApi.snapshots.byCourseCurriculumLanguage(courseId),
+          variables,
+          true,
+        ),
+    });
+  },
+  changeCourseIcon: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, ChangeCourseIconRequest>({
+      mutationKey: ["changeCourseIcon"],
+      mutationFn: (variables) =>
+        ludoPut<LudoCourse[], ChangeCourseIconRequest>(
+          adminApi.snapshots.byCourseCurriculumIcon(courseId),
           variables,
           true,
         ),

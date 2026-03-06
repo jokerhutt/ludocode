@@ -2,7 +2,6 @@
 export * from "./AI/AIMessagePart";
 
 // Builder
-export * from "./Builder/BuilderSnapshotTypes";
 export * from "./Builder/CreateCourseRequest";
 export { OptionSnap as ExerciseOptionSnap } from "./Zod/SnapshotSchema/ExerciseSnapSchema";
 

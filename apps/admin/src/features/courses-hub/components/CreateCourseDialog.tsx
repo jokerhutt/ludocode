@@ -20,13 +20,11 @@ type Props = {
 };
 
 export function CreateCourseDialog({ open, close, children }: Props) {
-  const { data: subjects } = useSuspenseQuery(qo.allSubjects());
   const { data: languages } = useSuspenseQuery(qo.languages());
 
   const createMutation = useCreateCourse();
 
   const [courseTitle, setCourseTitle] = useState("");
-  const [courseSubjectId, setCourseSubjectId] = useState<number>(0);
   const [languageId, setLanguageId] = useState<number | undefined>();
   const [courseType, setCourseType] = useState<CourseType>("COURSE");
 
@@ -39,7 +37,6 @@ export function CreateCourseDialog({ open, close, children }: Props) {
   const handleCreate = () => {
     const result = createCourseSchema.safeParse({
       courseTitle,
-      courseSubjectId,
       languageId,
       courseType,
     });
@@ -65,7 +62,6 @@ export function CreateCourseDialog({ open, close, children }: Props) {
       {
         onSuccess: () => {
           setCourseTitle("");
-          setCourseSubjectId(0);
           setLanguageId(undefined);
           setCourseType("COURSE");
           close();
@@ -96,20 +92,6 @@ export function CreateCourseDialog({ open, close, children }: Props) {
           setValue={setCourseTitle}
           error={errors.courseTitle}
         />
-
-        <LudoSelect
-          variant="dark"
-          title="Subject"
-          value={courseSubjectId.toString()}
-          setValue={(v) => setCourseSubjectId(Number(v))}
-          error={errors.courseSubjectId}
-        >
-          {subjects.map((s) => (
-            <LudoSelectItem key={s.id} value={s.id.toString()}>
-              {s.name}
-            </LudoSelectItem>
-          ))}
-        </LudoSelect>
 
         <LudoSelect
           variant="dark"

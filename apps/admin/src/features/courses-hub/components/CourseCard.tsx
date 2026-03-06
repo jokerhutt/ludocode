@@ -36,13 +36,6 @@ export function CourseCard({ course }: CourseCardProps) {
 
       <div className="flex gap-6 text-sm text-ludo-white">
         <div>
-          <span className="opacity-60">Subject</span>
-          <p className="text-ludo-white-bright font-medium">
-            {course.subject.name}
-          </p>
-        </div>
-
-        <div>
           <span className="opacity-60">Language</span>
           <p className="text-ludo-white-bright font-medium">
             {course.language?.name ?? "—"}

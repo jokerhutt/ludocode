@@ -1,59 +1,45 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import type { LanguageMetadata, LudoCourseSubject } from "@ludocode/types";
-import { ArrowLeftRight } from "lucide-react";
-import { ChangeSubjectDialog } from "./ChangeSubjectDialog.tsx";
+import type { LanguageMetadata } from "@ludocode/types";
+import { ArrowLeftRight, ImageIcon } from "lucide-react";
 import { ChangeLanguageDialog } from "./ChangeLanguageDialog.tsx";
 import { useState } from "react";
 
 type CurriculumHeroProps = {
   courseId: string;
-  courseSubject?: LudoCourseSubject;
   courseLanguage?: LanguageMetadata;
 };
 
 export function CurriculumHero({
   courseId,
-  courseSubject,
   courseLanguage,
 }: CurriculumHeroProps) {
-  const [openSubjectModal, setOpenSubjectModal] = useState(false);
   const [openLanguageModal, setOpenLanguageModal] = useState(false);
 
   return (
     <div className="flex flex-col gap-6">
       {/* META CARDS ROW */}
       <div className="grid grid-cols-2 gap-4">
-        {/* SUBJECT CARD */}
+        {/* ICON CARD */}
         <div className="flex items-center justify-between bg-ludo-background border border-ludo-border rounded-lg px-4 py-3">
           <div className="flex flex-col">
             <span className="text-xs text-ludo-white uppercase tracking-wide">
-              Subject
+              Icon
             </span>
             <span className="text-ludo-white-bright font-semibold">
-              {courseSubject?.name ?? "No Subject"}
-            </span>
-            <span className="text-xs text-ludo-accent-muted">
-              {courseSubject ? `/${courseSubject.slug}` : "-"}
+              Default
             </span>
           </div>
 
-          {courseSubject && (
-            <ChangeSubjectDialog
-              open={openSubjectModal}
-              close={() => setOpenSubjectModal(false)}
-              courseId={courseId}
-              currentSubjectSlug={courseSubject.slug}
-            >
-              <LudoButton
-                onClick={() => setOpenSubjectModal(true)}
-                variant="alt"
-                shadow={false}
-                className="px-3 py-2 w-10"
-              >
-                <ArrowLeftRight className="h-4 w-4" />
-              </LudoButton>
-            </ChangeSubjectDialog>
-          )}
+          <LudoButton
+            onClick={() => {
+              /* TODO: open icon picker */
+            }}
+            variant="alt"
+            shadow={false}
+            className="px-3 py-2 w-10"
+          >
+            <ImageIcon className="h-4 w-4" />
+          </LudoButton>
         </div>
 
         {/* LANGUAGE CARD */}
