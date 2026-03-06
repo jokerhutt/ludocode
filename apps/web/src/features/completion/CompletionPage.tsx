@@ -48,6 +48,7 @@ export function StreakIncreasePage() {
   );
 }
 
+// TODO fix course name issue
 export function CourseCompletePage() {
   const { courseName } = useCompletionContext();
 

@@ -189,11 +189,13 @@ function Header({
 }
 
 function TrafficLights({ className }: { className?: string }) {
-  <div className={cn("flex items-center gap-1.5", className)}>
-    <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-    <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
-    <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
-  </div>;
+  return (
+    <div className={cn("flex items-center gap-1.5", className)}>
+      <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+    </div>
+  );
 }
 
 function Gutter() {
@@ -229,33 +231,63 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
     focusNextEmptyAfter,
   } = usePreview();
 
+  const tokens = useMemo(() => {
+    const result: { type: "text" | "gap"; value?: string; index?: number }[] =
+      [];
+
+    parts.forEach((part, i) => {
+      const lines = part.split("\n");
+
+      lines.forEach((line, lineIndex) => {
+        if (line) result.push({ type: "text", value: line });
+
+        if (lineIndex < lines.length - 1) {
+          result.push({ type: "text", value: "\n" });
+        }
+      });
+
+      if (i < parts.length - 1) {
+        result.push({ type: "gap", index: i });
+      }
+    });
+
+    return result;
+  }, [parts]);
+
   return (
-    <p
-      className="text-ludo-white-bright text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
-      flex flex-wrap
+    <div
+      className="text-ludo-white-bright text-sm md:text-base text-start leading-8 md:leading-9 font-light
+      whitespace-pre-wrap
       *:mr-1 sm:*:mr-1.5
       [&>*:last-child]:mr-0
       gap-y-2
       overflow-x-auto
       min-w-0 flex-1"
     >
-      {parts.map((part, index) => (
-        <Fragment key={index}>
-          <InlineCode lineHeight="36px" code={part} />
+      {tokens.map((token, i) => {
+        if (token.type === "text") {
+          return (
+            <InlineCode key={i} lineHeight="36px" code={token.value ?? ""} />
+          );
+        }
 
-          {withGaps && index < parts.length - 1 && (
-            <OptionInputSlot
-              disabled={!typing}
-              value={responses[index].value}
-              onChange={(value) => handleChange(index, value)}
-              ref={(el: HTMLInputElement) => (refs.current[index] = el)}
-              onBackspaceIfEmpty={() => focusPrev(index)}
-              onTokenFinished={() => focusNextEmptyAfter(index)}
-            />
-          )}
-        </Fragment>
-      ))}
-    </p>
+        if (!withGaps) return null;
+
+        const index = token.index!;
+
+        return (
+          <OptionInputSlot
+            key={i}
+            disabled={!typing}
+            value={responses[index].value}
+            onChange={(value) => handleChange(index, value)}
+            ref={(el: HTMLInputElement) => (refs.current[index] = el)}
+            onBackspaceIfEmpty={() => focusPrev(index)}
+            onTokenFinished={() => focusNextEmptyAfter(index)}
+          />
+        );
+      })}
+    </div>
   );
 }
 
