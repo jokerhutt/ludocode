@@ -36,8 +36,9 @@ export function ModulePath({
         </LudoPath.Row>
       ))}
       {nextModuleId && (
-        <LudoPath.Row className="mt-6" index={lessons.length}>
+        <LudoPath.Row className="mt-10" index={lessons.length}>
           <LudoPath.NextButton
+
             title={nextModuleTitle}
             onClick={() =>
               router.navigate(
