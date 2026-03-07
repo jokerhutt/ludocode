@@ -1,6 +1,7 @@
 import { adminNavigation } from "@/constants/adminNavigation.tsx";
 import { router } from "@/main.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { CustomIcon, stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button";
 import type { LanguageMetadata } from "@ludocode/types";
@@ -57,8 +58,9 @@ export function LanguagesPane({ className, languages }: LanguagesPaneProps) {
               "
             >
               <div className="flex justify-between items-start">
-                <span className="text-base font-bold text-ludo-white-bright">
+                <span className="text-base flex items-center gap-2 font-bold text-ludo-white-bright">
                   {language.name}
+                  <CustomIcon color="white" className="h-4 w-4" iconName={stringToCustomIcon(language.iconName)} />
                 </span>
                 <span className="text-xs text-ludo-white opacity-70">
                   /{language.slug}
