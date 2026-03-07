@@ -77,7 +77,7 @@ export function CreateCourseDialog({ open, close, children }: Props) {
       onOpenChange={(next) => {
         if (!next) close();
       }}
-      className="max-w-3xl" // 👈 wider
+      className="max-w-3xl"
     >
       <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         Create Course

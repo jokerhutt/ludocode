@@ -9,6 +9,7 @@ import type { CurriculumDraft, CurriculumDraftLesson } from "@ludocode/types";
 import { ModulePreviewItem } from "./ModulePreviewItem.tsx";
 import { useRef } from "react";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
 
 type CurriculumPreviewProps = {
   selectedLesson: CurriculumDraftLesson | null;
@@ -54,12 +55,17 @@ export function CurriculumPreview({
           />
           <ShadowLessButton
             variant="white"
+            className="w-auto text-sm h-auto px-4 py-1 rounded-sm"
             onClick={() => yamlInputRef.current?.click()}
             disabled={isUploadingYaml}
           >
-            {isUploadingYaml ? "Uploading…" : "Edit with YAML"}
+            {isUploadingYaml ? "Uploading…" : "Upload YAML"}
           </ShadowLessButton>
-          <ShadowLessButton variant="white" onClick={onDownload}>
+          <ShadowLessButton
+            className="w-auto text-sm h-auto px-4 py-1 rounded-sm"
+            variant="white"
+            onClick={onDownload}
+          >
             Download
           </ShadowLessButton>
           <LudoButton

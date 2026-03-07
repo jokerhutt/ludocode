@@ -112,6 +112,16 @@ export const mutations = {
         ),
     });
   },
+  deleteCourse: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, void>({
+      mutationKey: ["deleteCourse"],
+      mutationFn: () =>
+        ludoDelete<LudoCourse[]>(
+          adminApi.snapshots.byCourse(courseId),
+          true,
+        ),
+    });
+  },
   createLanguage: () => {
     return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
       mutationKey: ["createLanguage"],

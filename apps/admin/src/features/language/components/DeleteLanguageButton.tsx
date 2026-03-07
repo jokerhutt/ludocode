@@ -19,7 +19,7 @@ export function DeleteLanguageButton({
     languageId,
   });
 
-  const handleDeleteAccount = () => {
+  const handleDeleteLanguage = () => {
     if (deleteLanguageMutation.isPending) return;
     deleteLanguageMutation.mutate();
   };
@@ -39,7 +39,7 @@ export function DeleteLanguageButton({
       targetName="this language"
       description={description}
       destructiveConfirmation={confirmation}
-      onClick={() => handleDeleteAccount()}
+      onClick={() => handleDeleteLanguage()}
     >
       <LudoButton
         isLoading={deleteLanguageMutation.isPending}

@@ -10,6 +10,7 @@ type DeleteDialogProps = {
   description?: string;
   triggerClassName?: string;
   canDelete?: boolean;
+  asChild?: boolean;
   onClick: () => void;
   children: ReactNode;
 };
@@ -19,6 +20,7 @@ export function DeleteDialog({
   targetName,
   description,
   triggerClassName = "w-full",
+  asChild = false,
   destructiveConfirmation,
   children,
 }: DeleteDialogProps) {
@@ -27,6 +29,7 @@ export function DeleteDialog({
   return (
     <WarningDialog
       onClick={onClick}
+      asChild={asChild}
       title={title}
       triggerClassName={triggerClassName}
       description={description}
