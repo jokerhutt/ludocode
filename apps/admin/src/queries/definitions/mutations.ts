@@ -13,6 +13,7 @@ import {
   type SubjectsDraftSnapshot,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
+import type { VisibilityToggleRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
 
 export const mutations = {
   createCourse: () => {
@@ -116,10 +117,7 @@ export const mutations = {
     return mutationOptions<LudoCourse[], Error, void>({
       mutationKey: ["deleteCourse"],
       mutationFn: () =>
-        ludoDelete<LudoCourse[]>(
-          adminApi.snapshots.byCourse(courseId),
-          true,
-        ),
+        ludoDelete<LudoCourse[]>(adminApi.snapshots.byCourse(courseId), true),
     });
   },
   createLanguage: () => {
@@ -165,6 +163,17 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPut<LudoCourse[], ChangeLanguageRequest>(
           adminApi.snapshots.byCourseCurriculumLanguage(courseId),
+          variables,
+          true,
+        ),
+    });
+  },
+  toggleCourseVisibility: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, VisibilityToggleRequest>({
+      mutationKey: ["toggleCourseVisibility"],
+      mutationFn: (variables) =>
+        ludoPut<LudoCourse[], VisibilityToggleRequest>(
+          adminApi.snapshots.byCourseVisibility(courseId),
           variables,
           true,
         ),

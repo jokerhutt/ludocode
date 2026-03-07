@@ -1,11 +1,30 @@
 import { adminNavigation } from "@/constants/adminNavigation.tsx";
 import { router } from "@/main.tsx";
 import type { LudoCourse } from "@ludocode/types";
+import { Switch } from "@ludocode/external/ui/switch";
 import { DeleteCourseButton } from "./DeleteCourseButton";
+import { useToggleCourseVisibility } from "../hooks/useToggleCourseVisibility";
 
-type CourseCardProps = { course: LudoCourse; coursesLength: number };
+type CourseCardProps = {
+  course: LudoCourse;
+  coursesLength: number;
+  visibleCoursesCount: number;
+};
 
-export function CourseCard({ course, coursesLength }: CourseCardProps) {
+export function CourseCard({
+  course,
+  coursesLength,
+  visibleCoursesCount,
+}: CourseCardProps) {
+  const isVisible = course.isVisible !== false;
+  const isOnlyVisibleCourse = isVisible && visibleCoursesCount <= 1;
+  const toggleVisibility = useToggleCourseVisibility({ courseId: course.id });
+
+  const handleToggle = (checked: boolean) => {
+    if (toggleVisibility.isPending) return;
+    toggleVisibility.mutate({ value: checked });
+  };
+
   return (
     <div
       key={course.id}
@@ -43,9 +62,28 @@ export function CourseCard({ course, coursesLength }: CourseCardProps) {
             {course.language?.name ?? "—"}
           </p>
         </div>
-        {coursesLength > 1 && (
-          <DeleteCourseButton courseId={course.id} courseName={course.title} />
-        )}
+        <div className="flex items-end gap-3">
+          <div
+            className="flex items-center gap-2 z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-xs opacity-60">
+              {isVisible ? "Visible" : "Hidden"}
+            </span>
+            <Switch
+              checked={isVisible}
+              onCheckedChange={handleToggle}
+              disabled={isOnlyVisibleCourse || toggleVisibility.isPending}
+              className="data-[state=checked]:bg-ludo-accent data-[state=unchecked]:bg-ludo-surface-dim"
+            />
+          </div>
+          {coursesLength > 1 && (
+            <DeleteCourseButton
+              courseId={course.id}
+              courseName={course.title}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

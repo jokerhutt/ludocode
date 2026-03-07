@@ -85,7 +85,7 @@ export const qo = {
   allCourses: () =>
     queryOptions({
       queryKey: qk.courses(),
-      queryFn: () => ludoGet<LudoCourse[]>(adminApi.catalog.courses, true),
+      queryFn: () => ludoGet<LudoCourse[]>(adminApi.snapshots.courses, true),
       staleTime: 60_000,
     }),
 };
