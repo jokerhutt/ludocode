@@ -15,7 +15,7 @@ export function useDeleteLanguage({ languageId }: Args) {
   return useMutation({
     ...mutations.deleteLanguage(languageId),
     onSuccess: async (payload: LanguageMetadata[]) => {
-      await router.navigate(adminNavigation.hub.languages.toLanguagesHub())
+      await router.navigate(adminNavigation.hub.courses.toCoursesHub());
       qc.setQueryData(qk.languages(), payload);
     },
   });

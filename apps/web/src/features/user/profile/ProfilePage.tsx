@@ -33,7 +33,7 @@ export function ProfilePage({}: ProfilePageProps) {
 
         <ProfileCardContainer header="CURRENT COURSE">
           <CourseCard
-            iconName={currentCourseObject?.language?.iconName as IconName | undefined}
+            iconName={currentCourseObject?.courseIcon}
             courseId={currentCourseId}
             title={currentCourseObject?.title ?? ""}
             showProgress

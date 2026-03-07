@@ -4,7 +4,11 @@ import { useCompletionContext } from "@/features/completion/context/CompletionCo
 import { CompletionStatsGroup } from "@/features/completion/components/CompletionStatsGroup.tsx";
 import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter.tsx";
 import { BadgeSingleCard } from "@/features/user/profile/components/BadgeCard.tsx";
-import { Icons, type IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import {
+  Icons,
+  stringToCustomIcon,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { useLottie, useTimedLottie } from "@ludocode/hooks";
 
 export function LessonCompletionPage() {
@@ -54,10 +58,7 @@ export function StreakIncreasePage() {
 export function CourseCompletePage() {
   const { courseName, courseIcon } = useCompletionContext();
 
-  const icon: IconName =
-    courseIcon && courseIcon in Icons
-      ? (courseIcon as IconName)
-      : "Python";
+  const icon = stringToCustomIcon(courseIcon);
 
   return (
     <>

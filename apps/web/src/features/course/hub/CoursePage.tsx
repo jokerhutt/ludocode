@@ -2,15 +2,7 @@ import { useChangeCourse } from "@/queries/mutations/useChangeCourse.tsx";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
-import type { IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import type { LudoCourse } from "@ludocode/types";
-
-export type CourseType = {
-  name: string;
-  description: string;
-  iconName: IconName;
-  courseBg: string;
-};
 
 export function CoursePage() {
   const { allCourses } = useLoaderData({ from: "/_app/_hub/courses" });
@@ -37,6 +29,7 @@ export function CoursePage() {
               onClick={() => handleSelectCourse(course.id)}
               title={course.title}
               courseId={course.id}
+              iconName={course.courseIcon}
             />
           ))}
         </div>

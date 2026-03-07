@@ -22,7 +22,7 @@ export function UpdateLanguageButton({
   const handleUpdateAccount = (payload: ModifyLanguageRequest) => {
     if (updateLanguageMutation.isPending) return;
     if (!hasChanged) {
-      router.navigate(adminNavigation.hub.languages.toLanguagesHub());
+      router.navigate(adminNavigation.hub.courses.toCoursesHub());
     } else {
       updateLanguageMutation.mutate(payload);
     }

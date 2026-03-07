@@ -8,7 +8,7 @@ export function AbortLanguageEditButton({}: AbortLanguageEditButtonProps) {
   return (
     <LudoButton
       onClick={() =>
-        router.navigate(adminNavigation.hub.languages.toLanguagesHub())
+        router.navigate(adminNavigation.hub.courses.toCoursesHub())
       }
       variant={"white"}
       className="w-full"

@@ -16,7 +16,7 @@ export function useUpdateLanguage({ languageId }: Args) {
     ...mutations.updateLanguage(languageId),
     onSuccess: (payload: LanguageMetadata[]) => {
       qc.setQueryData(qk.languages(), payload);
-      router.navigate(adminNavigation.hub.languages.toLanguagesHub())
+      router.navigate(adminNavigation.hub.courses.toCoursesHub());
     },
   });
 }
