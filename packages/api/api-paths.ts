@@ -109,6 +109,8 @@ export function createApiPaths({
         `${ADMIN_BASE}/snapshots/${courseId}/subject`,
       byCourseCurriculumLanguage: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/language`,
+      byCourseCurriculumIcon: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/${courseId}/icon`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 
@@ -129,7 +131,7 @@ export function createApiPaths({
 
     preferences: {
       base: `${BASE}/preferences`,
-      careers: `${BASE}/preferences/careers`
+      careers: `${BASE}/preferences/careers`,
     },
 
     users: {

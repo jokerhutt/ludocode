@@ -1,6 +1,5 @@
 // AUTH
 import { Route as authRoute } from "@/routes/auth";
-import { Route as languagesHubRoute } from "@/routes/_app/hub/languages.tsx";
 import { Route as modifyLanguagePageRoute } from "@/routes/_app/language/$languageId";
 import { Route as createLanguagePageRoute } from "@/routes/_app/language/create";
 import { Route as coursesHubRoute } from "@/routes/_app/hub/courses.tsx";
@@ -11,11 +10,6 @@ import { Route as subjectsPageRoute } from "@/routes/_app/subjects/index";
 export const adminNavigation = {
   auth: () => ({ to: authRoute.to }),
   hub: {
-    languages: {
-      toLanguagesHub: () => ({
-        to: languagesHubRoute.to,
-      }),
-    },
     courses: {
       toCoursesHub: () => ({
         to: coursesHubRoute.to,

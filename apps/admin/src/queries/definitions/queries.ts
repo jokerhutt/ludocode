@@ -3,7 +3,6 @@ import { qk } from "@/queries/definitions/qk.ts";
 import { userBatcher } from "@/queries/definitions/batchers.ts";
 import {
   type PistonRuntime,
-  type CourseSnap,
   type LanguageMetadata,
   type LudoCourse,
   type LudoUser,
@@ -29,14 +28,6 @@ export const qo = {
       queryFn: () => ludoGet<LudoUser>(adminApi.auth.me, true),
       staleTime: 60_000,
       retry: false,
-    }),
-
-  courseSnapshot: (courseId: string) =>
-    queryOptions({
-      queryKey: qk.courseSnapshot(courseId),
-      queryFn: () =>
-        ludoGet<CourseSnap>(adminApi.snapshots.byCourse(courseId), true),
-      staleTime: 60_000 * 10,
     }),
 
   curriculumSnapshot: (courseId: string) =>

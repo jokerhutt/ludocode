@@ -2,7 +2,7 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import {
   CustomIcon,
-  type IconName,
+  stringToCustomIcon,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { ProgressSummary } from "@ludocode/design-system/primitives/progress-summary.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ type CourseCardProps = {
   onClick?: () => void;
   showProgress?: boolean;
   opaque?: boolean;
-  iconName?: IconName;
+  iconName?: string;
 };
 
 export function CourseCard({
@@ -51,7 +51,11 @@ export function CourseCard({
         </div>
         {iconName && (
           <div className="h-8 w-8 rounded-lg bg-ludo-background/60 flex items-center justify-center">
-            <CustomIcon iconName={iconName} color="white" className="h-4" />
+            <CustomIcon
+              iconName={stringToCustomIcon(iconName)}
+              color="white"
+              className="h-4"
+            />
           </div>
         )}
       </div>

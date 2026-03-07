@@ -23,6 +23,7 @@ export type CompletionState = {
   moduleId: string;
   courseName: string;
   lessonId: string;
+  courseIcon: string;
   search: CompletionSearch;
 };
 

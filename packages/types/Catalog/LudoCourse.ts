@@ -1,11 +1,10 @@
 import { type LanguageMetadata } from "../Project/LanguageMetadata";
-import type { LudoCourseSubject } from "./LudoCourseSubject";
 
 export type LudoCourse = {
   id: string;
   title: string;
   courseType: CourseType;
-  subject: LudoCourseSubject;
+  courseIcon: string;
   language?: LanguageMetadata;
   description: string;
 };

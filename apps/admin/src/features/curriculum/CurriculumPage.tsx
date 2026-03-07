@@ -33,9 +33,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseName =
     courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
 
-  const courseSubject = courses.find((c) => c.id === courseId)?.subject;
-
   const courseLanguage = courses.find((c) => c.id == courseId)?.language;
+
+  const courseIcon = courses.find((c) => c.id === courseId)?.courseIcon;
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -133,7 +133,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
             <CurriculumHero
               courseLanguage={courseLanguage}
               courseId={courseId}
-              courseSubject={courseSubject}
+              courseIcon={courseIcon}
             />
           </div>
         </div>
