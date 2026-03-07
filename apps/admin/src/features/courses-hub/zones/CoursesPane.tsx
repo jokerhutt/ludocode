@@ -68,7 +68,7 @@ export function CoursesPane({ className, courses }: CoursesPaneProps) {
       )}
 
       {courses.map((course) => (
-        <CourseCard course={course} />
+        <CourseCard course={course} coursesLength={courses.length} />
       ))}
     </div>
   );
