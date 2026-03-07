@@ -4,6 +4,7 @@ export type LudoCourse = {
   id: string;
   title: string;
   courseType: CourseType;
+  isVisible?: boolean;
   courseIcon: string;
   language?: LanguageMetadata;
   description: string;

@@ -103,6 +103,9 @@ export function createApiPaths({
     snapshots: {
       base: `${ADMIN_BASE}/snapshots`,
       course: `${ADMIN_BASE}/snapshots/course`,
+      courses: `${ADMIN_BASE}/snapshots/courses`,
+      byCourseVisibility: (courseId: string) => 
+        `${ADMIN_BASE}/snapshots/${courseId}/visibility`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
       byCourseCurriculumSubject: (courseId: string) =>
