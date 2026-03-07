@@ -12,12 +12,21 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useCreateCourse } from "@/queries/mutations/useCreateCourse.tsx";
 import { createCourseSchema, type CourseType } from "@ludocode/types";
+import {
+  CustomIcon,
+  IconRegistry,
+  type IconName,
+} from "@ludocode/design-system/primitives/custom-icon";
 
 type Props = {
   open: boolean;
   close: () => void;
   children: ReactNode;
 };
+
+const languageIcons = Object.entries(IconRegistry)
+  .filter(([_, def]) => def.category === "language")
+  .map(([name]) => name as IconName);
 
 export function CreateCourseDialog({ open, close, children }: Props) {
   const { data: languages } = useSuspenseQuery(qo.languages());
@@ -27,7 +36,7 @@ export function CreateCourseDialog({ open, close, children }: Props) {
   const [courseTitle, setCourseTitle] = useState("");
   const [languageId, setLanguageId] = useState<number | undefined>();
   const [courseType, setCourseType] = useState<CourseType>("COURSE");
-
+  const [courseIcon, setCourseIcon] = useState<string>("");
   const COURSE_TYPES: CourseType[] = ["COURSE", "SKILL_PATH"];
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -37,6 +46,7 @@ export function CreateCourseDialog({ open, close, children }: Props) {
   const handleCreate = () => {
     const result = createCourseSchema.safeParse({
       courseTitle,
+      courseIcon,
       languageId,
       courseType,
     });
@@ -85,13 +95,30 @@ export function CreateCourseDialog({ open, close, children }: Props) {
 
       <div className="grid grid-cols-2 gap-6 mt-6">
         <LudoInput
-          containerClassName="col-span-2"
+          containerClassName=""
           variant="dark"
           title="Course Title"
           value={courseTitle}
           setValue={setCourseTitle}
           error={errors.courseTitle}
         />
+
+        <LudoSelect
+          variant="dark"
+          title="Icon"
+          error={errors.courseIcon}
+          value={courseIcon}
+          setValue={setCourseIcon}
+        >
+          {languageIcons.map((name) => (
+            <LudoSelectItem key={name} value={name}>
+              <span className="flex items-center gap-2">
+                <CustomIcon iconName={name} color="white" className="h-4 w-4" />
+                <span>{name}</span>
+              </span>
+            </LudoSelectItem>
+          ))}
+        </LudoSelect>
 
         <LudoSelect
           variant="dark"

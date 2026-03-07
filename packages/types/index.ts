@@ -3,7 +3,6 @@ export * from "./AI/AIMessagePart";
 
 // Builder
 export * from "./Builder/CreateCourseRequest";
-export { OptionSnap as ExerciseOptionSnap } from "./Zod/SnapshotSchema/ExerciseSnapSchema";
 
 // Catalog
 export * from "./Catalog/FlatCourseTree";
@@ -19,9 +18,9 @@ export * from "./Completion/SyncState";
 
 // curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
-export * from "./Curriculum/SubjectDraftSchema"
-export * from "./Curriculum/ChangeSubjectRequest"
-export * from "./Curriculum/CreateCourseSchema"
+export * from "./Curriculum/SubjectDraftSchema";
+export * from "./Curriculum/ChangeSubjectRequest";
+export * from "./Curriculum/CreateCourseSchema";
 
 // Exercise
 export * from "./Exercise/ExerciseType";
@@ -55,8 +54,8 @@ export * from "./Project/Runner/RunnerResult";
 export * from "./Project/LanguageMetadata";
 
 // Preferences
-export * from "./Preferences/LudoCareer"
-export * from "./Preferences/TogglePreferencesRequest"
+export * from "./Preferences/LudoCareer";
+export * from "./Preferences/TogglePreferencesRequest";
 
 // Static
 export * from "./Static/DevInfoContent";
@@ -64,8 +63,8 @@ export * from "./Static/DevInfoContent";
 // subscription
 export * from "./Subscription/SubscriptionPlan";
 export * from "./Subscription/UserSubscription";
-export * from "./Subscription/PlanOverview"
-export * from "./Subscription/ConfirmRequest"
+export * from "./Subscription/PlanOverview";
+export * from "./Subscription/ConfirmRequest";
 
 // User
 export * from "./User/ChangeCourseType";
@@ -79,9 +78,3 @@ export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
 export * from "./User/AvatarInfo";
 export * from "./User/EditProfileRequest";
-
-// Zod
-export * from "./Zod/OnboardingSchema/OnboardingSnapSchema";
-export * from "./Zod/SnapshotSchema/CourseSnapSchema";
-export * from "./Zod/SnapshotSchema/LessonSnapSchema";
-export * from "./Zod/SnapshotSchema/ModuleSnapshotSchema";
