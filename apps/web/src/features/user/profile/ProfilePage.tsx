@@ -5,7 +5,6 @@ import { ProfileCardContainer } from "@/features/user/components/ProfileCardCont
 import { UserStatsGroup } from "../../stats/components/UserStatsGroup.tsx";
 import { BadgeListCard } from "./components/BadgeCard.tsx";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
-import type { IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
 
 type ProfilePageProps = {};
 

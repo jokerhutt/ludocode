@@ -1,29 +1,18 @@
 import { adminNavigation } from "@/constants/adminNavigation.tsx";
 import { router } from "@/main.tsx";
-import type { LudoCourse } from "@ludocode/types";
-import { Switch } from "@ludocode/external/ui/switch";
+import type { CourseStatus, LudoCourse } from "@ludocode/types";
 import { DeleteCourseButton } from "./DeleteCourseButton";
-import { useToggleCourseVisibility } from "../hooks/useToggleCourseVisibility";
+import { useChangeCourseStatus } from "../hooks/useToggleCourseVisibility";
+import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge";
+import { Archive, Globe } from "lucide-react";
 
 type CourseCardProps = {
   course: LudoCourse;
-  coursesLength: number;
-  visibleCoursesCount: number;
 };
 
-export function CourseCard({
-  course,
-  coursesLength,
-  visibleCoursesCount,
-}: CourseCardProps) {
-  const isVisible = course.isVisible !== false;
-  const isOnlyVisibleCourse = isVisible && visibleCoursesCount <= 1;
-  const toggleVisibility = useToggleCourseVisibility({ courseId: course.id });
-
-  const handleToggle = (checked: boolean) => {
-    if (toggleVisibility.isPending) return;
-    toggleVisibility.mutate({ value: checked });
-  };
+export function CourseCard({ course }: CourseCardProps) {
+  const courseStatus: CourseStatus = course.courseStatus ?? "DRAFT";
+  const changeCourseStatus = useChangeCourseStatus({ courseId: course.id });
 
   return (
     <div
@@ -50,9 +39,12 @@ export function CourseCard({
           {course.title}
         </h3>
 
-        <span className="text-xs text-ludo-white opacity-70">
-          {course.courseType}
-        </span>
+        <div className="flex items-center gap-2">
+          <CourseStatusBadge status={courseStatus} />
+          <span className="text-xs text-ludo-white opacity-70">
+            {course.courseType}
+          </span>
+        </div>
       </div>
 
       <div className="flex justify-between gap-6 text-sm text-ludo-white">
@@ -62,26 +54,52 @@ export function CourseCard({
             {course.language?.name ?? "—"}
           </p>
         </div>
-        <div className="flex items-end gap-3">
-          <div
-            className="flex items-center gap-2 z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="text-xs opacity-60">
-              {isVisible ? "Visible" : "Hidden"}
-            </span>
-            <Switch
-              checked={isVisible}
-              onCheckedChange={handleToggle}
-              disabled={isOnlyVisibleCourse || toggleVisibility.isPending}
-              className="data-[state=checked]:bg-ludo-accent data-[state=unchecked]:bg-ludo-surface-dim"
-            />
-          </div>
-          {coursesLength > 1 && (
-            <DeleteCourseButton
-              courseId={course.id}
-              courseName={course.title}
-            />
+        <div
+          className="flex items-end gap-3"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {courseStatus === "DRAFT" && (
+            <>
+              <button
+                type="button"
+                disabled={changeCourseStatus.isPending}
+                onClick={() =>
+                  changeCourseStatus.mutate({ value: "PUBLISHED" })
+                }
+                className="flex items-center gap-1.5 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                Publish
+              </button>
+              <DeleteCourseButton
+                courseId={course.id}
+                courseName={course.title}
+              />
+            </>
+          )}
+
+          {courseStatus === "PUBLISHED" && (
+            <button
+              type="button"
+              disabled={changeCourseStatus.isPending}
+              onClick={() => changeCourseStatus.mutate({ value: "ARCHIVED" })}
+              className="flex items-center gap-1.5 rounded-md bg-amber-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-amber-500 disabled:opacity-50"
+            >
+              <Archive className="h-3.5 w-3.5" />
+              Archive
+            </button>
+          )}
+
+          {courseStatus === "ARCHIVED" && (
+            <button
+              type="button"
+              disabled={changeCourseStatus.isPending}
+              onClick={() => changeCourseStatus.mutate({ value: "PUBLISHED" })}
+              className="flex items-center gap-1.5 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              Publish
+            </button>
           )}
         </div>
       </div>

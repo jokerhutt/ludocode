@@ -1,5 +1,8 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { AnimatedBadge, Badge } from "@ludocode/design-system/primitives/badge.tsx";
+import {
+  AnimatedBadge,
+  Badge,
+} from "@ludocode/design-system/primitives/badge.tsx";
 import type { CourseStats, LudoCourse } from "@ludocode/types";
 import { type IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
@@ -15,29 +18,39 @@ export function BadgeListCard({
   allCourses,
   allCourseStats,
 }: BadgeCardListProps) {
-  const completedCourseIds = new Set(
-    allCourseStats
-      .filter((stat) => stat.completedLessons === stat.totalLessons)
-      .map((stat) => stat.id),
+  const statsMap = new Map(allCourseStats.map((s) => [s.id, s]));
+
+  const coursesWithStatus = allCourses.map((course) => {
+    const stats = statsMap.get(course.id);
+
+    const started = stats ? stats.completedLessons > 0 : false;
+    const completed = stats
+      ? stats.completedLessons === stats.totalLessons
+      : false;
+
+    return {
+      ...course,
+      stats,
+      started,
+      completed,
+    };
+  });
+
+  const visibleCourses = coursesWithStatus.filter(
+    (course) => course.courseStatus === "PUBLISHED" || course.started,
   );
 
-  const coursesWithStatus = allCourses.map((course) => ({
-    ...course,
-    completed: completedCourseIds.has(course.id),
-    stats: allCourseStats.find((s) => s.id === course.id),
-  }));
-
-  const earnedCount = coursesWithStatus.filter((c) => c.completed).length;
-
+  const earnedCount = visibleCourses.filter((c) => c.completed).length;
+  
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex items-center justify-between">
         <p className="text-xs text-ludo-white-dim">
-          {earnedCount} / {allCourses.length} earned
+          {earnedCount} / {visibleCourses.length} earned
         </p>
       </div>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-        {coursesWithStatus.map((course) => (
+        {visibleCourses.map((course) => (
           <div
             key={course.id}
             className={cn(

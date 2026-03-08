@@ -5,7 +5,7 @@ import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import type { LudoCourse } from "@ludocode/types";
 
 export function CoursePage() {
-  const { allCourses } = useLoaderData({ from: "/_app/_hub/courses" });
+  const { availableCourses } = useLoaderData({ from: "/_app/_hub/courses" });
   const changeCourseMutation = useChangeCourse();
 
 
@@ -23,7 +23,7 @@ export function CoursePage() {
           subtitle="Browse all available courses and pick your next adventure"
         />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {allCourses.map((course: LudoCourse) => (
+          {availableCourses.map((course: LudoCourse) => (
             <CourseCard
               key={course.id}
               onClick={() => handleSelectCourse(course.id)}

@@ -68,14 +68,7 @@ export function CoursesPane({ className, courses }: CoursesPaneProps) {
       )}
 
       {courses.map((course) => (
-        <CourseCard
-          key={course.id}
-          course={course}
-          coursesLength={courses.length}
-          visibleCoursesCount={
-            courses.filter((c) => c.isVisible !== false).length
-          }
-        />
+        <CourseCard key={course.id} course={course} />
       ))}
     </div>
   );

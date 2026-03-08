@@ -23,6 +23,11 @@ export function OnboardingLayout() {
 
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { data: courses } = useSuspenseQuery(qo.allCourses());
+
+  const activeCourses = courses.filter(
+    (course) => course.courseStatus === "PUBLISHED",
+  );
+
   const { data: careers } = useSuspenseQuery(qo.allCareers());
 
   const draft = useOnboardingDraftStore((s) => s.draft);
@@ -41,7 +46,7 @@ export function OnboardingLayout() {
 
   const contextValue: OnboardingContextType = {
     currentUser,
-    courses,
+    courses: activeCourses,
     careers,
     flow,
   };

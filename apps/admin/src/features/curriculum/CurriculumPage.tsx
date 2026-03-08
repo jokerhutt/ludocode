@@ -18,6 +18,12 @@ import { CurriculumBreadcrumbs } from "@/features/curriculum/components/Curricul
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
 import { adminApi } from "@/constants/api/adminApi";
+import { useChangeCourseStatus } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
+import { useDeleteCourse } from "@/features/courses-hub/hooks/useDeleteCourse";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
+import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge.tsx";
+import type { CourseStatus } from "@ludocode/types";
+import { Archive, Globe, TrashIcon } from "lucide-react";
 
 type CurriculumPageProps = {};
 
@@ -36,6 +42,12 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseLanguage = courses.find((c) => c.id == courseId)?.language;
 
   const courseIcon = courses.find((c) => c.id === courseId)?.courseIcon;
+
+  const courseStatus: CourseStatus =
+    courses.find((c) => c.id === courseId)?.courseStatus ?? "DRAFT";
+
+  const changeCourseStatus = useChangeCourseStatus({ courseId });
+  const deleteCourseMutation = useDeleteCourse({ courseId });
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -127,9 +139,87 @@ export function CurriculumPage({}: CurriculumPageProps) {
               courseId={courseId}
               courseName={courseName}
             />
-            <h1 className="text-ludo-white-bright text-3xl font-bold">
-              {courseName}
-            </h1>
+            <div className="flex items-center gap-4">
+              <h1 className="text-ludo-white-bright text-3xl font-bold">
+                {courseName}
+              </h1>
+              <CourseStatusBadge status={courseStatus} />
+            </div>
+
+            <div className="flex items-center gap-3">
+              {courseStatus === "DRAFT" && (
+                <>
+                  <button
+                    type="button"
+                    disabled={changeCourseStatus.isPending}
+                    onClick={() =>
+                      changeCourseStatus.mutate({ value: "PUBLISHED" })
+                    }
+                    className="flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                  >
+                    <Globe className="h-4 w-4" />
+                    Publish
+                  </button>
+                  <DeleteDialog
+                    targetName={courseName}
+                    triggerClassName="w-auto"
+                    asChild
+                    destructiveConfirmation={{
+                      confirmationText: `type ${courseName} to confirm`,
+                      confirmationValue: courseName,
+                    }}
+                    onClick={() => {
+                      if (!deleteCourseMutation.isPending) {
+                        deleteCourseMutation.mutate(undefined, {
+                          onSuccess: () => {
+                            router.navigate(
+                              adminNavigation.hub.courses.toCoursesHub(),
+                            );
+                          },
+                        });
+                      }
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 rounded-md bg-ludo-danger px-4 py-2 text-sm font-medium text-white transition hover:bg-ludo-danger/80"
+                    >
+                      <TrashIcon className="h-4 w-4" />
+                      Delete
+                    </button>
+                  </DeleteDialog>
+                </>
+              )}
+
+              {courseStatus === "PUBLISHED" && (
+                <button
+                  type="button"
+                  disabled={changeCourseStatus.isPending}
+                  onClick={() =>
+                    changeCourseStatus.mutate({ value: "ARCHIVED" })
+                  }
+                  className="flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-500 disabled:opacity-50"
+                >
+                  <Archive className="h-4 w-4" />
+                  Archive
+                </button>
+              )}
+
+              {courseStatus === "ARCHIVED" && (
+                <button
+                  type="button"
+                  disabled={changeCourseStatus.isPending}
+                  onClick={() =>
+                    changeCourseStatus.mutate({ value: "PUBLISHED" })
+                  }
+                  className="flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                >
+                  <Globe className="h-4 w-4" />
+                  Publish
+                </button>
+              )}
+            </div>
+
             <CurriculumHero
               courseLanguage={courseLanguage}
               courseId={courseId}

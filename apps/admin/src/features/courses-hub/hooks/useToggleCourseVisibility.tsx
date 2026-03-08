@@ -1,21 +1,21 @@
 import { mutations } from "@/queries/definitions/mutations";
 import { qk } from "@/queries/definitions/qk";
-import type { LudoCourse } from "@ludocode/types";
+import type { CourseStatus, LudoCourse } from "@ludocode/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export type VisibilityToggleRequest = {
-  value: boolean;
+export type ChangeCourseStatusRequest = {
+  value: CourseStatus;
 };
 
 type Args = {
   courseId: string;
 };
 
-export function useToggleCourseVisibility({courseId}: Args) {
+export function useChangeCourseStatus({ courseId }: Args) {
   const qc = useQueryClient();
 
   return useMutation({
-    ...mutations.toggleCourseVisibility(courseId),
+    ...mutations.changeCourseStatus(courseId),
     onSuccess: (payload: LudoCourse[]) => {
       qc.setQueryData(qk.courses(), payload);
     },

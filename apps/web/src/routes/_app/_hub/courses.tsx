@@ -17,17 +17,20 @@ async function coursesLoader(queryClient: QueryClient) {
   const allCourses = await queryClient.ensureQueryData(qo.allCourses());
   const enrolled: string[] = await queryClient.ensureQueryData(qo.enrolled());
 
-  await Promise.all(
-    enrolled.map((enrolledId) =>
-      queryClient.ensureQueryData(qo.courseProgress(enrolledId)),
-    ),
+  const enrolledSet = new Set(enrolled);
+
+  const availableCourses = allCourses.filter(
+    (course) =>
+      course.courseStatus === "PUBLISHED" ||
+      (course.courseStatus === "ARCHIVED" && enrolledSet.has(course.id)),
   );
 
   await Promise.all(
-    enrolled.map((enrolledId) =>
-      queryClient.ensureQueryData(qo.courseStats(enrolledId)),
-    ),
+    enrolled.flatMap((id) => [
+      queryClient.ensureQueryData(qo.courseProgress(id)),
+      queryClient.ensureQueryData(qo.courseStats(id)),
+    ]),
   );
 
-  return { allCourses, enrolled, currentUser };
+  return { availableCourses, enrolled, currentUser };
 }
