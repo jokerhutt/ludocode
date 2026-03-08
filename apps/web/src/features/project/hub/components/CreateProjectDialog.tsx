@@ -3,11 +3,14 @@ import { useState, type ReactNode } from "react";
 import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
 import { Spinner } from "@ludocode/external/ui/spinner.tsx";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
-import { InputWrapper } from "@ludocode/design-system/primitives/input.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
-import type { LanguageMetadata } from "@ludocode/types";
+import {
+  LudoSelect,
+  LudoSelectItem,
+} from "@ludocode/design-system/primitives/select.tsx";
+import { CustomIcon, stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -24,7 +27,7 @@ export function CreateProjectDialog({
 }: CreateProjectDialogProps) {
   const closeModal = () => {
     close();
-    setProjectLanguage(null);
+    setSelectedLanguageId("");
     setProjectName("Untitled project");
   };
 
@@ -32,17 +35,16 @@ export function CreateProjectDialog({
 
   const possibleOptions = useSuspenseQuery(qo.languages()).data;
   const [projectName, setProjectName] = useState<string>("Untitled project");
-  const [projectLanguage, setProjectLanguage] =
-    useState<LanguageMetadata | null>(null);
+  const [selectedLanguageId, setSelectedLanguageId] = useState<string>("");
 
   const submitProject = () => {
     if (isSubmitLoading) return;
     if (projectName == null || projectName.length <= 0) return;
-    if (projectLanguage == null) return;
+    if (!selectedLanguageId) return;
 
     createProjectMutation.mutate({
       projectName: projectName,
-      projectLanguageId: projectLanguage.languageId,
+      projectLanguageId: Number(selectedLanguageId),
       requestHash: hash,
     });
   };
@@ -58,34 +60,42 @@ export function CreateProjectDialog({
         closeModal();
       }}
     >
-      <DialogTitle className="text-ludo-white-bright code font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         New Project
       </DialogTitle>
 
-      <InputWrapper>
-        <div className="flex w-full gap-4">
-          {possibleOptions.map((option: LanguageMetadata) => (
-            <LudoButton
-              data-testid={`create-project-language-option-${option.name}`}
-              onClick={() => setProjectLanguage(option)}
-              variant={projectLanguage == option ? "alt" : "white"}
+      <div className="flex flex-col gap-6 mt-4">
+        <LudoSelect
+          
+          variant="dark"
+          title="Language"
+          value={selectedLanguageId}
+          setValue={setSelectedLanguageId}
+        >
+          {possibleOptions.map((lang) => (
+            <LudoSelectItem
+              key={lang.languageId}
+              value={lang.languageId.toString()}
             >
-              {option.name}
-            </LudoButton>
+              <span className="flex items-center gap-3">
+                <CustomIcon className="h-5 w-5" color="white" iconName={stringToCustomIcon(lang.iconName)}/>
+                <span>{lang.name}</span>
+              </span>
+            </LudoSelectItem>
           ))}
-        </div>
-      </InputWrapper>
+        </LudoSelect>
 
-      <div className="py-2 mt-2 flex gap-2 justify-center items-center">
         <LudoButton
-          data-testid={`create-project-button`}
-          disabled={isSubmitLoading}
+          data-testid="create-project-button"
+          disabled={isSubmitLoading || !selectedLanguageId}
           variant="alt"
           onClick={() => submitProject()}
-          className="w-full flex"
+          className="w-full flex justify-center"
         >
           Create Project
-          {isSubmitLoading && <Spinner className="text-ludo-accent-muted" />}
+          {isSubmitLoading && (
+            <Spinner className="ml-2 text-ludo-accent-muted" />
+          )}
         </LudoButton>
       </div>
     </LudoDialog>

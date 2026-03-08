@@ -61,6 +61,7 @@ export function LudoSelect({
               "z-50 rounded-md overflow-hidden rounded-md",
               "border-4 p-2 border-ludo-accent",
               "shadow-lg",
+              "min-w-[var(--radix-select-trigger-width)]",
               variantStyle,
             )}
           >
@@ -79,9 +80,10 @@ export function LudoSelect({
 type LudoSelectItemProps = {
   value: string;
   children: React.ReactNode;
+  className?: string;
 };
 
-export function LudoSelectItem({ value, children }: LudoSelectItemProps) {
+export function LudoSelectItem({ value, children, className }: LudoSelectItemProps) {
   return (
     <Select.Item
       value={value}
@@ -90,6 +92,7 @@ export function LudoSelectItem({ value, children }: LudoSelectItemProps) {
         "text-ludo-white-bright outline-none",
         "data-[highlighted]:bg-ludo-accent-muted/20",
         "data-[state=checked]:bg-ludo-accent-muted/30",
+        className
       )}
     >
       <Select.ItemIndicator className="absolute left-2">
