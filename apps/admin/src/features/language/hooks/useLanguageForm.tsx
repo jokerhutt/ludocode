@@ -34,6 +34,7 @@ export function useLanguageForm({
       slug,
       editorId,
       pistonId,
+      runtimeVersion,
       base,
       iconName,
       initialScript,
@@ -160,6 +161,16 @@ export function useLanguageForm({
     const lang = editorLanguages.find((l) => l.id === editorId);
     return lang?.extensions?.[0] ?? "";
   }, [editorId, editorLanguages]);
+
+  // -------------------------
+  // derived runtime version
+  // -------------------------
+
+  const runtimeVersion = useMemo(() => {
+    if (!pistonId) return "";
+    const rt = runtimes.find((r) => r.language === pistonId);
+    return rt?.version ?? "";
+  }, [pistonId, runtimes]);
 
   // -------------------------
   // helpers

@@ -8,6 +8,7 @@ export const languageFormSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "Only lowercase letters, numbers and dashes"),
   editorId: z.string().min(1, "Editor language is required"),
   pistonId: z.string().min(1, "Runtime is required"),
+  runtimeVersion: z.string().min(1, "Runtime version is required"),
   base: z.string().min(1, "Base is required"),
   iconName: z.string().min(1, "Icon is required"),
   initialScript: z.string().min(1, "Initial script is required"),

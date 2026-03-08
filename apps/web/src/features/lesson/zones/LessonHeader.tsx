@@ -16,7 +16,7 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
 
   return (
     <LudoHeader.Shell className="px-6" device="Both">
-      <div className="col-span-3 flex items-center h-full">
+      <div className=" col-span-2 lg:col-span-3 flex items-center h-full">
         {onExit && (
           <LeaveUnsavedDialog
             title="Are you sure you want to exit?"
@@ -28,13 +28,13 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
           </LeaveUnsavedDialog>
         )}
       </div>
-      <div className="flex items-center justify-center col-start-3 col-end-11 lg:col-span-6">
+      <div className="flex items-center justify-center col-span-8 lg:col-span-6">
         <Progress
           className="border-ludo-accent-muted h-3"
           value={(completed / total) * 100}
         />
       </div>
-      <div className="lg:col-span-3 flex items-center justify-end">
+      <div className="col-span-2 lg:col-span-3 flex items-center justify-end">
         <AudioToggleIcon/>
       </div>
     </LudoHeader.Shell>

@@ -3,6 +3,7 @@ export type ModifyLanguageRequest = {
   slug: string;
   editorId: string;
   pistonId: string;
+  runtimeVersion: string;
   extension: string;
   base: string;
   iconName: string;

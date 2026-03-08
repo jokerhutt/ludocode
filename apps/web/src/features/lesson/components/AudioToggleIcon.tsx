@@ -5,7 +5,7 @@ import { VolumeIcon, VolumeOffIcon } from "lucide-react";
 
 export function AudioToggleIcon() {
   const { data: preferences } = useSuspenseQuery(qo.preferences());
-  const audioEnabled = preferences.audioEnabled
+  const audioEnabled = preferences.audioEnabled;
 
   const mutation = useEditPreferences();
 
@@ -15,11 +15,18 @@ export function AudioToggleIcon() {
   };
 
   return (
-    <div className="text-ludo-white-bright">
+    <div className="text-ludo-white">
       {audioEnabled ? (
-        <VolumeIcon className="hover:cursor-pointer w-5 h-5" strokeWidth={1} onClick={() => handleToggle()} />
+        <VolumeIcon
+          className="hover:cursor-pointer w-5 h-5"
+          strokeWidth={1}
+          onClick={() => handleToggle()}
+        />
       ) : (
-        <VolumeOffIcon className="w-5 h-5 hover:cursor-pointer" onClick={() => handleToggle()} />
+        <VolumeOffIcon
+          className=" w-5 h-5 hover:cursor-pointer"
+          onClick={() => handleToggle()}
+        />
       )}
     </div>
   );
