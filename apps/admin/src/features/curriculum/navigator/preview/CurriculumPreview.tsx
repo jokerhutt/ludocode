@@ -9,7 +9,6 @@ import type { CurriculumDraft, CurriculumDraftLesson } from "@ludocode/types";
 import { ModulePreviewItem } from "./ModulePreviewItem.tsx";
 import { useRef } from "react";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
-import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
 
 type CurriculumPreviewProps = {
   selectedLesson: CurriculumDraftLesson | null;

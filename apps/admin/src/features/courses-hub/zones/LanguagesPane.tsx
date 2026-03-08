@@ -2,7 +2,6 @@ import { adminNavigation } from "@/constants/adminNavigation.tsx";
 import { router } from "@/main.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { CustomIcon, stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button";
 import type { LanguageMetadata } from "@ludocode/types";
 
