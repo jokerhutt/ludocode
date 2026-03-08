@@ -82,8 +82,9 @@ export const ludoNavigation = {
         to: accountSettingsRoute.to,
         params: { userId },
       }),
-      toDocs: () => ({
+      toDocs: (slug?: string) => ({
         to: docsRoute.to,
+        search: slug ? { slug } : undefined,
       }),
     },
   },
@@ -92,7 +93,10 @@ export const ludoNavigation = {
     toResourcesRoute: () => ({ to: resourcesRootRoute.to }),
     toToS: () => ({ to: tosRoute.to }),
     toPrivacy: () => ({ to: privacyRoute.to }),
-    toDocs: () => ({ to: docsRoute.to }),
+    toDocs: (slug?: string) => ({
+      to: docsRoute.to,
+      search: slug ? { slug } : undefined,
+    }),
   },
 
   lesson: {

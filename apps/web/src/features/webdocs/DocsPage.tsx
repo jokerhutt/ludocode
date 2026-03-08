@@ -6,6 +6,7 @@ import {
   DocsScrollSpyTOC,
   type TocHeading,
 } from "@ludocode/ludo-mdx/webdocs/DocsScrollSpyTOC.tsx";
+import { Route } from "@/routes/resources/docs/index.tsx";
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];
@@ -18,7 +19,11 @@ function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
 }
 
 export function DocsPage() {
-  const [activeSlug, setActiveSlug] = useState(defaultSlug);
+  const { slug: initialSlug } = Route.useSearch();
+  const [activeSlug, setActiveSlug] = useState(
+    (initialSlug && findEntry(initialSlug) ? initialSlug : undefined) ??
+      defaultSlug,
+  );
   const [headings, setHeadings] = useState<TocHeading[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);

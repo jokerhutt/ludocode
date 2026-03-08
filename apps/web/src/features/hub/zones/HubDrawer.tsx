@@ -11,6 +11,7 @@ import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import {
   LockIcon,
+  Map,
   NotebookText,
   Scroll,
   Settings,
@@ -91,15 +92,15 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               onClick={() => router.navigate(ludoNavigation.resources.toDocs())}
             />
           </DrawerClose>
-          {/* <DrawerClose asChild>
+          <DrawerClose asChild>
             <NavItem
               icon={<Map className="h-5 w-5" />}
               label="Roadmap"
               onClick={() =>
-                router.navigate(ludoNavigation.hub.user.toSettings(user.id))
+                router.navigate(ludoNavigation.resources.toDocs("roadmap"))
               }
             />
-          </DrawerClose> */}
+          </DrawerClose>
           <DrawerClose asChild>
             <NavItem
               icon={<LockIcon className="h-5 w-5" />}

@@ -9,6 +9,7 @@ import type { MDXComponents } from "mdx/types";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { DocsTipCard } from "./DocsTipCard";
 import { DocsTabs } from "./DocsTabs";
+import { DocsRoadmap } from "./DocsRoadmap";
 
 // ─── Ludocode code theme ────────────────────────────────────────────────────
 
@@ -102,6 +103,7 @@ export const mdxComponents: MDXComponents = {
   Tip: DocsTipCard as ComponentType,
   Tabs: DocsTabs as ComponentType,
   CodeBlock: CodeBlock as ComponentType,
+  Roadmap: DocsRoadmap as ComponentType,
 
   // ── Heading overrides (IDs added by rehype-slug) ──
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
