@@ -21,7 +21,7 @@ export function FileActionsMenu({
   renameItem,
   itemType,
   deleteItem,
-  canDelete,
+  canDelete = true,
 }: FileActionsMenuProps) {
   return (
     <LudoMenu>
