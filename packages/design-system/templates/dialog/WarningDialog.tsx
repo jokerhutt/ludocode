@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
 import { DialogDescription, DialogTitle } from "@ludocode/external/ui/dialog";
-import { Input } from "@ludocode/external/ui/input";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 
 export type DestructiveActionConfirmation = {

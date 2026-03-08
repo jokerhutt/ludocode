@@ -5,9 +5,7 @@ import { CompletionStatsGroup } from "@/features/completion/components/Completio
 import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter.tsx";
 import { BadgeSingleCard } from "@/features/user/profile/components/BadgeCard.tsx";
 import {
-  Icons,
   stringToCustomIcon,
-  type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { useLottie, useTimedLottie } from "@ludocode/hooks";
 

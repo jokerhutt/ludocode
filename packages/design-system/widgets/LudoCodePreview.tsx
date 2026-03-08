@@ -8,7 +8,6 @@ import {
   useState,
   useRef,
   type ReactNode,
-  Fragment,
 } from "react";
 import { AnimatePresence, motion, useMotionValue, animate } from "motion/react";
 import { InlineCode } from "../primitives/inline-code";
@@ -188,7 +187,7 @@ function Header({
   );
 }
 
-function TrafficLights({ className }: { className?: string }) {
+export function TrafficLights({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center gap-1.5", className)}>
       <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />

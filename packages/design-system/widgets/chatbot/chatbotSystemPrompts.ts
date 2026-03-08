@@ -1,4 +1,4 @@
-import { AnswerToken, LudoExercise, ProjectSnapshot } from "@ludocode/types";
+import type { AnswerToken, LudoExercise, ProjectSnapshot } from "@ludocode/types";
 import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot";
 
 export type ChatbotMode = "PROJECT" | "INFO" | "CLOZE" | "SELECT";

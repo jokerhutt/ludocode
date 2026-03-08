@@ -1,5 +1,4 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import { SparklesIcon } from "lucide-react";
 
 type ChatbotCreditsTabProps = { credits: number; className?: string };
 

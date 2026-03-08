@@ -2,7 +2,6 @@ import { Progress } from "@ludocode/external/ui/progress.tsx";
 import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog.tsx";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
-import { SpeakerIcon, VolumeIcon } from "lucide-react";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
 
 type LessonHeaderProps = {
