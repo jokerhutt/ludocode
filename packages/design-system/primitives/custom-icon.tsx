@@ -405,7 +405,7 @@ export function TypescriptIcon({ className, color }: IconProps): JSX.Element {
   );
 }
 
-export function RustIcon({ className, color }: IconProps): JSX.Element {
+export function RustIcon({ className }: IconProps): JSX.Element {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
