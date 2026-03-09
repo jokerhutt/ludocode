@@ -59,12 +59,6 @@ This project is made so that you can run it locally without needing to provide a
 ### Exercise Editor
 ![alt text](docs/media/exericse-editor-preview.png)
 
-## Known Issues
-
-### AI chatbot code blocks
-
-One issue with the AI chatbot is codeblocks that have only one line are rendered as blank code blocks in the streamed response. This issue seems to be related to the Streamdown library which handles streamed AI responses. I have tried pre-formatting the chunks and modifying the streamdown code block parser to no avail.
-
 ## Attributions
 
 This project uses assets from the LottieFiles Community for animations under the Lottie Simple License.
