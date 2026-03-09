@@ -3,6 +3,7 @@ import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/lea
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
+import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
 
 type LessonHeaderProps = {
   total: number;
@@ -33,8 +34,9 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
           value={(completed / total) * 100}
         />
       </div>
-      <div className="col-span-2 lg:col-span-3 flex items-center justify-end">
-        <AudioToggleIcon/>
+      <div className="col-span-2 lg:col-span-3 flex items-center justify-end gap-3">
+        <ExerciseFeedbackIcon />
+        <AudioToggleIcon />
       </div>
     </LudoHeader.Shell>
   );

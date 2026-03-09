@@ -39,6 +39,9 @@ export * from "./Languages/ChangeLanguageRequest";
 export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";
 
+// Feedback
+export * from "./Feedback/FeedbackRequest"
+
 // Piston
 export * from "./Piston/Runtimes";
 

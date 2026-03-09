@@ -12,12 +12,14 @@ import { router } from "@/main.tsx";
 import {
   LockIcon,
   Map,
+  MessageSquarePlus,
   NotebookText,
   Scroll,
   Settings,
   User,
   X,
 } from "lucide-react";
+import { FeedbackDialog } from "@/features/feedback/FeedbackDialog.tsx";
 import type { ReactElement } from "react";
 import type { LudoUser, SubscriptionPlan } from "@ludocode/types";
 import { LogoutButton } from "@/features/auth/components/LogoutButton.tsx";
@@ -101,6 +103,13 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
               }
             />
           </DrawerClose>
+          <FeedbackDialog>
+            <NavItem
+              icon={<MessageSquarePlus className="h-5 w-5" />}
+              label="Submit Feedback"
+              onClick={() => {}}
+            />
+          </FeedbackDialog>
           <DrawerClose asChild>
             <NavItem
               icon={<LockIcon className="h-5 w-5" />}
