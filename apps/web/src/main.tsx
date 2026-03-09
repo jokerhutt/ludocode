@@ -1,3 +1,4 @@
+import { Howler } from "howler";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./App.css";
@@ -9,6 +10,16 @@ import type { LessonSubmissionRequest } from "packages/types/Exercise/LessonSubm
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const queryClient = new QueryClient();
+
+window.addEventListener("pagehide", () => {
+  Howler.stop();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    Howler.stop();
+  }
+});
 
 export const router = createRouter({
   routeTree,
