@@ -121,6 +121,15 @@ export const ludoNavigation = {
       }),
       replace: true,
     }),
+    toPreviousExercise: (current: number) => ({
+      to: lessonPageRoute.to,
+      params: (prev: any) => prev,
+      search: (prev: any) => ({
+        ...prev,
+        exercise: Math.max(1, current - 1),
+      }),
+      replace: true,
+    }),
   },
 
   project: {

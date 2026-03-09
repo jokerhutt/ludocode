@@ -2,7 +2,7 @@ import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { useChangeExercise } from "@/features/lesson/hooks/useChangeExercise.tsx";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { useStagedAttempt } from "@/features/lesson/hooks/useStagedAttempt.tsx";
 import {
@@ -11,6 +11,8 @@ import {
 } from "@/features/lesson/hooks/useExerciseInput.tsx";
 import { useCommittedSubmissions } from "@/features/lesson/hooks/useCommittedSubmissions.tsx";
 import type { ExercisePhase } from "@/features/lesson/zones/LessonFooter.tsx";
+import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { router } from "@/main";
 
 type Args = {
   courseId: string;
@@ -42,10 +44,6 @@ export function useExercise({
 
   const [isInfoSubmitted, setIsInfoSubmitted] = useState(false);
 
-  useEffect(() => {
-    setIsInfoSubmitted(false);
-  }, [currentExerciseId]);
-
   const exerciseInput = useExerciseInput({ currentExercise });
   const { currentExerciseInputs, clearExerciseInputs, initializeInputs } =
     exerciseInput;
@@ -58,11 +56,40 @@ export function useExercise({
   const {
     stageAttempt,
     clearStaged,
+    restoreStaged,
     phase: stagedPhase,
     currentlyStagedAttempt,
     canSubmit,
     hasStaged,
   } = stagedAttempt;
+
+  const { commitStagedAttemptIntoSubmissions, committedExerciseSubmissions } =
+    useCommittedSubmissions({
+      courseId,
+      currentExercise,
+      position,
+      exercises,
+      clearExerciseInputs,
+      clearStaged,
+      lessonId,
+    });
+
+  const isReviewing = useMemo(() => {
+    return committedExerciseSubmissions.some(
+      (s) =>
+        s.exerciseId === currentExerciseId &&
+        s.attempts.some((a) => a.isCorrect),
+    );
+  }, [committedExerciseSubmissions, currentExerciseId]);
+
+  // Manage isInfoSubmitted state on exercise change
+  useEffect(() => {
+    if (isInfo && isReviewing) {
+      setIsInfoSubmitted(true);
+    } else {
+      setIsInfoSubmitted(false);
+    }
+  }, [currentExerciseId, isReviewing, isInfo]);
 
   const phase: ExercisePhase = isInfo
     ? isInfoSubmitted
@@ -70,20 +97,30 @@ export function useExercise({
       : "DEFAULT"
     : stagedPhase;
 
-  const { commitStagedAttemptIntoSubmissions } = useCommittedSubmissions({
-    courseId,
-    currentExercise,
-    position,
-    exercises,
-    clearExerciseInputs,
+  useChangeExercise({
+    initializeInputs,
     clearStaged,
-    lessonId,
+    restoreStaged,
+    currentExerciseId,
+    submissions: committedExerciseSubmissions,
   });
 
-  useChangeExercise({ initializeInputs, currentExerciseId, submissions: [] });
+  const canGoBack = position > 1;
+
+  const goBack = useCallback(() => {
+    if (!canGoBack) return;
+    router.navigate(ludoNavigation.lesson.toPreviousExercise(position));
+  }, [canGoBack, position]);
 
   const handleExerciseButtonClick = useCallback(() => {
     if (!canSubmit) return;
+
+    // When reviewing a completed exercise, just navigate forward
+    if (isReviewing) {
+      router.navigate(ludoNavigation.lesson.toNextExercise(position));
+      return;
+    }
+
     if (isInfo) {
       if (hasCodeOutput && !isInfoSubmitted) {
         setIsInfoSubmitted(true);
@@ -97,6 +134,8 @@ export function useExercise({
     }
   }, [
     canSubmit,
+    isReviewing,
+    position,
     isInfo,
     hasCodeOutput,
     isInfoSubmitted,
@@ -113,6 +152,8 @@ export function useExercise({
     currentlyStagedAttempt,
     handleExerciseButtonClick,
     inputState: exerciseInput,
+    canGoBack,
+    goBack,
   };
 }
 
@@ -123,4 +164,6 @@ export type useExerciseResponse = {
   currentlyStagedAttempt: ExerciseAttempt | null;
   handleExerciseButtonClick: () => void;
   inputState: useExerciseInputResponse;
+  canGoBack: boolean;
+  goBack: () => void;
 };

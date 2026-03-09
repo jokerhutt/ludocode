@@ -76,11 +76,11 @@ export function useCommittedSubmissions({
         handleLastExercise(merged);
       } else if (filteredStagedAttempt.isCorrect) {
         handleCorrectAttempt();
+      } else {
+        //Only clear on incorrect attempts so the user can retry
+        clearExerciseInputs();
+        clearStaged();
       }
-
-      //Clear components
-      clearExerciseInputs();
-      clearStaged();
 
       return;
     },
@@ -97,5 +97,5 @@ export function useCommittedSubmissions({
     ],
   );
 
-  return { commitStagedAttemptIntoSubmissions };
+  return { commitStagedAttemptIntoSubmissions, committedExerciseSubmissions };
 }

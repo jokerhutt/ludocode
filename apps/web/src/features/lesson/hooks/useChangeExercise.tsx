@@ -6,18 +6,26 @@ import { useEffect } from "react";
 
 type Args = {
   initializeInputs: (attempt: ExerciseAttempt | null) => void;
+  clearStaged: () => void;
+  restoreStaged: (attempt: ExerciseAttempt) => void;
   currentExerciseId: string;
   submissions: ExerciseSubmission[];
 };
 
 export function useChangeExercise({
   initializeInputs,
+  clearStaged,
+  restoreStaged,
   currentExerciseId,
   submissions,
 }: Args) {
   useEffect(() => {
+    clearStaged();
     const lastAttempt = findLastAttempt(submissions, currentExerciseId);
     initializeInputs(lastAttempt);
+    if (lastAttempt) {
+      restoreStaged(lastAttempt);
+    }
   }, [currentExerciseId]);
 }
 

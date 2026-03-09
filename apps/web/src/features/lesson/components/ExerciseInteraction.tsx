@@ -39,6 +39,10 @@ export function ExerciseInteraction({
   const handleSelect = (token: AnswerToken) => {
     if (phase !== "DEFAULT") return;
     if (selectionMode === "APPEND") {
+      const alreadyUsed = currentExerciseInputs.some(
+        (t) => t.id === token.id && t.value !== "",
+      );
+      if (alreadyUsed) return;
       setAnswerAt(token);
     } else {
       replaceAnswerAt(0, token);
@@ -93,7 +97,7 @@ export function ExerciseInteraction({
               <LudoOption
                 key={option.id}
                 variant="pill"
-                enabled={phase === "DEFAULT"}
+                enabled={phase === "DEFAULT" && !isSelected}
                 content={option.content}
                 isSelected={isSelected}
                 onSelect={() =>
