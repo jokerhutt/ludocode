@@ -5,6 +5,8 @@ import type { EmailLoginMode } from "@/queries/mutations/useFirebaseEmailAuth.ts
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import validator from "validator";
+import { errorToast } from "@ludocode/design-system/primitives/toast.tsx";
 
 type EmailAuthFormProps = {
   mode: EmailLoginMode;
@@ -18,17 +20,41 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
   const [passwordInput, setPasswordInput] = useState("");
   const [hasAgreedToToS, setHasAgreedToToS] = useState(false);
 
+  const [checkboxError, setCheckboxError] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const canSubmitNow =
-      emailInput.length > 0 &&
-      passwordInput.length > 0 &&
-      (mode === "LOGIN" || hasAgreedToToS);
+    // Email form pre-submission checks
 
-    if (!canSubmitNow) {
-      return;
+    let hasError = false;
+
+    // Validate email
+    if (emailInput.length === 0) {
+      errorToast("Please enter an email address.");
+      hasError = true;
+    } else if (!validator.isEmail(emailInput)) {
+      errorToast("Please enter a valid email address.");
+      hasError = true;
     }
+
+    // Validate password
+    if (passwordInput.length === 0) {
+      hasError = true;
+    } else if (passwordInput.length < 6) {
+      errorToast("Password should be at least 6 characters.");
+      hasError = true;
+    }
+
+    // Validate checkbox
+    if (mode === "REGISTER" && !hasAgreedToToS) {
+      setCheckboxError(true);
+      hasError = true;
+    } else {
+      setCheckboxError(false);
+    }
+
+    if (hasError) return;
 
     onSubmit(emailInput, passwordInput, mode);
   };
@@ -38,7 +64,9 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
       <div className="w-full flex flex-col gap-2">
         <LudoInput
           value={emailInput}
-          setValue={setEmailInput}
+          setValue={(v) => {
+            setEmailInput(v);
+          }}
           title="Email"
           placeholder="Your email"
         />
@@ -46,39 +74,53 @@ export function EmailAuthForm({ mode, onSubmit }: EmailAuthFormProps) {
         <LudoInput
           value={passwordInput}
           isProtected
-          setValue={setPasswordInput}
+          setValue={(v) => {
+            setPasswordInput(v);
+          }}
           title="Password"
           placeholder="Your password"
         />
 
         {mode === "REGISTER" && (
-          <div className="w-full my-0.5 text-ludo-white lg:items-center flex gap-2">
-            <Checkbox
-              data-testid="register-tos"
-              checked={hasAgreedToToS}
-              onCheckedChange={(checked) => setHasAgreedToToS(checked === true)}
-              className="hover:cursor-pointer  data-[state=checked]:bg-ludo-accent"
-            />
-            <p className="text-xs">
-              By signing up, you agree to Ludocode's{" "}
-              <a
-                onClick={() =>
-                  router.navigate(ludoNavigation.resources.toToS())
-                }
-                className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
-              >
-                Terms
-              </a>{" "}
-              &{" "}
-              <a
-                onClick={() =>
-                  router.navigate(ludoNavigation.resources.toPrivacy())
-                }
-                className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
-              >
-                Privacy Policy
-              </a>
-            </p>
+          <div className="w-full my-0.5 text-ludo-white lg:items-center flex flex-col gap-1">
+            <div className="flex gap-2 lg:items-center">
+              <Checkbox
+                data-testid="register-tos"
+                checked={hasAgreedToToS}
+                onCheckedChange={(checked) => {
+                  setHasAgreedToToS(checked === true);
+                  if (checked === true) setCheckboxError(false);
+                }}
+                className={`hover:cursor-pointer data-[state=checked]:bg-ludo-accent ${
+                  checkboxError ? "border-red-400" : ""
+                }`}
+              />
+              <p className="text-xs">
+                By signing up, you agree to Ludocode's{" "}
+                <a
+                  onClick={() =>
+                    router.navigate(ludoNavigation.resources.toToS())
+                  }
+                  className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
+                >
+                  Terms
+                </a>{" "}
+                &{" "}
+                <a
+                  onClick={() =>
+                    router.navigate(ludoNavigation.resources.toPrivacy())
+                  }
+                  className="underline hover:text-ludo-accent-muted hover:cursor-pointer"
+                >
+                  Privacy Policy
+                </a>
+              </p>
+            </div>
+            {checkboxError && (
+              <p className="text-red-400 text-xs">
+                Please agree to the Terms & Privacy Policy to continue.
+              </p>
+            )}
           </div>
         )}
       </div>

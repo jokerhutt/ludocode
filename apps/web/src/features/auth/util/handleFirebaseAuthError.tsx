@@ -4,21 +4,25 @@ import { errorToast } from "@ludocode/design-system/primitives/toast.tsx";
 
 export function handleFirebaseAuthError(
   error: FirebaseError,
-  mode?: EmailLoginMode
+  mode?: EmailLoginMode,
 ) {
   switch (error.code) {
     case "auth/email-already-in-use":
       errorToast(
         mode === "REGISTER"
           ? "An user with this email already exists. Please log in."
-          : "This email is already registered."
+          : "This email is already registered.",
       );
       break;
 
     case "auth/user-exists-with-different-credential":
       errorToast(
-        "This email is registered using another provider. Please sign in with that provider."
+        "This email is registered using another provider. Please sign in with that provider.",
       );
+      break;
+
+    case "auth/weak-password":
+      errorToast("Password should be at least 6 characters.");
       break;
 
     case "auth/wrong-password":
@@ -33,12 +37,12 @@ export function handleFirebaseAuthError(
       errorToast(
         mode
           ? "Invalid email or password."
-          : "This email is registered with another provider."
+          : "This email is registered with another provider.",
       );
       break;
 
     case "auth/popup-closed-by-user":
-      // optional: no toast
+      //  no toast
       break;
 
     default:
