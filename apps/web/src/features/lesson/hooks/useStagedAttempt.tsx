@@ -21,6 +21,7 @@ export type useStagedAttemptResponse = {
   currentlyStagedAttempt: ExerciseAttempt | null;
   stageAttempt: () => void;
   clearStaged: () => void;
+  restoreStaged: (attempt: ExerciseAttempt) => void;
   phase: ExercisePhase;
   hasStaged: boolean;
 };
@@ -40,6 +41,11 @@ export function useStagedAttempt({
 
   const clearCurrentlyStagedAttempt = useCallback(
     () => setCurrentlyStagedAttempt(null),
+    [],
+  );
+
+  const restoreStaged = useCallback(
+    (attempt: ExerciseAttempt) => setCurrentlyStagedAttempt(attempt),
     [],
   );
 
@@ -79,6 +85,7 @@ export function useStagedAttempt({
     currentlyStagedAttempt,
     stageAttempt,
     clearStaged: clearCurrentlyStagedAttempt,
+    restoreStaged,
     phase,
     hasStaged,
   };
