@@ -59,8 +59,8 @@ export function OnboardingLayout() {
       <MainGridWrapper gridRows="FULL">
         <OnboardingHeader total={total} position={current} />
         <MainContentWrapper>
-          <div className="relative grid col-span-full grid-cols-12">
-            <div className="col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 py-10 min-w-0">
+          <div className="relative grid col-span-full grid-cols-12 h-full">
+            <div className="col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 min-w-0 flex pb-20 items-center justify-center">
               <Step />
             </div>
           </div>

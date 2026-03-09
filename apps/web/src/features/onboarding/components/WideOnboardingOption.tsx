@@ -21,11 +21,11 @@ export function WideOnboardingOption({
       onClick={onClick}
       variant={isSelected ? "alt" : "default"}
       className={cn(
-        "p-6 min-h-30 flex flex-col items-center gap-2 justify-center rounded-2xl",
-        "transition-all border-2 duration-200",
+        "p-4 min-h-20 flex flex-col items-center gap-1.5 justify-center rounded-xl",
+        "transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation",
         isSelected
-          ? "border-transparent"
-          : "border-transparent hover:scale-[1.02]",
+          ? "border-ludo-accent/40"
+          : "border-transparent hover:border-ludo-border",
       )}
     >
       {children}

@@ -14,10 +14,10 @@ export function OnboardingStageShell({
 }: OnboardingStageShellProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
-      className="flex flex-col items-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="flex flex-col justify-center items-center w-full"
     >
       <h1 className="text-3xl text-center font-bold text-ludo-white-bright tracking-tight">
         {title}
