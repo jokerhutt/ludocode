@@ -25,6 +25,7 @@ import type {
   LudoUser,
   UserSubscription,
   ConfirmRequest,
+  FeedbackRequest,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -54,6 +55,22 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<UserSubscription, ConfirmRequest>(
           api.subscriptions.confirm,
+          variables,
+          true,
+        ),
+    });
+  },
+
+  submitFeedback: () => {
+    return mutationOptions<
+      void,
+      Error,
+      FeedbackRequest
+    >({
+      mutationKey: ["submitFeedback"],
+      mutationFn: (variables) =>
+        ludoPost<void, FeedbackRequest>(
+          api.feedback.base,
           variables,
           true,
         ),
