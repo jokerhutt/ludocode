@@ -19,6 +19,7 @@ type ContextType = {
   parts: string[];
   responses: AnswerToken[];
   typing?: boolean;
+  actionsEnabled?: boolean;
 
   handleChange: (index: number, value: string) => void;
   refs: React.RefObject<HTMLInputElement[]>;
@@ -43,6 +44,7 @@ type RootProps = {
   options: { id: string; content: string }[];
   userResponses: AnswerToken[];
   typing?: boolean;
+  actionsEnabled?: boolean;
   onChange: (index: number, value: AnswerToken) => void;
   clear: () => void;
   popLast: () => void;
@@ -56,6 +58,7 @@ function Root({
   options,
   userResponses,
   typing,
+  actionsEnabled,
   onChange,
   shadow,
   clear,
@@ -118,6 +121,7 @@ function Root({
         parts,
         responses,
         typing,
+        actionsEnabled: actionsEnabled ?? typing,
         handleChange,
         refs,
         focusPrev,
@@ -310,8 +314,8 @@ function Footer({
 }
 
 function DeleteButton() {
-  const { clear, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing;
+  const { clear, isEmpty, actionsEnabled } = usePreview();
+  const disabled = isEmpty || !actionsEnabled;
   const cursorStyle = isEmpty
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -332,8 +336,8 @@ function DeleteButton() {
 }
 
 function BackspaceButton() {
-  const { popLast, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing;
+  const { popLast, isEmpty, actionsEnabled } = usePreview();
+  const disabled = isEmpty || !actionsEnabled;
   const cursorStyle = disabled
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -356,6 +360,7 @@ const OUTPUT_PANEL_W = 224;
 const OUTPUT_GAP = 16;
 const OUTPUT_TOTAL = OUTPUT_PANEL_W + OUTPUT_GAP;
 const OUTPUT_TRANSITION = { duration: 0.8, ease: [0.22, 1, 0.36, 1] } as const;
+const SHADOW_PAD = 20;
 
 function MobileSwipeOutput({
   output,
@@ -403,7 +408,7 @@ function MobileSwipeOutput({
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <div className="w-full overflow-hidden" ref={containerRef}>
+      <div className="w-full overflow-hidden py-5 -my-5" ref={containerRef}>
         <motion.div
           className="flex w-[200%]"
           style={{ x }}
@@ -523,10 +528,18 @@ function Output({
         <motion.div
           key="code-output-clip"
           initial={{ width: 0 }}
-          animate={{ width: OUTPUT_TOTAL }}
+          animate={{ width: OUTPUT_TOTAL + SHADOW_PAD }}
           exit={{ width: 0 }}
           transition={OUTPUT_TRANSITION}
           className="shrink-0 overflow-hidden"
+          style={{
+            paddingTop: SHADOW_PAD,
+            paddingBottom: SHADOW_PAD,
+            paddingRight: SHADOW_PAD,
+            marginTop: -SHADOW_PAD,
+            marginBottom: -SHADOW_PAD,
+            marginRight: -SHADOW_PAD,
+          }}
         >
           <motion.div
             initial={{ x: -OUTPUT_TOTAL }}

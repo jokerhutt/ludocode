@@ -5,7 +5,7 @@ import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview.tsx";
 import { LudoOption } from "@ludocode/design-system/primitives/ludo-option.tsx";
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 
 export type OptionLayout = "ROW" | "COLUMN";
 export type SelectionMode = "APPEND" | "REPLACE";
@@ -66,6 +66,7 @@ export function ExerciseInteraction({
             options={options}
             userResponses={currentExerciseInputs}
             typing={!isMobile && phase === "DEFAULT"}
+            actionsEnabled={phase === "DEFAULT"}
             onChange={replaceAnswerAt}
             clear={clearExerciseInputs}
             popLast={popLastAnswer}
@@ -126,10 +127,10 @@ type OptionListWrapperProps = {
 };
 
 export function OptionListWrapper({
-                                    children,
-                                    type,
-                                    className,
-                                  }: OptionListWrapperProps) {
+  children,
+  type,
+  className,
+}: OptionListWrapperProps) {
   const rowStyle = "flex justify-center flex-wrap items-center gap-4";
   const colStyle = "flex flex-col items-center gap-4";
 
@@ -137,4 +138,3 @@ export function OptionListWrapper({
 
   return <div className={cn("w-full", style, className)}>{children}</div>;
 }
-
