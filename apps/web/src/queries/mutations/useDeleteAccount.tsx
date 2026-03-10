@@ -10,8 +10,8 @@ export function useDeleteAccount() {
   return useMutation({
     ...mutations.deleteAccount(),
     onSuccess: async () => {
-      await router.navigate(ludoNavigation.auth.login());
       qc.clear();
+      await router.navigate(ludoNavigation.auth.register());
     },
   });
 }
