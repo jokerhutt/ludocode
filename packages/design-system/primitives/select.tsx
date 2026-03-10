@@ -35,6 +35,7 @@ export function LudoSelect({
 
       <Select.Root value={value} onValueChange={setValue}>
         <Select.Trigger
+          data-testid="select-trigger"
           className={cn(
             "h-12 w-full rounded-md px-3",
             "text-ludo-white-bright",
@@ -81,12 +82,14 @@ type LudoSelectItemProps = {
   value: string;
   children: React.ReactNode;
   className?: string;
+  dataTestId?: string;
 };
 
-export function LudoSelectItem({ value, children, className }: LudoSelectItemProps) {
+export function LudoSelectItem({ value, children, className, dataTestId}: LudoSelectItemProps) {
   return (
     <Select.Item
       value={value}
+      data-testid={dataTestId}
       className={cn(
         "relative flex cursor-pointer select-none items-center rounded-sm px-8 py-2 text-sm",
         "text-ludo-white-bright outline-none",
