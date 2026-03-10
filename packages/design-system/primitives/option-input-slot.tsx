@@ -7,7 +7,6 @@ type OptionInputSlotProps = {
   onChange: (value: string) => void;
   onBackspaceIfEmpty?: () => void;
   disabled?: boolean;
-  onTokenFinished?: () => void;
   ref: any;
 };
 
@@ -16,7 +15,6 @@ export function OptionInputSlot({
   onChange,
   disabled,
   onBackspaceIfEmpty,
-  onTokenFinished,
   ref,
 }: OptionInputSlotProps) {
   const { spanRef, inputRef } = useAutoWidth(value);
@@ -38,10 +36,7 @@ export function OptionInputSlot({
         disabled={disabled}
         ref={inputRef}
         value={value}
-        onChange={(e) => {
-          onChange(e.target.value);
-          onTokenFinished?.();
-        }}
+        onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="·"
         className={cn(

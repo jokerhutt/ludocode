@@ -82,7 +82,6 @@ function Root({
 
   const isEmpty = useMemo(() => responses.every((r) => !r.value), [responses]);
 
-  const optionPrompts = options.map((o) => o.content);
   const refs = useRef<HTMLInputElement[]>([]);
 
   const focusPrev = useCallback((index: number) => {
@@ -108,11 +107,16 @@ function Root({
 
       onChange(index, { id: match?.id, value: trimmed });
 
-      if (optionPrompts.includes(trimmed)) {
-        focusNextEmptyAfter(index);
+      if (match) {
+        const alreadyUsed = responses.some(
+          (r, i) => i !== index && r.id === match.id,
+        );
+        if (!alreadyUsed) {
+          focusNextEmptyAfter(index);
+        }
       }
     },
-    [options, onChange, optionPrompts, focusNextEmptyAfter],
+    [options, onChange, responses, focusNextEmptyAfter],
   );
 
   return (
@@ -286,7 +290,6 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
             onChange={(value) => handleChange(index, value)}
             ref={(el: HTMLInputElement) => (refs.current[index] = el)}
             onBackspaceIfEmpty={() => focusPrev(index)}
-            onTokenFinished={() => focusNextEmptyAfter(index)}
           />
         );
       })}
