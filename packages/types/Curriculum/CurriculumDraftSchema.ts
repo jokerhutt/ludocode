@@ -21,7 +21,6 @@ export type CurriculumDraftModule = CurriculumDraftModules[number];
 export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
 export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
-
 // ─── Blocks ────────────────────────────────────────────────────────────
 
 const BaseClient = {
@@ -45,7 +44,7 @@ export const CodeBlockSchema = z.object({
   type: z.literal("code"),
   language: z.string().min(1, "language required"),
   content: z.string().min(1, "Code content required"),
-  output: z.string().optional()
+  output: z.string().nullish(),
 });
 
 export const MediaBlockSchema = z.object({
@@ -85,7 +84,7 @@ export const ClozeInteractionSchema = z.object({
   file: InteractionFileSchema,
   blanks: z.array(InteractionBlankSchema).min(1, "At least 1 blank required"),
   options: z.array(z.string().min(1)).min(1, "At least 1 option required"),
-  output: z.string().optional()
+  output: z.string().nullish(),
 });
 
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
