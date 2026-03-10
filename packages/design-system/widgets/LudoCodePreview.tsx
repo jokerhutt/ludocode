@@ -235,7 +235,6 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
     handleChange,
     refs,
     focusPrev,
-    focusNextEmptyAfter,
   } = usePreview();
 
   const tokens = useMemo(() => {
