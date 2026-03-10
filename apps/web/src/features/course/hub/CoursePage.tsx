@@ -21,7 +21,7 @@ export function CoursePage() {
       <div className="col-span-1 hidden lg:block" />
       <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
         <Hero
-          title="Library"
+          title="Catalog"
           subtitle="Browse all available courses and pick your next adventure"
         />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -5,7 +5,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_hub/learn/$courseId/$moduleId")({
-  staticData: { headerTitle: "modules" },
+  staticData: { headerTitle: "Learn" },
   loader: async ({ params, context }) =>
     modulePageLoader(params, context.queryClient),
   component: ModuleHubLayout,
