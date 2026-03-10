@@ -14,7 +14,7 @@ export function ResourcesLayout() {
     if (currentUser) {
       router.navigate(ludoNavigation.app.index());
     } else {
-      router.navigate(ludoNavigation.auth.login());
+      router.navigate(ludoNavigation.auth.register());
     }
   };
 
