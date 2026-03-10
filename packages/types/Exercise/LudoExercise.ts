@@ -9,7 +9,7 @@ export type LudoExercise = {
 export type Block =
   | { type: "header"; content: string }
   | { type: "paragraph"; content: string }
-  | { type: "code"; language: string; content: string; output?: string }
+  | { type: "code"; language: string; content: string; output?: string | null }
   | { type: "media"; src: string; alt?: string | null };
 
 export type ExerciseInteraction =
@@ -23,7 +23,7 @@ export type ExerciseInteraction =
       file: InteractionFile;
       blanks: InteractionBlank[];
       options: string[];
-      output?: string;
+      output?: string | null;
     };
 
 export type InteractionBlank = {
