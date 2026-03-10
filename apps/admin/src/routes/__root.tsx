@@ -1,7 +1,5 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { type QueryClient } from "@tanstack/react-query";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GOOGLE_CLIENT_ID } from "@/constants/environment/env";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -16,10 +14,8 @@ export const Route = createRootRouteWithContext<{
 
 function RootComponent() {
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="w-dvw min-h-dvh max-h-dvh h-dvh overflow-auto scrollbar-ludo-accent bg-ludo-background">
         <Outlet />
       </div>
-    </GoogleOAuthProvider>
   );
 }

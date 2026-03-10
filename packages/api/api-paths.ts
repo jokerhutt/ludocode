@@ -2,7 +2,6 @@ export type ApiConfig = {
   apiPrefix: string;
   apiUrl: string;
   adminPrefix: string;
-  demoAuthToken?: string;
 };
 
 export function createApiPaths({
