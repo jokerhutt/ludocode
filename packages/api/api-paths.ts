@@ -114,6 +114,8 @@ export function createApiPaths({
         `${ADMIN_BASE}/snapshots/${courseId}/language`,
       byCourseCurriculumIcon: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/icon`,
+      byCourseCurriculumTitle: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/${courseId}/title`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 

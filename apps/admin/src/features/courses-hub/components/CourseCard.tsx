@@ -66,7 +66,7 @@ export function CourseCard({ course }: CourseCardProps) {
                 onClick={() =>
                   changeCourseStatus.mutate({ value: "PUBLISHED" })
                 }
-                className="flex items-center gap-1.5 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-md border border-emerald-500/40 bg-transparent px-3 py-1.5 text-xs font-medium text-emerald-400 transition hover:bg-emerald-500/10 disabled:opacity-50"
               >
                 <Globe className="h-3.5 w-3.5" />
                 Publish
@@ -83,7 +83,7 @@ export function CourseCard({ course }: CourseCardProps) {
               type="button"
               disabled={changeCourseStatus.isPending}
               onClick={() => changeCourseStatus.mutate({ value: "ARCHIVED" })}
-              className="flex items-center gap-1.5 rounded-md bg-amber-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-amber-500 disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-md border border-zinc-500/40 bg-transparent px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:bg-zinc-500/10 disabled:opacity-50"
             >
               <Archive className="h-3.5 w-3.5" />
               Archive
@@ -95,7 +95,7 @@ export function CourseCard({ course }: CourseCardProps) {
               type="button"
               disabled={changeCourseStatus.isPending}
               onClick={() => changeCourseStatus.mutate({ value: "PUBLISHED" })}
-              className="flex items-center gap-1.5 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-md border border-emerald-500/40 bg-transparent px-3 py-1.5 text-xs font-medium text-emerald-400 transition hover:bg-emerald-500/10 disabled:opacity-50"
             >
               <Globe className="h-3.5 w-3.5" />
               Publish

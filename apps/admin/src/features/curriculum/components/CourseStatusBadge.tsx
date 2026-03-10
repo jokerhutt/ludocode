@@ -12,7 +12,7 @@ const statusConfig: Record<CourseStatus, { label: string; className: string }> =
     },
     ARCHIVED: {
       label: "Archived",
-      className: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+      className: "bg-zinc-500/20 text-zinc-300 border-zinc-500/40",
     },
   };
 

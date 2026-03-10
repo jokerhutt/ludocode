@@ -21,9 +21,11 @@ import { adminApi } from "@/constants/api/adminApi";
 import { useChangeCourseStatus } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
 import { useDeleteCourse } from "@/features/courses-hub/hooks/useDeleteCourse";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
+import { RenameDialog } from "@ludocode/design-system/templates/dialog/rename-dialog";
 import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge.tsx";
+import { useChangeCourseTitle } from "@/features/curriculum/hooks/useChangeCourseTitle";
 import type { CourseStatus } from "@ludocode/types";
-import { Archive, Globe, TrashIcon } from "lucide-react";
+import { Archive, Globe, Pencil, TrashIcon } from "lucide-react";
 
 type CurriculumPageProps = {};
 
@@ -48,6 +50,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
   const changeCourseStatus = useChangeCourseStatus({ courseId });
   const deleteCourseMutation = useDeleteCourse({ courseId });
+  const changeCourseTitleMutation = useChangeCourseTitle({ courseId });
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -147,6 +150,22 @@ export function CurriculumPage({}: CurriculumPageProps) {
             </div>
 
             <div className="flex items-center gap-3">
+              <RenameDialog
+                itemName={courseName}
+                itemCategory="Course"
+                onSubmit={(_old, newTitle) => {
+                  changeCourseTitleMutation.mutate({ title: newTitle });
+                }}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-2 rounded-md border border-ludo-accent-muted/40 bg-transparent px-4 py-2 text-sm font-medium text-ludo-white transition hover:bg-ludo-surface disabled:opacity-50"
+                >
+                  <Pencil className="h-4 w-4" />
+                  Rename
+                </button>
+              </RenameDialog>
+
               {courseStatus === "DRAFT" && (
                 <>
                   <button
@@ -155,7 +174,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                     onClick={() =>
                       changeCourseStatus.mutate({ value: "PUBLISHED" })
                     }
-                    className="flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-md border border-emerald-500/40 bg-transparent px-4 py-2 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/10 disabled:opacity-50"
                   >
                     <Globe className="h-4 w-4" />
                     Publish
@@ -182,7 +201,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                   >
                     <button
                       type="button"
-                      className="flex items-center gap-2 rounded-md bg-ludo-danger px-4 py-2 text-sm font-medium text-white transition hover:bg-ludo-danger/80"
+                      className="flex items-center gap-2 rounded-md border border-red-500/40 bg-transparent px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
                     >
                       <TrashIcon className="h-4 w-4" />
                       Delete
@@ -198,7 +217,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                   onClick={() =>
                     changeCourseStatus.mutate({ value: "ARCHIVED" })
                   }
-                  className="flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-500 disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-md border border-zinc-500/40 bg-transparent px-4 py-2 text-sm font-medium text-zinc-400 transition hover:bg-zinc-500/10 disabled:opacity-50"
                 >
                   <Archive className="h-4 w-4" />
                   Archive
@@ -212,7 +231,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                   onClick={() =>
                     changeCourseStatus.mutate({ value: "PUBLISHED" })
                   }
-                  className="flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-md border border-emerald-500/40 bg-transparent px-4 py-2 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/10 disabled:opacity-50"
                 >
                   <Globe className="h-4 w-4" />
                   Publish

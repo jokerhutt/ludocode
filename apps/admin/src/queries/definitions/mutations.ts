@@ -14,6 +14,7 @@ import {
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
+import type { ChangeCourseTitleRequest } from "@/features/curriculum/hooks/useChangeCourseTitle";
 
 export const mutations = {
   createCourse: () => {
@@ -185,6 +186,17 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPut<LudoCourse[], ChangeCourseIconRequest>(
           adminApi.snapshots.byCourseCurriculumIcon(courseId),
+          variables,
+          true,
+        ),
+    });
+  },
+  changeCourseTitle: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, ChangeCourseTitleRequest>({
+      mutationKey: ["changeCourseTitle"],
+      mutationFn: (variables) =>
+        ludoPut<LudoCourse[], ChangeCourseTitleRequest>(
+          adminApi.snapshots.byCourseCurriculumTitle(courseId),
           variables,
           true,
         ),
