@@ -6,6 +6,7 @@ import { ProviderLoginGroup } from "@/features/auth/components/ProviderLoginGrou
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useFirebaseEmailAuth } from "@/queries/mutations/useFirebaseEmailAuth.tsx";
+import { AuthResourceActionsGroup } from "./components/AuthResourceActionsGroup";
 
 export function LoginPage() {
   const firebaseLogin = useFirebaseAuthEntry();
@@ -29,7 +30,7 @@ export function LoginPage() {
               <ProviderLoginGroup onLogin={firebaseLogin} />
               <hr className="w-full" />
             </div>
-
+            <AuthResourceActionsGroup />
             <div className="w-full flex flex-col gap-0.5 text-sm text-ludo-white">
               <p>
                 Don't have an account yet?{" "}
