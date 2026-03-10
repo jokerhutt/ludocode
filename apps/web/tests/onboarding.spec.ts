@@ -33,7 +33,7 @@ test("user can onboard", async ({ page }) => {
   await expect(experienceInput).toBeVisible();
   await experienceInput.click();
 
-  await page.getByRole("button", { name: "Continue" }).click();
+  await page.getByRole("button", { name: "Finish" }).click();
 
   // await expect(page).toHaveURL(/\/subscription\/comparison$/);
 });

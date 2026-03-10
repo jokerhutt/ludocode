@@ -7,19 +7,23 @@ export async function createProject(page: Page) {
   const createProjectDialogButton = page.getByTestId(
     `create-project-dialog-button`,
   );
+
+  const createProjectSelectTrigger = page.getByTestId(`select-trigger`);
+  const createProjectPythonOption = page.getByTestId(`select-item-python`);
+
   const createProjectButton = page.getByTestId(`create-project-button`);
-  const createProjectLanguagePythonOption = page.getByTestId(
-    `create-project-language-option-Python`,
-  );
 
   await expect(createProjectDialogButton).toBeVisible();
 
   await createProjectDialogButton.click();
 
   await expect(createProjectButton).toBeVisible();
-  await expect(createProjectLanguagePythonOption).toBeVisible();
+  await expect(createProjectSelectTrigger).toBeVisible();
 
-  await createProjectLanguagePythonOption.click();
+  await createProjectSelectTrigger.click();
+  await expect(createProjectPythonOption).toBeVisible();
+  await createProjectPythonOption.click();
+
   await createProjectButton.click();
 }
 

@@ -76,6 +76,7 @@ export function CreateProjectDialog({
             <LudoSelectItem
               key={lang.languageId}
               value={lang.languageId.toString()}
+              dataTestId={`select-item-${lang.slug}`}
             >
               <span className="flex items-center gap-3">
                 <CustomIcon className="h-5 w-5" color="white" iconName={stringToCustomIcon(lang.iconName)}/>
