@@ -1,14 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon";
 import type { IconName } from "@ludocode/design-system/primitives/hero-icon";
 import { router } from "@/main";
 import { ludoNavigation } from "@/constants/ludoNavigation";
+import type { QueryClient } from "@tanstack/react-query";
+import { qo } from "@/queries/definitions/queries";
 
 export const Route = createFileRoute("/_resources/")({
+  beforeLoad: async ({ context }) => resourcesPreloader(context.queryClient),
   component: LandingPage,
 });
+
+async function resourcesPreloader(queryClient: QueryClient) {
+  const user = await queryClient
+    .ensureQueryData(qo.currentUser())
+    .catch(() => null);
+  if (user) {
+    throw redirect({ to: "/app", replace: true });
+  }
+}
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
 
@@ -16,14 +28,12 @@ const features: { icon: IconName; title: string; description: string }[] = [
   {
     icon: "CodeBracketIcon",
     title: "Interactive Exercises",
-    description:
-      "Practice programming with small, interactive lessons.",
+    description: "Practice programming with small, interactive lessons.",
   },
   {
     icon: "PlayIcon",
     title: "Editor & Code Execution",
-    description:
-      "Write & run code directly from the site using our editor.",
+    description: "Write & run code directly from the site using our editor.",
   },
   {
     icon: "WrenchScrewdriverIcon",

@@ -1,21 +1,12 @@
-import { ludoNavigation } from "@/constants/ludoNavigation";
-import { qo } from "@/queries/definitions/queries";
 import { router } from "@/main";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
-import { useQuery } from "@tanstack/react-query";
 import { Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
 
 export function ResourcesLayout() {
-  const { data: currentUser } = useQuery(qo.currentUser());
-
   const handleLogoClick = () => {
-    if (currentUser) {
-      router.navigate(ludoNavigation.app.index());
-    } else {
-      router.navigate(ludoNavigation.auth.register());
-    }
+    router.navigate({to: "/"});
   };
 
   return (
