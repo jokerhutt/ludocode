@@ -36,13 +36,17 @@ export function ResourcesLayout() {
     <MainGridWrapper gridRows="FULL" className="grid-rows-[auto_1fr]">
       <LudoHeader.Shell>
         <Suspense fallback={<div />}>
-          {/* Desktop header */}
           <div className="col-span-full px-6 lg:px-18 hidden lg:flex items-center justify-between">
             <h1
               onClick={() => handleLogoClick()}
-              className="text-2xl font-bold hover:cursor-pointer text-ludo-white-bright"
+              className="text-2xl font-bold "
             >
-              Ludocode
+              <button
+                type="button"
+                className="hover:cursor-pointer text-ludo-white-bright"
+              >
+                Ludocode
+              </button>
             </h1>
             <div className="flex items-center gap-1">
               <HeaderNavButton
@@ -64,8 +68,9 @@ export function ResourcesLayout() {
               <div className="w-px h-5 bg-ludo-border mx-2 " />
               <div className="flex items-center  gap-2">
                 <HeaderNavButton
-                  
-                  onClick={() => router.navigate(ludoNavigation.auth.login(false))}
+                  onClick={() =>
+                    router.navigate(ludoNavigation.auth.login(false))
+                  }
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Log in</span>
