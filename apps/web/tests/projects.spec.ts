@@ -14,7 +14,7 @@ test("user can go to project hub & create project", async ({ page }) => {
   await projectHubButton.click();
 
   await expect(page).toHaveURL(/\/app\/projects/);
-  createProject(page);
+  await createProject(page);
 
   const projectLimitsText = page.getByTestId(`project-limits`);
 
