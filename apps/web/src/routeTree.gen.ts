@@ -13,6 +13,7 @@ import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as ResourcesLandingRouteImport } from './routes/resources/landing'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as ResourcesLegalRouteRouteImport } from './routes/resources/legal/route'
@@ -61,6 +62,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const ResourcesLandingRoute = ResourcesLandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
@@ -222,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/resources/landing': typeof ResourcesLandingRoute
   '/': typeof AppIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/leaderboard': typeof AppHubLeaderboardRoute
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/resources/landing': typeof ResourcesLandingRoute
   '/': typeof AppIndexRoute
   '/courses': typeof AppHubCoursesRoute
   '/leaderboard': typeof AppHubLeaderboardRoute
@@ -286,6 +294,7 @@ export interface FileRoutesById {
   '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/resources/landing': typeof ResourcesLandingRoute
   '/_app/': typeof AppIndexRoute
   '/_app/subscription/_subscribedguard': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/_app/_hub/courses': typeof AppHubCoursesRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
+    | '/resources/landing'
     | '/'
     | '/courses'
     | '/leaderboard'
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
+    | '/resources/landing'
     | '/'
     | '/courses'
     | '/leaderboard'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/resources/legal'
     | '/auth/login'
     | '/auth/register'
+    | '/resources/landing'
     | '/_app/'
     | '/_app/subscription/_subscribedguard'
     | '/_app/_hub/courses'
@@ -444,6 +456,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/resources/landing': {
+      id: '/resources/landing'
+      path: '/landing'
+      fullPath: '/resources/landing'
+      preLoaderRoute: typeof ResourcesLandingRouteImport
+      parentRoute: typeof ResourcesRouteRoute
     }
     '/auth/register': {
       id: '/auth/register'
@@ -804,11 +823,13 @@ const ResourcesLegalRouteRouteWithChildren =
 
 interface ResourcesRouteRouteChildren {
   ResourcesLegalRouteRoute: typeof ResourcesLegalRouteRouteWithChildren
+  ResourcesLandingRoute: typeof ResourcesLandingRoute
   ResourcesDocsIndexRoute: typeof ResourcesDocsIndexRoute
 }
 
 const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
   ResourcesLegalRouteRoute: ResourcesLegalRouteRouteWithChildren,
+  ResourcesLandingRoute: ResourcesLandingRoute,
   ResourcesDocsIndexRoute: ResourcesDocsIndexRoute,
 }
 

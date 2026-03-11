@@ -31,8 +31,6 @@ export function RegistrationPage() {
               <hr className="w-full" />
             </div>
 
-            <AuthResourceActionsGroup/>
-
             <div className="w-full flex flex-col gap-0.5 text-sm text-ludo-white">
               <p>
                 Already have an account?{" "}
