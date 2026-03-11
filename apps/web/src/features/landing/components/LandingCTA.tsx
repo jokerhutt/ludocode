@@ -43,7 +43,7 @@ export function LandingCTA({
       </h2>
       {subtitle && (
         <p className={cn("text-base text-ludo-white", subtitleStyle)}>
-          Create a free account and begin your first exercise in minutes.
+          {subtitle}
         </p>
       )}
       <div className={cn("w-full", buttonStyle)}>
