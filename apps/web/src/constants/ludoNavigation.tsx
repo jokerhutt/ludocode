@@ -48,8 +48,8 @@ import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 
 export const ludoNavigation = {
   auth: {
-    login: () => ({ to: authLoginRoute.to, replace: true }),
-    register: () => ({ to: authRegisterRoute.to, replace: true }),
+    login: (replace = true) => ({ to: authLoginRoute.to, replace: replace }),
+    register: (replace = true) => ({ to: authRegisterRoute.to, replace: replace }),
   },
 
   app: {

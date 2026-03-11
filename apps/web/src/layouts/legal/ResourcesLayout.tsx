@@ -65,7 +65,7 @@ export function ResourcesLayout() {
               <div className="flex items-center  gap-2">
                 <HeaderNavButton
                   
-                  onClick={() => router.navigate(ludoNavigation.auth.login())}
+                  onClick={() => router.navigate(ludoNavigation.auth.login(false))}
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Log in</span>
@@ -75,7 +75,7 @@ export function ResourcesLayout() {
                   shadow={false}
                   className="h-8 w-auto px-4 text-sm font-medium"
                   onClick={() =>
-                    router.navigate(ludoNavigation.auth.register())
+                    router.navigate(ludoNavigation.auth.register(false))
                   }
                 >
                   Register

@@ -76,7 +76,7 @@ function LandingPage() {
           <LudoButton
             variant="alt"
             className="flex-1"
-            onClick={() => router.navigate(ludoNavigation.auth.register())}
+            onClick={() => router.navigate(ludoNavigation.auth.register(false))}
           >
             Get Started
           </LudoButton>
@@ -163,7 +163,7 @@ function LandingPage() {
         <div className="w-full max-w-xs">
           <LudoButton
             variant="alt"
-            onClick={() => router.navigate(ludoNavigation.auth.register())}
+            onClick={() => router.navigate(ludoNavigation.auth.register(false))}
           >
             Sign up for free
           </LudoButton>
