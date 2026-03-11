@@ -39,25 +39,8 @@ const features: { icon: IconName; title: string; description: string }[] = [
     icon: "WrenchScrewdriverIcon",
     title: "Make your own courses",
     description:
-      "Learn Python, Go, C#, Swift, Lua, and more — all in one place.",
-  },
-  {
-    icon: "FireIcon",
-    title: "Streaks & Points",
-    description: "Maintain streaks & collect points by completing exercises.",
-  },
-  {
-    icon: "SparklesIcon",
-    title: "Context aware chatbot",
-    description:
-      "Get help from a chatbot that understands the current situation.",
-  },
-  {
-    icon: "UserGroupIcon",
-    title: "Community Driven",
-    description:
-      "You have a say and can help shape the future of this project.",
-  },
+      "Run the app yourself & create courses using YAML or the admin UI.",
+  }
 ];
 
 function LandingPage() {
@@ -72,17 +55,17 @@ function LandingPage() {
           Ludocode is an open-source platform for learning programming through
           small, interactive exercises.
         </p>
-        <div className="flex gap-4 mt-4 w-full">
+        <div className="flex gap-4 mt-4 h-10 w-full">
           <LudoButton
             variant="alt"
-            className="flex-1"
+            className="flex-1 h-full"
             onClick={() => router.navigate(ludoNavigation.auth.register(false))}
           >
             Get Started
           </LudoButton>
           <LudoButton
             variant="default"
-            className="flex-1 "
+            className="flex-1 h-full"
             onClick={() => window.open(GITHUB_URL, "_blank")}
           >
             View Source
