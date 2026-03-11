@@ -20,7 +20,7 @@ export function MobileModuleSlideOver({
   moduleProgress,
 }: MobileModuleSlideOverProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const routeApi = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
+  const routeApi = getRouteApi("/app/_hub/learn/$courseId/$moduleId");
   const router = useRouter();
   const { moduleId } = routeApi.useParams();
 

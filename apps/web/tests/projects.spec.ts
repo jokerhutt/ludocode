@@ -13,7 +13,7 @@ test("user can go to project hub & create project", async ({ page }) => {
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
 
-  await expect(page).toHaveURL(/\/projects/);
+  await expect(page).toHaveURL(/\/app\/projects/);
   createProject(page);
 
   const projectLimitsText = page.getByTestId(`project-limits`);
@@ -32,14 +32,14 @@ test("user can go to created project & edit", async ({ page }) => {
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
 
-  await expect(page).toHaveURL(/\/projects/);
+  await expect(page).toHaveURL(/\/app\/projects/);
 
   await createProject(page);
 
   await expect(projectHubCards).toBeVisible();
   await projectHubCards.first().click();
 
-  await expect(page).toHaveURL(/\/project/);
+  await expect(page).toHaveURL(/\/app\/project/);
 
   const projectAsideLeft = page.getByTestId("project-aside-left");
   await expect(projectAsideLeft).toBeVisible();
@@ -67,14 +67,14 @@ test("user can got to created project, run code, & clear output", async ({
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
 
-  await expect(page).toHaveURL(/\/projects/);
+  await expect(page).toHaveURL(/\/app\/projects/);
 
   await createProject(page);
 
   await expect(projectHubCards).toBeVisible();
   await projectHubCards.first().click();
 
-  await expect(page).toHaveURL(/\/project/);
+  await expect(page).toHaveURL(/\/app\/project/);
 
   const projectAsideLeft = page.getByTestId("project-aside-left");
   await expect(projectAsideLeft).toBeVisible();
@@ -101,14 +101,14 @@ test("user can go to created project & create + import files", async ({
   await expect(projectHubButton).toBeVisible();
   await projectHubButton.click();
 
-  await expect(page).toHaveURL(/\/projects/);
+  await expect(page).toHaveURL(/\/app\/projects/);
 
   await createProject(page);
 
   await expect(projectHubCards).toBeVisible();
   await projectHubCards.first().click();
 
-  await expect(page).toHaveURL(/\/project/);
+  await expect(page).toHaveURL(/\/app\/project/);
 
   const projectAsideLeft = page.getByTestId("project-aside-left");
   await expect(projectAsideLeft).toBeVisible();

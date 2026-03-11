@@ -35,7 +35,8 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
   const atLast = idx >= stepOrder.length - 1;
 
   const goto = useCallback(
-    (s: StageKey) => nav({ to: "/onboarding/$stage", params: { stage: s } }),
+    (s: StageKey) =>
+      nav({ to: "/app/onboarding/$stage", params: { stage: s } }),
     [nav],
   );
 
@@ -62,15 +63,7 @@ export function useOnboardingFlow({ stage }: Args): UseOnboardingFlowReturn {
     };
 
     submitOnboardingMutation.mutate(submission);
-  }, [
-    atLast,
-    canAdvance,
-    draft,
-    goto,
-    idx,
-    nav,
-    submitOnboardingMutation,
-  ]);
+  }, [atLast, canAdvance, draft, goto, idx, nav, submitOnboardingMutation]);
 
   return {
     goto,

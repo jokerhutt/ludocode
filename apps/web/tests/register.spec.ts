@@ -11,7 +11,7 @@ test("user can register and reach onboarding", async ({ page }) => {
   const email = `pw_${crypto.randomUUID()}@ludocode.test`;
   const password = "2121212121";
 
-  const tosCheckbox = page.getByTestId("register-tos")
+  const tosCheckbox = page.getByTestId("register-tos");
 
   await page.context().clearCookies();
 
@@ -25,7 +25,7 @@ test("user can register and reach onboarding", async ({ page }) => {
     page.getByRole("button", { name: "Sign up & continue" }),
   ).toBeVisible();
 
-  await expect(tosCheckbox).toBeVisible()
+  await expect(tosCheckbox).toBeVisible();
 
   await page.getByRole("textbox", { name: "Your email" }).click();
   await page.getByRole("textbox", { name: "Your email" }).fill(email);
@@ -35,5 +35,5 @@ test("user can register and reach onboarding", async ({ page }) => {
 
   await page.getByRole("button", { name: "Sign up & continue" }).click();
 
-  await expect(page).toHaveURL(/\/onboarding/);
+  await expect(page).toHaveURL(/\/app\/onboarding/);
 });

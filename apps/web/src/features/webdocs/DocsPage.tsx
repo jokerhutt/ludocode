@@ -6,7 +6,7 @@ import {
   DocsScrollSpyTOC,
   type TocHeading,
 } from "@ludocode/ludo-mdx/webdocs/DocsScrollSpyTOC.tsx";
-import { Route } from "@/routes/resources/docs/index.tsx";
+import { Route } from "@/routes/_resources/docs/index.tsx";
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];

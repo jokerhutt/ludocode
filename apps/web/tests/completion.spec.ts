@@ -33,11 +33,11 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await completionButton.click();
 
   await expect(page).toHaveURL(/step=streak/);
-  
-  const streakCompleteText = page.getByTestId(`streak-complete-text`)
 
-  await expect(streakCompleteText).toBeVisible()
-  await expect(streakCompleteText).toContainText("Day Streak!")
+  const streakCompleteText = page.getByTestId(`streak-complete-text`);
+
+  await expect(streakCompleteText).toBeVisible();
+  await expect(streakCompleteText).toContainText("Day Streak!");
 
   await expect(completionButton).toBeVisible();
 
@@ -63,6 +63,6 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await completionButton.click();
 
   await expect(page).toHaveURL(
-    /\/learn\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f$/,
+    /\/app\/learn\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f$/,
   );
 });

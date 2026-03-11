@@ -17,7 +17,7 @@ function isSyncState(s: any): s is SyncState {
 }
 
 export function SyncingPage() {
-  const routeApi = getRouteApi("/_app/sync/$lessonId");
+  const routeApi = getRouteApi("/app/sync/$lessonId");
   const { state } = useLocation();
   const router = useRouter();
   const { oldStreak } = routeApi.useLoaderData();

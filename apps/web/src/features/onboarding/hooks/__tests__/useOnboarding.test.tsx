@@ -224,7 +224,7 @@ describe("useOnboardingFlow (integration)", () => {
 
     await waitFor(() => {
       const nav = routerMock.getLastNavigation();
-      expect(nav?.to).toBe("/onboarding/$stage");
+      expect(nav?.to).toBe("/app/onboarding/$stage");
       expect(nav?.params.stage).toBe("name");
       expect(currentStage).toBe("name");
     });

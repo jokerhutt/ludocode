@@ -5,7 +5,7 @@ import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { getRouteApi } from "@tanstack/react-router";
 
 export function ModuleHubLayout() {
-  const moduleHubRoute = getRouteApi("/_app/_hub/learn/$courseId/$moduleId");
+  const moduleHubRoute = getRouteApi("/app/_hub/learn/$courseId/$moduleId");
   const { courseId, moduleId } = moduleHubRoute.useParams();
   const { tree, allCourses } = moduleHubRoute.useLoaderData();
 

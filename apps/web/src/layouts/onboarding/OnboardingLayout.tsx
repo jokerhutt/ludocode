@@ -16,7 +16,7 @@ import { useOnboardingDraftStore } from "@/features/onboarding/store/OnboardingD
 import { useRef } from "react";
 
 export function OnboardingLayout() {
-  const routeApi = getRouteApi("/_app/onboarding/$stage");
+  const routeApi = getRouteApi("/app/onboarding/$stage");
   const { stage } = useParams({ from: routeApi.id }) as {
     stage: StageKey;
   };

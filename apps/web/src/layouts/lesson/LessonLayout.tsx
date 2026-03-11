@@ -15,9 +15,9 @@ import { UserPreferencesContext } from "@/features/user/context/useUserPreferenc
 
 export function LessonLayout() {
   const router = useRouter();
-  const lessonRoute = getRouteApi("/_app/lesson/$courseId/$moduleId/$lessonId");
+  const lessonRoute = getRouteApi("/app/lesson/$courseId/$moduleId/$lessonId");
   const lessonPageRoute = getRouteApi(
-    "/_app/lesson/$courseId/$moduleId/$lessonId/",
+    "/app/lesson/$courseId/$moduleId/$lessonId/",
   );
 
   const { courseId, moduleId } = lessonRoute.useParams();

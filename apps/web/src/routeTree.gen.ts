@@ -9,53 +9,53 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
-import { Route as AppRouteRouteImport } from './routes/_app/route'
-import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as ResourcesLandingRouteImport } from './routes/resources/landing'
+import { Route as AppRouteRouteImport } from './routes/app/route'
+import { Route as ResourcesRouteRouteImport } from './routes/_resources/route'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as ResourcesIndexRouteImport } from './routes/_resources/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as ResourcesLegalRouteRouteImport } from './routes/resources/legal/route'
-import { Route as AppSubscriptionRouteRouteImport } from './routes/_app/subscription/route'
-import { Route as AppHubRouteRouteImport } from './routes/_app/_hub/route'
-import { Route as AppDesktopguardRouteRouteImport } from './routes/_app/_desktopguard/route'
-import { Route as ResourcesDocsIndexRouteImport } from './routes/resources/docs/index'
-import { Route as ResourcesLegalTosRouteImport } from './routes/resources/legal/tos'
-import { Route as ResourcesLegalPrivacyRouteImport } from './routes/resources/legal/privacy'
-import { Route as AppSyncLessonIdRouteImport } from './routes/_app/sync/$lessonId'
-import { Route as AppSubscriptionSuccessRouteImport } from './routes/_app/subscription/success'
-import { Route as AppSubscriptionManageRouteImport } from './routes/_app/subscription/manage'
-import { Route as AppSubscriptionConfirmRouteImport } from './routes/_app/subscription/confirm'
-import { Route as AppSubscriptionCancelRouteImport } from './routes/_app/subscription/cancel'
-import { Route as AppSubscriptionAlreadySubscribedRouteImport } from './routes/_app/subscription/already-subscribed'
-import { Route as AppOnboardingStageRouteImport } from './routes/_app/onboarding.$stage'
-import { Route as AppHubProjectsRouteImport } from './routes/_app/_hub/projects'
-import { Route as AppHubLeaderboardRouteImport } from './routes/_app/_hub/leaderboard'
-import { Route as AppHubCoursesRouteImport } from './routes/_app/_hub/courses'
-import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './routes/_app/subscription/_subscribedguard/route'
-import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/_app/subscription/_subscribedguard/comparison'
-import { Route as AppHubProfileUserIdRouteImport } from './routes/_app/_hub/profile/$userId'
-import { Route as AppDesktopguardProjectProjectIdRouteImport } from './routes/_app/_desktopguard/project/$projectId'
-import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/_app/_hub/profile/$userId/index'
-import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/_app/completion/$courseId/$moduleId/$lessonId'
-import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/_app/_hub/profile/$userId/settings'
-import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/_app/_hub/learn/$courseId/$moduleId'
-import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/_app/lesson/$courseId/$moduleId/$lessonId/route'
-import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/_app/lesson/$courseId/$moduleId/$lessonId/index'
+import { Route as AppSubscriptionRouteRouteImport } from './routes/app/subscription/route'
+import { Route as AppHubRouteRouteImport } from './routes/app/_hub/route'
+import { Route as AppDesktopguardRouteRouteImport } from './routes/app/_desktopguard/route'
+import { Route as ResourcesLegalRouteRouteImport } from './routes/_resources/legal/route'
+import { Route as ResourcesDocsIndexRouteImport } from './routes/_resources/docs/index'
+import { Route as AppSyncLessonIdRouteImport } from './routes/app/sync/$lessonId'
+import { Route as AppSubscriptionSuccessRouteImport } from './routes/app/subscription/success'
+import { Route as AppSubscriptionManageRouteImport } from './routes/app/subscription/manage'
+import { Route as AppSubscriptionConfirmRouteImport } from './routes/app/subscription/confirm'
+import { Route as AppSubscriptionCancelRouteImport } from './routes/app/subscription/cancel'
+import { Route as AppSubscriptionAlreadySubscribedRouteImport } from './routes/app/subscription/already-subscribed'
+import { Route as AppOnboardingStageRouteImport } from './routes/app/onboarding.$stage'
+import { Route as AppHubProjectsRouteImport } from './routes/app/_hub/projects'
+import { Route as AppHubLeaderboardRouteImport } from './routes/app/_hub/leaderboard'
+import { Route as AppHubCoursesRouteImport } from './routes/app/_hub/courses'
+import { Route as ResourcesLegalTosRouteImport } from './routes/_resources/legal/tos'
+import { Route as ResourcesLegalPrivacyRouteImport } from './routes/_resources/legal/privacy'
+import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './routes/app/subscription/_subscribedguard/route'
+import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/app/subscription/_subscribedguard/comparison'
+import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profile/$userId'
+import { Route as AppDesktopguardProjectProjectIdRouteImport } from './routes/app/_desktopguard/project/$projectId'
+import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/app/_hub/profile/$userId/index'
+import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/app/completion/$courseId/$moduleId/$lessonId'
+import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/app/_hub/profile/$userId/settings'
+import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/app/_hub/learn/$courseId/$moduleId'
+import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/route'
+import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/index'
 
-const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRouteRoute = AppRouteRouteImport.update({
-  id: '/_app',
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
+  id: '/_resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -63,9 +63,9 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const ResourcesLandingRoute = ResourcesLandingRouteImport.update({
-  id: '/landing',
-  path: '/landing',
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -77,11 +77,6 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
-} as any)
-const ResourcesLegalRouteRoute = ResourcesLegalRouteRouteImport.update({
-  id: '/legal',
-  path: '/legal',
-  getParentRoute: () => ResourcesRouteRoute,
 } as any)
 const AppSubscriptionRouteRoute = AppSubscriptionRouteRouteImport.update({
   id: '/subscription',
@@ -96,20 +91,15 @@ const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
   id: '/_desktopguard',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const ResourcesLegalRouteRoute = ResourcesLegalRouteRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => ResourcesRouteRoute,
+} as any)
 const ResourcesDocsIndexRoute = ResourcesDocsIndexRouteImport.update({
   id: '/docs/',
   path: '/docs/',
   getParentRoute: () => ResourcesRouteRoute,
-} as any)
-const ResourcesLegalTosRoute = ResourcesLegalTosRouteImport.update({
-  id: '/tos',
-  path: '/tos',
-  getParentRoute: () => ResourcesLegalRouteRoute,
-} as any)
-const ResourcesLegalPrivacyRoute = ResourcesLegalPrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => ResourcesLegalRouteRoute,
 } as any)
 const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
   id: '/sync/$lessonId',
@@ -161,6 +151,16 @@ const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
   getParentRoute: () => AppHubRouteRoute,
+} as any)
+const ResourcesLegalTosRoute = ResourcesLegalTosRouteImport.update({
+  id: '/tos',
+  path: '/tos',
+  getParentRoute: () => ResourcesLegalRouteRoute,
+} as any)
+const ResourcesLegalPrivacyRoute = ResourcesLegalPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => ResourcesLegalRouteRoute,
 } as any)
 const AppSubscriptionSubscribedguardRouteRoute =
   AppSubscriptionSubscribedguardRouteRouteImport.update({
@@ -222,220 +222,211 @@ const AppLessonCourseIdModuleIdLessonIdIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/app': typeof AppHubRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
-  '/resources': typeof ResourcesRouteRouteWithChildren
-  '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
-  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/app/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/resources/landing': typeof ResourcesLandingRoute
-  '/': typeof AppIndexRoute
-  '/courses': typeof AppHubCoursesRoute
-  '/leaderboard': typeof AppHubLeaderboardRoute
-  '/projects': typeof AppHubProjectsRoute
-  '/onboarding/$stage': typeof AppOnboardingStageRoute
-  '/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
-  '/subscription/cancel': typeof AppSubscriptionCancelRoute
-  '/subscription/confirm': typeof AppSubscriptionConfirmRoute
-  '/subscription/manage': typeof AppSubscriptionManageRoute
-  '/subscription/success': typeof AppSubscriptionSuccessRoute
-  '/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
-  '/resources/legal/tos': typeof ResourcesLegalTosRoute
-  '/resources/docs': typeof ResourcesDocsIndexRoute
-  '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
-  '/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
-  '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
-  '/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
-  '/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
-  '/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
-  '/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
-  '/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
-  '/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
+  '/': typeof ResourcesIndexRoute
+  '/app/': typeof AppIndexRoute
+  '/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/legal/tos': typeof ResourcesLegalTosRoute
+  '/app/courses': typeof AppHubCoursesRoute
+  '/app/leaderboard': typeof AppHubLeaderboardRoute
+  '/app/projects': typeof AppHubProjectsRoute
+  '/app/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/app/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
+  '/app/subscription/cancel': typeof AppSubscriptionCancelRoute
+  '/app/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/app/subscription/manage': typeof AppSubscriptionManageRoute
+  '/app/subscription/success': typeof AppSubscriptionSuccessRoute
+  '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/docs': typeof ResourcesDocsIndexRoute
+  '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
+  '/app/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
+  '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
+  '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
+  '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
+  '/app/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
+  '/app/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
-  '/resources': typeof ResourcesRouteRouteWithChildren
-  '/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
-  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/app': typeof AppIndexRoute
+  '/app/subscription': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/resources/landing': typeof ResourcesLandingRoute
-  '/': typeof AppIndexRoute
-  '/courses': typeof AppHubCoursesRoute
-  '/leaderboard': typeof AppHubLeaderboardRoute
-  '/projects': typeof AppHubProjectsRoute
-  '/onboarding/$stage': typeof AppOnboardingStageRoute
-  '/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
-  '/subscription/cancel': typeof AppSubscriptionCancelRoute
-  '/subscription/confirm': typeof AppSubscriptionConfirmRoute
-  '/subscription/manage': typeof AppSubscriptionManageRoute
-  '/subscription/success': typeof AppSubscriptionSuccessRoute
-  '/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
-  '/resources/legal/tos': typeof ResourcesLegalTosRoute
-  '/resources/docs': typeof ResourcesDocsIndexRoute
-  '/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
-  '/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
-  '/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
-  '/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
-  '/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
-  '/profile/$userId': typeof AppHubProfileUserIdIndexRoute
-  '/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
+  '/': typeof ResourcesIndexRoute
+  '/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/legal/tos': typeof ResourcesLegalTosRoute
+  '/app/courses': typeof AppHubCoursesRoute
+  '/app/leaderboard': typeof AppHubLeaderboardRoute
+  '/app/projects': typeof AppHubProjectsRoute
+  '/app/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/app/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
+  '/app/subscription/cancel': typeof AppSubscriptionCancelRoute
+  '/app/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/app/subscription/manage': typeof AppSubscriptionManageRoute
+  '/app/subscription/success': typeof AppSubscriptionSuccessRoute
+  '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/docs': typeof ResourcesDocsIndexRoute
+  '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
+  '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
+  '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
+  '/app/profile/$userId': typeof AppHubProfileUserIdIndexRoute
+  '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_app': typeof AppRouteRouteWithChildren
+  '/_resources': typeof ResourcesRouteRouteWithChildren
+  '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
-  '/resources': typeof ResourcesRouteRouteWithChildren
-  '/_app/_desktopguard': typeof AppDesktopguardRouteRouteWithChildren
-  '/_app/_hub': typeof AppHubRouteRouteWithChildren
-  '/_app/subscription': typeof AppSubscriptionRouteRouteWithChildren
-  '/resources/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/_resources/legal': typeof ResourcesLegalRouteRouteWithChildren
+  '/app/_desktopguard': typeof AppDesktopguardRouteRouteWithChildren
+  '/app/_hub': typeof AppHubRouteRouteWithChildren
+  '/app/subscription': typeof AppSubscriptionRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/resources/landing': typeof ResourcesLandingRoute
-  '/_app/': typeof AppIndexRoute
-  '/_app/subscription/_subscribedguard': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
-  '/_app/_hub/courses': typeof AppHubCoursesRoute
-  '/_app/_hub/leaderboard': typeof AppHubLeaderboardRoute
-  '/_app/_hub/projects': typeof AppHubProjectsRoute
-  '/_app/onboarding/$stage': typeof AppOnboardingStageRoute
-  '/_app/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
-  '/_app/subscription/cancel': typeof AppSubscriptionCancelRoute
-  '/_app/subscription/confirm': typeof AppSubscriptionConfirmRoute
-  '/_app/subscription/manage': typeof AppSubscriptionManageRoute
-  '/_app/subscription/success': typeof AppSubscriptionSuccessRoute
-  '/_app/sync/$lessonId': typeof AppSyncLessonIdRoute
-  '/resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
-  '/resources/legal/tos': typeof ResourcesLegalTosRoute
-  '/resources/docs/': typeof ResourcesDocsIndexRoute
-  '/_app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
-  '/_app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
-  '/_app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
-  '/_app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
-  '/_app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
-  '/_app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
-  '/_app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
-  '/_app/_hub/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
-  '/_app/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
+  '/_resources/': typeof ResourcesIndexRoute
+  '/app/': typeof AppIndexRoute
+  '/app/subscription/_subscribedguard': typeof AppSubscriptionSubscribedguardRouteRouteWithChildren
+  '/_resources/legal/privacy': typeof ResourcesLegalPrivacyRoute
+  '/_resources/legal/tos': typeof ResourcesLegalTosRoute
+  '/app/_hub/courses': typeof AppHubCoursesRoute
+  '/app/_hub/leaderboard': typeof AppHubLeaderboardRoute
+  '/app/_hub/projects': typeof AppHubProjectsRoute
+  '/app/onboarding/$stage': typeof AppOnboardingStageRoute
+  '/app/subscription/already-subscribed': typeof AppSubscriptionAlreadySubscribedRoute
+  '/app/subscription/cancel': typeof AppSubscriptionCancelRoute
+  '/app/subscription/confirm': typeof AppSubscriptionConfirmRoute
+  '/app/subscription/manage': typeof AppSubscriptionManageRoute
+  '/app/subscription/success': typeof AppSubscriptionSuccessRoute
+  '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/_resources/docs/': typeof ResourcesDocsIndexRoute
+  '/app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
+  '/app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
+  '/app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
+  '/app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
+  '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
+  '/app/_hub/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
+  '/app/lesson/$courseId/$moduleId/$lessonId/': typeof AppLessonCourseIdModuleIdLessonIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/app'
     | '/auth'
-    | '/resources'
-    | '/subscription'
-    | '/resources/legal'
+    | '/legal'
+    | '/app/subscription'
     | '/auth/login'
     | '/auth/register'
-    | '/resources/landing'
     | '/'
-    | '/courses'
-    | '/leaderboard'
-    | '/projects'
-    | '/onboarding/$stage'
-    | '/subscription/already-subscribed'
-    | '/subscription/cancel'
-    | '/subscription/confirm'
-    | '/subscription/manage'
-    | '/subscription/success'
-    | '/sync/$lessonId'
-    | '/resources/legal/privacy'
-    | '/resources/legal/tos'
-    | '/resources/docs'
-    | '/project/$projectId'
-    | '/profile/$userId'
-    | '/subscription/comparison'
-    | '/lesson/$courseId/$moduleId/$lessonId'
-    | '/learn/$courseId/$moduleId'
-    | '/profile/$userId/settings'
-    | '/completion/$courseId/$moduleId/$lessonId'
-    | '/profile/$userId/'
-    | '/lesson/$courseId/$moduleId/$lessonId/'
+    | '/app/'
+    | '/legal/privacy'
+    | '/legal/tos'
+    | '/app/courses'
+    | '/app/leaderboard'
+    | '/app/projects'
+    | '/app/onboarding/$stage'
+    | '/app/subscription/already-subscribed'
+    | '/app/subscription/cancel'
+    | '/app/subscription/confirm'
+    | '/app/subscription/manage'
+    | '/app/subscription/success'
+    | '/app/sync/$lessonId'
+    | '/docs'
+    | '/app/project/$projectId'
+    | '/app/profile/$userId'
+    | '/app/subscription/comparison'
+    | '/app/lesson/$courseId/$moduleId/$lessonId'
+    | '/app/learn/$courseId/$moduleId'
+    | '/app/profile/$userId/settings'
+    | '/app/completion/$courseId/$moduleId/$lessonId'
+    | '/app/profile/$userId/'
+    | '/app/lesson/$courseId/$moduleId/$lessonId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
-    | '/resources'
-    | '/subscription'
-    | '/resources/legal'
+    | '/legal'
+    | '/app'
+    | '/app/subscription'
     | '/auth/login'
     | '/auth/register'
-    | '/resources/landing'
     | '/'
-    | '/courses'
-    | '/leaderboard'
-    | '/projects'
-    | '/onboarding/$stage'
-    | '/subscription/already-subscribed'
-    | '/subscription/cancel'
-    | '/subscription/confirm'
-    | '/subscription/manage'
-    | '/subscription/success'
-    | '/sync/$lessonId'
-    | '/resources/legal/privacy'
-    | '/resources/legal/tos'
-    | '/resources/docs'
-    | '/project/$projectId'
-    | '/subscription/comparison'
-    | '/learn/$courseId/$moduleId'
-    | '/profile/$userId/settings'
-    | '/completion/$courseId/$moduleId/$lessonId'
-    | '/profile/$userId'
-    | '/lesson/$courseId/$moduleId/$lessonId'
+    | '/legal/privacy'
+    | '/legal/tos'
+    | '/app/courses'
+    | '/app/leaderboard'
+    | '/app/projects'
+    | '/app/onboarding/$stage'
+    | '/app/subscription/already-subscribed'
+    | '/app/subscription/cancel'
+    | '/app/subscription/confirm'
+    | '/app/subscription/manage'
+    | '/app/subscription/success'
+    | '/app/sync/$lessonId'
+    | '/docs'
+    | '/app/project/$projectId'
+    | '/app/subscription/comparison'
+    | '/app/learn/$courseId/$moduleId'
+    | '/app/profile/$userId/settings'
+    | '/app/completion/$courseId/$moduleId/$lessonId'
+    | '/app/profile/$userId'
+    | '/app/lesson/$courseId/$moduleId/$lessonId'
   id:
     | '__root__'
-    | '/_app'
+    | '/_resources'
+    | '/app'
     | '/auth'
-    | '/resources'
-    | '/_app/_desktopguard'
-    | '/_app/_hub'
-    | '/_app/subscription'
-    | '/resources/legal'
+    | '/_resources/legal'
+    | '/app/_desktopguard'
+    | '/app/_hub'
+    | '/app/subscription'
     | '/auth/login'
     | '/auth/register'
-    | '/resources/landing'
-    | '/_app/'
-    | '/_app/subscription/_subscribedguard'
-    | '/_app/_hub/courses'
-    | '/_app/_hub/leaderboard'
-    | '/_app/_hub/projects'
-    | '/_app/onboarding/$stage'
-    | '/_app/subscription/already-subscribed'
-    | '/_app/subscription/cancel'
-    | '/_app/subscription/confirm'
-    | '/_app/subscription/manage'
-    | '/_app/subscription/success'
-    | '/_app/sync/$lessonId'
-    | '/resources/legal/privacy'
-    | '/resources/legal/tos'
-    | '/resources/docs/'
-    | '/_app/_desktopguard/project/$projectId'
-    | '/_app/_hub/profile/$userId'
-    | '/_app/subscription/_subscribedguard/comparison'
-    | '/_app/lesson/$courseId/$moduleId/$lessonId'
-    | '/_app/_hub/learn/$courseId/$moduleId'
-    | '/_app/_hub/profile/$userId/settings'
-    | '/_app/completion/$courseId/$moduleId/$lessonId'
-    | '/_app/_hub/profile/$userId/'
-    | '/_app/lesson/$courseId/$moduleId/$lessonId/'
+    | '/_resources/'
+    | '/app/'
+    | '/app/subscription/_subscribedguard'
+    | '/_resources/legal/privacy'
+    | '/_resources/legal/tos'
+    | '/app/_hub/courses'
+    | '/app/_hub/leaderboard'
+    | '/app/_hub/projects'
+    | '/app/onboarding/$stage'
+    | '/app/subscription/already-subscribed'
+    | '/app/subscription/cancel'
+    | '/app/subscription/confirm'
+    | '/app/subscription/manage'
+    | '/app/subscription/success'
+    | '/app/sync/$lessonId'
+    | '/_resources/docs/'
+    | '/app/_desktopguard/project/$projectId'
+    | '/app/_hub/profile/$userId'
+    | '/app/subscription/_subscribedguard/comparison'
+    | '/app/lesson/$courseId/$moduleId/$lessonId'
+    | '/app/_hub/learn/$courseId/$moduleId'
+    | '/app/_hub/profile/$userId/settings'
+    | '/app/completion/$courseId/$moduleId/$lessonId'
+    | '/app/_hub/profile/$userId/'
+    | '/app/lesson/$courseId/$moduleId/$lessonId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
   AppRouteRoute: typeof AppRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -443,25 +434,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: ''
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/': {
-      id: '/_app/'
+    '/_resources': {
+      id: '/_resources'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ResourcesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
       path: '/'
-      fullPath: '/'
+      fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/resources/landing': {
-      id: '/resources/landing'
-      path: '/landing'
-      fullPath: '/resources/landing'
-      preLoaderRoute: typeof ResourcesLandingRouteImport
+    '/_resources/': {
+      id: '/_resources/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof ResourcesRouteRoute
     }
     '/auth/register': {
@@ -478,197 +476,226 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/resources/legal': {
-      id: '/resources/legal'
-      path: '/legal'
-      fullPath: '/resources/legal'
-      preLoaderRoute: typeof ResourcesLegalRouteRouteImport
-      parentRoute: typeof ResourcesRouteRoute
-    }
-    '/_app/subscription': {
-      id: '/_app/subscription'
+    '/app/subscription': {
+      id: '/app/subscription'
       path: '/subscription'
-      fullPath: '/subscription'
+      fullPath: '/app/subscription'
       preLoaderRoute: typeof AppSubscriptionRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/_hub': {
-      id: '/_app/_hub'
+    '/app/_hub': {
+      id: '/app/_hub'
       path: ''
-      fullPath: ''
+      fullPath: '/app'
       preLoaderRoute: typeof AppHubRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/_desktopguard': {
-      id: '/_app/_desktopguard'
+    '/app/_desktopguard': {
+      id: '/app/_desktopguard'
       path: ''
-      fullPath: ''
+      fullPath: '/app'
       preLoaderRoute: typeof AppDesktopguardRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/resources/docs/': {
-      id: '/resources/docs/'
+    '/_resources/legal': {
+      id: '/_resources/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof ResourcesLegalRouteRouteImport
+      parentRoute: typeof ResourcesRouteRoute
+    }
+    '/_resources/docs/': {
+      id: '/_resources/docs/'
       path: '/docs'
-      fullPath: '/resources/docs'
+      fullPath: '/docs'
       preLoaderRoute: typeof ResourcesDocsIndexRouteImport
       parentRoute: typeof ResourcesRouteRoute
     }
-    '/resources/legal/tos': {
-      id: '/resources/legal/tos'
-      path: '/tos'
-      fullPath: '/resources/legal/tos'
-      preLoaderRoute: typeof ResourcesLegalTosRouteImport
-      parentRoute: typeof ResourcesLegalRouteRoute
-    }
-    '/resources/legal/privacy': {
-      id: '/resources/legal/privacy'
-      path: '/privacy'
-      fullPath: '/resources/legal/privacy'
-      preLoaderRoute: typeof ResourcesLegalPrivacyRouteImport
-      parentRoute: typeof ResourcesLegalRouteRoute
-    }
-    '/_app/sync/$lessonId': {
-      id: '/_app/sync/$lessonId'
+    '/app/sync/$lessonId': {
+      id: '/app/sync/$lessonId'
       path: '/sync/$lessonId'
-      fullPath: '/sync/$lessonId'
+      fullPath: '/app/sync/$lessonId'
       preLoaderRoute: typeof AppSyncLessonIdRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/subscription/success': {
-      id: '/_app/subscription/success'
+    '/app/subscription/success': {
+      id: '/app/subscription/success'
       path: '/success'
-      fullPath: '/subscription/success'
+      fullPath: '/app/subscription/success'
       preLoaderRoute: typeof AppSubscriptionSuccessRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/subscription/manage': {
-      id: '/_app/subscription/manage'
+    '/app/subscription/manage': {
+      id: '/app/subscription/manage'
       path: '/manage'
-      fullPath: '/subscription/manage'
+      fullPath: '/app/subscription/manage'
       preLoaderRoute: typeof AppSubscriptionManageRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/subscription/confirm': {
-      id: '/_app/subscription/confirm'
+    '/app/subscription/confirm': {
+      id: '/app/subscription/confirm'
       path: '/confirm'
-      fullPath: '/subscription/confirm'
+      fullPath: '/app/subscription/confirm'
       preLoaderRoute: typeof AppSubscriptionConfirmRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/subscription/cancel': {
-      id: '/_app/subscription/cancel'
+    '/app/subscription/cancel': {
+      id: '/app/subscription/cancel'
       path: '/cancel'
-      fullPath: '/subscription/cancel'
+      fullPath: '/app/subscription/cancel'
       preLoaderRoute: typeof AppSubscriptionCancelRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/subscription/already-subscribed': {
-      id: '/_app/subscription/already-subscribed'
+    '/app/subscription/already-subscribed': {
+      id: '/app/subscription/already-subscribed'
       path: '/already-subscribed'
-      fullPath: '/subscription/already-subscribed'
+      fullPath: '/app/subscription/already-subscribed'
       preLoaderRoute: typeof AppSubscriptionAlreadySubscribedRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/onboarding/$stage': {
-      id: '/_app/onboarding/$stage'
+    '/app/onboarding/$stage': {
+      id: '/app/onboarding/$stage'
       path: '/onboarding/$stage'
-      fullPath: '/onboarding/$stage'
+      fullPath: '/app/onboarding/$stage'
       preLoaderRoute: typeof AppOnboardingStageRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/_hub/projects': {
-      id: '/_app/_hub/projects'
+    '/app/_hub/projects': {
+      id: '/app/_hub/projects'
       path: '/projects'
-      fullPath: '/projects'
+      fullPath: '/app/projects'
       preLoaderRoute: typeof AppHubProjectsRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_app/_hub/leaderboard': {
-      id: '/_app/_hub/leaderboard'
+    '/app/_hub/leaderboard': {
+      id: '/app/_hub/leaderboard'
       path: '/leaderboard'
-      fullPath: '/leaderboard'
+      fullPath: '/app/leaderboard'
       preLoaderRoute: typeof AppHubLeaderboardRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_app/_hub/courses': {
-      id: '/_app/_hub/courses'
+    '/app/_hub/courses': {
+      id: '/app/_hub/courses'
       path: '/courses'
-      fullPath: '/courses'
+      fullPath: '/app/courses'
       preLoaderRoute: typeof AppHubCoursesRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_app/subscription/_subscribedguard': {
-      id: '/_app/subscription/_subscribedguard'
+    '/_resources/legal/tos': {
+      id: '/_resources/legal/tos'
+      path: '/tos'
+      fullPath: '/legal/tos'
+      preLoaderRoute: typeof ResourcesLegalTosRouteImport
+      parentRoute: typeof ResourcesLegalRouteRoute
+    }
+    '/_resources/legal/privacy': {
+      id: '/_resources/legal/privacy'
+      path: '/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof ResourcesLegalPrivacyRouteImport
+      parentRoute: typeof ResourcesLegalRouteRoute
+    }
+    '/app/subscription/_subscribedguard': {
+      id: '/app/subscription/_subscribedguard'
       path: ''
-      fullPath: '/subscription'
+      fullPath: '/app/subscription'
       preLoaderRoute: typeof AppSubscriptionSubscribedguardRouteRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
-    '/_app/subscription/_subscribedguard/comparison': {
-      id: '/_app/subscription/_subscribedguard/comparison'
+    '/app/subscription/_subscribedguard/comparison': {
+      id: '/app/subscription/_subscribedguard/comparison'
       path: '/comparison'
-      fullPath: '/subscription/comparison'
+      fullPath: '/app/subscription/comparison'
       preLoaderRoute: typeof AppSubscriptionSubscribedguardComparisonRouteImport
       parentRoute: typeof AppSubscriptionSubscribedguardRouteRoute
     }
-    '/_app/_hub/profile/$userId': {
-      id: '/_app/_hub/profile/$userId'
+    '/app/_hub/profile/$userId': {
+      id: '/app/_hub/profile/$userId'
       path: '/profile/$userId'
-      fullPath: '/profile/$userId'
+      fullPath: '/app/profile/$userId'
       preLoaderRoute: typeof AppHubProfileUserIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_app/_desktopguard/project/$projectId': {
-      id: '/_app/_desktopguard/project/$projectId'
+    '/app/_desktopguard/project/$projectId': {
+      id: '/app/_desktopguard/project/$projectId'
       path: '/project/$projectId'
-      fullPath: '/project/$projectId'
+      fullPath: '/app/project/$projectId'
       preLoaderRoute: typeof AppDesktopguardProjectProjectIdRouteImport
       parentRoute: typeof AppDesktopguardRouteRoute
     }
-    '/_app/_hub/profile/$userId/': {
-      id: '/_app/_hub/profile/$userId/'
+    '/app/_hub/profile/$userId/': {
+      id: '/app/_hub/profile/$userId/'
       path: '/'
-      fullPath: '/profile/$userId/'
+      fullPath: '/app/profile/$userId/'
       preLoaderRoute: typeof AppHubProfileUserIdIndexRouteImport
       parentRoute: typeof AppHubProfileUserIdRoute
     }
-    '/_app/completion/$courseId/$moduleId/$lessonId': {
-      id: '/_app/completion/$courseId/$moduleId/$lessonId'
+    '/app/completion/$courseId/$moduleId/$lessonId': {
+      id: '/app/completion/$courseId/$moduleId/$lessonId'
       path: '/completion/$courseId/$moduleId/$lessonId'
-      fullPath: '/completion/$courseId/$moduleId/$lessonId'
+      fullPath: '/app/completion/$courseId/$moduleId/$lessonId'
       preLoaderRoute: typeof AppCompletionCourseIdModuleIdLessonIdRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/_hub/profile/$userId/settings': {
-      id: '/_app/_hub/profile/$userId/settings'
+    '/app/_hub/profile/$userId/settings': {
+      id: '/app/_hub/profile/$userId/settings'
       path: '/settings'
-      fullPath: '/profile/$userId/settings'
+      fullPath: '/app/profile/$userId/settings'
       preLoaderRoute: typeof AppHubProfileUserIdSettingsRouteImport
       parentRoute: typeof AppHubProfileUserIdRoute
     }
-    '/_app/_hub/learn/$courseId/$moduleId': {
-      id: '/_app/_hub/learn/$courseId/$moduleId'
+    '/app/_hub/learn/$courseId/$moduleId': {
+      id: '/app/_hub/learn/$courseId/$moduleId'
       path: '/learn/$courseId/$moduleId'
-      fullPath: '/learn/$courseId/$moduleId'
+      fullPath: '/app/learn/$courseId/$moduleId'
       preLoaderRoute: typeof AppHubLearnCourseIdModuleIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_app/lesson/$courseId/$moduleId/$lessonId': {
-      id: '/_app/lesson/$courseId/$moduleId/$lessonId'
+    '/app/lesson/$courseId/$moduleId/$lessonId': {
+      id: '/app/lesson/$courseId/$moduleId/$lessonId'
       path: '/lesson/$courseId/$moduleId/$lessonId'
-      fullPath: '/lesson/$courseId/$moduleId/$lessonId'
+      fullPath: '/app/lesson/$courseId/$moduleId/$lessonId'
       preLoaderRoute: typeof AppLessonCourseIdModuleIdLessonIdRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/lesson/$courseId/$moduleId/$lessonId/': {
-      id: '/_app/lesson/$courseId/$moduleId/$lessonId/'
+    '/app/lesson/$courseId/$moduleId/$lessonId/': {
+      id: '/app/lesson/$courseId/$moduleId/$lessonId/'
       path: '/'
-      fullPath: '/lesson/$courseId/$moduleId/$lessonId/'
+      fullPath: '/app/lesson/$courseId/$moduleId/$lessonId/'
       preLoaderRoute: typeof AppLessonCourseIdModuleIdLessonIdIndexRouteImport
       parentRoute: typeof AppLessonCourseIdModuleIdLessonIdRouteRoute
     }
   }
 }
+
+interface ResourcesLegalRouteRouteChildren {
+  ResourcesLegalPrivacyRoute: typeof ResourcesLegalPrivacyRoute
+  ResourcesLegalTosRoute: typeof ResourcesLegalTosRoute
+}
+
+const ResourcesLegalRouteRouteChildren: ResourcesLegalRouteRouteChildren = {
+  ResourcesLegalPrivacyRoute: ResourcesLegalPrivacyRoute,
+  ResourcesLegalTosRoute: ResourcesLegalTosRoute,
+}
+
+const ResourcesLegalRouteRouteWithChildren =
+  ResourcesLegalRouteRoute._addFileChildren(ResourcesLegalRouteRouteChildren)
+
+interface ResourcesRouteRouteChildren {
+  ResourcesLegalRouteRoute: typeof ResourcesLegalRouteRouteWithChildren
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
+  ResourcesDocsIndexRoute: typeof ResourcesDocsIndexRoute
+}
+
+const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
+  ResourcesLegalRouteRoute: ResourcesLegalRouteRouteWithChildren,
+  ResourcesIndexRoute: ResourcesIndexRoute,
+  ResourcesDocsIndexRoute: ResourcesDocsIndexRoute,
+}
+
+const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
+  ResourcesRouteRouteChildren,
+)
 
 interface AppDesktopguardRouteRouteChildren {
   AppDesktopguardProjectProjectIdRoute: typeof AppDesktopguardProjectProjectIdRoute
@@ -808,39 +835,10 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-interface ResourcesLegalRouteRouteChildren {
-  ResourcesLegalPrivacyRoute: typeof ResourcesLegalPrivacyRoute
-  ResourcesLegalTosRoute: typeof ResourcesLegalTosRoute
-}
-
-const ResourcesLegalRouteRouteChildren: ResourcesLegalRouteRouteChildren = {
-  ResourcesLegalPrivacyRoute: ResourcesLegalPrivacyRoute,
-  ResourcesLegalTosRoute: ResourcesLegalTosRoute,
-}
-
-const ResourcesLegalRouteRouteWithChildren =
-  ResourcesLegalRouteRoute._addFileChildren(ResourcesLegalRouteRouteChildren)
-
-interface ResourcesRouteRouteChildren {
-  ResourcesLegalRouteRoute: typeof ResourcesLegalRouteRouteWithChildren
-  ResourcesLandingRoute: typeof ResourcesLandingRoute
-  ResourcesDocsIndexRoute: typeof ResourcesDocsIndexRoute
-}
-
-const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
-  ResourcesLegalRouteRoute: ResourcesLegalRouteRouteWithChildren,
-  ResourcesLandingRoute: ResourcesLandingRoute,
-  ResourcesDocsIndexRoute: ResourcesDocsIndexRoute,
-}
-
-const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
-  ResourcesRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
+  ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

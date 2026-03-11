@@ -7,7 +7,7 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function CoursePage() {
-  const { availableCourses } = useLoaderData({ from: "/_app/_hub/courses" });
+  const { availableCourses } = useLoaderData({ from: "/app/_hub/courses" });
   const changeCourseMutation = useChangeCourse();
   const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
 

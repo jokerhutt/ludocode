@@ -10,7 +10,7 @@ import { UserPreferencesContext } from "@/features/user/context/useUserPreferenc
 type ProjectLayoutProps = {};
 
 export function ProjectLayout({}: ProjectLayoutProps) {
-  const routeApi = getRouteApi("/_app/_desktopguard/project/$projectId");
+  const routeApi = getRouteApi("/app/_desktopguard/project/$projectId");
   const { project } = useLoaderData({ from: routeApi.id });
   const { data: UserPreferences } = useSuspenseQuery(qo.preferences());
 

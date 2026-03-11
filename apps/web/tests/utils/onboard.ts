@@ -11,29 +11,29 @@ export async function onboardUser(page: Page) {
   const experienceInput = page.getByTestId("onb-exp-false");
 
   await registerUser(page);
-  await expect(page).toHaveURL(/\/onboarding\/name$/);
+  await expect(page).toHaveURL(/\/app\/onboarding\/name$/);
   await expect(nameInput).toBeVisible();
   await expect(nameInput).toBeEditable();
   await nameInput.fill("dave");
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await expect(page).toHaveURL(/\/onboarding\/career$/);
+  await expect(page).toHaveURL(/\/app\/onboarding\/career$/);
   await expect(careerInput).toBeVisible();
   await careerInput.click();
 
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await expect(page).toHaveURL(/\/onboarding\/course$/);
+  await expect(page).toHaveURL(/\/app\/onboarding\/course$/);
   await expect(languageInput).toBeVisible();
   await languageInput.click();
 
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await expect(page).toHaveURL(/\/onboarding\/experience$/);
+  await expect(page).toHaveURL(/\/app\/onboarding\/experience$/);
   await expect(experienceInput).toBeVisible();
   await experienceInput.click();
 
   await page.getByRole("button", { name: "Finish" }).click();
 
-  // await expect(page).toHaveURL(/\/subscription\/comparison$/);
+  // await expect(page).toHaveURL(/\/app\/subscription\/comparison$/);
 }

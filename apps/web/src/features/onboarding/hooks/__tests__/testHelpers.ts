@@ -27,7 +27,7 @@ export function simulateOnboardingBeforeLoad(
 
   if (currentIdx > invalidIdx) {
     navigateFn({
-      to: "/onboarding/$stage",
+      to: "/app/onboarding/$stage",
       params: { stage: invalid },
       replace: true,
     });
@@ -52,7 +52,10 @@ export function createOnboardingRouterMock(
 
     navigations.push(capture);
 
-    if (navOptions.to === "/onboarding/$stage" && navOptions.params?.stage) {
+    if (
+      navOptions.to === "/app/onboarding/$stage" &&
+      navOptions.params?.stage
+    ) {
       const newStage = navOptions.params.stage as StageKey;
       setCurrentStage(newStage);
       rerender({ stage: newStage });

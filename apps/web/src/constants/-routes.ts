@@ -8,30 +8,30 @@ export const routes = {
     demo: `/demo/`,
   },
   hub: {
-    courses: `/_app/_hub/courses`,
-    project: `/_app/_hub/projects`,
+    courses: `/app/_hub/courses`,
+    project: `/app/_hub/projects`,
 
     module: {
-      root: `/_app/_hub/learn`,
-      moduleHub: `/_app/_hub/learn/$courseId/$moduleId`,
+      root: `/app/_hub/learn`,
+      moduleHub: `/app/_hub/learn/$courseId/$moduleId`,
     },
     profile: {
-      root: `/_app/_hub/profile`,
-      user: `/_app/_hub/profile/$userId`,
+      root: `/app/_hub/profile`,
+      user: `/app/_hub/profile/$userId`,
     },
   },
   lesson: {
-    lessonPage: `/_app/lesson/$courseId/$moduleId/$lessonId`,
+    lessonPage: `/app/lesson/$courseId/$moduleId/$lessonId`,
   },
   completion: {
-    syncPage: `/_app/sync/$lessonId`,
-    completionPage: `/_app/completion/$courseId/$moduleId/$lessonId`,
+    syncPage: `/app/sync/$lessonId`,
+    completionPage: `/app/completion/$courseId/$moduleId/$lessonId`,
   },
   project: {
-    projectPage: `/_app/_desktopguard/project/$projectId`,
+    projectPage: `/app/_desktopguard/project/$projectId`,
   },
   onboarding: {
-    base: `/_app/onboarding/`,
-    start: `/_app/onboarding/career`,
+    base: `/app/onboarding/`,
+    start: `/app/onboarding/career`,
   },
 } as const;

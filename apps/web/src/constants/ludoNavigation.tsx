@@ -5,44 +5,44 @@ import { Route as authLoginRoute } from "@/routes/auth/login";
 import { Route as authRegisterRoute } from "@/routes/auth/register";
 
 // HUB PAGES
-import { Route as coursesRoute } from "@/routes/_app/_hub/courses.tsx";
-import { Route as projectHubRoute } from "@/routes/_app/_hub/projects.tsx";
+import { Route as coursesRoute } from "@/routes/app/_hub/courses.tsx";
+import { Route as projectHubRoute } from "@/routes/app/_hub/projects.tsx";
 
-import { Route as moduleHubRoute } from "@/routes/_app/_hub/learn/$courseId/$moduleId.tsx";
-import { Route as profileRoute } from "@/routes/_app/_hub/profile/$userId/index.tsx";
-import { Route as accountSettingsRoute } from "@/routes/_app/_hub/profile/$userId/settings.tsx";
+import { Route as moduleHubRoute } from "@/routes/app/_hub/learn/$courseId/$moduleId.tsx";
+import { Route as profileRoute } from "@/routes/app/_hub/profile/$userId/index.tsx";
+import { Route as accountSettingsRoute } from "@/routes/app/_hub/profile/$userId/settings.tsx";
 
 // LESSON PAGE
-import { Route as lessonPageRoute } from "@/routes/_app/lesson/$courseId/$moduleId/$lessonId";
+import { Route as lessonPageRoute } from "@/routes/app/lesson/$courseId/$moduleId/$lessonId";
 
 // DESKTOP-GUARD GROUP
-import { Route as projectPageRoute } from "@/routes/_app/_desktopguard/project/$projectId.tsx";
+import { Route as projectPageRoute } from "@/routes/app/_desktopguard/project/$projectId.tsx";
 
 // SUBSCRIPTION
-import { Route as subscriptionComparisonRoute } from "@/routes/_app/subscription/_subscribedguard/comparison";
-import { Route as subscriptionConfirmedRoute } from "@/routes/_app/subscription/confirm";
-import { Route as alreadySubscribedRoute } from "@/routes/_app/subscription/already-subscribed";
+import { Route as subscriptionComparisonRoute } from "@/routes/app/subscription/_subscribedguard/comparison";
+import { Route as subscriptionConfirmedRoute } from "@/routes/app/subscription/confirm";
+import { Route as alreadySubscribedRoute } from "@/routes/app/subscription/already-subscribed";
 
 // SYNC + COMPLETION
-import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
-import { Route as completionRoute } from "@/routes/_app/completion/$courseId/$moduleId/$lessonId.tsx";
+import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
+import { Route as completionRoute } from "@/routes/app/completion/$courseId/$moduleId/$lessonId.tsx";
 
 // ONBOARDING
-import { Route as onboardingStageRoute } from "@/routes/_app/onboarding.$stage.tsx";
+import { Route as onboardingStageRoute } from "@/routes/app/onboarding.$stage.tsx";
 
 // LEADERBOARD
-import { Route as leaderboardHubRoute } from "@/routes/_app/_hub/leaderboard";
+import { Route as leaderboardHubRoute } from "@/routes/app/_hub/leaderboard";
 
 // APP
 
-import { Route as appIndexRoute } from "@/routes/_app/index";
+import { Route as appIndexRoute } from "@/routes/app/index";
 
 // RESOURCES
 
-import { Route as resourcesRootRoute } from "@/routes/resources/route";
-import { Route as tosRoute } from "@/routes/resources/legal/tos";
-import { Route as privacyRoute } from "@/routes/resources/legal/privacy";
-import { Route as docsRoute } from "@/routes/resources/docs/index";
+import { Route as resourcesRootRoute } from "@/routes/_resources/route";
+import { Route as tosRoute } from "@/routes/_resources/legal/tos";
+import { Route as privacyRoute } from "@/routes/_resources/legal/privacy";
+import { Route as docsRoute } from "@/routes/_resources/docs/index";
 
 import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 

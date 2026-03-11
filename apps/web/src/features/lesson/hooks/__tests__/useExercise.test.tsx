@@ -14,7 +14,7 @@ vi.mock("@/main", () => ({
 import { useExercise } from "@/features/lesson/hooks/useExercise";
 import { l1, l1exercises, c1Id } from "./fixtures";
 import type { AnswerToken } from "@ludocode/types";
-import { Route as syncRoute } from "@/routes/_app/sync/$lessonId.tsx";
+import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
 import { createLessonRouterMock } from "./testHelpers";
 
 describe("useExercise Flow (integration)", () => {

@@ -25,7 +25,7 @@ export function assertStep(step: string): Step {
 
 export function CompletionLayout() {
   const completionRoute = getRouteApi(
-    "/_app/completion/$courseId/$moduleId/$lessonId",
+    "/app/completion/$courseId/$moduleId/$lessonId",
   );
   const { courseId, moduleId, lessonId } = completionRoute.useParams();
   const search: CompletionSearch = completionRoute.useSearch();
@@ -33,7 +33,7 @@ export function CompletionLayout() {
   const course = courses.find((course) => course.id == courseId);
   if (!course) return null;
   const courseName = course.title;
-  const courseIcon = course.courseIcon
+  const courseIcon = course.courseIcon;
 
   const completionState: CompletionState = {
     courseId,

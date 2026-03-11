@@ -6,7 +6,6 @@ import { ProviderLoginGroup } from "@/features/auth/components/ProviderLoginGrou
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import { useFirebaseEmailAuth } from "@/queries/mutations/useFirebaseEmailAuth.tsx";
-import { AuthResourceActionsGroup } from "./components/AuthResourceActionsGroup";
 
 export function RegistrationPage() {
   const firebaseLogin = useFirebaseAuthEntry();
