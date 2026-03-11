@@ -62,7 +62,7 @@ function LandingPage() {
           Ludocode is an open-source platform for learning programming through
           small, interactive exercises.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full max-w-xs sm:max-w-sm">
+        <div className="flex gap-4 mt-4 w-full">
           <LudoButton
             variant="alt"
             className="flex-1"
@@ -72,7 +72,7 @@ function LandingPage() {
           </LudoButton>
           <LudoButton
             variant="default"
-            className="flex-1"
+            className="flex-1 "
             onClick={() => window.open(GITHUB_URL, "_blank")}
           >
             View Source
