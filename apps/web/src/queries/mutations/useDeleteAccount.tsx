@@ -1,6 +1,5 @@
 import { mutations } from "@/queries/definitions/mutations.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 
 export function useDeleteAccount() {
@@ -11,7 +10,7 @@ export function useDeleteAccount() {
     ...mutations.deleteAccount(),
     onSuccess: async () => {
       qc.clear();
-      await router.navigate(ludoNavigation.auth.register());
+      await router.navigate({ to: "/", replace: true });
     },
   });
 }
