@@ -17,7 +17,7 @@ The project is written using React, Typescript, Tailwind CSS, ShadCN UI, and Tan
 
 ## Running the project locally
 
-This project is made so that you can run it locally without needing to provide any credentials. For setup instructions on running the project locally & enabling features, see the web docs: https://ludocode.dev/resources/docs
+This project is made so that you can run it locally without needing to provide any credentials. For setup instructions on running the project locally & enabling features, see the web docs: https://ludocode.dev/docs
 
 ## Features
 
