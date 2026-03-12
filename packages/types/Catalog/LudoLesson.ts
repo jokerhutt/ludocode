@@ -4,5 +4,5 @@ export type LudoLesson = {
   orderIndex: number;
   isCompleted: boolean;
 };
-
+export type LessonType = "GUIDED" | "NORMAL"
 export type LessonStatus = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";
