@@ -33,10 +33,11 @@ export function useExercise({
   position,
   config,
 }: Args): useExerciseResponse {
-  const index = position - 1;
+  const index = Math.max(0, Math.min(position - 1, exercises.length - 1));
   const currentExercise = exercises[index];
   const currentExerciseId = currentExercise.id;
   const lessonId = lesson.id;
+  const isLastExercise = position >= exercises.length;
   const isInfo = !currentExercise.interaction;
   const hasCodeOutput = currentExercise.blocks.some(
     (b) => b.type === "code" && b.output != null,
@@ -117,7 +118,9 @@ export function useExercise({
 
     // When reviewing a completed exercise, just navigate forward
     if (isReviewing) {
-      router.navigate(ludoNavigation.lesson.toNextExercise(position));
+      if (!isLastExercise) {
+        router.navigate(ludoNavigation.lesson.toNextExercise(position));
+      }
       return;
     }
 
@@ -135,6 +138,7 @@ export function useExercise({
   }, [
     canSubmit,
     isReviewing,
+    isLastExercise,
     position,
     isInfo,
     hasCodeOutput,
