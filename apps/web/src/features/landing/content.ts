@@ -4,7 +4,7 @@ export const landingPageFeatures: { icon: IconName; title: string; description: 
   {
     icon: "CodeBracketIcon",
     title: "Interactive Exercises",
-    description: "Practice programming with small, interactive lessons.",
+    description: "Practice programming with approachable, interactive lessons.",
   },
   {
     icon: "PlayIcon",

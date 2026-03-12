@@ -2,9 +2,8 @@ import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { landingPageFeatures } from "../content";
 
-type LandingFeaturesProps = {};
 
-export function LandingFeatures({}: LandingFeaturesProps) {
+export function LandingFeatures() {
   return (
     <section className="px-6 lg:px-18 py-20 lg:py-28 flex flex-col items-center gap-12 max-w-5xl mx-auto">
       <h2 className="text-2xl lg:text-4xl font-bold text-ludo-white-bright">
