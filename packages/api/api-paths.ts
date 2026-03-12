@@ -21,6 +21,10 @@ export function createApiPaths({
       completions: `${BASE}/ai/completions`,
     },
 
+    analytics: {
+      base: `${BASE}/analytics`
+    },
+
     auth: {
       base: `${BASE}/auth`,
       firebase: `${BASE}/auth/firebase`,
