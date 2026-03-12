@@ -26,6 +26,7 @@ import { LogoutButton } from "@/features/auth/components/LogoutButton.tsx";
 import { DeleteAccountButton } from "@/features/auth/components/DeleteAccountButton.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
+import { track } from "@/analytics/track";
 
 type ProfileDrawerProps = {
   trigger: ReactElement;
@@ -64,18 +65,32 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
             <NavItem
               icon={<User className="h-5 w-5" />}
               label="Profile"
-              onClick={() =>
-                router.navigate(ludoNavigation.hub.profile.toProfile(user.id))
-              }
+              onClick={() => {
+                track({
+                  event: "NAVIGATION_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                    destination: "profile_page",
+                  },
+                });
+                router.navigate(ludoNavigation.hub.profile.toProfile(user.id));
+              }}
             />
           </DrawerClose>
           <DrawerClose asChild>
             <NavItem
               icon={<Settings className="h-5 w-5" />}
               label="Settings"
-              onClick={() =>
-                router.navigate(ludoNavigation.hub.profile.toSettings(user.id))
-              }
+              onClick={() => {
+                track({
+                  event: "NAVIGATION_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                    destination: "settings_page",
+                  },
+                });
+                router.navigate(ludoNavigation.hub.profile.toSettings(user.id));
+              }}
             />
           </DrawerClose>
           {/* <DrawerClose asChild>
@@ -91,16 +106,31 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
             <NavItem
               icon={<NotebookText className="h-5 w-5" />}
               label="Documentation"
-              onClick={() => router.navigate(ludoNavigation.resources.toDocs())}
+              onClick={() => {
+                track({
+                  event: "DOCS_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                  },
+                });
+                router.navigate(ludoNavigation.resources.toDocs());
+              }}
             />
           </DrawerClose>
           <DrawerClose asChild>
             <NavItem
               icon={<Map className="h-5 w-5" />}
               label="Roadmap"
-              onClick={() =>
-                router.navigate(ludoNavigation.resources.toDocs("roadmap"))
-              }
+              onClick={() => {
+                track({
+                  event: "DOCS_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                    destination: "roadmap_page",
+                  },
+                });
+                router.navigate(ludoNavigation.resources.toDocs("roadmap"));
+              }}
             />
           </DrawerClose>
           <FeedbackDialog>
@@ -114,16 +144,32 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
             <NavItem
               icon={<LockIcon className="h-5 w-5" />}
               label="Privacy Policy"
-              onClick={() =>
-                router.navigate(ludoNavigation.resources.toPrivacy())
-              }
+              onClick={() => {
+                track({
+                  event: "NAVIGATION_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                    destination: "privacy_page",
+                  },
+                });
+                router.navigate(ludoNavigation.resources.toPrivacy());
+              }}
             />
           </DrawerClose>
           <DrawerClose asChild>
             <NavItem
               icon={<Scroll className="h-5 w-5" />}
               label="Terms of service"
-              onClick={() => router.navigate(ludoNavigation.resources.toToS())}
+              onClick={() => {
+                track({
+                  event: "NAVIGATION_CLICK",
+                  properties: {
+                    source: "hub_drawer",
+                    destination: "tos_page",
+                  },
+                });
+                router.navigate(ludoNavigation.resources.toToS());
+              }}
             />
           </DrawerClose>
         </nav>

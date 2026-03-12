@@ -1,3 +1,4 @@
+import { track } from "@/analytics/track";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { FRONTEND_REPO_URL } from "@/constants/url/repo";
 import { router } from "@/main";
@@ -10,20 +11,33 @@ export function LandingHero() {
         Learn programming interactively
       </h1>
       <p className="text-base lg:text-lg text-ludo-white max-w-xl">
-        Open-source platform for learning programming through approachable, interactive exercises.
+        Open-source platform for learning programming through approachable,
+        interactive exercises.
       </p>
       <div className="flex gap-4 mt-4 h-10 w-full">
         <LudoButton
           variant="alt"
           className="flex-1 h-full"
-          onClick={() => router.navigate(ludoNavigation.auth.register(false))}
+          onClick={() => {
+            track({
+              event: "SIGNUP_CLICK",
+              properties: { source: "landing_cta_main" },
+            });
+            router.navigate(ludoNavigation.auth.register(false));
+          }}
         >
           Get Started
         </LudoButton>
         <LudoButton
           variant="default"
           className="flex-1 h-full"
-          onClick={() => window.open(FRONTEND_REPO_URL, "_blank")}
+          onClick={() => {
+            track({
+              event: "SOURCE_CODE_CLICK",
+              properties: { source: "landing_cta_main" },
+            });
+            window.open(FRONTEND_REPO_URL, "_blank");
+          }}
         >
           View Source
         </LudoButton>

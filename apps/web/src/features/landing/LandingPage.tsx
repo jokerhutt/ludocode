@@ -5,8 +5,14 @@ import { LandingFeatures } from "./components/LandingFeatures";
 import { LandingPreviewMedia } from "./components/LandingPreviewMedia";
 import { FRONTEND_REPO_URL } from "@/constants/url/repo";
 import { LandingCTA } from "./components/LandingCTA";
+import { useEffect } from "react";
+import { track } from "@/analytics/track";
 
 export function LandingPage() {
+  useEffect(() => {
+    track({ event: "LANDING_PAGE_VIEW" });
+  }, []);
+
   return (
     <div className="w-full">
       {/* Hero */}
@@ -24,7 +30,13 @@ export function LandingPage() {
         title="Open Source"
         subtitle="Ludocode is fully open source. Browse the code, contribute features,
           or self-host your own instance."
-        onClick={() => window.open(FRONTEND_REPO_URL, "_blank")}
+        onClick={() => {
+          track({
+            event: "SOURCE_CODE_CLICK",
+            properties: { source: "landing_cta_bottom" },
+          });
+          window.open(FRONTEND_REPO_URL, "_blank");
+        }}
       >
         <img src="/icons/GithubIcon.svg" className="h-5 w-5 invert" alt="" />
         Star us on GitHub
@@ -35,7 +47,13 @@ export function LandingPage() {
         title="Ready to start?"
         buttonVariant="alt"
         subtitle="Create a free account and begin your first exercise in less than a minute."
-        onClick={() => router.navigate(ludoNavigation.auth.register(false))}
+        onClick={() => {
+          track({
+            event: "SIGNUP_CLICK",
+            properties: { source: "landing_cta_bottom" },
+          });
+          router.navigate(ludoNavigation.auth.register(false));
+        }}
       >
         Sign up for free
       </LandingCTA>

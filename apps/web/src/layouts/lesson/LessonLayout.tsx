@@ -12,6 +12,7 @@ import { LessonFeedbackDrawer } from "@/features/lesson/zones/LessonFeedbackDraw
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries";
 import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
+import { track } from "@/analytics/track";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -42,11 +43,18 @@ export function LessonLayout() {
       <LessonContext.Provider value={state}>
         <MainGridWrapper className="max-h-dvh" gridRows="FULL">
           <LessonHeader
-            onExit={() =>
+            onExit={() => {
+              track({
+                event: "LESSON_EXIT",
+                properties: {
+                  lessonId: lesson.id,
+                  exercisePosition: exercisePosition,
+                },
+              });
               router.navigate(
                 ludoNavigation.hub.module.toModule(courseId, moduleId),
-              )
-            }
+              );
+            }}
             total={exercises.length}
             position={exercisePosition - 1}
           />

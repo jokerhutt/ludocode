@@ -6,6 +6,7 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { Outlet } from "@tanstack/react-router";
 import { BookOpen, Github, LogIn } from "lucide-react";
 import { Suspense } from "react";
+import { track } from "@/analytics/track";
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
 
@@ -50,17 +51,25 @@ export function ResourcesLayout() {
             </h1>
             <div className="flex items-center gap-1">
               <HeaderNavButton
-                onClick={() =>
-                  router.navigate(ludoNavigation.resources.toDocs())
-                }
+                onClick={() => {
+                  track({
+                    event: "DOCS_CLICK",
+                    properties: { source: "landing_cta_header" },
+                  });
+                  router.navigate(ludoNavigation.resources.toDocs());
+                }}
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Docs</span>
               </HeaderNavButton>
               <HeaderNavButton
-                onClick={() =>
-                  window.open(GITHUB_URL, "_blank", "noopener,noreferrer")
-                }
+                onClick={() => {
+                  track({
+                    event: "SOURCE_CODE_CLICK",
+                    properties: { source: "landing_cta_header" },
+                  });
+                  window.open(GITHUB_URL, "_blank", "noopener,noreferrer");
+                }}
               >
                 <Github className="w-4 h-4" />
                 <span>Source</span>
@@ -68,9 +77,13 @@ export function ResourcesLayout() {
               <div className="w-px h-5 bg-ludo-border mx-2 " />
               <div className="flex items-center  gap-2">
                 <HeaderNavButton
-                  onClick={() =>
-                    router.navigate(ludoNavigation.auth.login(false))
-                  }
+                  onClick={() => {
+                    track({
+                      event: "LOGIN_CLICK",
+                      properties: { source: "landing_cta_header" },
+                    });
+                    router.navigate(ludoNavigation.auth.login(false));
+                  }}
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Log in</span>
@@ -79,9 +92,13 @@ export function ResourcesLayout() {
                   variant="alt"
                   shadow={false}
                   className="h-8 w-auto px-4 text-sm font-medium"
-                  onClick={() =>
-                    router.navigate(ludoNavigation.auth.register(false))
-                  }
+                  onClick={() => {
+                    track({
+                      event: "SIGNUP_CLICK",
+                      properties: { source: "landing_cta_header" },
+                    });
+                    router.navigate(ludoNavigation.auth.register(false));
+                  }}
                 >
                   Register
                 </LudoButton>

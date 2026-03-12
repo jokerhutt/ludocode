@@ -1,5 +1,9 @@
+import { track } from "@/analytics/track";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import type { LessonStatus, LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
+import type {
+  LessonStatus,
+  LudoLesson,
+} from "@ludocode/types/Catalog/LudoLesson.ts";
 import { useRouter } from "@tanstack/react-router";
 
 type Args = {
@@ -29,6 +33,7 @@ export function useLessonButton({
 
   const goToLesson = () => {
     if (isLocked) return;
+    track({ event: "LESSON_START", properties: { lessonId: lesson.id } });
     router.navigate(ludoNavigation.lesson.start(courseId, moduleId, lesson.id));
   };
 
