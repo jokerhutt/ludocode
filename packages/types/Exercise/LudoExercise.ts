@@ -1,3 +1,5 @@
+import { LanguageMetadata } from "../Project/LanguageMetadata";
+
 export type LudoExercise = {
   id: string;
   version: number;
@@ -24,6 +26,12 @@ export type ExerciseInteraction =
       blanks: InteractionBlank[];
       options: string[];
       output?: string | null;
+    }
+  | {
+      type: "EXECUTABLE";
+      files: ExecutableTestType[];
+      tests: ExecutableTest[];
+      showOutput: boolean;
     };
 
 export type InteractionBlank = {
@@ -34,4 +42,20 @@ export type InteractionBlank = {
 export type InteractionFile = {
   language: string;
   content: string;
+};
+
+export type ExecutableFile = {
+  name: string;
+  language: LanguageMetadata;
+  content: string;
+};
+
+export type ExecutableTestType =
+  | "OUTPUT_EQUALS"
+  | "OUTPUT_CONTAINS"
+  | "FILE_CONTAINS";
+
+export type ExecutableTest = {
+  type: ExecutableTestType;
+  expected: string;
 };
