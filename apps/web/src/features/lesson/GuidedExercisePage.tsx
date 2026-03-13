@@ -1,12 +1,11 @@
-import { useMemo } from "react";
 import type { ExecutableTest } from "@ludocode/types/Exercise/LudoExercise.ts";
-import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { useLessonContext } from "@/features/lesson/context/useLessonContext";
 import { ProjectProvider } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 import { GuidedExecutableWorkbench } from "./guided/GuidedExecutableWorkbench";
+import { buildExecutableProjectSnapshot } from "./util/buildExecutableProjectSnapshot";
 
 type GuidedExercisePage = {};
 
@@ -18,27 +17,10 @@ export function GuidedExercisePage({}: GuidedExercisePage) {
     return null;
   }
 
-  const projectSnapshot = useMemo<ProjectSnapshot | null>(() => {
-    const executableFiles = interaction.files;
-    if (!executableFiles.length) return null;
-
-    const firstLanguage = executableFiles[0].language;
-
-    const projectFiles = executableFiles.map((file) => ({
-      tempId: `${currentExercise.id}`,
-      path: file.name,
-      language: file.language,
-      content: file.content,
-    }));
-
-    return {
-      projectId: currentExercise.id,
-      projectName: `guided-${currentExercise.id}`,
-      projectLanguage: firstLanguage,
-      files: projectFiles,
-      entryFileId: projectFiles[0].tempId!,
-    };
-  }, [currentExercise.id, interaction.files]);
+  const projectSnapshot = buildExecutableProjectSnapshot(
+    currentExercise.id,
+    interaction.files
+  );
 
   const showBlockOutput =
     interaction.showOutput && (phase === "CORRECT" || phase === "SUBMITTED");
