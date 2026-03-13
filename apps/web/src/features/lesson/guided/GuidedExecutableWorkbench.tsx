@@ -5,7 +5,10 @@ import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeR
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 import { WorkbenchOutputPane } from "@/features/project/workbench/output/WorkbenchOutputPane.tsx";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
-import { evaluateExecutableTests } from "../util/executableTestUtil";
+import {
+  evaluateExecutableTests,
+  getFirstFailedExecutableTestFeedback,
+} from "../util/executableTestUtil";
 import { GuidedExerciseTreePane } from "./GuidedExerciseTreePane";
 import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
@@ -33,6 +36,9 @@ export function GuidedExecutableWorkbench({
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
   const [incorrectFeedbackOpen, setIncorrectFeedbackOpen] = useState(false);
+  const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
+    string | null
+  >(null);
   const outputCountBeforeRunRef = useRef(0);
 
   useEffect(() => {
@@ -42,6 +48,15 @@ export function GuidedExecutableWorkbench({
     const latest = outputLog[outputLog.length - 1];
     const output = latest.output.join("\n");
     const isCorrect = evaluateExecutableTests({
+      tests,
+      output,
+      status: latest.status,
+      files: files.map((file) => ({
+        name: stripFileName(file.path),
+        content: file.content,
+      })),
+    });
+    const failedFeedback = getFirstFailedExecutableTestFeedback({
       tests,
       output,
       status: latest.status,
@@ -65,9 +80,11 @@ export function GuidedExecutableWorkbench({
 
     if (isCorrect) {
       setIncorrectFeedbackOpen(false);
+      setIncorrectFeedbackMessage(null);
       stageExecutableAttempt(attempt);
     } else {
       commitExecutableAttempt(attempt);
+      setIncorrectFeedbackMessage(failedFeedback);
       setIncorrectFeedbackOpen(true);
     }
     setAwaitingValidation(false);
@@ -95,6 +112,7 @@ export function GuidedExecutableWorkbench({
     if (!runnerFeature.enabled) return;
 
     setIncorrectFeedbackOpen(false);
+    setIncorrectFeedbackMessage(null);
     outputCountBeforeRunRef.current = outputLog.length;
     setAwaitingValidation(true);
     runCode();
@@ -124,10 +142,11 @@ export function GuidedExecutableWorkbench({
         phase={phase}
         runnerEnabled={runnerFeature.enabled == true}
         incorrectFeedbackOpen={incorrectFeedbackOpen}
+        incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
       />
 
-      <WorkbenchOutputPane />
+      <WorkbenchOutputPane successColorVariant="alt"/>
     </div>
   );
 }

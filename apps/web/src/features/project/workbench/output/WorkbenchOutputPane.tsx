@@ -1,11 +1,11 @@
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
-import { LudoLog } from "@ludocode/design-system/widgets/ludo-log.tsx";
+import { LudoLog, type OutputTriggerColorVariant } from "@ludocode/design-system/widgets/ludo-log.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 
-type WorkbenchOutputPaneProps = {};
+type WorkbenchOutputPaneProps = {successColorVariant?: OutputTriggerColorVariant};
 
-export function WorkbenchOutputPane({}: WorkbenchOutputPaneProps) {
+export function WorkbenchOutputPane({successColorVariant = "default"}: WorkbenchOutputPaneProps) {
   const { outputInfo } = useCodeRunnerContext();
   const { clearOutput, outputLog } = outputInfo;
 
@@ -28,7 +28,7 @@ export function WorkbenchOutputPane({}: WorkbenchOutputPaneProps) {
 
           return (
             <LudoLog error={error} collapsible defaultCollapsed={false}>
-              <LudoLog.Trigger position={runNumber} />
+              <LudoLog.Trigger successColorVariant={successColorVariant} position={runNumber} />
               <LudoLog.Content>
                 {log.output.map((line, lineIdx) => (
                   <LudoLog.Line

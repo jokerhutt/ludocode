@@ -7,6 +7,7 @@ import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
 import { X } from "lucide-react";
 import type { ExercisePhase } from "../zones/LessonFooter";
+import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
@@ -14,6 +15,7 @@ type GuidedExerciseEditorPaneProps = {
   phase: ExercisePhase;
   runnerEnabled: boolean;
   incorrectFeedbackOpen: boolean;
+  incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
 };
 
@@ -23,6 +25,7 @@ export function GuidedExerciseEditorPane({
   phase,
   runnerEnabled,
   incorrectFeedbackOpen,
+  incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
@@ -55,30 +58,12 @@ export function GuidedExerciseEditorPane({
       <ProjectEditor onExecuteAction={runOrAdvance} />
 
       {(showCorrectFeedback || showIncorrectFeedback) && (
-        <div
-          className={cn(
-            "absolute z-10 bottom-22 right-10 w-56 rounded-md border bg-ludo-background px-3 py-2",
-            showCorrectFeedback
-              ? "border-ludo-correct"
-              : "border-ludo-incorrect",
-          )}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <p className="text-sm text-ludo-white-bright">
-              {showCorrectFeedback ? "Great work!" : "Not quite!"}
-            </p>
-            {showIncorrectFeedback && (
-              <button
-                type="button"
-                onClick={onDismissIncorrectFeedback}
-                className="rounded p-1 text-ludo-white/70 hover:text-ludo-white hover:bg-ludo-background"
-                aria-label="Close feedback"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
+        <GuidedProjectFeedbackPopover
+          showCorrectFeedback={showCorrectFeedback}
+          showIncorrectFeedback={showIncorrectFeedback}
+          incorrectFeedbackMessage={incorrectFeedbackMessage}
+          onDismissIncorrectFeedback={onDismissIncorrectFeedback}
+        />
       )}
 
       <LudoButton
