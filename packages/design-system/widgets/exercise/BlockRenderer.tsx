@@ -2,6 +2,8 @@ import type { Block } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
+import { LessonType } from "@ludocode/types";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 const noop = () => {};
 
@@ -34,11 +36,13 @@ const paragraphComponents: Components = {
 export function BlockRenderer({
   block,
   showOutput = false,
+  lessonType = "NORMAL",
   mobile = false,
 }: {
   block: Block;
   showOutput?: boolean;
   mobile?: boolean;
+  lessonType?: LessonType;
 }) {
   switch (block.type) {
     case "header":
@@ -51,7 +55,7 @@ export function BlockRenderer({
       );
     case "paragraph":
       return (
-        <p className="text-ludo-white text-center lg:max-w-xl text-sm sm:text-base leading-relaxed">
+        <p className={cn("lg:max-w-xl text-sm sm:text-base leading-relaxed", lessonType == "NORMAL" ? "text-ludo-white text-center" : "text-ludo-white-bright text-start")}>
           <ReactMarkdown components={paragraphComponents}>
             {block.content}
           </ReactMarkdown>
@@ -87,7 +91,7 @@ export function BlockRenderer({
         <div className="flex flex-col gap-2 w-full lg:max-w-xl">
           {block.instructions.map((step, idx) => (
             <div key={idx} className="flex items-start gap-3">
-              <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500/20 flex items-center justify-center text-[10px] text-orange-400 mt-0.5">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-ludo-accent-dim flex items-center justify-center text-[10px] text-ludo-white-bright mt-0.5">
                 {idx + 1}
               </span>
               <p className="text-ludo-white text-sm leading-relaxed">{step}</p>

@@ -2,9 +2,15 @@ import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRen
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
 import type { LudoExercise } from "@ludocode/types";
 
-type GuidedExerciseTreePaneProps = {showBlockOutput?: boolean; currentExercise: LudoExercise};
+type GuidedExerciseTreePaneProps = {
+  showBlockOutput?: boolean;
+  currentExercise: LudoExercise;
+};
 
-export function GuidedExerciseTreePane({showBlockOutput = true, currentExercise}: GuidedExerciseTreePaneProps) {
+export function GuidedExerciseTreePane({
+  showBlockOutput = true,
+  currentExercise,
+}: GuidedExerciseTreePaneProps) {
   return (
     <Workbench.Pane
       dataTestId="guided-project-aside-left"
@@ -14,9 +20,10 @@ export function GuidedExerciseTreePane({showBlockOutput = true, currentExercise}
         <p className="text-sm font-medium tracking-wide">Instructions</p>
       </Workbench.Pane.Winbar>
       <Workbench.Pane.Content>
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col pl-2 gap-4 items-center">
           {currentExercise.blocks.map((block, index) => (
             <BlockRenderer
+              lessonType="GUIDED"
               key={index}
               block={block}
               showOutput={showBlockOutput}
