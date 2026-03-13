@@ -82,6 +82,19 @@ export function BlockRenderer({
       );
     case "media":
       return <ExerciseMedia media={block.src} />;
+    case "instructions":
+      return (
+        <div className="flex flex-col gap-2 w-full lg:max-w-xl">
+          {block.instructions.map((step, idx) => (
+            <div key={idx} className="flex items-start gap-3">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500/20 flex items-center justify-center text-[10px] text-orange-400 mt-0.5">
+                {idx + 1}
+              </span>
+              <p className="text-ludo-white text-sm leading-relaxed">{step}</p>
+            </div>
+          ))}
+        </div>
+      );
     default:
       return null;
   }

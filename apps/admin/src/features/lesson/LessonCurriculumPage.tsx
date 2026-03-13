@@ -52,6 +52,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
 
   const form = useAppForm({
     defaultValues: {
+      lessonType: lessonCurriculum.lessonType ?? "NORMAL",
       exercises: lessonCurriculum.exercises,
     } satisfies CurriculumDraftLessonForm,
     validators: {

@@ -118,5 +118,59 @@ export function ExerciseInteraction({
     );
   }
 
+  if (interaction.type === "EXECUTABLE") {
+    return (
+      <div className={cn("flex flex-col h-full justify-start gap-6")}>
+        {/* Files */}
+        <div className="flex flex-col gap-3">
+          <p className="text-xs font-medium text-orange-400">
+            Files ({interaction.files.length})
+          </p>
+          {interaction.files.map((file, idx) => (
+            <div
+              key={idx}
+              className="bg-ludo-surface rounded-lg p-3 flex flex-col gap-1"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-ludo-white-bright font-mono">
+                  {file.name || "unnamed"}
+                </span>
+                <span className="text-xs text-ludo-white/60">
+                  ({file.language})
+                </span>
+              </div>
+              {file.content && (
+                <pre className="text-xs text-ludo-white font-mono bg-ludo-background rounded p-2 overflow-x-auto whitespace-pre-wrap">
+                  {file.content}
+                </pre>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Tests */}
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium text-orange-400">
+            Tests ({interaction.tests.length})
+          </p>
+          {interaction.tests.map((test, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-2 bg-ludo-surface rounded px-3 py-2"
+            >
+              <span className="text-xs text-ludo-white-bright font-medium">
+                {test.type}
+              </span>
+              <span className="text-xs text-ludo-white/60">&rarr;</span>
+              <span className="text-xs text-emerald-400 font-mono">
+                {test.expected || "(empty)"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return null;
 }

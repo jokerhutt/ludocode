@@ -6,6 +6,7 @@ import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import { X, ChevronUp, ChevronDown } from "lucide-react";
 import { withForm } from "@/features/curriculum/types.ts";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
 
 import {
   Select,
@@ -22,6 +23,7 @@ const BLOCK_TYPES: { value: BlockType; label: string }[] = [
   { value: "paragraph", label: "Paragraph" },
   { value: "code", label: "Code" },
   { value: "media", label: "Media" },
+  { value: "instructions", label: "Instructions" },
 ];
 
 const blockTypeLabel: Record<BlockType, string> = {
@@ -29,6 +31,7 @@ const blockTypeLabel: Record<BlockType, string> = {
   paragraph: "Paragraph",
   code: "Code",
   media: "Media",
+  instructions: "Instructions",
 };
 
 const blockTypeColor: Record<BlockType, string> = {
@@ -36,10 +39,12 @@ const blockTypeColor: Record<BlockType, string> = {
   paragraph: "text-ludo-white",
   code: "text-emerald-400",
   media: "text-purple-400",
+  instructions: "text-orange-400",
 };
 
 export const BlocksEditor = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {
@@ -159,6 +164,7 @@ export const BlocksEditor = withForm({
 
 const EditorBlock = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {
@@ -263,6 +269,79 @@ const EditorBlock = withForm({
             />
           </div>
         );
+
+      case "instructions":
+        return (
+          <InstructionsBlockEditor
+            form={form}
+            exerciseIndex={exerciseIndex}
+            blockIndex={blockIndex}
+          />
+        );
     }
   },
 });
+
+/* ─── Instructions block editor ─────────────────────────────────────── */
+
+function InstructionsBlockEditor({
+  form,
+  exerciseIndex,
+  blockIndex,
+}: {
+  form: any;
+  exerciseIndex: number;
+  blockIndex: number;
+}) {
+  const basePath = `exercises[${exerciseIndex}].blocks[${blockIndex}].instructions`;
+
+  return (
+    <form.Field name={basePath} mode="array">
+      {(instructionsField: any) => {
+        const items: string[] = instructionsField.state.value ?? [];
+
+        return (
+          <div className="flex flex-col gap-2">
+            {items.map((_: string, stepIndex: number) => (
+              <div key={stepIndex} className="flex items-center gap-2">
+                <div className="w-5 h-5 shrink-0 rounded-full bg-orange-500/20 flex items-center justify-center">
+                  <span className="text-[10px] text-orange-400">
+                    {stepIndex + 1}
+                  </span>
+                </div>
+                <form.Field
+                  name={`${basePath}[${stepIndex}]`}
+                  children={(field: {
+                    state: { value: unknown };
+                    handleChange: (v: string) => void;
+                  }) => (
+                    <LudoInput
+                      value={String(field.state.value ?? "")}
+                      setValue={(v: string) => field.handleChange(v)}
+                      placeholder={`Step ${stepIndex + 1}`}
+                    />
+                  )}
+                />
+                {items.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => instructionsField.removeValue(stepIndex)}
+                    className="shrink-0 p-1 rounded hover:bg-ludo-background text-ludo-white hover:text-red-400 transition-colors"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+            ))}
+            <ShadowLessButton
+              type="button"
+              onClick={() => instructionsField.pushValue("")}
+            >
+              + Add Step
+            </ShadowLessButton>
+          </div>
+        );
+      }}
+    </form.Field>
+  );
+}

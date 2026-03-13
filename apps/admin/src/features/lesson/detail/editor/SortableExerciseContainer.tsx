@@ -14,6 +14,7 @@ import { EditorExercise } from "../../navigator/editor/EditorExercise.tsx";
 
 export const SortableExerciseContainer = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {

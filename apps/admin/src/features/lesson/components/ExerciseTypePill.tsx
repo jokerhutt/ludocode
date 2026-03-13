@@ -14,6 +14,10 @@ const config: Record<ExerciseType, { label: string; className: string }> = {
     label: "Select",
     className: "bg-amber-500/20 text-amber-400",
   },
+  EXECUTABLE: {
+    label: "Exec",
+    className: "bg-orange-500/20 text-orange-400",
+  },
 };
 
 type ExerciseTypePillProps = {

@@ -9,6 +9,7 @@ export const curriculumDraftSchema = z.object({
         z.object({
           id: z.string(),
           title: z.string().min(1, "lesson title required"),
+          lessonType: z.enum(["NORMAL", "GUIDED"]),
         }),
       ),
     }),
@@ -39,6 +40,12 @@ export const ParagraphBlockSchema = z.object({
   content: z.string().min(1, "Paragraph content required"),
 });
 
+export const InstructionsBlockSchema = z.object({
+  ...BaseClient,
+  type: z.literal("instructions"),
+  instructions: z.array(z.string().min(1)).min(1),
+});
+
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
@@ -59,6 +66,7 @@ export const BlockSchema = z.discriminatedUnion("type", [
   ParagraphBlockSchema,
   CodeBlockSchema,
   MediaBlockSchema,
+  InstructionsBlockSchema,
 ]);
 
 // ─── Interaction ───────────────────────────────────────────────────────
@@ -87,9 +95,29 @@ export const ClozeInteractionSchema = z.object({
   output: z.string().nullish(),
 });
 
+export const ExecutableFileSchema = z.object({
+  name: z.string().min(1),
+  language: z.string().min(1),
+  content: z.string(),
+});
+
+export const ExecutableTestSchema = z.object({
+  type: z.enum(["OUTPUT_EQUALS", "OUTPUT_CONTAINS", "FILE_CONTAINS"]),
+  expected: z.string(),
+});
+
+export const ExecutableInteractionSchema = z.object({
+  type: z.literal("EXECUTABLE"),
+  clientId: z.string().uuid().optional(),
+  files: z.array(ExecutableFileSchema).min(1),
+  tests: z.array(ExecutableTestSchema).min(1),
+  showOutput: z.boolean().optional(),
+});
+
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
   SelectInteractionSchema,
   ClozeInteractionSchema,
+  ExecutableInteractionSchema,
 ]);
 
 // ─── Exercise ──────────────────────────────────────────────────────────
@@ -102,9 +130,33 @@ export const CurriculumDraftExerciseSchema = z.object({
 
 // ─── lesson ────────────────────────────────────────────────────────────
 
-export const CurriculumDraftLessonSchema = z.object({
-  exercises: z.array(CurriculumDraftExerciseSchema),
-});
+export const CurriculumDraftLessonSchema = z
+  .object({
+    lessonType: z.enum(["NORMAL", "GUIDED"]),
+    exercises: z.array(CurriculumDraftExerciseSchema),
+  })
+  .superRefine((lesson, ctx) => {
+    lesson.exercises.forEach((ex, i) => {
+      const interactionType = ex.interaction?.type;
+
+      if (lesson.lessonType === "GUIDED" && interactionType !== "EXECUTABLE") {
+        ctx.addIssue({
+          code: "custom",
+          message:
+            "GUIDED lessons require EXECUTABLE interaction in every exercise",
+          path: ["exercises", i, "interaction"],
+        });
+      }
+
+      if (lesson.lessonType === "NORMAL" && interactionType === "EXECUTABLE") {
+        ctx.addIssue({
+          code: "custom",
+          message: "EXECUTABLE interaction is only allowed in GUIDED lessons",
+          path: ["exercises", i, "interaction"],
+        });
+      }
+    });
+  });
 
 export type CurriculumDraftLessonForm = z.infer<
   typeof CurriculumDraftLessonSchema

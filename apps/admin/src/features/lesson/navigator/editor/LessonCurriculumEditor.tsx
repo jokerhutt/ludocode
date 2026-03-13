@@ -2,7 +2,10 @@ import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { EditorActions } from "@/features/curriculum/navigator/editor/EditorActions.tsx";
 import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
-import { createNewExerciseTemplate } from "../../detail/editor/templates.ts";
+import {
+  createNewExerciseTemplate,
+  createNewGuidedExerciseTemplate,
+} from "../../detail/editor/templates.ts";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
 import {
   CurriculumCard,
@@ -13,6 +16,7 @@ import {
 
 export const LessonCurriculumEditor = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {
@@ -53,23 +57,33 @@ export const LessonCurriculumEditor = withForm({
         </CurriculumCardContent>
 
         <CurriculumCardFooter>
-          <form.Field name="exercises" mode="array">
-            {(exercisesField) => (
+          <form.Subscribe
+            selector={(state) => ({
+              count: state.values.exercises.length,
+              lessonType: state.values.lessonType,
+            })}
+            children={({ count, lessonType }) => (
               <div className="flex justify-between w-full items-center">
-                <p className="text-xs">
-                  {exercisesField.state.value.length} exercises
-                </p>
-                <ShadowLessButton
-                  type="button"
-                  onClick={() =>
-                    exercisesField.pushValue(createNewExerciseTemplate())
-                  }
-                >
-                  + Add Exercise
-                </ShadowLessButton>
+                <p className="text-xs">{count} exercises</p>
+                <form.Field name="exercises" mode="array">
+                  {(exercisesField: any) => (
+                    <ShadowLessButton
+                      type="button"
+                      onClick={() =>
+                        exercisesField.pushValue(
+                          lessonType === "GUIDED"
+                            ? createNewGuidedExerciseTemplate()
+                            : createNewExerciseTemplate(),
+                        )
+                      }
+                    >
+                      + Add Exercise
+                    </ShadowLessButton>
+                  )}
+                </form.Field>
               </div>
             )}
-          </form.Field>
+          />
         </CurriculumCardFooter>
       </CurriculumCard>
     );

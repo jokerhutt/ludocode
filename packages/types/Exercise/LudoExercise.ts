@@ -12,7 +12,8 @@ export type Block =
   | { type: "header"; content: string }
   | { type: "paragraph"; content: string }
   | { type: "code"; language: string; content: string; output?: string | null }
-  | { type: "media"; src: string; alt?: string | null };
+  | { type: "media"; src: string; alt?: string | null }
+  | { type: "instructions"; instructions: string[] };
 
 export type ExerciseInteraction =
   | {

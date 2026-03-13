@@ -15,6 +15,7 @@ import { BlocksEditor } from "./BlocksEditor.tsx";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {
@@ -25,8 +26,11 @@ export const ExerciseDetailEditor = withForm({
   render: function Render({ form, canDelete, exerciseIndex, onDelete }) {
     return (
       <form.Subscribe
-        selector={(state) => state.values.exercises[exerciseIndex]} // ← subscribe to this exact exercise object
-        children={(exercise) => {
+        selector={(state) => ({
+          exercise: state.values.exercises[exerciseIndex],
+          lessonType: state.values.lessonType,
+        })}
+        children={({ exercise, lessonType }) => {
           if (!exercise) return null;
           const exerciseType = deriveExerciseType(exercise);
 
@@ -70,7 +74,11 @@ export const ExerciseDetailEditor = withForm({
                 <div className="border-t border-ludo-border" />
 
                 {/* ─── Interaction ────────────────────────────────────── */}
-                <InteractionEditor form={form} exerciseIndex={exerciseIndex} />
+                <InteractionEditor
+                  form={form}
+                  exerciseIndex={exerciseIndex}
+                  lessonType={lessonType}
+                />
               </CurriculumCardContent>
 
               <CurriculumCardFooter>
