@@ -39,6 +39,7 @@ export function useExercise({
   const lessonId = lesson.id;
   const isLastExercise = position >= exercises.length;
   const isInfo = !currentExercise.interaction;
+  const isExecutable = currentExercise.interaction?.type === "EXECUTABLE";
   const hasCodeOutput = currentExercise.blocks.some(
     (b) => b.type === "code" && b.output != null,
   );
@@ -62,6 +63,7 @@ export function useExercise({
     currentlyStagedAttempt,
     canSubmit,
     hasStaged,
+    stageCustomAttempt,
   } = stagedAttempt;
 
   const { commitStagedAttemptIntoSubmissions, committedExerciseSubmissions } =
@@ -124,6 +126,13 @@ export function useExercise({
       return;
     }
 
+    if (isExecutable) {
+      if (hasStaged) {
+        commitStagedAttemptIntoSubmissions(currentlyStagedAttempt);
+      }
+      return;
+    }
+
     if (isInfo) {
       if (hasCodeOutput && !isInfoSubmitted) {
         setIsInfoSubmitted(true);
@@ -141,6 +150,7 @@ export function useExercise({
     isLastExercise,
     position,
     isInfo,
+    isExecutable,
     hasCodeOutput,
     isInfoSubmitted,
     hasStaged,
@@ -149,11 +159,21 @@ export function useExercise({
     stageAttempt,
   ]);
 
+  const stageExecutableAttempt = useCallback(
+    (attempt: ExerciseAttempt) => {
+      if (!isExecutable) return;
+      stageCustomAttempt(attempt);
+    },
+    [isExecutable, stageCustomAttempt],
+  );
+
   return {
     phase,
     canSubmit,
+    isExecutable,
     currentExercise,
     currentlyStagedAttempt,
+    stageExecutableAttempt,
     handleExerciseButtonClick,
     inputState: exerciseInput,
     canGoBack,
@@ -163,9 +183,11 @@ export function useExercise({
 
 export type useExerciseResponse = {
   currentExercise: LudoExercise;
+  isExecutable: boolean;
   canSubmit: boolean;
   phase: ExercisePhase;
   currentlyStagedAttempt: ExerciseAttempt | null;
+  stageExecutableAttempt: (attempt: ExerciseAttempt) => void;
   handleExerciseButtonClick: () => void;
   inputState: useExerciseInputResponse;
   canGoBack: boolean;

@@ -14,6 +14,7 @@ import { LessonCurriculumEditor } from "@/features/lesson/navigator/editor/Lesso
 import { ExerciseDetailEditor } from "@/features/lesson/detail/editor/ExerciseDetailEditor.tsx";
 import { CurriculumBreadcrumbs } from "@/features/curriculum/components/CurriculumBreadcrumbs.tsx";
 import { useUpdateLesson } from "@/queries/mutations/useUpdateLesson.tsx";
+import { applyCourseLanguageToLessonDraft } from "@/features/lesson/detail/editor/language.ts";
 import { Bell } from "lucide-react";
 import {
   Dialog,
@@ -35,8 +36,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   );
 
   const { data: courses } = useSuspenseQuery(qo.allCourses());
-  const courseName =
-    courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
+  const course = courses.find((c) => c.id === courseId);
+  const courseName = course?.title ?? "Untitled Course";
+  const courseLanguage = course?.language;
 
   const { data: curriculumSnap } = useSuspenseQuery(
     qo.curriculumSnapshot(courseId),
@@ -59,10 +61,15 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
       onSubmit: CurriculumDraftLessonSchema,
     },
     onSubmit: async ({ value }) => {
-      submitMutation.mutate(value, {
+      const normalizedValue = applyCourseLanguageToLessonDraft(
+        value,
+        courseLanguage,
+      );
+
+      submitMutation.mutate(normalizedValue, {
         onSuccess: async (_payload) => {
-          await submitMutation.mutateAsync(value);
-          form.reset(value);
+          await submitMutation.mutateAsync(normalizedValue);
+          form.reset(normalizedValue);
           setIsEditing(false);
         },
       });
@@ -186,6 +193,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                         isSubmitting={submitting}
                         selectedExerciseId={selectedExerciseId}
                         onSelectExercise={setSelectedExerciseId}
+                        courseLanguage={courseLanguage}
                       />
                     )}
                   </aside>
@@ -203,6 +211,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                           setSelectedExerciseId(null);
                         }}
                         canDelete={form.state.values.exercises.length > 1}
+                        courseLanguage={courseLanguage}
                       />
                     )}
                   </aside>

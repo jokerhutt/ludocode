@@ -20,6 +20,7 @@ export type useStagedAttemptResponse = {
   canSubmit: boolean;
   currentlyStagedAttempt: ExerciseAttempt | null;
   stageAttempt: () => void;
+  stageCustomAttempt: (attempt: ExerciseAttempt) => void;
   clearStaged: () => void;
   restoreStaged: (attempt: ExerciseAttempt) => void;
   phase: ExercisePhase;
@@ -70,6 +71,16 @@ export function useStagedAttempt({
     });
   }, [allSlotsValid, playAudio, currentExerciseInputs, currentExercise]);
 
+  const stageCustomAttempt = useCallback(
+    (attempt: ExerciseAttempt) => {
+      if (playAudio) {
+        playResultAudio(attempt.isCorrect);
+      }
+      setCurrentlyStagedAttempt(attempt);
+    },
+    [playAudio],
+  );
+
   const hasStaged = currentlyStagedAttempt != null;
 
   const phase: ExercisePhase = !hasStaged
@@ -84,6 +95,7 @@ export function useStagedAttempt({
     canSubmit,
     currentlyStagedAttempt,
     stageAttempt,
+    stageCustomAttempt,
     clearStaged: clearCurrentlyStagedAttempt,
     restoreStaged,
     phase,

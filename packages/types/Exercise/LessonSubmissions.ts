@@ -1,7 +1,11 @@
 export type ExerciseAnswer =
   | { type: "SELECT"; pickedValue: string }
-  | { type: "CLOZE"; valuesByBlank: string[] };
-
+  | { type: "CLOZE"; valuesByBlank: string[] }
+  | {
+      type: "EXECUTABLE";
+      files: { name: string; content: string }[];
+      output: string;
+    };
 
 export type ExerciseSubmissionRequest = {
   exerciseId: string;

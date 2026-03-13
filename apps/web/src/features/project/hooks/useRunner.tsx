@@ -28,7 +28,7 @@ export function useRunner({
   project,
   files,
   disabled,
-  entryFileId
+  entryFileId,
 }: Args): useRunnerResponse {
   const [outputLog, setOutputLog] = useState<OutputPacket[]>([]);
   const filesRef = useRef<ProjectFileSnapshot[]>(files);
@@ -72,18 +72,27 @@ export function useRunner({
 
   const runCode = useCallback(() => {
     if (disabled) {
-      console.warn("Code execution is disabled")
+      console.warn("Code execution is disabled");
       return;
     }
     if (!project.projectId) return;
     if (!filesRef.current || filesRef.current.length === 0) return;
 
+    const normalizedFiles: ProjectFileSnapshot[] = filesRef.current.map(
+      (file) => ({
+        id: file.id ?? file.tempId,
+        path: file.path,
+        language: file.language,
+        content: file.content,
+      }),
+    );
+
     const fresh: ProjectSnapshot = {
       projectId: project.projectId,
       projectLanguage: project.projectLanguage,
       projectName: project.projectName,
-      files: filesRef.current,
-      entryFileId
+      files: normalizedFiles,
+      entryFileId,
     };
 
     runMutation.mutate(fresh);

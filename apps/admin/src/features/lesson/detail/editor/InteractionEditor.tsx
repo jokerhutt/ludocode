@@ -2,6 +2,7 @@ import { useEffect, useRef, useMemo, useCallback } from "react";
 import type {
   CurriculumDraftInteraction,
   CurriculumDraftLessonForm,
+  LanguageMetadata,
 } from "@ludocode/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
@@ -14,11 +15,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
+import {
+  getCourseLanguageExtension,
+  getDefaultMainFilename,
+  getLanguageDisplayName,
+  getLanguageSlug,
+  resolveCourseLanguage,
+} from "./language.ts";
 
 type InteractionEditorProps = {
   form: any;
   exerciseIndex: number;
   lessonType: CurriculumDraftLessonForm["lessonType"];
+  courseLanguage?: LanguageMetadata;
 };
 
 const DEFAULT_SELECT: CurriculumDraftInteraction = {
@@ -27,17 +36,31 @@ const DEFAULT_SELECT: CurriculumDraftInteraction = {
   correctValue: "",
 };
 
-const DEFAULT_CLOZE: CurriculumDraftInteraction = {
+const createDefaultCloze = (
+  courseLanguage?: LanguageMetadata,
+): CurriculumDraftInteraction => ({
   type: "CLOZE",
-  file: { language: "python", content: "" },
+  file: { language: resolveCourseLanguage(courseLanguage), content: "" },
   blanks: [],
   options: [],
-};
+});
 
-const DEFAULT_EXECUTABLE: CurriculumDraftInteraction = {
-  type: "EXECUTABLE",
-  files: [{ name: "main.py", language: "python", content: "" }],
-  tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
+const createDefaultExecutable = (
+  courseLanguage?: LanguageMetadata,
+): CurriculumDraftInteraction => {
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+
+  return {
+    type: "EXECUTABLE",
+    files: [
+      {
+        name: getDefaultMainFilename(courseLanguage),
+        language: languageMetadata,
+        content: "",
+      },
+    ],
+    tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
+  };
 };
 
 /** Count occurrences of `___` (three underscores) in content. */
@@ -52,6 +75,7 @@ export function InteractionEditor({
   form,
   exerciseIndex,
   lessonType,
+  courseLanguage,
 }: InteractionEditorProps) {
   const interactionPath = `exercises[${exerciseIndex}].interaction`;
 
@@ -63,6 +87,7 @@ export function InteractionEditor({
           exerciseIndex={exerciseIndex}
           interactionField={interactionField}
           lessonType={lessonType}
+          courseLanguage={courseLanguage}
         />
       )}
     </form.Field>
@@ -74,14 +99,56 @@ function InteractionEditorInner({
   exerciseIndex,
   interactionField,
   lessonType,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
   interactionField: any;
   lessonType: CurriculumDraftLessonForm["lessonType"];
+  courseLanguage?: LanguageMetadata;
 }) {
   const interaction: CurriculumDraftInteraction | null =
     interactionField.state.value ?? null;
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+  const languageSlug = getLanguageSlug(languageMetadata);
+  const filesExtension = getCourseLanguageExtension(courseLanguage);
+  const basePath = `exercises[${exerciseIndex}].interaction`;
+
+  useEffect(() => {
+    if (!interaction) return;
+
+    if (
+      interaction.type === "CLOZE" &&
+      getLanguageSlug(interaction.file.language) !== languageSlug
+    ) {
+      form.setFieldValue(`${basePath}.file.language`, languageMetadata);
+    }
+
+    if (interaction.type === "EXECUTABLE") {
+      interaction.files.forEach((file, fileIndex) => {
+        if (getLanguageSlug(file.language) !== languageSlug) {
+          form.setFieldValue(
+            `${basePath}.files[${fileIndex}].language`,
+            languageMetadata,
+          );
+        }
+
+        if (!file.name || file.name.trim().length === 0) {
+          form.setFieldValue(
+            `${basePath}.files[${fileIndex}].name`,
+            `file${fileIndex + 1}.${filesExtension}`,
+          );
+        }
+      });
+    }
+  }, [
+    interaction,
+    basePath,
+    filesExtension,
+    form,
+    languageSlug,
+    languageMetadata,
+  ]);
 
   // For GUIDED lessons, auto-set EXECUTABLE if missing
   const isGuided = lessonType === "GUIDED";
@@ -98,7 +165,11 @@ function InteractionEditorInner({
           </p>
           <ShadowLessButton
             type="button"
-            onClick={() => interactionField.handleChange(DEFAULT_EXECUTABLE)}
+            onClick={() =>
+              interactionField.handleChange(
+                createDefaultExecutable(courseLanguage),
+              )
+            }
           >
             + Add Executable Interaction
           </ShadowLessButton>
@@ -114,7 +185,10 @@ function InteractionEditorInner({
         <Select
           value=""
           onValueChange={(type) => {
-            const template = type === "SELECT" ? DEFAULT_SELECT : DEFAULT_CLOZE;
+            const template =
+              type === "SELECT"
+                ? DEFAULT_SELECT
+                : createDefaultCloze(courseLanguage);
             interactionField.handleChange(template);
           }}
         >
@@ -174,13 +248,18 @@ function InteractionEditorInner({
       )}
 
       {interaction.type === "CLOZE" && (
-        <ClozeInteractionFields form={form} exerciseIndex={exerciseIndex} />
+        <ClozeInteractionFields
+          form={form}
+          exerciseIndex={exerciseIndex}
+          courseLanguage={courseLanguage}
+        />
       )}
 
       {interaction.type === "EXECUTABLE" && (
         <ExecutableInteractionFields
           form={form}
           exerciseIndex={exerciseIndex}
+          courseLanguage={courseLanguage}
         />
       )}
     </div>
@@ -354,9 +433,11 @@ function SelectInteractionFieldsInner({
 function ClozeInteractionFields({
   form,
   exerciseIndex,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
@@ -370,6 +451,7 @@ function ClozeInteractionFields({
               exerciseIndex={exerciseIndex}
               optionsField={optionsField}
               blanksField={blanksField}
+              courseLanguage={courseLanguage}
             />
           )}
         </form.Field>
@@ -383,13 +465,16 @@ function ClozeInteractionFieldsInner({
   exerciseIndex,
   optionsField,
   blanksField,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
   optionsField: any;
   blanksField: any;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
+  const languageLabel = getLanguageDisplayName(courseLanguage);
   const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
   if (!interaction || interaction.type !== "CLOZE") return null;
 
@@ -469,19 +554,7 @@ function ClozeInteractionFieldsInner({
       {/* File */}
       <div className="flex flex-col gap-1.5">
         <p className="text-xs text-emerald-400">File</p>
-        <form.Field
-          name={`${basePath}.file.language`}
-          children={(field: {
-            state: { value: unknown };
-            handleChange: (v: string) => void;
-          }) => (
-            <LudoInput
-              value={String(field.state.value ?? "")}
-              setValue={(v: string) => field.handleChange(v)}
-              placeholder="Language (e.g. python)"
-            />
-          )}
-        />
+        <p className="text-xs text-ludo-white/60">Language: {languageLabel}</p>
         <form.Field
           name={`${basePath}.file.content`}
           children={(field: {
@@ -585,9 +658,11 @@ function ClozeInteractionFieldsInner({
 function ExecutableInteractionFields({
   form,
   exerciseIndex,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
@@ -601,6 +676,7 @@ function ExecutableInteractionFields({
               exerciseIndex={exerciseIndex}
               filesField={filesField}
               testsField={testsField}
+              courseLanguage={courseLanguage}
             />
           )}
         </form.Field>
@@ -614,18 +690,26 @@ function ExecutableInteractionFieldsInner({
   exerciseIndex,
   filesField,
   testsField,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
   filesField: any;
   testsField: any;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+  const languageLabel = getLanguageDisplayName(languageMetadata);
+  const languageExtension = getCourseLanguageExtension(courseLanguage);
   const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
   if (!interaction || interaction.type !== "EXECUTABLE") return null;
 
-  const files: { name: string; language: string; content: string }[] =
-    filesField.state.value ?? [];
+  const files: {
+    name: string;
+    language: string | LanguageMetadata;
+    content: string;
+  }[] = filesField.state.value ?? [];
   const tests: { type: string; expected: string }[] =
     testsField.state.value ?? [];
 
@@ -640,7 +724,11 @@ function ExecutableInteractionFieldsInner({
           <ShadowLessButton
             type="button"
             onClick={() =>
-              filesField.pushValue({ name: "", language: "", content: "" })
+              filesField.pushValue({
+                name: `file${files.length + 1}.${languageExtension}`,
+                language: languageMetadata,
+                content: "",
+              })
             }
           >
             + Add File
@@ -678,17 +766,10 @@ function ExecutableInteractionFieldsInner({
                   />
                 )}
               />
-              <form.Field
-                name={`${basePath}.files[${fileIndex}].language`}
-                children={(field: any) => (
-                  <LudoInput
-                    value={String(field.state.value ?? "")}
-                    setValue={(v: string) => field.handleChange(v)}
-                    placeholder="Language"
-                  />
-                )}
-              />
             </div>
+            <p className="text-xs text-ludo-white/60">
+              Language: {languageLabel}
+            </p>
 
             <form.Field
               name={`${basePath}.files[${fileIndex}].content`}

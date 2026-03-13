@@ -1,4 +1,7 @@
-import type { CurriculumDraftLessonForm } from "@ludocode/types";
+import type {
+  CurriculumDraftLessonForm,
+  LanguageMetadata,
+} from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon.tsx";
 import { Trash2 } from "lucide-react";
@@ -22,8 +25,15 @@ export const ExerciseDetailEditor = withForm({
     exerciseIndex: 0,
     onDelete: undefined as undefined | (() => void),
     canDelete: true,
+    courseLanguage: undefined as LanguageMetadata | undefined,
   },
-  render: function Render({ form, canDelete, exerciseIndex, onDelete }) {
+  render: function Render({
+    form,
+    canDelete,
+    exerciseIndex,
+    onDelete,
+    courseLanguage,
+  }) {
     return (
       <form.Subscribe
         selector={(state) => ({
@@ -68,7 +78,11 @@ export const ExerciseDetailEditor = withForm({
 
               <CurriculumCardContent className="bg-ludo-background p-6 gap-6">
                 {/* ─── Blocks ─────────────────────────────────────────── */}
-                <BlocksEditor form={form} exerciseIndex={exerciseIndex} />
+                <BlocksEditor
+                  form={form}
+                  exerciseIndex={exerciseIndex}
+                  courseLanguage={courseLanguage}
+                />
 
                 {/* ─── Divider ────────────────────────────────────────── */}
                 <div className="border-t border-ludo-border" />
@@ -78,6 +92,7 @@ export const ExerciseDetailEditor = withForm({
                   form={form}
                   exerciseIndex={exerciseIndex}
                   lessonType={lessonType}
+                  courseLanguage={courseLanguage}
                 />
               </CurriculumCardContent>
 

@@ -2,6 +2,7 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { InlineCode } from "@ludocode/design-system/primitives/inline-code.tsx";
 import type { CurriculumDraftLessonExercise } from "@ludocode/types";
 import { Fragment, useMemo } from "react";
+import { getLanguageDisplayName } from "../editor/language.ts";
 
 type StaticOptionProps = {
   content: string;
@@ -136,7 +137,7 @@ export function ExerciseInteraction({
                   {file.name || "unnamed"}
                 </span>
                 <span className="text-xs text-ludo-white/60">
-                  ({file.language})
+                  ({getLanguageDisplayName(file.language)})
                 </span>
               </div>
               {file.content && (

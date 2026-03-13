@@ -1,7 +1,10 @@
 import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftBlock,
+  LanguageMetadata,
 } from "@ludocode/types";
+import { getDefaultMainFilename, resolveCourseLanguage } from "./language.ts";
+import { uuidv4 } from "zod";
 
 export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
   exerciseId: crypto.randomUUID(),
@@ -15,8 +18,12 @@ export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
   interaction: null,
 });
 
-export const createNewGuidedExerciseTemplate =
-  (): CurriculumDraftLessonExercise => ({
+export const createNewGuidedExerciseTemplate = (
+  courseLanguage?: LanguageMetadata,
+): CurriculumDraftLessonExercise => {
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+
+  return {
     exerciseId: crypto.randomUUID(),
     blocks: [
       {
@@ -32,14 +39,27 @@ export const createNewGuidedExerciseTemplate =
     ],
     interaction: {
       type: "EXECUTABLE",
-      files: [{ name: "main.py", language: "python", content: "" }],
+      files: [
+        {
+          id: crypto.randomUUID(),
+          name: getDefaultMainFilename(courseLanguage),
+          language: languageMetadata,
+          content: "",
+        },
+      ],
       tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
     },
-  });
+  };
+};
 
 type BlockType = CurriculumDraftBlock["type"];
 
-export const createBlockTemplate = (type: BlockType): CurriculumDraftBlock => {
+export const createBlockTemplate = (
+  type: BlockType,
+  courseLanguage?: LanguageMetadata,
+): CurriculumDraftBlock => {
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+
   switch (type) {
     case "header":
       return { clientId: crypto.randomUUID(), type: "header", content: "" };
@@ -49,7 +69,7 @@ export const createBlockTemplate = (type: BlockType): CurriculumDraftBlock => {
       return {
         clientId: crypto.randomUUID(),
         type: "code",
-        language: "python",
+        language: languageMetadata,
         content: "",
       };
     case "media":

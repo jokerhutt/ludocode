@@ -1,5 +1,23 @@
 import { z } from "zod";
 
+const LanguageMetadataSchema = z.object({
+  languageId: z.number(),
+  name: z.string(),
+  slug: z.string(),
+  editorId: z.string(),
+  pistonId: z.string(),
+  runtimeVersion: z.string(),
+  extension: z.string(),
+  base: z.string(),
+  iconName: z.string(),
+  initialScript: z.string(),
+});
+
+const LanguageDraftValueSchema = z.union([
+  z.string().min(1),
+  LanguageMetadataSchema,
+]);
+
 export const curriculumDraftSchema = z.object({
   modules: z.array(
     z.object({
@@ -49,7 +67,7 @@ export const InstructionsBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: z.string().min(1, "language required"),
+  language: LanguageDraftValueSchema,
   content: z.string().min(1, "Code content required"),
   output: z.string().nullish(),
 });
@@ -77,7 +95,7 @@ export const InteractionBlankSchema = z.object({
 });
 
 export const InteractionFileSchema = z.object({
-  language: z.string().min(1),
+  language: LanguageDraftValueSchema,
   content: z.string().min(1),
 });
 
@@ -96,8 +114,9 @@ export const ClozeInteractionSchema = z.object({
 });
 
 export const ExecutableFileSchema = z.object({
+  id: z.string(),
   name: z.string().min(1),
-  language: z.string().min(1),
+  language: LanguageDraftValueSchema,
   content: z.string(),
 });
 

@@ -1,4 +1,7 @@
-import type { CurriculumDraftLessonForm } from "@ludocode/types";
+import type {
+  CurriculumDraftLessonForm,
+  LanguageMetadata,
+} from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { EditorActions } from "@/features/curriculum/navigator/editor/EditorActions.tsx";
 import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
@@ -26,6 +29,7 @@ export const LessonCurriculumEditor = withForm({
     isSubmitting: false,
     selectedExerciseId: null as string | null,
     onSelectExercise: (() => {}) as (id: string | null) => void,
+    courseLanguage: undefined as LanguageMetadata | undefined,
   },
   render: function Render({
     form,
@@ -35,6 +39,7 @@ export const LessonCurriculumEditor = withForm({
     isSubmitting,
     selectedExerciseId,
     onSelectExercise,
+    courseLanguage,
   }) {
     return (
       <CurriculumCard>
@@ -72,7 +77,7 @@ export const LessonCurriculumEditor = withForm({
                       onClick={() =>
                         exercisesField.pushValue(
                           lessonType === "GUIDED"
-                            ? createNewGuidedExerciseTemplate()
+                            ? createNewGuidedExerciseTemplate(courseLanguage)
                             : createNewExerciseTemplate(),
                         )
                       }

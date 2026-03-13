@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import type {
   CurriculumDraftBlock,
   CurriculumDraftLessonForm,
+  LanguageMetadata,
 } from "@ludocode/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
@@ -16,6 +18,11 @@ import {
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
 import { createBlockTemplate } from "./templates.ts";
+import {
+  getLanguageDisplayName,
+  getLanguageSlug,
+  resolveCourseLanguage,
+} from "./language.ts";
 
 type BlockType = CurriculumDraftBlock["type"];
 const BLOCK_TYPES: { value: BlockType; label: string }[] = [
@@ -49,8 +56,9 @@ export const BlocksEditor = withForm({
   },
   props: {
     exerciseIndex: 0,
+    courseLanguage: undefined as LanguageMetadata | undefined,
   },
-  render: function Render({ form, exerciseIndex }) {
+  render: function Render({ form, exerciseIndex, courseLanguage }) {
     const blocksPath = `exercises[${exerciseIndex}].blocks` as const;
 
     return (
@@ -126,6 +134,7 @@ export const BlocksEditor = withForm({
                             form={form}
                             exerciseIndex={exerciseIndex}
                             blockIndex={blockIndex}
+                            courseLanguage={courseLanguage}
                           />
                         </div>
                       ),
@@ -136,7 +145,9 @@ export const BlocksEditor = withForm({
               <Select
                 value=""
                 onValueChange={(type: BlockType) =>
-                  blocksField.pushValue(createBlockTemplate(type))
+                  blocksField.pushValue(
+                    createBlockTemplate(type, courseLanguage),
+                  )
                 }
               >
                 <SelectTrigger>
@@ -170,8 +181,9 @@ const EditorBlock = withForm({
   props: {
     exerciseIndex: 0,
     blockIndex: 0,
+    courseLanguage: undefined as LanguageMetadata | undefined,
   },
-  render: function Render({ form, exerciseIndex, blockIndex }) {
+  render: function Render({ form, exerciseIndex, blockIndex, courseLanguage }) {
     const blockType =
       form.state.values.exercises[exerciseIndex].blocks[blockIndex]?.type;
 
@@ -209,39 +221,12 @@ const EditorBlock = withForm({
 
       case "code":
         return (
-          <div className="flex flex-col gap-2">
-            <form.Field
-              name={`exercises[${exerciseIndex}].blocks[${blockIndex}].language`}
-              children={(field: any) => (
-                <LudoInput
-                  value={String(field.state.value ?? "")}
-                  setValue={(v: string) => field.handleChange(v)}
-                  placeholder="Language (e.g. python)"
-                />
-              )}
-            />
-            <form.Field
-              name={`exercises[${exerciseIndex}].blocks[${blockIndex}].content`}
-              children={(field: any) => (
-                <Textarea
-                  value={String(field.state.value ?? "")}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  placeholder="Code content..."
-                  className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
-                />
-              )}
-            />
-            <form.Field
-              name={`exercises[${exerciseIndex}].blocks[${blockIndex}].output`}
-              children={(field: any) => (
-                <LudoInput
-                  value={String(field.state.value ?? "")}
-                  setValue={(v: string) => field.handleChange(v || undefined)}
-                  placeholder="Output (optional)"
-                />
-              )}
-            />
-          </div>
+          <CodeBlockEditor
+            form={form}
+            exerciseIndex={exerciseIndex}
+            blockIndex={blockIndex}
+            courseLanguage={courseLanguage}
+          />
         );
 
       case "media":
@@ -343,5 +328,57 @@ function InstructionsBlockEditor({
         );
       }}
     </form.Field>
+  );
+}
+
+function CodeBlockEditor({
+  form,
+  exerciseIndex,
+  blockIndex,
+  courseLanguage,
+}: {
+  form: any;
+  exerciseIndex: number;
+  blockIndex: number;
+  courseLanguage?: LanguageMetadata;
+}) {
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+  const languageLabel = getLanguageDisplayName(languageMetadata);
+  const languagePath = `exercises[${exerciseIndex}].blocks[${blockIndex}].language`;
+
+  useEffect(() => {
+    const currentLanguage =
+      form.state.values.exercises[exerciseIndex]?.blocks[blockIndex]?.language;
+    const currentLanguageSlug = getLanguageSlug(currentLanguage);
+    if (currentLanguageSlug !== getLanguageSlug(languageMetadata)) {
+      form.setFieldValue(languagePath, languageMetadata);
+    }
+  }, [form, exerciseIndex, blockIndex, languagePath, languageMetadata]);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-xs text-emerald-400">Language: {languageLabel}</p>
+      <form.Field
+        name={`exercises[${exerciseIndex}].blocks[${blockIndex}].content`}
+        children={(field: any) => (
+          <Textarea
+            value={String(field.state.value ?? "")}
+            onChange={(e) => field.handleChange(e.target.value)}
+            placeholder="Code content..."
+            className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
+          />
+        )}
+      />
+      <form.Field
+        name={`exercises[${exerciseIndex}].blocks[${blockIndex}].output`}
+        children={(field: any) => (
+          <LudoInput
+            value={String(field.state.value ?? "")}
+            setValue={(v: string) => field.handleChange(v || undefined)}
+            placeholder="Output (optional)"
+          />
+        )}
+      />
+    </div>
   );
 }

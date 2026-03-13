@@ -19,13 +19,36 @@ export function convertStagedAttemptIntoExerciseSubmission(
 
 function convertAttemptToRequest(
   attempt: ExerciseAttempt,
-  interactionType: "SELECT" | "CLOZE" | null | undefined,
+  interactionType: "SELECT" | "CLOZE" | "EXECUTABLE" | null | undefined,
 ): ExerciseAnswer {
   if (!interactionType) {
     return { type: "SELECT", pickedValue: "INFO" };
   }
   if (interactionType === "SELECT") {
     return { type: "SELECT", pickedValue: attempt.answer[0].value };
+  }
+  if (interactionType === "EXECUTABLE") {
+    const raw = attempt.answer[0]?.value ?? "{}";
+    try {
+      const parsed = JSON.parse(raw) as {
+        files?: { name?: string; content?: string }[];
+        output?: string;
+      };
+      return {
+        type: "EXECUTABLE",
+        files: (parsed.files ?? []).map((file) => ({
+          name: file.name ?? "",
+          content: file.content ?? "",
+        })),
+        output: parsed.output ?? "",
+      };
+    } catch {
+      return {
+        type: "EXECUTABLE",
+        files: [],
+        output: raw,
+      };
+    }
   }
   return {
     type: "CLOZE",
