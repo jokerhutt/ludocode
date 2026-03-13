@@ -726,6 +726,7 @@ function ExecutableInteractionFieldsInner({
             type="button"
             onClick={() =>
               filesField.pushValue({
+                id: crypto.randomUUID(),
                 name: `file${files.length + 1}.${languageExtension}`,
                 language: languageMetadata,
                 content: "",
