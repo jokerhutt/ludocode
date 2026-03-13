@@ -52,12 +52,12 @@ export function GuidedExerciseEditorPane({
         </LudoTab.Group>
       </Workbench.Pane.Winbar>
 
-      <ProjectEditor />
+      <ProjectEditor onExecuteAction={runOrAdvance} />
 
       {(showCorrectFeedback || showIncorrectFeedback) && (
         <div
           className={cn(
-            "absolute z-10 bottom-22 right-10 w-56 rounded-lg border bg-ludo-surface px-3 py-2",
+            "absolute z-10 bottom-22 right-10 w-56 rounded-md border bg-ludo-background px-3 py-2",
             showCorrectFeedback
               ? "border-ludo-correct"
               : "border-ludo-incorrect",

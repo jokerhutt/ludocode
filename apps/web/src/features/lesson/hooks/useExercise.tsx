@@ -13,6 +13,7 @@ import { useCommittedSubmissions } from "@/features/lesson/hooks/useCommittedSub
 import type { ExercisePhase } from "@/features/lesson/zones/LessonFooter.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main";
+import { playSound } from "@/sound/soundManager.ts";
 
 type Args = {
   courseId: string;
@@ -170,9 +171,12 @@ export function useExercise({
   const commitExecutableAttempt = useCallback(
     (attempt: ExerciseAttempt) => {
       if (!isExecutable) return;
+      if (!attempt.isCorrect && config.audioEnabled) {
+        playSound("wrong");
+      }
       commitStagedAttemptIntoSubmissions(attempt);
     },
-    [isExecutable, commitStagedAttemptIntoSubmissions],
+    [isExecutable, commitStagedAttemptIntoSubmissions, config.audioEnabled],
   );
 
   return {
