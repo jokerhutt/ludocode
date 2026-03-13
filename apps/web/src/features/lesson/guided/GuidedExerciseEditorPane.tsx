@@ -1,5 +1,4 @@
 import { stripFileName } from "@/features/project/util/filenameUtil";
-import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext";
 import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor";
 import { cn } from "@ludocode/design-system/cn-utils";
@@ -19,7 +18,7 @@ export function GuidedExerciseEditorPane({
   runOrAdvance,
   isRunning,
   phase,
-  runnerEnabled
+  runnerEnabled,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
@@ -30,8 +29,7 @@ export function GuidedExerciseEditorPane({
         ? "TRY AGAIN"
         : "CONTINUE";
 
-  const buttonDisabled =
-    isRunning || (phase === "DEFAULT" && !runnerEnabled);
+  const buttonDisabled = isRunning || (phase === "DEFAULT" && !runnerEnabled);
 
   return (
     <Workbench.Pane className="col-span-12 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0">

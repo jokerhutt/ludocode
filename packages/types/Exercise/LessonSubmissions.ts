@@ -1,9 +1,11 @@
+import type { ProjectSnapshot } from "../Project/ProjectSnapshot";
+
 export type ExerciseAnswer =
   | { type: "SELECT"; pickedValue: string }
   | { type: "CLOZE"; valuesByBlank: string[] }
   | {
       type: "EXECUTABLE";
-      files: { name: string; content: string }[];
+      submission: ProjectSnapshot;
     };
 
 export type ExerciseSubmissionRequest = {
@@ -28,11 +30,7 @@ export type ExerciseSubmission = {
 export type ExerciseAttempt = {
   exerciseId: string;
   isCorrect: boolean;
-  answer: AnswerToken[] | ExecutableAnswer;
+  answer: AnswerToken[] | { submission: ProjectSnapshot };
 };
 
 export type AnswerToken = { id?: string; value: string };
-
-export type ExecutableAnswer = {files: ExecutableFileSubmission[]}
-
-export type ExecutableFileSubmission = {name: string; content: string;}

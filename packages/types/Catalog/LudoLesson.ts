@@ -1,4 +1,4 @@
-import { ProjectSnapshot } from "../Project/ProjectSnapshot";
+import type { ProjectSnapshot } from "../Project/ProjectSnapshot";
 
 export type LudoLesson = {
   id: string;
@@ -7,5 +7,5 @@ export type LudoLesson = {
   isCompleted: boolean;
   projectSnapshot?: ProjectSnapshot;
 };
-export type LessonType = "GUIDED" | "NORMAL"
+export type LessonType = "GUIDED" | "NORMAL";
 export type LessonStatus = "LOCKED" | "DEFAULT" | "COMPLETE" | "MASTERED";

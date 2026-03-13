@@ -9,6 +9,7 @@ import { evaluateExecutableTests } from "../util/executableTestUtil";
 import { GuidedExerciseTreePane } from "./GuidedExerciseTreePane";
 import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function GuidedExecutableWorkbench({
@@ -24,7 +25,7 @@ export function GuidedExecutableWorkbench({
     stageExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
-  const { files } = useProjectContext();
+  const { project, files, entryFileId } = useProjectContext();
   const { runCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const { isRunning, outputLog } = outputInfo;
@@ -38,23 +39,26 @@ export function GuidedExecutableWorkbench({
 
     const latest = outputLog[outputLog.length - 1];
     const output = latest.output.join("\n");
-    const filesPayload = files.map((file) => ({
-      name: stripFileName(file.path),
-      content: file.content,
-    }));
     const isCorrect = evaluateExecutableTests({
       tests,
       output,
       status: latest.status,
-      files: filesPayload,
+      files: files.map((file) => ({
+        name: stripFileName(file.path),
+        content: file.content,
+      })),
     });
+
+    const projectSnapshotAttempt: ProjectSnapshot = {
+      ...project,
+      files: files.map((file) => ({ ...file })),
+      entryFileId,
+    };
 
     const attempt: ExerciseAttempt = {
       exerciseId: currentExercise.id,
       isCorrect,
-      answer: {
-        files: filesPayload,
-      },
+      answer: { submission: projectSnapshotAttempt },
     };
 
     stageExecutableAttempt(attempt);
@@ -63,7 +67,9 @@ export function GuidedExecutableWorkbench({
     awaitingValidation,
     isRunning,
     outputLog,
+    project,
     files,
+    entryFileId,
     tests,
     currentExercise.id,
     stageExecutableAttempt,

@@ -1,12 +1,12 @@
 import type {
   AnswerToken,
-  ExecutableAnswer,
   ExerciseAnswer,
   ExerciseAttempt,
   ExerciseSubmission,
   LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 
 export function convertStagedAttemptIntoExerciseSubmission(
   attempt: ExerciseAttempt,
@@ -41,11 +41,14 @@ function convertAttemptToRequest(
   }
 
   if (interactionType === "EXECUTABLE") {
-    const executable = attempt.answer as ExecutableAnswer;
+    if (Array.isArray(attempt.answer)) {
+      throw new Error("Executable attempt must carry project snapshot");
+    }
+    const projectSnapshot: ProjectSnapshot = attempt.answer.submission;
 
     return {
       type: "EXECUTABLE",
-      files: executable.files,
+      submission: projectSnapshot,
     };
   }
 
