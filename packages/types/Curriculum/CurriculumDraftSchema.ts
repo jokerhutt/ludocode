@@ -133,6 +133,24 @@ export const ExecutableInteractionSchema = z.object({
   showOutput: z.boolean().optional(),
 });
 
+export const ProjectFileSnapshotSchema = z.object({
+  id: z.string().optional(),
+  tempId: z.string().optional(),
+  path: z.string().min(1),
+  language: LanguageDraftValueSchema,
+  content: z.string(),
+});
+
+export const ProjectSnapshotSchema = z.object({
+  projectId: z.string(),
+  projectName: z.string(),
+  projectLanguage: LanguageDraftValueSchema,
+  deleteAt: z.string().optional(),
+  updatedAt: z.number().optional(),
+  files: z.array(ProjectFileSnapshotSchema).min(1),
+  entryFileId: z.string(),
+});
+
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
   SelectInteractionSchema,
   ClozeInteractionSchema,
@@ -152,6 +170,7 @@ export const CurriculumDraftExerciseSchema = z.object({
 export const CurriculumDraftLessonSchema = z
   .object({
     lessonType: z.enum(["NORMAL", "GUIDED"]),
+    projectSnapshot: ProjectSnapshotSchema.nullable().optional(),
     exercises: z.array(CurriculumDraftExerciseSchema),
   })
   .superRefine((lesson, ctx) => {
