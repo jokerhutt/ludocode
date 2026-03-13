@@ -56,6 +56,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
     defaultValues: {
       lessonType: lessonCurriculum.lessonType ?? "NORMAL",
       exercises: lessonCurriculum.exercises,
+      ...(lessonCurriculum.projectSnapshot !== undefined
+        ? { projectSnapshot: lessonCurriculum.projectSnapshot }
+        : {}),
     } satisfies CurriculumDraftLessonForm,
     validators: {
       onSubmit: CurriculumDraftLessonSchema,

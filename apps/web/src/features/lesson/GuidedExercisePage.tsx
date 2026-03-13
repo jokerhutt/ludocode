@@ -5,22 +5,18 @@ import { useProjectContext } from "@/features/project/workbench/context/ProjectC
 import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 import { GuidedExecutableWorkbench } from "./guided/GuidedExecutableWorkbench";
-import { buildExecutableProjectSnapshot } from "./util/buildExecutableProjectSnapshot";
 
 type GuidedExercisePage = {};
 
 export function GuidedExercisePage({}: GuidedExercisePage) {
-  const { currentExercise, phase } = useLessonContext();
+  const { lesson, currentExercise, phase } = useLessonContext();
 
   const interaction = currentExercise.interaction;
   if (!interaction || interaction.type !== "EXECUTABLE") {
     return null;
   }
 
-  const projectSnapshot = buildExecutableProjectSnapshot(
-    currentExercise.id,
-    interaction.files
-  );
+  const projectSnapshot = lesson.projectSnapshot;
 
   const showBlockOutput =
     interaction.showOutput && (phase === "CORRECT" || phase === "SUBMITTED");
@@ -29,7 +25,7 @@ export function GuidedExercisePage({}: GuidedExercisePage) {
     return (
       <div className="col-span-full p-8">
         <p className="text-ludo-white-dim">
-          Unable to load guided executable files.
+          Unable to load guided project snapshot.
         </p>
       </div>
     );

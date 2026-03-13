@@ -168,6 +168,7 @@ export function useExercise({
   );
 
   return {
+    lesson,
     phase,
     canSubmit,
     isExecutable,
@@ -182,6 +183,7 @@ export function useExercise({
 }
 
 export type useExerciseResponse = {
+  lesson: LudoLesson;
   currentExercise: LudoExercise;
   isExecutable: boolean;
   canSubmit: boolean;

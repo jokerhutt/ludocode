@@ -77,6 +77,16 @@ export function applyCourseLanguageToLessonDraft(
 
   return {
     ...draft,
+    projectSnapshot: draft.projectSnapshot
+      ? {
+          ...draft.projectSnapshot,
+          projectLanguage: languageMetadata,
+          files: draft.projectSnapshot.files.map((file) => ({
+            ...file,
+            language: languageMetadata,
+          })),
+        }
+      : draft.projectSnapshot,
     exercises: draft.exercises.map((exercise) => ({
       ...exercise,
       blocks: exercise.blocks.map((block) =>
@@ -111,16 +121,6 @@ function applyLanguageToInteraction(
         ...interaction.file,
         language: languageMetadata,
       },
-    };
-  }
-
-  if (interaction.type === "EXECUTABLE") {
-    return {
-      ...interaction,
-      files: interaction.files.map((file) => ({
-        ...file,
-        language: languageMetadata,
-      })),
     };
   }
 

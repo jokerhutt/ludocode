@@ -1,5 +1,3 @@
-import type { LanguageMetadata } from "../Project/LanguageMetadata";
-
 export type LudoExercise = {
   id: string;
   version: number;
@@ -30,7 +28,6 @@ export type ExerciseInteraction =
     }
   | {
       type: "EXECUTABLE";
-      files: ExecutableFile[];
       tests: ExecutableTest[];
       showOutput: boolean;
     };
@@ -42,13 +39,6 @@ export type InteractionBlank = {
 
 export type InteractionFile = {
   language: string;
-  content: string;
-};
-
-export type ExecutableFile = {
-  id: string;
-  name: string;
-  language: LanguageMetadata;
   content: string;
 };
 

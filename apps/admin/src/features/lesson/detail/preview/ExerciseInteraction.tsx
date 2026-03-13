@@ -2,7 +2,6 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { InlineCode } from "@ludocode/design-system/primitives/inline-code.tsx";
 import type { CurriculumDraftLessonExercise } from "@ludocode/types";
 import { Fragment, useMemo } from "react";
-import { getLanguageDisplayName } from "../editor/language.ts";
 
 type StaticOptionProps = {
   content: string;
@@ -122,32 +121,9 @@ export function ExerciseInteraction({
   if (interaction.type === "EXECUTABLE") {
     return (
       <div className={cn("flex flex-col h-full justify-start gap-6")}>
-        {/* Files */}
-        <div className="flex flex-col gap-3">
-          <p className="text-xs font-medium text-orange-400">
-            Files ({interaction.files.length})
-          </p>
-          {interaction.files.map((file, idx) => (
-            <div
-              key={idx}
-              className="bg-ludo-surface rounded-lg p-3 flex flex-col gap-1"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-ludo-white-bright font-mono">
-                  {file.name || "unnamed"}
-                </span>
-                <span className="text-xs text-ludo-white/60">
-                  ({getLanguageDisplayName(file.language)})
-                </span>
-              </div>
-              {file.content && (
-                <pre className="text-xs text-ludo-white font-mono bg-ludo-background rounded p-2 overflow-x-auto whitespace-pre-wrap">
-                  {file.content}
-                </pre>
-              )}
-            </div>
-          ))}
-        </div>
+        <p className="text-xs text-ludo-white/60">
+          Starter files come from the lesson project snapshot.
+        </p>
 
         {/* Tests */}
         <div className="flex flex-col gap-2">

@@ -128,7 +128,6 @@ export const ExecutableTestSchema = z.object({
 export const ExecutableInteractionSchema = z.object({
   type: z.literal("EXECUTABLE"),
   clientId: z.string().uuid().optional(),
-  files: z.array(ExecutableFileSchema).min(1),
   tests: z.array(ExecutableTestSchema).min(1),
   showOutput: z.boolean().optional(),
 });
@@ -145,7 +144,7 @@ export const ProjectSnapshotSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
   projectLanguage: LanguageDraftValueSchema,
-  deleteAt: z.string().optional(),
+  deleteAt: z.string().optional().nullable(),
   updatedAt: z.number().optional(),
   files: z.array(ProjectFileSnapshotSchema).min(1),
   entryFileId: z.string(),
@@ -174,6 +173,22 @@ export const CurriculumDraftLessonSchema = z
     exercises: z.array(CurriculumDraftExerciseSchema),
   })
   .superRefine((lesson, ctx) => {
+    if (lesson.lessonType === "GUIDED" && !lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require a projectSnapshot",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (lesson.lessonType === "NORMAL" && lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "projectSnapshot is only allowed in GUIDED lessons",
+        path: ["projectSnapshot"],
+      });
+    }
+
     lesson.exercises.forEach((ex, i) => {
       const interactionType = ex.interaction?.type;
 

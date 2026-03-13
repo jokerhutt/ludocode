@@ -16,8 +16,6 @@ import {
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
 import {
-  getCourseLanguageExtension,
-  getDefaultMainFilename,
   getLanguageDisplayName,
   getLanguageSlug,
   resolveCourseLanguage,
@@ -46,20 +44,10 @@ const createDefaultCloze = (
 });
 
 const createDefaultExecutable = (
-  courseLanguage?: LanguageMetadata,
+  _courseLanguage?: LanguageMetadata,
 ): CurriculumDraftInteraction => {
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
-
   return {
     type: "EXECUTABLE",
-    files: [
-      {
-        id: crypto.randomUUID(),
-        name: getDefaultMainFilename(courseLanguage),
-        language: languageMetadata,
-        content: "",
-      },
-    ],
     tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
   };
 };
@@ -112,7 +100,6 @@ function InteractionEditorInner({
     interactionField.state.value ?? null;
   const languageMetadata = resolveCourseLanguage(courseLanguage);
   const languageSlug = getLanguageSlug(languageMetadata);
-  const filesExtension = getCourseLanguageExtension(courseLanguage);
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
   useEffect(() => {
@@ -124,32 +111,7 @@ function InteractionEditorInner({
     ) {
       form.setFieldValue(`${basePath}.file.language`, languageMetadata);
     }
-
-    if (interaction.type === "EXECUTABLE") {
-      interaction.files.forEach((file, fileIndex) => {
-        if (getLanguageSlug(file.language) !== languageSlug) {
-          form.setFieldValue(
-            `${basePath}.files[${fileIndex}].language`,
-            languageMetadata,
-          );
-        }
-
-        if (!file.name || file.name.trim().length === 0) {
-          form.setFieldValue(
-            `${basePath}.files[${fileIndex}].name`,
-            `file${fileIndex + 1}.${filesExtension}`,
-          );
-        }
-      });
-    }
-  }, [
-    interaction,
-    basePath,
-    filesExtension,
-    form,
-    languageSlug,
-    languageMetadata,
-  ]);
+  }, [interaction, basePath, form, languageSlug, languageMetadata]);
 
   // For GUIDED lessons, auto-set EXECUTABLE if missing
   const isGuided = lessonType === "GUIDED";
@@ -260,7 +222,6 @@ function InteractionEditorInner({
         <ExecutableInteractionFields
           form={form}
           exerciseIndex={exerciseIndex}
-          courseLanguage={courseLanguage}
         />
       )}
     </div>
@@ -659,28 +620,20 @@ function ClozeInteractionFieldsInner({
 function ExecutableInteractionFields({
   form,
   exerciseIndex,
-  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
-  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
   return (
-    <form.Field name={`${basePath}.files`} mode="array">
-      {(filesField: any) => (
-        <form.Field name={`${basePath}.tests`} mode="array">
-          {(testsField: any) => (
-            <ExecutableInteractionFieldsInner
-              form={form}
-              exerciseIndex={exerciseIndex}
-              filesField={filesField}
-              testsField={testsField}
-              courseLanguage={courseLanguage}
-            />
-          )}
-        </form.Field>
+    <form.Field name={`${basePath}.tests`} mode="array">
+      {(testsField: any) => (
+        <ExecutableInteractionFieldsInner
+          form={form}
+          exerciseIndex={exerciseIndex}
+          testsField={testsField}
+        />
       )}
     </form.Field>
   );
@@ -689,104 +642,24 @@ function ExecutableInteractionFields({
 function ExecutableInteractionFieldsInner({
   form,
   exerciseIndex,
-  filesField,
   testsField,
-  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
-  filesField: any;
   testsField: any;
-  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
-  const languageLabel = getLanguageDisplayName(languageMetadata);
-  const languageExtension = getCourseLanguageExtension(courseLanguage);
   const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
   if (!interaction || interaction.type !== "EXECUTABLE") return null;
 
-  const files: {
-    name: string;
-    language: string | LanguageMetadata;
-    content: string;
-  }[] = filesField.state.value ?? [];
   const tests: { type: string; expected: string }[] =
     testsField.state.value ?? [];
 
   return (
     <div className="flex flex-col gap-4 bg-ludo-surface rounded-lg p-3">
-      {/* Files */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <p className="text-xs text-orange-400 font-medium">
-            Files ({files.length})
-          </p>
-          <ShadowLessButton
-            type="button"
-            onClick={() =>
-              filesField.pushValue({
-                id: crypto.randomUUID(),
-                name: `file${files.length + 1}.${languageExtension}`,
-                language: languageMetadata,
-                content: "",
-              })
-            }
-          >
-            + Add File
-          </ShadowLessButton>
-        </div>
-
-        {files.map((_file: any, fileIndex: number) => (
-          <div
-            key={fileIndex}
-            className="flex flex-col gap-2 bg-ludo-background rounded-lg p-3"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-orange-400">
-                File {fileIndex + 1}
-              </span>
-              {files.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => filesField.removeValue(fileIndex)}
-                  className="shrink-0 p-1 rounded hover:bg-ludo-surface text-ludo-white hover:text-red-400 transition-colors"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-
-            <div className="flex gap-2">
-              <form.Field
-                name={`${basePath}.files[${fileIndex}].name`}
-                children={(field: any) => (
-                  <LudoInput
-                    value={String(field.state.value ?? "")}
-                    setValue={(v: string) => field.handleChange(v)}
-                    placeholder="Filename (e.g. main.py)"
-                  />
-                )}
-              />
-            </div>
-            <p className="text-xs text-ludo-white/60">
-              Language: {languageLabel}
-            </p>
-
-            <form.Field
-              name={`${basePath}.files[${fileIndex}].content`}
-              children={(field: any) => (
-                <Textarea
-                  value={String(field.state.value ?? "")}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  placeholder="File content (starter code)..."
-                  className="bg-ludo-surface border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-none font-mono text-sm"
-                />
-              )}
-            />
-          </div>
-        ))}
-      </div>
+      <p className="text-xs text-ludo-white/60">
+        Starter files are configured in the lesson project snapshot.
+      </p>
 
       {/* Tests */}
       <div className="flex flex-col gap-2">

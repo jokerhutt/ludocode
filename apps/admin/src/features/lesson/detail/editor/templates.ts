@@ -3,11 +3,7 @@ import type {
   CurriculumDraftBlock,
   LanguageMetadata,
 } from "@ludocode/types";
-import {
-  getCourseLanguageSlug,
-  getDefaultMainFilename,
-  resolveCourseLanguage,
-} from "./language.ts";
+import { getCourseLanguageSlug } from "./language.ts";
 
 export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
   exerciseId: crypto.randomUUID(),
@@ -22,10 +18,8 @@ export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
 });
 
 export const createNewGuidedExerciseTemplate = (
-  courseLanguage?: LanguageMetadata,
+  _courseLanguage?: LanguageMetadata,
 ): CurriculumDraftLessonExercise => {
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
-
   return {
     exerciseId: crypto.randomUUID(),
     blocks: [
@@ -42,14 +36,6 @@ export const createNewGuidedExerciseTemplate = (
     ],
     interaction: {
       type: "EXECUTABLE",
-      files: [
-        {
-          id: crypto.randomUUID(),
-          name: getDefaultMainFilename(courseLanguage),
-          language: languageMetadata,
-          content: "",
-        },
-      ],
       tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
     },
   };
