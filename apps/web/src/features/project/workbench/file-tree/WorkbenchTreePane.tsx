@@ -45,7 +45,6 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
   const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
-  // store latest live state in a ref so the promptWrapper callback is never stale.
   const latestRef = useRef({
     project,
     files,
