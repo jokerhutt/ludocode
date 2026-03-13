@@ -52,11 +52,9 @@ export function GuidedExecutableWorkbench({
     const attempt: ExerciseAttempt = {
       exerciseId: currentExercise.id,
       isCorrect,
-      answer: [
-        {
-          value: JSON.stringify({ files: filesPayload, output }),
-        },
-      ],
+      answer: {
+        files: filesPayload,
+      },
     };
 
     stageExecutableAttempt(attempt);

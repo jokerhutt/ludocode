@@ -4,7 +4,6 @@ export type ExerciseAnswer =
   | {
       type: "EXECUTABLE";
       files: { name: string; content: string }[];
-      output: string;
     };
 
 export type ExerciseSubmissionRequest = {
@@ -29,7 +28,11 @@ export type ExerciseSubmission = {
 export type ExerciseAttempt = {
   exerciseId: string;
   isCorrect: boolean;
-  answer: AnswerToken[];
+  answer: AnswerToken[] | ExecutableAnswer;
 };
 
 export type AnswerToken = { id?: string; value: string };
+
+export type ExecutableAnswer = {files: ExecutableFileSubmission[]}
+
+export type ExecutableFileSubmission = {name: string; content: string;}

@@ -1,4 +1,6 @@
 import type {
+  AnswerToken,
+  ExecutableAnswer,
   ExerciseAnswer,
   ExerciseAttempt,
   ExerciseSubmission,
@@ -24,36 +26,30 @@ function convertAttemptToRequest(
   if (!interactionType) {
     return { type: "SELECT", pickedValue: "INFO" };
   }
+
   if (interactionType === "SELECT") {
-    return { type: "SELECT", pickedValue: attempt.answer[0].value };
+    const tokens = attempt.answer as AnswerToken[];
+    return { type: "SELECT", pickedValue: tokens[0].value };
   }
+
+  if (interactionType === "CLOZE") {
+    const tokens = attempt.answer as AnswerToken[];
+    return {
+      type: "CLOZE",
+      valuesByBlank: tokens.map((t) => t.value),
+    };
+  }
+
   if (interactionType === "EXECUTABLE") {
-    const raw = attempt.answer[0]?.value ?? "{}";
-    try {
-      const parsed = JSON.parse(raw) as {
-        files?: { name?: string; content?: string }[];
-        output?: string;
-      };
-      return {
-        type: "EXECUTABLE",
-        files: (parsed.files ?? []).map((file) => ({
-          name: file.name ?? "",
-          content: file.content ?? "",
-        })),
-        output: parsed.output ?? "",
-      };
-    } catch {
-      return {
-        type: "EXECUTABLE",
-        files: [],
-        output: raw,
-      };
-    }
+    const executable = attempt.answer as ExecutableAnswer;
+
+    return {
+      type: "EXECUTABLE",
+      files: executable.files,
+    };
   }
-  return {
-    type: "CLOZE",
-    valuesByBlank: attempt.answer.map((t) => t.value),
-  };
+
+  throw new Error("Unknown interaction type");
 }
 
 export function convertToLessonSubmission(

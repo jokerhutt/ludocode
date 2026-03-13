@@ -6,7 +6,7 @@ import { ProjectProvider } from "@/features/project/workbench/context/ProjectCon
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
-import { GuidedExecutableWorkbench } from "./GuidedExecutableWorkbench";
+import { GuidedExecutableWorkbench } from "./guided/GuidedExecutableWorkbench";
 
 type GuidedExercisePage = {};
 
