@@ -23,6 +23,7 @@ export function GuidedExecutableWorkbench({
     currentExercise,
     phase,
     stageExecutableAttempt,
+    commitExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
   const { project, files, entryFileId } = useProjectContext();
@@ -31,6 +32,7 @@ export function GuidedExecutableWorkbench({
   const { isRunning, outputLog } = outputInfo;
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
+  const [incorrectFeedbackOpen, setIncorrectFeedbackOpen] = useState(false);
   const outputCountBeforeRunRef = useRef(0);
 
   useEffect(() => {
@@ -61,7 +63,13 @@ export function GuidedExecutableWorkbench({
       answer: { submission: projectSnapshotAttempt },
     };
 
-    stageExecutableAttempt(attempt);
+    if (isCorrect) {
+      setIncorrectFeedbackOpen(false);
+      stageExecutableAttempt(attempt);
+    } else {
+      commitExecutableAttempt(attempt);
+      setIncorrectFeedbackOpen(true);
+    }
     setAwaitingValidation(false);
   }, [
     awaitingValidation,
@@ -73,6 +81,7 @@ export function GuidedExecutableWorkbench({
     tests,
     currentExercise.id,
     stageExecutableAttempt,
+    commitExecutableAttempt,
   ]);
 
   const runOrAdvance = useCallback(() => {
@@ -85,6 +94,7 @@ export function GuidedExecutableWorkbench({
 
     if (!runnerFeature.enabled) return;
 
+    setIncorrectFeedbackOpen(false);
     outputCountBeforeRunRef.current = outputLog.length;
     setAwaitingValidation(true);
     runCode();
@@ -113,6 +123,8 @@ export function GuidedExecutableWorkbench({
         isRunning={isRunning}
         phase={phase}
         runnerEnabled={runnerFeature.enabled == true}
+        incorrectFeedbackOpen={incorrectFeedbackOpen}
+        onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
       />
 
       <WorkbenchOutputPane />

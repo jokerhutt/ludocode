@@ -5,6 +5,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
+import { X } from "lucide-react";
 import type { ExercisePhase } from "../zones/LessonFooter";
 
 type GuidedExerciseEditorPaneProps = {
@@ -12,6 +13,8 @@ type GuidedExerciseEditorPaneProps = {
   isRunning: boolean;
   phase: ExercisePhase;
   runnerEnabled: boolean;
+  incorrectFeedbackOpen: boolean;
+  onDismissIncorrectFeedback: () => void;
 };
 
 export function GuidedExerciseEditorPane({
@@ -19,17 +22,16 @@ export function GuidedExerciseEditorPane({
   isRunning,
   phase,
   runnerEnabled,
+  incorrectFeedbackOpen,
+  onDismissIncorrectFeedback,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
-  const buttonText =
-    phase === "DEFAULT"
-      ? "RUN ⌘+⏎"
-      : phase === "INCORRECT"
-        ? "TRY AGAIN"
-        : "CONTINUE";
+  const buttonText = phase === "CORRECT" ? "CONTINUE" : "SUBMIT ⌘+⏎";
 
   const buttonDisabled = isRunning || (phase === "DEFAULT" && !runnerEnabled);
+  const showCorrectFeedback = phase === "CORRECT";
+  const showIncorrectFeedback = incorrectFeedbackOpen;
 
   return (
     <Workbench.Pane className="col-span-12 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0">
@@ -51,6 +53,33 @@ export function GuidedExerciseEditorPane({
       </Workbench.Pane.Winbar>
 
       <ProjectEditor />
+
+      {(showCorrectFeedback || showIncorrectFeedback) && (
+        <div
+          className={cn(
+            "absolute z-10 bottom-22 right-10 w-56 rounded-lg border bg-ludo-surface px-3 py-2",
+            showCorrectFeedback
+              ? "border-ludo-correct"
+              : "border-ludo-incorrect",
+          )}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-sm text-ludo-white-bright">
+              {showCorrectFeedback ? "Great work!" : "Not quite!"}
+            </p>
+            {showIncorrectFeedback && (
+              <button
+                type="button"
+                onClick={onDismissIncorrectFeedback}
+                className="rounded p-1 text-ludo-white/70 hover:text-ludo-white hover:bg-ludo-background"
+                aria-label="Close feedback"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       <LudoButton
         data-testid="guided-run-code-button"

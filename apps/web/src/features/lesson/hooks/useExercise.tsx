@@ -167,6 +167,14 @@ export function useExercise({
     [isExecutable, stageCustomAttempt],
   );
 
+  const commitExecutableAttempt = useCallback(
+    (attempt: ExerciseAttempt) => {
+      if (!isExecutable) return;
+      commitStagedAttemptIntoSubmissions(attempt);
+    },
+    [isExecutable, commitStagedAttemptIntoSubmissions],
+  );
+
   return {
     lesson,
     phase,
@@ -175,6 +183,7 @@ export function useExercise({
     currentExercise,
     currentlyStagedAttempt,
     stageExecutableAttempt,
+    commitExecutableAttempt,
     handleExerciseButtonClick,
     inputState: exerciseInput,
     canGoBack,
@@ -190,6 +199,7 @@ export type useExerciseResponse = {
   phase: ExercisePhase;
   currentlyStagedAttempt: ExerciseAttempt | null;
   stageExecutableAttempt: (attempt: ExerciseAttempt) => void;
+  commitExecutableAttempt: (attempt: ExerciseAttempt) => void;
   handleExerciseButtonClick: () => void;
   inputState: useExerciseInputResponse;
   canGoBack: boolean;
