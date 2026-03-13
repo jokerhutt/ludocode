@@ -43,11 +43,13 @@ export type InteractionFile = {
 };
 
 export type ExecutableTestType =
-  | "OUTPUT_EQUALS"
   | "OUTPUT_CONTAINS"
-  | "FILE_CONTAINS";
+  | "FILE_CONTAINS"
+  | "OUTPUT_MATCHES"
+  | "FILE_MATCHES";
 
 export type ExecutableTest = {
   type: ExecutableTestType;
+  feedback?: string;
   expected: string;
 };

@@ -121,7 +121,8 @@ export const ExecutableFileSchema = z.object({
 });
 
 export const ExecutableTestSchema = z.object({
-  type: z.enum(["OUTPUT_EQUALS", "OUTPUT_CONTAINS", "FILE_CONTAINS"]),
+  type: z.enum(["OUTPUT_MATCHES", "OUTPUT_CONTAINS", "FILE_CONTAINS", "FILE_MATCHES"]),
+  feedback: z.string().optional().nullable(),
   expected: z.string(),
 });
 

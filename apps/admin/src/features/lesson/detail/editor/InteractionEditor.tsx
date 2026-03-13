@@ -48,7 +48,7 @@ const createDefaultExecutable = (
 ): CurriculumDraftInteraction => {
   return {
     type: "EXECUTABLE",
-    tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
+    tests: [{ type: "OUTPUT_MATCHES", expected: 'print\\(\\s*["\']Hello World["\']\\s*\\)' }],
   };
 };
 
@@ -670,7 +670,7 @@ function ExecutableInteractionFieldsInner({
           <ShadowLessButton
             type="button"
             onClick={() =>
-              testsField.pushValue({ type: "OUTPUT_EQUALS", expected: "" })
+              testsField.pushValue({ type: "FILE_MATCHES", expected: 'print\\(\\s*["\']Hello World["\']\\s*\\)' })
             }
           >
             + Add Test
