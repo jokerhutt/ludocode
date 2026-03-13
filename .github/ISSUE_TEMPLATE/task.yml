@@ -1,0 +1,28 @@
+name: Task
+description: Internal task or implementation work
+title: "[Task]: "
+labels: ["task"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Task description
+      description: What needs to be done?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this needed? Links, notes, etc.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: Implementation
+        - label: Tests
+        - label: Documentation
