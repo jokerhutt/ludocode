@@ -67,7 +67,7 @@ export const InstructionsBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: LanguageDraftValueSchema,
+  language: z.string().min(1, "language required"),
   content: z.string().min(1, "Code content required"),
   output: z.string().nullish(),
 });

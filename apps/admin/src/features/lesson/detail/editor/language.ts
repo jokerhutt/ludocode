@@ -95,7 +95,7 @@ function applyLanguageToBlock(
   languageMetadata: LanguageMetadata,
 ): CurriculumDraftBlock {
   if (block.type !== "code") return block;
-  return { ...block, language: languageMetadata };
+  return { ...block, language: getLanguageSlug(languageMetadata) };
 }
 
 function applyLanguageToInteraction(

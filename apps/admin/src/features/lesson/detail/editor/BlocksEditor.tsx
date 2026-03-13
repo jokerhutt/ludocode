@@ -18,11 +18,7 @@ import {
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
 import { createBlockTemplate } from "./templates.ts";
-import {
-  getLanguageDisplayName,
-  getLanguageSlug,
-  resolveCourseLanguage,
-} from "./language.ts";
+import { getCourseLanguageSlug } from "./language.ts";
 
 type BlockType = CurriculumDraftBlock["type"];
 const BLOCK_TYPES: { value: BlockType; label: string }[] = [
@@ -342,22 +338,20 @@ function CodeBlockEditor({
   blockIndex: number;
   courseLanguage?: LanguageMetadata;
 }) {
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
-  const languageLabel = getLanguageDisplayName(languageMetadata);
+  const languageSlug = getCourseLanguageSlug(courseLanguage);
   const languagePath = `exercises[${exerciseIndex}].blocks[${blockIndex}].language`;
 
   useEffect(() => {
     const currentLanguage =
       form.state.values.exercises[exerciseIndex]?.blocks[blockIndex]?.language;
-    const currentLanguageSlug = getLanguageSlug(currentLanguage);
-    if (currentLanguageSlug !== getLanguageSlug(languageMetadata)) {
-      form.setFieldValue(languagePath, languageMetadata);
+    if (currentLanguage !== languageSlug) {
+      form.setFieldValue(languagePath, languageSlug);
     }
-  }, [form, exerciseIndex, blockIndex, languagePath, languageMetadata]);
+  }, [form, exerciseIndex, blockIndex, languagePath, languageSlug]);
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-xs text-emerald-400">Language: {languageLabel}</p>
+      <p className="text-xs text-emerald-400">Language: {languageSlug}</p>
       <form.Field
         name={`exercises[${exerciseIndex}].blocks[${blockIndex}].content`}
         children={(field: any) => (

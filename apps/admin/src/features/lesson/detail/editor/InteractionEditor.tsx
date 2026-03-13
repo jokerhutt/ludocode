@@ -54,6 +54,7 @@ const createDefaultExecutable = (
     type: "EXECUTABLE",
     files: [
       {
+        id: crypto.randomUUID(),
         name: getDefaultMainFilename(courseLanguage),
         language: languageMetadata,
         content: "",
