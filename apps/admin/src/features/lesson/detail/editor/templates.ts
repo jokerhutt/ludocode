@@ -36,7 +36,12 @@ export const createNewGuidedExerciseTemplate = (
     ],
     interaction: {
       type: "EXECUTABLE",
-      tests: [{ type: "OUTPUT_EQUALS", expected: "" }],
+      tests: [
+        {
+          type: "FILE_PATTERN_MATCHES",
+          expected: "print\\(\\s*[\"']Hello World[\"']\\s*\\)",
+        },
+      ],
     },
   };
 };

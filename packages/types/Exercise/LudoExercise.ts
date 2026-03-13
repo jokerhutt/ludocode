@@ -45,8 +45,8 @@ export type InteractionFile = {
 export type ExecutableTestType =
   | "OUTPUT_CONTAINS"
   | "FILE_CONTAINS"
-  | "OUTPUT_MATCHES"
-  | "FILE_MATCHES";
+  | "OUTPUT_PATTERN_MATCHES"
+  | "FILE_PATTERN_MATCHES";
 
 export type ExecutableTest = {
   type: ExecutableTestType;

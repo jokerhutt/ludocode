@@ -48,7 +48,13 @@ const createDefaultExecutable = (
 ): CurriculumDraftInteraction => {
   return {
     type: "EXECUTABLE",
-    tests: [{ type: "OUTPUT_MATCHES", expected: 'print\\(\\s*["\']Hello World["\']\\s*\\)' }],
+    tests: [
+      {
+        type: "OUTPUT_PATTERN_MATCHES",
+        expected: "print\\(\\s*[\"']Hello World[\"']\\s*\\)",
+        feedback: null,
+      },
+    ],
   };
 };
 
@@ -652,7 +658,7 @@ function ExecutableInteractionFieldsInner({
   const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
   if (!interaction || interaction.type !== "EXECUTABLE") return null;
 
-  const tests: { type: string; expected: string }[] =
+  const tests: { type: string; expected: string; feedback?: string | null }[] =
     testsField.state.value ?? [];
 
   return (
@@ -670,7 +676,11 @@ function ExecutableInteractionFieldsInner({
           <ShadowLessButton
             type="button"
             onClick={() =>
-              testsField.pushValue({ type: "FILE_MATCHES", expected: 'print\\(\\s*["\']Hello World["\']\\s*\\)' })
+              testsField.pushValue({
+                type: "FILE_PATTERN_MATCHES",
+                expected: "print\\(\\s*[\"']Hello World[\"']\\s*\\)",
+                feedback: null,
+              })
             }
           >
             + Add Test
@@ -709,10 +719,10 @@ function ExecutableInteractionFieldsInner({
                   </SelectTrigger>
                   <SelectContent className="bg-ludo-surface border-ludo-border">
                     <SelectItem
-                      value="OUTPUT_EQUALS"
+                      value="OUTPUT_PATTERN_MATCHES"
                       className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
                     >
-                      Output Equals
+                      Output Matches
                     </SelectItem>
                     <SelectItem
                       value="OUTPUT_CONTAINS"
@@ -725,6 +735,12 @@ function ExecutableInteractionFieldsInner({
                       className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
                     >
                       File Contains
+                    </SelectItem>
+                    <SelectItem
+                      value="FILE_PATTERN_MATCHES"
+                      className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
+                    >
+                      File Matches
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -739,6 +755,22 @@ function ExecutableInteractionFieldsInner({
                   onChange={(e) => field.handleChange(e.target.value)}
                   placeholder="Expected value..."
                   className="bg-ludo-surface border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none font-mono text-sm"
+                />
+              )}
+            />
+
+            <form.Field
+              name={`${basePath}.tests[${testIndex}].feedback`}
+              children={(field: any) => (
+                <Textarea
+                  value={String(field.state.value ?? "")}
+                  onChange={(e) =>
+                    field.handleChange(
+                      e.target.value.trim().length > 0 ? e.target.value : null,
+                    )
+                  }
+                  placeholder="Feedback shown when this test fails (optional)"
+                  className="bg-ludo-surface border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none text-sm"
                 />
               )}
             />
