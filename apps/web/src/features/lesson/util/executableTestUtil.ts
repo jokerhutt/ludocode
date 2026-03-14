@@ -9,14 +9,37 @@ function didExecutableTestPass({
   output: string;
   files: { name: string; content: string }[];
 }) {
-  if (test.type === "OUTPUT_PATTERN_MATCHES") {
-    const regex = new RegExp(test.expected);
-    return regex.test(output);
-  }
+if (test.type === "OUTPUT_PATTERN_MATCHES") {
+  const regex = new RegExp(test.expected, "s");
+  const result = regex.test(output);
+
+  console.log("OUTPUT_PATTERN_MATCHES", {
+    expectedRaw: test.expected,
+    regex: regex.toString(),
+    output,
+    outputJSON: JSON.stringify(output),
+    result,
+  });
+
+  return result;
+}
 
   if (test.type === "FILE_PATTERN_MATCHES") {
-    const regex = new RegExp(test.expected);
-    return files.some((file) => regex.test(file.content));
+    const regex = new RegExp(test.expected, "s");
+
+    return files.some((file) => {
+      const result = regex.test(file.content);
+      console.log(file.content);
+      console.log("FILE_PATTERN_MATCHES", {
+        expectedRaw: test.expected,
+        regex: regex.toString(),
+        fileName: file.name,
+        fileContent: JSON.stringify(file.content),
+        result,
+      });
+
+      return result;
+    });
   }
 
   if (test.type === "OUTPUT_CONTAINS") {

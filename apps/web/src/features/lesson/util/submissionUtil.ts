@@ -2,6 +2,7 @@ import type {
   AnswerToken,
   ExerciseAnswer,
   ExerciseAttempt,
+  ExerciseAttemptResult,
   ExerciseSubmission,
   LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
@@ -19,7 +20,7 @@ export function convertStagedAttemptIntoExerciseSubmission(
   };
 }
 
-function convertAttemptToRequest(
+function convertAttemptToAnswer(
   attempt: ExerciseAttempt,
   interactionType: "SELECT" | "CLOZE" | "EXECUTABLE" | null | undefined,
 ): ExerciseAnswer {
@@ -55,6 +56,16 @@ function convertAttemptToRequest(
   throw new Error("Unknown interaction type");
 }
 
+function convertAttemptToResult(
+  attempt: ExerciseAttempt,
+  interactionType: "SELECT" | "CLOZE" | "EXECUTABLE" | null | undefined,
+): ExerciseAttemptResult {
+  return {
+    isCorrect: attempt.isCorrect,
+    attempt: convertAttemptToAnswer(attempt, interactionType),
+  };
+}
+
 export function convertToLessonSubmission(
   courseId: string,
   lessonId: string,
@@ -71,8 +82,8 @@ export function convertToLessonSubmission(
       return {
         exerciseId: sub.exerciseId,
         version: sub.version,
-        attempts: sub.attempts.map((attempt) =>
-          convertAttemptToRequest(attempt, interactionType),
+        results: sub.attempts.map((attempt) =>
+          convertAttemptToResult(attempt, interactionType),
         ),
       };
     }),

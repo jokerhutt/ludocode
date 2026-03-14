@@ -11,8 +11,13 @@ export type ExerciseAnswer =
 export type ExerciseSubmissionRequest = {
   exerciseId: string;
   version: number;
-  attempts: ExerciseAnswer[];
+  results: ExerciseAttemptResult[]
 };
+
+export type ExerciseAttemptResult = {
+  isCorrect: boolean;
+  attempt: ExerciseAnswer
+}
 
 export type LessonSubmissionRequest = {
   submissionId: string;
