@@ -14,6 +14,10 @@ import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { RotateCcwIcon } from "lucide-react";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { GuidedLessonActions } from "./GuidedLessonActions";
 
 export function GuidedExecutableWorkbench({
   tests,
@@ -202,18 +206,24 @@ export function GuidedExecutableWorkbench({
 
       <GuidedExerciseEditorPane
         runOrAdvance={runOrAdvance}
-        isRunning={isRunning}
         phase={phase}
-        runnerEnabled={runnerFeature.enabled == true}
         incorrectFeedbackOpen={incorrectFeedbackOpen}
         incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
-        canGoBack={canGoBack}
-        onGoBack={goBack}
-        onReset={resetToPreviousSnapshot}
-        canReset={!!resetSnapshot && !isEditorReadOnly}
         isEditorReadOnly={isEditorReadOnly}
-      />
+      >
+        <GuidedLessonActions
+          canGoBack={canGoBack}
+          goBack={goBack}
+          resetSnapshot={resetSnapshot}
+          resetToPreviousSnapshot={resetToPreviousSnapshot}
+          runOrAdvance={runOrAdvance}
+          isReadOnly={isEditorReadOnly}
+          runnerEnabled={runnerFeature.enabled == true}
+          phase={phase}
+          isRunning={isRunning}
+        />
+      </GuidedExerciseEditorPane>
 
       <WorkbenchOutputPane successColorVariant="alt" />
     </div>
