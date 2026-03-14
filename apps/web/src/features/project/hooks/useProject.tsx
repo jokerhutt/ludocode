@@ -25,7 +25,6 @@ export function useProject({ project }: Args): UseProjectResponse {
   const { base, extension } = projectLanguage;
 
   const [current, setCurrent] = useState(0);
-  const [editorEpoch, setEditorEpoch] = useState(0);
 
   const deleteFile = useCallback(
     (path: string) => {
@@ -54,36 +53,39 @@ export function useProject({ project }: Args): UseProjectResponse {
     [entryFileId],
   );
 
-  const renameFile = useCallback((oldPath: string, newNameRaw: string) => {
-    setFiles((prev) => {
-      const idx = prev.findIndex((f) => f.path === oldPath);
-      if (idx === -1) return prev;
+  const renameFile = useCallback(
+    (oldPath: string, newNameRaw: string) => {
+      setFiles((prev) => {
+        const idx = prev.findIndex((f) => f.path === oldPath);
+        if (idx === -1) return prev;
 
-      const file = prev[idx];
+        const file = prev[idx];
 
-      let base = newNameRaw.trim();
-      if (!base) return prev;
+        let base = newNameRaw.trim();
+        if (!base) return prev;
 
-      base = base.split("/").pop()!.split("\\").pop()!;
+        base = base.split("/").pop()!.split("\\").pop()!;
 
-      let finalName = base;
-      if (!finalName.endsWith(extension)) {
-        finalName = `${finalName}${extension}`;
-      }
+        let finalName = base;
+        if (!finalName.endsWith(extension)) {
+          finalName = `${finalName}${extension}`;
+        }
 
-      const otherFiles = prev.filter((_, i) => i !== idx);
+        const otherFiles = prev.filter((_, i) => i !== idx);
 
-      const bare = finalName.endsWith(extension)
-        ? finalName.slice(0, -extension.length)
-        : finalName;
+        const bare = finalName.endsWith(extension)
+          ? finalName.slice(0, -extension.length)
+          : finalName;
 
-      const uniqueName = nextName(otherFiles, bare, extension);
+        const uniqueName = nextName(otherFiles, bare, extension);
 
-      const next = prev.slice();
-      next[idx] = { ...file, path: uniqueName };
-      return next;
-    });
-  }, []);
+        const next = prev.slice();
+        next[idx] = { ...file, path: uniqueName };
+        return next;
+      });
+    },
+    [extension],
+  );
 
   const updateContent = useCallback(
     (val: string) => {
@@ -109,7 +111,7 @@ export function useProject({ project }: Args): UseProjectResponse {
       setCurrent(next.length - 1);
       return next;
     });
-  }, []);
+  }, [base, extension, projectLanguage]);
 
   const resetToSnapshot = useCallback((snapshot: ProjectSnapshot) => {
     const nextFiles = snapshot.files.map((f) => ({ ...f }));
@@ -122,7 +124,6 @@ export function useProject({ project }: Args): UseProjectResponse {
 
     setFiles(nextFiles);
     setEntryFileId(nextEntryId);
-    setEditorEpoch((prev) => prev + 1);
 
     const nextCurrentIndex = Math.max(
       0,
@@ -138,7 +139,6 @@ export function useProject({ project }: Args): UseProjectResponse {
     project,
     files,
     current,
-    editorEpoch,
     currentFileId,
     active: active,
     setCurrent,
@@ -155,7 +155,6 @@ export type UseProjectResponse = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
   current: number;
-  editorEpoch: number;
   currentFileId: string | null;
   active: ProjectFileSnapshot;
   entryFileId: string;

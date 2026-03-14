@@ -15,9 +15,12 @@ export function ProjectEditor({
   isMarkedForDeletion = false,
   onExecuteAction,
 }: ProjectEditorProps) {
-  const { active, updateContent, editorEpoch } = useProjectContext();
+  const { active, updateContent } = useProjectContext();
   const { content, language, path } = active;
   const { runCode } = useCodeRunnerContext();
+  const editorRef = useRef<monacoTypes.editor.IStandaloneCodeEditor | null>(
+    null,
+  );
   const executeActionRef = useRef(onExecuteAction);
   const runCodeRef = useRef(runCode);
 
@@ -35,6 +38,8 @@ export function ProjectEditor({
     editor: monacoTypes.editor.IStandaloneCodeEditor,
     monaco: typeof monacoTypes,
   ) {
+    editorRef.current = editor;
+
     editor.onKeyDown((e) => {
       const isCmdEnter = e.metaKey && e.keyCode === monaco.KeyCode.Enter;
 
@@ -52,11 +57,10 @@ export function ProjectEditor({
 
   return (
     <Editor
-      key={`${path}:${editorEpoch}`}
       path={path}
       height="100%"
       theme="custom-theme"
-      defaultValue={content}
+      value={content}
       onChange={(v) => updateContent(v ?? "")}
       beforeMount={beforeMount}
       loading={
