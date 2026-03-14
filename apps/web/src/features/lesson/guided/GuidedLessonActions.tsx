@@ -1,33 +1,31 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { RotateCcwIcon } from "lucide-react";
 import type { ExercisePhase } from "../zones/LessonFooter";
-import type { ProjectSnapshot } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
 
 type GuidedLessonActionsProps = {
   canGoBack: boolean;
-  goBack: () => void;
-  resetToPreviousSnapshot: () => void;
+  onGoBack: () => void;
+  canReset: boolean;
+  onReset: () => void;
   isRunning: boolean;
   runOrAdvance: () => void;
-  isReadOnly: boolean;
-  resetSnapshot: ProjectSnapshot | null;
   runnerEnabled: boolean;
   phase: ExercisePhase;
 };
 
 export function GuidedLessonActions({
   canGoBack,
-  goBack,
-  resetToPreviousSnapshot,
+  onGoBack,
+  canReset,
+  onReset,
   isRunning,
   runnerEnabled,
   runOrAdvance,
-  resetSnapshot,
-  isReadOnly,
   phase,
 }: GuidedLessonActionsProps) {
-  const runButtonDisabled = isRunning || (phase === "DEFAULT" && runnerEnabled);
+  const runButtonDisabled =
+    isRunning || (phase === "DEFAULT" && !runnerEnabled);
 
   return (
     <>
@@ -37,7 +35,7 @@ export function GuidedLessonActions({
           variant="default"
           shadow={false}
           disabled={!canGoBack}
-          onClick={goBack}
+          onClick={onGoBack}
           className="h-10 px-4"
         >
           BACK
@@ -47,8 +45,8 @@ export function GuidedLessonActions({
           type="button"
           variant="default"
           shadow={false}
-          disabled={isRunning || (!!resetSnapshot && !isReadOnly)}
-          onClick={resetToPreviousSnapshot}
+          disabled={!canReset}
+          onClick={onReset}
           className="h-10 px-4"
         >
           <RotateCcwIcon className="h-4 w-4" />

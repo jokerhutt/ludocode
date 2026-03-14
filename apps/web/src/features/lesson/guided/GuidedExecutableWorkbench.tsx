@@ -14,10 +14,9 @@ import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { RotateCcwIcon } from "lucide-react";
-import { cn } from "@ludocode/design-system/cn-utils";
 import { GuidedLessonActions } from "./GuidedLessonActions";
+import { useGuidedExerciseNavigation } from "./hooks/useGuidedExerciseNavigation";
+import { useGuidedExerciseReviewState } from "./hooks/useGuidedExerciseReviewState";
 
 export function GuidedExecutableWorkbench({
   tests,
@@ -29,18 +28,11 @@ export function GuidedExecutableWorkbench({
   const {
     currentExercise,
     phase,
-    isReviewing,
-    reviewSubmissionSnapshot,
-    workingSnapshot,
-    setWorkingSnapshot,
-    resetSnapshot,
-    canGoBack,
-    goBack,
     stageExecutableAttempt,
     commitExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
-  const { project, files, entryFileId, resetToSnapshot } = useProjectContext();
+  const { project, files, entryFileId } = useProjectContext();
   const { runCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const { isRunning, outputLog } = outputInfo;
@@ -50,53 +42,8 @@ export function GuidedExecutableWorkbench({
   const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
     string | null
   >(null);
-  const [isEditorReadOnly, setIsEditorReadOnly] = useState(false);
   const outputCountBeforeRunRef = useRef(0);
-  const appliedReviewSnapshotForExerciseId = useRef<string | null>(null);
-  const appliedWorkingSnapshotForExerciseId = useRef<string | null>(null);
-
-  const buildCurrentSnapshot = useCallback((): ProjectSnapshot => {
-    return {
-      ...project,
-      files: files.map((file) => ({ ...file })),
-      entryFileId,
-    };
-  }, [project, files, entryFileId]);
-
-  useEffect(() => {
-    if (isReviewing) return;
-    setWorkingSnapshot(buildCurrentSnapshot());
-  }, [isReviewing, buildCurrentSnapshot, setWorkingSnapshot]);
-
-  useEffect(() => {
-    if (isReviewing && reviewSubmissionSnapshot) {
-      if (appliedReviewSnapshotForExerciseId.current !== currentExercise.id) {
-        resetToSnapshot(reviewSubmissionSnapshot);
-        appliedReviewSnapshotForExerciseId.current = currentExercise.id;
-      }
-      setIsEditorReadOnly(true);
-      return;
-    }
-
-    if (
-      appliedReviewSnapshotForExerciseId.current ||
-      appliedWorkingSnapshotForExerciseId.current !== currentExercise.id
-    ) {
-      if (workingSnapshot) {
-        resetToSnapshot(workingSnapshot);
-      }
-      appliedWorkingSnapshotForExerciseId.current = currentExercise.id;
-    }
-
-    appliedReviewSnapshotForExerciseId.current = null;
-    setIsEditorReadOnly(false);
-  }, [
-    isReviewing,
-    reviewSubmissionSnapshot,
-    resetToSnapshot,
-    currentExercise.id,
-    workingSnapshot,
-  ]);
+  const { isEditorReadOnly } = useGuidedExerciseReviewState();
 
   useEffect(() => {
     if (!awaitingValidation || isRunning) return;
@@ -186,16 +133,15 @@ export function GuidedExecutableWorkbench({
     EXECUTE_ACTION: runOrAdvance,
   });
 
-  const resetToPreviousSnapshot = useCallback(() => {
-    if (!resetSnapshot) return;
-    resetToSnapshot(resetSnapshot);
-    setWorkingSnapshot({
-      ...resetSnapshot,
-      files: resetSnapshot.files.map((file) => ({ ...file })),
+  const { canGoBack, onGoBack, canReset, onReset } =
+    useGuidedExerciseNavigation({
+      isRunning,
+      isEditorReadOnly,
+      onAfterReset: () => {
+        setIncorrectFeedbackOpen(false);
+        setIncorrectFeedbackMessage(null);
+      },
     });
-    setIncorrectFeedbackOpen(false);
-    setIncorrectFeedbackMessage(null);
-  }, [resetSnapshot, resetToSnapshot, setWorkingSnapshot]);
 
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
@@ -214,11 +160,10 @@ export function GuidedExecutableWorkbench({
       >
         <GuidedLessonActions
           canGoBack={canGoBack}
-          goBack={goBack}
-          resetSnapshot={resetSnapshot}
-          resetToPreviousSnapshot={resetToPreviousSnapshot}
+          onGoBack={onGoBack}
+          canReset={canReset}
+          onReset={onReset}
           runOrAdvance={runOrAdvance}
-          isReadOnly={isEditorReadOnly}
           runnerEnabled={runnerFeature.enabled == true}
           phase={phase}
           isRunning={isRunning}
