@@ -17,7 +17,7 @@ export function GuidedProjectFeedbackPopover({
   return (
     <div
       className={cn(
-        "absolute z-10 bottom-22 right-10 min-w-56 max-w-80 rounded-md border bg-ludo-background px-3 py-2",
+        "absolute z-10 bottom-30 lg:bottom-22 right-10 min-w-56 max-w-80 rounded-md border bg-ludo-background px-3 py-2",
         showCorrectFeedback ? "border-ludo-correct" : "border-ludo-incorrect",
       )}
     >

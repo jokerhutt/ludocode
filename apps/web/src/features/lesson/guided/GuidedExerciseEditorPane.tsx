@@ -72,7 +72,7 @@ export function GuidedExerciseEditorPane({
         />
       )}
 
-      <div className="absolute bottom-10 w-full px-10 z-10 flex items-center justify-between gap-2">
+      <div className="absolute bottom-16 lg:bottom-10 w-full px-10 z-10 flex items-center justify-between gap-2">
         {children}
       </div>
     </Workbench.Pane>

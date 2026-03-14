@@ -149,36 +149,7 @@ export function GuidedExecutableWorkbench({
     });
 
   return (
-    <div className="grid lg:grid-rows-[1fr] grid-rows-[auto_1fr] col-span-full min-h-0 grid-cols-12">
-      <div className="col-span-12 lg:hidden px-4 py-2">
-        <div className="flex items-center justify-between gap-2">
-          {(
-            [
-              ["instructions", "Instructions"],
-              ["code", "Code"],
-              ["output", "Output"],
-            ] as const
-          ).map(([pane, label]) => {
-            const isActive = mobilePane === pane;
-            return (
-              <button
-                key={pane}
-                type="button"
-                onClick={() => setMobilePane(pane)}
-                className={cn(
-                  "h-8 rounded-md px-3 flex-1 text-sm font-semibold",
-                  isActive
-                    ? "bg-ludo-surface text-ludo-white-bright"
-                    : "bg-transparent text-ludo-white/90",
-                )}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
+    <div className="grid lg:grid-rows-[1fr] grid-rows-[1fr_auto] col-span-full min-h-0 grid-cols-12">
       <GuidedExerciseTreePane
         currentExercise={currentExercise}
         showBlockOutput={showBlockOutput}
@@ -222,6 +193,35 @@ export function GuidedExecutableWorkbench({
           "lg:flex lg:col-span-3",
         )}
       />
+
+      <div className="col-span-12 lg:hidden px-4 py-2 border-t border-ludo-surface">
+        <div className="flex items-center justify-between gap-2">
+          {(
+            [
+              ["instructions", "Instructions"],
+              ["code", "Code"],
+              ["output", "Output"],
+            ] as const
+          ).map(([pane, label]) => {
+            const isActive = mobilePane === pane;
+            return (
+              <button
+                key={pane}
+                type="button"
+                onClick={() => setMobilePane(pane)}
+                className={cn(
+                  "h-8 rounded-md px-3 flex-1 text-sm font-semibold",
+                  isActive
+                    ? "bg-ludo-surface text-ludo-white-bright"
+                    : "bg-transparent text-ludo-white/90",
+                )}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
