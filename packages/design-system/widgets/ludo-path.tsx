@@ -89,7 +89,7 @@ const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
         selected={isCurrent}
         clickable={false}
         className={cn(
-          "relative w-full hover:cursor-pointer mt-4 h-20 px-3",
+          "relative w-full flex justify-center items-center hover:cursor-pointer my-4 h-20 p-3",
           className,
         )}
         {...props}
@@ -98,14 +98,9 @@ const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
           <CompletionRibbon lessonState={state} />
         </div>
 
-        <div className="flex flex-col  justify-start items-start gap-2 text-ludo-background">
-          <span className="rounded-md bg-ludo-white/80 px-1.5 py-0.5 text-[10px] font-bold leading-none tracking-wide">
-            GUIDED
-          </span>
-          <span className="max-w-[70%] truncate text-right text-xs font-semibold leading-none">
-            {title}
-          </span>
-        </div>
+        <p className="text-ludo-accent-muted text-sm text-center font-semibold uppercase tracking-widest">
+          GUIDED PROJECT
+        </p>
 
         {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
