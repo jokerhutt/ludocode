@@ -1,20 +1,40 @@
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
-import { LudoLog, type OutputTriggerColorVariant } from "@ludocode/design-system/widgets/ludo-log.tsx";
+import {
+  LudoLog,
+  type OutputTriggerColorVariant,
+} from "@ludocode/design-system/widgets/ludo-log.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
-type WorkbenchOutputPaneProps = {successColorVariant?: OutputTriggerColorVariant};
+type WorkbenchOutputPaneProps = {
+  successColorVariant?: OutputTriggerColorVariant;
+  className?: string;
+  hideWinbarOnMobile?: boolean;
+};
 
-export function WorkbenchOutputPane({successColorVariant = "default"}: WorkbenchOutputPaneProps) {
+export function WorkbenchOutputPane({
+  successColorVariant = "default",
+  className,
+  hideWinbarOnMobile = false,
+}: WorkbenchOutputPaneProps) {
   const { outputInfo } = useCodeRunnerContext();
   const { clearOutput, outputLog } = outputInfo;
 
   const isError = (status: number) => status !== 0;
 
   return (
-    <Workbench.Pane className="col-span-1 border-l-2 border-l-ludo-surface lg:col-span-3 flex flex-col">
-      <Workbench.Pane.Winbar>
-        <p className="text-sm font-medium tracking-wide">Output</p>
+    <Workbench.Pane
+      className={cn(
+        "col-span-1 lg:border-l-2 border-l-ludo-surface lg:col-span-3 flex flex-col",
+        className,
+      )}
+    >
+      <Workbench.Pane.Winbar
+        className={hideWinbarOnMobile ? "hidden lg:block" : undefined}
+      >
+        <p className="text-sm font-medium hidden lg:block tracking-wide">Output</p>
+        <div className="lg:hidden"/>
         <IconButton
           dataTestId="clear-output-icon"
           iconName="TrashIcon"
@@ -28,7 +48,10 @@ export function WorkbenchOutputPane({successColorVariant = "default"}: Workbench
 
           return (
             <LudoLog error={error} collapsible defaultCollapsed={false}>
-              <LudoLog.Trigger successColorVariant={successColorVariant} position={runNumber} />
+              <LudoLog.Trigger
+                successColorVariant={successColorVariant}
+                position={runNumber}
+              />
               <LudoLog.Content>
                 {log.output.map((line, lineIdx) => (
                   <LudoLog.Line

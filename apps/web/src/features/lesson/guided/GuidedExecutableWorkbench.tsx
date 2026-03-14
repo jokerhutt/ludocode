@@ -17,6 +17,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { GuidedLessonActions } from "./GuidedLessonActions";
 import { useGuidedExerciseNavigation } from "./hooks/useGuidedExerciseNavigation";
 import { useGuidedExerciseReviewState } from "./hooks/useGuidedExerciseReviewState";
+import { cn } from "@ludocode/design-system/cn-utils";
+
+type GuidedMobilePane = "instructions" | "code" | "output";
 
 export function GuidedExecutableWorkbench({
   tests,
@@ -42,6 +45,8 @@ export function GuidedExecutableWorkbench({
   const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
     string | null
   >(null);
+  const [mobilePane, setMobilePane] =
+    useState<GuidedMobilePane>("instructions");
   const outputCountBeforeRunRef = useRef(0);
   const { isEditorReadOnly } = useGuidedExerciseReviewState();
 
@@ -144,10 +149,44 @@ export function GuidedExecutableWorkbench({
     });
 
   return (
-    <div className="grid col-span-full min-h-0 grid-cols-12">
+    <div className="grid lg:grid-rows-[1fr] grid-rows-[auto_1fr] col-span-full min-h-0 grid-cols-12">
+      <div className="col-span-12 lg:hidden px-4 py-2">
+        <div className="flex items-center justify-between gap-2">
+          {(
+            [
+              ["instructions", "Instructions"],
+              ["code", "Code"],
+              ["output", "Output"],
+            ] as const
+          ).map(([pane, label]) => {
+            const isActive = mobilePane === pane;
+            return (
+              <button
+                key={pane}
+                type="button"
+                onClick={() => setMobilePane(pane)}
+                className={cn(
+                  "h-8 rounded-md px-3 flex-1 text-sm font-semibold",
+                  isActive
+                    ? "bg-ludo-surface text-ludo-white-bright"
+                    : "bg-transparent text-ludo-white/90",
+                )}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <GuidedExerciseTreePane
         currentExercise={currentExercise}
         showBlockOutput={showBlockOutput}
+        className={cn(
+          mobilePane === "instructions" ? "col-span-12" : "hidden",
+          "transform-none transition-none animate-none",
+          "lg:flex lg:flex-col",
+        )}
       />
 
       <GuidedExerciseEditorPane
@@ -157,6 +196,11 @@ export function GuidedExecutableWorkbench({
         incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
         isEditorReadOnly={isEditorReadOnly}
+        className={cn(
+          mobilePane === "code" ? "col-span-12" : "hidden",
+          "transform-none transition-none animate-none",
+          "lg:flex lg:flex-col",
+        )}
       >
         <GuidedLessonActions
           canGoBack={canGoBack}
@@ -170,7 +214,14 @@ export function GuidedExecutableWorkbench({
         />
       </GuidedExerciseEditorPane>
 
-      <WorkbenchOutputPane successColorVariant="alt" />
+      <WorkbenchOutputPane
+        successColorVariant="alt"
+        className={cn(
+          mobilePane === "output" ? "col-span-12" : "hidden",
+          "transform-none transition-none animate-none",
+          "lg:flex lg:col-span-3",
+        )}
+      />
     </div>
   );
 }

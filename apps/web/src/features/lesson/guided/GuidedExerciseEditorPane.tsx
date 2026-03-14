@@ -6,6 +6,7 @@ import { Workbench } from "@ludocode/design-system/widgets/Workbench";
 import type { ExercisePhase } from "../zones/LessonFooter";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
 import type { ReactNode } from "react";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
@@ -15,6 +16,7 @@ type GuidedExerciseEditorPaneProps = {
   onDismissIncorrectFeedback: () => void;
   isEditorReadOnly: boolean;
   children: ReactNode;
+  className?: string;
 };
 
 export function GuidedExerciseEditorPane({
@@ -24,7 +26,8 @@ export function GuidedExerciseEditorPane({
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
   isEditorReadOnly,
-  children
+  children,
+  className,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
@@ -32,7 +35,12 @@ export function GuidedExerciseEditorPane({
   const showIncorrectFeedback = incorrectFeedbackOpen;
 
   return (
-    <Workbench.Pane className="col-span-12 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0">
+    <Workbench.Pane
+      className={cn(
+        "col-span-12 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0",
+        className,
+      )}
+    >
       <Workbench.Pane.Winbar>
         <LudoTab.Group>
           {files.map((file, index) => {
