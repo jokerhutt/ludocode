@@ -4,6 +4,7 @@ export type LudoLesson = {
   id: string;
   title: string;
   orderIndex: number;
+  lessonType: LessonType;
   isCompleted: boolean;
   projectSnapshot?: ProjectSnapshot;
 };

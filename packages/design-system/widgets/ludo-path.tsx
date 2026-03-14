@@ -12,7 +12,7 @@ function LudoPathRoot({ children, className }: LudoPathProps) {
   return (
     <div
       className={cn(
-        "w-60 flex flex-col lg:gap-8 items-center lg:px-0 min-w-0",
+        "w-60 flex flex-col gap-4 lg:gap-8 items-center lg:px-0 min-w-0",
         className,
       )}
     >
@@ -25,16 +25,17 @@ type RowProps = {
   children: ReactNode;
   index: number;
   className?: string;
+  fullSpan?: boolean;
 };
 
-function Row({ children, index, className }: RowProps) {
+function Row({ children, index, className, fullSpan = false }: RowProps) {
   const position = index % 2 === 0 ? "flex-row-reverse" : "flex-row";
 
   return (
     <div
       className={cn(
         "w-full min-w-0 relative flex items-center",
-        position,
+        fullSpan ? "justify-center" : position,
         className,
       )}
     >
@@ -64,6 +65,48 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
           <CompletionRibbon lessonState={state} />
         </div>
+        {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
+      </LudoButton>
+    );
+  },
+);
+
+type GuidedButtonProps = React.ComponentPropsWithoutRef<"button"> & {
+  state: LessonStatus;
+  title: string;
+  dataTestId?: string;
+  isCurrent?: boolean;
+};
+
+const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
+  ({ dataTestId, state, title, isCurrent, className, ...props }, ref) => {
+    const isLocked = state === "LOCKED";
+
+    return (
+      <LudoButton
+        data-testid={dataTestId}
+        ref={ref}
+        selected={isCurrent}
+        clickable={false}
+        className={cn(
+          "relative w-full hover:cursor-pointer mt-4 h-20 px-3",
+          className,
+        )}
+        {...props}
+      >
+        <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+          <CompletionRibbon lessonState={state} />
+        </div>
+
+        <div className="flex flex-col  justify-start items-start gap-2 text-ludo-background">
+          <span className="rounded-md bg-ludo-white/80 px-1.5 py-0.5 text-[10px] font-bold leading-none tracking-wide">
+            GUIDED
+          </span>
+          <span className="max-w-[70%] truncate text-right text-xs font-semibold leading-none">
+            {title}
+          </span>
+        </div>
+
         {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
     );
@@ -101,6 +144,7 @@ const NextButton = React.forwardRef<HTMLButtonElement, NextButtonProps>(
 type LudoPathComponent = React.FC<LudoPathProps> & {
   Row: typeof Row;
   Button: typeof Button;
+  GuidedButton: typeof GuidedButton;
   NextButton: typeof NextButton;
 };
 
@@ -108,4 +152,5 @@ export const LudoPath = Object.assign(LudoPathRoot, {
   Row,
   NextButton,
   Button,
+  GuidedButton,
 }) as LudoPathComponent;
