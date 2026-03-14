@@ -19,17 +19,13 @@ export function useProject({ project }: Args): UseProjectResponse {
     throw new Error("project must have at least one file");
   }
 
-  const entryFileId =
-    project.entryFileId ?? project.files[0]?.id ?? project.files[0]?.tempId;
-
-  if (!entryFileId) {
-    throw new Error("project must have at least one file");
-  }
+  const [entryFileId, setEntryFileId] = useState(initialEntryId);
 
   const { projectLanguage } = project;
   const { base, extension } = projectLanguage;
 
   const [current, setCurrent] = useState(0);
+  const [editorEpoch, setEditorEpoch] = useState(0);
 
   const deleteFile = useCallback(
     (path: string) => {
@@ -115,6 +111,26 @@ export function useProject({ project }: Args): UseProjectResponse {
     });
   }, []);
 
+  const resetToSnapshot = useCallback((snapshot: ProjectSnapshot) => {
+    const nextFiles = snapshot.files.map((f) => ({ ...f }));
+    if (nextFiles.length === 0) return;
+
+    const nextEntryId =
+      snapshot.entryFileId ?? nextFiles[0]?.id ?? nextFiles[0]?.tempId;
+
+    if (!nextEntryId) return;
+
+    setFiles(nextFiles);
+    setEntryFileId(nextEntryId);
+    setEditorEpoch((prev) => prev + 1);
+
+    const nextCurrentIndex = Math.max(
+      0,
+      nextFiles.findIndex((f) => (f.id ?? f.tempId ?? "") === nextEntryId),
+    );
+    setCurrent(nextCurrentIndex);
+  }, []);
+
   const active = files[current];
   const currentFileId: string | null = active.id ?? null;
 
@@ -122,6 +138,7 @@ export function useProject({ project }: Args): UseProjectResponse {
     project,
     files,
     current,
+    editorEpoch,
     currentFileId,
     active: active,
     setCurrent,
@@ -130,6 +147,7 @@ export function useProject({ project }: Args): UseProjectResponse {
     deleteFile,
     renameFile,
     addFile,
+    resetToSnapshot,
   };
 }
 
@@ -137,6 +155,7 @@ export type UseProjectResponse = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
   current: number;
+  editorEpoch: number;
   currentFileId: string | null;
   active: ProjectFileSnapshot;
   entryFileId: string;
@@ -145,4 +164,5 @@ export type UseProjectResponse = {
   deleteFile: (path: string) => void;
   renameFile: (oldPath: string, newNameRaw: string) => void;
   addFile: () => void;
+  resetToSnapshot: (snapshot: ProjectSnapshot) => void;
 };

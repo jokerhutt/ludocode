@@ -15,7 +15,7 @@ export function ProjectEditor({
   isMarkedForDeletion = false,
   onExecuteAction,
 }: ProjectEditorProps) {
-  const { active, updateContent } = useProjectContext();
+  const { active, updateContent, editorEpoch } = useProjectContext();
   const { content, language, path } = active;
   const { runCode } = useCodeRunnerContext();
   const executeActionRef = useRef(onExecuteAction);
@@ -52,7 +52,7 @@ export function ProjectEditor({
 
   return (
     <Editor
-      key={path}
+      key={`${path}:${editorEpoch}`}
       path={path}
       height="100%"
       theme="custom-theme"

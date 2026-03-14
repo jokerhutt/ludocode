@@ -25,11 +25,18 @@ export function GuidedExecutableWorkbench({
   const {
     currentExercise,
     phase,
+    isReviewing,
+    reviewSubmissionSnapshot,
+    workingSnapshot,
+    setWorkingSnapshot,
+    resetSnapshot,
+    canGoBack,
+    goBack,
     stageExecutableAttempt,
     commitExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
-  const { project, files, entryFileId } = useProjectContext();
+  const { project, files, entryFileId, resetToSnapshot } = useProjectContext();
   const { runCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const { isRunning, outputLog } = outputInfo;
@@ -39,7 +46,53 @@ export function GuidedExecutableWorkbench({
   const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
     string | null
   >(null);
+  const [isEditorReadOnly, setIsEditorReadOnly] = useState(false);
   const outputCountBeforeRunRef = useRef(0);
+  const appliedReviewSnapshotForExerciseId = useRef<string | null>(null);
+  const appliedWorkingSnapshotForExerciseId = useRef<string | null>(null);
+
+  const buildCurrentSnapshot = useCallback((): ProjectSnapshot => {
+    return {
+      ...project,
+      files: files.map((file) => ({ ...file })),
+      entryFileId,
+    };
+  }, [project, files, entryFileId]);
+
+  useEffect(() => {
+    if (isReviewing) return;
+    setWorkingSnapshot(buildCurrentSnapshot());
+  }, [isReviewing, buildCurrentSnapshot, setWorkingSnapshot]);
+
+  useEffect(() => {
+    if (isReviewing && reviewSubmissionSnapshot) {
+      if (appliedReviewSnapshotForExerciseId.current !== currentExercise.id) {
+        resetToSnapshot(reviewSubmissionSnapshot);
+        appliedReviewSnapshotForExerciseId.current = currentExercise.id;
+      }
+      setIsEditorReadOnly(true);
+      return;
+    }
+
+    if (
+      appliedReviewSnapshotForExerciseId.current ||
+      appliedWorkingSnapshotForExerciseId.current !== currentExercise.id
+    ) {
+      if (workingSnapshot) {
+        resetToSnapshot(workingSnapshot);
+      }
+      appliedWorkingSnapshotForExerciseId.current = currentExercise.id;
+    }
+
+    appliedReviewSnapshotForExerciseId.current = null;
+    setIsEditorReadOnly(false);
+  }, [
+    isReviewing,
+    reviewSubmissionSnapshot,
+    resetToSnapshot,
+    currentExercise.id,
+    workingSnapshot,
+  ]);
 
   useEffect(() => {
     if (!awaitingValidation || isRunning) return;
@@ -129,6 +182,17 @@ export function GuidedExecutableWorkbench({
     EXECUTE_ACTION: runOrAdvance,
   });
 
+  const resetToPreviousSnapshot = useCallback(() => {
+    if (!resetSnapshot) return;
+    resetToSnapshot(resetSnapshot);
+    setWorkingSnapshot({
+      ...resetSnapshot,
+      files: resetSnapshot.files.map((file) => ({ ...file })),
+    });
+    setIncorrectFeedbackOpen(false);
+    setIncorrectFeedbackMessage(null);
+  }, [resetSnapshot, resetToSnapshot, setWorkingSnapshot]);
+
   return (
     <div className="grid col-span-full min-h-0 grid-cols-12">
       <GuidedExerciseTreePane
@@ -144,9 +208,14 @@ export function GuidedExecutableWorkbench({
         incorrectFeedbackOpen={incorrectFeedbackOpen}
         incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
+        canGoBack={canGoBack}
+        onGoBack={goBack}
+        onReset={resetToPreviousSnapshot}
+        canReset={!!resetSnapshot && !isEditorReadOnly}
+        isEditorReadOnly={isEditorReadOnly}
       />
 
-      <WorkbenchOutputPane successColorVariant="alt"/>
+      <WorkbenchOutputPane successColorVariant="alt" />
     </div>
   );
 }

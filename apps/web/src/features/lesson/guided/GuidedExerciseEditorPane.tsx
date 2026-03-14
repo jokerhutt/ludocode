@@ -5,9 +5,9 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
-import { X } from "lucide-react";
 import type { ExercisePhase } from "../zones/LessonFooter";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
+import { RotateCcwIcon } from "lucide-react";
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
@@ -17,6 +17,11 @@ type GuidedExerciseEditorPaneProps = {
   incorrectFeedbackOpen: boolean;
   incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
+  canGoBack: boolean;
+  onGoBack: () => void;
+  onReset: () => void;
+  canReset: boolean;
+  isEditorReadOnly: boolean;
 };
 
 export function GuidedExerciseEditorPane({
@@ -27,6 +32,11 @@ export function GuidedExerciseEditorPane({
   incorrectFeedbackOpen,
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
+  canGoBack,
+  onGoBack,
+  onReset,
+  canReset,
+  isEditorReadOnly,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
@@ -55,7 +65,10 @@ export function GuidedExerciseEditorPane({
         </LudoTab.Group>
       </Workbench.Pane.Winbar>
 
-      <ProjectEditor onExecuteAction={runOrAdvance} />
+      <ProjectEditor
+        onExecuteAction={runOrAdvance}
+        isMarkedForDeletion={isEditorReadOnly}
+      />
 
       {(showCorrectFeedback || showIncorrectFeedback) && (
         <GuidedProjectFeedbackPopover
@@ -66,19 +79,47 @@ export function GuidedExerciseEditorPane({
         />
       )}
 
-      <LudoButton
-        data-testid="guided-run-code-button"
-        onClick={runOrAdvance}
-        isLoading={isRunning}
-        variant="alt"
-        disabled={buttonDisabled}
-        className={cn(
-          "absolute text-lg font-bold z-10 w-48 h-10 max-w-48 min-w-48 py-0.5 px-8 bottom-10 right-10",
-          phase !== "DEFAULT" && "w-56 max-w-56 min-w-56",
-        )}
-      >
-        {buttonText}
-      </LudoButton>
+      <div className="absolute bottom-10 w-full px-10 z-10 flex items-center justify-between gap-2">
+        <div className="flex gap-4 items-center h-10">
+          <LudoButton
+            type="button"
+            variant="default"
+            shadow={false}
+            disabled={!canGoBack}
+            onClick={onGoBack}
+            className="h-10 px-4"
+          >
+            BACK
+          </LudoButton>
+
+          <LudoButton
+            type="button"
+            variant="default"
+            shadow={false}
+            disabled={isRunning || !canReset}
+            onClick={onReset}
+            className="h-10 px-4"
+          >
+            <RotateCcwIcon className="h-4 w-4"/>
+          </LudoButton>
+        </div>
+        <div className="h-10 flex items-center">
+          <LudoButton
+            data-testid="guided-run-code-button"
+            onClick={runOrAdvance}
+            isLoading={isRunning}
+            variant="alt"
+            shadow={false}
+            disabled={buttonDisabled}
+            className={cn(
+              "h-10 py-0.5 px-4 min-w-34",
+              phase !== "DEFAULT" && "",
+            )}
+          >
+            {buttonText}
+          </LudoButton>
+        </div>
+      </div>
     </Workbench.Pane>
   );
 }
