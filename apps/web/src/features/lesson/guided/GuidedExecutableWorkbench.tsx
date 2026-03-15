@@ -149,14 +149,14 @@ export function GuidedExecutableWorkbench({
     });
 
   return (
-    <div className="grid lg:grid-rows-[1fr] grid-rows-[1fr_auto] col-span-full min-h-0 grid-cols-12">
+    <div className="flex flex-col lg:flex-row min-h-0 w-full col-span-full">
       <GuidedExerciseTreePane
         currentExercise={currentExercise}
         showBlockOutput={showBlockOutput}
         className={cn(
-          mobilePane === "instructions" ? "col-span-12" : "hidden",
+          mobilePane === "instructions" ? "flex-1" : "hidden",
           "transform-none transition-none animate-none",
-          "lg:flex lg:flex-col",
+          "lg:flex lg:flex-col lg:flex-1",
         )}
       />
 
@@ -168,9 +168,9 @@ export function GuidedExecutableWorkbench({
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
         isEditorReadOnly={isEditorReadOnly}
         className={cn(
-          mobilePane === "code" ? "col-span-12" : "hidden",
+          mobilePane === "code" ? "flex-2" : "hidden",
           "transform-none transition-none animate-none",
-          "lg:flex lg:flex-col",
+          "lg:flex lg:flex-col lg:flex-2",
         )}
       >
         <GuidedLessonActions
@@ -188,13 +188,13 @@ export function GuidedExecutableWorkbench({
       <WorkbenchOutputPane
         successColorVariant="alt"
         className={cn(
-          mobilePane === "output" ? "col-span-12" : "hidden",
+          mobilePane === "output" ? "flex-1" : "hidden",
           "transform-none transition-none animate-none",
-          "lg:flex lg:col-span-3",
+          "lg:flex lg:flex-1",
         )}
       />
 
-      <div className="col-span-12 lg:hidden px-4 py-2 border-t border-ludo-surface">
+      <div className="lg:hidden px-4 py-2 border-t border-ludo-surface">
         <div className="flex items-center justify-between gap-2">
           {(
             [

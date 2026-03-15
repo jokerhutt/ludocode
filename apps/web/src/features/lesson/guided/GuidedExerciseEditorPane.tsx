@@ -37,7 +37,7 @@ export function GuidedExerciseEditorPane({
   return (
     <Workbench.Pane
       className={cn(
-        "col-span-12 relative flex flex-col lg:col-span-6 gap-4 items-stretch justify-start min-w-0",
+        "relative flex flex-col gap-4 items-stretch justify-start min-w-0",
         className,
       )}
     >

@@ -15,7 +15,7 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (
-    <LudoHeader.Shell className="px-6" device="Both">
+    <LudoHeader.Shell className="px-6 lg:border-b-0" device="Both">
       <div className=" col-span-2 lg:col-span-3 flex items-center h-full">
         {onExit && (
           <LeaveUnsavedDialog

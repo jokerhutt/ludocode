@@ -18,7 +18,7 @@ export function GuidedExerciseTreePane({
     <Workbench.Pane
       dataTestId="guided-project-aside-left"
       className={cn(
-        "col-span-12 lg:border-r-2 border-r-ludo-surface lg:col-span-3",
+        "lg:border-r-2 border-r-ludo-surface",
         className,
       )}
     >
