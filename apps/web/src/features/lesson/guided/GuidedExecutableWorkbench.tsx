@@ -1,4 +1,4 @@
-import { useHotkeys } from "@ludocode/hooks";
+import { useHotkeys, useIsMobile } from "@ludocode/hooks";
 import { useLessonContext } from "@/features/lesson/context/useLessonContext";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
@@ -13,11 +13,12 @@ import { GuidedExerciseTreePane } from "./GuidedExerciseTreePane";
 import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GuidedLessonActions } from "./GuidedLessonActions";
 import { useGuidedExerciseNavigation } from "./hooks/useGuidedExerciseNavigation";
 import { useGuidedExerciseReviewState } from "./hooks/useGuidedExerciseReviewState";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
@@ -49,6 +50,11 @@ export function GuidedExecutableWorkbench({
     useState<GuidedMobilePane>("instructions");
   const outputCountBeforeRunRef = useRef(0);
   const { isEditorReadOnly } = useGuidedExerciseReviewState();
+
+  const systemPrompt = useMemo(
+    () => buildProjectSystemPrompt(currentExercise, project),
+    [currentExercise, project],
+  );
 
   useEffect(() => {
     if (!awaitingValidation || isRunning) return;
@@ -153,6 +159,7 @@ export function GuidedExecutableWorkbench({
       <GuidedExerciseTreePane
         currentExercise={currentExercise}
         showBlockOutput={showBlockOutput}
+        systemPrompt={systemPrompt}
         className={cn(
           mobilePane === "instructions" ? "flex-1" : "hidden",
           "transform-none transition-none animate-none",

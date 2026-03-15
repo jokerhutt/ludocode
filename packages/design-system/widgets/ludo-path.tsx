@@ -102,7 +102,6 @@ const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
           GUIDED PROJECT
         </p>
 
-        {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
     );
   },
