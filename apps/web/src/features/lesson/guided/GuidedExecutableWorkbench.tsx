@@ -40,6 +40,7 @@ export function GuidedExecutableWorkbench({
   const { project, files, entryFileId, updateContent } = useProjectContext();
   const { runCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
+  const isMobile = useIsMobile({});
   const { isRunning, outputLog } = outputInfo;
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
@@ -57,6 +58,12 @@ export function GuidedExecutableWorkbench({
   useEffect(() => {
     setIncorrectAttemptCount(0);
   }, [currentExercise.id]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setMobilePane("instructions");
+    }
+  }, [currentExercise.id, isMobile]);
 
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
