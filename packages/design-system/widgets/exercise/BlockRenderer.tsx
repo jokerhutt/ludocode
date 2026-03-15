@@ -4,6 +4,7 @@ import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import { LessonType } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { Dot } from "lucide-react";
 
 const noop = () => {};
 
@@ -91,9 +92,7 @@ export function BlockRenderer({
         <div className="flex flex-col gap-2 w-full lg:max-w-xl">
           {block.instructions.map((step, idx) => (
             <div key={idx} className="flex items-start gap-3">
-              <span className="shrink-0 w-5 h-5 rounded-full bg-ludo-accent-dim flex items-center justify-center text-[10px] text-ludo-white-bright mt-0.5">
-                {idx + 1}
-              </span>
+              <Dot/>
               <p className="text-ludo-white text-sm leading-relaxed">{step}</p>
             </div>
           ))}

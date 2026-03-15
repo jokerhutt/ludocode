@@ -1,6 +1,7 @@
 export type LudoExercise = {
   id: string;
   version: number;
+  body?: string;
   orderIndex: number;
   blocks: Block[];
   interaction?: ExerciseInteraction | null;
