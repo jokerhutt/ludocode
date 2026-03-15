@@ -36,6 +36,7 @@ export const createNewGuidedExerciseTemplate = (
     ],
     interaction: {
       type: "EXECUTABLE",
+      solution: "",
       tests: [
         {
           type: "FILE_PATTERN_MATCHES",

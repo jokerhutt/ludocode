@@ -32,16 +32,18 @@ export function GuidedExecutableWorkbench({
   const {
     currentExercise,
     phase,
+    isReviewing,
     stageExecutableAttempt,
     commitExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
-  const { project, files, entryFileId } = useProjectContext();
+  const { project, files, entryFileId, updateContent } = useProjectContext();
   const { runCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const { isRunning, outputLog } = outputInfo;
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
+  const [incorrectAttemptCount, setIncorrectAttemptCount] = useState(0);
   const [incorrectFeedbackOpen, setIncorrectFeedbackOpen] = useState(false);
   const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
     string | null
@@ -50,6 +52,11 @@ export function GuidedExecutableWorkbench({
     useState<GuidedMobilePane>("instructions");
   const outputCountBeforeRunRef = useRef(0);
   const { isEditorReadOnly } = useGuidedExerciseReviewState();
+
+  // Reset incorrect count when moving to a new exercise
+  useEffect(() => {
+    setIncorrectAttemptCount(0);
+  }, [currentExercise.id]);
 
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
@@ -99,6 +106,7 @@ export function GuidedExecutableWorkbench({
       stageExecutableAttempt(attempt);
     } else {
       commitExecutableAttempt(attempt);
+      setIncorrectAttemptCount((c) => c + 1);
       setIncorrectFeedbackMessage(failedFeedback);
       setIncorrectFeedbackOpen(true);
     }
@@ -143,6 +151,14 @@ export function GuidedExecutableWorkbench({
   useHotkeys({
     EXECUTE_ACTION: runOrAdvance,
   });
+
+  const interaction = currentExercise.interaction;
+  const solution =
+    interaction?.type === "EXECUTABLE" ? interaction.solution : "";
+  const currentCode = files[0]?.content ?? "";
+  const languageId = files[0]?.language.editorId ?? "plaintext";
+  const showSolutionHint =
+    !isReviewing && phase === "DEFAULT" && incorrectAttemptCount >= 2;
 
   const { canGoBack, onGoBack, canReset, onReset } =
     useGuidedExerciseNavigation({
@@ -189,6 +205,16 @@ export function GuidedExecutableWorkbench({
           runnerEnabled={runnerFeature.enabled == true}
           phase={phase}
           isRunning={isRunning}
+          solutionHint={
+            showSolutionHint
+              ? {
+                  currentCode,
+                  solution,
+                  languageId,
+                  onApplySolution: () => updateContent(solution),
+                }
+              : null
+          }
         />
       </GuidedExerciseEditorPane>
 

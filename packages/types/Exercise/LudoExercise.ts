@@ -28,6 +28,7 @@ export type ExerciseInteraction =
     }
   | {
       type: "EXECUTABLE";
+      solution: string;
       tests: ExecutableTest[];
       showOutput: boolean;
     };

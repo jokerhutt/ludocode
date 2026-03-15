@@ -125,6 +125,13 @@ export function ExerciseInteraction({
           Starter files come from the lesson project snapshot.
         </p>
 
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium text-orange-400">Solution</p>
+          <pre className="bg-ludo-surface rounded px-3 py-2 text-xs text-ludo-white-bright font-mono whitespace-pre-wrap wrap-break-word">
+            {interaction.solution || "(empty)"}
+          </pre>
+        </div>
+
         {/* Tests */}
         <div className="flex flex-col gap-2">
           <p className="text-xs font-medium text-orange-400">

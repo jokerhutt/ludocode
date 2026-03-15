@@ -75,18 +75,17 @@ export function applyCourseLanguageToLessonDraft(
 ): CurriculumDraftLessonForm {
   const languageMetadata = resolveCourseLanguage(courseLanguage);
 
+  const normalizedSnapshot = draft.projectSnapshot
+    ? normalizeProjectSnapshotForLessonType(
+        draft.projectSnapshot,
+        draft.lessonType,
+        languageMetadata,
+      )
+    : draft.projectSnapshot;
+
   return {
     ...draft,
-    projectSnapshot: draft.projectSnapshot
-      ? {
-          ...draft.projectSnapshot,
-          projectLanguage: languageMetadata,
-          files: draft.projectSnapshot.files.map((file) => ({
-            ...file,
-            language: languageMetadata,
-          })),
-        }
-      : draft.projectSnapshot,
+    projectSnapshot: normalizedSnapshot,
     exercises: draft.exercises.map((exercise) => ({
       ...exercise,
       blocks: exercise.blocks.map((block) =>
@@ -97,6 +96,36 @@ export function applyCourseLanguageToLessonDraft(
         languageMetadata,
       ),
     })),
+  };
+}
+
+function normalizeProjectSnapshotForLessonType(
+  projectSnapshot: NonNullable<CurriculumDraftLessonForm["projectSnapshot"]>,
+  lessonType: CurriculumDraftLessonForm["lessonType"],
+  languageMetadata: LanguageMetadata,
+): NonNullable<CurriculumDraftLessonForm["projectSnapshot"]> {
+  const normalizedFiles = projectSnapshot.files.map((file) => ({
+    ...file,
+    language: languageMetadata,
+  }));
+
+  if (lessonType !== "GUIDED") {
+    return {
+      ...projectSnapshot,
+      projectLanguage: languageMetadata,
+      files: normalizedFiles,
+    };
+  }
+
+  const guidedFiles = normalizedFiles.slice(0, 1);
+  const firstFile = guidedFiles[0];
+
+  return {
+    ...projectSnapshot,
+    projectLanguage: languageMetadata,
+    files: guidedFiles,
+    entryFileId:
+      firstFile?.id ?? firstFile?.tempId ?? projectSnapshot.entryFileId,
   };
 }
 

@@ -2,6 +2,14 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { RotateCcwIcon } from "lucide-react";
 import type { ExercisePhase } from "../zones/LessonFooter";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { SolutionHintDialog } from "./SolutionHintDialog";
+
+type SolutionHint = {
+  currentCode: string;
+  solution: string;
+  languageId: string;
+  onApplySolution: () => void;
+};
 
 type GuidedLessonActionsProps = {
   canGoBack: boolean;
@@ -12,6 +20,7 @@ type GuidedLessonActionsProps = {
   runOrAdvance: () => void;
   runnerEnabled: boolean;
   phase: ExercisePhase;
+  solutionHint?: SolutionHint | null;
 };
 
 export function GuidedLessonActions({
@@ -23,6 +32,7 @@ export function GuidedLessonActions({
   runnerEnabled,
   runOrAdvance,
   phase,
+  solutionHint,
 }: GuidedLessonActionsProps) {
   const runButtonDisabled =
     isRunning || (phase === "DEFAULT" && !runnerEnabled);
@@ -52,7 +62,8 @@ export function GuidedLessonActions({
           <RotateCcwIcon className="h-4 w-4" />
         </LudoButton>
       </div>
-      <div className="h-10 flex items-center">
+      <div className="h-10 flex items-center gap-2">
+        {solutionHint && <SolutionHintDialog {...solutionHint} />}
         <LudoButton
           data-testid="guided-run-code-button"
           onClick={runOrAdvance}

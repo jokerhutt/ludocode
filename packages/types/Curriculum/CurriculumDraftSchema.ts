@@ -115,7 +115,7 @@ export const ClozeInteractionSchema = z.object({
 
 export const ExecutableFileSchema = z.object({
   id: z.string(),
-  name: z.string().min(1),
+  name: z.string().min(1, "A name is required for the file"),
   language: LanguageDraftValueSchema,
   content: z.string(),
 });
@@ -134,6 +134,7 @@ export const ExecutableTestSchema = z.object({
 export const ExecutableInteractionSchema = z.object({
   type: z.literal("EXECUTABLE"),
   clientId: z.string().uuid().optional(),
+  solution: z.string().min(1, "A sample solution is needed for this exercise"),
   tests: z.array(ExecutableTestSchema).min(1),
   showOutput: z.boolean().optional(),
 });
@@ -192,6 +193,18 @@ export const CurriculumDraftLessonSchema = z
         code: "custom",
         message: "projectSnapshot is only allowed in GUIDED lessons",
         path: ["projectSnapshot"],
+      });
+    }
+
+    if (
+      lesson.lessonType === "GUIDED" &&
+      lesson.projectSnapshot &&
+      lesson.projectSnapshot.files.length !== 1
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require exactly one project file",
+        path: ["projectSnapshot", "files"],
       });
     }
 

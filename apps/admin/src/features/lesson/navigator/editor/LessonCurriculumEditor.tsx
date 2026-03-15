@@ -12,7 +12,6 @@ import {
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
-import { X } from "lucide-react";
 import {
   getDefaultMainFilename,
   resolveCourseLanguage,
@@ -206,19 +205,9 @@ function LessonProjectSnapshotEditor({
                       <p className="text-xs text-orange-300">
                         Files ({files.length})
                       </p>
-                      <ShadowLessButton
-                        type="button"
-                        onClick={() =>
-                          filesField.pushValue({
-                            tempId: crypto.randomUUID(),
-                            path: `file${files.length + 1}.txt`,
-                            language: resolveCourseLanguage(courseLanguage),
-                            content: "",
-                          })
-                        }
-                      >
-                        + Add File
-                      </ShadowLessButton>
+                      <p className="text-[11px] text-ludo-white/60">
+                        Guided lessons use exactly one file.
+                      </p>
                     </div>
 
                     {files.map((_f: unknown, fileIndex: number) => (
@@ -230,15 +219,6 @@ function LessonProjectSnapshotEditor({
                           <p className="text-xs text-ludo-white/70">
                             File {fileIndex + 1}
                           </p>
-                          {files.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => filesField.removeValue(fileIndex)}
-                              className="shrink-0 p-1 rounded hover:bg-ludo-surface text-ludo-white hover:text-red-400 transition-colors"
-                            >
-                              <X className="h-3.5 w-3.5" />
-                            </button>
-                          )}
                         </div>
 
                         <form.Field

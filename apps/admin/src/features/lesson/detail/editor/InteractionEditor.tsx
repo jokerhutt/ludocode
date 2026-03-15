@@ -48,6 +48,7 @@ const createDefaultExecutable = (
 ): CurriculumDraftInteraction => {
   return {
     type: "EXECUTABLE",
+    solution: "",
     tests: [
       {
         type: "OUTPUT_PATTERN_MATCHES",
@@ -666,6 +667,22 @@ function ExecutableInteractionFieldsInner({
       <p className="text-xs text-ludo-white/60">
         Starter files are configured in the lesson project snapshot.
       </p>
+
+      {/* Solution */}
+      <div className="flex flex-col gap-2">
+        <p className="text-xs text-orange-400 font-medium">Solution</p>
+        <form.Field
+          name={`${basePath}.solution`}
+          children={(field: any) => (
+            <Textarea
+              value={String(field.state.value ?? "")}
+              onChange={(e) => field.handleChange(e.target.value)}
+              placeholder="Reference solution code used for this exercise"
+              className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-y font-mono text-sm"
+            />
+          )}
+        />
+      </div>
 
       {/* Tests */}
       <div className="flex flex-col gap-2">
