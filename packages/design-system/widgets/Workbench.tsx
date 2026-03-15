@@ -8,7 +8,7 @@ type WorkbenchProps = {
 
 function WorkbenchRoot({ children, className }: WorkbenchProps) {
   return (
-    <div className={cn("grid grid-cols-12 h-full", className)}>{children}</div>
+    <div className={cn("flex h-full", className)}>{children}</div>
   );
 }
 
@@ -23,7 +23,7 @@ export function Pane({ children, className, dataTestId }: WorkbenchPaneProps) {
     <div
       data-testid={dataTestId}
       className={cn(
-        "col-span-1 min-w-0 w-full min-h-0 bg-ludo-background grid grid-rows-[auto_1fr] lg:col-span-3",
+        "flex-1 min-w-0 w-full min-h-0 bg-ludo-background grid grid-rows-[auto_1fr] lg:col-span-3",
         className,
       )}
     >
