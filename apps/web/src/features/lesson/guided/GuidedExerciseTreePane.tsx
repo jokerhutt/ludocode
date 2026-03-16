@@ -2,11 +2,7 @@ import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRen
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
 import type { LudoExercise } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
-import { mdxComponents } from "@ludocode/ludo-mdx/webdocs/MdxComponents.tsx";
 import { useIsMobile } from "@ludocode/hooks";
-import ReactMarkdown, { type Components } from "react-markdown";
-
-const guidedMarkdownComponents = mdxComponents as unknown as Components;
 
 type GuidedExerciseTreePaneProps = {
   showBlockOutput?: boolean;

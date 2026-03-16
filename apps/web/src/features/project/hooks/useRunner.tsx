@@ -1,13 +1,13 @@
-import { api } from "@/constants/api/api.ts";
+import {
+  createRunnerClient,
+  type RunnerClient,
+} from "@/features/project/runner/runnerClient.ts";
 import type { OutputPacket } from "@ludocode/types/Project/Runner/OutputPacket.ts";
 import type {
   PistonDataMessage,
   PistonErrorMessage,
   PistonMessage,
-  RunnerClientMessage,
   RunnerFile,
-  RunnerRunMessage,
-  RunnerStdinMessage,
 } from "@ludocode/types/Piston/RunnerMessage.ts";
 import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
@@ -49,15 +49,6 @@ function toOutputLines(outputText: string) {
   return outputText.split("\n");
 }
 
-function resolveRunnerSocketUrl() {
-  const runnerUrl = new URL(api.runner.ws, window.location.origin);
-
-  if (runnerUrl.protocol === "http:") runnerUrl.protocol = "ws:";
-  if (runnerUrl.protocol === "https:") runnerUrl.protocol = "wss:";
-
-  return runnerUrl.toString();
-}
-
 function buildRunnerFiles(
   files: ProjectFileSnapshot[],
   entryFileId: string,
@@ -88,8 +79,7 @@ export function useRunner({
   const [isRunning, setIsRunning] = useState(false);
   const [isSocketOpen, setIsSocketOpen] = useState(false);
   const filesRef = useRef<ProjectFileSnapshot[]>(files);
-  const socketRef = useRef<WebSocket | null>(null);
-  const stoppedByUserRef = useRef(false);
+  const clientRef = useRef<RunnerClient | null>(null);
 
   useEffect(() => {
     filesRef.current = files;
@@ -97,8 +87,8 @@ export function useRunner({
 
   useEffect(() => {
     return () => {
-      socketRef.current?.close();
-      socketRef.current = null;
+      clientRef.current?.dispose();
+      clientRef.current = null;
     };
   }, []);
 
@@ -207,16 +197,42 @@ export function useRunner({
   );
 
   const stopCode = useCallback(() => {
-    if (!socketRef.current) return;
+    if (!clientRef.current) return;
 
-    stoppedByUserRef.current = true;
     setIsSocketOpen(false);
-    socketRef.current.close();
-    socketRef.current = null;
+    clientRef.current.stop();
   }, []);
 
+  const createClient = useCallback(() => {
+    return createRunnerClient({
+      onOpen: () => {
+        setIsSocketOpen(true);
+      },
+
+      onMessage: (message) => {
+        handleIncomingMessage(message);
+      },
+
+      onClose: ({ stoppedByUser }) => {
+        clientRef.current = null;
+        setIsSocketOpen(false);
+
+        if (stoppedByUser) {
+          finalizeRunStopped();
+          return;
+        }
+
+        finalizeRunWithError("Runner connection closed.");
+      },
+
+      onConnectionError: (message) => {
+        finalizeRunWithError(message);
+      },
+    });
+  }, [finalizeRunStopped, finalizeRunWithError, handleIncomingMessage]);
+
   const runCode = useCallback(() => {
-    if (socketRef.current || isRunning) return;
+    if (clientRef.current?.hasSocket() || isRunning) return;
     if (disabled) {
       console.warn("Code execution is disabled");
       return;
@@ -225,72 +241,22 @@ export function useRunner({
     if (!filesRef.current || filesRef.current.length === 0) return;
 
     const runnerFiles = buildRunnerFiles(filesRef.current, entryFileId);
-    const socket = new WebSocket(resolveRunnerSocketUrl());
-    socketRef.current = socket;
-    stoppedByUserRef.current = false;
+    const client = createClient();
+
+    clientRef.current = client;
     setIsRunning(true);
     setOutputLog((prev) => [...prev, createOutputPacket()]);
-
-    socket.onopen = () => {
-      setIsSocketOpen(true);
-
-      const runMessage: RunnerRunMessage = {
-        type: "run",
-        files: runnerFiles,
-      };
-
-      const message: RunnerClientMessage = runMessage;
-      socket.send(JSON.stringify(message));
-    };
-
-    socket.onmessage = (event) => {
-      if (typeof event.data !== "string") {
-        finalizeRunWithError("Runner returned an unreadable response.");
-        socket.close();
-        return;
-      }
-
-      try {
-        const message = JSON.parse(event.data) as PistonMessage;
-        handleIncomingMessage(message);
-
-        if (message.type === "exit" || message.type === "error") {
-          socket.close();
-        }
-      } catch {
-        finalizeRunWithError("Runner returned an invalid response.");
-        socket.close();
-      }
-    };
-
-    socket.onerror = () => {
-      finalizeRunWithError("Runner connection error.");
-    };
-
-    socket.onclose = () => {
-      socketRef.current = null;
-      setIsSocketOpen(false);
-
-      if (stoppedByUserRef.current) {
-        stoppedByUserRef.current = false;
-        finalizeRunStopped();
-        return;
-      }
-
-      finalizeRunWithError("Runner connection closed.");
-    };
+    client.run(runnerFiles);
   }, [
+    createClient,
     isRunning,
     project.projectId,
     entryFileId,
     disabled,
-    finalizeRunStopped,
-    finalizeRunWithError,
-    handleIncomingMessage,
   ]);
 
   const sendStdin = useCallback((text: string) => {
-    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
+    if (!clientRef.current) {
       return false;
     }
 
@@ -299,18 +265,13 @@ export function useRunner({
       stream: "stdout",
       data: `> ${text}`,
     };
-    const stdinMessage: RunnerStdinMessage = {
-      type: "stdin",
-      text,
-    };
-    const message: RunnerClientMessage = stdinMessage;
 
     updateActivePacket((packet) => ({
       ...packet,
       messages: [...packet.messages, echoedInput],
     }));
-    socketRef.current.send(JSON.stringify(message));
-    return true;
+
+    return clientRef.current.sendStdin(text);
   }, [updateActivePacket]);
 
   const activePacket = outputLog[outputLog.length - 1];
