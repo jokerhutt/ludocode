@@ -15,7 +15,7 @@ export function WorkbenchPage() {
 
   return (
     <div className="flex min-h-0">
-      <WorkbenchTreePane/>
+      <WorkbenchTreePane />
       <CodeRunnerProvider
         project={project}
         files={files}
@@ -23,7 +23,7 @@ export function WorkbenchPage() {
         entryFileId={entryFileId}
       >
         <>
-          <Workbench.Pane className="flex-2 relative flex flex-col  gap-4 items-stretch justify-start min-w-0">
+          <Workbench.Pane className="flex-[2] relative flex flex-col  gap-4 items-stretch justify-start min-w-0">
             <Workbench.Pane.Winbar>
               <LudoTab.Group>
                 {current !== null && current !== undefined && (

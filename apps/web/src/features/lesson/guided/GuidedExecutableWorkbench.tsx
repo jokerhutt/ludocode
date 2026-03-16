@@ -198,9 +198,9 @@ export function GuidedExecutableWorkbench({
         onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
         isEditorReadOnly={isEditorReadOnly}
         className={cn(
-          mobilePane === "code" ? "flex-2" : "hidden",
+          mobilePane === "code" ? "flex-[2]" : "hidden",
           "transform-none transition-none animate-none",
-          "lg:flex lg:flex-col lg:flex-2",
+          "lg:flex lg:flex-col lg:flex-[2]",
         )}
       >
         <GuidedLessonActions
