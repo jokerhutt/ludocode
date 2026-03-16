@@ -80,7 +80,6 @@ type GuidedButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 
 const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
   ({ dataTestId, state, title, isCurrent, className, ...props }, ref) => {
-    const isLocked = state === "LOCKED";
 
     return (
       <LudoButton

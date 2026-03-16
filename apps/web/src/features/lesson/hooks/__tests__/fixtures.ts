@@ -9,6 +9,7 @@ const e3Id = crypto.randomUUID();
 export const l1: LudoLesson = {
   id: l1Id,
   title: "Adding numbers in Python",
+  lessonType: "NORMAL",
   orderIndex: 1,
   isCompleted: false,
 };

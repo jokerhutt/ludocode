@@ -2,7 +2,7 @@ import type { Block } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
-import { LessonType } from "@ludocode/types";
+import { type LessonType } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { Dot } from "lucide-react";
 
