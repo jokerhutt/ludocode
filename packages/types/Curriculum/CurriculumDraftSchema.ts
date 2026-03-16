@@ -168,6 +168,7 @@ export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
 export const CurriculumDraftExerciseSchema = z.object({
   exerciseId: z.string(),
   blocks: z.array(BlockSchema),
+  body: z.string().nullable().optional(),
   interaction: ExerciseInteractionSchema.nullable().optional(),
 });
 
@@ -226,6 +227,34 @@ export const CurriculumDraftLessonSchema = z
           message: "EXECUTABLE interaction is only allowed in GUIDED lessons",
           path: ["exercises", i, "interaction"],
         });
+      }
+
+      if (lesson.lessonType === "GUIDED") {
+        const instructionsBlock = ex.blocks[0];
+
+        if (
+          ex.blocks.length !== 1 ||
+          instructionsBlock?.type !== "instructions"
+        ) {
+          ctx.addIssue({
+            code: "custom",
+            message:
+              "GUIDED lessons require exactly one instructions block in every exercise",
+            path: ["exercises", i, "blocks"],
+          });
+        }
+
+        if (
+          instructionsBlock?.type === "instructions" &&
+          instructionsBlock.instructions.length < 1
+        ) {
+          ctx.addIssue({
+            code: "custom",
+            message:
+              "GUIDED lessons require at least one instruction in every exercise",
+            path: ["exercises", i, "blocks", 0, "instructions"],
+          });
+        }
       }
     });
   });

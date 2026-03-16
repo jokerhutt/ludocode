@@ -56,6 +56,37 @@ export const BlocksEditor = withForm({
   },
   render: function Render({ form, exerciseIndex, courseLanguage }) {
     const blocksPath = `exercises[${exerciseIndex}].blocks` as const;
+    const lessonType = form.state.values.lessonType;
+    const isGuided = lessonType === "GUIDED";
+    const exerciseBlocks =
+      form.state.values.exercises[exerciseIndex]?.blocks ?? [];
+
+    useEffect(() => {
+      if (!isGuided) return;
+
+      const firstInstructionsBlock = exerciseBlocks.find(
+        (block: CurriculumDraftBlock) => block.type === "instructions",
+      );
+
+      const normalizedInstructions = {
+        clientId: firstInstructionsBlock?.clientId ?? crypto.randomUUID(),
+        type: "instructions" as const,
+        instructions:
+          firstInstructionsBlock &&
+          firstInstructionsBlock.instructions.length > 0
+            ? firstInstructionsBlock.instructions
+            : [""],
+      };
+
+      const shouldNormalize =
+        exerciseBlocks.length !== 1 ||
+        exerciseBlocks[0]?.type !== "instructions" ||
+        exerciseBlocks[0].instructions.length < 1;
+
+      if (shouldNormalize) {
+        form.setFieldValue(blocksPath, [normalizedInstructions]);
+      }
+    }, [blocksPath, exerciseBlocks, form, isGuided]);
 
     return (
       <div className="flex flex-col gap-4">
@@ -87,7 +118,7 @@ export const BlocksEditor = withForm({
                             </span>
 
                             <div className="flex items-center gap-1">
-                              {blockIndex > 0 && (
+                              {!isGuided && blockIndex > 0 && (
                                 <button
                                   type="button"
                                   onClick={() =>
@@ -101,7 +132,7 @@ export const BlocksEditor = withForm({
                                 </button>
                               )}
 
-                              {blockIndex < blocks.length - 1 && (
+                              {!isGuided && blockIndex < blocks.length - 1 && (
                                 <button
                                   type="button"
                                   onClick={() =>
@@ -115,14 +146,16 @@ export const BlocksEditor = withForm({
                                 </button>
                               )}
 
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  blocksField.removeValue(blockIndex)
-                                }
-                              >
-                                <X className="h-3.5 w-3.5" />
-                              </button>
+                              {!isGuided && (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    blocksField.removeValue(blockIndex)
+                                  }
+                                >
+                                  <X className="h-3.5 w-3.5" />
+                                </button>
+                              )}
                             </div>
                           </div>
 
@@ -138,29 +171,31 @@ export const BlocksEditor = withForm({
                   </div>
                 )}
               </form.Subscribe>
-              <Select
-                value=""
-                onValueChange={(type: BlockType) =>
-                  blocksField.pushValue(
-                    createBlockTemplate(type, courseLanguage),
-                  )
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="+ Add Block" />
-                </SelectTrigger>
-                <SelectContent className="bg-ludo-surface">
-                  {BLOCK_TYPES.map((bt) => (
-                    <SelectItem
-                      className={`${blockTypeColor[bt.value]}`}
-                      key={bt.value}
-                      value={bt.value}
-                    >
-                      {bt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {!isGuided && (
+                <Select
+                  value=""
+                  onValueChange={(type: BlockType) =>
+                    blocksField.pushValue(
+                      createBlockTemplate(type, courseLanguage),
+                    )
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="+ Add Block" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-ludo-surface">
+                    {BLOCK_TYPES.map((bt) => (
+                      <SelectItem
+                        className={`${blockTypeColor[bt.value]}`}
+                        key={bt.value}
+                        value={bt.value}
+                      >
+                        {bt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </>
           )}
         </form.Field>

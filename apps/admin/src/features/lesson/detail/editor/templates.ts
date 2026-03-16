@@ -22,12 +22,8 @@ export const createNewGuidedExerciseTemplate = (
 ): CurriculumDraftLessonExercise => {
   return {
     exerciseId: crypto.randomUUID(),
+    body: null,
     blocks: [
-      {
-        clientId: crypto.randomUUID(),
-        type: "header",
-        content: "Untitled Exercise",
-      },
       {
         clientId: crypto.randomUUID(),
         type: "instructions",
