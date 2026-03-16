@@ -8,7 +8,6 @@ import type { OnboardingSubmission } from "@ludocode/types/Onboarding/Onboarding
 import { type ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProjectRequest.ts";
 import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
-import type { RunnerResult } from "@ludocode/types/Project/Runner/RunnerResult.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
 import {
   ludoPut,
@@ -71,18 +70,6 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPost<void, FeedbackRequest>(
           api.feedback.base,
-          variables,
-          true,
-        ),
-    });
-  },
-
-  runCode: () => {
-    return mutationOptions<RunnerResult, Error, ProjectSnapshot>({
-      mutationKey: ["runCode"],
-      mutationFn: (variables) =>
-        ludoPost<RunnerResult, ProjectSnapshot>(
-          api.runner.execute,
           variables,
           true,
         ),

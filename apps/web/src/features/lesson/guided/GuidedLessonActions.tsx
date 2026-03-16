@@ -34,8 +34,13 @@ export function GuidedLessonActions({
   phase,
   solutionHint,
 }: GuidedLessonActionsProps) {
-  const runButtonDisabled =
-    isRunning || (phase === "DEFAULT" && !runnerEnabled);
+  const runButtonDisabled = phase === "DEFAULT" && !runnerEnabled;
+  const actionLabel =
+    phase === "CORRECT" && !isRunning
+      ? "CONTINUE"
+      : isRunning
+        ? "STOP"
+        : "SUBMIT ⌘+⏎";
 
   return (
     <>
@@ -67,13 +72,12 @@ export function GuidedLessonActions({
         <LudoButton
           data-testid="guided-run-code-button"
           onClick={runOrAdvance}
-          isLoading={isRunning}
-          variant="alt"
+          variant={isRunning ? "danger" : "alt"}
           shadow={false}
           disabled={runButtonDisabled}
           className={cn("h-10 py-0.5 px-4 min-w-34", phase !== "DEFAULT" && "")}
         >
-          {phase === "CORRECT" ? "CONTINUE" : "SUBMIT ⌘+⏎"}
+          {actionLabel}
         </LudoButton>
       </div>
     </>

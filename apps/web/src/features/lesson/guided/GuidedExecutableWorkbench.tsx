@@ -38,7 +38,7 @@ export function GuidedExecutableWorkbench({
     handleExerciseButtonClick,
   } = useLessonContext();
   const { project, files, entryFileId, updateContent } = useProjectContext();
-  const { runCode, outputInfo } = useCodeRunnerContext();
+  const { runCode, stopCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
   const { isRunning, outputLog } = outputInfo;
@@ -75,7 +75,7 @@ export function GuidedExecutableWorkbench({
     if (outputLog.length <= outputCountBeforeRunRef.current) return;
 
     const latest = outputLog[outputLog.length - 1];
-    const output = latest.output.join("\n");
+    const output = latest.outputText;
     const isCorrect = evaluateExecutableTests({
       tests,
       output,
@@ -132,14 +132,18 @@ export function GuidedExecutableWorkbench({
   ]);
 
   const runOrAdvance = useCallback(() => {
-    if (isRunning) return;
-
     if (phase !== "DEFAULT") {
       handleExerciseButtonClick();
       return;
     }
 
     if (!runnerFeature.enabled) return;
+
+    if (isRunning) {
+      setAwaitingValidation(false);
+      stopCode();
+      return;
+    }
 
     setIncorrectFeedbackOpen(false);
     setIncorrectFeedbackMessage(null);
@@ -151,6 +155,7 @@ export function GuidedExecutableWorkbench({
     phase,
     handleExerciseButtonClick,
     runnerFeature.enabled,
+    stopCode,
     outputLog.length,
     runCode,
   ]);

@@ -2,6 +2,7 @@ import {
   CheckCircle2Icon,
   ChevronDownIcon,
   ChevronRightIcon,
+  LoaderCircleIcon,
   XCircleIcon,
 } from "lucide-react";
 import { cn } from "../cn-utils";
@@ -12,7 +13,7 @@ import { createContext, useContext, useState } from "react";
 type LudoLogContextType = {
   collapsed: boolean;
   toggle: () => void;
-  error: boolean;
+  status: "pending" | "success" | "error";
   collapsible: boolean;
 };
 
@@ -26,12 +27,12 @@ function useLudoLog() {
 
 function Root({
   children,
-  error = false,
+  status = "success",
   collapsible = true,
   defaultCollapsed = false,
 }: {
   children: ReactNode;
-  error?: boolean;
+  status?: "pending" | "success" | "error";
   collapsible?: boolean;
   defaultCollapsed?: boolean;
 }) {
@@ -43,11 +44,11 @@ function Root({
   };
 
   return (
-    <LudoLogContext.Provider value={{ collapsed, toggle, error, collapsible }}>
+    <LudoLogContext.Provider value={{ collapsed, toggle, status, collapsible }}>
       <div
         className={cn(
           "w-full border-b border-white/5",
-          error ? "bg-red-950/20" : "bg-transparent",
+          status === "error" ? "bg-red-950/20" : "bg-transparent",
         )}
       >
         {children}
@@ -64,12 +65,18 @@ type TriggerProps = {
 };
 
 function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
-  const { collapsed, toggle, error, collapsible } = useLudoLog();
+  const { collapsed, toggle, status, collapsible } = useLudoLog();
   if (!collapsible) return null;
   const successColor =
     successColorVariant === "default"
       ? "text-emerald-400"
       : "text-ludo-accent-muted";
+  const statusColor =
+    status === "error"
+      ? "text-red-400"
+      : status === "pending"
+        ? "text-amber-300"
+        : successColor;
   return (
     <button
       type="button"
@@ -84,28 +91,53 @@ function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
       ) : (
         <ChevronDownIcon className="w-3.5 h-3.5 text-ludo-white-dim shrink-0" />
       )}
-      {error ? (
+      {status === "error" ? (
         <XCircleIcon className="w-3.5 h-3.5 text-red-400 shrink-0" />
+      ) : status === "pending" ? (
+        <LoaderCircleIcon className="w-3.5 h-3.5 text-amber-300 shrink-0 animate-spin" />
       ) : (
         <CheckCircle2Icon className={cn("w-3.5 h-3.5 shrink-0", successColor)} />
       )}
       <span
         className={cn(
           "text-xs font-medium",
-          error ? "text-red-400" : successColor,
+          statusColor,
         )}
       >
         Run #{position}
       </span>
-      <span className="text-[10px] text-ludo-white-bright/25 ml-auto">
-        {error ? "exited with error" : "success"}
+      <span className="ml-auto grid w-24 text-right text-[10px] text-ludo-white-bright/25">
+        <span
+          className={cn(
+            "col-start-1 row-start-1 transition-opacity duration-150",
+            status === "pending" ? "opacity-100" : "opacity-0",
+          )}
+        >
+          running
+        </span>
+        <span
+          className={cn(
+            "col-start-1 row-start-1 transition-opacity duration-150",
+            status === "success" ? "opacity-100" : "opacity-0",
+          )}
+        >
+          success
+        </span>
+        <span
+          className={cn(
+            "col-start-1 row-start-1 transition-opacity duration-150",
+            status === "error" ? "opacity-100" : "opacity-0",
+          )}
+        >
+          error
+        </span>
       </span>
     </button>
   );
 }
 
 function Content({ children }: { children: ReactNode }) {
-  const { collapsed, error } = useLudoLog();
+  const { collapsed, status } = useLudoLog();
 
   if (collapsed) return null;
 
@@ -114,7 +146,7 @@ function Content({ children }: { children: ReactNode }) {
       <div
         className={cn(
           "rounded-md bg-ludo-surface/30 px-3 py-2 font-mono text-xs",
-          error ? "text-red-300" : "text-ludo-white-bright/90",
+          status === "error" ? "text-red-300" : "text-ludo-white-bright/90",
         )}
       >
         {children}
