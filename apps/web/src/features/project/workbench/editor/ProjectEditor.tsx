@@ -41,7 +41,8 @@ export function ProjectEditor({
     editorRef.current = editor;
 
     editor.onKeyDown((e) => {
-      const isCmdEnter = e.metaKey && e.keyCode === monaco.KeyCode.Enter;
+      const isCmdEnter =
+        (e.metaKey || e.ctrlKey) && e.keyCode === monaco.KeyCode.Enter;
 
       if (isCmdEnter) {
         e.preventDefault();
