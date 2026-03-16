@@ -87,7 +87,7 @@ function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
       {error ? (
         <XCircleIcon className="w-3.5 h-3.5 text-red-400 shrink-0" />
       ) : (
-        <CheckCircle2Icon className={cn("w-3.5 h-3.5shrink-0", successColor)} />
+        <CheckCircle2Icon className={cn("w-3.5 h-3.5 shrink-0", successColor)} />
       )}
       <span
         className={cn(
