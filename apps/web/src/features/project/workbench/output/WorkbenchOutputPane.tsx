@@ -6,7 +6,6 @@ import {
 } from "@ludocode/design-system/widgets/ludo-log.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import type { OutputPacket } from "@ludocode/types/Project/Runner/OutputPacket.ts";
 import { useState } from "react";
 
 type WorkbenchOutputPaneProps = {
