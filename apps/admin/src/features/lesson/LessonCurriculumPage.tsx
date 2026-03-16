@@ -69,13 +69,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
         courseLanguage,
       );
 
-      submitMutation.mutate(normalizedValue, {
-        onSuccess: async (_payload) => {
-          await submitMutation.mutateAsync(normalizedValue);
-          form.reset(normalizedValue);
-          setIsEditing(false);
-        },
-      });
+      await submitMutation.mutateAsync(normalizedValue);
+      form.reset(normalizedValue);
+      setIsEditing(false);
     },
   });
 
