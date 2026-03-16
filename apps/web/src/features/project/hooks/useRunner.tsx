@@ -101,6 +101,7 @@ export function useRunner({
     project.projectLanguage,
     project.projectName,
     entryFileId,
+    disabled,
     runMutation,
   ]);
 
