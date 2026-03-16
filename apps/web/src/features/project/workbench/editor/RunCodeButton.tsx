@@ -18,7 +18,7 @@ export function RunCodeButton({disabled} : {disabled?: boolean}) {
       disabled={disabled}
       className="absolute text-lg font-bold z-10 w-48 h-10 max-w-48 min-w-48 py-0.5 px-8 bottom-10 right-10"
     >
-      {isRunning ? "Stop" : "Run ⌘+⏎"}
+      {isRunning ? "Stop" : "Run"}
     </LudoButton>
   );
 }

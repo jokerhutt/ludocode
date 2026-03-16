@@ -40,7 +40,7 @@ export function GuidedLessonActions({
       ? "CONTINUE"
       : isRunning
         ? "STOP"
-        : "SUBMIT ⌘+⏎";
+        : "SUBMIT";
 
   return (
     <>
