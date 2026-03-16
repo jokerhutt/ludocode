@@ -72,7 +72,7 @@ export function GuidedLessonActions({
         <LudoButton
           data-testid="guided-run-code-button"
           onClick={runOrAdvance}
-          variant={isRunning ? "danger" : "alt"}
+          variant={isRunning ? "default" : "alt"}
           shadow={false}
           disabled={runButtonDisabled}
           className={cn("h-10 py-0.5 px-4 min-w-34", phase !== "DEFAULT" && "")}

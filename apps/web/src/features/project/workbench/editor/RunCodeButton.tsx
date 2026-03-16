@@ -7,7 +7,7 @@ export function RunCodeButton({disabled} : {disabled?: boolean}) {
   const { isRunning } = outputInfo;
 
   useHotkeys({
-    EXECUTE_ACTION: runCode,
+    EXECUTE_ACTION: isRunning ? stopCode : runCode,
   });
 
   return (
