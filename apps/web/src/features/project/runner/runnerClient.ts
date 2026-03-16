@@ -127,6 +127,11 @@ export function createRunnerClient({
     dispose() {
       if (!socket) return;
 
+      socket.onopen = null;
+      socket.onmessage = null;
+      socket.onerror = null;
+      socket.onclose = null;
+
       socket.close();
       clearSocket();
     },

@@ -87,7 +87,7 @@ export function WorkbenchOutputPane({
                 position={runNumber}
               />
               <LudoLog.Content>
-                {log.messages.flatMap(renderMessageLines).map((line, lineIdx) => (
+                {log.output.map((line, lineIdx) => (
                   <LudoLog.Line key={`${logIdx}-${lineIdx}-${line}`} line={line} />
                 ))}
                 {isActiveRun && (
