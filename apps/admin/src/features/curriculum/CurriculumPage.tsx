@@ -71,6 +71,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
         lessons: m.lessons.map((l) => ({
           id: l.id,
           title: l.title,
+          lessonType: l.lessonType ?? "NORMAL",
         })),
       })),
     } satisfies CurriculumDraft,
@@ -272,6 +273,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                               lessons: m.lessons.map((l) => ({
                                 id: l.id,
                                 title: l.title,
+                                lessonType: l.lessonType,
                               })),
                             })),
                           });

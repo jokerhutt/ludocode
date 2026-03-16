@@ -33,7 +33,7 @@ export function useExerciseInput({
 
   const initializeInputs = useCallback(
     (lastAttempt: ExerciseAttempt | null) => {
-      if (lastAttempt) {
+      if (lastAttempt && Array.isArray(lastAttempt.answer)) {
         const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
           typeof a === "string"
             ? { id: undefined, value: a }

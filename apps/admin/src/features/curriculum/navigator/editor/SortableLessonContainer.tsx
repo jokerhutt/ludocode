@@ -11,7 +11,10 @@ import {
 } from "@dnd-kit/sortable";
 import { withForm } from "../../types.ts";
 import { EditorLesson } from "./EditorLesson.tsx";
-import { createNewLessonTemplate } from "../../templates.ts";
+import {
+  createNewGuidedLessonTemplate,
+  createNewLessonTemplate,
+} from "../../templates.ts";
 import { AddCurriculumItemButton } from "./AddModuleButton.tsx";
 
 export const SortableLessonContainer = withForm({
@@ -70,10 +73,20 @@ export const SortableLessonContainer = withForm({
                 </SortableContext>
               </DndContext>
 
-              <AddCurriculumItemButton
-                text="Add Lesson"
-                onAdd={() => lessonsField.pushValue(createNewLessonTemplate())}
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <AddCurriculumItemButton
+                  text="Add Lesson"
+                  onAdd={() =>
+                    lessonsField.pushValue(createNewLessonTemplate())
+                  }
+                />
+                <AddCurriculumItemButton
+                  text="Add Guided Project"
+                  onAdd={() =>
+                    lessonsField.pushValue(createNewGuidedLessonTemplate())
+                  }
+                />
+              </div>
             </div>
           );
         }}

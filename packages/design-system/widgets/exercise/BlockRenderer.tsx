@@ -2,6 +2,9 @@ import type { Block } from "@ludocode/types/Exercise/LudoExercise.ts";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
+import { type LessonType } from "@ludocode/types";
+import { cn } from "@ludocode/design-system/cn-utils";
+import { Dot } from "lucide-react";
 
 const noop = () => {};
 
@@ -34,11 +37,13 @@ const paragraphComponents: Components = {
 export function BlockRenderer({
   block,
   showOutput = false,
+  lessonType = "NORMAL",
   mobile = false,
 }: {
   block: Block;
   showOutput?: boolean;
   mobile?: boolean;
+  lessonType?: LessonType;
 }) {
   switch (block.type) {
     case "header":
@@ -51,7 +56,7 @@ export function BlockRenderer({
       );
     case "paragraph":
       return (
-        <p className="text-ludo-white text-center lg:max-w-xl text-sm sm:text-base leading-relaxed">
+        <p className={cn("lg:max-w-xl text-sm sm:text-base leading-relaxed", lessonType == "NORMAL" ? "text-ludo-white text-center" : "text-ludo-white-bright text-start")}>
           <ReactMarkdown components={paragraphComponents}>
             {block.content}
           </ReactMarkdown>
@@ -82,6 +87,17 @@ export function BlockRenderer({
       );
     case "media":
       return <ExerciseMedia media={block.src} />;
+    case "instructions":
+      return (
+        <div className="flex flex-col gap-2 w-full lg:max-w-xl">
+          {block.instructions.map((step, idx) => (
+            <div key={idx} className="flex items-start gap-3">
+              <Dot/>
+              <p className="text-ludo-white text-sm leading-relaxed">{step}</p>
+            </div>
+          ))}
+        </div>
+      );
     default:
       return null;
   }

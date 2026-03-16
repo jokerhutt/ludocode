@@ -15,7 +15,7 @@ export function useHotkeys(actions: {
 }) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (!e.metaKey) return;
+      if (!(e.metaKey || e.ctrlKey)) return;
 
       switch (e.key) {
         case "Enter":

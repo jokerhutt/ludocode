@@ -56,13 +56,20 @@ function Root({
   );
 }
 
+export type OutputTriggerColorVariant = "default" | "alt"
+
 type TriggerProps = {
   position?: number;
+  successColorVariant?: OutputTriggerColorVariant;
 };
 
-function Trigger({ position }: TriggerProps) {
+function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
   const { collapsed, toggle, error, collapsible } = useLudoLog();
   if (!collapsible) return null;
+  const successColor =
+    successColorVariant === "default"
+      ? "text-emerald-400"
+      : "text-ludo-accent-muted";
   return (
     <button
       type="button"
@@ -80,12 +87,12 @@ function Trigger({ position }: TriggerProps) {
       {error ? (
         <XCircleIcon className="w-3.5 h-3.5 text-red-400 shrink-0" />
       ) : (
-        <CheckCircle2Icon className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+        <CheckCircle2Icon className={cn("w-3.5 h-3.5 shrink-0", successColor)} />
       )}
       <span
         className={cn(
           "text-xs font-medium",
-          error ? "text-red-400" : "text-emerald-400",
+          error ? "text-red-400" : successColor,
         )}
       >
         Run #{position}

@@ -1,5 +1,23 @@
 import { z } from "zod";
 
+const LanguageMetadataSchema = z.object({
+  languageId: z.number(),
+  name: z.string(),
+  slug: z.string(),
+  editorId: z.string(),
+  pistonId: z.string(),
+  runtimeVersion: z.string(),
+  extension: z.string(),
+  base: z.string(),
+  iconName: z.string(),
+  initialScript: z.string(),
+});
+
+const LanguageDraftValueSchema = z.union([
+  z.string().min(1),
+  LanguageMetadataSchema,
+]);
+
 export const curriculumDraftSchema = z.object({
   modules: z.array(
     z.object({
@@ -9,6 +27,7 @@ export const curriculumDraftSchema = z.object({
         z.object({
           id: z.string(),
           title: z.string().min(1, "lesson title required"),
+          lessonType: z.enum(["NORMAL", "GUIDED"]),
         }),
       ),
     }),
@@ -39,6 +58,12 @@ export const ParagraphBlockSchema = z.object({
   content: z.string().min(1, "Paragraph content required"),
 });
 
+export const InstructionsBlockSchema = z.object({
+  ...BaseClient,
+  type: z.literal("instructions"),
+  instructions: z.array(z.string().min(1)).min(1),
+});
+
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
@@ -59,6 +84,7 @@ export const BlockSchema = z.discriminatedUnion("type", [
   ParagraphBlockSchema,
   CodeBlockSchema,
   MediaBlockSchema,
+  InstructionsBlockSchema,
 ]);
 
 // ─── Interaction ───────────────────────────────────────────────────────
@@ -69,7 +95,7 @@ export const InteractionBlankSchema = z.object({
 });
 
 export const InteractionFileSchema = z.object({
-  language: z.string().min(1),
+  language: LanguageDraftValueSchema,
   content: z.string().min(1),
 });
 
@@ -87,9 +113,54 @@ export const ClozeInteractionSchema = z.object({
   output: z.string().nullish(),
 });
 
+export const ExecutableFileSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "A name is required for the file"),
+  language: LanguageDraftValueSchema,
+  content: z.string(),
+});
+
+export const ExecutableTestSchema = z.object({
+  type: z.enum([
+    "OUTPUT_PATTERN_MATCHES",
+    "OUTPUT_CONTAINS",
+    "FILE_CONTAINS",
+    "FILE_PATTERN_MATCHES",
+  ]),
+  feedback: z.string().optional().nullable(),
+  expected: z.string(),
+});
+
+export const ExecutableInteractionSchema = z.object({
+  type: z.literal("EXECUTABLE"),
+  clientId: z.string().uuid().optional(),
+  solution: z.string().min(1, "A sample solution is needed for this exercise"),
+  tests: z.array(ExecutableTestSchema).min(1),
+  showOutput: z.boolean().optional(),
+});
+
+export const ProjectFileSnapshotSchema = z.object({
+  id: z.string().optional(),
+  tempId: z.string().optional(),
+  path: z.string().min(1),
+  language: LanguageDraftValueSchema,
+  content: z.string(),
+});
+
+export const ProjectSnapshotSchema = z.object({
+  projectId: z.string(),
+  projectName: z.string(),
+  projectLanguage: LanguageDraftValueSchema,
+  deleteAt: z.string().optional().nullable(),
+  updatedAt: z.number().optional(),
+  files: z.array(ProjectFileSnapshotSchema).min(1),
+  entryFileId: z.string(),
+});
+
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
   SelectInteractionSchema,
   ClozeInteractionSchema,
+  ExecutableInteractionSchema,
 ]);
 
 // ─── Exercise ──────────────────────────────────────────────────────────
@@ -97,14 +168,96 @@ export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
 export const CurriculumDraftExerciseSchema = z.object({
   exerciseId: z.string(),
   blocks: z.array(BlockSchema),
+  body: z.string().nullable().optional(),
   interaction: ExerciseInteractionSchema.nullable().optional(),
 });
 
 // ─── lesson ────────────────────────────────────────────────────────────
 
-export const CurriculumDraftLessonSchema = z.object({
-  exercises: z.array(CurriculumDraftExerciseSchema),
-});
+export const CurriculumDraftLessonSchema = z
+  .object({
+    lessonType: z.enum(["NORMAL", "GUIDED"]),
+    projectSnapshot: ProjectSnapshotSchema.nullable().optional(),
+    exercises: z.array(CurriculumDraftExerciseSchema),
+  })
+  .superRefine((lesson, ctx) => {
+    if (lesson.lessonType === "GUIDED" && !lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require a projectSnapshot",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (lesson.lessonType === "NORMAL" && lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "projectSnapshot is only allowed in GUIDED lessons",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (
+      lesson.lessonType === "GUIDED" &&
+      lesson.projectSnapshot &&
+      lesson.projectSnapshot.files.length !== 1
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require exactly one project file",
+        path: ["projectSnapshot", "files"],
+      });
+    }
+
+    lesson.exercises.forEach((ex, i) => {
+      const interactionType = ex.interaction?.type;
+
+      if (lesson.lessonType === "GUIDED" && interactionType !== "EXECUTABLE") {
+        ctx.addIssue({
+          code: "custom",
+          message:
+            "GUIDED lessons require EXECUTABLE interaction in every exercise",
+          path: ["exercises", i, "interaction"],
+        });
+      }
+
+      if (lesson.lessonType === "NORMAL" && interactionType === "EXECUTABLE") {
+        ctx.addIssue({
+          code: "custom",
+          message: "EXECUTABLE interaction is only allowed in GUIDED lessons",
+          path: ["exercises", i, "interaction"],
+        });
+      }
+
+      if (lesson.lessonType === "GUIDED") {
+        const instructionsBlock = ex.blocks[0];
+
+        if (
+          ex.blocks.length !== 1 ||
+          instructionsBlock?.type !== "instructions"
+        ) {
+          ctx.addIssue({
+            code: "custom",
+            message:
+              "GUIDED lessons require exactly one instructions block in every exercise",
+            path: ["exercises", i, "blocks"],
+          });
+        }
+
+        if (
+          instructionsBlock?.type === "instructions" &&
+          instructionsBlock.instructions.length < 1
+        ) {
+          ctx.addIssue({
+            code: "custom",
+            message:
+              "GUIDED lessons require at least one instruction in every exercise",
+            path: ["exercises", i, "blocks", 0, "instructions"],
+          });
+        }
+      }
+    });
+  });
 
 export type CurriculumDraftLessonForm = z.infer<
   typeof CurriculumDraftLessonSchema

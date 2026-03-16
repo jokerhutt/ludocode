@@ -13,6 +13,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries";
 import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { track } from "@/analytics/track";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -37,11 +38,19 @@ export function LessonLayout() {
       audioEnabled: preferences.audioEnabled,
     },
   });
+  const shouldUseGuidedLayout =
+    state.currentExercise.interaction?.type === "EXECUTABLE";
 
   return (
     <UserPreferencesContext.Provider value={preferences}>
       <LessonContext.Provider value={state}>
-        <MainGridWrapper className="max-h-dvh" gridRows="FULL">
+        <MainGridWrapper
+          className={cn(
+            "max-h-dvh",
+            shouldUseGuidedLayout && "grid-rows-[auto_1fr]",
+          )}
+          gridRows="FULL"
+        >
           <LessonHeader
             onExit={() => {
               track({
@@ -65,8 +74,8 @@ export function LessonLayout() {
               </Suspense>
             </div>
           </MainContentWrapper>
-          <LessonFeedbackDrawer />
-          <LessonFooter />
+          {!shouldUseGuidedLayout && <LessonFeedbackDrawer />}
+          {!shouldUseGuidedLayout && <LessonFooter />}
         </MainGridWrapper>
       </LessonContext.Provider>
     </UserPreferencesContext.Provider>

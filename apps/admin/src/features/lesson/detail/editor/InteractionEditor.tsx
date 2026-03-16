@@ -1,5 +1,9 @@
 import { useEffect, useRef, useMemo, useCallback } from "react";
-import type { CurriculumDraftInteraction } from "@ludocode/types";
+import type {
+  CurriculumDraftInteraction,
+  CurriculumDraftLessonForm,
+  LanguageMetadata,
+} from "@ludocode/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
@@ -11,10 +15,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
+import {
+  getLanguageDisplayName,
+  getLanguageSlug,
+  resolveCourseLanguage,
+} from "./language.ts";
 
 type InteractionEditorProps = {
   form: any;
   exerciseIndex: number;
+  lessonType: CurriculumDraftLessonForm["lessonType"];
+  courseLanguage?: LanguageMetadata;
 };
 
 const DEFAULT_SELECT: CurriculumDraftInteraction = {
@@ -23,11 +34,29 @@ const DEFAULT_SELECT: CurriculumDraftInteraction = {
   correctValue: "",
 };
 
-const DEFAULT_CLOZE: CurriculumDraftInteraction = {
+const createDefaultCloze = (
+  courseLanguage?: LanguageMetadata,
+): CurriculumDraftInteraction => ({
   type: "CLOZE",
-  file: { language: "python", content: "" },
+  file: { language: resolveCourseLanguage(courseLanguage), content: "" },
   blanks: [],
   options: [],
+});
+
+const createDefaultExecutable = (
+  _courseLanguage?: LanguageMetadata,
+): CurriculumDraftInteraction => {
+  return {
+    type: "EXECUTABLE",
+    solution: "",
+    tests: [
+      {
+        type: "OUTPUT_PATTERN_MATCHES",
+        expected: "print\\(\\s*[\"']Hello World[\"']\\s*\\)",
+        feedback: null,
+      },
+    ],
+  };
 };
 
 /** Count occurrences of `___` (three underscores) in content. */
@@ -41,6 +70,8 @@ function countGaps(content: string): number {
 export function InteractionEditor({
   form,
   exerciseIndex,
+  lessonType,
+  courseLanguage,
 }: InteractionEditorProps) {
   const interactionPath = `exercises[${exerciseIndex}].interaction`;
 
@@ -51,6 +82,8 @@ export function InteractionEditor({
           form={form}
           exerciseIndex={exerciseIndex}
           interactionField={interactionField}
+          lessonType={lessonType}
+          courseLanguage={courseLanguage}
         />
       )}
     </form.Field>
@@ -61,15 +94,59 @@ function InteractionEditorInner({
   form,
   exerciseIndex,
   interactionField,
+  lessonType,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
   interactionField: any;
+  lessonType: CurriculumDraftLessonForm["lessonType"];
+  courseLanguage?: LanguageMetadata;
 }) {
   const interaction: CurriculumDraftInteraction | null =
     interactionField.state.value ?? null;
+  const languageMetadata = resolveCourseLanguage(courseLanguage);
+  const languageSlug = getLanguageSlug(languageMetadata);
+  const basePath = `exercises[${exerciseIndex}].interaction`;
+
+  useEffect(() => {
+    if (!interaction) return;
+
+    if (
+      interaction.type === "CLOZE" &&
+      getLanguageSlug(interaction.file.language) !== languageSlug
+    ) {
+      form.setFieldValue(`${basePath}.file.language`, languageMetadata);
+    }
+  }, [interaction, basePath, form, languageSlug, languageMetadata]);
+
+  // For GUIDED lessons, auto-set EXECUTABLE if missing
+  const isGuided = lessonType === "GUIDED";
 
   if (!interaction) {
+    if (isGuided) {
+      return (
+        <div className="flex flex-col gap-3">
+          <p className="text-sm font-semibold text-ludo-white-bright">
+            Interaction
+          </p>
+          <p className="text-xs text-orange-400 bg-orange-400/10 rounded px-2 py-1">
+            Guided lessons require an EXECUTABLE interaction.
+          </p>
+          <ShadowLessButton
+            type="button"
+            onClick={() =>
+              interactionField.handleChange(
+                createDefaultExecutable(courseLanguage),
+              )
+            }
+          >
+            + Add Executable Interaction
+          </ShadowLessButton>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col gap-3">
         <p className="text-sm font-semibold text-ludo-white-bright">
@@ -78,7 +155,10 @@ function InteractionEditorInner({
         <Select
           value=""
           onValueChange={(type) => {
-            const template = type === "SELECT" ? DEFAULT_SELECT : DEFAULT_CLOZE;
+            const template =
+              type === "SELECT"
+                ? DEFAULT_SELECT
+                : createDefaultCloze(courseLanguage);
             interactionField.handleChange(template);
           }}
         >
@@ -113,20 +193,24 @@ function InteractionEditorInner({
             className={
               interaction.type === "SELECT"
                 ? "text-amber-400"
-                : "text-emerald-400"
+                : interaction.type === "EXECUTABLE"
+                  ? "text-orange-400"
+                  : "text-emerald-400"
             }
           >
             {interaction.type}
           </span>
         </p>
-        <ShadowLessButton
-          type="button"
-          onClick={() => interactionField.handleChange(null)}
-          className=" w-auto px-4 h-7 text-xs"
-          variant="danger"
-        >
-          Remove
-        </ShadowLessButton>
+        {!isGuided && (
+          <ShadowLessButton
+            type="button"
+            onClick={() => interactionField.handleChange(null)}
+            className=" w-auto px-4 h-7 text-xs"
+            variant="danger"
+          >
+            Remove
+          </ShadowLessButton>
+        )}
       </div>
 
       {interaction.type === "SELECT" && (
@@ -134,7 +218,18 @@ function InteractionEditorInner({
       )}
 
       {interaction.type === "CLOZE" && (
-        <ClozeInteractionFields form={form} exerciseIndex={exerciseIndex} />
+        <ClozeInteractionFields
+          form={form}
+          exerciseIndex={exerciseIndex}
+          courseLanguage={courseLanguage}
+        />
+      )}
+
+      {interaction.type === "EXECUTABLE" && (
+        <ExecutableInteractionFields
+          form={form}
+          exerciseIndex={exerciseIndex}
+        />
       )}
     </div>
   );
@@ -307,9 +402,11 @@ function SelectInteractionFieldsInner({
 function ClozeInteractionFields({
   form,
   exerciseIndex,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
@@ -323,6 +420,7 @@ function ClozeInteractionFields({
               exerciseIndex={exerciseIndex}
               optionsField={optionsField}
               blanksField={blanksField}
+              courseLanguage={courseLanguage}
             />
           )}
         </form.Field>
@@ -336,13 +434,16 @@ function ClozeInteractionFieldsInner({
   exerciseIndex,
   optionsField,
   blanksField,
+  courseLanguage,
 }: {
   form: any;
   exerciseIndex: number;
   optionsField: any;
   blanksField: any;
+  courseLanguage?: LanguageMetadata;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
+  const languageLabel = getLanguageDisplayName(courseLanguage);
   const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
   if (!interaction || interaction.type !== "CLOZE") return null;
 
@@ -422,19 +523,7 @@ function ClozeInteractionFieldsInner({
       {/* File */}
       <div className="flex flex-col gap-1.5">
         <p className="text-xs text-emerald-400">File</p>
-        <form.Field
-          name={`${basePath}.file.language`}
-          children={(field: {
-            state: { value: unknown };
-            handleChange: (v: string) => void;
-          }) => (
-            <LudoInput
-              value={String(field.state.value ?? "")}
-              setValue={(v: string) => field.handleChange(v)}
-              placeholder="Language (e.g. python)"
-            />
-          )}
-        />
+        <p className="text-xs text-ludo-white/60">Language: {languageLabel}</p>
         <form.Field
           name={`${basePath}.file.content`}
           children={(field: {
@@ -528,6 +617,202 @@ function ClozeInteractionFieldsInner({
             </button>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── EXECUTABLE ────────────────────────────────────────────────────── */
+
+function ExecutableInteractionFields({
+  form,
+  exerciseIndex,
+}: {
+  form: any;
+  exerciseIndex: number;
+}) {
+  const basePath = `exercises[${exerciseIndex}].interaction`;
+
+  return (
+    <form.Field name={`${basePath}.tests`} mode="array">
+      {(testsField: any) => (
+        <ExecutableInteractionFieldsInner
+          form={form}
+          exerciseIndex={exerciseIndex}
+          testsField={testsField}
+        />
+      )}
+    </form.Field>
+  );
+}
+
+function ExecutableInteractionFieldsInner({
+  form,
+  exerciseIndex,
+  testsField,
+}: {
+  form: any;
+  exerciseIndex: number;
+  testsField: any;
+}) {
+  const basePath = `exercises[${exerciseIndex}].interaction`;
+  const interaction = form.state.values.exercises[exerciseIndex]?.interaction;
+  if (!interaction || interaction.type !== "EXECUTABLE") return null;
+
+  const tests: { type: string; expected: string; feedback?: string | null }[] =
+    testsField.state.value ?? [];
+
+  return (
+    <div className="flex flex-col gap-4 bg-ludo-surface rounded-lg p-3">
+      <p className="text-xs text-ludo-white/60">
+        Starter files are configured in the lesson project snapshot.
+      </p>
+
+      {/* Solution */}
+      <div className="flex flex-col gap-2">
+        <p className="text-xs text-orange-400 font-medium">Solution</p>
+        <form.Field
+          name={`${basePath}.solution`}
+          children={(field: any) => (
+            <Textarea
+              value={String(field.state.value ?? "")}
+              onChange={(e) => field.handleChange(e.target.value)}
+              placeholder="Reference solution code used for this exercise"
+              className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-24 resize-y font-mono text-sm"
+            />
+          )}
+        />
+      </div>
+
+      {/* Tests */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-orange-400 font-medium">
+            Tests ({tests.length})
+          </p>
+          <ShadowLessButton
+            type="button"
+            onClick={() =>
+              testsField.pushValue({
+                type: "FILE_PATTERN_MATCHES",
+                expected: "print\\(\\s*[\"']Hello World[\"']\\s*\\)",
+                feedback: null,
+              })
+            }
+          >
+            + Add Test
+          </ShadowLessButton>
+        </div>
+
+        {tests.map((_test: any, testIndex: number) => (
+          <div
+            key={testIndex}
+            className="flex flex-col gap-2 bg-ludo-background rounded-lg p-3"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-orange-400">
+                Test {testIndex + 1}
+              </span>
+              {tests.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => testsField.removeValue(testIndex)}
+                  className="shrink-0 p-1 rounded hover:bg-ludo-surface text-ludo-white hover:text-red-400 transition-colors"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
+            <form.Field
+              name={`${basePath}.tests[${testIndex}].type`}
+              children={(field: any) => (
+                <Select
+                  value={String(field.state.value ?? "OUTPUT_EQUALS")}
+                  onValueChange={(v) => field.handleChange(v)}
+                >
+                  <SelectTrigger className="w-full h-auto gap-2 px-3 py-2 rounded-sm bg-ludo-surface border-transparent text-ludo-white-bright! text-sm focus:ring-0 focus-visible:ring-0">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-ludo-surface border-ludo-border">
+                    <SelectItem
+                      value="OUTPUT_PATTERN_MATCHES"
+                      className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
+                    >
+                      Output Matches
+                    </SelectItem>
+                    <SelectItem
+                      value="OUTPUT_CONTAINS"
+                      className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
+                    >
+                      Output Contains
+                    </SelectItem>
+                    <SelectItem
+                      value="FILE_CONTAINS"
+                      className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
+                    >
+                      File Contains
+                    </SelectItem>
+                    <SelectItem
+                      value="FILE_PATTERN_MATCHES"
+                      className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
+                    >
+                      File Matches
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+
+            <form.Field
+              name={`${basePath}.tests[${testIndex}].expected`}
+              children={(field: any) => (
+                <Textarea
+                  value={String(field.state.value ?? "")}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="Expected value..."
+                  className="bg-ludo-surface border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none font-mono text-sm"
+                />
+              )}
+            />
+
+            <form.Field
+              name={`${basePath}.tests[${testIndex}].feedback`}
+              children={(field: any) => (
+                <Textarea
+                  value={String(field.state.value ?? "")}
+                  onChange={(e) =>
+                    field.handleChange(
+                      e.target.value.trim().length > 0 ? e.target.value : null,
+                    )
+                  }
+                  placeholder="Feedback shown when this test fails (optional)"
+                  className="bg-ludo-surface border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none text-sm"
+                />
+              )}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Show Output toggle */}
+      <div className="flex items-center gap-2">
+        <form.Field
+          name={`${basePath}.showOutput`}
+          children={(field: any) => (
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={!!field.state.value}
+                onChange={(e) => field.handleChange(e.target.checked)}
+                className="rounded border-ludo-border bg-ludo-background"
+              />
+              <span className="text-xs text-ludo-white">
+                Show output to user
+              </span>
+            </label>
+          )}
+        />
       </div>
     </div>
   );

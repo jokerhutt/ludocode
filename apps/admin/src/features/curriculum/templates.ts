@@ -12,4 +12,11 @@ export const createNewModuleTemplate = (): CurriculumDraftModule => ({
 export const createNewLessonTemplate = (): CurriculumDraftLesson => ({
   id: crypto.randomUUID(),
   title: "Untitled lesson",
-})
+  lessonType: "NORMAL",
+});
+
+export const createNewGuidedLessonTemplate = (): CurriculumDraftLesson => ({
+  id: crypto.randomUUID(),
+  title: "Untitled guided project",
+  lessonType: "GUIDED",
+});

@@ -1,6 +1,7 @@
 export type LudoExercise = {
   id: string;
   version: number;
+  body?: string;
   orderIndex: number;
   blocks: Block[];
   interaction?: ExerciseInteraction | null;
@@ -10,7 +11,8 @@ export type Block =
   | { type: "header"; content: string }
   | { type: "paragraph"; content: string }
   | { type: "code"; language: string; content: string; output?: string | null }
-  | { type: "media"; src: string; alt?: string | null };
+  | { type: "media"; src: string; alt?: string | null }
+  | { type: "instructions"; instructions: string[] };
 
 export type ExerciseInteraction =
   | {
@@ -24,6 +26,12 @@ export type ExerciseInteraction =
       blanks: InteractionBlank[];
       options: string[];
       output?: string | null;
+    }
+  | {
+      type: "EXECUTABLE";
+      solution: string;
+      tests: ExecutableTest[];
+      showOutput: boolean;
     };
 
 export type InteractionBlank = {
@@ -34,4 +42,16 @@ export type InteractionBlank = {
 export type InteractionFile = {
   language: string;
   content: string;
+};
+
+export type ExecutableTestType =
+  | "OUTPUT_CONTAINS"
+  | "FILE_CONTAINS"
+  | "OUTPUT_PATTERN_MATCHES"
+  | "FILE_PATTERN_MATCHES";
+
+export type ExecutableTest = {
+  type: ExecutableTestType;
+  feedback?: string;
+  expected: string;
 };

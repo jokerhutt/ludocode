@@ -21,12 +21,27 @@ export function ModulePath({
   courseId,
   moduleId,
   nextModuleId,
-  nextModuleTitle
+  nextModuleTitle,
 }: ModulePathProps) {
+  let normalLessonCount = 0;
+  const lessonRows = lessons.map((lesson) => {
+    const isGuided = lesson.lessonType === "GUIDED";
+    const rowIndex = normalLessonCount;
+    if (!isGuided) {
+      normalLessonCount += 1;
+    }
+
+    return {
+      lesson,
+      rowIndex,
+      isGuided,
+    };
+  });
+
   return (
     <LudoPath className="pb-6">
-      {lessons.map((lesson, index) => (
-        <LudoPath.Row index={index}>
+      {lessonRows.map(({ lesson, rowIndex, isGuided }) => (
+        <LudoPath.Row key={lesson.id} index={rowIndex} fullSpan={isGuided}>
           <ModulePathButton
             lesson={lesson}
             courseId={courseId}
@@ -36,9 +51,8 @@ export function ModulePath({
         </LudoPath.Row>
       ))}
       {nextModuleId && (
-        <LudoPath.Row className="mt-10" index={lessons.length}>
+        <LudoPath.Row className="mt-10" index={normalLessonCount}>
           <LudoPath.NextButton
-
             title={nextModuleTitle}
             onClick={() =>
               router.navigate(
@@ -74,19 +88,30 @@ function ModulePathButton({
     isCurrent,
   });
 
+  const trigger =
+    lesson.lessonType === "GUIDED" ? (
+      <LudoPath.GuidedButton
+        title={lesson.title}
+        state={lessonType}
+        isCurrent={isCurrent}
+        dataTestId={`path-button-${lesson.id}`}
+        className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
+      />
+    ) : (
+      <LudoPath.Button
+        state={lessonType}
+        isCurrent={isCurrent}
+        dataTestId={`path-button-${lesson.id}`}
+        className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
+      />
+    );
+
   return (
     <PathPopover
       goToLesson={goToLesson}
       lessonType={lessonType}
       lesson={lesson}
-      trigger={
-        <LudoPath.Button
-          state={lessonType}
-          isCurrent={isCurrent}
-          dataTestId={`path-button-${lesson.id}`}
-          className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
-        />
-      }
+      trigger={trigger}
     />
   );
 }

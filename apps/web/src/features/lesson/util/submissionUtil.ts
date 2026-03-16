@@ -1,10 +1,13 @@
 import type {
+  AnswerToken,
   ExerciseAnswer,
   ExerciseAttempt,
+  ExerciseAttemptResult,
   ExerciseSubmission,
   LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
+import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 
 export function convertStagedAttemptIntoExerciseSubmission(
   attempt: ExerciseAttempt,
@@ -17,19 +20,49 @@ export function convertStagedAttemptIntoExerciseSubmission(
   };
 }
 
-function convertAttemptToRequest(
+function convertAttemptToAnswer(
   attempt: ExerciseAttempt,
-  interactionType: "SELECT" | "CLOZE" | null | undefined,
+  interactionType: "SELECT" | "CLOZE" | "EXECUTABLE" | null | undefined,
 ): ExerciseAnswer {
   if (!interactionType) {
     return { type: "SELECT", pickedValue: "INFO" };
   }
+
   if (interactionType === "SELECT") {
-    return { type: "SELECT", pickedValue: attempt.answer[0].value };
+    const tokens = attempt.answer as AnswerToken[];
+    return { type: "SELECT", pickedValue: tokens[0].value };
   }
+
+  if (interactionType === "CLOZE") {
+    const tokens = attempt.answer as AnswerToken[];
+    return {
+      type: "CLOZE",
+      valuesByBlank: tokens.map((t) => t.value),
+    };
+  }
+
+  if (interactionType === "EXECUTABLE") {
+    if (Array.isArray(attempt.answer)) {
+      throw new Error("Executable attempt must carry project snapshot");
+    }
+    const projectSnapshot: ProjectSnapshot = attempt.answer.submission;
+
+    return {
+      type: "EXECUTABLE",
+      submission: projectSnapshot,
+    };
+  }
+
+  throw new Error("Unknown interaction type");
+}
+
+function convertAttemptToResult(
+  attempt: ExerciseAttempt,
+  interactionType: "SELECT" | "CLOZE" | "EXECUTABLE" | null | undefined,
+): ExerciseAttemptResult {
   return {
-    type: "CLOZE",
-    valuesByBlank: attempt.answer.map((t) => t.value),
+    isCorrect: attempt.isCorrect,
+    attempt: convertAttemptToAnswer(attempt, interactionType),
   };
 }
 
@@ -49,8 +82,8 @@ export function convertToLessonSubmission(
       return {
         exerciseId: sub.exerciseId,
         version: sub.version,
-        attempts: sub.attempts.map((attempt) =>
-          convertAttemptToRequest(attempt, interactionType),
+        results: sub.attempts.map((attempt) =>
+          convertAttemptToResult(attempt, interactionType),
         ),
       };
     }),

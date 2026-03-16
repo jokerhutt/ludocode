@@ -15,6 +15,7 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 export const EditorExercise = withForm({
   defaultValues: {
+    lessonType: "NORMAL" as CurriculumDraftLessonForm["lessonType"],
     exercises: [] as CurriculumDraftLessonForm["exercises"],
   },
   props: {

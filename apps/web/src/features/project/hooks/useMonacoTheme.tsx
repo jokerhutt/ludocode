@@ -3,8 +3,6 @@ import type { BeforeMount } from "@monaco-editor/react";
 import type * as monacoTypes from "monaco-editor";
 
 export function useMonacoTheme() {
- 
-
   const beforeMount: BeforeMount = (monaco) => {
     monaco.editor.defineTheme("custom-theme", {
       base: "vs-dark",
@@ -24,12 +22,15 @@ export function useMonacoTheme() {
         fontSize: 16,
         padding: { bottom: 16 },
         scrollBeyondLastLine: false,
-        cursorSurroundingLines: 8,
-        cursorSurroundingLinesStyle: "all",
+        smoothScrolling: false,
+        cursorSurroundingLines: 0,
+        cursorSurroundingLinesStyle: "default",
+        cursorSmoothCaretAnimation: "off",
+        cursorBlinking: "solid",
         renderLineHighlight: "none",
         renderLineHighlightOnlyWhenFocus: false,
       }),
-      []
+      [],
     );
 
   return { beforeMount, editorOptions };

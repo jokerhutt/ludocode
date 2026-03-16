@@ -118,5 +118,43 @@ export function ExerciseInteraction({
     );
   }
 
+  if (interaction.type === "EXECUTABLE") {
+    return (
+      <div className={cn("flex flex-col h-full justify-start gap-6")}>
+        <p className="text-xs text-ludo-white/60">
+          Starter files come from the lesson project snapshot.
+        </p>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium text-orange-400">Solution</p>
+          <pre className="bg-ludo-surface rounded px-3 py-2 text-xs text-ludo-white-bright font-mono whitespace-pre-wrap wrap-break-word">
+            {interaction.solution || "(empty)"}
+          </pre>
+        </div>
+
+        {/* Tests */}
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium text-orange-400">
+            Tests ({interaction.tests.length})
+          </p>
+          {interaction.tests.map((test, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-2 bg-ludo-surface rounded px-3 py-2"
+            >
+              <span className="text-xs text-ludo-white-bright font-medium">
+                {test.type}
+              </span>
+              <span className="text-xs text-ludo-white/60">&rarr;</span>
+              <span className="text-xs text-emerald-400 font-mono">
+                {test.expected || "(empty)"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return null;
 }

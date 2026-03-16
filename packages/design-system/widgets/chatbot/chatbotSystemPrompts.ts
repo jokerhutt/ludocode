@@ -1,4 +1,8 @@
-import type { AnswerToken, LudoExercise, ProjectSnapshot } from "@ludocode/types";
+import type {
+  AnswerToken,
+  LudoExercise,
+  ProjectSnapshot,
+} from "@ludocode/types";
 import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot";
 
 export type ChatbotMode = "PROJECT" | "INFO" | "CLOZE" | "SELECT";
@@ -280,4 +284,40 @@ export function buildSystemPromptForExercise(exercise: LudoExercise): string {
     default:
       return buildInformationalSystemPrompt(exercise);
   }
+}
+
+export function buildProjectSystemPrompt(
+  exercise: LudoExercise,
+  project: ProjectSnapshot,
+): string {
+  const instructions = exercise.blocks
+    .map((b) => {
+      if (b.type === "header") return `# ${b.content}`;
+      if (b.type === "paragraph") return b.content;
+      if (b.type === "code") return `\`\`\`${b.language}\n${b.content}\n\`\`\``;
+      if (b.type === "instructions")
+        return b.instructions.map((i) => `- ${i}`).join("\n");
+      return "";
+    })
+    .join("\n");
+
+  return `
+${PROJECT_SYSTEM_PROMPT}
+
+The learner is working through a guided programming exercise.
+
+Exercise instructions:
+
+\`\`\`
+${instructions}
+\`\`\`
+
+Project name:
+${project.projectName}
+
+Language:
+${project.projectLanguage.name}
+
+Guide the learner toward completing the exercise while preserving the intent of the instructions.
+`;
 }
