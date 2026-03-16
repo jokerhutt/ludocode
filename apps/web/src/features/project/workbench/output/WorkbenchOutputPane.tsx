@@ -47,7 +47,7 @@ export function WorkbenchOutputPane({
           const runNumber = logIdx + 1;
 
           return (
-            <LudoLog error={error} collapsible defaultCollapsed={false}>
+            <LudoLog key={logIdx} error={error} collapsible defaultCollapsed={false}>
               <LudoLog.Trigger
                 successColorVariant={successColorVariant}
                 position={runNumber}
