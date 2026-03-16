@@ -7,7 +7,7 @@ import {
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import type { OutputPacket } from "@ludocode/types/Project/Runner/OutputPacket.ts";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 type WorkbenchOutputPaneProps = {
   successColorVariant?: OutputTriggerColorVariant;
@@ -23,13 +23,6 @@ export function WorkbenchOutputPane({
   const { outputInfo, sendStdin } = useCodeRunnerContext();
   const { canSendStdin, clearOutput, isRunning, outputLog } = outputInfo;
   const [stdinValue, setStdinValue] = useState("");
-  const stdinInputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (!canSendStdin) return;
-
-    stdinInputRef.current?.focus();
-  }, [canSendStdin, outputLog.length]);
 
   const handleSubmit = () => {
     if (!canSendStdin) return;
@@ -101,7 +94,6 @@ export function WorkbenchOutputPane({
                   <div className="flex items-center gap-2">
                     <span className="select-none text-ludo-white-bright/60">{">"}</span>
                     <input
-                      ref={stdinInputRef}
                       data-testid="runner-stdin-input"
                       type="text"
                       value={stdinValue}
