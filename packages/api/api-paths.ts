@@ -100,6 +100,7 @@ export function createApiPaths({
 
     runner: {
       base: `${BASE}/runner`,
+      ws: `${BASE}/ws/runner`,
       execute: `${BASE}/runner/executions`,
     },
 
