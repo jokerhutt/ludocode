@@ -32,18 +32,6 @@ export function WorkbenchOutputPane({
     }
   };
 
-  const renderMessageLines = (message: OutputPacket["messages"][number]) => {
-    if (message.type === "error") {
-      return [`Error: ${message.message}`];
-    }
-
-    if (message.type !== "data") {
-      return [];
-    }
-
-    return message.data.split("\n");
-  };
-
   return (
     <Workbench.Pane
       className={cn(
