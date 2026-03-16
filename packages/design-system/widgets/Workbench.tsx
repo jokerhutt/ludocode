@@ -67,7 +67,7 @@ function Content({ children, className, dataTestId }: ContentProps) {
     <div
       data-testid={dataTestId}
       className={cn(
-        "flex pl-4 pr-0 py-3 overflow-y-auto [scrollbar-gutter:stable] overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-ludo-white-bright flex-col w-full",
+        "flex px-4 lg:pr-0 py-3 overflow-y-auto [scrollbar-gutter:stable] overflow-x-hidden min-h-0 h-full bg-ludo-background gap-2 text-ludo-white-bright flex-col w-full",
         className,
       )}
     >

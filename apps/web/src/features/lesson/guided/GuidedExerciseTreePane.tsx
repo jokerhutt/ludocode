@@ -33,7 +33,7 @@ export function GuidedExerciseTreePane({
       <Workbench.Pane.Winbar className="hidden lg:block">
         <p className="text-sm font-medium tracking-wide">Instructions</p>
       </Workbench.Pane.Winbar>
-      <Workbench.Pane.Content className="pt-0">
+      <Workbench.Pane.Content>
         <div className="w-full px-2 pb-4 overflow-y-auto scrollbar-ludo-accent">
           <div className="max-w-none text-left">
             <ReactMarkdown components={guidedMarkdownComponents}>
