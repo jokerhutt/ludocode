@@ -1,5 +1,4 @@
 import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
-import { useState } from "react";
 import { useHotkeys } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
@@ -15,25 +14,13 @@ export function LessonFooter() {
     goBack,
   } = useLessonContext();
 
-  const [isLoading, setIsLoading] = useState(false);
-
   useHotkeys({
     EXECUTE_ACTION: handleExerciseButtonClick,
   });
 
   function trySubmit() {
-    if (!canSubmit || isLoading) return;
-
-    if (isComplete || isIncorrect) {
+    if (!canSubmit) return;
       handleExerciseButtonClick();
-    } else {
-      setIsLoading(true);
-
-      setTimeout(() => {
-        handleExerciseButtonClick();
-        setIsLoading(false);
-      }, 200);
-    }
   }
 
   const text = isComplete ? "CONTINUE" : isIncorrect ? "TRY AGAIN" : "CHECK";
@@ -62,7 +49,6 @@ export function LessonFooter() {
             data-testid={`lesson-submit-button`}
             variant="alt"
             disabled={!canSubmit}
-            isLoading={isLoading}
             className="w-full text-lg font-bold h-full"
             onClick={() => trySubmit()}
           >
