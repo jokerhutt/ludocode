@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import type { AnswerToken } from "@ludocode/types";
-import { useExercise } from "@/features/lesson/hooks/useExercise";
+import { useLesson } from "@/features/lesson/hooks/useLesson";
 import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation.tsx";
 import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
-import { useExerciseInput } from "@/features/lesson/hooks/useExerciseInput.tsx";
+import { useExerciseInput } from "@/features/lesson/hooks/normal/useExerciseInput";
 import { createInfoExerciseAttempt } from "@/features/lesson/util/submissionUtil.ts";
 import { l1, l1exercises, c1Id } from "./fixtures";
 import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
@@ -21,7 +21,7 @@ vi.mock("@/main", () => ({
 }));
 
 function useLessonExerciseState(position: number) {
-  const state = useExercise({
+  const state = useLesson({
     courseId: c1Id,
     exercises: l1exercises,
     lesson: l1,
@@ -191,7 +191,9 @@ describe("useExercise Flow (integration)", () => {
 
       expect(syncNavigation).not.toBeNull();
       expect(syncNavigation!.params.lessonId).toBe(l1.id);
-      expect(syncNavigation!.computedState.submission.exercises).toHaveLength(3);
+      expect(syncNavigation!.computedState.submission.exercises).toHaveLength(
+        3,
+      );
     });
   });
 

@@ -29,6 +29,7 @@ export type LessonExerciseValue = {
 export type LessonEvaluationValue = {
   isComplete: boolean;
   isIncorrect: boolean;
+  isOutputVisible: boolean;
   incorrectFeedbackMessage: string | null;
   dismissIncorrectFeedback: () => void;
 };
@@ -39,10 +40,10 @@ export type LessonSubmissionValue = {
     attempt: ExerciseAttempt | null,
     feedbackMessage?: string | null,
   ) => void;
-  continueToNextExercise: () => void;
+  continueToNextExercise: (submissions?: ExerciseSubmission[]) => void;
 };
 
-export function useExercise({
+export function useLesson({
   exercises,
   lesson,
   courseId,
@@ -87,6 +88,7 @@ export function useExercise({
     evaluation: {
       isComplete: evaluation.isComplete,
       isIncorrect: evaluation.isIncorrect,
+      isOutputVisible: evaluation.isOutputVisible,
       incorrectFeedbackMessage: evaluation.incorrectFeedbackMessage,
       dismissIncorrectFeedback: evaluation.dismissIncorrectFeedback,
     },

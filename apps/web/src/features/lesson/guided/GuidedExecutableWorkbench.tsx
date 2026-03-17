@@ -15,16 +15,16 @@ import {
   evaluateExecutableTests,
   getFirstFailedExecutableTestFeedback,
 } from "../util/executableTestUtil";
-import { GuidedExerciseTreePane } from "./GuidedExerciseTreePane";
-import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
+import { GuidedExerciseTreePane } from "./components/GuidedExerciseTreePane";
+import { GuidedExerciseEditorPane } from "./components/GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { GuidedLessonActions } from "./GuidedLessonActions";
 import { useGuidedExerciseReviewState } from "./hooks/useGuidedExerciseReviewState";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
+import { GuidedLessonActions } from "./components/GuidedLessonActions";
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
@@ -41,13 +41,23 @@ export function GuidedExecutableWorkbench({
   const { exercise } = lessonPageRoute.useSearch();
   const position = Number(exercise ?? 1);
   const { currentExercise } = useLessonExercise();
-  const { isComplete, isIncorrect, incorrectFeedbackMessage, dismissIncorrectFeedback } =
-    useLessonEvaluation();
+  const {
+    isComplete,
+    isIncorrect,
+    incorrectFeedbackMessage,
+    dismissIncorrectFeedback,
+  } = useLessonEvaluation();
   const { submitAttempt, continueToNextExercise } = useLessonSubmission();
   const { resetSnapshot, setWorkingSnapshot } = useGuidedExercise();
   const { canGoBack, goBack } = useExerciseNavigation({ position });
-  const { project, files, active, entryFileId, updateContent, resetToSnapshot } =
-    useProjectContext();
+  const {
+    project,
+    files,
+    active,
+    entryFileId,
+    updateContent,
+    resetToSnapshot,
+  } = useProjectContext();
   const { runCode, stopCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});

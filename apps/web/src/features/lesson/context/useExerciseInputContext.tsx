@@ -1,9 +1,8 @@
-import type { useExerciseInputResponse } from "@/features/lesson/hooks/useExerciseInput.tsx";
+import type { useExerciseInputResponse } from "@/features/lesson/hooks/normal/useExerciseInput";
 import { createContext, useContext } from "react";
 
-export const ExerciseInputContext = createContext<useExerciseInputResponse | null>(
-  null,
-);
+export const ExerciseInputContext =
+  createContext<useExerciseInputResponse | null>(null);
 
 export function useExerciseInputContext() {
   const ctx = useContext(ExerciseInputContext);

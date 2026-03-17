@@ -2,7 +2,7 @@ import type {
   LessonEvaluationValue,
   LessonExerciseValue,
   LessonSubmissionValue,
-} from "@/features/lesson/hooks/useExercise.tsx";
+} from "@/features/lesson/hooks/useLesson";
 import { createContext, useContext } from "react";
 
 export const LessonExerciseContext = createContext<LessonExerciseValue | null>(

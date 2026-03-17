@@ -1,10 +1,13 @@
 import {
   useLessonEvaluation,
   useLessonExercise,
+  useLessonSubmission,
 } from "@/features/lesson/context/useLessonContext.tsx";
 import { useExerciseInputContext } from "@/features/lesson/context/useExerciseInputContext.tsx";
 import { ExerciseInteraction } from "@/features/lesson/components/ExerciseInteraction.tsx";
-import { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
+import { useExerciseBodyData } from "@/features/lesson/hooks/normal/useExerciseBodyData";
+import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
+import { hasExerciseOutput } from "@/features/lesson/util/exerciseOutputUtil.ts";
 import { LessonChatbotPanel } from "@/features/lesson/zones/LessonChatbotPanel.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -15,11 +18,16 @@ import { useIsMobile } from "@ludocode/hooks";
 
 export function ExercisePage() {
   const { currentExercise } = useLessonExercise();
-  const { isComplete } = useLessonEvaluation();
+  const { isOutputVisible } = useLessonEvaluation();
+  const { submissionHistory } = useLessonSubmission();
   const inputState = useExerciseInputContext();
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
   const isMobile = useIsMobile({});
+  const { isComplete } = useExerciseHistory({
+    currentExercise,
+    submissionHistory,
+  });
 
   const interactionOutput = useMemo(() => {
     const interaction = currentExercise.interaction;
@@ -27,7 +35,8 @@ export function ExercisePage() {
     return null;
   }, [currentExercise]);
 
-  const showOutput = isComplete;
+  const showOutput =
+    hasExerciseOutput(currentExercise) && (isComplete || isOutputVisible);
 
   return (
     <>

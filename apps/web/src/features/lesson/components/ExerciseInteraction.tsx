@@ -1,4 +1,4 @@
-import type { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
+import type { useExerciseBodyData } from "@/features/lesson/hooks/normal/useExerciseBodyData";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useLessonEvaluation } from "@/features/lesson/context/useLessonContext.tsx";
 import type { AnswerToken } from "@ludocode/types";
@@ -114,11 +114,7 @@ export function ExerciseInteraction({
               variant="wideSingleSelect"
               enabled={true}
               status={
-                isComplete
-                  ? "CORRECT"
-                  : isIncorrect
-                    ? "INCORRECT"
-                    : "DEFAULT"
+                isComplete ? "CORRECT" : isIncorrect ? "INCORRECT" : "DEFAULT"
               }
               option={option}
               userSelections={currentExerciseInputs}

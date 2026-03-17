@@ -10,7 +10,7 @@ import {
   buildSystemPromptForExercise,
 } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import type { LudoExercise } from "@ludocode/types";
-import type { useExerciseInputResponse } from "../hooks/useExerciseInput";
+import type { useExerciseInputResponse } from "../hooks/normal/useExerciseInput";
 import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 

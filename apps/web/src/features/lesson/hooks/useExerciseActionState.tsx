@@ -4,27 +4,34 @@ import {
   useLessonExercise,
   useLessonSubmission,
 } from "@/features/lesson/context/useLessonContext.tsx";
+import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
 import { createInfoExerciseAttempt } from "@/features/lesson/util/submissionUtil.ts";
 import { useCallback, useMemo } from "react";
 
 export function useExerciseActionState() {
   const { currentExercise } = useLessonExercise();
-  const { isComplete, isIncorrect, dismissIncorrectFeedback } =
+  const { isIncorrect, isOutputVisible, dismissIncorrectFeedback } =
     useLessonEvaluation();
-  const { continueToNextExercise, submitAttempt } = useLessonSubmission();
+  const { continueToNextExercise, submitAttempt, submissionHistory } =
+    useLessonSubmission();
   const inputState = useExerciseInputContext();
+  const { isComplete } = useExerciseHistory({
+    currentExercise,
+    submissionHistory,
+  });
+  const isCorrect = isComplete || isOutputVisible;
 
   const canSubmit = useMemo(() => {
     return (
-      isComplete ||
+      isCorrect ||
       isIncorrect ||
       !currentExercise.interaction ||
       inputState.canSubmit
     );
-  }, [currentExercise.interaction, inputState.canSubmit, isComplete, isIncorrect]);
+  }, [currentExercise.interaction, inputState.canSubmit, isCorrect, isIncorrect]);
 
   const submit = useCallback(() => {
-    if (isComplete) {
+    if (isCorrect) {
       continueToNextExercise();
       return;
     }
@@ -46,7 +53,7 @@ export function useExerciseActionState() {
     currentExercise,
     dismissIncorrectFeedback,
     inputState,
-    isComplete,
+    isCorrect,
     isIncorrect,
     submitAttempt,
   ]);
@@ -54,7 +61,7 @@ export function useExerciseActionState() {
   return {
     canSubmit,
     submit,
-    isCorrect: isComplete,
+    isCorrect,
     isIncorrect,
   };
 }

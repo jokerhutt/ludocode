@@ -7,7 +7,7 @@ import {
   useLessonExercise,
   useLessonSubmission,
 } from "@/features/lesson/context/useLessonContext.tsx";
-import { useExercise } from "@/features/lesson/hooks/useExercise.tsx";
+import { useLesson } from "@/features/lesson/hooks/useLesson";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { LessonHeader } from "@/features/lesson/zones/LessonHeader.tsx";
@@ -20,13 +20,11 @@ import { qo } from "@/queries/definitions/queries";
 import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { track } from "@/analytics/track";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { useGuidedExerciseState } from "@/features/lesson/guided/hooks/useGuidedExerciseState.tsx";
+import { useGuidedExerciseState } from "@/features/lesson/guided/hooks/useGuidedExerciseState";
 import { GuidedExerciseContext } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
 import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
-import { useExerciseInput } from "@/features/lesson/hooks/useExerciseInput.tsx";
-import {
-  ExerciseInputContext,
-} from "@/features/lesson/context/useExerciseInputContext.tsx";
+import { useExerciseInput } from "@/features/lesson/hooks/normal/useExerciseInput";
+import { ExerciseInputContext } from "@/features/lesson/context/useExerciseInputContext.tsx";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -41,7 +39,7 @@ export function LessonLayout() {
   const exercisePosition = Number(position ?? 1);
   const { data: preferences } = useSuspenseQuery(qo.preferences());
 
-  const state = useExercise({
+  const state = useLesson({
     courseId,
     exercises,
     lesson,
