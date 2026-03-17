@@ -6,10 +6,8 @@ import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRun
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 import { GuidedExecutableWorkbench } from "./guided/GuidedExecutableWorkbench";
 
-type GuidedExercisePage = {};
-
-export function GuidedExercisePage({}: GuidedExercisePage) {
-  const { lesson, currentExercise, phase } = useLessonContext();
+export function GuidedExercisePage() {
+  const { lesson, currentExercise, isComplete } = useLessonContext();
 
   const interaction = currentExercise.interaction;
   if (!interaction || interaction.type !== "EXECUTABLE") {
@@ -18,8 +16,7 @@ export function GuidedExercisePage({}: GuidedExercisePage) {
 
   const projectSnapshot = lesson.projectSnapshot;
 
-  const showBlockOutput =
-    interaction.showOutput && (phase === "CORRECT" || phase === "SUBMITTED");
+  const showBlockOutput = interaction.showOutput && isComplete;
 
   if (!projectSnapshot) {
     return (

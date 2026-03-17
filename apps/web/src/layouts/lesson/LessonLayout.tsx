@@ -1,6 +1,5 @@
 import { getRouteApi, Outlet, useRouter } from "@tanstack/react-router";
 import { LessonContext } from "@/features/lesson/context/useLessonContext.tsx";
-
 import { useExercise } from "@/features/lesson/hooks/useExercise.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
@@ -23,7 +22,6 @@ export function LessonLayout() {
   );
 
   const { courseId, moduleId } = lessonRoute.useParams();
-
   const { exercises, lesson } = lessonRoute.useLoaderData();
   const { exercise: position } = lessonPageRoute.useSearch();
   const exercisePosition = Number(position ?? 1);

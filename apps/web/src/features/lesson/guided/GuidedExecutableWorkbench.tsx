@@ -31,10 +31,11 @@ export function GuidedExecutableWorkbench({
 }) {
   const {
     currentExercise,
-    phase,
-    isReviewing,
-    stageExecutableAttempt,
-    commitExecutableAttempt,
+    isComplete,
+    isIncorrect,
+    dismissIncorrectFeedback,
+    setCanSubmit,
+    submitExecutableAttempt,
     handleExerciseButtonClick,
   } = useLessonContext();
   const { project, files, entryFileId, updateContent } = useProjectContext();
@@ -65,10 +66,36 @@ export function GuidedExecutableWorkbench({
     }
   }, [currentExercise.id, isMobile]);
 
+  useEffect(() => {
+    setCanSubmit(!isRunning);
+
+    return () => {
+      setCanSubmit(false);
+    };
+  }, [isRunning, setCanSubmit]);
+
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
     [currentExercise, project],
   );
+  const filesSignature = useMemo(
+    () => files.map((file) => `${file.path}:${file.content}`).join("::"),
+    [files],
+  );
+
+  const previousFilesSignatureRef = useRef(filesSignature);
+
+  useEffect(() => {
+    if (previousFilesSignatureRef.current === filesSignature) return;
+
+    previousFilesSignatureRef.current = filesSignature;
+
+    if (!isIncorrect) return;
+
+    dismissIncorrectFeedback();
+    setIncorrectFeedbackOpen(false);
+    setIncorrectFeedbackMessage(null);
+  }, [filesSignature, isIncorrect, dismissIncorrectFeedback]);
 
   useEffect(() => {
     if (!awaitingValidation || isRunning) return;
@@ -110,13 +137,13 @@ export function GuidedExecutableWorkbench({
     if (isCorrect) {
       setIncorrectFeedbackOpen(false);
       setIncorrectFeedbackMessage(null);
-      stageExecutableAttempt(attempt);
     } else {
-      commitExecutableAttempt(attempt);
       setIncorrectAttemptCount((c) => c + 1);
       setIncorrectFeedbackMessage(failedFeedback);
       setIncorrectFeedbackOpen(true);
     }
+
+    submitExecutableAttempt(attempt);
     setAwaitingValidation(false);
   }, [
     awaitingValidation,
@@ -127,12 +154,11 @@ export function GuidedExecutableWorkbench({
     entryFileId,
     tests,
     currentExercise.id,
-    stageExecutableAttempt,
-    commitExecutableAttempt,
+    submitExecutableAttempt,
   ]);
 
   const runOrAdvance = useCallback(() => {
-    if (phase !== "DEFAULT") {
+    if (isComplete) {
       handleExerciseButtonClick();
       return;
     }
@@ -140,11 +166,13 @@ export function GuidedExecutableWorkbench({
     if (!runnerFeature.enabled) return;
 
     if (isRunning) {
+      dismissIncorrectFeedback();
       setAwaitingValidation(false);
       stopCode();
       return;
     }
 
+    dismissIncorrectFeedback();
     setIncorrectFeedbackOpen(false);
     setIncorrectFeedbackMessage(null);
     outputCountBeforeRunRef.current = outputLog.length;
@@ -152,9 +180,10 @@ export function GuidedExecutableWorkbench({
     runCode();
   }, [
     isRunning,
-    phase,
+    isComplete,
     handleExerciseButtonClick,
     runnerFeature.enabled,
+    dismissIncorrectFeedback,
     stopCode,
     outputLog.length,
     runCode,
@@ -169,14 +198,14 @@ export function GuidedExecutableWorkbench({
     interaction?.type === "EXECUTABLE" ? interaction.solution : "";
   const currentCode = files[0]?.content ?? "";
   const languageId = files[0]?.language.editorId ?? "plaintext";
-  const showSolutionHint =
-    !isReviewing && phase === "DEFAULT" && incorrectAttemptCount >= 2;
+  const showSolutionHint = !isComplete && incorrectAttemptCount >= 2;
 
   const { canGoBack, onGoBack, canReset, onReset } =
     useGuidedExerciseNavigation({
       isRunning,
       isEditorReadOnly,
       onAfterReset: () => {
+        dismissIncorrectFeedback();
         setIncorrectFeedbackOpen(false);
         setIncorrectFeedbackMessage(null);
       },
@@ -197,10 +226,13 @@ export function GuidedExecutableWorkbench({
 
       <GuidedExerciseEditorPane
         runOrAdvance={runOrAdvance}
-        phase={phase}
+        isComplete={isComplete}
         incorrectFeedbackOpen={incorrectFeedbackOpen}
         incorrectFeedbackMessage={incorrectFeedbackMessage}
-        onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
+        onDismissIncorrectFeedback={() => {
+          dismissIncorrectFeedback();
+          setIncorrectFeedbackOpen(false);
+        }}
         isEditorReadOnly={isEditorReadOnly}
         className={cn(
           mobilePane === "code" ? "flex-[2]" : "hidden",
@@ -215,7 +247,8 @@ export function GuidedExecutableWorkbench({
           onReset={onReset}
           runOrAdvance={runOrAdvance}
           runnerEnabled={runnerFeature.enabled == true}
-          phase={phase}
+          isComplete={isComplete}
+          isIncorrect={isIncorrect}
           isRunning={isRunning}
           solutionHint={
             showSolutionHint

@@ -1,101 +1,81 @@
 import {
   type ExerciseAttempt,
   type ExerciseSubmission,
+  type LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   convertToLessonSubmission,
   createInfoExerciseAttempt,
-  mergeStagedAttemptIntoExerciseSubmissions,
+  mergeAttemptIntoExerciseSubmissions,
 } from "@/features/lesson/util/submissionUtil.ts";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main";
 
 type Args = {
-  currentExercise: LudoExercise;
-  clearExerciseInputs: () => void;
-  clearStaged: () => void;
-  position: number;
   exercises: LudoExercise[];
   courseId: string;
   lessonId: string;
 };
 
 export function useCommittedSubmissions({
-  currentExercise,
-  position,
   exercises,
-  clearExerciseInputs,
-  clearStaged,
   courseId,
   lessonId,
 }: Args) {
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
     useState<ExerciseSubmission[]>([]);
-  const handleLastExercise = (merged: ExerciseSubmission[]) => {
-    const lessonSubmission = convertToLessonSubmission(
-      courseId,
-      lessonId,
-      merged,
-      exercises,
-    );
-    router.navigate(
-      ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
-    );
-  };
-  const handleCorrectAttempt = () =>
-    router.navigate(ludoNavigation.lesson.toNextExercise(position));
+  const queuedLessonSubmissionRef = useRef<LessonSubmissionRequest | null>(null);
+  const hasSubmittedLessonRef = useRef(false);
 
-  const isInfoExercise = !currentExercise.interaction;
-  const isLastExercise = position === exercises.length;
-
-  const commitStagedAttemptIntoSubmissions = useCallback(
-    (staged: ExerciseAttempt | null) => {
-      if (staged == null && !isInfoExercise) return;
-
-      const filteredStagedAttempt =
-        staged && !isInfoExercise
-          ? staged
-          : createInfoExerciseAttempt(currentExercise.id);
-
-      //Convert the attempt into an exercise submission
-      //Merge the attempt into the exercise submissions
-      const merged = mergeStagedAttemptIntoExerciseSubmissions(
-        committedExerciseSubmissions,
-        filteredStagedAttempt,
-        currentExercise.version,
-      );
-      setCommittedExerciseSubmissions(merged);
-
-      //Navigate based on result
-      if (
-        isLastExercise &&
-        (filteredStagedAttempt.isCorrect || isInfoExercise)
-      ) {
-        handleLastExercise(merged);
-      } else if (filteredStagedAttempt.isCorrect) {
-        handleCorrectAttempt();
-      } else {
-        //Only clear on incorrect attempts so the user can retry
-        clearExerciseInputs();
-        clearStaged();
+  const submitLesson = useCallback(
+    (submissions: ExerciseSubmission[] = committedExerciseSubmissions) => {
+      if (hasSubmittedLessonRef.current) {
+        return queuedLessonSubmissionRef.current;
       }
 
-      return;
+      const lessonSubmission =
+        queuedLessonSubmissionRef.current ??
+        convertToLessonSubmission(courseId, lessonId, submissions, exercises);
+
+      queuedLessonSubmissionRef.current = lessonSubmission;
+      hasSubmittedLessonRef.current = true;
+
+      router.navigate(
+        ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),
+      );
+
+      return lessonSubmission;
     },
-    [
-      isInfoExercise,
-      currentExercise.id,
-      currentExercise.version,
-      committedExerciseSubmissions,
-      isLastExercise,
-      handleLastExercise,
-      handleCorrectAttempt,
-      clearExerciseInputs,
-      clearStaged,
-    ],
+    [committedExerciseSubmissions, courseId, lessonId, exercises],
   );
 
-  return { commitStagedAttemptIntoSubmissions, committedExerciseSubmissions };
+  const commitSubmission = useCallback(
+    (currentExercise: LudoExercise, attempt: ExerciseAttempt | null) => {
+      if (attempt == null && currentExercise.interaction) {
+        return committedExerciseSubmissions;
+      }
+
+      const committedAttempt =
+        attempt ?? createInfoExerciseAttempt(currentExercise.id);
+      const merged = mergeAttemptIntoExerciseSubmissions(
+        committedExerciseSubmissions,
+        committedAttempt,
+        currentExercise.version,
+      );
+
+      queuedLessonSubmissionRef.current = null;
+      hasSubmittedLessonRef.current = false;
+      setCommittedExerciseSubmissions(merged);
+      return merged;
+    },
+    [committedExerciseSubmissions],
+  );
+
+  return {
+    submissionHistory: committedExerciseSubmissions,
+    commitSubmission,
+    submitLesson,
+  };
 }

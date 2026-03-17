@@ -1,16 +1,16 @@
 import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { useChangeExercise } from "@/features/lesson/hooks/useChangeExercise.tsx";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
-import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
-import { useStagedAttempt } from "@/features/lesson/hooks/useStagedAttempt.tsx";
-import {
-  useExerciseInput,
-  type useExerciseInputResponse,
-} from "@/features/lesson/hooks/useExerciseInput.tsx";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type {
+  ExerciseAttempt,
+  ExerciseSubmission,
+} from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import { useCommittedSubmissions } from "@/features/lesson/hooks/useCommittedSubmissions.tsx";
-import type { ExercisePhase } from "@/features/lesson/zones/LessonFooter.tsx";
+import {
+  findLastCorrectAttempt,
+  getProjectSnapshotFromAttempt,
+  useExerciseHistory,
+} from "@/features/lesson/hooks/useExerciseHistory.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main";
 import { playSound } from "@/sound/soundManager.ts";
@@ -42,74 +42,25 @@ export function useExercise({
   const isLastExercise = position >= exercises.length;
   const isInfo = !currentExercise.interaction;
   const isExecutable = currentExercise.interaction?.type === "EXECUTABLE";
-  const hasCodeOutput = currentExercise.blocks.some(
-    (b) => b.type === "code" && b.output != null,
-  );
 
-  const [isInfoSubmitted, setIsInfoSubmitted] = useState(false);
+  const [isIncorrect, setIsIncorrect] = useState(false);
+  const [canSubmitFromInteraction, setCanSubmitFromInteraction] =
+    useState(false);
   const [workingSnapshotsByExerciseId, setWorkingSnapshotsByExerciseId] =
     useState<Record<string, ProjectSnapshot>>({});
+  const attemptFactoryRef = useRef<(() => ExerciseAttempt | null) | null>(null);
 
-  const exerciseInput = useExerciseInput({ currentExercise });
-  const { currentExerciseInputs, clearExerciseInputs, initializeInputs } =
-    exerciseInput;
-
-  const stagedAttempt = useStagedAttempt({
-    currentExerciseInputs,
-    currentExercise,
-    playAudio: config.audioEnabled,
-  });
-  const {
-    stageAttempt,
-    clearStaged,
-    restoreStaged,
-    phase: stagedPhase,
-    currentlyStagedAttempt,
-    canSubmit,
-    hasStaged,
-    stageCustomAttempt,
-  } = stagedAttempt;
-
-  const { commitStagedAttemptIntoSubmissions, committedExerciseSubmissions } =
+  const { submissionHistory, commitSubmission, submitLesson } =
     useCommittedSubmissions({
       courseId,
-      currentExercise,
-      position,
       exercises,
-      clearExerciseInputs,
-      clearStaged,
       lessonId,
     });
 
-  const isReviewing = useMemo(() => {
-    return committedExerciseSubmissions.some(
-      (s) =>
-        s.exerciseId === currentExerciseId &&
-        s.attempts.some((a) => a.isCorrect),
-    );
-  }, [committedExerciseSubmissions, currentExerciseId]);
-
-  const getSnapshotFromAttempt = useCallback(
-    (attempt: ExerciseAttempt | undefined | null): ProjectSnapshot | null => {
-      if (!attempt || Array.isArray(attempt.answer)) return null;
-      return attempt.answer.submission;
-    },
-    [],
-  );
-
-  const reviewSubmissionSnapshot = useMemo(() => {
-    const currentSubmission = committedExerciseSubmissions.find(
-      (s) => s.exerciseId === currentExerciseId,
-    );
-    if (!currentSubmission) return null;
-
-    const lastCorrect = currentSubmission.attempts
-      .slice()
-      .reverse()
-      .find((a) => a.isCorrect);
-
-    return getSnapshotFromAttempt(lastCorrect);
-  }, [committedExerciseSubmissions, currentExerciseId, getSnapshotFromAttempt]);
+  const { reviewSnapshot, isComplete } = useExerciseHistory({
+    currentExercise,
+    submissionHistory,
+  });
 
   const workingSnapshot = useMemo(() => {
     return workingSnapshotsByExerciseId[currentExerciseId] ?? null;
@@ -132,48 +83,38 @@ export function useExercise({
     const previousExerciseId = exercises[index - 1]?.id;
     if (!previousExerciseId) return lesson.projectSnapshot ?? null;
 
-    const previousSubmission = committedExerciseSubmissions.find(
-      (s) => s.exerciseId === previousExerciseId,
-    );
-
-    const previousCorrect = previousSubmission?.attempts
-      .slice()
-      .reverse()
-      .find((a) => a.isCorrect);
-
     return (
-      getSnapshotFromAttempt(previousCorrect) ?? lesson.projectSnapshot ?? null
+      getProjectSnapshotFromAttempt(
+        findLastCorrectAttempt(submissionHistory, previousExerciseId),
+      ) ??
+      lesson.projectSnapshot ??
+      null
     );
-  }, [
-    exercises,
-    index,
-    committedExerciseSubmissions,
-    lesson.projectSnapshot,
-    getSnapshotFromAttempt,
-  ]);
+  }, [exercises, index, submissionHistory, lesson.projectSnapshot]);
 
-  // Manage isInfoSubmitted state on exercise change
   useEffect(() => {
-    if (isInfo && isReviewing) {
-      setIsInfoSubmitted(true);
-    } else {
-      setIsInfoSubmitted(false);
-    }
-  }, [currentExerciseId, isReviewing, isInfo]);
+    setIsIncorrect(false);
+    setCanSubmitFromInteraction(false);
+    attemptFactoryRef.current = null;
+  }, [currentExerciseId]);
 
-  const phase: ExercisePhase = isInfo
-    ? isInfoSubmitted
-      ? "SUBMITTED"
-      : "DEFAULT"
-    : stagedPhase;
+  const dismissIncorrectFeedback = useCallback(() => {
+    setIsIncorrect(false);
+  }, []);
 
-  useChangeExercise({
-    initializeInputs,
-    clearStaged,
-    restoreStaged,
-    currentExerciseId,
-    submissions: committedExerciseSubmissions,
-  });
+  const setCanSubmit = useCallback((value: boolean) => {
+    setCanSubmitFromInteraction(value);
+  }, []);
+
+  const setAttemptFactory = useCallback(
+    (factory: (() => ExerciseAttempt | null) | null) => {
+      attemptFactoryRef.current = factory;
+    },
+    [],
+  );
+
+  const canSubmit =
+    isComplete || isIncorrect || isInfo || canSubmitFromInteraction;
 
   const canGoBack = position > 1;
 
@@ -182,85 +123,88 @@ export function useExercise({
     router.navigate(ludoNavigation.lesson.toPreviousExercise(position));
   }, [canGoBack, position]);
 
-  const handleExerciseButtonClick = useCallback(() => {
-    if (!canSubmit) return;
-
-    // When reviewing a completed exercise, just navigate forward
-    if (isReviewing) {
-      if (!isLastExercise) {
-        router.navigate(ludoNavigation.lesson.toNextExercise(position));
-      }
+  const continueToNextStep = useCallback(() => {
+    if (isLastExercise) {
+      submitLesson();
       return;
     }
 
-    if (isExecutable) {
-      if (hasStaged) {
-        commitStagedAttemptIntoSubmissions(currentlyStagedAttempt);
-      }
-      return;
-    }
+    router.navigate(ludoNavigation.lesson.toNextExercise(position));
+  }, [isLastExercise, position, submitLesson]);
 
-    if (isInfo) {
-      if (hasCodeOutput && !isInfoSubmitted) {
-        setIsInfoSubmitted(true);
-      } else {
-        commitStagedAttemptIntoSubmissions(null);
+  const commitAttempt = useCallback(
+    (attempt: ExerciseAttempt | null) => {
+      if (attempt && config.audioEnabled) {
+        playSound(attempt.isCorrect ? "correct" : "wrong");
       }
-    } else if (hasStaged) {
-      commitStagedAttemptIntoSubmissions(currentlyStagedAttempt);
-    } else {
-      stageAttempt();
-    }
-  }, [
-    canSubmit,
-    isReviewing,
-    isLastExercise,
-    position,
-    isInfo,
-    isExecutable,
-    hasCodeOutput,
-    isInfoSubmitted,
-    hasStaged,
-    currentlyStagedAttempt,
-    commitStagedAttemptIntoSubmissions,
-    stageAttempt,
-  ]);
 
-  const stageExecutableAttempt = useCallback(
-    (attempt: ExerciseAttempt) => {
-      if (!isExecutable) return;
-      stageCustomAttempt(attempt);
+      const merged = commitSubmission(currentExercise, attempt);
+      setIsIncorrect(Boolean(attempt && !attempt.isCorrect));
+      return merged;
     },
-    [isExecutable, stageCustomAttempt],
+    [commitSubmission, config.audioEnabled, currentExercise],
   );
 
-  const commitExecutableAttempt = useCallback(
+  const handleExerciseButtonClick = useCallback(() => {
+    if (isComplete) {
+      continueToNextStep();
+      return;
+    }
+
+    if (isIncorrect) {
+      dismissIncorrectFeedback();
+      return;
+    }
+
+    if (isExecutable) return;
+
+    if (isInfo) {
+      commitAttempt(null);
+      return;
+    }
+
+    if (!canSubmitFromInteraction) return;
+
+    const attempt = attemptFactoryRef.current?.();
+    if (!attempt) return;
+
+    commitAttempt(attempt);
+  }, [
+    isComplete,
+    continueToNextStep,
+    isIncorrect,
+    dismissIncorrectFeedback,
+    isExecutable,
+    isInfo,
+    canSubmitFromInteraction,
+    commitAttempt,
+  ]);
+
+  const submitExecutableAttempt = useCallback(
     (attempt: ExerciseAttempt) => {
       if (!isExecutable) return;
-      if (!attempt.isCorrect && config.audioEnabled) {
-        playSound("wrong");
-      }
-      commitStagedAttemptIntoSubmissions(attempt);
+      commitAttempt(attempt);
     },
-    [isExecutable, commitStagedAttemptIntoSubmissions, config.audioEnabled],
+    [isExecutable, commitAttempt],
   );
 
   return {
     lesson,
-    phase,
-    canSubmit,
-    isExecutable,
     currentExercise,
-    isReviewing,
-    reviewSubmissionSnapshot,
+    submissionHistory,
+    isComplete,
+    isIncorrect,
+    reviewSubmissionSnapshot: reviewSnapshot,
     workingSnapshot,
     setWorkingSnapshot,
     resetSnapshot,
-    currentlyStagedAttempt,
-    stageExecutableAttempt,
-    commitExecutableAttempt,
+    isExecutable,
+    canSubmit,
+    dismissIncorrectFeedback,
+    setCanSubmit,
+    setAttemptFactory,
+    submitExecutableAttempt,
     handleExerciseButtonClick,
-    inputState: exerciseInput,
     canGoBack,
     goBack,
   };
@@ -269,19 +213,20 @@ export function useExercise({
 export type useExerciseResponse = {
   lesson: LudoLesson;
   currentExercise: LudoExercise;
-  isReviewing: boolean;
+  submissionHistory: ExerciseSubmission[];
+  isComplete: boolean;
+  isIncorrect: boolean;
   reviewSubmissionSnapshot: ProjectSnapshot | null;
   workingSnapshot: ProjectSnapshot | null;
   setWorkingSnapshot: (snapshot: ProjectSnapshot) => void;
   resetSnapshot: ProjectSnapshot | null;
   isExecutable: boolean;
   canSubmit: boolean;
-  phase: ExercisePhase;
-  currentlyStagedAttempt: ExerciseAttempt | null;
-  stageExecutableAttempt: (attempt: ExerciseAttempt) => void;
-  commitExecutableAttempt: (attempt: ExerciseAttempt) => void;
+  dismissIncorrectFeedback: () => void;
+  setCanSubmit: (canSubmit: boolean) => void;
+  setAttemptFactory: (factory: (() => ExerciseAttempt | null) | null) => void;
+  submitExecutableAttempt: (attempt: ExerciseAttempt) => void;
   handleExerciseButtonClick: () => void;
-  inputState: useExerciseInputResponse;
   canGoBack: boolean;
   goBack: () => void;
 };

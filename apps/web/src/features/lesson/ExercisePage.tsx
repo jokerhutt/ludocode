@@ -1,6 +1,8 @@
 import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
 import { ExerciseInteraction } from "@/features/lesson/components/ExerciseInteraction.tsx";
 import { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
+import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
+import { useExerciseInputs } from "@/features/lesson/hooks/useExerciseInputs.tsx";
 import { LessonChatbotPanel } from "@/features/lesson/zones/LessonChatbotPanel.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
 import {
@@ -8,7 +10,6 @@ import {
   buildClozeUserMessage,
   buildSelectUserMessage,
 } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts.ts";
-
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
@@ -17,12 +18,28 @@ import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledC
 import { useCallback, useMemo } from "react";
 import { useIsMobile } from "@ludocode/hooks";
 
-type ExercisePageProps = {};
-
-export function ExercisePage({}: ExercisePageProps) {
-  const { inputState, currentExercise, phase } = useLessonContext();
+export function ExercisePage() {
+  const {
+    currentExercise,
+    submissionHistory,
+    isComplete,
+    dismissIncorrectFeedback,
+    setCanSubmit,
+    setAttemptFactory,
+  } = useLessonContext();
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
+  const { correctInputs } = useExerciseHistory({
+    currentExercise,
+    submissionHistory,
+  });
+  const inputState = useExerciseInputs({
+    currentExercise,
+    correctInputs,
+    onInputInteraction: dismissIncorrectFeedback,
+    setCanSubmit,
+    setAttemptFactory,
+  });
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
   const isMobile = useIsMobile({});
@@ -53,7 +70,7 @@ export function ExercisePage({}: ExercisePageProps) {
     return undefined;
   }, [currentExercise, inputState.currentExerciseInputs]);
 
-  const showOutput = phase === "CORRECT" || phase === "SUBMITTED";
+  const showOutput = isComplete;
 
   return (
     <>

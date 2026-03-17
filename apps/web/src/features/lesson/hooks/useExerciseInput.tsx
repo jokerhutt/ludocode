@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import type { ExerciseAttempt } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { AnswerToken } from "@ludocode/types";
 
 type Args = { currentExercise: LudoExercise };
@@ -12,7 +11,7 @@ export type useExerciseInputResponse = {
   isEmpty: boolean;
   replaceAnswerAt: (index: number, token: AnswerToken) => void;
   clearExerciseInputs: () => void;
-  initializeInputs: (attempt: ExerciseAttempt | null) => void;
+  initializeInputs: (inputs: AnswerToken[] | null) => void;
 };
 
 const makeEmpty = (): AnswerToken => ({ id: undefined, value: "" });
@@ -32,14 +31,14 @@ export function useExerciseInput({
   );
 
   const initializeInputs = useCallback(
-    (lastAttempt: ExerciseAttempt | null) => {
-      if (lastAttempt && Array.isArray(lastAttempt.answer)) {
-        const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
-          typeof a === "string"
-            ? { id: undefined, value: a }
-            : { id: a.id, value: a.value ?? "" },
+    (inputs: AnswerToken[] | null) => {
+      if (inputs) {
+        setCurrentExerciseInputs(
+          inputs.map((token) => ({
+            id: token.id,
+            value: token.value ?? "",
+          })),
         );
-        setCurrentExerciseInputs(tokens);
       } else {
         setCurrentExerciseInputs(Array.from({ length: gapCount }, makeEmpty));
       }

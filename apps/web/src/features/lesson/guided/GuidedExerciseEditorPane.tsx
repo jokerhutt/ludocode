@@ -3,14 +3,13 @@ import { useProjectContext } from "@/features/project/workbench/context/ProjectC
 import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor";
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
-import type { ExercisePhase } from "../zones/LessonFooter";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
 import type { ReactNode } from "react";
 import { cn } from "@ludocode/design-system/cn-utils";
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
-  phase: ExercisePhase;
+  isComplete: boolean;
   incorrectFeedbackOpen: boolean;
   incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
@@ -21,7 +20,7 @@ type GuidedExerciseEditorPaneProps = {
 
 export function GuidedExerciseEditorPane({
   runOrAdvance,
-  phase,
+  isComplete,
   incorrectFeedbackOpen,
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
@@ -31,7 +30,7 @@ export function GuidedExerciseEditorPane({
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
-  const showCorrectFeedback = phase === "CORRECT";
+  const showCorrectFeedback = isComplete;
   const showIncorrectFeedback = incorrectFeedbackOpen;
 
   return (

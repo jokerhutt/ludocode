@@ -1,25 +1,11 @@
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
-import type { ExercisePhase } from "@/features/lesson/zones/LessonFooter.tsx";
-
-type ResultStyle = {
-  border: string;
-  text: string;
-};
 
 export function LessonFeedbackDrawer() {
-  const { phase } = useLessonContext();
-
-  const typeDescriptions: Record<ExercisePhase, ResultStyle> = {
-    DEFAULT: { border: "", text: "" },
-    SUBMITTED: { border: "border-ludo-surface", text: "Output" },
-    CORRECT: { border: "border-ludo-correct", text: "Great work!" },
-    INCORRECT: { border: "border-ludo-incorrect", text: "Not quite!" },
-  };
-
-  const isVisible = phase !== "DEFAULT" && phase !== "SUBMITTED";
-
-  const { border, text } = typeDescriptions[phase];
+  const { isComplete, isIncorrect } = useLessonContext();
+  const isVisible = isComplete || isIncorrect;
+  const border = isComplete ? "border-ludo-correct" : "border-ludo-incorrect";
+  const text = isComplete ? "Great work!" : "Not quite!";
 
   return (
     <div

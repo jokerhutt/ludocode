@@ -9,7 +9,7 @@ import type {
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 
-export function convertStagedAttemptIntoExerciseSubmission(
+export function convertAttemptIntoExerciseSubmission(
   attempt: ExerciseAttempt,
   version: number,
 ): ExerciseSubmission {
@@ -98,7 +98,7 @@ export function createInfoExerciseAttempt(exId: string): ExerciseAttempt {
   };
 }
 
-export function mergeStagedAttemptIntoExerciseSubmissions(
+export function mergeAttemptIntoExerciseSubmissions(
   subs: ExerciseSubmission[],
   attempt: ExerciseAttempt,
   version: number,
@@ -108,7 +108,7 @@ export function mergeStagedAttemptIntoExerciseSubmissions(
   if (i === -1) {
     return [
       ...subs,
-      convertStagedAttemptIntoExerciseSubmission(attempt, version),
+      convertAttemptIntoExerciseSubmission(attempt, version),
     ];
   }
 

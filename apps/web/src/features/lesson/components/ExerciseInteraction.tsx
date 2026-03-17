@@ -34,10 +34,12 @@ export function ExerciseInteraction({
 
   const isMobile = useIsMobile({});
 
-  const { phase } = useLessonContext();
+  const { isComplete, isIncorrect, dismissIncorrectFeedback } =
+    useLessonContext();
 
   const handleSelect = (token: AnswerToken) => {
-    if (phase !== "DEFAULT") return;
+    dismissIncorrectFeedback();
+
     if (selectionMode === "APPEND") {
       const alreadyUsed = currentExerciseInputs.some(
         (t) => t.id === token.id && t.value !== "",
@@ -69,8 +71,8 @@ export function ExerciseInteraction({
             prompt={interactionFile.content}
             options={options}
             userResponses={currentExerciseInputs}
-            typing={!isMobile && phase === "DEFAULT"}
-            actionsEnabled={phase === "DEFAULT"}
+            typing={!isMobile}
+            actionsEnabled={true}
             onChange={replaceAnswerAt}
             clear={clearExerciseInputs}
             popLast={popLastAnswer}
@@ -97,7 +99,7 @@ export function ExerciseInteraction({
               <LudoOption
                 key={option.id}
                 variant="pill"
-                enabled={phase === "DEFAULT" && !isSelected}
+                enabled={!isSelected}
                 content={option.content}
                 isSelected={isSelected}
                 onSelect={() =>
@@ -111,8 +113,14 @@ export function ExerciseInteraction({
             <LudoOption
               key={option.id}
               variant="wideSingleSelect"
-              enabled={phase === "DEFAULT"}
-              status={phase === "SUBMITTED" ? "DEFAULT" : phase}
+              enabled={true}
+              status={
+                isComplete
+                  ? "CORRECT"
+                  : isIncorrect
+                    ? "INCORRECT"
+                    : "DEFAULT"
+              }
               option={option}
               userSelections={currentExerciseInputs}
               setAnswerAt={replaceAnswerAt}

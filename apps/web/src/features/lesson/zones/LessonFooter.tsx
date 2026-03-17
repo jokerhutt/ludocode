@@ -5,11 +5,15 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 
-export type ExercisePhase = "DEFAULT" | "SUBMITTED" | "CORRECT" | "INCORRECT";
-
 export function LessonFooter() {
-  const { handleExerciseButtonClick, canSubmit, phase, canGoBack, goBack } =
-    useLessonContext();
+  const {
+    handleExerciseButtonClick,
+    canSubmit,
+    isComplete,
+    isIncorrect,
+    canGoBack,
+    goBack,
+  } = useLessonContext();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +24,7 @@ export function LessonFooter() {
   function trySubmit() {
     if (!canSubmit || isLoading) return;
 
-    if (phase !== "DEFAULT") {
+    if (isComplete || isIncorrect) {
       handleExerciseButtonClick();
     } else {
       setIsLoading(true);
@@ -32,12 +36,7 @@ export function LessonFooter() {
     }
   }
 
-  const text =
-    phase === "DEFAULT"
-      ? "CHECK"
-      : phase === "INCORRECT"
-        ? "TRY AGAIN"
-        : "CONTINUE";
+  const text = isComplete ? "CONTINUE" : isIncorrect ? "TRY AGAIN" : "CHECK";
 
   return (
     <FooterShell

@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export function useGuidedExerciseReviewState() {
   const {
     currentExercise,
-    isReviewing,
+    isComplete,
     reviewSubmissionSnapshot,
     workingSnapshot,
     setWorkingSnapshot,
@@ -26,12 +26,12 @@ export function useGuidedExerciseReviewState() {
   }, [project, files, entryFileId]);
 
   useEffect(() => {
-    if (isReviewing) return;
+    if (isComplete) return;
     setWorkingSnapshot(buildCurrentSnapshot());
-  }, [isReviewing, buildCurrentSnapshot, setWorkingSnapshot]);
+  }, [isComplete, buildCurrentSnapshot, setWorkingSnapshot]);
 
   useEffect(() => {
-    if (isReviewing && reviewSubmissionSnapshot) {
+    if (isComplete && reviewSubmissionSnapshot) {
       if (appliedReviewSnapshotForExerciseId.current !== currentExercise.id) {
         resetToSnapshot(reviewSubmissionSnapshot);
         appliedReviewSnapshotForExerciseId.current = currentExercise.id;
@@ -53,7 +53,7 @@ export function useGuidedExerciseReviewState() {
     appliedReviewSnapshotForExerciseId.current = null;
     setIsEditorReadOnly(false);
   }, [
-    isReviewing,
+    isComplete,
     reviewSubmissionSnapshot,
     resetToSnapshot,
     currentExercise.id,
