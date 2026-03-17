@@ -1,5 +1,12 @@
 import { getRouteApi, Outlet, useRouter } from "@tanstack/react-router";
-import { LessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import {
+  LessonEvaluationContext,
+  LessonExerciseContext,
+  LessonSubmissionContext,
+  useLessonEvaluation,
+  useLessonExercise,
+  useLessonSubmission,
+} from "@/features/lesson/context/useLessonContext.tsx";
 import { useExercise } from "@/features/lesson/hooks/useExercise.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
@@ -13,6 +20,13 @@ import { qo } from "@/queries/definitions/queries";
 import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { track } from "@/analytics/track";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { useGuidedExerciseState } from "@/features/lesson/guided/hooks/useGuidedExerciseState.tsx";
+import { GuidedExerciseContext } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
+import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
+import { useExerciseInput } from "@/features/lesson/hooks/useExerciseInput.tsx";
+import {
+  ExerciseInputContext,
+} from "@/features/lesson/context/useExerciseInputContext.tsx";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -36,46 +50,96 @@ export function LessonLayout() {
       audioEnabled: preferences.audioEnabled,
     },
   });
+  const guidedState = useGuidedExerciseState({
+    currentExercise: state.exercise.currentExercise,
+    exercises,
+    position: exercisePosition,
+    submissionHistory: state.submission.submissionHistory,
+    lessonProjectSnapshot: lesson.projectSnapshot,
+  });
   const shouldUseGuidedLayout =
-    state.currentExercise.interaction?.type === "EXECUTABLE";
+    state.exercise.currentExercise.interaction?.type === "EXECUTABLE";
 
   return (
     <UserPreferencesContext.Provider value={preferences}>
-      <LessonContext.Provider value={state}>
-        <MainGridWrapper
-          className={cn(
-            "max-h-dvh",
-            shouldUseGuidedLayout && "grid-rows-[auto_1fr]",
-          )}
-          gridRows="FULL"
-        >
-          <LessonHeader
-            onExit={() => {
-              track({
-                event: "LESSON_EXIT",
-                properties: {
-                  lessonId: lesson.id,
-                  exercisePosition: exercisePosition,
-                },
-              });
-              router.navigate(
-                ludoNavigation.hub.module.toModule(courseId, moduleId),
-              );
-            }}
-            total={exercises.length}
-            position={exercisePosition - 1}
-          />
-          <MainContentWrapper>
-            <div className="grid col-span-full h-full grid-cols-12">
-              <Suspense fallback={<div />}>
-                <Outlet />
-              </Suspense>
-            </div>
-          </MainContentWrapper>
-          {!shouldUseGuidedLayout && <LessonFeedbackDrawer />}
-          {!shouldUseGuidedLayout && <LessonFooter />}
-        </MainGridWrapper>
-      </LessonContext.Provider>
+      <LessonExerciseContext.Provider value={state.exercise}>
+        <LessonEvaluationContext.Provider value={state.evaluation}>
+          <LessonSubmissionContext.Provider value={state.submission}>
+            <GuidedExerciseContext.Provider value={guidedState}>
+              <MainGridWrapper
+                className={cn(
+                  "max-h-dvh",
+                  shouldUseGuidedLayout && "grid-rows-[auto_1fr]",
+                )}
+                gridRows="FULL"
+              >
+                <LessonHeader
+                  onExit={() => {
+                    track({
+                      event: "LESSON_EXIT",
+                      properties: {
+                        lessonId: lesson.id,
+                        exercisePosition: exercisePosition,
+                      },
+                    });
+                    router.navigate(
+                      ludoNavigation.hub.module.toModule(courseId, moduleId),
+                    );
+                  }}
+                  total={exercises.length}
+                  position={exercisePosition - 1}
+                />
+                {shouldUseGuidedLayout ? (
+                  <GuidedLessonContent />
+                ) : (
+                  <NormalLessonContent />
+                )}
+              </MainGridWrapper>
+            </GuidedExerciseContext.Provider>
+          </LessonSubmissionContext.Provider>
+        </LessonEvaluationContext.Provider>
+      </LessonExerciseContext.Provider>
     </UserPreferencesContext.Provider>
+  );
+}
+
+function NormalLessonContent() {
+  const { currentExercise } = useLessonExercise();
+  const { dismissIncorrectFeedback } = useLessonEvaluation();
+  const { submissionHistory } = useLessonSubmission();
+  const { correctInputs } = useExerciseHistory({
+    currentExercise,
+    submissionHistory,
+  });
+  const inputState = useExerciseInput({
+    currentExercise,
+    correctInputs,
+    onInputInteraction: dismissIncorrectFeedback,
+  });
+
+  return (
+    <ExerciseInputContext.Provider value={inputState}>
+      <MainContentWrapper>
+        <div className="grid col-span-full h-full grid-cols-12">
+          <Suspense fallback={<div />}>
+            <Outlet />
+          </Suspense>
+        </div>
+      </MainContentWrapper>
+      <LessonFeedbackDrawer />
+      <LessonFooter />
+    </ExerciseInputContext.Provider>
+  );
+}
+
+function GuidedLessonContent() {
+  return (
+    <MainContentWrapper>
+      <div className="grid col-span-full h-full grid-cols-12">
+        <Suspense fallback={<div />}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </MainContentWrapper>
   );
 }

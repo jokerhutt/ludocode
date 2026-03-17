@@ -1,11 +1,47 @@
+import type {
+  LessonEvaluationValue,
+  LessonExerciseValue,
+  LessonSubmissionValue,
+} from "@/features/lesson/hooks/useExercise.tsx";
 import { createContext, useContext } from "react";
-import type { useExerciseResponse } from "@/features/lesson/hooks/useExercise.tsx";
 
-export const LessonContext = createContext<useExerciseResponse | null>(null);
+export const LessonExerciseContext = createContext<LessonExerciseValue | null>(
+  null,
+);
+export const LessonEvaluationContext =
+  createContext<LessonEvaluationValue | null>(null);
+export const LessonSubmissionContext =
+  createContext<LessonSubmissionValue | null>(null);
 
-export function useLessonContext() {
-  const ctx = useContext(LessonContext);
-  if (!ctx)
-    throw new Error("useLesson must be used inside a LessonContext.Provider");
+export function useLessonExercise() {
+  const ctx = useContext(LessonExerciseContext);
+  if (!ctx) {
+    throw new Error(
+      "useLessonExercise must be used inside a LessonExerciseContext.Provider",
+    );
+  }
+
+  return ctx;
+}
+
+export function useLessonEvaluation() {
+  const ctx = useContext(LessonEvaluationContext);
+  if (!ctx) {
+    throw new Error(
+      "useLessonEvaluation must be used inside a LessonEvaluationContext.Provider",
+    );
+  }
+
+  return ctx;
+}
+
+export function useLessonSubmission() {
+  const ctx = useContext(LessonSubmissionContext);
+  if (!ctx) {
+    throw new Error(
+      "useLessonSubmission must be used inside a LessonSubmissionContext.Provider",
+    );
+  }
+
   return ctx;
 }

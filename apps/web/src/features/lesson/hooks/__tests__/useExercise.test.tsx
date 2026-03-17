@@ -2,8 +2,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import type { AnswerToken } from "@ludocode/types";
 import { useExercise } from "@/features/lesson/hooks/useExercise";
+import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation.tsx";
 import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
-import { useExerciseInputs } from "@/features/lesson/hooks/useExerciseInputs.tsx";
+import { useExerciseInput } from "@/features/lesson/hooks/useExerciseInput.tsx";
+import { createInfoExerciseAttempt } from "@/features/lesson/util/submissionUtil.ts";
 import { l1, l1exercises, c1Id } from "./fixtures";
 import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
 import { createLessonRouterMock } from "./testHelpers";
@@ -26,22 +28,47 @@ function useLessonExerciseState(position: number) {
     position,
     config: { audioEnabled: true },
   });
+  const navigation = useExerciseNavigation({ position });
 
   const { correctInputs } = useExerciseHistory({
-    currentExercise: state.currentExercise,
-    submissionHistory: state.submissionHistory,
+    currentExercise: state.exercise.currentExercise,
+    submissionHistory: state.submission.submissionHistory,
   });
 
-  const inputState = useExerciseInputs({
-    currentExercise: state.currentExercise,
+  const inputState = useExerciseInput({
+    currentExercise: state.exercise.currentExercise,
     correctInputs,
-    onInputInteraction: state.dismissIncorrectFeedback,
-    setCanSubmit: state.setCanSubmit,
-    setAttemptFactory: state.setAttemptFactory,
+    onInputInteraction: state.evaluation.dismissIncorrectFeedback,
   });
+
+  const handleExerciseButtonClick = () => {
+    if (state.evaluation.isComplete) {
+      state.submission.continueToNextExercise();
+      return;
+    }
+
+    if (state.evaluation.isIncorrect) {
+      state.evaluation.dismissIncorrectFeedback();
+      return;
+    }
+
+    if (!state.exercise.currentExercise.interaction) {
+      state.submission.submitAttempt(
+        createInfoExerciseAttempt(state.exercise.currentExercise.id),
+      );
+      return;
+    }
+
+    state.submission.submitAttempt(inputState.buildAttemptFromInput());
+  };
 
   return {
-    ...state,
+    ...navigation,
+    currentExercise: state.exercise.currentExercise,
+    submissionHistory: state.submission.submissionHistory,
+    isComplete: state.evaluation.isComplete,
+    isIncorrect: state.evaluation.isIncorrect,
+    handleExerciseButtonClick,
     inputState,
   };
 }

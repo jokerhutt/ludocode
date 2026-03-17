@@ -1,6 +1,6 @@
 import type { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { useLessonEvaluation } from "@/features/lesson/context/useLessonContext.tsx";
 import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview.tsx";
@@ -35,7 +35,7 @@ export function ExerciseInteraction({
   const isMobile = useIsMobile({});
 
   const { isComplete, isIncorrect, dismissIncorrectFeedback } =
-    useLessonContext();
+    useLessonEvaluation();
 
   const handleSelect = (token: AnswerToken) => {
     dismissIncorrectFeedback();
@@ -88,7 +88,6 @@ export function ExerciseInteraction({
         </LudoCodePreview.WithOutput>
       )}
 
-      {/* OPTIONS */}
       <OptionListWrapper className="lg:max-w-xl max-w-xl" type={optionsLayout}>
         {options.map((option) => {
           const isSelected =

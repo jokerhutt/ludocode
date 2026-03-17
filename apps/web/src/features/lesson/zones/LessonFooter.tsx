@@ -1,29 +1,26 @@
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { getRouteApi } from "@tanstack/react-router";
+import { useExerciseActionState } from "@/features/lesson/hooks/useExerciseActionState.tsx";
+import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation.tsx";
 import { useHotkeys } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 
 export function LessonFooter() {
-  const {
-    handleExerciseButtonClick,
-    canSubmit,
-    isComplete,
-    isIncorrect,
-    canGoBack,
-    goBack,
-  } = useLessonContext();
+  const lessonPageRoute = getRouteApi(
+    "/app/lesson/$courseId/$moduleId/$lessonId/",
+  );
+  const { exercise } = lessonPageRoute.useSearch();
+  const position = Number(exercise ?? 1);
+  const { canSubmit, submit, isCorrect, isIncorrect } =
+    useExerciseActionState();
+  const { canGoBack, goBack } = useExerciseNavigation({ position });
 
   useHotkeys({
-    EXECUTE_ACTION: handleExerciseButtonClick,
+    EXECUTE_ACTION: submit,
   });
 
-  function trySubmit() {
-    if (!canSubmit) return;
-      handleExerciseButtonClick();
-  }
-
-  const text = isComplete ? "CONTINUE" : isIncorrect ? "TRY AGAIN" : "CHECK";
+  const text = isCorrect ? "CONTINUE" : isIncorrect ? "TRY AGAIN" : "CHECK";
 
   return (
     <FooterShell
@@ -50,7 +47,7 @@ export function LessonFooter() {
             variant="alt"
             disabled={!canSubmit}
             className="w-full text-lg font-bold h-full"
-            onClick={() => trySubmit()}
+            onClick={submit}
           >
             <p
               data-testid={`lesson-submit-text`}

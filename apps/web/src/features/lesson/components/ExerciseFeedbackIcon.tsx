@@ -1,9 +1,9 @@
 import { FeedbackDialog } from "@/features/feedback/FeedbackDialog.tsx";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { useLessonExercise } from "@/features/lesson/context/useLessonContext.tsx";
 import { Flag } from "lucide-react";
 
 export function ExerciseFeedbackIcon() {
-  const { currentExercise } = useLessonContext();
+  const { currentExercise } = useLessonExercise();
 
   return (
     <FeedbackDialog feedbackType={"EXERCISE"} entityId={currentExercise.id}>

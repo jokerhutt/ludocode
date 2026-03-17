@@ -1,45 +1,22 @@
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import {
+  useLessonEvaluation,
+  useLessonExercise,
+} from "@/features/lesson/context/useLessonContext.tsx";
+import { useExerciseInputContext } from "@/features/lesson/context/useExerciseInputContext.tsx";
 import { ExerciseInteraction } from "@/features/lesson/components/ExerciseInteraction.tsx";
 import { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
-import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
-import { useExerciseInputs } from "@/features/lesson/hooks/useExerciseInputs.tsx";
 import { LessonChatbotPanel } from "@/features/lesson/zones/LessonChatbotPanel.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
-import {
-  buildSystemPromptForExercise,
-  buildClozeUserMessage,
-  buildSelectUserMessage,
-} from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
-import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { AnimatePresence, motion } from "motion/react";
-import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { useIsMobile } from "@ludocode/hooks";
 
 export function ExercisePage() {
-  const {
-    currentExercise,
-    submissionHistory,
-    isComplete,
-    dismissIncorrectFeedback,
-    setCanSubmit,
-    setAttemptFactory,
-  } = useLessonContext();
-  const { aiEnabled } = useUserPreferencesContext();
-  const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
-  const { correctInputs } = useExerciseHistory({
-    currentExercise,
-    submissionHistory,
-  });
-  const inputState = useExerciseInputs({
-    currentExercise,
-    correctInputs,
-    onInputInteraction: dismissIncorrectFeedback,
-    setCanSubmit,
-    setAttemptFactory,
-  });
+  const { currentExercise } = useLessonExercise();
+  const { isComplete } = useLessonEvaluation();
+  const inputState = useExerciseInputContext();
   const body = useExerciseBodyData(currentExercise, inputState);
   const { data: credits } = useSuspenseQuery(qo.credits());
   const isMobile = useIsMobile({});
@@ -49,26 +26,6 @@ export function ExercisePage() {
     if (interaction?.type === "CLOZE") return interaction.output ?? null;
     return null;
   }, [currentExercise]);
-
-  const systemPrompt = useMemo(
-    () => buildSystemPromptForExercise(currentExercise),
-    [currentExercise],
-  );
-
-  const promptWrapper = useCallback((): string | undefined => {
-    const type = currentExercise.interaction?.type;
-    if (type === "CLOZE") {
-      return buildClozeUserMessage(
-        currentExercise,
-        inputState.currentExerciseInputs,
-      );
-    }
-    if (type === "SELECT") {
-      const selected = inputState.currentExerciseInputs[0]?.value || undefined;
-      return buildSelectUserMessage(currentExercise, selected);
-    }
-    return undefined;
-  }, [currentExercise, inputState.currentExerciseInputs]);
 
   const showOutput = isComplete;
 
@@ -105,14 +62,12 @@ export function ExercisePage() {
       )}
 
       <div className="hidden lg:block lg:col-start-10 lg:col-span-3 h-full min-h-0 overflow-hidden">
-        {aiEnabled && aiFeature.enabled && (
-          <LessonChatbotPanel
-            credits={credits}
-            sessionId={currentExercise.id ?? null}
-            systemPrompt={systemPrompt}
-            promptWrapper={promptWrapper}
-          />
-        )}
+        <LessonChatbotPanel
+          credits={credits}
+          sessionId={currentExercise.id ?? null}
+          currentExercise={currentExercise}
+          inputState={inputState}
+        />
       </div>
     </>
   );

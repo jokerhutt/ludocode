@@ -1,9 +1,9 @@
 import { ExercisePage } from "@/features/lesson/ExercisePage.tsx";
 import { GuidedExercisePage } from "@/features/lesson/GuidedExercisePage";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { useLessonExercise } from "@/features/lesson/context/useLessonContext.tsx";
 
 export function LessonPage() {
-  const { currentExercise } = useLessonContext();
+  const { currentExercise } = useLessonExercise();
 
   if (currentExercise.interaction?.type === "EXECUTABLE") {
     return <GuidedExercisePage />;

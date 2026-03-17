@@ -10,7 +10,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
   isComplete: boolean;
-  incorrectFeedbackOpen: boolean;
+  isIncorrect: boolean;
   incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
   isEditorReadOnly: boolean;
@@ -21,7 +21,7 @@ type GuidedExerciseEditorPaneProps = {
 export function GuidedExerciseEditorPane({
   runOrAdvance,
   isComplete,
-  incorrectFeedbackOpen,
+  isIncorrect,
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
   isEditorReadOnly,
@@ -31,7 +31,7 @@ export function GuidedExerciseEditorPane({
   const { files, current, setCurrent } = useProjectContext();
 
   const showCorrectFeedback = isComplete;
-  const showIncorrectFeedback = incorrectFeedbackOpen;
+  const showIncorrectFeedback = isIncorrect;
 
   return (
     <Workbench.Pane

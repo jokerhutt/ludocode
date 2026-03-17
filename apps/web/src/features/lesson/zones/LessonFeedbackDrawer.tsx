@@ -1,11 +1,14 @@
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { useLessonEvaluation } from "@/features/lesson/context/useLessonContext.tsx";
 
 export function LessonFeedbackDrawer() {
-  const { isComplete, isIncorrect } = useLessonContext();
+  const { isComplete, isIncorrect, incorrectFeedbackMessage } =
+    useLessonEvaluation();
   const isVisible = isComplete || isIncorrect;
   const border = isComplete ? "border-ludo-correct" : "border-ludo-incorrect";
-  const text = isComplete ? "Great work!" : "Not quite!";
+  const text = isComplete
+    ? "Great work!"
+    : (incorrectFeedbackMessage ?? "Not quite!");
 
   return (
     <div
