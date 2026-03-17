@@ -75,7 +75,7 @@ export function GuidedLessonActions({
           variant={isRunning ? "default" : "alt"}
           shadow={false}
           disabled={runButtonDisabled}
-          className={cn("h-10 py-0.5 px-4 min-w-34", phase !== "DEFAULT" && "")}
+          className={cn("h-10 py-0.5 lg:px-4 min-w-24 lg:min-w-34", phase !== "DEFAULT" && "")}
         >
           {actionLabel}
         </LudoButton>
