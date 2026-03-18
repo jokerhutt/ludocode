@@ -10,14 +10,13 @@ import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
 import { FileActionsMenu } from "@/features/project/workbench/file-tree/FileActionsMenu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
-import type { ProjectCardResponse } from "@ludocode/types";
+import type { ProjectCardResponse, ProjectVisibility } from "@ludocode/types";
 import { EyeClosed, EyeIcon } from "lucide-react";
 
-type ProjectCardProps = { project: ProjectCardResponse; deleteAt?: string; };
+type ProjectCardProps = { project: ProjectCardResponse; deleteAt?: string };
 
 export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
-  const { projectId, projectTitle, updatedAt, languageIconName} =
-    project;
+  const { projectId, projectTitle, updatedAt, languageIconName } = project;
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
@@ -70,8 +69,9 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
           renameItem={handleRenameProject}
           deleteItem={handleDeleteProject}
         />
-        <EyeIcon className="h-4 w-4"/>
+        <EyeIcon className="h-4 w-4" />
       </div>
     </LudoButton>
   );
 }
+

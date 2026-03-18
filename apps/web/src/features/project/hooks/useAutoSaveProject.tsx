@@ -53,6 +53,7 @@ export function useAutoSaveProject({
         projectLanguage: project.projectLanguage,
         projectName: project.projectName,
         files: files,
+        visibility: project.visibility,
         entryFileId,
       });
     }, debounceMs, entryFileId);
