@@ -1,43 +1,26 @@
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
-import { useState } from "react";
+import { getRouteApi } from "@tanstack/react-router";
+import { useExerciseActionState } from "@/features/lesson/hooks/useExerciseActionState.tsx";
+import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation.tsx";
 import { useHotkeys } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 
-export type ExercisePhase = "DEFAULT" | "SUBMITTED" | "CORRECT" | "INCORRECT";
-
 export function LessonFooter() {
-  const { handleExerciseButtonClick, canSubmit, phase, canGoBack, goBack } =
-    useLessonContext();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const lessonPageRoute = getRouteApi(
+    "/app/lesson/$courseId/$moduleId/$lessonId/",
+  );
+  const { exercise } = lessonPageRoute.useSearch();
+  const position = Number(exercise ?? 1);
+  const { canSubmit, submit, isCorrect, isIncorrect } =
+    useExerciseActionState();
+  const { canGoBack, goBack } = useExerciseNavigation({ position });
 
   useHotkeys({
-    EXECUTE_ACTION: handleExerciseButtonClick,
+    EXECUTE_ACTION: submit,
   });
 
-  function trySubmit() {
-    if (!canSubmit || isLoading) return;
-
-    if (phase !== "DEFAULT") {
-      handleExerciseButtonClick();
-    } else {
-      setIsLoading(true);
-
-      setTimeout(() => {
-        handleExerciseButtonClick();
-        setIsLoading(false);
-      }, 200);
-    }
-  }
-
-  const text =
-    phase === "DEFAULT"
-      ? "CHECK"
-      : phase === "INCORRECT"
-        ? "TRY AGAIN"
-        : "CONTINUE";
+  const text = isCorrect ? "CONTINUE" : isIncorrect ? "TRY AGAIN" : "CHECK";
 
   return (
     <FooterShell
@@ -63,9 +46,8 @@ export function LessonFooter() {
             data-testid={`lesson-submit-button`}
             variant="alt"
             disabled={!canSubmit}
-            isLoading={isLoading}
             className="w-full text-lg font-bold h-full"
-            onClick={() => trySubmit()}
+            onClick={submit}
           >
             <p
               data-testid={`lesson-submit-text`}

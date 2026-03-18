@@ -1,16 +1,17 @@
-import { useLessonContext } from "@/features/lesson/context/useLessonContext";
+import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext";
+import {
+  useLessonEvaluation,
+  useLessonExercise,
+} from "@/features/lesson/context/useLessonContext";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useGuidedExerciseReviewState() {
-  const {
-    currentExercise,
-    isReviewing,
-    reviewSubmissionSnapshot,
-    workingSnapshot,
-    setWorkingSnapshot,
-  } = useLessonContext();
+  const { currentExercise } = useLessonExercise();
+  const { isComplete } = useLessonEvaluation();
+  const { reviewSubmissionSnapshot, workingSnapshot, setWorkingSnapshot } =
+    useGuidedExercise();
   const { project, files, entryFileId, resetToSnapshot } = useProjectContext();
 
   const [isEditorReadOnly, setIsEditorReadOnly] = useState(false);
@@ -26,12 +27,12 @@ export function useGuidedExerciseReviewState() {
   }, [project, files, entryFileId]);
 
   useEffect(() => {
-    if (isReviewing) return;
+    if (isComplete) return;
     setWorkingSnapshot(buildCurrentSnapshot());
-  }, [isReviewing, buildCurrentSnapshot, setWorkingSnapshot]);
+  }, [isComplete, buildCurrentSnapshot, setWorkingSnapshot]);
 
   useEffect(() => {
-    if (isReviewing && reviewSubmissionSnapshot) {
+    if (isComplete && reviewSubmissionSnapshot) {
       if (appliedReviewSnapshotForExerciseId.current !== currentExercise.id) {
         resetToSnapshot(reviewSubmissionSnapshot);
         appliedReviewSnapshotForExerciseId.current = currentExercise.id;
@@ -53,10 +54,10 @@ export function useGuidedExerciseReviewState() {
     appliedReviewSnapshotForExerciseId.current = null;
     setIsEditorReadOnly(false);
   }, [
-    isReviewing,
-    reviewSubmissionSnapshot,
-    resetToSnapshot,
     currentExercise.id,
+    isComplete,
+    resetToSnapshot,
+    reviewSubmissionSnapshot,
     workingSnapshot,
   ]);
 

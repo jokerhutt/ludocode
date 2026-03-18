@@ -1,5 +1,14 @@
-import { describe, it, expect, vi } from "vitest";
-import { renderHook, act, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { act, renderHook, waitFor } from "@testing-library/react";
+import type { AnswerToken } from "@ludocode/types";
+import { useLesson } from "@/features/lesson/hooks/useLesson";
+import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation.tsx";
+import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
+import { useExerciseInput } from "@/features/lesson/hooks/normal/useExerciseInput";
+import { createInfoExerciseAttempt } from "@/features/lesson/util/submissionUtil.ts";
+import { l1, l1exercises, c1Id } from "./fixtures";
+import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
+import { createLessonRouterMock } from "./testHelpers";
 
 const { navigateSpy } = vi.hoisted(() => ({
   navigateSpy: vi.fn(),
@@ -11,27 +20,69 @@ vi.mock("@/main", () => ({
   },
 }));
 
-import { useExercise } from "@/features/lesson/hooks/useExercise";
-import { l1, l1exercises, c1Id } from "./fixtures";
-import type { AnswerToken } from "@ludocode/types";
-import { Route as syncRoute } from "@/routes/app/sync/$lessonId.tsx";
-import { createLessonRouterMock } from "./testHelpers";
+function useLessonExerciseState(position: number) {
+  const state = useLesson({
+    courseId: c1Id,
+    exercises: l1exercises,
+    lesson: l1,
+    position,
+    config: { audioEnabled: true },
+  });
+  const navigation = useExerciseNavigation({ position });
+
+  const { correctInputs } = useExerciseHistory({
+    currentExercise: state.exercise.currentExercise,
+    submissionHistory: state.submission.submissionHistory,
+  });
+
+  const inputState = useExerciseInput({
+    currentExercise: state.exercise.currentExercise,
+    correctInputs,
+    onInputInteraction: state.evaluation.dismissIncorrectFeedback,
+  });
+
+  const handleExerciseButtonClick = () => {
+    if (state.evaluation.isComplete) {
+      state.submission.continueToNextExercise();
+      return;
+    }
+
+    if (state.evaluation.isIncorrect) {
+      state.evaluation.dismissIncorrectFeedback();
+      return;
+    }
+
+    if (!state.exercise.currentExercise.interaction) {
+      state.submission.submitAttempt(
+        createInfoExerciseAttempt(state.exercise.currentExercise.id),
+      );
+      return;
+    }
+
+    state.submission.submitAttempt(inputState.buildAttemptFromInput());
+  };
+
+  return {
+    ...navigation,
+    currentExercise: state.exercise.currentExercise,
+    submissionHistory: state.submission.submissionHistory,
+    isComplete: state.evaluation.isComplete,
+    isIncorrect: state.evaluation.isIncorrect,
+    handleExerciseButtonClick,
+    inputState,
+  };
+}
+
+beforeEach(() => {
+  navigateSpy.mockReset();
+});
 
 describe("useExercise Flow (integration)", () => {
-  // ===== TEST 1 =====
-
-  it("full flow => correctly handles lesson submission => navigates to sync page", async () => {
+  it("commits attempts into history and only continues once a correct submission exists", async () => {
     let currentPosition = 1;
 
     const { result, rerender } = renderHook(
-      ({ position }) =>
-        useExercise({
-          courseId: c1Id,
-          exercises: l1exercises,
-          lesson: l1,
-          position,
-          config: { audioEnabled: true },
-        }),
+      ({ position }) => useLessonExerciseState(position),
       { initialProps: { position: currentPosition } },
     );
 
@@ -45,12 +96,8 @@ describe("useExercise Flow (integration)", () => {
 
     navigateSpy.mockImplementation(routerMock.mockImplementation);
 
-    // Exercise 0 is CLOZE: wrong answer "/"
     act(() => {
-      const wrong: AnswerToken = {
-        id: undefined,
-        value: "/",
-      };
+      const wrong: AnswerToken = { id: undefined, value: "/" };
       result.current.inputState.replaceAnswerAt(0, wrong);
     });
 
@@ -59,7 +106,8 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("INCORRECT");
+      expect(result.current.isIncorrect).toBe(true);
+      expect(result.current.isComplete).toBe(false);
     });
 
     act(() => {
@@ -67,16 +115,15 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.isIncorrect).toBe(false);
+      expect(result.current.currentExercise.id).toBe(l1exercises[0].id);
     });
 
-    // Exercise 0: correct answer "+"
     act(() => {
-      const correct: AnswerToken = {
+      result.current.inputState.replaceAnswerAt(0, {
         id: undefined,
         value: "+",
-      };
-      result.current.inputState.replaceAnswerAt(0, correct);
+      });
     });
 
     act(() => {
@@ -84,7 +131,8 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("CORRECT");
+      expect(result.current.isComplete).toBe(true);
+      expect(result.current.currentExercise.id).toBe(l1exercises[0].id);
     });
 
     act(() => {
@@ -92,25 +140,19 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.isComplete).toBe(false);
       expect(result.current.currentExercise.id).toBe(l1exercises[1].id);
     });
 
-    // Exercise 1 is CLOZE with 2 blanks: correct answers "+" then "-"
     act(() => {
-      const s1: AnswerToken = {
+      result.current.inputState.replaceAnswerAt(0, {
         id: undefined,
         value: "+",
-      };
-      result.current.inputState.replaceAnswerAt(0, s1);
-    });
-
-    act(() => {
-      const s2: AnswerToken = {
+      });
+      result.current.inputState.replaceAnswerAt(1, {
         id: undefined,
         value: "-",
-      };
-      result.current.inputState.replaceAnswerAt(1, s2);
+      });
     });
 
     act(() => {
@@ -118,7 +160,8 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("CORRECT");
+      expect(result.current.isComplete).toBe(true);
+      expect(result.current.currentExercise.id).toBe(l1exercises[1].id);
     });
 
     act(() => {
@@ -126,7 +169,7 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.isComplete).toBe(false);
       expect(result.current.currentExercise.id).toBe(l1exercises[2].id);
     });
 
@@ -135,101 +178,127 @@ describe("useExercise Flow (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("DEFAULT");
+      expect(result.current.isComplete).toBe(true);
+      expect(routerMock.getNavigationTo(syncRoute.to)).toBeUndefined();
+    });
 
-      // Get sync navigation
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
       const syncNavigation = routerMock.getNavigationTo(syncRoute.to);
 
-      // Assert navigation to sync page
       expect(syncNavigation).not.toBeNull();
       expect(syncNavigation!.params.lessonId).toBe(l1.id);
-
-      // Assert lesson submission structure
-      expect(syncNavigation!.computedState.submission).toBeDefined();
-      expect(syncNavigation!.computedState.submission.lessonId).toBe(l1.id);
-      expect(
-        syncNavigation!.computedState.submission.submissionId,
-      ).toBeDefined();
       expect(syncNavigation!.computedState.submission.exercises).toHaveLength(
         3,
       );
+    });
+  });
 
-      // Verify all exercises were submitted
+  it("submits the completed lesson only once even if continue is triggered repeatedly", async () => {
+    let currentPosition = 3;
 
-      expect(
-        syncNavigation!.computedState.submission.exercises[0].exerciseId,
-      ).toBe(l1exercises[0].id);
+    const { result, rerender } = renderHook(
+      ({ position }) => useLessonExerciseState(position),
+      { initialProps: { position: currentPosition } },
+    );
 
-      // Exercise 1 had 2 attempts
-      expect(
-        syncNavigation!.computedState.submission.exercises[0].attempts,
-      ).toHaveLength(2);
+    const routerMock = createLessonRouterMock(
+      rerender,
+      () => currentPosition,
+      (pos) => {
+        currentPosition = pos;
+      },
+    );
 
-      // Exercise 1 attempt 1 was INCORRECT (wrong CLOZE answer "/")
-      expect(
-        syncNavigation!.computedState.submission.exercises[0].attempts[0]
-          .answer,
-      ).toEqual({ type: "CLOZE", valuesByBlank: ["/"] });
+    navigateSpy.mockImplementation(routerMock.mockImplementation);
 
-      // Exercise 1 attempt 2 was CORRECT (correct CLOZE answer "+")
-      expect(
-        syncNavigation!.computedState.submission.exercises[0].attempts[1]
-          .answer,
-      ).toEqual({ type: "CLOZE", valuesByBlank: ["+"] });
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
 
-      expect(
-        syncNavigation!.computedState.submission.exercises[1].exerciseId,
-      ).toBe(l1exercises[1].id);
+    await waitFor(() => {
+      expect(result.current.isComplete).toBe(true);
+    });
 
-      // Exercise 2 had 1 attempt
-      expect(
-        syncNavigation!.computedState.submission.exercises[1].attempts,
-      ).toHaveLength(1);
+    act(() => {
+      result.current.handleExerciseButtonClick();
+      result.current.handleExerciseButtonClick();
+      result.current.handleExerciseButtonClick();
+    });
 
-      // Exercise 2 attempt 1 was CORRECT (correct CLOZE answer "+", "-")
-      expect(
-        syncNavigation!.computedState.submission.exercises[1].attempts[0]
-          .answer,
-      ).toEqual({ type: "CLOZE", valuesByBlank: ["+", "-"] });
+    await waitFor(() => {
+      const syncNavigations = routerMock.navigations.filter(
+        (navigation) => navigation.to === syncRoute.to,
+      );
 
-      expect(
-        syncNavigation!.computedState.submission.exercises[2].exerciseId,
-      ).toBe(l1exercises[2].id);
+      expect(syncNavigations).toHaveLength(1);
+    });
+  });
 
-      // Exercise 3 had 1 attempt
-      expect(
-        syncNavigation!.computedState.submission.exercises[2].attempts,
-      ).toHaveLength(1);
+  it("shows completed state again when navigating back to a solved exercise", async () => {
+    let currentPosition = 1;
 
-      // Exercise 3 is INFO => MCQ with "INFO"
-      expect(
-        syncNavigation!.computedState.submission.exercises[2].attempts[0]
-          .answer,
-      ).toEqual({ type: "MCQ", pickedValue: "INFO" });
+    const { result, rerender } = renderHook(
+      ({ position }) => useLessonExerciseState(position),
+      { initialProps: { position: currentPosition } },
+    );
+
+    const routerMock = createLessonRouterMock(
+      rerender,
+      () => currentPosition,
+      (pos) => {
+        currentPosition = pos;
+      },
+    );
+
+    navigateSpy.mockImplementation(routerMock.mockImplementation);
+
+    act(() => {
+      result.current.inputState.replaceAnswerAt(0, {
+        id: undefined,
+        value: "+",
+      });
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.isComplete).toBe(true);
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.currentExercise.id).toBe(l1exercises[1].id);
+    });
+
+    act(() => {
+      result.current.goBack();
+    });
+
+    await waitFor(() => {
+      expect(result.current.currentExercise.id).toBe(l1exercises[0].id);
+      expect(result.current.isComplete).toBe(true);
     });
   });
 });
 
-describe("useExercise Phase (integration)", () => {
-  // ===== TEST 1 =====
-
-  it("wrong answer => INCORRECT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({
-        courseId: c1Id,
-        exercises: l1exercises,
-        lesson: l1,
-        position: 1,
-        config: { audioEnabled: true },
-      }),
-    );
+describe("useExercise Status (integration)", () => {
+  it("wrong answer => isIncorrect", async () => {
+    const { result } = renderHook(() => useLessonExerciseState(1));
 
     act(() => {
-      const wrong: AnswerToken = {
+      result.current.inputState.replaceAnswerAt(0, {
         id: undefined,
         value: "/",
-      };
-      result.current.inputState.replaceAnswerAt(0, wrong);
+      });
     });
 
     act(() => {
@@ -237,90 +306,49 @@ describe("useExercise Phase (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("INCORRECT");
+      expect(result.current.isIncorrect).toBe(true);
+      expect(result.current.isComplete).toBe(false);
     });
   });
 
-  // ===== TEST 2 =====
-
-  it("correct answer => CORRECT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({
-        courseId: c1Id,
-        exercises: l1exercises,
-        lesson: l1,
-        position: 1,
-        config: { audioEnabled: true },
-      }),
-    );
+  it("input changes clear incorrect feedback without locking the exercise", async () => {
+    const { result } = renderHook(() => useLessonExerciseState(1));
 
     act(() => {
-      const correct: AnswerToken = {
+      result.current.inputState.replaceAnswerAt(0, {
+        id: undefined,
+        value: "/",
+      });
+    });
+
+    act(() => {
+      result.current.handleExerciseButtonClick();
+    });
+
+    await waitFor(() => {
+      expect(result.current.isIncorrect).toBe(true);
+    });
+
+    act(() => {
+      result.current.inputState.replaceAnswerAt(0, {
         id: undefined,
         value: "+",
-      };
-      result.current.inputState.replaceAnswerAt(0, correct);
-    });
-
-    act(() => {
-      result.current.handleExerciseButtonClick();
+      });
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("CORRECT");
+      expect(result.current.isIncorrect).toBe(false);
     });
   });
 
-  // ===== TEST 3 =====
-
-  it("INFO answer => DEFAULT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({
-        courseId: c1Id,
-        exercises: l1exercises,
-        lesson: l1,
-        position: 3,
-        config: { audioEnabled: true },
-      }),
-    );
+  it("correct answer => isComplete", async () => {
+    const { result } = renderHook(() => useLessonExerciseState(1));
 
     act(() => {
-      result.current.handleExerciseButtonClick();
-    });
-
-    await waitFor(() => {
-      expect(result.current.phase).toBe("DEFAULT");
-    });
-  });
-
-  // ===== TEST 4 =====
-
-  it("incorrect answer order => INCORRECT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({
-        courseId: c1Id,
-        exercises: l1exercises,
-        lesson: l1,
-        position: 2,
-        config: { audioEnabled: true },
-      }),
-    );
-
-    // Wrong order: "-" then "+" (correct is "+" then "-")
-    act(() => {
-      const s1: AnswerToken = {
-        id: undefined,
-        value: "-",
-      };
-      result.current.inputState.replaceAnswerAt(0, s1);
-    });
-
-    act(() => {
-      const s2: AnswerToken = {
+      result.current.inputState.replaceAnswerAt(0, {
         id: undefined,
         value: "+",
-      };
-      result.current.inputState.replaceAnswerAt(1, s2);
+      });
     });
 
     act(() => {
@@ -328,46 +356,7 @@ describe("useExercise Phase (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase).toBe("INCORRECT");
-    });
-  });
-
-  // ===== TEST 5 =====
-
-  it("correct answer order => CORRECT phase", async () => {
-    const { result } = renderHook(() =>
-      useExercise({
-        courseId: c1Id,
-        exercises: l1exercises,
-        lesson: l1,
-        position: 2,
-        config: { audioEnabled: true },
-      }),
-    );
-
-    // Correct order: "+" then "-"
-    act(() => {
-      const s1: AnswerToken = {
-        id: undefined,
-        value: "+",
-      };
-      result.current.inputState.replaceAnswerAt(0, s1);
-    });
-
-    act(() => {
-      const s2: AnswerToken = {
-        id: undefined,
-        value: "-",
-      };
-      result.current.inputState.replaceAnswerAt(1, s2);
-    });
-
-    act(() => {
-      result.current.handleExerciseButtonClick();
-    });
-
-    await waitFor(() => {
-      expect(result.current.phase).toBe("CORRECT");
+      expect(result.current.isComplete).toBe(true);
     });
   });
 });

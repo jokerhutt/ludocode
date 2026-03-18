@@ -1,6 +1,5 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { RotateCcwIcon } from "lucide-react";
-import type { ExercisePhase } from "../zones/LessonFooter";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { SolutionHintDialog } from "./SolutionHintDialog";
 
@@ -19,7 +18,8 @@ type GuidedLessonActionsProps = {
   isRunning: boolean;
   runOrAdvance: () => void;
   runnerEnabled: boolean;
-  phase: ExercisePhase;
+  isComplete: boolean;
+  isIncorrect: boolean;
   solutionHint?: SolutionHint | null;
 };
 
@@ -31,13 +31,16 @@ export function GuidedLessonActions({
   isRunning,
   runnerEnabled,
   runOrAdvance,
-  phase,
+  isComplete,
+  isIncorrect,
   solutionHint,
 }: GuidedLessonActionsProps) {
-  const runButtonDisabled = phase === "DEFAULT" && !runnerEnabled;
+  const runButtonDisabled = !isComplete && !isRunning && !runnerEnabled;
   const actionLabel =
-    phase === "CORRECT" && !isRunning
+    isComplete && !isRunning
       ? "CONTINUE"
+      : isIncorrect && !isRunning
+        ? "TRY AGAIN"
       : isRunning
         ? "STOP"
         : "SUBMIT";
@@ -75,7 +78,7 @@ export function GuidedLessonActions({
           variant={isRunning ? "default" : "alt"}
           shadow={false}
           disabled={runButtonDisabled}
-          className={cn("h-10 py-0.5 px-4 min-w-34", phase !== "DEFAULT" && "")}
+          className={cn("h-10 py-0.5 lg:px-4 min-w-24 lg:min-w-34")}
         >
           {actionLabel}
         </LudoButton>

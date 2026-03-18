@@ -1,27 +1,62 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChatBotProvider } from "@/features/ai/context/ChatBotContext.tsx";
 import ChatBotWindow from "@ludocode/design-system/widgets/chatbot/ChatbotWindow.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { useHotkeys } from "@ludocode/hooks";
+import {
+  buildClozeUserMessage,
+  buildSelectUserMessage,
+  buildSystemPromptForExercise,
+} from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
+import type { LudoExercise } from "@ludocode/types";
+import type { useExerciseInputResponse } from "../hooks/normal/useExerciseInput";
+import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext";
+import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
 
 type LessonChatbotPanelProps = {
   sessionId: string | null;
-  systemPrompt: string;
-  promptWrapper?: () => string | undefined;
+  currentExercise: LudoExercise;
+  inputState: useExerciseInputResponse;
   credits: number;
 };
 
 export function LessonChatbotPanel({
   sessionId,
-  systemPrompt,
-  promptWrapper,
+  currentExercise,
+  inputState,
   credits,
 }: LessonChatbotPanelProps) {
+  const { aiEnabled } = useUserPreferencesContext();
+  const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
+
+
+  const systemPrompt = useMemo(
+    () => buildSystemPromptForExercise(currentExercise),
+    [currentExercise],
+  );
+
+  const promptWrapper = useCallback((): string | undefined => {
+    const type = currentExercise.interaction?.type;
+    if (type === "CLOZE") {
+      return buildClozeUserMessage(
+        currentExercise,
+        inputState.currentExerciseInputs,
+      );
+    }
+    if (type === "SELECT") {
+      const selected = inputState.currentExerciseInputs[0]?.value || undefined;
+      return buildSelectUserMessage(currentExercise, selected);
+    }
+    return undefined;
+  }, [currentExercise, inputState.currentExerciseInputs]);
+
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen((v) => !v);
 
   useHotkeys({ TOGGLE_WINDOW: toggle });
+
+  if (!aiEnabled || !aiFeature.enabled) return null;
 
   return (
     <ChatBotProvider credits={credits} sessionId={sessionId} type="LESSON">

@@ -1,6 +1,6 @@
-import type { useExerciseBodyData } from "@/features/lesson/hooks/useExerciseBodyData.tsx";
+import type { useExerciseBodyData } from "@/features/lesson/hooks/normal/useExerciseBodyData";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext.tsx";
+import { useLessonEvaluation } from "@/features/lesson/context/useLessonContext.tsx";
 import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview.tsx";
@@ -34,10 +34,12 @@ export function ExerciseInteraction({
 
   const isMobile = useIsMobile({});
 
-  const { phase } = useLessonContext();
+  const { isComplete, isIncorrect, dismissIncorrectFeedback } =
+    useLessonEvaluation();
 
   const handleSelect = (token: AnswerToken) => {
-    if (phase !== "DEFAULT") return;
+    dismissIncorrectFeedback();
+
     if (selectionMode === "APPEND") {
       const alreadyUsed = currentExerciseInputs.some(
         (t) => t.id === token.id && t.value !== "",
@@ -69,8 +71,8 @@ export function ExerciseInteraction({
             prompt={interactionFile.content}
             options={options}
             userResponses={currentExerciseInputs}
-            typing={!isMobile && phase === "DEFAULT"}
-            actionsEnabled={phase === "DEFAULT"}
+            typing={!isMobile}
+            actionsEnabled={true}
             onChange={replaceAnswerAt}
             clear={clearExerciseInputs}
             popLast={popLastAnswer}
@@ -86,7 +88,6 @@ export function ExerciseInteraction({
         </LudoCodePreview.WithOutput>
       )}
 
-      {/* OPTIONS */}
       <OptionListWrapper className="lg:max-w-xl max-w-xl" type={optionsLayout}>
         {options.map((option) => {
           const isSelected =
@@ -97,7 +98,7 @@ export function ExerciseInteraction({
               <LudoOption
                 key={option.id}
                 variant="pill"
-                enabled={phase === "DEFAULT" && !isSelected}
+                enabled={!isSelected}
                 content={option.content}
                 isSelected={isSelected}
                 onSelect={() =>
@@ -111,8 +112,10 @@ export function ExerciseInteraction({
             <LudoOption
               key={option.id}
               variant="wideSingleSelect"
-              enabled={phase === "DEFAULT"}
-              status={phase === "SUBMITTED" ? "DEFAULT" : phase}
+              enabled={true}
+              status={
+                isComplete ? "CORRECT" : isIncorrect ? "INCORRECT" : "DEFAULT"
+              }
               option={option}
               userSelections={currentExerciseInputs}
               setAnswerAt={replaceAnswerAt}

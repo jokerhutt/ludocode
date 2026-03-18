@@ -3,7 +3,7 @@ import type {
   ExerciseInteraction as ExerciseInteractionType,
   InteractionFile,
 } from "@ludocode/types/Exercise/LudoExercise.ts";
-import type { useExerciseInputResponse } from "@/features/lesson/hooks/useExerciseInput.tsx";
+import type { useExerciseInputResponse } from "@/features/lesson/hooks/normal/useExerciseInput";
 import { useMemo } from "react";
 import type { ExerciseType } from "@ludocode/types/Exercise/ExerciseType.ts";
 

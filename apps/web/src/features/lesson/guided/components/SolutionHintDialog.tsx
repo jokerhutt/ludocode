@@ -1,6 +1,7 @@
 import { DiffEditor } from "@monaco-editor/react";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
+import { DialogTitle } from "@ludocode/external/ui/dialog";
 import { useMonacoTheme } from "@/features/project/hooks/useMonacoTheme";
 import { useIsMobile } from "@ludocode/hooks";
 import { LightbulbIcon } from "lucide-react";
@@ -45,9 +46,9 @@ export function SolutionHintDialog({
     >
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <p className="text-ludo-white font-semibold text-left">
+          <DialogTitle className="text-ludo-white font-semibold text-left">
             Solution Hint
-          </p>
+          </DialogTitle>
         </div>
 
         <div className="flex flex-col rounded-lg overflow-hidden">

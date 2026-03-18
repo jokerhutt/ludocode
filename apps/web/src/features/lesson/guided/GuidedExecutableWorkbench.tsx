@@ -1,5 +1,11 @@
+import { getRouteApi } from "@tanstack/react-router";
 import { useHotkeys, useIsMobile } from "@ludocode/hooks";
-import { useLessonContext } from "@/features/lesson/context/useLessonContext";
+import {
+  useLessonEvaluation,
+  useLessonExercise,
+  useLessonSubmission,
+} from "@/features/lesson/context/useLessonContext";
+import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNavigation";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
@@ -9,16 +15,16 @@ import {
   evaluateExecutableTests,
   getFirstFailedExecutableTestFeedback,
 } from "../util/executableTestUtil";
-import { GuidedExerciseTreePane } from "./GuidedExerciseTreePane";
-import { GuidedExerciseEditorPane } from "./GuidedExerciseEditorPane";
+import { GuidedExerciseTreePane } from "./components/GuidedExerciseTreePane";
+import { GuidedExerciseEditorPane } from "./components/GuidedExerciseEditorPane";
 import type { ExecutableTest, ExerciseAttempt } from "@ludocode/types";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { GuidedLessonActions } from "./GuidedLessonActions";
-import { useGuidedExerciseNavigation } from "./hooks/useGuidedExerciseNavigation";
 import { useGuidedExerciseReviewState } from "./hooks/useGuidedExerciseReviewState";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
+import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
+import { GuidedLessonActions } from "./components/GuidedLessonActions";
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
@@ -29,15 +35,29 @@ export function GuidedExecutableWorkbench({
   tests: ExecutableTest[];
   showBlockOutput: boolean;
 }) {
+  const lessonPageRoute = getRouteApi(
+    "/app/lesson/$courseId/$moduleId/$lessonId/",
+  );
+  const { exercise } = lessonPageRoute.useSearch();
+  const position = Number(exercise ?? 1);
+  const { currentExercise } = useLessonExercise();
   const {
-    currentExercise,
-    phase,
-    isReviewing,
-    stageExecutableAttempt,
-    commitExecutableAttempt,
-    handleExerciseButtonClick,
-  } = useLessonContext();
-  const { project, files, entryFileId, updateContent } = useProjectContext();
+    isComplete,
+    isIncorrect,
+    incorrectFeedbackMessage,
+    dismissIncorrectFeedback,
+  } = useLessonEvaluation();
+  const { submitAttempt, continueToNextExercise } = useLessonSubmission();
+  const { resetSnapshot, setWorkingSnapshot } = useGuidedExercise();
+  const { canGoBack, goBack } = useExerciseNavigation({ position });
+  const {
+    project,
+    files,
+    active,
+    entryFileId,
+    updateContent,
+    resetToSnapshot,
+  } = useProjectContext();
   const { runCode, stopCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
@@ -45,16 +65,11 @@ export function GuidedExecutableWorkbench({
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
   const [incorrectAttemptCount, setIncorrectAttemptCount] = useState(0);
-  const [incorrectFeedbackOpen, setIncorrectFeedbackOpen] = useState(false);
-  const [incorrectFeedbackMessage, setIncorrectFeedbackMessage] = useState<
-    string | null
-  >(null);
   const [mobilePane, setMobilePane] =
     useState<GuidedMobilePane>("instructions");
   const outputCountBeforeRunRef = useRef(0);
   const { isEditorReadOnly } = useGuidedExerciseReviewState();
 
-  // Reset incorrect count when moving to a new exercise
   useEffect(() => {
     setIncorrectAttemptCount(0);
   }, [currentExercise.id]);
@@ -69,6 +84,22 @@ export function GuidedExecutableWorkbench({
     () => buildProjectSystemPrompt(currentExercise, project),
     [currentExercise, project],
   );
+  const filesSignature = useMemo(
+    () => files.map((file) => `${file.path}:${file.content}`).join("::"),
+    [files],
+  );
+
+  const previousFilesSignatureRef = useRef(filesSignature);
+
+  useEffect(() => {
+    if (previousFilesSignatureRef.current === filesSignature) return;
+
+    previousFilesSignatureRef.current = filesSignature;
+
+    if (!isIncorrect) return;
+
+    dismissIncorrectFeedback();
+  }, [dismissIncorrectFeedback, filesSignature, isIncorrect]);
 
   useEffect(() => {
     if (!awaitingValidation || isRunning) return;
@@ -108,56 +139,54 @@ export function GuidedExecutableWorkbench({
     };
 
     if (isCorrect) {
-      setIncorrectFeedbackOpen(false);
-      setIncorrectFeedbackMessage(null);
-      stageExecutableAttempt(attempt);
+      dismissIncorrectFeedback();
     } else {
-      commitExecutableAttempt(attempt);
-      setIncorrectAttemptCount((c) => c + 1);
-      setIncorrectFeedbackMessage(failedFeedback);
-      setIncorrectFeedbackOpen(true);
+      setIncorrectAttemptCount((count) => count + 1);
     }
+
+    submitAttempt(attempt, failedFeedback);
     setAwaitingValidation(false);
   }, [
     awaitingValidation,
+    currentExercise.id,
+    dismissIncorrectFeedback,
+    entryFileId,
+    files,
     isRunning,
     outputLog,
     project,
-    files,
-    entryFileId,
+    submitAttempt,
     tests,
-    currentExercise.id,
-    stageExecutableAttempt,
-    commitExecutableAttempt,
   ]);
 
   const runOrAdvance = useCallback(() => {
-    if (phase !== "DEFAULT") {
-      handleExerciseButtonClick();
+    if (isComplete) {
+      continueToNextExercise();
       return;
     }
 
     if (!runnerFeature.enabled) return;
 
     if (isRunning) {
+      dismissIncorrectFeedback();
       setAwaitingValidation(false);
       stopCode();
       return;
     }
 
-    setIncorrectFeedbackOpen(false);
-    setIncorrectFeedbackMessage(null);
+    dismissIncorrectFeedback();
     outputCountBeforeRunRef.current = outputLog.length;
     setAwaitingValidation(true);
     runCode();
   }, [
+    continueToNextExercise,
+    dismissIncorrectFeedback,
+    isComplete,
     isRunning,
-    phase,
-    handleExerciseButtonClick,
-    runnerFeature.enabled,
-    stopCode,
     outputLog.length,
     runCode,
+    runnerFeature.enabled,
+    stopCode,
   ]);
 
   useHotkeys({
@@ -167,20 +196,36 @@ export function GuidedExecutableWorkbench({
   const interaction = currentExercise.interaction;
   const solution =
     interaction?.type === "EXECUTABLE" ? interaction.solution : "";
-  const currentCode = files[0]?.content ?? "";
-  const languageId = files[0]?.language.editorId ?? "plaintext";
-  const showSolutionHint =
-    !isReviewing && phase === "DEFAULT" && incorrectAttemptCount >= 2;
+  const currentCode = active?.content ?? "";
+  const languageId = active?.language.editorId ?? "plaintext";
+  const showSolutionHint = !isComplete && incorrectAttemptCount >= 2;
+  const canReset = useMemo(() => {
+    return !!resetSnapshot && !isEditorReadOnly && !isRunning;
+  }, [isEditorReadOnly, isRunning, resetSnapshot]);
 
-  const { canGoBack, onGoBack, canReset, onReset } =
-    useGuidedExerciseNavigation({
-      isRunning,
-      isEditorReadOnly,
-      onAfterReset: () => {
-        setIncorrectFeedbackOpen(false);
-        setIncorrectFeedbackMessage(null);
-      },
+  const onGoBack = useCallback(() => {
+    if (!canGoBack) return;
+    goBack();
+  }, [canGoBack, goBack]);
+
+  const onReset = useCallback(() => {
+    if (!resetSnapshot || isEditorReadOnly || isRunning) return;
+
+    resetToSnapshot(resetSnapshot);
+    setWorkingSnapshot({
+      ...resetSnapshot,
+      files: resetSnapshot.files.map((file) => ({ ...file })),
     });
+
+    dismissIncorrectFeedback();
+  }, [
+    dismissIncorrectFeedback,
+    isEditorReadOnly,
+    isRunning,
+    resetSnapshot,
+    resetToSnapshot,
+    setWorkingSnapshot,
+  ]);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-0 w-full col-span-full">
@@ -197,10 +242,10 @@ export function GuidedExecutableWorkbench({
 
       <GuidedExerciseEditorPane
         runOrAdvance={runOrAdvance}
-        phase={phase}
-        incorrectFeedbackOpen={incorrectFeedbackOpen}
+        isComplete={isComplete}
+        isIncorrect={isIncorrect}
         incorrectFeedbackMessage={incorrectFeedbackMessage}
-        onDismissIncorrectFeedback={() => setIncorrectFeedbackOpen(false)}
+        onDismissIncorrectFeedback={dismissIncorrectFeedback}
         isEditorReadOnly={isEditorReadOnly}
         className={cn(
           mobilePane === "code" ? "flex-[2]" : "hidden",
@@ -215,7 +260,8 @@ export function GuidedExecutableWorkbench({
           onReset={onReset}
           runOrAdvance={runOrAdvance}
           runnerEnabled={runnerFeature.enabled == true}
-          phase={phase}
+          isComplete={isComplete}
+          isIncorrect={isIncorrect}
           isRunning={isRunning}
           solutionHint={
             showSolutionHint

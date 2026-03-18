@@ -3,15 +3,14 @@ import { useProjectContext } from "@/features/project/workbench/context/ProjectC
 import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor";
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench";
-import type { ExercisePhase } from "../zones/LessonFooter";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
 import type { ReactNode } from "react";
 import { cn } from "@ludocode/design-system/cn-utils";
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
-  phase: ExercisePhase;
-  incorrectFeedbackOpen: boolean;
+  isComplete: boolean;
+  isIncorrect: boolean;
   incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
   isEditorReadOnly: boolean;
@@ -21,8 +20,8 @@ type GuidedExerciseEditorPaneProps = {
 
 export function GuidedExerciseEditorPane({
   runOrAdvance,
-  phase,
-  incorrectFeedbackOpen,
+  isComplete,
+  isIncorrect,
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
   isEditorReadOnly,
@@ -31,8 +30,8 @@ export function GuidedExerciseEditorPane({
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
-  const showCorrectFeedback = phase === "CORRECT";
-  const showIncorrectFeedback = incorrectFeedbackOpen;
+  const showCorrectFeedback = isComplete;
+  const showIncorrectFeedback = isIncorrect;
 
   return (
     <Workbench.Pane
@@ -72,7 +71,7 @@ export function GuidedExerciseEditorPane({
         />
       )}
 
-      <div className="absolute bottom-16 lg:bottom-10 w-full px-10 z-10 flex items-center justify-between gap-2">
+      <div className="absolute bottom-16 lg:bottom-10 w-full px-6 lg:px-10 z-10 flex items-center justify-between gap-2">
         {children}
       </div>
     </Workbench.Pane>
