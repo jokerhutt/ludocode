@@ -102,7 +102,7 @@ export const mutations = {
     });
   },
 
-  reameProject: () => {
+  renameProject: () => {
     return mutationOptions<void, Error, RenameProjectRequest>({
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
@@ -118,8 +118,8 @@ export const mutations = {
     return mutationOptions<void, Error, ChangeProjectVisibilityRequest>({
       mutationKey: ["changeProjectVisibility"],
       mutationFn: (variables) =>
-        ludoPatch<void, ChangeProjectVisibilityRequest>(
-          api.projects.name(pid),
+        ludoPut<void, ChangeProjectVisibilityRequest>(
+          api.projects.visibility(pid),
           variables,
           true,
         ),

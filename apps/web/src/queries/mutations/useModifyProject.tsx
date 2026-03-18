@@ -7,7 +7,7 @@ export function useRenameProject(pid: string) {
   const qc = useQueryClient();
 
   return useMutation({
-    ...mutations.reameProject(),
+    ...mutations.renameProject(),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.projects() });
       qc.invalidateQueries({ queryKey: qk.project(pid) });

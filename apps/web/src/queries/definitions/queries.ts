@@ -1,4 +1,4 @@
-import { keepPreviousData, queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 import { qk } from "@/queries/definitions/qk.ts";
 import {
   courseProgressBatcher,
