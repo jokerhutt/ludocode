@@ -17,7 +17,6 @@ import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import type { UserPreferences } from "@ludocode/types/User/UserPreferences.ts";
-import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import {
   type DailyGoalMet,
   type UserStreak,
@@ -31,6 +30,8 @@ import {
   type PlanOverview,
   type UserSubscription,
   type ProjectSnapshot,
+  type ProjectCardResponse,
+  type ProjectCardListResponse,
 } from "@ludocode/types";
 
 export const qo = {
@@ -158,7 +159,7 @@ export const qo = {
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(api.projects.base, true),
+      queryFn: () => ludoGet<ProjectCardListResponse>(api.projects.base, true),
       staleTime: 60_000,
     }),
 

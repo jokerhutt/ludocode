@@ -1,6 +1,5 @@
 import { useModifyProject } from "@/queries/mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import {
   CustomIcon,
@@ -11,17 +10,18 @@ import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
 import { FileActionsMenu } from "@/features/project/workbench/file-tree/FileActionsMenu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
+import type { ProjectCardResponse } from "@ludocode/types";
 
-type ProjectCardProps = { project: ProjectSnapshot };
+type ProjectCardProps = { project: ProjectCardResponse; deleteAt?: string; };
 
-export function ProjectCard({ project }: ProjectCardProps) {
-  const { projectId, projectName, projectLanguage, updatedAt, deleteAt } =
+export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
+  const { projectId, projectTitle, updatedAt, languageIconName} =
     project;
 
   const { handleRenameProject, handleDeleteProject } =
     useModifyProject(projectId);
 
-  const iconName = projectLanguage.iconName as IconName;
+  const iconName = languageIconName as IconName;
 
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
 
@@ -40,7 +40,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           className="h-6 items-start"
         />
         <div className="flex flex-col gap-1 text-start">
-          <p className="m-0 text-lg leading-tight">{projectName}</p>
+          <p className="m-0 text-lg leading-tight">{projectTitle}</p>
           <p className="m-0 text-xs text-ludo-white leading-tight">
             Last modified: {updatedAtTime}
           </p>
@@ -65,7 +65,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           }
           itemType={"project"}
           targetId={projectId}
-          targetName={projectName}
+          targetName={projectTitle}
           renameItem={handleRenameProject}
           deleteItem={handleDeleteProject}
         />

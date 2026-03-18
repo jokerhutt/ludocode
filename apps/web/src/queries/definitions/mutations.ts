@@ -7,7 +7,6 @@ import type { OnboardingResponse } from "@ludocode/types/Onboarding/OnboardingRe
 import type { OnboardingSubmission } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
 import { type ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProjectRequest.ts";
-import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
 import {
   ludoPut,
@@ -25,6 +24,7 @@ import type {
   UserSubscription,
   ConfirmRequest,
   FeedbackRequest,
+  ProjectCardListResponse,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -91,10 +91,10 @@ export const mutations = {
   },
 
   createProject: () => {
-    return mutationOptions<ProjectListResponse, Error, CreateProjectRequest>({
+    return mutationOptions<ProjectCardListResponse, Error, CreateProjectRequest>({
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectListResponse, CreateProjectRequest>(
+        ludoPost<ProjectCardListResponse, CreateProjectRequest>(
           api.projects.base,
           variables,
           true,
@@ -103,18 +103,18 @@ export const mutations = {
   },
 
   deleteProject: (pid: string) => {
-    return mutationOptions<ProjectListResponse, Error, void>({
+    return mutationOptions<ProjectCardListResponse, Error, void>({
       mutationKey: ["deleteProject"],
       mutationFn: () =>
-        ludoDelete<ProjectListResponse>(api.projects.byId(pid), true),
+        ludoDelete<ProjectCardListResponse>(api.projects.byId(pid), true),
     });
   },
 
   reameProject: () => {
-    return mutationOptions<ProjectListResponse, Error, RenameProjectRequest>({
+    return mutationOptions<ProjectCardListResponse, Error, RenameProjectRequest>({
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
-        ludoPatch<ProjectListResponse, RenameProjectRequest>(
+        ludoPatch<ProjectCardListResponse, RenameProjectRequest>(
           api.projects.name(variables.targetId),
           variables,
           true,

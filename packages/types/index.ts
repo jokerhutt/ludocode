@@ -40,7 +40,7 @@ export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";
 
 // Feedback
-export * from "./Feedback/FeedbackRequest"
+export * from "./Feedback/FeedbackRequest";
 
 // Piston
 export * from "./Piston/Runtimes";
@@ -55,6 +55,7 @@ export * from "./Project/SaveProjectPayload";
 export * from "./Project/Runner/OutputPacket";
 export * from "./Project/Runner/RunnerResult";
 export * from "./Project/LanguageMetadata";
+export * from "./Project/ProjectCardResponse";
 
 // Preferences
 export * from "./Preferences/LudoCareer";

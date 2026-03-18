@@ -11,6 +11,7 @@ import { useModal } from "@ludocode/hooks";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { PlusIcon } from "lucide-react";
+import type { ProjectCardResponse } from "@ludocode/types";
 
 export function ProjectHubPage() {
   const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
@@ -77,7 +78,7 @@ export function ProjectHubPage() {
           </Hero>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            {allProjects.map((project: ProjectSnapshot) => (
+            {allProjects.map((project: ProjectCardResponse) => (
               <ProjectCard key={project.projectId} project={project} />
             ))}
           </div>

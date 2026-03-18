@@ -6,7 +6,12 @@ export type ProjectCardResponse = {
   authorId: string;
   projectTitle: string;
   createdAt: number;
+  updatedAt: number;
   visibility: ProjectVisibility;
   languageName: string;
   languageIconName: string;
 };
+
+export type ProjectCardListResponse = {
+    projects: ProjectCardResponse[]
+}
