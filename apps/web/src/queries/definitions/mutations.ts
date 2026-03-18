@@ -25,6 +25,7 @@ import type {
   ConfirmRequest,
   FeedbackRequest,
   ProjectCardResponseList,
+  ChangeProjectVisibilityRequest,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -61,18 +62,10 @@ export const mutations = {
   },
 
   submitFeedback: () => {
-    return mutationOptions<
-      void,
-      Error,
-      FeedbackRequest
-    >({
+    return mutationOptions<void, Error, FeedbackRequest>({
       mutationKey: ["submitFeedback"],
       mutationFn: (variables) =>
-        ludoPost<void, FeedbackRequest>(
-          api.feedback.base,
-          variables,
-          true,
-        ),
+        ludoPost<void, FeedbackRequest>(api.feedback.base, variables, true),
     });
   },
 
@@ -91,14 +84,10 @@ export const mutations = {
   },
 
   createProject: () => {
-    return mutationOptions<
-      ProjectCardResponseList,
-      Error,
-      CreateProjectRequest
-    >({
+    return mutationOptions<void, Error, CreateProjectRequest>({
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectCardResponseList, CreateProjectRequest>(
+        ludoPost<void, CreateProjectRequest>(
           api.projects.base,
           variables,
           true,
@@ -107,23 +96,30 @@ export const mutations = {
   },
 
   deleteProject: (pid: string) => {
-    return mutationOptions<ProjectCardResponseList, Error, void>({
+    return mutationOptions<void, Error, void>({
       mutationKey: ["deleteProject"],
-      mutationFn: () =>
-        ludoDelete<ProjectCardResponseList>(api.projects.byId(pid), true),
+      mutationFn: () => ludoDelete<void>(api.projects.byId(pid), true),
     });
   },
 
   reameProject: () => {
-    return mutationOptions<
-      ProjectCardResponseList,
-      Error,
-      RenameProjectRequest
-    >({
+    return mutationOptions<void, Error, RenameProjectRequest>({
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
-        ludoPatch<ProjectCardResponseList, RenameProjectRequest>(
+        ludoPatch<void, RenameProjectRequest>(
           api.projects.name(variables.targetId),
+          variables,
+          true,
+        ),
+    });
+  },
+
+  changeProjectVisibility: (pid: string) => {
+    return mutationOptions<void, Error, ChangeProjectVisibilityRequest>({
+      mutationKey: ["changeProjectVisibility"],
+      mutationFn: (variables) =>
+        ludoPatch<void, ChangeProjectVisibilityRequest>(
+          api.projects.name(pid),
           variables,
           true,
         ),

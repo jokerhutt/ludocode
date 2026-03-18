@@ -15,6 +15,18 @@ export function useRenameProject(pid: string) {
   });
 }
 
+export function useChangeProjectVisibility(pid: string) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.changeProjectVisibility(pid),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      qc.invalidateQueries({ queryKey: qk.project(pid) });
+    },
+  });
+}
+
 export function useDeleteProject(pid: string) {
   const qc = useQueryClient();
 

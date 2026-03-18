@@ -56,6 +56,7 @@ export * from "./Project/Runner/OutputPacket";
 export * from "./Project/Runner/RunnerResult";
 export * from "./Project/LanguageMetadata";
 export * from "./Project/ProjectCardResponse";
+export * from "./Project/ChangeProjectVisibilityRequest";
 
 // Preferences
 export * from "./Preferences/LudoCareer";
