@@ -30,6 +30,10 @@ import { Route as completionRoute } from "@/routes/app/completion/$courseId/$mod
 // ONBOARDING
 import { Route as onboardingStageRoute } from "@/routes/app/onboarding.$stage.tsx";
 
+// COMMUNITY
+
+import { Route as communityHubRoute } from "@/routes/app/_hub/community/index"
+
 // LEADERBOARD
 import { Route as leaderboardHubRoute } from "@/routes/app/_hub/leaderboard";
 
@@ -59,6 +63,9 @@ export const ludoNavigation = {
   courseRoot: () => ({ to: coursesRoute.to }),
 
   hub: {
+    community: {
+      toCommunityHub: () => ({to: communityHubRoute.to})
+    },
     module: {
       toModule: (courseId: string, moduleId: string, replace?: boolean) => ({
         to: moduleHubRoute.to,

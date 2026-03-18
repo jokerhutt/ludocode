@@ -34,6 +34,7 @@ import { Route as AppHubCoursesRouteImport } from './routes/app/_hub/courses'
 import { Route as ResourcesLegalTosRouteImport } from './routes/_resources/legal/tos'
 import { Route as ResourcesLegalPrivacyRouteImport } from './routes/_resources/legal/privacy'
 import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './routes/app/subscription/_subscribedguard/route'
+import { Route as AppHubCommunityIndexRouteImport } from './routes/app/_hub/community/index'
 import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/app/subscription/_subscribedguard/comparison'
 import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profile/$userId'
 import { Route as AppDesktopguardProjectProjectIdRouteImport } from './routes/app/_desktopguard/project/$projectId'
@@ -167,6 +168,11 @@ const AppSubscriptionSubscribedguardRouteRoute =
     id: '/_subscribedguard',
     getParentRoute: () => AppSubscriptionRouteRoute,
   } as any)
+const AppHubCommunityIndexRoute = AppHubCommunityIndexRouteImport.update({
+  id: '/community/',
+  path: '/community/',
+  getParentRoute: () => AppHubRouteRoute,
+} as any)
 const AppSubscriptionSubscribedguardComparisonRoute =
   AppSubscriptionSubscribedguardComparisonRouteImport.update({
     id: '/comparison',
@@ -246,6 +252,7 @@ export interface FileRoutesByFullPath {
   '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/community': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/docs': typeof ResourcesDocsIndexRoute
   '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/community': typeof AppHubCommunityIndexRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
+  '/app/_hub/community/': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
   '/app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
@@ -346,6 +355,7 @@ export interface FileRouteTypes {
     | '/app/project/$projectId'
     | '/app/profile/$userId'
     | '/app/subscription/comparison'
+    | '/app/community'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
@@ -376,6 +386,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/app/project/$projectId'
     | '/app/subscription/comparison'
+    | '/app/community'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
     | '/app/_desktopguard/project/$projectId'
     | '/app/_hub/profile/$userId'
     | '/app/subscription/_subscribedguard/comparison'
+    | '/app/_hub/community/'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
     | '/app/_hub/learn/$courseId/$moduleId'
     | '/app/_hub/profile/$userId/settings'
@@ -602,6 +614,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSubscriptionSubscribedguardRouteRouteImport
       parentRoute: typeof AppSubscriptionRouteRoute
     }
+    '/app/_hub/community/': {
+      id: '/app/_hub/community/'
+      path: '/community'
+      fullPath: '/app/community'
+      preLoaderRoute: typeof AppHubCommunityIndexRouteImport
+      parentRoute: typeof AppHubRouteRoute
+    }
     '/app/subscription/_subscribedguard/comparison': {
       id: '/app/subscription/_subscribedguard/comparison'
       path: '/comparison'
@@ -726,6 +745,7 @@ interface AppHubRouteRouteChildren {
   AppHubLeaderboardRoute: typeof AppHubLeaderboardRoute
   AppHubProjectsRoute: typeof AppHubProjectsRoute
   AppHubProfileUserIdRoute: typeof AppHubProfileUserIdRouteWithChildren
+  AppHubCommunityIndexRoute: typeof AppHubCommunityIndexRoute
   AppHubLearnCourseIdModuleIdRoute: typeof AppHubLearnCourseIdModuleIdRoute
 }
 
@@ -734,6 +754,7 @@ const AppHubRouteRouteChildren: AppHubRouteRouteChildren = {
   AppHubLeaderboardRoute: AppHubLeaderboardRoute,
   AppHubProjectsRoute: AppHubProjectsRoute,
   AppHubProfileUserIdRoute: AppHubProfileUserIdRouteWithChildren,
+  AppHubCommunityIndexRoute: AppHubCommunityIndexRoute,
   AppHubLearnCourseIdModuleIdRoute: AppHubLearnCourseIdModuleIdRoute,
 }
 
