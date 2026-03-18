@@ -30,6 +30,7 @@ import {
   type LanguageMetadata,
   type PlanOverview,
   type UserSubscription,
+  type ProjectSnapshot,
 } from "@ludocode/types";
 
 export const qo = {
@@ -151,13 +152,20 @@ export const qo = {
     queryOptions({
       queryKey: qk.careers(),
       queryFn: () => ludoGet<LudoCareer[]>(api.preferences.careers),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
       queryFn: () => ludoGet<ProjectListResponse>(api.projects.base, true),
+      staleTime: 60_000,
+    }),
+
+  project: (projectId: string) =>
+    queryOptions({
+      queryKey: qk.project(projectId),
+      queryFn: () => ludoGet<ProjectSnapshot>(api.projects.byId(projectId), true),
       staleTime: 60_000,
     }),
 

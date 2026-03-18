@@ -16,6 +16,7 @@ export const qk = {
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,
   projects: () => ["projects"] as const,
+  project: (projectId: string) => ["project", projectId] as const,
   courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
   courseStats: (courseId: string) => ["courseStats", courseId] as const,
   modulesBySection: (courseId: string) =>
