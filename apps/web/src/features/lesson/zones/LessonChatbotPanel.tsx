@@ -30,7 +30,6 @@ export function LessonChatbotPanel({
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
 
-  if (!aiEnabled || !aiFeature.enabled) return null;
 
   const systemPrompt = useMemo(
     () => buildSystemPromptForExercise(currentExercise),
@@ -56,6 +55,8 @@ export function LessonChatbotPanel({
   const toggle = () => setIsOpen((v) => !v);
 
   useHotkeys({ TOGGLE_WINDOW: toggle });
+
+  if (!aiEnabled || !aiFeature.enabled) return null;
 
   return (
     <ChatBotProvider credits={credits} sessionId={sessionId} type="LESSON">
