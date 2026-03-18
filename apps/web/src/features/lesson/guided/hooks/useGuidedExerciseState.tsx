@@ -5,7 +5,7 @@ import {
 import type { ExerciseSubmission } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Args = {
   courseId: string;
@@ -58,9 +58,21 @@ export function useGuidedExerciseState({
         return {};
       }
     });
+  const stateStorageKeyRef = useRef(storageKey);
+
+  useEffect(() => {
+    if (stateStorageKeyRef.current === storageKey) return;
+    if (typeof window !== "undefined") {
+      window.sessionStorage.removeItem(stateStorageKeyRef.current);
+      window.sessionStorage.removeItem(storageKey);
+    }
+    stateStorageKeyRef.current = storageKey;
+    setWorkingSnapshotsByExerciseId({});
+  }, [storageKey]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (stateStorageKeyRef.current !== storageKey) return;
 
     if (Object.keys(workingSnapshotsByExerciseId).length === 0) {
       window.sessionStorage.removeItem(storageKey);

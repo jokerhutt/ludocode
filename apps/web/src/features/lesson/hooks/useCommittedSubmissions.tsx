@@ -51,9 +51,23 @@ export function useCommittedSubmissions({
     });
   const queuedLessonSubmissionRef = useRef<LessonSubmissionRequest | null>(null);
   const hasSubmittedLessonRef = useRef(false);
+  const stateStorageKeyRef = useRef(storageKey);
+
+  useEffect(() => {
+    if (stateStorageKeyRef.current === storageKey) return;
+    if (typeof window !== "undefined") {
+      window.sessionStorage.removeItem(stateStorageKeyRef.current);
+      window.sessionStorage.removeItem(storageKey);
+    }
+    queuedLessonSubmissionRef.current = null;
+    hasSubmittedLessonRef.current = false;
+    stateStorageKeyRef.current = storageKey;
+    setCommittedExerciseSubmissions([]);
+  }, [storageKey]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (stateStorageKeyRef.current !== storageKey) return;
 
     if (committedExerciseSubmissions.length === 0) {
       window.sessionStorage.removeItem(storageKey);
