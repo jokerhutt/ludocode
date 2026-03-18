@@ -19,6 +19,33 @@ type Args = {
   lessonId: string;
 };
 
+function getSessionStorageItem(key: string): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function setSessionStorageItem(key: string, value: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(key, value);
+  } catch {
+    // Soft persistence should never break lesson flow.
+  }
+}
+
+function removeSessionStorageItem(key: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch {
+    // Soft persistence should never break lesson flow.
+  }
+}
+
 export function useCommittedSubmissions({
   exercises,
   courseId,
@@ -30,22 +57,28 @@ export function useCommittedSubmissions({
     useState<ExerciseSubmission[]>(() => {
       if (typeof window === "undefined") return [];
 
-      const navEntry = window.performance
-        ?.getEntriesByType?.("navigation")
-        ?.[0] as PerformanceNavigationTiming | undefined;
+      let isReload = false;
+      try {
+        const navEntry = window.performance
+          ?.getEntriesByType?.("navigation")
+          ?.[0] as PerformanceNavigationTiming | undefined;
+        isReload = navEntry?.type === "reload";
+      } catch {
+        isReload = false;
+      }
 
-      if (navEntry?.type !== "reload") {
-        window.sessionStorage.removeItem(storageKey);
+      if (!isReload) {
+        removeSessionStorageItem(storageKey);
         return [];
       }
 
-      const stored = window.sessionStorage.getItem(storageKey);
+      const stored = getSessionStorageItem(storageKey);
       if (!stored) return [];
 
       try {
         return JSON.parse(stored) as ExerciseSubmission[];
       } catch {
-        window.sessionStorage.removeItem(storageKey);
+        removeSessionStorageItem(storageKey);
         return [];
       }
     });
@@ -55,10 +88,8 @@ export function useCommittedSubmissions({
 
   useEffect(() => {
     if (stateStorageKeyRef.current === storageKey) return;
-    if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem(stateStorageKeyRef.current);
-      window.sessionStorage.removeItem(storageKey);
-    }
+    removeSessionStorageItem(stateStorageKeyRef.current);
+    removeSessionStorageItem(storageKey);
     queuedLessonSubmissionRef.current = null;
     hasSubmittedLessonRef.current = false;
     stateStorageKeyRef.current = storageKey;
@@ -70,11 +101,11 @@ export function useCommittedSubmissions({
     if (stateStorageKeyRef.current !== storageKey) return;
 
     if (committedExerciseSubmissions.length === 0) {
-      window.sessionStorage.removeItem(storageKey);
+      removeSessionStorageItem(storageKey);
       return;
     }
 
-    window.sessionStorage.setItem(
+    setSessionStorageItem(
       storageKey,
       JSON.stringify(committedExerciseSubmissions),
     );
@@ -92,12 +123,10 @@ export function useCommittedSubmissions({
 
       queuedLessonSubmissionRef.current = lessonSubmission;
       hasSubmittedLessonRef.current = true;
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(storageKey);
-        window.sessionStorage.removeItem(
-          `lesson-guided-working-snapshots:${courseId}:${lessonId}`,
-        );
-      }
+      removeSessionStorageItem(storageKey);
+      removeSessionStorageItem(
+        `lesson-guided-working-snapshots:${courseId}:${lessonId}`,
+      );
 
       router.navigate(
         ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),

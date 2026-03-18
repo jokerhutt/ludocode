@@ -24,6 +24,33 @@ function cloneSnapshot(snapshot: ProjectSnapshot): ProjectSnapshot {
   };
 }
 
+function getSessionStorageItem(key: string): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function setSessionStorageItem(key: string, value: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(key, value);
+  } catch {
+    // Soft persistence should never break lesson flow.
+  }
+}
+
+function removeSessionStorageItem(key: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch {
+    // Soft persistence should never break lesson flow.
+  }
+}
+
 export function useGuidedExerciseState({
   courseId,
   lessonId,
@@ -39,22 +66,28 @@ export function useGuidedExerciseState({
     useState<Record<string, ProjectSnapshot>>(() => {
       if (typeof window === "undefined") return {};
 
-      const navEntry = window.performance
-        ?.getEntriesByType?.("navigation")
-        ?.[0] as PerformanceNavigationTiming | undefined;
+      let isReload = false;
+      try {
+        const navEntry = window.performance
+          ?.getEntriesByType?.("navigation")
+          ?.[0] as PerformanceNavigationTiming | undefined;
+        isReload = navEntry?.type === "reload";
+      } catch {
+        isReload = false;
+      }
 
-      if (navEntry?.type !== "reload") {
-        window.sessionStorage.removeItem(storageKey);
+      if (!isReload) {
+        removeSessionStorageItem(storageKey);
         return {};
       }
 
-      const stored = window.sessionStorage.getItem(storageKey);
+      const stored = getSessionStorageItem(storageKey);
       if (!stored) return {};
 
       try {
         return JSON.parse(stored) as Record<string, ProjectSnapshot>;
       } catch {
-        window.sessionStorage.removeItem(storageKey);
+        removeSessionStorageItem(storageKey);
         return {};
       }
     });
@@ -62,10 +95,8 @@ export function useGuidedExerciseState({
 
   useEffect(() => {
     if (stateStorageKeyRef.current === storageKey) return;
-    if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem(stateStorageKeyRef.current);
-      window.sessionStorage.removeItem(storageKey);
-    }
+    removeSessionStorageItem(stateStorageKeyRef.current);
+    removeSessionStorageItem(storageKey);
     stateStorageKeyRef.current = storageKey;
     setWorkingSnapshotsByExerciseId({});
   }, [storageKey]);
@@ -75,11 +106,11 @@ export function useGuidedExerciseState({
     if (stateStorageKeyRef.current !== storageKey) return;
 
     if (Object.keys(workingSnapshotsByExerciseId).length === 0) {
-      window.sessionStorage.removeItem(storageKey);
+      removeSessionStorageItem(storageKey);
       return;
     }
 
-    window.sessionStorage.setItem(
+    setSessionStorageItem(
       storageKey,
       JSON.stringify(workingSnapshotsByExerciseId),
     );
