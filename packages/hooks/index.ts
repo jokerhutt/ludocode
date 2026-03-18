@@ -6,3 +6,4 @@ export { useModal } from "./ui/useModal";
 export { useLottie } from "./animation/useLottie";
 export { useTimedLottie } from "./animation/useTimedLottie";
 export { useTab } from "./ui/useTab";
+export { usePagination } from "./pagination/usePagination";

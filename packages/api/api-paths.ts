@@ -94,8 +94,11 @@ export function createApiPaths({
 
     projects: {
       base: `${BASE}/projects`,
+      public: `${BASE}/public`,
       byId: (projectId: string) => `${BASE}/projects/${projectId}`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
+      basePaginated: (page: number, size: number) => `${BASE}/projects?page=${page}&size=${size}`,
+      publicPaginated: (page: number, size: number) => `${BASE}/projects/public?page=${page}&size=${size}`
     },
 
     runner: {

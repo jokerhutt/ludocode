@@ -11,6 +11,7 @@ import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
 import { FileActionsMenu } from "@/features/project/workbench/file-tree/FileActionsMenu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
+import { EyeClosed, EyeIcon } from "lucide-react";
 
 type ProjectCardProps = { project: ProjectCardResponse; deleteAt?: string; };
 
@@ -33,7 +34,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
       }}
       className="w-full h-22 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
     >
-      <div className="w-full items-start text-ludo-white-bright flex gap-4">
+      <div className="w-full h-full items-start text-ludo-white-bright flex gap-4">
         <CustomIcon
           iconName={iconName}
           color="white"
@@ -51,7 +52,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
           )}
         </div>
       </div>
-      <div>
+      <div className="flex flex-col h-full items-center justify-between">
         <FileActionsMenu
           trigger={
             <div
@@ -69,6 +70,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
           renameItem={handleRenameProject}
           deleteItem={handleDeleteProject}
         />
+        <EyeIcon className="h-4 w-4"/>
       </div>
     </LudoButton>
   );

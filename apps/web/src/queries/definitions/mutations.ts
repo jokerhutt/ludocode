@@ -24,7 +24,7 @@ import type {
   UserSubscription,
   ConfirmRequest,
   FeedbackRequest,
-  ProjectCardListResponse,
+  ProjectCardResponseList,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -91,10 +91,14 @@ export const mutations = {
   },
 
   createProject: () => {
-    return mutationOptions<ProjectCardListResponse, Error, CreateProjectRequest>({
+    return mutationOptions<
+      ProjectCardResponseList,
+      Error,
+      CreateProjectRequest
+    >({
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectCardListResponse, CreateProjectRequest>(
+        ludoPost<ProjectCardResponseList, CreateProjectRequest>(
           api.projects.base,
           variables,
           true,
@@ -103,18 +107,22 @@ export const mutations = {
   },
 
   deleteProject: (pid: string) => {
-    return mutationOptions<ProjectCardListResponse, Error, void>({
+    return mutationOptions<ProjectCardResponseList, Error, void>({
       mutationKey: ["deleteProject"],
       mutationFn: () =>
-        ludoDelete<ProjectCardListResponse>(api.projects.byId(pid), true),
+        ludoDelete<ProjectCardResponseList>(api.projects.byId(pid), true),
     });
   },
 
   reameProject: () => {
-    return mutationOptions<ProjectCardListResponse, Error, RenameProjectRequest>({
+    return mutationOptions<
+      ProjectCardResponseList,
+      Error,
+      RenameProjectRequest
+    >({
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
-        ludoPatch<ProjectCardListResponse, RenameProjectRequest>(
+        ludoPatch<ProjectCardResponseList, RenameProjectRequest>(
           api.projects.name(variables.targetId),
           variables,
           true,

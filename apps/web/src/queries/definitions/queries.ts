@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { keepPreviousData, queryOptions } from "@tanstack/react-query";
 import { qk } from "@/queries/definitions/qk.ts";
 import {
   courseProgressBatcher,
@@ -30,8 +30,7 @@ import {
   type PlanOverview,
   type UserSubscription,
   type ProjectSnapshot,
-  type ProjectCardResponse,
-  type ProjectCardListResponse,
+  type ProjectCardResponseList,
 } from "@ludocode/types";
 
 export const qo = {
@@ -156,17 +155,35 @@ export const qo = {
       staleTime: 60_000,
     }),
 
-  allProjects: () =>
+  userProjects: (userId: string, page: number, size: number) =>
     queryOptions({
-      queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectCardListResponse>(api.projects.base, true),
+      queryKey: qk.projectsUserPage(userId, page, size),
+      queryFn: () =>
+        ludoGet<ProjectCardResponseList>(
+          api.projects.basePaginated(page, size),
+          true,
+        ),
       staleTime: 60_000,
+      placeholderData: (prev) => prev,
+    }),
+
+  communityProjects: (page: number, size: number) =>
+    queryOptions({
+      queryKey: qk.projectsCommunityPage(page, size),
+      queryFn: () =>
+        ludoGet<ProjectCardResponseList>(
+          api.projects.publicPaginated(page, size),
+          true,
+        ),
+      staleTime: 60_000,
+      placeholderData: (prev) => prev,
     }),
 
   project: (projectId: string) =>
     queryOptions({
       queryKey: qk.project(projectId),
-      queryFn: () => ludoGet<ProjectSnapshot>(api.projects.byId(projectId), true),
+      queryFn: () =>
+        ludoGet<ProjectSnapshot>(api.projects.byId(projectId), true),
       staleTime: 60_000,
     }),
 

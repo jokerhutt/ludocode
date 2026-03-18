@@ -12,6 +12,11 @@ export type ProjectCardResponse = {
   languageIconName: string;
 };
 
-export type ProjectCardListResponse = {
-    projects: ProjectCardResponse[]
-}
+export type ProjectCardResponseList = {
+  projects: ProjectCardResponse[];
+  page: number;
+  totalPages: number;
+  hasNext: boolean;
+};
+
+export type ProjectCardListResponse = ProjectCardResponseList;
