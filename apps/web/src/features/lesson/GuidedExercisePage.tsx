@@ -39,7 +39,7 @@ export function GuidedExercisePage() {
   }
 
   return (
-    <ProjectProvider key={currentExercise.id} project={projectSnapshot}>
+    <ProjectProvider project={projectSnapshot}>
       <GuidedExecutableCodeRunner
         tests={interaction.tests}
         showBlockOutput={showBlockOutput}

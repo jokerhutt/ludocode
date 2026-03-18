@@ -4,7 +4,7 @@ import {
   type LessonSubmissionRequest,
 } from "@ludocode/types/Exercise/LessonSubmissions.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   convertToLessonSubmission,
   createInfoExerciseAttempt,
@@ -24,10 +24,47 @@ export function useCommittedSubmissions({
   courseId,
   lessonId,
 }: Args) {
+  const storageKey = `lesson-submission-history:${courseId}:${lessonId}`;
+
   const [committedExerciseSubmissions, setCommittedExerciseSubmissions] =
-    useState<ExerciseSubmission[]>([]);
+    useState<ExerciseSubmission[]>(() => {
+      if (typeof window === "undefined") return [];
+
+      const navEntry = window.performance
+        ?.getEntriesByType?.("navigation")
+        ?.[0] as PerformanceNavigationTiming | undefined;
+
+      if (navEntry?.type !== "reload") {
+        window.sessionStorage.removeItem(storageKey);
+        return [];
+      }
+
+      const stored = window.sessionStorage.getItem(storageKey);
+      if (!stored) return [];
+
+      try {
+        return JSON.parse(stored) as ExerciseSubmission[];
+      } catch {
+        window.sessionStorage.removeItem(storageKey);
+        return [];
+      }
+    });
   const queuedLessonSubmissionRef = useRef<LessonSubmissionRequest | null>(null);
   const hasSubmittedLessonRef = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (committedExerciseSubmissions.length === 0) {
+      window.sessionStorage.removeItem(storageKey);
+      return;
+    }
+
+    window.sessionStorage.setItem(
+      storageKey,
+      JSON.stringify(committedExerciseSubmissions),
+    );
+  }, [committedExerciseSubmissions, storageKey]);
 
   const submitLesson = useCallback(
     (submissions: ExerciseSubmission[] = committedExerciseSubmissions) => {
@@ -41,6 +78,12 @@ export function useCommittedSubmissions({
 
       queuedLessonSubmissionRef.current = lessonSubmission;
       hasSubmittedLessonRef.current = true;
+      if (typeof window !== "undefined") {
+        window.sessionStorage.removeItem(storageKey);
+        window.sessionStorage.removeItem(
+          `lesson-guided-working-snapshots:${courseId}:${lessonId}`,
+        );
+      }
 
       router.navigate(
         ludoNavigation.completion.toSyncPage(lessonId, lessonSubmission),

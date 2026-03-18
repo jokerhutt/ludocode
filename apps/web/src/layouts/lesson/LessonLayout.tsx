@@ -13,7 +13,6 @@ import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-
 import { LessonHeader } from "@/features/lesson/zones/LessonHeader.tsx";
 import { MainContentWrapper } from "@ludocode/design-system/layouts/grid/main-content-wrapper.tsx";
 import { LessonFooter } from "@/features/lesson/zones/LessonFooter.tsx";
-import { Suspense } from "react";
 import { LessonFeedbackDrawer } from "@/features/lesson/zones/LessonFeedbackDrawer.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries";
@@ -25,6 +24,7 @@ import { GuidedExerciseContext } from "@/features/lesson/guided/context/useGuide
 import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
 import { useExerciseInput } from "@/features/lesson/hooks/normal/useExerciseInput";
 import { ExerciseInputContext } from "@/features/lesson/context/useExerciseInputContext.tsx";
+import { Suspense, useEffect, useRef } from "react";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -38,6 +38,26 @@ export function LessonLayout() {
   const { exercise: position } = lessonPageRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
   const { data: preferences } = useSuspenseQuery(qo.preferences());
+  const hasPageUnloadRef = useRef(false);
+  const submissionStorageKey = `lesson-submission-history:${courseId}:${lesson.id}`;
+  const guidedStorageKey = `lesson-guided-working-snapshots:${courseId}:${lesson.id}`;
+
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      hasPageUnloadRef.current = true;
+    };
+
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (hasPageUnloadRef.current) return;
+      window.sessionStorage.removeItem(submissionStorageKey);
+      window.sessionStorage.removeItem(guidedStorageKey);
+    };
+  }, [guidedStorageKey, submissionStorageKey]);
 
   const state = useLesson({
     courseId,
@@ -49,6 +69,8 @@ export function LessonLayout() {
     },
   });
   const guidedState = useGuidedExerciseState({
+    courseId,
+    lessonId: lesson.id,
     currentExercise: state.exercise.currentExercise,
     exercises,
     position: exercisePosition,
