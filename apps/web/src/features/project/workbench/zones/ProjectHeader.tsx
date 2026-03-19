@@ -7,6 +7,8 @@ import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStat
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
 import type { ProjectMode } from "@/layouts/project/ProjectLayout";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { Bookmark, Copy, HeartIcon } from "lucide-react";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
@@ -49,7 +51,22 @@ export function ProjectHeader({ mode = "READONLY" }: ProjectHeaderProps) {
             />
           )}
         </div>
-        <div className="col-span-1 text-ludo-white-bright lg:col-span-3"></div>
+        <div className="col-span-1 text-ludo-white-bright pr-8 lg:col-span-3">
+          {mode == "READONLY" && (
+            <div className="flex h-full justify-end gap-4 items-center">
+              <LudoButton
+                shadow={false}
+                className="h-7 rounded-sm w-auto px-4 text-sm"
+                variant="alt"
+              >
+                Copy
+              </LudoButton>
+              <div className="flex items-center justify-end gap-1">
+                <HeartIcon className="h-6" />
+              </div>
+            </div>
+          )}
+        </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
     </LudoHeader>

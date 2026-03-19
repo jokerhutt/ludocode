@@ -59,7 +59,7 @@ export function GuidedExerciseEditorPane({
 
       <ProjectEditor
         onExecuteAction={runOrAdvance}
-        isMarkedForDeletion={isEditorReadOnly}
+        readOnly={isEditorReadOnly}
       />
 
       {(showCorrectFeedback || showIncorrectFeedback) && (

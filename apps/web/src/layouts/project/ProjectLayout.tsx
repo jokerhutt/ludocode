@@ -20,6 +20,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
   const { authorId } = routeApi.useParams();
 
   const mode: ProjectMode = authorId === currentUser.id ? "EDIT" : "READONLY";
+  const isReadOnly = mode === "READONLY" || !!project.deleteAt
 
   const { data: UserPreferences } = useSuspenseQuery(qo.preferences());
 
@@ -28,7 +29,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
           <ProjectHeader mode={mode} />
-          <WorkbenchPage />
+          <WorkbenchPage readOnly={isReadOnly}/>
         </MainGridWrapper>
       </ProjectProvider>
     </UserPreferencesContext.Provider>

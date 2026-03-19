@@ -126,7 +126,7 @@ function PublicProjectCard({ project }: { project: ProjectCardResponse }) {
             <p>0</p>
           </div>
           <div className="flex items-center justify-end gap-1">
-            <Bookmark className="h-5" />
+            <Heart className="h-5" />
             <p>0</p>
           </div>
         </div>

@@ -8,12 +8,12 @@ import {
 
 type NewFileMenuProps = {
   trigger: ReactNode;
+  readOnly?: boolean;
 };
 
-export function NewFileMenu({ trigger }: NewFileMenuProps) {
+export function NewFileMenu({ trigger, readOnly = true}: NewFileMenuProps) {
   const { project, addFile } = useProjectContext();
 
-  const readOnly = !!project.deleteAt;
   const iconName = project.projectLanguage.iconName as IconName;
   const choice = project.projectLanguage.name;
 

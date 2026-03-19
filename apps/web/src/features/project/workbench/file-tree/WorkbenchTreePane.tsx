@@ -29,9 +29,9 @@ import {
 } from "@ludocode/external/ui/tooltip.tsx";
 import { useCallback, useRef } from "react";
 
-type WorkbenchTreePaneProps = { className?: string };
+type WorkbenchTreePaneProps = {readOnly?: boolean; className?: string };
 
-export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
+export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProps) {
   const {
     renameFile,
     deleteFile,
@@ -71,6 +71,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
         <Workbench.Pane.Winbar>
           <p>Files</p>
           <NewFileMenu
+            readOnly={readOnly}
             trigger={
               <IconButton
                 dataTestId="open-file-popover-icon"
@@ -89,7 +90,6 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
           >
             {files.map((file) => {
               const key = file.id ?? file.tempId!;
-              const readOnly = !!project.deleteAt;
               const isEntryFile = key === entryFileId;
               return (
                 <LudoFileTree.Item
