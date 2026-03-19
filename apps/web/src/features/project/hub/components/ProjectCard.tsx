@@ -15,7 +15,10 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { useQuery } from "@tanstack/react-query";
 import { ProjectVisibilityMenu } from "./ProjectVisibilityMenu";
 
-type ProjectCardProps = { project: ProjectCardResponse; deleteAt?: string };
+type ProjectCardProps = {
+  project: ProjectCardResponse;
+  deleteAt?: string;
+};
 
 export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
   const {

@@ -28,7 +28,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
     <UserPreferencesContext.Provider value={UserPreferences}>
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
-          <ProjectHeader mode={mode} />
+          <ProjectHeader userId={currentUser.id} mode={mode} />
           <WorkbenchPage readOnly={isReadOnly}/>
         </MainGridWrapper>
       </ProjectProvider>

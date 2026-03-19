@@ -9,12 +9,17 @@ import { router } from "@/main.tsx";
 import type { ProjectMode } from "@/layouts/project/ProjectLayout";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { Bookmark, Copy, HeartIcon } from "lucide-react";
+import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
+  userId?: string;
 };
 
-export function ProjectHeader({ mode = "READONLY" }: ProjectHeaderProps) {
+export function ProjectHeader({
+  mode = "READONLY",
+  userId,
+}: ProjectHeaderProps) {
   const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
 
@@ -27,6 +32,16 @@ export function ProjectHeader({ mode = "READONLY" }: ProjectHeaderProps) {
     debounceMs: 1000,
     entryFileId,
   });
+
+  const duplicateMutation = useDuplicateProject(project.projectId, {
+    onSuccess: async (newProjectId) => {
+      if (!userId) return;
+
+      router.navigate(ludoNavigation.project.toProject(userId, newProjectId));
+    },
+  });
+
+  const canDuplicate = Boolean(userId);
 
   const goToProjectHub = () => {
     router.navigate(ludoNavigation.hub.project.toProjectHub());
@@ -54,13 +69,19 @@ export function ProjectHeader({ mode = "READONLY" }: ProjectHeaderProps) {
         <div className="col-span-1 text-ludo-white-bright pr-8 lg:col-span-3">
           {mode == "READONLY" && (
             <div className="flex h-full justify-end gap-4 items-center">
-              <LudoButton
-                shadow={false}
-                className="h-7 rounded-sm w-auto px-4 text-sm"
-                variant="alt"
-              >
-                Copy
-              </LudoButton>
+              {canDuplicate && (
+                <LudoButton
+                  onClick={() => {
+                    duplicateMutation.mutate();
+                  }}
+                  disabled={duplicateMutation.isPending}
+                  shadow={false}
+                  className="h-7 rounded-sm w-auto px-4 text-sm"
+                  variant="alt"
+                >
+                  Copy
+                </LudoButton>
+              )}
               <div className="flex items-center justify-end gap-1">
                 <HeartIcon className="h-6" />
               </div>

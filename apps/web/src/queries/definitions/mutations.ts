@@ -102,6 +102,13 @@ export const mutations = {
     });
   },
 
+  duplicateProject: (pid: string) => {
+    return mutationOptions<string, Error, void>({
+      mutationKey: ["duplicateProject"],
+      mutationFn: () => ludoPost<string>(api.projects.duplicate(pid), null, true),
+    });
+  },
+
   renameProject: () => {
     return mutationOptions<void, Error, RenameProjectRequest>({
       mutationKey: ["renameProject"],

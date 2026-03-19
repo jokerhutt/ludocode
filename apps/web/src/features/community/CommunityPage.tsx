@@ -12,7 +12,8 @@ import {
 import { usePagination } from "@ludocode/hooks";
 import type { ProjectCardResponse } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
-import { Bookmark, Copy, Heart } from "lucide-react";
+import { Copy, Heart } from "lucide-react";
+import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
 
 export function CommunityPage() {
   const { page } = Route.useSearch();
@@ -32,6 +33,8 @@ export function CommunityPage() {
   const { data: projectsPacket } = useSuspenseQuery(
     qo.communityProjects(currentPage, 10),
   );
+  const { data: currentUser } = useQuery(qo.currentUser());
+  const currentUserId = currentUser?.id;
   const publicProjects = projectsPacket.projects;
   const isFirstPage = currentPage === 0;
 
@@ -56,7 +59,11 @@ export function CommunityPage() {
         ) : (
           <div className="grid lg:grid-cols-2 gap-8 min-h-[200px]">
             {publicProjects.map((project: ProjectCardResponse) => (
-              <PublicProjectCard key={project.projectId} project={project} />
+              <PublicProjectCard
+                key={project.projectId}
+                project={project}
+                userId={currentUserId}
+              />
             ))}
           </div>
         )}
@@ -90,13 +97,30 @@ export function CommunityPage() {
   );
 }
 
-function PublicProjectCard({ project }: { project: ProjectCardResponse }) {
+function PublicProjectCard({
+  project,
+  userId,
+}: {
+  project: ProjectCardResponse;
+  userId?: string;
+}) {
   const { projectId, projectTitle, authorId, updatedAt, languageIconName } =
     project;
   const iconName = languageIconName as IconName;
   const createdAtTime = updatedAt ? parseToDate(updatedAt) : "-";
   const { data: author } = useQuery(qo.user(authorId));
   const authorDisplayName = author?.displayName?.trim() || "Anonymous";
+
+  const duplicateMutation = useDuplicateProject(projectId, {
+    onSuccess: async (newProjectId) => {
+      if (!userId) return;
+
+      router.navigate(ludoNavigation.project.toProject(userId, newProjectId));
+    },
+  });
+
+  const canDuplicate = Boolean(userId);
+
   return (
     <LudoButton
       data-testid={`project-hub-card`}
@@ -121,10 +145,22 @@ function PublicProjectCard({ project }: { project: ProjectCardResponse }) {
           <CustomIcon iconName={iconName} color="white" className="h-5 pr-1" />
         </div>
         <div className="flex justify-end gap-2 items-end">
-          <div className="flex items-center justify-end gap-1">
-            <Copy className="h-5" />
-            <p>0</p>
-          </div>
+          {canDuplicate && (
+            <button
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                duplicateMutation.mutate();
+              }}
+              className={
+                duplicateMutation.isPending
+                  ? "hover:cursor-not-allowed"
+                  : "hover:cursor-pointer"
+              }
+            >
+              <Copy className="h-4" />
+            </button>
+          )}
           <div className="flex items-center justify-end gap-1">
             <Heart className="h-5" />
             <p>0</p>

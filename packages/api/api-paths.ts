@@ -98,6 +98,7 @@ export function createApiPaths({
       byId: (projectId: string) => `${BASE}/projects/${projectId}`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
       visibility: (projectId: string) => `${BASE}/projects/${projectId}/visibility`,
+      duplicate: (projectId: string) => `${BASE}/projects/${projectId}/duplicate`,
       basePaginated: (page: number, size: number) => `${BASE}/projects?page=${page}&size=${size}`,
       publicPaginated: (page: number, size: number) => `${BASE}/projects/public?page=${page}&size=${size}`
     },
