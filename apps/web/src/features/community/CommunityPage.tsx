@@ -2,7 +2,7 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { Route } from "@/routes/app/_hub/community/index";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import {
@@ -12,6 +12,7 @@ import {
 import { usePagination } from "@ludocode/hooks";
 import type { ProjectCardResponse } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
+import { Bookmark, Copy, Heart } from "lucide-react";
 
 export function CommunityPage() {
   const { page } = Route.useSearch();
@@ -90,29 +91,44 @@ export function CommunityPage() {
 }
 
 function PublicProjectCard({ project }: { project: ProjectCardResponse }) {
-  const { projectId, projectTitle, updatedAt, languageIconName } = project;
+  const { projectId, projectTitle, authorId, updatedAt, languageIconName } =
+    project;
   const iconName = languageIconName as IconName;
   const createdAtTime = updatedAt ? parseToDate(updatedAt) : "-";
-
+  const { data: author } = useQuery(qo.user(authorId));
+  const authorDisplayName = author?.displayName?.trim() || "Anonymous";
   return (
     <LudoButton
-      data-testid="community-project-card"
+      data-testid={`project-hub-card`}
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(projectId));
       }}
-      className="w-full h-22 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
+      className="w-full h-24 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
     >
-      <div className="w-full items-start text-ludo-white-bright flex gap-4">
-        <CustomIcon
-          iconName={iconName}
-          color="white"
-          className="h-6 items-start"
-        />
-        <div className="flex flex-col gap-1 text-start">
+      <div className="w-full h-full items-start text-ludo-white-bright flex gap-4">
+        <div className="flex flex-col gap-1.5 text-start">
           <p className="m-0 text-lg leading-tight">{projectTitle}</p>
           <p className="m-0 text-xs text-ludo-white leading-tight">
+            By {authorDisplayName}
+          </p>
+          <p className="m-0 text-xs text-ludo-white leading-tight text-start">
             {createdAtTime}
           </p>
+        </div>
+      </div>
+      <div className="flex h-full flex-col items-end justify-between">
+        <div className="flex items-center gap-2 justify-end">
+          <CustomIcon iconName={iconName} color="white" className="h-5 pr-1" />
+        </div>
+        <div className="flex justify-end gap-2 items-end">
+          <div className="flex items-center justify-end gap-1">
+            <Copy className="h-5" />
+            <p>0</p>
+          </div>
+          <div className="flex items-center justify-end gap-1">
+            <Bookmark className="h-5" />
+            <p>0</p>
+          </div>
         </div>
       </div>
     </LudoButton>

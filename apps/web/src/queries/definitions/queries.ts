@@ -35,7 +35,7 @@ import {
 
 export const qo = {
   user: (userId: string) =>
-    queryOptions({
+    queryOptions<LudoUser>({
       queryKey: qk.user(userId),
       queryFn: () => userBatcher.fetch(userId),
       staleTime: 60_00,
