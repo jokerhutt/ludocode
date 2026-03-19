@@ -14,6 +14,8 @@ import type { ProjectCardResponse } from "@ludocode/types";
 import { parseToDate } from "@ludocode/util";
 import { Copy, Heart } from "lucide-react";
 import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
+import { useLikeProject } from "@/queries/mutations/useLikeProject";
+import { useUnlikeProject } from "@/queries/mutations/useUnlikeProject";
 
 export function CommunityPage() {
   const { page } = Route.useSearch();
@@ -161,7 +163,7 @@ function PublicProjectCard({
               <Copy className="h-4" />
             </button>
           )}
-          <ProjectLikeButton projectId={projectId} />
+          <ProjectLikeButton projectId={projectId} canLike={Boolean(userId)} />
         </div>
       </div>
     </LudoButton>
@@ -170,18 +172,47 @@ function PublicProjectCard({
 
 type ProjectLikeButtonProps = {
   projectId: string;
+  canLike: boolean;
 };
 
-function ProjectLikeButton({ projectId }: ProjectLikeButtonProps) {
+function ProjectLikeButton({ projectId, canLike }: ProjectLikeButtonProps) {
   const { data: likeState } = useQuery(qo.projectLike(projectId));
+  const likeProjectMutation = useLikeProject(projectId);
+  const unlikeProjectMutation = useUnlikeProject(projectId);
 
   const count = likeState?.count ?? 0;
-  const isLikedByMe = likeState?.isLikedByMe
+  const isLikedByMe = likeState?.likedByMe;
+  const isPending =
+    likeProjectMutation.isPending || unlikeProjectMutation.isPending;
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!canLike || isPending) return;
+
+    if (isLikedByMe) {
+      unlikeProjectMutation.mutate();
+      return;
+    }
+
+    likeProjectMutation.mutate();
+  };
 
   return (
-    <div className="flex items-end text-ludo-white justify-end gap-0.5">
-      <Heart fill={isLikedByMe ? "white" : "none"} className="h-4" />
-      <p className="text-sm leading-none m-0">{count}</p>
-    </div>
+    <button
+      disabled={!canLike || isPending}
+      onClick={handleClick}
+      className={
+        !canLike || isPending
+          ? "hover:cursor-not-allowed"
+          : "hover:cursor-pointer"
+      }
+    >
+      <div className="flex items-end text-ludo-white justify-end gap-0.5">
+        <Heart fill={isLikedByMe ? "white" : "none"} className="h-4" />
+        <p className="text-sm leading-none m-0">{count}</p>
+      </div>
+    </button>
   );
 }

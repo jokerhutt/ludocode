@@ -1,7 +1,5 @@
 export type ProjectLikeResponse = {
-
-    id: string;
-    count: number;
-    isLikedByMe: boolean;
-
-}
+  id: string;
+  count: number;
+  likedByMe: boolean;
+};
