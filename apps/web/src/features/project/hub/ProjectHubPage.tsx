@@ -94,9 +94,14 @@ export function ProjectHubPage() {
             </div>
           </Hero>
 
-          <div className="grid lg:grid-cols-2 gap-8 min-h-[200px]">
+          <div className="grid lg:grid-cols-3 gap-8 min-h-[200px]">
             {allProjects.map((project: ProjectCardResponse) => (
-              <ProjectCard key={project.projectId} project={project} />
+              <ProjectCard
+                currentUserId={currentUser.id}
+                key={project.projectId}
+                project={project}
+                mode={"OWN"}
+              />
             ))}
           </div>
           {projectsPacket.totalPages > 1 && (

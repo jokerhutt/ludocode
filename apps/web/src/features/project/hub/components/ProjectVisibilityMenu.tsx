@@ -47,11 +47,10 @@ export function ProjectVisibilityMenu({
         <button
           type="button"
           disabled={changeProjectVisibilityMutation.isPending}
-          className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide transition-colors disabled:cursor-wait disabled:opacity-70 ${visibilityStyles[visibility].buttonClassName}`}
+          className={`flex items-start gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide transition-colors disabled:cursor-wait disabled:opacity-70 ${visibilityStyles[visibility].buttonClassName}`}
           aria-label={`Project visibility: ${visibility.toLowerCase()}`}
         >
           <VisibilityIcon visibility={visibility} className="h-3.5 w-3.5" />
-          <span>{visibilityStyles[visibility].label}</span>
         </button>
       </LudoMenu.Trigger>
       <LudoMenu.Content align="end" className="w-44">
