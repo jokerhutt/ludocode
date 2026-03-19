@@ -144,7 +144,7 @@ function PublicProjectCard({
         <div className="flex items-center gap-2 justify-end">
           <CustomIcon iconName={iconName} color="white" className="h-5 pr-1" />
         </div>
-        <div className="flex justify-end gap-2 items-end">
+        <div className="flex justify-end gap-2 items-end text-ludo-white ">
           {canDuplicate && (
             <button
               onClick={(event) => {
@@ -161,9 +161,9 @@ function PublicProjectCard({
               <Copy className="h-4" />
             </button>
           )}
-          <div className="flex items-center justify-end gap-1">
-            <Heart className="h-5" />
-            <p>0</p>
+          <div className="flex items-end text-ludo-white justify-end gap-0.5">
+            <Heart className="h-4" />
+            <p className="text-sm leading-none m-0">0</p>
           </div>
         </div>
       </div>

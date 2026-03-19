@@ -53,7 +53,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
           <p className="m-0 text-xs text-ludo-white leading-tight">
             By {authorDisplayName}
           </p>
-          <p className="m-0 text-xs text-ludo-white leading-tight text-end">
+          <p className="m-0 text-xs text-ludo-white leading-tight text-start">
             Last modified: {updatedAtTime}
           </p>
           {deleteAt && (
