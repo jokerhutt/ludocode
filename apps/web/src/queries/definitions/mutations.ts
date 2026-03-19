@@ -26,6 +26,7 @@ import type {
   FeedbackRequest,
   ProjectCardResponseList,
   ChangeProjectVisibilityRequest,
+  ProjectLikeResponse,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -105,7 +106,8 @@ export const mutations = {
   duplicateProject: (pid: string) => {
     return mutationOptions<string, Error, void>({
       mutationKey: ["duplicateProject"],
-      mutationFn: () => ludoPost<string>(api.projects.duplicate(pid), null, true),
+      mutationFn: () =>
+        ludoPost<string>(api.projects.duplicate(pid), null, true),
     });
   },
 
@@ -142,6 +144,22 @@ export const mutations = {
           variables,
           true,
         ),
+    });
+  },
+
+  likeProject: (pid: string) => {
+    return mutationOptions<ProjectLikeResponse, Error, void>({
+      mutationKey: ["likeProject"],
+      mutationFn: () =>
+        ludoPost<ProjectLikeResponse>(api.projects.like(pid), null, true),
+    });
+  },
+
+  unlikeProject: (pid: string) => {
+    return mutationOptions<ProjectLikeResponse, Error, void>({
+      mutationKey: ["unlikeProject"],
+      mutationFn: () =>
+        ludoDelete<ProjectLikeResponse>(api.projects.like(pid), true),
     });
   },
 

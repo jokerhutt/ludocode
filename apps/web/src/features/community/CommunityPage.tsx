@@ -176,10 +176,11 @@ function ProjectLikeButton({ projectId }: ProjectLikeButtonProps) {
   const { data: likeState } = useQuery(qo.projectLike(projectId));
 
   const count = likeState?.count ?? 0;
+  const isLikedByMe = likeState?.isLikedByMe
 
   return (
     <div className="flex items-end text-ludo-white justify-end gap-0.5">
-      <Heart className="h-4" />
+      <Heart fill={isLikedByMe ? "white" : "none"} className="h-4" />
       <p className="text-sm leading-none m-0">{count}</p>
     </div>
   );
