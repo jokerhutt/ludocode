@@ -161,12 +161,26 @@ function PublicProjectCard({
               <Copy className="h-4" />
             </button>
           )}
-          <div className="flex items-end text-ludo-white justify-end gap-0.5">
-            <Heart className="h-4" />
-            <p className="text-sm leading-none m-0">0</p>
-          </div>
+          <ProjectLikeButton projectId={projectId} />
         </div>
       </div>
     </LudoButton>
+  );
+}
+
+type ProjectLikeButtonProps = {
+  projectId: string;
+};
+
+function ProjectLikeButton({ projectId }: ProjectLikeButtonProps) {
+  const { data: likeState } = useQuery(qo.projectLike(projectId));
+
+  const count = likeState?.count ?? 0;
+
+  return (
+    <div className="flex items-end text-ludo-white justify-end gap-0.5">
+      <Heart className="h-4" />
+      <p className="text-sm leading-none m-0">{count}</p>
+    </div>
   );
 }
