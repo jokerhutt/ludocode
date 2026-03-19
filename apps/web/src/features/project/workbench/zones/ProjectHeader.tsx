@@ -7,18 +7,14 @@ import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStat
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
 import type { ProjectMode } from "@/layouts/project/ProjectLayout";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { Bookmark, Copy, HeartIcon } from "lucide-react";
-import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
+import { HeartIcon } from "lucide-react";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
-  userId?: string;
 };
 
 export function ProjectHeader({
   mode = "READONLY",
-  userId,
 }: ProjectHeaderProps) {
   const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
@@ -32,16 +28,6 @@ export function ProjectHeader({
     debounceMs: 1000,
     entryFileId,
   });
-
-  const duplicateMutation = useDuplicateProject(project.projectId, {
-    onSuccess: async (newProjectId) => {
-      if (!userId) return;
-
-      router.navigate(ludoNavigation.project.toProject(userId, newProjectId));
-    },
-  });
-
-  const canDuplicate = Boolean(userId);
 
   const goToProjectHub = () => {
     router.navigate(ludoNavigation.hub.project.toProjectHub());
