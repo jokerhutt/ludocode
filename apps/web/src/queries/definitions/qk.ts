@@ -23,6 +23,8 @@ export const qk = {
   // --- USER PROJECTS ---
   projectsUser: (userId: string) => ["projects", "user", userId] as const,
 
+  projectsLike: (projectId: string) => ["projects", "like", projectId] as const,
+
   projectsUserPage: (userId: string, page: number, size: number) =>
     ["projects", "user", userId, page, size] as const,
 

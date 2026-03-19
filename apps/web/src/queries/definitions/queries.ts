@@ -5,6 +5,7 @@ import {
   courseStatsBatcher,
   lessonBatcher,
   moduleBatcher,
+  projectLikesBatcher,
   userBatcher,
   userCoinsBatcher,
 } from "@/queries/definitions/batchers.ts";
@@ -31,6 +32,7 @@ import {
   type UserSubscription,
   type ProjectSnapshot,
   type ProjectCardResponseList,
+  type ProjectLikeResponse,
 } from "@ludocode/types";
 
 export const qo = {
@@ -124,6 +126,13 @@ export const qo = {
       queryFn: () => ludoGet<string>(api.progress.courses.current, true),
       staleTime: 60_000,
       retry: false,
+    }),
+
+  projectLike: (projectId: string) =>
+    queryOptions<ProjectLikeResponse>({
+      queryKey: qk.projectsLike(projectId),
+      queryFn: () => projectLikesBatcher.fetch(projectId),
+      staleTime: 60_000,
     }),
 
   module: (moduleId: string) =>

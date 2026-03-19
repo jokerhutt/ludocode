@@ -3,7 +3,11 @@ import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
 import type { UserCoins } from "@ludocode/types/User/UserCoins.ts";
-import { type CourseStats, type LudoUser } from "@ludocode/types";
+import {
+  type ProjectLikeResponse,
+  type CourseStats,
+  type LudoUser,
+} from "@ludocode/types";
 import { api } from "@/constants/api/api.ts";
 import { makeIdBatcher } from "@ludocode/api/batcherFactory.ts";
 
@@ -19,6 +23,14 @@ export const moduleBatcher = makeIdBatcher<LudoModule>({
   name: "module",
   getUrlFn: api.catalog.modules,
   idsKey: "moduleIds",
+  scheduler: windowScheduler(10),
+  createFn: create,
+});
+
+export const projectLikesBatcher = makeIdBatcher<ProjectLikeResponse>({
+  name: "projectLike",
+  getUrlFn: api.projects.likes,
+  idsKey: "projectIds",
   scheduler: windowScheduler(10),
   createFn: create,
 });
@@ -44,8 +56,8 @@ export const courseStatsBatcher = makeIdBatcher<CourseStats>({
   getUrlFn: api.progress.courses.statsByIds,
   idsKey: "courseIds",
   scheduler: windowScheduler(10),
-  createFn: create
-})
+  createFn: create,
+});
 
 export const userCoinsBatcher = makeIdBatcher<UserCoins>({
   name: "userCoins",
