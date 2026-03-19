@@ -7,6 +7,7 @@ export type ProjectCardResponse = {
   projectTitle: string;
   createdAt: number;
   updatedAt: number;
+  deleteAt?: string;
   visibility: ProjectVisibility;
   languageName: string;
   languageIconName: string;

@@ -9,16 +9,25 @@ import { UserPreferencesContext } from "@/features/user/context/useUserPreferenc
 
 type ProjectLayoutProps = {};
 
+export type ProjectMode = "EDIT" | "READONLY";
+
 export function ProjectLayout({}: ProjectLayoutProps) {
-  const routeApi = getRouteApi("/app/_desktopguard/project/$projectId");
+  const routeApi = getRouteApi(
+    "/app/_desktopguard/project/$authorId/$projectId",
+  );
   const { project } = useLoaderData({ from: routeApi.id });
+  const { data: currentUser } = useSuspenseQuery(qo.currentUser());
+  const { authorId } = routeApi.useParams();
+
+  const mode: ProjectMode = authorId === currentUser.id ? "EDIT" : "READONLY";
+
   const { data: UserPreferences } = useSuspenseQuery(qo.preferences());
 
   return (
     <UserPreferencesContext.Provider value={UserPreferences}>
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
-          <ProjectHeader />
+          <ProjectHeader mode={mode} />
           <WorkbenchPage />
         </MainGridWrapper>
       </ProjectProvider>

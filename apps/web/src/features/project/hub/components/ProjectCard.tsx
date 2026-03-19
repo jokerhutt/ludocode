@@ -40,7 +40,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
     <LudoButton
       data-testid={`project-hub-card`}
       onClick={() => {
-        router.navigate(ludoNavigation.project.toProject(projectId));
+        router.navigate(ludoNavigation.project.toProject(authorId, projectId));
       }}
       className="w-full h-24 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
     >
@@ -62,11 +62,7 @@ export function ProjectCard({ project, deleteAt }: ProjectCardProps) {
       </div>
       <div className="flex h-full flex-col items-end justify-between">
         <div className="flex items-center gap-2 justify-end">
-          <CustomIcon
-            iconName={iconName}
-            color="white"
-            className="h-5 pr-2"
-          />
+          <CustomIcon iconName={iconName} color="white" className="h-5 pr-2" />
           <ProjectVisibilityMenu
             projectId={projectId}
             visibility={visibility}

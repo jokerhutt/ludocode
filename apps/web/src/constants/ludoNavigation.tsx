@@ -16,7 +16,7 @@ import { Route as accountSettingsRoute } from "@/routes/app/_hub/profile/$userId
 import { Route as lessonPageRoute } from "@/routes/app/lesson/$courseId/$moduleId/$lessonId";
 
 // DESKTOP-GUARD GROUP
-import { Route as projectPageRoute } from "@/routes/app/_desktopguard/project/$projectId.tsx";
+import { Route as projectPageRoute } from "@/routes/app/_desktopguard/project/$authorId/$projectId";
 
 // SUBSCRIPTION
 import { Route as subscriptionComparisonRoute } from "@/routes/app/subscription/_subscribedguard/comparison";
@@ -32,7 +32,7 @@ import { Route as onboardingStageRoute } from "@/routes/app/onboarding.$stage.ts
 
 // COMMUNITY
 
-import { Route as communityHubRoute } from "@/routes/app/_hub/community/index"
+import { Route as communityHubRoute } from "@/routes/app/_hub/community/index";
 
 // LEADERBOARD
 import { Route as leaderboardHubRoute } from "@/routes/app/_hub/leaderboard";
@@ -53,7 +53,10 @@ import type { LessonSubmissionRequest, StageKey } from "@ludocode/types";
 export const ludoNavigation = {
   auth: {
     login: (replace = true) => ({ to: authLoginRoute.to, replace: replace }),
-    register: (replace = true) => ({ to: authRegisterRoute.to, replace: replace }),
+    register: (replace = true) => ({
+      to: authRegisterRoute.to,
+      replace: replace,
+    }),
   },
 
   app: {
@@ -64,7 +67,7 @@ export const ludoNavigation = {
 
   hub: {
     community: {
-      toCommunityHub: () => ({to: communityHubRoute.to})
+      toCommunityHub: () => ({ to: communityHubRoute.to }),
     },
     module: {
       toModule: (courseId: string, moduleId: string, replace?: boolean) => ({
@@ -140,9 +143,9 @@ export const ludoNavigation = {
   },
 
   project: {
-    toProject: (projectId: string) => ({
+    toProject: (authorId: string, projectId: string) => ({
       to: projectPageRoute.to,
-      params: { projectId },
+      params: { authorId, projectId },
     }),
   },
 

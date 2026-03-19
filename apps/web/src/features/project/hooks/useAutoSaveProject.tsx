@@ -9,6 +9,7 @@ type Args = {
   files: ProjectFileSnapshot[];
   entryFileId: string;
   debounceMs: number;
+  enabled?: boolean;
 };
 
 export type SaveStatusType = {
@@ -23,6 +24,7 @@ export function useAutoSaveProject({
   files,
   entryFileId,
   debounceMs = 1000,
+  enabled = true
 }: Args): SaveStatusType {
   const hasSavedOnceRef = useRef(false);
 
@@ -40,7 +42,7 @@ export function useAutoSaveProject({
   });
 
   useEffect(() => {
-    if (!projectId) return;
+    if (!projectId || !enabled) return;
     if (files.length <= 0) return;
 
     const payloadString = JSON.stringify(files);

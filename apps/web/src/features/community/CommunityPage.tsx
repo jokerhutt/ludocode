@@ -101,7 +101,7 @@ function PublicProjectCard({ project }: { project: ProjectCardResponse }) {
     <LudoButton
       data-testid={`project-hub-card`}
       onClick={() => {
-        router.navigate(ludoNavigation.project.toProject(projectId));
+        router.navigate(ludoNavigation.project.toProject(authorId, projectId));
       }}
       className="w-full h-24 flex items-start text-ludo-white-bright hover:cursor-pointer justify-between p-4"
     >

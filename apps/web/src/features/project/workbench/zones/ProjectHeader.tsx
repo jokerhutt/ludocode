@@ -6,12 +6,20 @@ import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStatusIcon.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
+import type { ProjectMode } from "@/layouts/project/ProjectLayout";
 
-export function ProjectHeader() {
+type ProjectHeaderProps = {
+  mode?: ProjectMode;
+};
+
+export function ProjectHeader({ mode = "READONLY" }: ProjectHeaderProps) {
   const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
 
+  const isAutoSaveEnabled = mode === "EDIT";
+
   const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
+    enabled: isAutoSaveEnabled,
     project,
     files,
     debounceMs: 1000,
@@ -32,12 +40,14 @@ export function ProjectHeader() {
         </div>
         <div className="col-span-10 text-ludo-white-bright flex items-center gap-4 justify-center lg:col-span-6 ">
           <h1>{projectName}</h1>
-          <SaveStatusIcon
-            isSaved={isSaved}
-            isSaving={isSaving}
-            error={error}
-            lastSavedAt={lastSavedAt}
-          />
+          {isAutoSaveEnabled && (
+            <SaveStatusIcon
+              isSaved={isSaved}
+              isSaving={isSaving}
+              error={error}
+              lastSavedAt={lastSavedAt}
+            />
+          )}
         </div>
         <div className="col-span-1 text-ludo-white-bright lg:col-span-3"></div>
         <LudoHeader.Bar />

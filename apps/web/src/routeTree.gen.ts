@@ -37,11 +37,11 @@ import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './route
 import { Route as AppHubCommunityIndexRouteImport } from './routes/app/_hub/community/index'
 import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/app/subscription/_subscribedguard/comparison'
 import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profile/$userId'
-import { Route as AppDesktopguardProjectProjectIdRouteImport } from './routes/app/_desktopguard/project/$projectId'
 import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/app/_hub/profile/$userId/index'
 import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/app/completion/$courseId/$moduleId/$lessonId'
 import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/app/_hub/profile/$userId/settings'
 import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/app/_hub/learn/$courseId/$moduleId'
+import { Route as AppDesktopguardProjectAuthorIdProjectIdRouteImport } from './routes/app/_desktopguard/project/$authorId/$projectId'
 import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/route'
 import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/index'
 
@@ -184,12 +184,6 @@ const AppHubProfileUserIdRoute = AppHubProfileUserIdRouteImport.update({
   path: '/profile/$userId',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
-const AppDesktopguardProjectProjectIdRoute =
-  AppDesktopguardProjectProjectIdRouteImport.update({
-    id: '/project/$projectId',
-    path: '/project/$projectId',
-    getParentRoute: () => AppDesktopguardRouteRoute,
-  } as any)
 const AppHubProfileUserIdIndexRoute =
   AppHubProfileUserIdIndexRouteImport.update({
     id: '/',
@@ -213,6 +207,12 @@ const AppHubLearnCourseIdModuleIdRoute =
     id: '/learn/$courseId/$moduleId',
     path: '/learn/$courseId/$moduleId',
     getParentRoute: () => AppHubRouteRoute,
+  } as any)
+const AppDesktopguardProjectAuthorIdProjectIdRoute =
+  AppDesktopguardProjectAuthorIdProjectIdRouteImport.update({
+    id: '/project/$authorId/$projectId',
+    path: '/project/$authorId/$projectId',
+    getParentRoute: () => AppDesktopguardRouteRoute,
   } as any)
 const AppLessonCourseIdModuleIdLessonIdRouteRoute =
   AppLessonCourseIdModuleIdLessonIdRouteRouteImport.update({
@@ -249,11 +249,11 @@ export interface FileRoutesByFullPath {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
-  '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
+  '/app/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -281,9 +281,9 @@ export interface FileRoutesByTo {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
-  '/app/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
+  '/app/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -317,11 +317,11 @@ export interface FileRoutesById {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/_resources/docs/': typeof ResourcesDocsIndexRoute
-  '/app/_desktopguard/project/$projectId': typeof AppDesktopguardProjectProjectIdRoute
   '/app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/_hub/community/': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
+  '/app/_desktopguard/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -352,11 +352,11 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/docs'
-    | '/app/project/$projectId'
     | '/app/profile/$userId'
     | '/app/subscription/comparison'
     | '/app/community'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
+    | '/app/project/$authorId/$projectId'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -384,9 +384,9 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/docs'
-    | '/app/project/$projectId'
     | '/app/subscription/comparison'
     | '/app/community'
+    | '/app/project/$authorId/$projectId'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -419,11 +419,11 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/_resources/docs/'
-    | '/app/_desktopguard/project/$projectId'
     | '/app/_hub/profile/$userId'
     | '/app/subscription/_subscribedguard/comparison'
     | '/app/_hub/community/'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
+    | '/app/_desktopguard/project/$authorId/$projectId'
     | '/app/_hub/learn/$courseId/$moduleId'
     | '/app/_hub/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -635,13 +635,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubProfileUserIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/app/_desktopguard/project/$projectId': {
-      id: '/app/_desktopguard/project/$projectId'
-      path: '/project/$projectId'
-      fullPath: '/app/project/$projectId'
-      preLoaderRoute: typeof AppDesktopguardProjectProjectIdRouteImport
-      parentRoute: typeof AppDesktopguardRouteRoute
-    }
     '/app/_hub/profile/$userId/': {
       id: '/app/_hub/profile/$userId/'
       path: '/'
@@ -669,6 +662,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/learn/$courseId/$moduleId'
       preLoaderRoute: typeof AppHubLearnCourseIdModuleIdRouteImport
       parentRoute: typeof AppHubRouteRoute
+    }
+    '/app/_desktopguard/project/$authorId/$projectId': {
+      id: '/app/_desktopguard/project/$authorId/$projectId'
+      path: '/project/$authorId/$projectId'
+      fullPath: '/app/project/$authorId/$projectId'
+      preLoaderRoute: typeof AppDesktopguardProjectAuthorIdProjectIdRouteImport
+      parentRoute: typeof AppDesktopguardRouteRoute
     }
     '/app/lesson/$courseId/$moduleId/$lessonId': {
       id: '/app/lesson/$courseId/$moduleId/$lessonId'
@@ -717,11 +717,12 @@ const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
 )
 
 interface AppDesktopguardRouteRouteChildren {
-  AppDesktopguardProjectProjectIdRoute: typeof AppDesktopguardProjectProjectIdRoute
+  AppDesktopguardProjectAuthorIdProjectIdRoute: typeof AppDesktopguardProjectAuthorIdProjectIdRoute
 }
 
 const AppDesktopguardRouteRouteChildren: AppDesktopguardRouteRouteChildren = {
-  AppDesktopguardProjectProjectIdRoute: AppDesktopguardProjectProjectIdRoute,
+  AppDesktopguardProjectAuthorIdProjectIdRoute:
+    AppDesktopguardProjectAuthorIdProjectIdRoute,
 }
 
 const AppDesktopguardRouteRouteWithChildren =
