@@ -32,7 +32,13 @@ export function NavigationIconGroup({
   };
 
   return (
-    <div className={cn("flex items-center gap-1", groupClassName)}>
+    <div
+      className={cn(
+        "flex items-center gap-1",
+        isMobile && "w-full justify-around gap-0",
+        groupClassName,
+      )}
+    >
       {iconsToRender.map((navItem) => {
         const active = isActive(navItem.path);
         const Icon = navItem.icon;
@@ -44,21 +50,41 @@ export function NavigationIconGroup({
             data-testid={`nav-button-${dataTestIdPrefix}-${navItem.name}`}
             onClick={() => navItem.onClick?.()}
             className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150",
+              isMobile
+                ? "flex flex-col items-center justify-center gap-1 px-1 py-1 min-w-14"
+                : "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150",
               "hover:cursor-pointer text-sm font-medium",
-              active
-                ? "bg-ludo-accent/15 text-ludo-white-bright"
-                : "text-ludo-white-dim hover:text-ludo-white-bright hover:bg-white/5",
+              isMobile
+                ? active
+                  ? "text-ludo-white-bright"
+                  : "text-ludo-white-dim hover:text-ludo-white-bright"
+                : active
+                  ? "bg-ludo-accent/15 text-ludo-white-bright"
+                  : "text-ludo-white-dim hover:text-ludo-white-bright hover:bg-white/5",
               buttonClassName,
             )}
           >
-            <Icon
+            <span
               className={cn(
-                "w-4 h-4 shrink-0 transition-colors",
-                active ? "text-ludo-accent" : "text-current",
+                isMobile
+                  ? "flex h-8 w-8 items-center justify-center rounded-md transition-colors"
+                  : "contents",
+                isMobile &&
+                  (active ? "bg-ludo-accent/20" : "bg-ludo-surface/60"),
               )}
-            />
-            <span>{navItem.name}</span>
+            >
+              <Icon
+                className={cn(
+                  "w-4 h-4 shrink-0 transition-colors",
+                  active ? "text-ludo-accent" : "text-current",
+                )}
+              />
+            </span>
+            <span
+              className={cn(isMobile && "text-[10px] leading-none text-center")}
+            >
+              {navItem.name}
+            </span>
           </button>
         );
       })}
