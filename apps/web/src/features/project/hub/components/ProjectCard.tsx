@@ -50,8 +50,7 @@ export function ProjectCard({
 
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
   const createdAtTime = createdAt ? parseToDate(createdAt) : "-";
-  const timeToDisplay =
-    mode == "OWN" ? updatedAtTime : createdAtTime;
+  const timeToDisplay = mode == "OWN" ? updatedAtTime : createdAtTime;
 
   return (
     <LudoButton
@@ -62,9 +61,9 @@ export function ProjectCard({
       }}
       className="w-full h-24 flex items-start text-ludo-white-bright hover:bg-ludo-surface-hover hover:cursor-pointer justify-between p-4"
     >
-      <div className="w-full h-full items-start text-ludo-white-bright flex gap-4">
-        <div className="flex flex-col gap-1.5 text-start">
-          <p className="m-0 text-lg leading-tight">{projectTitle}</p>
+      <div className="w-full h-full min-w-0 items-start text-ludo-white-bright flex gap-4">
+        <div className="min-w-0 flex-1 flex flex-col gap-1.5 text-start">
+          <p className="m-0 text-lg leading-tight truncate">{projectTitle}</p>
           <p className="m-0 text-xs text-ludo-white leading-tight">
             By {authorDisplayName}
           </p>
