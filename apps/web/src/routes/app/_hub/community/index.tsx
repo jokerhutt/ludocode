@@ -16,5 +16,5 @@ export const Route = createFileRoute("/app/_hub/community/")({
 });
 
 async function communityLoader(queryClient: QueryClient, page: number) {
-  await queryClient.ensureQueryData(qo.communityProjects(page, 10));
+  await queryClient.ensureQueryData(qo.communityProjects(page, 12));
 }
