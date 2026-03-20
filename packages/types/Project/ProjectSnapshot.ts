@@ -9,7 +9,6 @@ export type ProjectSnapshot = {
   updatedAt?: number;
   files: ProjectFileSnapshot[];
   entryFileId: string;
-  visibility: ProjectVisibility;
 };
 
 export type ProjectVisibility = "PUBLIC" | "PRIVATE" | "UNLISTED";

@@ -33,7 +33,6 @@ export function useAutoSaveProject({
     projectLanguage: project.projectLanguage,
     projectName: project.projectName,
     files,
-    visibility: project.visibility,
     entryFileId,
   });
   const latestPayloadRef = useRef<string>(currentPayload);
@@ -83,7 +82,6 @@ export function useAutoSaveProject({
         projectLanguage: project.projectLanguage,
         projectName: project.projectName,
         files: files,
-        visibility: project.visibility,
         entryFileId,
       });
     }, debounceMs);
@@ -98,7 +96,6 @@ export function useAutoSaveProject({
     mutate,
     project.projectLanguage,
     project.projectName,
-    project.visibility,
     projectId,
   ]);
 
