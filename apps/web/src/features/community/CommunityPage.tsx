@@ -1,22 +1,11 @@
 import { qo } from "@/queries/definitions/queries.ts";
 import { Route } from "@/routes/app/_hub/community/index";
-import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import {
-  CustomIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { usePagination } from "@ludocode/hooks";
 import type { ProjectCardResponse } from "@ludocode/types";
-import { parseToDate } from "@ludocode/util";
-import { Copy, Heart } from "lucide-react";
-import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
-import { useLikeProject } from "@/queries/mutations/useLikeProject";
-import { useUnlikeProject } from "@/queries/mutations/useUnlikeProject";
-import { cn } from "@ludocode/design-system/cn-utils";
 import { ProjectCard } from "../project/hub/components/ProjectCard";
 
 export function CommunityPage() {
@@ -35,7 +24,7 @@ export function CommunityPage() {
   });
 
   const { data: projectsPacket } = useSuspenseQuery(
-    qo.communityProjects(currentPage, 10),
+    qo.communityProjects(currentPage, 12),
   );
   const { data: currentUser } = useQuery(qo.currentUser());
   const currentUserId = currentUser?.id;
