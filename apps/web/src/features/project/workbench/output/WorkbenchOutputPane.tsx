@@ -42,8 +42,7 @@ export function WorkbenchOutputPane({
       <Workbench.Pane.Winbar
         className={hideWinbarOnMobile ? "hidden lg:block" : undefined}
       >
-        <p className="text-sm font-medium hidden lg:block tracking-wide">Output</p>
-        <div className="lg:hidden"/>
+        <p className="text-sm font-medium tracking-wide">Output</p>
         <IconButton
           dataTestId="clear-output-icon"
           iconName="TrashIcon"
@@ -75,11 +74,16 @@ export function WorkbenchOutputPane({
               />
               <LudoLog.Content>
                 {log.output.map((line, lineIdx) => (
-                  <LudoLog.Line key={`${logIdx}-${lineIdx}-${line}`} line={line} />
+                  <LudoLog.Line
+                    key={`${logIdx}-${lineIdx}-${line}`}
+                    line={line}
+                  />
                 ))}
                 {isActiveRun && (
                   <div className="flex items-center gap-2">
-                    <span className="select-none text-ludo-white-bright/60">{">"}</span>
+                    <span className="select-none text-ludo-white-bright/60">
+                      {">"}
+                    </span>
                     <input
                       data-testid="runner-stdin-input"
                       type="text"

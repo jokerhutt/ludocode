@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as ResourcesRouteRouteImport } from './routes/_resources/route'
-import { Route as DesktopguardRouteRouteImport } from './routes/_desktopguard/route'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as ResourcesIndexRouteImport } from './routes/_resources/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
@@ -21,6 +20,7 @@ import { Route as AppSubscriptionRouteRouteImport } from './routes/app/subscript
 import { Route as AppHubRouteRouteImport } from './routes/app/_hub/route'
 import { Route as ResourcesLegalRouteRouteImport } from './routes/_resources/legal/route'
 import { Route as ResourcesDocsIndexRouteImport } from './routes/_resources/docs/index'
+import { Route as ProjectAuthorIdProjectIdRouteImport } from './routes/project/$authorId/$projectId'
 import { Route as AppSyncLessonIdRouteImport } from './routes/app/sync/$lessonId'
 import { Route as AppSubscriptionSuccessRouteImport } from './routes/app/subscription/success'
 import { Route as AppSubscriptionManageRouteImport } from './routes/app/subscription/manage'
@@ -37,7 +37,6 @@ import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './route
 import { Route as AppHubCommunityIndexRouteImport } from './routes/app/_hub/community/index'
 import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/app/subscription/_subscribedguard/comparison'
 import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profile/$userId'
-import { Route as DesktopguardProjectAuthorIdProjectIdRouteImport } from './routes/_desktopguard/project/$authorId/$projectId'
 import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/app/_hub/profile/$userId/index'
 import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/app/completion/$courseId/$moduleId/$lessonId'
 import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/app/_hub/profile/$userId/settings'
@@ -57,10 +56,6 @@ const AppRouteRoute = AppRouteRouteImport.update({
 } as any)
 const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
   id: '/_resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DesktopguardRouteRoute = DesktopguardRouteRouteImport.update({
-  id: '/_desktopguard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -102,6 +97,12 @@ const ResourcesDocsIndexRoute = ResourcesDocsIndexRouteImport.update({
   path: '/docs/',
   getParentRoute: () => ResourcesRouteRoute,
 } as any)
+const ProjectAuthorIdProjectIdRoute =
+  ProjectAuthorIdProjectIdRouteImport.update({
+    id: '/project/$authorId/$projectId',
+    path: '/project/$authorId/$projectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppSyncLessonIdRoute = AppSyncLessonIdRouteImport.update({
   id: '/sync/$lessonId',
   path: '/sync/$lessonId',
@@ -184,12 +185,6 @@ const AppHubProfileUserIdRoute = AppHubProfileUserIdRouteImport.update({
   path: '/profile/$userId',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
-const DesktopguardProjectAuthorIdProjectIdRoute =
-  DesktopguardProjectAuthorIdProjectIdRouteImport.update({
-    id: '/project/$authorId/$projectId',
-    path: '/project/$authorId/$projectId',
-    getParentRoute: () => DesktopguardRouteRoute,
-  } as any)
 const AppHubProfileUserIdIndexRoute =
   AppHubProfileUserIdIndexRouteImport.update({
     id: '/',
@@ -248,8 +243,8 @@ export interface FileRoutesByFullPath {
   '/app/subscription/manage': typeof AppSubscriptionManageRoute
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/project/$authorId/$projectId': typeof ProjectAuthorIdProjectIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
-  '/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
@@ -280,8 +275,8 @@ export interface FileRoutesByTo {
   '/app/subscription/manage': typeof AppSubscriptionManageRoute
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/project/$authorId/$projectId': typeof ProjectAuthorIdProjectIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
-  '/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
@@ -292,7 +287,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_desktopguard': typeof DesktopguardRouteRouteWithChildren
   '/_resources': typeof ResourcesRouteRouteWithChildren
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
@@ -316,8 +310,8 @@ export interface FileRoutesById {
   '/app/subscription/manage': typeof AppSubscriptionManageRoute
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
+  '/project/$authorId/$projectId': typeof ProjectAuthorIdProjectIdRoute
   '/_resources/docs/': typeof ResourcesDocsIndexRoute
-  '/_desktopguard/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/_hub/community/': typeof AppHubCommunityIndexRoute
@@ -351,8 +345,8 @@ export interface FileRouteTypes {
     | '/app/subscription/manage'
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
-    | '/docs'
     | '/project/$authorId/$projectId'
+    | '/docs'
     | '/app/profile/$userId'
     | '/app/subscription/comparison'
     | '/app/community'
@@ -383,8 +377,8 @@ export interface FileRouteTypes {
     | '/app/subscription/manage'
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
-    | '/docs'
     | '/project/$authorId/$projectId'
+    | '/docs'
     | '/app/subscription/comparison'
     | '/app/community'
     | '/app/learn/$courseId/$moduleId'
@@ -394,7 +388,6 @@ export interface FileRouteTypes {
     | '/app/lesson/$courseId/$moduleId/$lessonId'
   id:
     | '__root__'
-    | '/_desktopguard'
     | '/_resources'
     | '/app'
     | '/auth'
@@ -418,8 +411,8 @@ export interface FileRouteTypes {
     | '/app/subscription/manage'
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
+    | '/project/$authorId/$projectId'
     | '/_resources/docs/'
-    | '/_desktopguard/project/$authorId/$projectId'
     | '/app/_hub/profile/$userId'
     | '/app/subscription/_subscribedguard/comparison'
     | '/app/_hub/community/'
@@ -432,10 +425,10 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  DesktopguardRouteRoute: typeof DesktopguardRouteRouteWithChildren
   ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
   AppRouteRoute: typeof AppRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  ProjectAuthorIdProjectIdRoute: typeof ProjectAuthorIdProjectIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -459,13 +452,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof ResourcesRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_desktopguard': {
-      id: '/_desktopguard'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DesktopguardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -523,6 +509,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/docs'
       preLoaderRoute: typeof ResourcesDocsIndexRouteImport
       parentRoute: typeof ResourcesRouteRoute
+    }
+    '/project/$authorId/$projectId': {
+      id: '/project/$authorId/$projectId'
+      path: '/project/$authorId/$projectId'
+      fullPath: '/project/$authorId/$projectId'
+      preLoaderRoute: typeof ProjectAuthorIdProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/app/sync/$lessonId': {
       id: '/app/sync/$lessonId'
@@ -636,13 +629,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubProfileUserIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/_desktopguard/project/$authorId/$projectId': {
-      id: '/_desktopguard/project/$authorId/$projectId'
-      path: '/project/$authorId/$projectId'
-      fullPath: '/project/$authorId/$projectId'
-      preLoaderRoute: typeof DesktopguardProjectAuthorIdProjectIdRouteImport
-      parentRoute: typeof DesktopguardRouteRoute
-    }
     '/app/_hub/profile/$userId/': {
       id: '/app/_hub/profile/$userId/'
       path: '/'
@@ -687,18 +673,6 @@ declare module '@tanstack/react-router' {
     }
   }
 }
-
-interface DesktopguardRouteRouteChildren {
-  DesktopguardProjectAuthorIdProjectIdRoute: typeof DesktopguardProjectAuthorIdProjectIdRoute
-}
-
-const DesktopguardRouteRouteChildren: DesktopguardRouteRouteChildren = {
-  DesktopguardProjectAuthorIdProjectIdRoute:
-    DesktopguardProjectAuthorIdProjectIdRoute,
-}
-
-const DesktopguardRouteRouteWithChildren =
-  DesktopguardRouteRoute._addFileChildren(DesktopguardRouteRouteChildren)
 
 interface ResourcesLegalRouteRouteChildren {
   ResourcesLegalPrivacyRoute: typeof ResourcesLegalPrivacyRoute
@@ -857,10 +831,10 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  DesktopguardRouteRoute: DesktopguardRouteRouteWithChildren,
   ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  ProjectAuthorIdProjectIdRoute: ProjectAuthorIdProjectIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

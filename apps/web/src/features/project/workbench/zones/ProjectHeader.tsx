@@ -38,18 +38,37 @@ export function ProjectHeader({
     router.navigate(ludoNavigation.hub.project.toProjectHub());
   };
 
+  const handleLoginClick = () => {
+    track({
+      event: "LOGIN_CLICK",
+      properties: { source: "project_header" },
+    });
+    router.navigate(ludoNavigation.auth.login(false));
+  };
+
+  const handleRegisterClick = () => {
+    track({
+      event: "SIGNUP_CLICK",
+      properties: { source: "project_header" },
+    });
+    router.navigate(ludoNavigation.auth.register(false));
+  };
+
   return (
     <LudoHeader>
-      <LudoHeader.Shell className="border-b lg:border-b" device="Desktop">
-        <div className="col-span-1 text-ludo-white-bright pl-6 lg:col-span-3 flex items-center">
+      <LudoHeader.Shell
+        className="border-b overflow-x-hidden lg:border-b"
+        device="Both"
+      >
+        <div className="col-span-2 text-ludo-white-bright pl-2 lg:col-span-3 lg:pl-6 flex items-center">
           {authenticated && (
             <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
               <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
             </HollowSlotButton>
           )}
         </div>
-        <div className="col-span-10 text-ludo-white-bright flex items-center gap-4 justify-center lg:col-span-6 ">
-          <h1>{projectName}</h1>
+        <div className="col-span-8 min-w-0 text-ludo-white-bright flex items-center gap-2 justify-center lg:col-span-6 lg:gap-4">
+          <h1 className="truncate">{projectName}</h1>
           {isAutoSaveEnabled ? (
             <SaveStatusIcon
               isSaved={isSaved}
@@ -58,21 +77,13 @@ export function ProjectHeader({
               lastSavedAt={lastSavedAt}
             />
           ) : (
-           (authenticated && mode == "READONLY") && <HeartIcon className="h-4" />
+            authenticated && mode == "READONLY" && <HeartIcon className="h-4" />
           )}
         </div>
-        <div className="col-span-1 text-ludo-white-bright pr-8 lg:col-span-3">
+        <div className="col-span-2 text-ludo-white-bright pr-2 lg:col-span-3 lg:pr-8">
           {!authenticated && (
-            <div className="flex justify-end h-full items-center w-full gap-2">
-              <HeaderNavButton
-                onClick={() => {
-                  track({
-                    event: "LOGIN_CLICK",
-                    properties: { source: "project_header" },
-                  });
-                  router.navigate(ludoNavigation.auth.login(false));
-                }}
-              >
+            <div className="hidden lg:flex justify-end h-full items-center w-full gap-2">
+              <HeaderNavButton onClick={handleLoginClick}>
                 <LogIn className="w-4 h-4" />
                 <span>Log in</span>
               </HeaderNavButton>
@@ -80,13 +91,7 @@ export function ProjectHeader({
                 variant="alt"
                 shadow={false}
                 className="h-8 w-auto px-4 text-sm font-medium"
-                onClick={() => {
-                  track({
-                    event: "SIGNUP_CLICK",
-                    properties: { source: "project_header" },
-                  });
-                  router.navigate(ludoNavigation.auth.register(false));
-                }}
+                onClick={handleRegisterClick}
               >
                 Register
               </LudoButton>

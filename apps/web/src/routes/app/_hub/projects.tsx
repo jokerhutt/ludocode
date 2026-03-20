@@ -5,7 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import z from "zod";
 
 export const Route = createFileRoute("/app/_hub/projects")({
-  staticData: { headerTitle: "project" },
+  staticData: { headerTitle: "Projects" },
   validateSearch: z.object({
     page: z.coerce.number().int().min(0).default(0),
   }),

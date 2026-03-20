@@ -25,6 +25,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
 import { GuidedLessonActions } from "./components/GuidedLessonActions";
+import { MobileTabs, useMobileTabs } from "@/components/MobileTabs";
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
@@ -65,8 +66,8 @@ export function GuidedExecutableWorkbench({
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
   const [incorrectAttemptCount, setIncorrectAttemptCount] = useState(0);
-  const [mobilePane, setMobilePane] =
-    useState<GuidedMobilePane>("instructions");
+  const { activeTab: mobilePane, selectTab: setMobilePane } =
+    useMobileTabs<GuidedMobilePane>("instructions");
   const outputCountBeforeRunRef = useRef(0);
   const { isEditorReadOnly } = useGuidedExerciseReviewState();
 
@@ -248,9 +249,9 @@ export function GuidedExecutableWorkbench({
         onDismissIncorrectFeedback={dismissIncorrectFeedback}
         isEditorReadOnly={isEditorReadOnly}
         className={cn(
-          mobilePane === "code" ? "flex-[2]" : "hidden",
+          mobilePane === "code" ? "flex-2" : "hidden",
           "transform-none transition-none animate-none",
-          "lg:flex lg:flex-col lg:flex-[2]",
+          "lg:flex lg:flex-col lg:flex-2",
         )}
       >
         <GuidedLessonActions
@@ -286,32 +287,14 @@ export function GuidedExecutableWorkbench({
       />
 
       <div className="lg:hidden px-4 py-2 border-t border-ludo-surface">
-        <div className="flex items-center justify-between gap-2">
-          {(
-            [
-              ["instructions", "Instructions"],
-              ["code", "Code"],
-              ["output", "Output"],
-            ] as const
-          ).map(([pane, label]) => {
-            const isActive = mobilePane === pane;
-            return (
-              <button
-                key={pane}
-                type="button"
-                onClick={() => setMobilePane(pane)}
-                className={cn(
-                  "h-8 rounded-md px-3 flex-1 text-sm font-semibold",
-                  isActive
-                    ? "bg-ludo-surface text-ludo-white-bright"
-                    : "bg-transparent text-ludo-white/90",
-                )}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
+        <MobileTabs
+          value={mobilePane}
+          onValueChange={(value) => setMobilePane(value as GuidedMobilePane)}
+        >
+          <MobileTabs.Tab value="instructions">Instructions</MobileTabs.Tab>
+          <MobileTabs.Tab value="code">Code</MobileTabs.Tab>
+          <MobileTabs.Tab value="output">Output</MobileTabs.Tab>
+        </MobileTabs>
       </div>
     </div>
   );

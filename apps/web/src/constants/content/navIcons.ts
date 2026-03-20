@@ -53,7 +53,6 @@ export const getNavIcons = (courseId: string, moduleId: string): NavIcon[] => [
       });
       router.navigate(ludoNavigation.hub.project.toProjectHub());
     },
-    desktopOnly: true,
   },
   {
     name: "Community",

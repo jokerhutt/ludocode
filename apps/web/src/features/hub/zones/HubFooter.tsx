@@ -7,7 +7,7 @@ export function HubFooter() {
       <div className="col-span-full flex justify-center items-center">
         <NavigationIconGroup
           dataTestIdPrefix="footer"
-          groupClassName="gap-4"
+          groupClassName="lg:gap-4"
           buttonClassName="text-sm px-3"
         />
       </div>
