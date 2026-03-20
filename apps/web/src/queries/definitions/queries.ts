@@ -192,7 +192,7 @@ export const qo = {
     queryOptions({
       queryKey: qk.project(projectId),
       queryFn: () =>
-        ludoGet<ProjectSnapshot>(api.projects.byId(projectId), true),
+        ludoGet<ProjectSnapshot>(api.projects.byIdPublic(projectId), true),
       staleTime: 60_000,
     }),
 
