@@ -125,7 +125,7 @@ export function ResourcesLayout() {
                 </LudoButton>
                 <HeaderNavButton
                   onClick={handleGoogleJoinClick}
-                  className="h-8 px-3 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
+                  className="h-8 px-3 py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
                 >
                   <GoogleIcon />
                   <span>Google</span>
@@ -152,7 +152,7 @@ export function ResourcesLayout() {
               </HeaderNavButton>
               <HeaderNavButton
                 onClick={handleGoogleJoinClick}
-                className="h-7 px-3 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
+                className="h-7 px-3 py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
               >
                 <GoogleIcon />
                 <span>Join</span>
