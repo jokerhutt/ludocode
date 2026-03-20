@@ -5,6 +5,7 @@ import {
   courseStatsBatcher,
   lessonBatcher,
   moduleBatcher,
+  projectLikesBatcher,
   userBatcher,
   userCoinsBatcher,
 } from "@/queries/definitions/batchers.ts";
@@ -17,7 +18,6 @@ import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import type { UserPreferences } from "@ludocode/types/User/UserPreferences.ts";
-import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import {
   type DailyGoalMet,
   type UserStreak,
@@ -30,11 +30,14 @@ import {
   type LanguageMetadata,
   type PlanOverview,
   type UserSubscription,
+  type ProjectSnapshot,
+  type ProjectCardResponseList,
+  type ProjectLikeResponse,
 } from "@ludocode/types";
 
 export const qo = {
   user: (userId: string) =>
-    queryOptions({
+    queryOptions<LudoUser>({
       queryKey: qk.user(userId),
       queryFn: () => userBatcher.fetch(userId),
       staleTime: 60_00,
@@ -125,6 +128,13 @@ export const qo = {
       retry: false,
     }),
 
+  projectLike: (projectId: string) =>
+    queryOptions<ProjectLikeResponse>({
+      queryKey: qk.projectsLike(projectId),
+      queryFn: () => projectLikesBatcher.fetch(projectId),
+      staleTime: 60_000,
+    }),
+
   module: (moduleId: string) =>
     queryOptions<LudoModule>({
       queryKey: qk.module(moduleId),
@@ -151,13 +161,38 @@ export const qo = {
     queryOptions({
       queryKey: qk.careers(),
       queryFn: () => ludoGet<LudoCareer[]>(api.preferences.careers),
-      staleTime: 60_000
+      staleTime: 60_000,
     }),
 
-  allProjects: () =>
+  userProjects: (userId: string, page: number, size: number) =>
     queryOptions({
-      queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(api.projects.base, true),
+      queryKey: qk.projectsUserPage(userId, page, size),
+      queryFn: () =>
+        ludoGet<ProjectCardResponseList>(
+          api.projects.basePaginated(page, size),
+          true,
+        ),
+      staleTime: 60_000,
+      placeholderData: (prev) => prev,
+    }),
+
+  communityProjects: (page: number, size: number) =>
+    queryOptions({
+      queryKey: qk.projectsCommunityPage(page, size),
+      queryFn: () =>
+        ludoGet<ProjectCardResponseList>(
+          api.projects.publicPaginated(page, size),
+          true,
+        ),
+      staleTime: 60_000,
+      placeholderData: (prev) => prev,
+    }),
+
+  project: (projectId: string) =>
+    queryOptions({
+      queryKey: qk.project(projectId),
+      queryFn: () =>
+        ludoGet<ProjectSnapshot>(api.projects.byIdPublic(projectId), true),
       staleTime: 60_000,
     }),
 

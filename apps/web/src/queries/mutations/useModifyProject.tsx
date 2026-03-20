@@ -1,31 +1,46 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "@/queries/definitions/mutations.ts";
-import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import { qk } from "@/queries/definitions/qk.ts";
 import { useCallback } from "react";
 
-export function useRenameProject() {
+export function useRenameProject(pid: string) {
   const qc = useQueryClient();
+
   return useMutation({
-    ...mutations.reameProject(),
-    onSuccess: (payload: ProjectListResponse) => {
-      qc.setQueryData(qk.projects(), payload);
+    ...mutations.renameProject(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      qc.invalidateQueries({ queryKey: qk.project(pid) });
+    },
+  });
+}
+
+export function useChangeProjectVisibility(pid: string) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.changeProjectVisibility(pid),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      qc.invalidateQueries({ queryKey: qk.project(pid) });
     },
   });
 }
 
 export function useDeleteProject(pid: string) {
   const qc = useQueryClient();
+
   return useMutation({
     ...mutations.deleteProject(pid),
-    onSuccess: (payload: ProjectListResponse) => {
-      qc.setQueryData(qk.projects(), payload);
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      qc.removeQueries({ queryKey: qk.project(pid) });
     },
   });
 }
 
 export function useModifyProject(projectId: string) {
-  const renameProjectMutation = useRenameProject();
+  const renameProjectMutation = useRenameProject(projectId);
   const deleteProjectMutation = useDeleteProject(projectId);
 
   const handleRenameProject = useCallback(
@@ -33,7 +48,7 @@ export function useModifyProject(projectId: string) {
       if (oldName === newName) return;
       renameProjectMutation.mutate({ targetId: projectId, newName: newName });
     },
-    [projectId, renameProjectMutation]
+    [projectId, renameProjectMutation],
   );
 
   const handleDeleteProject = useCallback(() => {

@@ -9,13 +9,17 @@ import { stripFileName } from "@/features/project/util/filenameUtil.ts";
 import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
 
-export function WorkbenchPage() {
+type WorkbenchPageProps = {
+  readOnly?: boolean;
+}
+
+export function WorkbenchPage({readOnly = true}: WorkbenchPageProps) {
   const { project, files, current, entryFileId } = useProjectContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
 
   return (
     <div className="flex min-h-0">
-      <WorkbenchTreePane />
+      <WorkbenchTreePane readOnly={readOnly}/>
       <CodeRunnerProvider
         project={project}
         files={files}
@@ -33,7 +37,7 @@ export function WorkbenchPage() {
                 )}
               </LudoTab.Group>
             </Workbench.Pane.Winbar>
-            <ProjectEditor isMarkedForDeletion={!!project.deleteAt} />
+            <ProjectEditor readOnly={readOnly} />
             <RunCodeButton disabled={!runnerFeature.enabled} />
           </Workbench.Pane>
 

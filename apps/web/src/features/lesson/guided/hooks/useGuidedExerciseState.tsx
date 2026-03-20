@@ -38,7 +38,6 @@ function setSessionStorageItem(key: string, value: string) {
   try {
     window.sessionStorage.setItem(key, value);
   } catch {
-    // Soft persistence should never break lesson flow.
   }
 }
 
@@ -47,7 +46,6 @@ function removeSessionStorageItem(key: string) {
   try {
     window.sessionStorage.removeItem(key);
   } catch {
-    // Soft persistence should never break lesson flow.
   }
 }
 

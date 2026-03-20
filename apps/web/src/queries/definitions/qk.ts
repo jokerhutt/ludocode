@@ -15,7 +15,28 @@ export const qk = {
   lesson: (lessonId: string) => ["lesson", lessonId] as const,
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,
+  communityProjects: () => ["communityProjects"] as const,
+
+  // root
   projects: () => ["projects"] as const,
+
+  // --- USER PROJECTS ---
+  projectsUser: (userId: string) => ["projects", "user", userId] as const,
+
+  projectsLike: (projectId: string) => ["projects", "like", projectId] as const,
+
+  projectsUserPage: (userId: string, page: number, size: number) =>
+    ["projects", "user", userId, page, size] as const,
+
+  // --- COMMUNITY PROJECTS ---
+  projectsCommunity: () => ["projects", "community"] as const,
+
+  projectsCommunityPage: (page: number, size: number) =>
+    ["projects", "community", page, size] as const,
+
+  // --- SINGLE PROJECT ---
+  project: (projectId: string) => ["projects", "detail", projectId] as const,
+
   courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
   courseStats: (courseId: string) => ["courseStats", courseId] as const,
   modulesBySection: (courseId: string) =>

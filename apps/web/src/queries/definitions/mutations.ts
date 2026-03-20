@@ -7,7 +7,6 @@ import type { OnboardingResponse } from "@ludocode/types/Onboarding/OnboardingRe
 import type { OnboardingSubmission } from "@ludocode/types/Onboarding/OnboardingCourse.ts";
 import { type ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProjectRequest.ts";
-import type { ProjectListResponse } from "@ludocode/types/Project/ProjectListResponse.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
 import {
   ludoPut,
@@ -25,6 +24,8 @@ import type {
   UserSubscription,
   ConfirmRequest,
   FeedbackRequest,
+  ChangeProjectVisibilityRequest,
+  ProjectLikeResponse,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -61,18 +62,10 @@ export const mutations = {
   },
 
   submitFeedback: () => {
-    return mutationOptions<
-      void,
-      Error,
-      FeedbackRequest
-    >({
+    return mutationOptions<void, Error, FeedbackRequest>({
       mutationKey: ["submitFeedback"],
       mutationFn: (variables) =>
-        ludoPost<void, FeedbackRequest>(
-          api.feedback.base,
-          variables,
-          true,
-        ),
+        ludoPost<void, FeedbackRequest>(api.feedback.base, variables, true),
     });
   },
 
@@ -91,10 +84,10 @@ export const mutations = {
   },
 
   createProject: () => {
-    return mutationOptions<ProjectListResponse, Error, CreateProjectRequest>({
+    return mutationOptions<void, Error, CreateProjectRequest>({
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectListResponse, CreateProjectRequest>(
+        ludoPost<void, CreateProjectRequest>(
           api.projects.base,
           variables,
           true,
@@ -103,19 +96,38 @@ export const mutations = {
   },
 
   deleteProject: (pid: string) => {
-    return mutationOptions<ProjectListResponse, Error, void>({
+    return mutationOptions<void, Error, void>({
       mutationKey: ["deleteProject"],
-      mutationFn: () =>
-        ludoDelete<ProjectListResponse>(api.projects.byId(pid), true),
+      mutationFn: () => ludoDelete<void>(api.projects.byId(pid), true),
     });
   },
 
-  reameProject: () => {
-    return mutationOptions<ProjectListResponse, Error, RenameProjectRequest>({
+  duplicateProject: (pid: string) => {
+    return mutationOptions<string, Error, void>({
+      mutationKey: ["duplicateProject"],
+      mutationFn: () =>
+        ludoPost<string>(api.projects.duplicate(pid), null, true),
+    });
+  },
+
+  renameProject: () => {
+    return mutationOptions<void, Error, RenameProjectRequest>({
       mutationKey: ["renameProject"],
       mutationFn: (variables) =>
-        ludoPatch<ProjectListResponse, RenameProjectRequest>(
+        ludoPatch<void, RenameProjectRequest>(
           api.projects.name(variables.targetId),
+          variables,
+          true,
+        ),
+    });
+  },
+
+  changeProjectVisibility: (pid: string) => {
+    return mutationOptions<void, Error, ChangeProjectVisibilityRequest>({
+      mutationKey: ["changeProjectVisibility"],
+      mutationFn: (variables) =>
+        ludoPut<void, ChangeProjectVisibilityRequest>(
+          api.projects.visibility(pid),
           variables,
           true,
         ),
@@ -131,6 +143,22 @@ export const mutations = {
           variables,
           true,
         ),
+    });
+  },
+
+  likeProject: (pid: string) => {
+    return mutationOptions<ProjectLikeResponse, Error, void>({
+      mutationKey: ["likeProject"],
+      mutationFn: () =>
+        ludoPost<ProjectLikeResponse>(api.projects.like(pid), null, true),
+    });
+  },
+
+  unlikeProject: (pid: string) => {
+    return mutationOptions<ProjectLikeResponse, Error, void>({
+      mutationKey: ["unlikeProject"],
+      mutationFn: () =>
+        ludoDelete<ProjectLikeResponse>(api.projects.like(pid), true),
     });
   },
 

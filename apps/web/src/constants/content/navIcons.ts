@@ -2,7 +2,12 @@ import { track } from "@/analytics/track";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import type { LucideIcon } from "lucide-react";
-import { BookOpenIcon, GraduationCapIcon, FolderCodeIcon } from "lucide-react";
+import {
+  BookOpenIcon,
+  GraduationCapIcon,
+  FolderCodeIcon,
+  UsersRoundIcon,
+} from "lucide-react";
 
 export type NavIcon = {
   name: string;
@@ -49,5 +54,17 @@ export const getNavIcons = (courseId: string, moduleId: string): NavIcon[] => [
       router.navigate(ludoNavigation.hub.project.toProjectHub());
     },
     desktopOnly: true,
+  },
+  {
+    name: "Community",
+    icon: UsersRoundIcon,
+    path: "/app/community",
+    onClick: () => {
+      track({
+        event: "NAVIGATION_CLICK",
+        properties: { source: "hub_header", destination: "community_hub" },
+      });
+      router.navigate(ludoNavigation.hub.community.toCommunityHub());
+    },
   },
 ];

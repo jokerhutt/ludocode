@@ -7,12 +7,12 @@ import { LudoSpinner } from "@ludocode/design-system/primitives/ludo-spinner.tsx
 import { useEffect, useRef } from "react";
 
 type ProjectEditorProps = {
-  isMarkedForDeletion?: boolean;
+  readOnly?: boolean;
   onExecuteAction?: () => void;
 };
 
 export function ProjectEditor({
-  isMarkedForDeletion = false,
+  readOnly = false,
   onExecuteAction,
 }: ProjectEditorProps) {
   const { active, updateContent } = useProjectContext();
@@ -75,7 +75,7 @@ export function ProjectEditor({
       language={language.editorId}
       options={{
         ...editorOptions,
-        readOnly: isMarkedForDeletion,
+        readOnly: readOnly,
       }}
     />
   );

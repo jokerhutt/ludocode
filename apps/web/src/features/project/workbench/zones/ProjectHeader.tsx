@@ -6,12 +6,28 @@ import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStatusIcon.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
+import type { ProjectMode } from "@/layouts/project/ProjectLayout";
+import { HeartIcon, LogIn } from "lucide-react";
+import { HeaderNavButton } from "@/layouts/legal/ResourcesLayout";
+import { track } from "@/analytics/track";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
-export function ProjectHeader() {
+type ProjectHeaderProps = {
+  mode?: ProjectMode;
+  authenticated?: boolean;
+};
+
+export function ProjectHeader({
+  mode = "READONLY",
+  authenticated,
+}: ProjectHeaderProps) {
   const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
 
+  const isAutoSaveEnabled = mode === "EDIT";
+
   const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
+    enabled: isAutoSaveEnabled,
     project,
     files,
     debounceMs: 1000,
@@ -26,20 +42,57 @@ export function ProjectHeader() {
     <LudoHeader>
       <LudoHeader.Shell className="border-b lg:border-b" device="Desktop">
         <div className="col-span-1 text-ludo-white-bright pl-6 lg:col-span-3 flex items-center">
-          <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
-            <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
-          </HollowSlotButton>
+          {authenticated && (
+            <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
+              <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
+            </HollowSlotButton>
+          )}
         </div>
         <div className="col-span-10 text-ludo-white-bright flex items-center gap-4 justify-center lg:col-span-6 ">
           <h1>{projectName}</h1>
-          <SaveStatusIcon
-            isSaved={isSaved}
-            isSaving={isSaving}
-            error={error}
-            lastSavedAt={lastSavedAt}
-          />
+          {isAutoSaveEnabled ? (
+            <SaveStatusIcon
+              isSaved={isSaved}
+              isSaving={isSaving}
+              error={error}
+              lastSavedAt={lastSavedAt}
+            />
+          ) : (
+           (authenticated && mode == "READONLY") && <HeartIcon className="h-4" />
+          )}
         </div>
-        <div className="col-span-1 text-ludo-white-bright lg:col-span-3"></div>
+        <div className="col-span-1 text-ludo-white-bright pr-8 lg:col-span-3">
+          {!authenticated && (
+            <div className="flex justify-end h-full items-center w-full gap-2">
+              <HeaderNavButton
+                onClick={() => {
+                  track({
+                    event: "LOGIN_CLICK",
+                    properties: { source: "project_header" },
+                  });
+                  router.navigate(ludoNavigation.auth.login(false));
+                }}
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Log in</span>
+              </HeaderNavButton>
+              <LudoButton
+                variant="alt"
+                shadow={false}
+                className="h-8 w-auto px-4 text-sm font-medium"
+                onClick={() => {
+                  track({
+                    event: "SIGNUP_CLICK",
+                    properties: { source: "project_header" },
+                  });
+                  router.navigate(ludoNavigation.auth.register(false));
+                }}
+              >
+                Register
+              </LudoButton>
+            </div>
+          )}
+        </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
     </LudoHeader>

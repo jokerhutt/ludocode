@@ -1,4 +1,3 @@
-import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
@@ -7,14 +6,33 @@ import { CreateProjectDialog } from "@/features/project/hub/components/CreatePro
 import { projectHeroContent } from "@/features/project/hub/content.ts";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { useModal } from "@ludocode/hooks";
+import { useModal, usePagination } from "@ludocode/hooks";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { Route } from "@/routes/app/_hub/projects.tsx";
 import { PlusIcon } from "lucide-react";
+import type { ProjectCardResponse } from "@ludocode/types";
 
 export function ProjectHubPage() {
-  const { data: projectsPacket } = useSuspenseQuery(qo.allProjects());
+  const { page } = Route.useSearch();
+  const {
+    page: currentPage,
+    next,
+    prev,
+  } = usePagination(page, (nextPage) => {
+    if (nextPage === page) return;
+
+    router.navigate({
+      to: Route.to,
+      search: (prevSearch) => ({ ...prevSearch, page: nextPage }),
+    });
+  });
+  const { data: currentUser } = useSuspenseQuery(qo.currentUser());
+  const { data: projectsPacket } = useSuspenseQuery(
+    qo.userProjects(currentUser.id, currentPage, 10),
+  );
   const allProjects = projectsPacket.projects;
+  const isFirstPage = currentPage === 0;
 
   const paymentsFeature = useSuspenseQuery(qo.activeFeatures()).data
     .paymentsEnabled;
@@ -76,11 +94,39 @@ export function ProjectHubPage() {
             </div>
           </Hero>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {allProjects.map((project: ProjectSnapshot) => (
-              <ProjectCard key={project.projectId} project={project} />
+          <div className="grid lg:grid-cols-3 gap-8 min-h-[200px]">
+            {allProjects.map((project: ProjectCardResponse) => (
+              <ProjectCard
+                currentUserId={currentUser.id}
+                key={project.projectId}
+                project={project}
+                mode={"OWN"}
+              />
             ))}
           </div>
+          {projectsPacket.totalPages > 1 && (
+            <div className="flex items-center justify-end gap-3">
+              <LudoButton
+                className="h-9 px-4 w-fit text-sm"
+                clickable={!isFirstPage}
+                disabled={isFirstPage}
+                onClick={() => prev()}
+              >
+                Previous
+              </LudoButton>
+              <span className="text-xs font-medium tabular-nums text-ludo-white">
+                Page {currentPage + 1}
+              </span>
+              <LudoButton
+                className="h-9 px-4 w-fit text-sm"
+                clickable={projectsPacket.hasNext}
+                disabled={!projectsPacket.hasNext}
+                onClick={() => next(projectsPacket.hasNext)}
+              >
+                Next
+              </LudoButton>
+            </div>
+          )}
         </div>
         <div className="col-span-1" />
       </div>

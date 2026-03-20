@@ -94,8 +94,16 @@ export function createApiPaths({
 
     projects: {
       base: `${BASE}/projects`,
+      public: `${BASE}/projects/public`,
+      likes: (projectIds: string) => `${BASE}/projects/like?${projectIds}`,
       byId: (projectId: string) => `${BASE}/projects/${projectId}`,
+      byIdPublic: (projectId: string) => `${BASE}/projects/public/${projectId}`,
+      like: (projectId: string) => `${BASE}/projects/${projectId}/like`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
+      visibility: (projectId: string) => `${BASE}/projects/${projectId}/visibility`,
+      duplicate: (projectId: string) => `${BASE}/projects/${projectId}/duplicate`,
+      basePaginated: (page: number, size: number) => `${BASE}/projects?page=${page}&size=${size}`,
+      publicPaginated: (page: number, size: number) => `${BASE}/projects/public?page=${page}&size=${size}`
     },
 
     runner: {

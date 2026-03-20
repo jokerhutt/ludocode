@@ -10,7 +10,7 @@ import { track } from "@/analytics/track";
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
 
-function HeaderNavButton({
+export function HeaderNavButton({
   onClick,
   children,
 }: {

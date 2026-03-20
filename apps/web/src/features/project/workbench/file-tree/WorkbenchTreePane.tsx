@@ -16,7 +16,7 @@ import {
   buildProjectUserMessage,
   PROJECT_SYSTEM_PROMPT,
 } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
@@ -29,9 +29,9 @@ import {
 } from "@ludocode/external/ui/tooltip.tsx";
 import { useCallback, useRef } from "react";
 
-type WorkbenchTreePaneProps = { className?: string };
+type WorkbenchTreePaneProps = {readOnly?: boolean; className?: string };
 
-export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
+export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProps) {
   const {
     renameFile,
     deleteFile,
@@ -42,7 +42,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
     setCurrent,
     entryFileId,
   } = useProjectContext();
-  const { data: chatbotCredits } = useSuspenseQuery(qo.credits());
+  const { data: chatbotCredits } = useQuery(qo.credits());
   const { aiEnabled } = useUserPreferencesContext();
   const aiFeature = useFeatureEnabledCheck({ feature: "isAIEnabled" });
   const latestRef = useRef({
@@ -71,6 +71,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
         <Workbench.Pane.Winbar>
           <p>Files</p>
           <NewFileMenu
+            readOnly={readOnly}
             trigger={
               <IconButton
                 dataTestId="open-file-popover-icon"
@@ -89,7 +90,6 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
           >
             {files.map((file) => {
               const key = file.id ?? file.tempId!;
-              const readOnly = !!project.deleteAt;
               const isEntryFile = key === entryFileId;
               return (
                 <LudoFileTree.Item
@@ -149,7 +149,7 @@ export function WorkbenchTreePane({ className }: WorkbenchTreePaneProps) {
         {aiEnabled && aiFeature.enabled && (
           <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
             <ChatBotProvider
-              credits={chatbotCredits}
+              credits={chatbotCredits ?? 0}
               sessionId={project.projectId}
               type="PROJECT"
             >

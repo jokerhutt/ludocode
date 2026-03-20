@@ -1,8 +1,7 @@
-import type { UUID } from "crypto"
 import type { OnboardingCareerType } from "../Onboarding/OnboardingCourse"
 
 export type UserPreferences = {
-    userId: UUID,
+    userId: string,
     hasExperience: boolean,
     chosenPath: OnboardingCareerType,
     aiEnabled: boolean,
