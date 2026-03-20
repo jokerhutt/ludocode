@@ -35,7 +35,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
     <UserPreferencesContext.Provider value={preferences}>
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
-          <ProjectHeader mode={mode} />
+          <ProjectHeader authenticated={!!currentUser} mode={mode} />
           <WorkbenchPage readOnly={isReadOnly} />
         </MainGridWrapper>
       </ProjectProvider>
