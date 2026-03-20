@@ -94,7 +94,10 @@ export function ResourcesLayout() {
               </HeaderNavButton>
               <div className="w-px h-5 bg-ludo-border mx-2 " />
               <div className="flex items-center  gap-2">
-                <HeaderNavButton
+                <LudoButton
+                  variant="alt"
+                  shadow={false}
+                  className="h-8 w-auto px-4 text-sm font-medium"
                   onClick={() => {
                     track({
                       event: "LOGIN_CLICK",
@@ -105,7 +108,7 @@ export function ResourcesLayout() {
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Log in</span>
-                </HeaderNavButton>
+                </LudoButton>
                 <LudoButton
                   variant="alt"
                   shadow={false}
