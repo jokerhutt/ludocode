@@ -16,7 +16,7 @@ import {
   buildProjectUserMessage,
   PROJECT_SYSTEM_PROMPT,
 } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
