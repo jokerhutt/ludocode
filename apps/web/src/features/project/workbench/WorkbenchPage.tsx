@@ -18,13 +18,17 @@ import {
 
 type WorkbenchPageProps = {
   readOnly?: boolean;
+  authenticated?: boolean;
 };
 
-export function WorkbenchPage({ readOnly = true }: WorkbenchPageProps) {
+export function WorkbenchPage({
+  readOnly = true,
+  authenticated = false,
+}: WorkbenchPageProps) {
   const { project, files, current, entryFileId } = useProjectContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
-  const [mobilePane, setMobilePane] = useState<WorkbenchMobilePane>("files");
+  const [mobilePane, setMobilePane] = useState<WorkbenchMobilePane>("code");
 
   return (
     <div className="flex flex-col lg:flex-row min-h-0">
@@ -45,6 +49,7 @@ export function WorkbenchPage({ readOnly = true }: WorkbenchPageProps) {
       >
         <WorkbenchPageContent
           readOnly={readOnly}
+          authenticated={authenticated}
           files={files}
           current={current}
           mobilePane={mobilePane}
@@ -58,6 +63,7 @@ export function WorkbenchPage({ readOnly = true }: WorkbenchPageProps) {
 
 function WorkbenchPageContent({
   readOnly,
+  authenticated,
   files,
   current,
   mobilePane,
@@ -65,6 +71,7 @@ function WorkbenchPageContent({
   runnerEnabled,
 }: {
   readOnly: boolean;
+  authenticated: boolean;
   files: { path: string }[];
   current: number | null;
   mobilePane: WorkbenchMobilePane;
@@ -100,6 +107,7 @@ function WorkbenchPageContent({
       />
 
       <WorkbenchMobileTabs
+        authenticated={authenticated}
         mobilePane={mobilePane}
         setMobilePane={setMobilePane}
       />

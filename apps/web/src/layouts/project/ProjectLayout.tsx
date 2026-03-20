@@ -13,7 +13,7 @@ type ProjectLayoutProps = {};
 export type ProjectMode = "EDIT" | "READONLY";
 
 export function ProjectLayout({}: ProjectLayoutProps) {
-  const routeApi = getRouteApi("/_desktopguard/project/$authorId/$projectId");
+  const routeApi = getRouteApi("/project/$authorId/$projectId");
   const { project } = useLoaderData({ from: routeApi.id });
   const { data: currentUser } = useQuery(qo.currentUser());
   const { data: UserPreferences } = useQuery(qo.preferences());
@@ -21,7 +21,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
   const preferences: UserPreferences = UserPreferences ?? {
     userId: "",
     hasExperience: false,
-    chosenPath: {careerType: "DATA", title: "", description: "", topPath: "",},
+    chosenPath: { careerType: "DATA", title: "", description: "", topPath: "" },
     aiEnabled: false,
     audioEnabled: true,
   };
@@ -36,7 +36,7 @@ export function ProjectLayout({}: ProjectLayoutProps) {
       <ProjectProvider project={project}>
         <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
           <ProjectHeader authenticated={!!currentUser} mode={mode} />
-          <WorkbenchPage readOnly={isReadOnly} />
+          <WorkbenchPage readOnly={isReadOnly} authenticated={!!currentUser} />
         </MainGridWrapper>
       </ProjectProvider>
     </UserPreferencesContext.Provider>
