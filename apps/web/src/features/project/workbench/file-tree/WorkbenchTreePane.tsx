@@ -29,9 +29,19 @@ import {
 } from "@ludocode/external/ui/tooltip.tsx";
 import { useCallback, useRef } from "react";
 
-type WorkbenchTreePaneProps = {readOnly?: boolean; className?: string };
+type WorkbenchTreePaneProps = {
+  readOnly?: boolean;
+  className?: string;
+  showAi?: boolean;
+  onFileSelect?: () => void;
+};
 
-export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProps) {
+export function WorkbenchTreePane({
+  readOnly,
+  className,
+  showAi,
+  onFileSelect,
+}: WorkbenchTreePaneProps) {
   const {
     renameFile,
     deleteFile,
@@ -63,10 +73,7 @@ export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProp
     <>
       <Workbench.Pane
         dataTestId="project-aside-left"
-        className={cn(
-          "border-r-2 flex-1 border-r-ludo-surface",
-          className,
-        )}
+        className={cn("border-r-2 flex-1 border-r-ludo-surface", className)}
       >
         <Workbench.Pane.Winbar>
           <p>Files</p>
@@ -85,7 +92,10 @@ export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProp
             selectedId={currentFileId}
             onSelect={(id) => {
               const index = files.findIndex((f) => (f.id ?? f.tempId!) === id);
-              if (index !== -1) setCurrent(index);
+              if (index !== -1) {
+                setCurrent(index);
+                onFileSelect?.();
+              }
             }}
           >
             {files.map((file) => {
@@ -146,7 +156,7 @@ export function WorkbenchTreePane({ readOnly, className }: WorkbenchTreePaneProp
             })}
           </LudoFileTree>
         </Workbench.Pane.Content>
-        {aiEnabled && aiFeature.enabled && (
+        {showAi && aiEnabled && aiFeature.enabled && (
           <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
             <ChatBotProvider
               credits={chatbotCredits ?? 0}
