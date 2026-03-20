@@ -9,9 +9,18 @@ export const Route = createFileRoute("/_resources/")({
 });
 
 async function resourcesPreloader(queryClient: QueryClient) {
+  const activeFeatures = await queryClient
+    .ensureQueryData(qo.activeFeatures())
+    .catch(() => null);
+
+  if (activeFeatures?.authMode === "DEMO") {
+    await queryClient.invalidateQueries();
+  }
+
   const user = await queryClient
     .ensureQueryData(qo.currentUser())
     .catch(() => null);
+
   if (user) {
     throw redirect({ to: "/app", replace: true });
   }
