@@ -3,25 +3,33 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { GoogleIcon } from "@ludocode/design-system/primitives/custom-icon";
 import { Outlet } from "@tanstack/react-router";
 import { BookOpen, Github, LogIn } from "lucide-react";
 import { Suspense } from "react";
 import { track } from "@/analytics/track";
+import { useFirebaseAuthEntry } from "@/queries/mutations/useFirebaseAuthEntry";
+import { cn } from "@ludocode/design-system/cn-utils";
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
 
 export function HeaderNavButton({
   onClick,
   children,
+  className,
 }: {
   onClick: () => void;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-ludo-white-dim hover:text-ludo-white-bright hover:bg-white/5 hover:cursor-pointer transition-all duration-150"
+      className={cn(
+        `flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-ludo-white-dim hover:text-ludo-white-bright hover:bg-white/5 hover:cursor-pointer transition-all duration-150`,
+        className,
+      )}
     >
       {children}
     </button>
@@ -29,8 +37,18 @@ export function HeaderNavButton({
 }
 
 export function ResourcesLayout() {
+  const firebaseLogin = useFirebaseAuthEntry();
+
   const handleLogoClick = () => {
     router.navigate({ to: "/" });
+  };
+
+  const handleGoogleJoinClick = () => {
+    track({
+      event: "SIGNUP_CLICK",
+      properties: { source: "landing_cta_header", provider: "google" },
+    });
+    void firebaseLogin("GOOGLE");
   };
 
   return (
@@ -102,6 +120,13 @@ export function ResourcesLayout() {
                 >
                   Register
                 </LudoButton>
+                <HeaderNavButton
+                  onClick={handleGoogleJoinClick}
+                  className="h-8 px-3 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
+                >
+                  <GoogleIcon />
+                  <span>Google</span>
+                </HeaderNavButton>
               </div>
             </div>
           </div>
@@ -113,12 +138,23 @@ export function ResourcesLayout() {
             >
               Ludocode
             </h1>
-            <HeaderNavButton
-              onClick={() => router.navigate(ludoNavigation.resources.toDocs())}
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>Docs</span>
-            </HeaderNavButton>
+            <div className="flex items-center gap-1">
+              <HeaderNavButton
+                onClick={() =>
+                  router.navigate(ludoNavigation.resources.toDocs())
+                }
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Docs</span>
+              </HeaderNavButton>
+              <HeaderNavButton
+                onClick={handleGoogleJoinClick}
+                className="h-7 px-3 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
+              >
+                <GoogleIcon />
+                <span>Join</span>
+              </HeaderNavButton>
+            </div>
           </div>
         </Suspense>
       </LudoHeader.Shell>
