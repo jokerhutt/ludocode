@@ -51,7 +51,7 @@ export function ProjectCard({
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
   const createdAtTime = createdAt ? parseToDate(createdAt) : "-";
   const timeToDisplay =
-    mode == "OWN" ? `Updated: ${updatedAtTime}` : createdAtTime;
+    mode == "OWN" ? updatedAtTime : createdAtTime;
 
   return (
     <LudoButton
