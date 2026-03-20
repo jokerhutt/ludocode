@@ -46,7 +46,7 @@ export function ResourcesLayout() {
   const handleGoogleJoinClick = () => {
     track({
       event: "SIGNUP_CLICK",
-      properties: { source: "landing_cta_header", provider: "google" },
+      properties: { source: "resources_header", provider: "GOOGLE" },
     });
     void firebaseLogin("GOOGLE");
   };
