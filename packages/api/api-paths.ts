@@ -94,7 +94,7 @@ export function createApiPaths({
 
     projects: {
       base: `${BASE}/projects`,
-      public: `${BASE}/public`,
+      public: `${BASE}/projects/public`,
       likes: (projectIds: string) => `${BASE}/projects/like?${projectIds}`,
       byId: (projectId: string) => `${BASE}/projects/${projectId}`,
       byIdPublic: (projectId: string) => `${BASE}/projects/public/${projectId}`,
