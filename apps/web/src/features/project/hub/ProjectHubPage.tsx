@@ -54,10 +54,14 @@ export function ProjectHubPage() {
         <div className="col-span-1 hidden lg:block" />
         <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
-            <div className="flex items-center gap-4">
+            <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-2 sm:gap-3">
               <span
                 data-testid="project-limits"
-                className={`text-xs font-medium tabular-nums ${isAtLimit ? "text-ludo-danger" : "text-ludo-white"}`}
+                className={`inline-flex h-10 items-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
+                  isAtLimit
+                    ? "border-ludo-danger/30 bg-ludo-danger/10 text-ludo-danger"
+                    : "border-ludo-white/15 bg-ludo-white/5 text-ludo-white/85"
+                }`}
               >
                 {currentProjects}/{maxProjects}
               </span>
@@ -68,9 +72,9 @@ export function ProjectHubPage() {
               >
                 <LudoButton
                   data-testid="create-project-dialog-button"
-                  className="h-10 px-5 rounded-lg text-sm font-semibold gap-2"
+                  className="h-10 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
                   variant="alt"
-                  shadow={true}
+                  shadow={false}
                   onClick={() => {
                     if (isAtLimit) {
                       if (!paymentsFeature) return;
@@ -94,7 +98,7 @@ export function ProjectHubPage() {
             </div>
           </Hero>
 
-          <div className="grid lg:grid-cols-3 gap-8 min-h-[200px]">
+          <div className="grid lg:grid-cols-3 gap-8 min-h-50">
             {allProjects.map((project: ProjectCardResponse) => (
               <ProjectCard
                 currentUserId={currentUser.id}
