@@ -13,7 +13,7 @@ export type ProjectMode = "EDIT" | "READONLY";
 
 export function ProjectLayout({}: ProjectLayoutProps) {
   const routeApi = getRouteApi(
-    "/app/_desktopguard/project/$authorId/$projectId",
+    "/_desktopguard/project/$authorId/$projectId",
   );
   const { project } = useLoaderData({ from: routeApi.id });
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());

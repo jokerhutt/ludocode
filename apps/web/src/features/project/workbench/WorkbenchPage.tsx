@@ -8,7 +8,6 @@ import { LudoTab } from "@ludocode/design-system/primitives/tab.tsx";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
 import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
-import { readonly } from "zod";
 
 type WorkbenchPageProps = {
   readOnly?: boolean;

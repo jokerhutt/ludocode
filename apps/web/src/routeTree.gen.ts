@@ -12,13 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as ResourcesRouteRouteImport } from './routes/_resources/route'
+import { Route as DesktopguardRouteRouteImport } from './routes/_desktopguard/route'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as ResourcesIndexRouteImport } from './routes/_resources/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AppSubscriptionRouteRouteImport } from './routes/app/subscription/route'
 import { Route as AppHubRouteRouteImport } from './routes/app/_hub/route'
-import { Route as AppDesktopguardRouteRouteImport } from './routes/app/_desktopguard/route'
 import { Route as ResourcesLegalRouteRouteImport } from './routes/_resources/legal/route'
 import { Route as ResourcesDocsIndexRouteImport } from './routes/_resources/docs/index'
 import { Route as AppSyncLessonIdRouteImport } from './routes/app/sync/$lessonId'
@@ -37,11 +37,11 @@ import { Route as AppSubscriptionSubscribedguardRouteRouteImport } from './route
 import { Route as AppHubCommunityIndexRouteImport } from './routes/app/_hub/community/index'
 import { Route as AppSubscriptionSubscribedguardComparisonRouteImport } from './routes/app/subscription/_subscribedguard/comparison'
 import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profile/$userId'
+import { Route as DesktopguardProjectAuthorIdProjectIdRouteImport } from './routes/_desktopguard/project/$authorId/$projectId'
 import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/app/_hub/profile/$userId/index'
 import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/app/completion/$courseId/$moduleId/$lessonId'
 import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/app/_hub/profile/$userId/settings'
 import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/app/_hub/learn/$courseId/$moduleId'
-import { Route as AppDesktopguardProjectAuthorIdProjectIdRouteImport } from './routes/app/_desktopguard/project/$authorId/$projectId'
 import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/route'
 import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/index'
 
@@ -57,6 +57,10 @@ const AppRouteRoute = AppRouteRouteImport.update({
 } as any)
 const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
   id: '/_resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesktopguardRouteRoute = DesktopguardRouteRouteImport.update({
+  id: '/_desktopguard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -86,10 +90,6 @@ const AppSubscriptionRouteRoute = AppSubscriptionRouteRouteImport.update({
 } as any)
 const AppHubRouteRoute = AppHubRouteRouteImport.update({
   id: '/_hub',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppDesktopguardRouteRoute = AppDesktopguardRouteRouteImport.update({
-  id: '/_desktopguard',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ResourcesLegalRouteRoute = ResourcesLegalRouteRouteImport.update({
@@ -184,6 +184,12 @@ const AppHubProfileUserIdRoute = AppHubProfileUserIdRouteImport.update({
   path: '/profile/$userId',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
+const DesktopguardProjectAuthorIdProjectIdRoute =
+  DesktopguardProjectAuthorIdProjectIdRouteImport.update({
+    id: '/project/$authorId/$projectId',
+    path: '/project/$authorId/$projectId',
+    getParentRoute: () => DesktopguardRouteRoute,
+  } as any)
 const AppHubProfileUserIdIndexRoute =
   AppHubProfileUserIdIndexRouteImport.update({
     id: '/',
@@ -207,12 +213,6 @@ const AppHubLearnCourseIdModuleIdRoute =
     id: '/learn/$courseId/$moduleId',
     path: '/learn/$courseId/$moduleId',
     getParentRoute: () => AppHubRouteRoute,
-  } as any)
-const AppDesktopguardProjectAuthorIdProjectIdRoute =
-  AppDesktopguardProjectAuthorIdProjectIdRouteImport.update({
-    id: '/project/$authorId/$projectId',
-    path: '/project/$authorId/$projectId',
-    getParentRoute: () => AppDesktopguardRouteRoute,
   } as any)
 const AppLessonCourseIdModuleIdLessonIdRouteRoute =
   AppLessonCourseIdModuleIdLessonIdRouteRouteImport.update({
@@ -249,11 +249,11 @@ export interface FileRoutesByFullPath {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
+  '/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
-  '/app/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -281,9 +281,9 @@ export interface FileRoutesByTo {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/docs': typeof ResourcesDocsIndexRoute
+  '/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
-  '/app/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -292,11 +292,11 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_desktopguard': typeof DesktopguardRouteRouteWithChildren
   '/_resources': typeof ResourcesRouteRouteWithChildren
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/_resources/legal': typeof ResourcesLegalRouteRouteWithChildren
-  '/app/_desktopguard': typeof AppDesktopguardRouteRouteWithChildren
   '/app/_hub': typeof AppHubRouteRouteWithChildren
   '/app/subscription': typeof AppSubscriptionRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -317,11 +317,11 @@ export interface FileRoutesById {
   '/app/subscription/success': typeof AppSubscriptionSuccessRoute
   '/app/sync/$lessonId': typeof AppSyncLessonIdRoute
   '/_resources/docs/': typeof ResourcesDocsIndexRoute
+  '/_desktopguard/project/$authorId/$projectId': typeof DesktopguardProjectAuthorIdProjectIdRoute
   '/app/_hub/profile/$userId': typeof AppHubProfileUserIdRouteWithChildren
   '/app/subscription/_subscribedguard/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/_hub/community/': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
-  '/app/_desktopguard/project/$authorId/$projectId': typeof AppDesktopguardProjectAuthorIdProjectIdRoute
   '/app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
   '/app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
@@ -352,11 +352,11 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/docs'
+    | '/project/$authorId/$projectId'
     | '/app/profile/$userId'
     | '/app/subscription/comparison'
     | '/app/community'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
-    | '/app/project/$authorId/$projectId'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -384,9 +384,9 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/docs'
+    | '/project/$authorId/$projectId'
     | '/app/subscription/comparison'
     | '/app/community'
-    | '/app/project/$authorId/$projectId'
     | '/app/learn/$courseId/$moduleId'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -394,11 +394,11 @@ export interface FileRouteTypes {
     | '/app/lesson/$courseId/$moduleId/$lessonId'
   id:
     | '__root__'
+    | '/_desktopguard'
     | '/_resources'
     | '/app'
     | '/auth'
     | '/_resources/legal'
-    | '/app/_desktopguard'
     | '/app/_hub'
     | '/app/subscription'
     | '/auth/login'
@@ -419,11 +419,11 @@ export interface FileRouteTypes {
     | '/app/subscription/success'
     | '/app/sync/$lessonId'
     | '/_resources/docs/'
+    | '/_desktopguard/project/$authorId/$projectId'
     | '/app/_hub/profile/$userId'
     | '/app/subscription/_subscribedguard/comparison'
     | '/app/_hub/community/'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
-    | '/app/_desktopguard/project/$authorId/$projectId'
     | '/app/_hub/learn/$courseId/$moduleId'
     | '/app/_hub/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
@@ -432,6 +432,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  DesktopguardRouteRoute: typeof DesktopguardRouteRouteWithChildren
   ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
   AppRouteRoute: typeof AppRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
@@ -458,6 +459,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof ResourcesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_desktopguard': {
+      id: '/_desktopguard'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DesktopguardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -500,13 +508,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/app'
       preLoaderRoute: typeof AppHubRouteRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/_desktopguard': {
-      id: '/app/_desktopguard'
-      path: ''
-      fullPath: '/app'
-      preLoaderRoute: typeof AppDesktopguardRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_resources/legal': {
@@ -635,6 +636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubProfileUserIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
+    '/_desktopguard/project/$authorId/$projectId': {
+      id: '/_desktopguard/project/$authorId/$projectId'
+      path: '/project/$authorId/$projectId'
+      fullPath: '/project/$authorId/$projectId'
+      preLoaderRoute: typeof DesktopguardProjectAuthorIdProjectIdRouteImport
+      parentRoute: typeof DesktopguardRouteRoute
+    }
     '/app/_hub/profile/$userId/': {
       id: '/app/_hub/profile/$userId/'
       path: '/'
@@ -663,13 +671,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubLearnCourseIdModuleIdRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
-    '/app/_desktopguard/project/$authorId/$projectId': {
-      id: '/app/_desktopguard/project/$authorId/$projectId'
-      path: '/project/$authorId/$projectId'
-      fullPath: '/app/project/$authorId/$projectId'
-      preLoaderRoute: typeof AppDesktopguardProjectAuthorIdProjectIdRouteImport
-      parentRoute: typeof AppDesktopguardRouteRoute
-    }
     '/app/lesson/$courseId/$moduleId/$lessonId': {
       id: '/app/lesson/$courseId/$moduleId/$lessonId'
       path: '/lesson/$courseId/$moduleId/$lessonId'
@@ -686,6 +687,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface DesktopguardRouteRouteChildren {
+  DesktopguardProjectAuthorIdProjectIdRoute: typeof DesktopguardProjectAuthorIdProjectIdRoute
+}
+
+const DesktopguardRouteRouteChildren: DesktopguardRouteRouteChildren = {
+  DesktopguardProjectAuthorIdProjectIdRoute:
+    DesktopguardProjectAuthorIdProjectIdRoute,
+}
+
+const DesktopguardRouteRouteWithChildren =
+  DesktopguardRouteRoute._addFileChildren(DesktopguardRouteRouteChildren)
 
 interface ResourcesLegalRouteRouteChildren {
   ResourcesLegalPrivacyRoute: typeof ResourcesLegalPrivacyRoute
@@ -715,18 +728,6 @@ const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
 const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
   ResourcesRouteRouteChildren,
 )
-
-interface AppDesktopguardRouteRouteChildren {
-  AppDesktopguardProjectAuthorIdProjectIdRoute: typeof AppDesktopguardProjectAuthorIdProjectIdRoute
-}
-
-const AppDesktopguardRouteRouteChildren: AppDesktopguardRouteRouteChildren = {
-  AppDesktopguardProjectAuthorIdProjectIdRoute:
-    AppDesktopguardProjectAuthorIdProjectIdRoute,
-}
-
-const AppDesktopguardRouteRouteWithChildren =
-  AppDesktopguardRouteRoute._addFileChildren(AppDesktopguardRouteRouteChildren)
 
 interface AppHubProfileUserIdRouteChildren {
   AppHubProfileUserIdSettingsRoute: typeof AppHubProfileUserIdSettingsRoute
@@ -816,7 +817,6 @@ const AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren =
   )
 
 interface AppRouteRouteChildren {
-  AppDesktopguardRouteRoute: typeof AppDesktopguardRouteRouteWithChildren
   AppHubRouteRoute: typeof AppHubRouteRouteWithChildren
   AppSubscriptionRouteRoute: typeof AppSubscriptionRouteRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
@@ -827,7 +827,6 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppDesktopguardRouteRoute: AppDesktopguardRouteRouteWithChildren,
   AppHubRouteRoute: AppHubRouteRouteWithChildren,
   AppSubscriptionRouteRoute: AppSubscriptionRouteRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
@@ -858,6 +857,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  DesktopguardRouteRoute: DesktopguardRouteRouteWithChildren,
   ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,

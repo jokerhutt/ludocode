@@ -3,7 +3,7 @@ import { ProjectLayout } from "@/layouts/project/ProjectLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/_desktopguard/project/$authorId/$projectId")({
+export const Route = createFileRoute("/_desktopguard/project/$authorId/$projectId")({
   loader: async ({ params, context }) =>
     projectLoader(params, context.queryClient),
   component: ProjectLayout,

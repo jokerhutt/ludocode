@@ -2,7 +2,12 @@ import { track } from "@/analytics/track";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import type { LucideIcon } from "lucide-react";
-import { BookOpenIcon, GraduationCapIcon, FolderCodeIcon, LayoutGridIcon, UsersRoundIcon } from "lucide-react";
+import {
+  BookOpenIcon,
+  GraduationCapIcon,
+  FolderCodeIcon,
+  UsersRoundIcon,
+} from "lucide-react";
 
 export type NavIcon = {
   name: string;

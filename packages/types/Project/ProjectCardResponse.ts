@@ -1,5 +1,4 @@
-import { LanguageMetadata } from "./LanguageMetadata";
-import { ProjectVisibility } from "./ProjectSnapshot";
+import { type ProjectVisibility } from "./ProjectSnapshot";
 
 export type ProjectCardResponse = {
   projectId: string;

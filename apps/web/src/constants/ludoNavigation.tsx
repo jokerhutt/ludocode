@@ -16,7 +16,7 @@ import { Route as accountSettingsRoute } from "@/routes/app/_hub/profile/$userId
 import { Route as lessonPageRoute } from "@/routes/app/lesson/$courseId/$moduleId/$lessonId";
 
 // DESKTOP-GUARD GROUP
-import { Route as projectPageRoute } from "@/routes/app/_desktopguard/project/$authorId/$projectId";
+import { Route as projectPageRoute } from "@/routes/_desktopguard/project/$authorId/$projectId";
 
 // SUBSCRIPTION
 import { Route as subscriptionComparisonRoute } from "@/routes/app/subscription/_subscribedguard/comparison";

@@ -24,7 +24,6 @@ import type {
   UserSubscription,
   ConfirmRequest,
   FeedbackRequest,
-  ProjectCardResponseList,
   ChangeProjectVisibilityRequest,
   ProjectLikeResponse,
 } from "@ludocode/types";
