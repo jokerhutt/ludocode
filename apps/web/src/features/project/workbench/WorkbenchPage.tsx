@@ -10,11 +10,11 @@ import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useIsMobile } from "@ludocode/hooks";
-import { useState } from "react";
 import {
   WorkbenchMobileTabs,
   type WorkbenchMobilePane,
 } from "./components/WorkbenchMobileTabs.tsx";
+import { useMobileTabs } from "@/components/MobileTabs";
 
 type WorkbenchPageProps = {
   readOnly?: boolean;
@@ -28,7 +28,8 @@ export function WorkbenchPage({
   const { project, files, current, entryFileId } = useProjectContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
-  const [mobilePane, setMobilePane] = useState<WorkbenchMobilePane>("code");
+  const { activeTab: mobilePane, selectTab: setMobilePane } =
+    useMobileTabs<WorkbenchMobilePane>("code");
 
   return (
     <div className="flex flex-col lg:flex-row min-h-0">
