@@ -9,7 +9,7 @@ import {
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type LanguageMetadata,
-  type LudoBanner,
+  type LudoBannerSnapshot,
   type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
 } from "@ludocode/types";
@@ -32,10 +32,10 @@ export const mutations = {
   },
 
   createBanner: () => {
-    return mutationOptions<LudoBanner[], Error, CreateBannerRequest>({
+    return mutationOptions<LudoBannerSnapshot[], Error, CreateBannerRequest>({
       mutationKey: ["createBanner"],
       mutationFn: (variables) =>
-        ludoPost<LudoBanner[], CreateBannerRequest>(
+        ludoPost<LudoBannerSnapshot[], CreateBannerRequest>(
           adminApi.banner.adminBase,
           variables,
           true,
@@ -44,12 +44,11 @@ export const mutations = {
   },
 
   deleteBanner: (bannerId: number) => {
-    return mutationOptions<LudoBanner[], Error, void>({
+    return mutationOptions<LudoBannerSnapshot[], Error, void>({
       mutationKey: ["deleteBanner"],
       mutationFn: () =>
-        ludoPost<LudoBanner[], void>(
+        ludoDelete<LudoBannerSnapshot[]>(
           adminApi.banner.byAdminId(bannerId),
-          null,
           true,
         ),
     });

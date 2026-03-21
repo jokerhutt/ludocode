@@ -10,7 +10,7 @@ import {
   type CurriculumDraftLessonForm,
   type SubjectsDraftSnapshot,
   type ActiveFeaturesResponse,
-  type LudoBanner,
+  type LudoBannerSnapshot,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher.ts";
 import { adminApi } from "@/constants/api/adminApi.ts";
@@ -34,7 +34,7 @@ export const qo = {
   banners: () =>
     queryOptions({
       queryKey: qk.banners(),
-      queryFn: () => ludoGet<LudoBanner>(adminApi.banner.adminBase, true),
+      queryFn: () => ludoGet<LudoBannerSnapshot>(adminApi.banner.adminBase, true),
       staleTime: 60_000,
     }),
 

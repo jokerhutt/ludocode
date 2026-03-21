@@ -34,9 +34,9 @@ export function createApiPaths({
     },
 
     banner: {
-      base: `${BASE}/banner`,
-      adminBase: `${ADMIN_BASE}/banner`,
-      byAdminId: (bannerId: number) => `${ADMIN_BASE}/banner/${bannerId}`
+      base: `${BASE}/banners`,
+      adminBase: `${ADMIN_BASE}/banners`,
+      byAdminId: (bannerId: number) => `${ADMIN_BASE}/banners/${bannerId}`
     },
 
     catalog: {
