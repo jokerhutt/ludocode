@@ -33,6 +33,12 @@ export function createApiPaths({
       logout: `${BASE}/auth/logout`,
     },
 
+    banner: {
+      base: `${BASE}/banner`,
+      adminBase: `${ADMIN_BASE}/banner`,
+      byAdminId: (bannerId: number) => `${ADMIN_BASE}/banner/${bannerId}`
+    },
+
     catalog: {
       base: `${BASE}/catalog`,
       courses: `${BASE}/catalog/courses`,

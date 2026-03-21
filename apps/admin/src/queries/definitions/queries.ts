@@ -10,6 +10,7 @@ import {
   type CurriculumDraftLessonForm,
   type SubjectsDraftSnapshot,
   type ActiveFeaturesResponse,
+  type LudoBanner,
 } from "@ludocode/types";
 import { ludoGet } from "@ludocode/api/fetcher.ts";
 import { adminApi } from "@/constants/api/adminApi.ts";
@@ -28,6 +29,13 @@ export const qo = {
       queryFn: () => ludoGet<LudoUser>(adminApi.auth.me, true),
       staleTime: 60_000,
       retry: false,
+    }),
+
+  banners: () =>
+    queryOptions({
+      queryKey: qk.banners(),
+      queryFn: () => ludoGet<LudoBanner>(adminApi.banner.adminBase, true),
+      staleTime: 60_000,
     }),
 
   curriculumSnapshot: (courseId: string) =>

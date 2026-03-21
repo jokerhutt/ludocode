@@ -11,6 +11,10 @@ export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
 export * from "./Catalog/LudoCourseSubject";
 
+
+// banner
+export * from "./Banner/LudoBanner"
+
 // completion
 export * from "./Completion/LessonCompletionResponse";
 export * from "./Completion/LessonStats";

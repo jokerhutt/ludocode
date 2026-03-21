@@ -9,12 +9,14 @@ import {
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type LanguageMetadata,
+  type LudoBanner,
   type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
 import type { ChangeCourseTitleRequest } from "@/features/curriculum/hooks/useChangeCourseTitle";
+import type { CreateBannerRequest } from "../mutations/useCreateBanner";
 
 export const mutations = {
   createCourse: () => {
@@ -28,6 +30,31 @@ export const mutations = {
         ),
     });
   },
+
+  createBanner: () => {
+    return mutationOptions<LudoBanner[], Error, CreateBannerRequest>({
+      mutationKey: ["createBanner"],
+      mutationFn: (variables) =>
+        ludoPost<LudoBanner[], CreateBannerRequest>(
+          adminApi.banner.adminBase,
+          variables,
+          true,
+        ),
+    });
+  },
+
+  deleteBanner: (bannerId: number) => {
+    return mutationOptions<LudoBanner[], Error, void>({
+      mutationKey: ["deleteBanner"],
+      mutationFn: () =>
+        ludoPost<LudoBanner[], void>(
+          adminApi.banner.byAdminId(bannerId),
+          null,
+          true,
+        ),
+    });
+  },
+
   createCourseYaml: () => {
     return mutationOptions<void, Error, File>({
       mutationKey: ["createCourseYaml"],
