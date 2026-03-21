@@ -34,7 +34,7 @@ export const qo = {
   banners: () =>
     queryOptions({
       queryKey: qk.banners(),
-      queryFn: () => ludoGet<LudoBannerSnapshot>(adminApi.banner.adminBase, true),
+      queryFn: () => ludoGet<LudoBannerSnapshot[]>(adminApi.banner.adminBase, true),
       staleTime: 60_000,
     }),
 
