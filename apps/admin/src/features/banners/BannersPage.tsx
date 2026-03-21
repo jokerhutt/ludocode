@@ -113,9 +113,15 @@ type BannerColumnProps = {
   title: string;
   banners: LudoBannerSnapshot[];
   emptyText: string;
+  showDelete?: boolean;
 };
 
-function BannerColumn({ title, banners, emptyText }: BannerColumnProps) {
+function BannerColumn({
+  title,
+  banners,
+  emptyText,
+  showDelete = true,
+}: BannerColumnProps) {
   return (
     <div className="rounded-xl border border-ludo-accent-muted/30 bg-ludo-surface/30 p-4 md:p-5 min-h-64">
       <div className="flex items-center justify-between mb-4">
@@ -168,7 +174,9 @@ function BannerColumn({ title, banners, emptyText }: BannerColumnProps) {
                   </div>
                 </div>
 
-                <DeleteBannerButton banner={banner} disabled={false} />
+                {showDelete && (
+                  <DeleteBannerButton banner={banner} disabled={false} />
+                )}
               </div>
             </div>
           );
@@ -315,6 +323,7 @@ export function BannersPage() {
             title="Inactive"
             banners={inactiveBanners}
             emptyText="No inactive banners"
+            showDelete={false}
           />
         </div>
       </div>
