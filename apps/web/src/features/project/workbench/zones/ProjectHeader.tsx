@@ -104,7 +104,12 @@ export function ProjectHeader({
         </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
-      {languageDisabled && <LudoHeader.Banner text={languageDisabledReason} />}
+      {languageDisabled && (
+        <LudoHeader.Banner
+          id="project-language-disabled"
+          text={languageDisabledReason}
+        />
+      )}
     </LudoHeader>
   );
 }

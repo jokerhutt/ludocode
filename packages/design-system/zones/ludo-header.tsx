@@ -8,6 +8,8 @@ export type DeviceType = "Mobile" | "Desktop" | "Both";
 
 export type BarState = "idle" | "loading" | "loadingDone";
 
+const BANNER_DISMISS_TTL_MS = 2 * 24 * 60 * 60 * 1000;
+
 function LudoHeaderRoot({
   children,
   className,
@@ -55,10 +57,43 @@ function Bar() {
   return <RouterBar barState={barState} />;
 }
 
-function Banner({ text }: { text: string }) {
+function Banner({ text, id }: { text: string; id?: string }) {
   const [visible, setVisible] = useState(true);
+  const [hydrated, setHydrated] = useState(false);
+  const [dismissedFromStorage, setDismissedFromStorage] = useState(false);
   const [height, setHeight] = useState<number | undefined>(undefined);
   const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !id) {
+      setHydrated(true);
+      return;
+    }
+
+    const storageKey = `banner:${id}`;
+    const raw = window.localStorage.getItem(storageKey);
+
+    if (!raw) {
+      setHydrated(true);
+      return;
+    }
+
+    const expiresAt = Number(raw);
+    if (!Number.isFinite(expiresAt)) {
+      window.localStorage.removeItem(storageKey);
+      setHydrated(true);
+      return;
+    }
+
+    if (Date.now() < expiresAt) {
+      setVisible(false);
+      setDismissedFromStorage(true);
+    } else {
+      window.localStorage.removeItem(storageKey);
+    }
+
+    setHydrated(true);
+  }, [id]);
 
   useEffect(() => {
     if (innerRef.current) {
@@ -66,7 +101,17 @@ function Banner({ text }: { text: string }) {
     }
   }, [text]);
 
-  if (!visible && height !== undefined) return null;
+  const dismissBanner = () => {
+    if (typeof window !== "undefined" && id) {
+      const storageKey = `banner:${id}`;
+      const expiresAt = Date.now() + BANNER_DISMISS_TTL_MS;
+      window.localStorage.setItem(storageKey, expiresAt.toString());
+    }
+    setVisible(false);
+  };
+
+  if (!hydrated) return null;
+  if (!visible && (dismissedFromStorage || height !== undefined)) return null;
 
   return (
     <div
@@ -81,7 +126,7 @@ function Banner({ text }: { text: string }) {
           {text}
         </p>
         <button
-          onClick={() => setVisible(false)}
+          onClick={dismissBanner}
           className="shrink-0 rounded-full p-0.5 text-xs lg:text-sm text-ludo-white-bright/70 hover:text-ludo-white-bright hover:bg-white/10 transition-colors"
           aria-label="Dismiss banner"
         >

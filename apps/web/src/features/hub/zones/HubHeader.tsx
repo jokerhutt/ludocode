@@ -58,7 +58,9 @@ export function HubHeader({ title }: HubHeaderProps) {
         </Suspense>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
-      {bannerText && <LudoHeader.Banner text={bannerText} />}
+      {bannerText && (
+        <LudoHeader.Banner id="hub-demo-auth-mode" text={bannerText} />
+      )}
     </LudoHeader>
   );
 }

@@ -24,7 +24,9 @@ export function AdminHubHeader() {
         </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
-      {bannerText && <LudoHeader.Banner text={bannerText} />}
+      {bannerText && (
+        <LudoHeader.Banner id="admin-hub-demo-auth-mode" text={bannerText} />
+      )}
     </LudoHeader>
   );
 }
