@@ -5,6 +5,11 @@ import type {
   LanguageMetadata,
 } from "@ludocode/types";
 
+type LanguageLike =
+  | string
+  | Pick<LanguageMetadata, "slug" | "name">
+  | undefined;
+
 const FALLBACK_LANGUAGE_NAME = "Python";
 const FALLBACK_LANGUAGE_SLUG = "python";
 const FALLBACK_EXTENSION = "py";
@@ -20,9 +25,10 @@ const FALLBACK_LANGUAGE: LanguageMetadata = {
   base: FALLBACK_LANGUAGE_SLUG,
   iconName: "",
   initialScript: "",
+  enabled: true,
 };
 
-export function getLanguageSlug(language?: string | LanguageMetadata): string {
+export function getLanguageSlug(language?: LanguageLike): string {
   if (!language) return FALLBACK_LANGUAGE_SLUG;
   if (typeof language === "string") {
     const normalized = language.trim();
@@ -35,9 +41,7 @@ export function getLanguageSlug(language?: string | LanguageMetadata): string {
     : FALLBACK_LANGUAGE_SLUG;
 }
 
-export function getLanguageDisplayName(
-  language?: string | LanguageMetadata,
-): string {
+export function getLanguageDisplayName(language?: LanguageLike): string {
   if (!language) return FALLBACK_LANGUAGE_NAME;
   return typeof language === "string" ? language : language.name;
 }
