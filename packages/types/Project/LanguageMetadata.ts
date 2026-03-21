@@ -12,3 +12,4 @@ export type LanguageMetadata = {
   enabled: boolean;
   disabledReason?: string;
 };
+

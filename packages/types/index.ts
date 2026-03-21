@@ -38,6 +38,7 @@ export * from "./FeatureFlags/FeatureFlags";
 export * from "./Languages/ModifyLanguageRequest";
 export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
+export * from "./Languages/ToggleLanguageVisibilityRequest"
 
 // onboarding
 export * from "./Onboarding/OnboardingCourse";

@@ -58,6 +58,8 @@ export function createApiPaths({
     languages: {
       base: `${BASE}/languages`,
       adminBase: `${ADMIN_BASE}/languages`,
+      byAdminIdVisiblity: (id: number) => `${ADMIN_BASE}/languages/${id}/visibility`,
+      byAdminIdDisabledMessage: (id: number) => `${ADMIN_BASE}/languages/${id}/disabled-message`,
       byId: (languageId: number) => `${BASE}/languages/${languageId}`,
       byAdminId: (languageId: number) =>
         `${ADMIN_BASE}/languages/${languageId}`,

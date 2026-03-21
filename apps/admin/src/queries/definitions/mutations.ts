@@ -8,10 +8,12 @@ import {
   type ChangeSubjectRequest,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
+  type LanguageDisabledMessageRequest,
   type LanguageMetadata,
   type LudoBannerSnapshot,
   type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
+  type ToggleLanguageVisibilityRequest,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
@@ -136,6 +138,36 @@ export const mutations = {
       mutationFn: () =>
         ludoDelete<LanguageMetadata[]>(
           adminApi.languages.byAdminId(languageId),
+          true,
+        ),
+    });
+  },
+  toggleLanguageVisibility: (id: number) => {
+    return mutationOptions<
+      LanguageMetadata[],
+      Error,
+      ToggleLanguageVisibilityRequest
+    >({
+      mutationKey: ["toggleLanguageVisibility"],
+      mutationFn: (variables) =>
+        ludoPut<LanguageMetadata[], ToggleLanguageVisibilityRequest>(
+          adminApi.languages.byAdminIdVisiblity(id),
+          variables,
+          true,
+        ),
+    });
+  },
+  changeLanguageDisabledMessage: (id: number) => {
+    return mutationOptions<
+      LanguageMetadata[],
+      Error,
+      LanguageDisabledMessageRequest
+    >({
+      mutationKey: ["changeLanguageDisabledMessage"],
+      mutationFn: (variables) =>
+        ludoPut<LanguageMetadata[], LanguageDisabledMessageRequest>(
+          adminApi.languages.byAdminIdDisabledMessage(id),
+          variables,
           true,
         ),
     });
