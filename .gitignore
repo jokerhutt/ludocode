@@ -29,6 +29,8 @@ dist-ssr
 *.sln
 *.sw?
 
+!.env.example
+
 # Local Netlify folder
 .netlify
 apps/web/ludocode-frontend.web-workspace.code-workspace
