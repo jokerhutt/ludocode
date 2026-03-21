@@ -11,6 +11,7 @@ import { HeartIcon, LogIn } from "lucide-react";
 import { HeaderNavButton } from "@/layouts/legal/ResourcesLayout";
 import { track } from "@/analytics/track";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { useHeaderBanners } from "@/features/banner/hooks/useHeaderBanners.ts";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
@@ -27,6 +28,17 @@ export function ProjectHeader({
   const languageDisabledReason =
     project.projectLanguage.disabledReason?.trim() ||
     "This language has been disabled, sorry";
+  const { banners } = useHeaderBanners({
+    localBanners: languageDisabled
+      ? [
+          {
+            id: "project-language-disabled",
+            text: languageDisabledReason,
+            type: "INCIDENT",
+          },
+        ]
+      : [],
+  });
 
   const isAutoSaveEnabled = mode === "EDIT";
 
@@ -104,12 +116,7 @@ export function ProjectHeader({
         </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
-      {languageDisabled && (
-        <LudoHeader.Banner
-          id="project-language-disabled"
-          text={languageDisabledReason}
-        />
-      )}
+      <LudoHeader.Banner banners={banners} />
     </LudoHeader>
   );
 }

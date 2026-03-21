@@ -3,6 +3,7 @@ import { RouterBar } from "@ludocode/design-system/primitives/router-bar";
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { X } from "lucide-react";
+import type { BannerType } from "@ludocode/types";
 
 export type DeviceType = "Mobile" | "Desktop" | "Both";
 
@@ -57,7 +58,25 @@ function Bar() {
   return <RouterBar barState={barState} />;
 }
 
-function Banner({ text, id }: { text: string; id?: string }) {
+type BannerEntry = {
+  text: string;
+  id?: string | number;
+  type?: BannerType;
+};
+
+type BannerProps =
+  | {
+      text: string;
+      id?: string | number;
+      banners?: BannerEntry[];
+    }
+  | {
+      text?: string;
+      id?: string | number;
+      banners: BannerEntry[];
+    };
+
+function DismissibleBanner({ text, id, type = "INCIDENT" }: BannerEntry) {
   const [visible, setVisible] = useState(true);
   const [hydrated, setHydrated] = useState(false);
   const [dismissedFromStorage, setDismissedFromStorage] = useState(false);
@@ -70,7 +89,7 @@ function Banner({ text, id }: { text: string; id?: string }) {
       return;
     }
 
-    const storageKey = `banner:${id}`;
+    const storageKey = `banner:${String(id)}`;
     const raw = window.localStorage.getItem(storageKey);
 
     if (!raw) {
@@ -103,7 +122,7 @@ function Banner({ text, id }: { text: string; id?: string }) {
 
   const dismissBanner = () => {
     if (typeof window !== "undefined" && id) {
-      const storageKey = `banner:${id}`;
+      const storageKey = `banner:${String(id)}`;
       const expiresAt = Date.now() + BANNER_DISMISS_TTL_MS;
       window.localStorage.setItem(storageKey, expiresAt.toString());
     }
@@ -113,6 +132,13 @@ function Banner({ text, id }: { text: string; id?: string }) {
   if (!hydrated) return null;
   if (!visible && (dismissedFromStorage || height !== undefined)) return null;
 
+  const variantBackgroundClass =
+    type === "FEATURE"
+      ? "bg-ludo-correct"
+      : type === "MAINTENANCE"
+        ? "bg-ludo-accent"
+        : "bg-ludo-incorrect";
+
   return (
     <div
       className="col-span-full overflow-hidden transition-all duration-300 ease-in-out"
@@ -120,7 +146,10 @@ function Banner({ text, id }: { text: string; id?: string }) {
     >
       <div
         ref={innerRef}
-        className="flex w-full items-center justify-center gap-3 bg-ludo-incorrect px-4 py-1.5"
+        className={cn(
+          "flex w-full items-center justify-center gap-3 px-4 py-1.5",
+          variantBackgroundClass,
+        )}
       >
         <p className="text-xs font-medium text-ludo-white-bright text-center flex-1">
           {text}
@@ -135,6 +164,28 @@ function Banner({ text, id }: { text: string; id?: string }) {
       </div>
     </div>
   );
+}
+
+function Banner({ text, id, banners }: BannerProps) {
+  if (Array.isArray(banners)) {
+    if (banners.length === 0) return null;
+
+    return (
+      <>
+        {banners.map((banner) => (
+          <DismissibleBanner
+            key={String(banner.id ?? banner.text)}
+            id={banner.id}
+            text={banner.text}
+            type={banner.type}
+          />
+        ))}
+      </>
+    );
+  }
+
+  if (!text) return null;
+  return <DismissibleBanner text={text} id={id} type="INCIDENT" />;
 }
 
 export function useRouterBar() {
