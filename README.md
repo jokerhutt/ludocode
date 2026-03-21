@@ -22,9 +22,11 @@ This project is made so that you can run it locally without needing to provide a
 ## Features
 
 - Interactive exercises with multiple formats
+- In-editor guided lessons with sandboxed code execution & output validation
 - Ability to have multiple courses & lessons
 - Streaks, points, & progress tracking
-- In-browser code editor with multiple languages supported
+- In-browser web socket based code editor with multiple languages supported
+- Ability to share, like, & duplicate projects
 - Configurable code execution engine for users to execute code on the backend
 - Configurable, context aware AI assistant in lessons & projects
 - Ability to create & modify courses with a WYSIWYG editor while preserving user progress
@@ -33,6 +35,7 @@ This project is made so that you can run it locally without needing to provide a
 - User profiles
 - Firebase authentication with email, google, & github
 - Optional demo-mode authentication without need for firebase
+- Ability to set banners
 - Ability to delete accounts & logout
 - Responsive UI for desktop & mobile devices
 - Onboarding flows for new users
@@ -41,7 +44,6 @@ This project is made so that you can run it locally without needing to provide a
 - Batched fetching using batshit library
 - Device aware 'Desktop Only' guard for pages such as code editor
 - Form validation using Zod & Tanstack Form.
-
 
 ## Screenshots
 
