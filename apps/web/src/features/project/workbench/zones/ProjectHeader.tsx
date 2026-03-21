@@ -23,6 +23,10 @@ export function ProjectHeader({
 }: ProjectHeaderProps) {
   const { project, files, entryFileId } = useProjectContext();
   const { projectName } = project;
+  const languageDisabled = project.projectLanguage.enabled === false;
+  const languageDisabledReason =
+    project.projectLanguage.disabledReason?.trim() ||
+    "This language has been disabled, sorry";
 
   const isAutoSaveEnabled = mode === "EDIT";
 
@@ -100,6 +104,7 @@ export function ProjectHeader({
         </div>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
+      {languageDisabled && <LudoHeader.Banner text={languageDisabledReason} />}
     </LudoHeader>
   );
 }
