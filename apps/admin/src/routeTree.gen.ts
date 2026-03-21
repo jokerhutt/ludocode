@@ -19,6 +19,7 @@ import { Route as AppCurriculumRouteRouteImport } from './routes/_app/curriculum
 import { Route as AppLanguageCreateRouteImport } from './routes/_app/language/create'
 import { Route as AppLanguageLanguageIdRouteImport } from './routes/_app/language/$languageId'
 import { Route as AppHubCoursesRouteImport } from './routes/_app/hub/courses'
+import { Route as AppHubBannersRouteImport } from './routes/_app/hub/banners'
 import { Route as AppCoursesCourseIdRouteImport } from './routes/_app/courses/$courseId'
 import { Route as AppCurriculumCourseIdIndexRouteImport } from './routes/_app/curriculum/$courseId/index'
 import { Route as AppCurriculumCourseIdLessonLessonIdRouteImport } from './routes/_app/curriculum/$courseId/lesson/$lessonId'
@@ -72,6 +73,11 @@ const AppHubCoursesRoute = AppHubCoursesRouteImport.update({
   path: '/courses',
   getParentRoute: () => AppHubRouteRoute,
 } as any)
+const AppHubBannersRoute = AppHubBannersRouteImport.update({
+  id: '/banners',
+  path: '/banners',
+  getParentRoute: () => AppHubRouteRoute,
+} as any)
 const AppCoursesCourseIdRoute = AppCoursesCourseIdRouteImport.update({
   id: '/courses/$courseId',
   path: '/courses/$courseId',
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
+  '/hub/banners': typeof AppHubBannersRoute
   '/hub/courses': typeof AppHubCoursesRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/auth': typeof AuthIndexRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
+  '/hub/banners': typeof AppHubBannersRoute
   '/hub/courses': typeof AppHubCoursesRoute
   '/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/language/create': typeof AppLanguageCreateRoute
@@ -127,6 +135,7 @@ export interface FileRoutesById {
   '/_app/': typeof AppIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
+  '/_app/hub/banners': typeof AppHubBannersRoute
   '/_app/hub/courses': typeof AppHubCoursesRoute
   '/_app/language/$languageId': typeof AppLanguageLanguageIdRoute
   '/_app/language/create': typeof AppLanguageCreateRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth/'
     | '/courses/$courseId'
+    | '/hub/banners'
     | '/hub/courses'
     | '/language/$languageId'
     | '/language/create'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/courses/$courseId'
+    | '/hub/banners'
     | '/hub/courses'
     | '/language/$languageId'
     | '/language/create'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/_app/'
     | '/auth/'
     | '/_app/courses/$courseId'
+    | '/_app/hub/banners'
     | '/_app/hub/courses'
     | '/_app/language/$languageId'
     | '/_app/language/create'
@@ -255,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubCoursesRouteImport
       parentRoute: typeof AppHubRouteRoute
     }
+    '/_app/hub/banners': {
+      id: '/_app/hub/banners'
+      path: '/banners'
+      fullPath: '/hub/banners'
+      preLoaderRoute: typeof AppHubBannersRouteImport
+      parentRoute: typeof AppHubRouteRoute
+    }
     '/_app/courses/$courseId': {
       id: '/_app/courses/$courseId'
       path: '/courses/$courseId'
@@ -294,10 +313,12 @@ const AppCurriculumRouteRouteWithChildren =
   AppCurriculumRouteRoute._addFileChildren(AppCurriculumRouteRouteChildren)
 
 interface AppHubRouteRouteChildren {
+  AppHubBannersRoute: typeof AppHubBannersRoute
   AppHubCoursesRoute: typeof AppHubCoursesRoute
 }
 
 const AppHubRouteRouteChildren: AppHubRouteRouteChildren = {
+  AppHubBannersRoute: AppHubBannersRoute,
   AppHubCoursesRoute: AppHubCoursesRoute,
 }
 

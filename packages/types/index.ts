@@ -11,6 +11,10 @@ export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
 export * from "./Catalog/LudoCourseSubject";
 
+
+// banner
+export * from "./Banner/LudoBanner"
+
 // completion
 export * from "./Completion/LessonCompletionResponse";
 export * from "./Completion/LessonStats";
@@ -34,6 +38,7 @@ export * from "./FeatureFlags/FeatureFlags";
 export * from "./Languages/ModifyLanguageRequest";
 export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
+export * from "./Languages/ToggleLanguageVisibilityRequest"
 
 // onboarding
 export * from "./Onboarding/OnboardingCourse";

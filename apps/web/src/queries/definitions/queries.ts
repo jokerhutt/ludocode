@@ -33,6 +33,7 @@ import {
   type ProjectSnapshot,
   type ProjectCardResponseList,
   type ProjectLikeResponse,
+  type LudoBanner,
 } from "@ludocode/types";
 
 export const qo = {
@@ -186,6 +187,13 @@ export const qo = {
         ),
       staleTime: 60_000,
       placeholderData: (prev) => prev,
+    }),
+
+  banners: () =>
+    queryOptions({
+      queryKey: qk.banners(),
+      queryFn: () => ludoGet<LudoBanner[]>(api.banner.base, true),
+      staleTime: 60_000,
     }),
 
   project: (projectId: string) =>

@@ -73,7 +73,10 @@ export function WorkbenchTreePane({
     <>
       <Workbench.Pane
         dataTestId="project-aside-left"
-        className={cn("border-r-2 flex-1 border-r-ludo-surface", className)}
+        className={cn(
+          "border-r-2 flex-1 border-r-ludo-surface grid-rows-[auto_minmax(0,1fr)_auto]",
+          className,
+        )}
       >
         <Workbench.Pane.Winbar>
           <p>Files</p>
@@ -157,7 +160,7 @@ export function WorkbenchTreePane({
           </LudoFileTree>
         </Workbench.Pane.Content>
         {showAi && aiEnabled && aiFeature.enabled && (
-          <div className="min-h-0 min-w-0 w-full h-full flex flex-col justify-end">
+          <div className="min-h-0 min-w-0 w-full shrink-0 flex flex-col justify-end border-t border-ludo-surface/70">
             <ChatBotProvider
               credits={chatbotCredits ?? 0}
               sessionId={project.projectId}

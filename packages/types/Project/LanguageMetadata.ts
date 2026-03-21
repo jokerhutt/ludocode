@@ -9,4 +9,7 @@ export type LanguageMetadata = {
   base: string;
   iconName: string;
   initialScript: string;
+  enabled: boolean;
+  disabledReason?: string;
 };
+

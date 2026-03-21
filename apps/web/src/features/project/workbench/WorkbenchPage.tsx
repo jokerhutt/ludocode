@@ -32,11 +32,11 @@ export function WorkbenchPage({
     useMobileTabs<WorkbenchMobilePane>("code");
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-0">
+    <div className="flex flex-col lg:flex-row min-h-0 h-full overflow-hidden">
       <WorkbenchTreePane
         showAi={!isMobile}
         readOnly={readOnly}
-        className={cn(mobilePane === "files" ? "flex-1" : "hidden", "lg:block")}
+        className={cn(mobilePane === "files" ? "flex-1" : "hidden", "lg:grid")}
         onFileSelect={() => {
           if (!isMobile) return;
           setMobilePane("code");

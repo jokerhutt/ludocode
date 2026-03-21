@@ -33,7 +33,10 @@ export function CreateProjectDialog({
 
   const createProjectMutation = useCreateProject(() => close());
 
-  const possibleOptions = useSuspenseQuery(qo.languages()).data;
+  const allOptions = useSuspenseQuery(qo.languages()).data;
+
+  const possibleOptions = allOptions.filter((it) => it.enabled === true)
+
   const [projectName, setProjectName] = useState<string>("Untitled project");
   const [selectedLanguageId, setSelectedLanguageId] = useState<string>("");
 

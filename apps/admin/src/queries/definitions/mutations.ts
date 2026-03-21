@@ -8,13 +8,17 @@ import {
   type ChangeSubjectRequest,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
+  type LanguageDisabledMessageRequest,
   type LanguageMetadata,
+  type LudoBannerSnapshot,
   type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
+  type ToggleLanguageVisibilityRequest,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
 import type { ChangeCourseTitleRequest } from "@/features/curriculum/hooks/useChangeCourseTitle";
+import type { CreateBannerRequest } from "../mutations/useCreateBanner";
 
 export const mutations = {
   createCourse: () => {
@@ -28,6 +32,30 @@ export const mutations = {
         ),
     });
   },
+
+  createBanner: () => {
+    return mutationOptions<LudoBannerSnapshot[], Error, CreateBannerRequest>({
+      mutationKey: ["createBanner"],
+      mutationFn: (variables) =>
+        ludoPost<LudoBannerSnapshot[], CreateBannerRequest>(
+          adminApi.banner.adminBase,
+          variables,
+          true,
+        ),
+    });
+  },
+
+  deleteBanner: (bannerId: number) => {
+    return mutationOptions<LudoBannerSnapshot[], Error, void>({
+      mutationKey: ["deleteBanner"],
+      mutationFn: () =>
+        ludoDelete<LudoBannerSnapshot[]>(
+          adminApi.banner.byAdminId(bannerId),
+          true,
+        ),
+    });
+  },
+
   createCourseYaml: () => {
     return mutationOptions<void, Error, File>({
       mutationKey: ["createCourseYaml"],
@@ -110,6 +138,36 @@ export const mutations = {
       mutationFn: () =>
         ludoDelete<LanguageMetadata[]>(
           adminApi.languages.byAdminId(languageId),
+          true,
+        ),
+    });
+  },
+  toggleLanguageVisibility: (id: number) => {
+    return mutationOptions<
+      LanguageMetadata[],
+      Error,
+      ToggleLanguageVisibilityRequest
+    >({
+      mutationKey: ["toggleLanguageVisibility"],
+      mutationFn: (variables) =>
+        ludoPut<LanguageMetadata[], ToggleLanguageVisibilityRequest>(
+          adminApi.languages.byAdminIdVisiblity(id),
+          variables,
+          true,
+        ),
+    });
+  },
+  changeLanguageDisabledMessage: (id: number) => {
+    return mutationOptions<
+      LanguageMetadata[],
+      Error,
+      LanguageDisabledMessageRequest
+    >({
+      mutationKey: ["changeLanguageDisabledMessage"],
+      mutationFn: (variables) =>
+        ludoPut<LanguageMetadata[], LanguageDisabledMessageRequest>(
+          adminApi.languages.byAdminIdDisabledMessage(id),
+          variables,
           true,
         ),
     });

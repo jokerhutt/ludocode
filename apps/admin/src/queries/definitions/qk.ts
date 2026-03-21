@@ -3,6 +3,7 @@ export const qk = {
   languages: () => ["languages"] as const,
   subjects: () => ["subjects"] as const,
   activeFeatures: () => ["activeFeatures"] as const,
+  banners: () => ["banners"] as const,
   courseSnapshot: (courseId: string) => ["snapshot", courseId] as const,
   curriculum: (courseId: string) => ["curriculum", courseId] as const,
   curriculumLesson: (lessonId: string) =>

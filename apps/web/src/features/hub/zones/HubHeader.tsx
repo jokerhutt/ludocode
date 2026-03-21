@@ -9,6 +9,7 @@ import { getUserAvatar } from "@/constants/avatars/avatars.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { HubDrawer } from "@/features/hub/zones/HubDrawer.tsx";
+import { useHeaderBanners } from "@/features/banner/hooks/useHeaderBanners.ts";
 type HubHeaderProps = { title: string };
 
 export function HubHeader({ title }: HubHeaderProps) {
@@ -23,13 +24,18 @@ export function HubHeader({ title }: HubHeaderProps) {
   const bannerText = isInDemo
     ? "Demo mode is enabled. Do not share the app until Firebase auth is enabled."
     : undefined;
+  const { banners, hasBanners } = useHeaderBanners({
+    localBanners: bannerText
+      ? [{ id: "hub-demo-auth-mode", text: bannerText, type: "MAINTENANCE" }]
+      : [],
+  });
 
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   return (
     <LudoHeader>
       <LudoHeader.Shell
-        className={bannerText ? "border-none" : ""}
+        className={hasBanners ? "border-none" : ""}
         device="Both"
       >
         <Suspense fallback={<div />}>
@@ -58,7 +64,7 @@ export function HubHeader({ title }: HubHeaderProps) {
         </Suspense>
         <LudoHeader.Bar />
       </LudoHeader.Shell>
-      {bannerText && <LudoHeader.Banner text={bannerText} />}
+      <LudoHeader.Banner banners={banners} />
     </LudoHeader>
   );
 }

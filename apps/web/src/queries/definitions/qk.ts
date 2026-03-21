@@ -25,6 +25,8 @@ export const qk = {
 
   projectsLike: (projectId: string) => ["projects", "like", projectId] as const,
 
+  banners: () => ["banners"] as const,
+
   projectsUserPage: (userId: string, page: number, size: number) =>
     ["projects", "user", userId, page, size] as const,
 
