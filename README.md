@@ -19,29 +19,46 @@ The project is written using React, Typescript, Tailwind CSS, ShadCN UI, and Tan
 
 This project is made so that you can run it locally without needing to provide any credentials. For setup instructions on running the project locally & enabling features, see the web docs: https://ludocode.dev/docs
 
-## Features
+## Core Features
 
+### 📘 Interactive Lessons
 - Interactive exercises with multiple formats
+- In-editor guided lessons with sandboxed code execution & output validation
 - Ability to have multiple courses & lessons
 - Streaks, points, & progress tracking
-- In-browser code editor with multiple languages supported
-- Configurable code execution engine for users to execute code on the backend
-- Configurable, context aware AI assistant in lessons & projects
-- Ability to create & modify courses with a WYSIWYG editor while preserving user progress
-- Ability to create courses using YAML with a provided schema
-- Ability to archive published courses
-- User profiles
-- Firebase authentication with email, google, & github
-- Optional demo-mode authentication without need for firebase
-- Ability to delete accounts & logout
-- Responsive UI for desktop & mobile devices
-- Onboarding flows for new users
-- Animations using Framer Motion & the Lottie framework
-- Cached server state using Tanstack Query
-- Batched fetching using batshit library
-- Device aware 'Desktop Only' guard for pages such as code editor
-- Form validation using Zod & Tanstack Form.
 
+### 💻 Code Execution & Editor
+- In-browser WebSocket-based code editor with multiple languages
+- Configurable code execution engine for backend execution
+- Device-aware "Desktop Only" guard for editor-heavy pages
+
+### 📚 Course Creation & Management
+- Create & modify courses via WYSIWYG editor while preserving user progress
+- Create courses using YAML with a defined schema
+- Ability to archive published courses
+
+### ✨ AI Integration
+- Configurable, context-aware AI assistant in lessons & projects
+
+### 🌐 Social
+- Share, like, & duplicate projects
+- User profiles
+
+### 🔐 Authentication
+- Firebase authentication (email, Google, GitHub)
+- Optional demo-mode authentication (no Firebase required)
+- Account deletion & logout
+
+### 📢 Platform Features
+- Animations with Framer Motion & Lottie
+- Configurable banner system
+- Onboarding flows for new users
+- Responsive UI for desktop & mobile
+
+### ⚙️ Architecture
+- Cached server state via TanStack Query
+- Batched fetching using batshit
+- Form handling with Zod & TanStack Form
 
 ## Screenshots
 
