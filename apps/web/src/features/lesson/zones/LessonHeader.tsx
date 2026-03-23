@@ -2,8 +2,8 @@ import { Progress } from "@ludocode/external/ui/progress.tsx";
 import { LeaveUnsavedDialog } from "@ludocode/design-system/templates/dialog/leave-unsaved-dialog.tsx";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
-import { AudioToggleIcon } from "../components/AudioToggleIcon";
-import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
+import { LessonMenu } from "./LessonMenu";
+import { Settings } from "lucide-react";
 
 type LessonHeaderProps = {
   total: number;
@@ -35,8 +35,7 @@ export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
         />
       </div>
       <div className="col-span-2 lg:col-span-3 flex items-center justify-end gap-3">
-        <ExerciseFeedbackIcon />
-        <AudioToggleIcon />
+        <LessonMenu trigger={<Settings className="text-ludo-white h-5" />} />
       </div>
     </LudoHeader.Shell>
   );

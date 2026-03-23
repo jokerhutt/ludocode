@@ -9,7 +9,7 @@ import { useState } from "react";
 
 type LudoDialogProps = {
   children: ReactNode;
-  trigger: ReactNode;
+  trigger?: ReactNode;
   asChild?: boolean;
   className?: string;
   triggerClassName?: string;
@@ -38,9 +38,11 @@ export function LudoDialog({
 
   return (
     <Dialog open={actualOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild={asChild} className={triggerClassName}>
-        {trigger}
-      </DialogTrigger>
+      {trigger ? (
+        <DialogTrigger asChild={asChild} className={triggerClassName}>
+          {trigger}
+        </DialogTrigger>
+      ) : null}
 
       <DialogContent
         showCloseButton={false}
