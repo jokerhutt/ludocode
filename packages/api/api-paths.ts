@@ -110,7 +110,7 @@ export function createApiPaths({
         `${BASE}/discussion/${entityId}/${topic}`,
       like: `${BASE}/discussion/messages/like`,
       likes: (messageIds: string) => `${BASE}/discussion/messages/like?${messageIds}`,
-      likeById: (messageId: string) => `${BASE}/discussion/messages/like${messageId}`
+      likeById: (messageId: string) => `${BASE}/discussion/messages/${messageId}/like`
     },
 
     projects: {

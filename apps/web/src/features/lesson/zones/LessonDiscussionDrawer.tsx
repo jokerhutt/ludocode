@@ -2,10 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Heart } from "lucide-react";
 import { useLessonExercise } from "@/features/lesson/context/useLessonContext.tsx";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useCreateDiscussionMessage } from "@/queries/mutations/useCreateDiscussionMessage.tsx";
+import { useLikeMessage } from "@/queries/mutations/useLikeMessage.tsx";
+import { useUnlikeMessage } from "@/queries/mutations/useUnlikeMessage.tsx";
+import { cn } from "@ludocode/design-system/cn-utils";
 import type { DiscussionMessage } from "@ludocode/types";
 import { LessonChatPanelFrame } from "./LessonChatPanelFrame";
 
@@ -181,26 +184,33 @@ function MessageThreadNode({
         <p className="whitespace-pre-wrap text-[13px] text-ludo-white">
           {node.content}
         </p>
-        <div className="mt-1.5 flex items-center gap-2">
-          <button
-            type="button"
-            className="text-[11px] font-medium uppercase tracking-wide text-ludo-accent-muted hover:text-ludo-accent hover:cursor-pointer"
-            onClick={() => onReply(node.id)}
-          >
-            Reply
-          </button>
-
-          {hasReplies && (
+        <div className="mt-1.5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              className="text-[11px] font-medium uppercase tracking-wide text-ludo-white-dim hover:text-ludo-white hover:cursor-pointer"
-              onClick={() => setRepliesOpen((prev) => !prev)}
+              className="text-[11px] font-medium uppercase tracking-wide text-ludo-accent-muted hover:text-ludo-accent hover:cursor-pointer"
+              onClick={() => onReply(node.id)}
             >
-              {repliesOpen
-                ? `Hide Replies (${node.children.length})`
-                : `Replies (${node.children.length})`}
+              Reply
             </button>
-          )}
+
+            {hasReplies && (
+              <button
+                type="button"
+                className="text-[11px] font-medium uppercase tracking-wide text-ludo-white-dim hover:text-ludo-white hover:cursor-pointer"
+                onClick={() => setRepliesOpen((prev) => !prev)}
+              >
+                {repliesOpen
+                  ? `Hide Replies (${node.children.length})`
+                  : `Replies (${node.children.length})`}
+              </button>
+            )}
+          </div>
+
+          <MessageLikeButton
+            messageId={node.id}
+            canLike={Boolean(currentUserId)}
+          />
         </div>
       </article>
 
@@ -218,6 +228,59 @@ function MessageThreadNode({
         </div>
       )}
     </div>
+  );
+}
+
+type MessageLikeButtonProps = {
+  messageId: string;
+  canLike: boolean;
+};
+
+function MessageLikeButton({ messageId, canLike }: MessageLikeButtonProps) {
+  const { data: likeState } = useQuery(qo.messageLike(messageId));
+  const likeMessageMutation = useLikeMessage(messageId);
+  const unlikeMessageMutation = useUnlikeMessage(messageId);
+
+  const count = likeState?.count ?? 0;
+  const isLikedByMe = likeState?.likedByMe;
+  const isPending =
+    likeMessageMutation.isPending || unlikeMessageMutation.isPending;
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!canLike || isPending) return;
+
+    if (isLikedByMe) {
+      unlikeMessageMutation.mutate();
+      return;
+    }
+
+    likeMessageMutation.mutate();
+  };
+
+  return (
+    <button
+      type="button"
+      disabled={!canLike || isPending}
+      onClick={handleClick}
+      className={cn(
+        "flex items-center gap-1 text-ludo-white",
+        !canLike || isPending
+          ? "hover:cursor-not-allowed"
+          : "hover:cursor-pointer",
+      )}
+    >
+      <Heart
+        fill={isLikedByMe ? "#F87171" : "none"}
+        className={cn(
+          "h-4",
+          isLikedByMe ? "text-[#F87171]" : "text-ludo-white",
+        )}
+      />
+      <span className="text-xs leading-none">{count}</span>
+    </button>
   );
 }
 

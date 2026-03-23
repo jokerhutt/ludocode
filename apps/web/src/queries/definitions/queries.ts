@@ -34,6 +34,7 @@ import {
   type ProjectSnapshot,
   type ProjectCardResponseList,
   type ProjectLikeResponse,
+  type MessageLikeCountResponse,
   type LudoBanner,
   type DiscussionTopic,
   type Discussion,
@@ -133,7 +134,7 @@ export const qo = {
     }),
 
   messageLike: (messageId: string) =>
-    queryOptions<ProjectLikeResponse>({
+    queryOptions<MessageLikeCountResponse>({
       queryKey: qk.messageLike(messageId),
       queryFn: () => messageLikesBatcher.fetch(messageId),
       staleTime: 60_000,
