@@ -34,6 +34,8 @@ import {
   type ProjectCardResponseList,
   type ProjectLikeResponse,
   type LudoBanner,
+  type DiscussionTopic,
+  type Discussion,
 } from "@ludocode/types";
 
 export const qo = {
@@ -195,6 +197,13 @@ export const qo = {
       queryFn: () => ludoGet<LudoBanner[]>(api.banner.base, true),
       staleTime: 60_000,
     }),
+
+  discussion: (entityId: string, topic: DiscussionTopic) => 
+       queryOptions({
+      queryKey: qk.discussion(entityId, topic),
+      queryFn: () => ludoGet<Discussion>(api.discussion.byEntityIdAndTopic(entityId, topic), true),
+      staleTime: 60_000,
+    }), 
 
   project: (projectId: string) =>
     queryOptions({

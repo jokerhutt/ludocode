@@ -26,6 +26,9 @@ import type {
   FeedbackRequest,
   ChangeProjectVisibilityRequest,
   ProjectLikeResponse,
+  DiscussionTopic,
+  CreateDiscussionMessageRequest,
+  DiscussionMessage,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -66,6 +69,14 @@ export const mutations = {
       mutationKey: ["submitFeedback"],
       mutationFn: (variables) =>
         ludoPost<void, FeedbackRequest>(api.feedback.base, variables, true),
+    });
+  },
+
+  createDiscussionMessage: () => {
+    return mutationOptions<DiscussionMessage, Error, CreateDiscussionMessageRequest>({
+      mutationKey: ["createDiscussionMessage"],
+      mutationFn: (variables) =>
+        ludoPost<DiscussionMessage, CreateDiscussionMessageRequest>(api.discussion.base, variables, true),
     });
   },
 

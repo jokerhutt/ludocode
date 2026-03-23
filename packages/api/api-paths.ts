@@ -1,3 +1,5 @@
+import { DiscussionTopic } from "@ludocode/types";
+
 export type ApiConfig = {
   apiPrefix: string;
   apiUrl: string;
@@ -22,7 +24,7 @@ export function createApiPaths({
     },
 
     analytics: {
-      base: `${BASE}/analytics`
+      base: `${BASE}/analytics`,
     },
 
     auth: {
@@ -36,7 +38,7 @@ export function createApiPaths({
     banner: {
       base: `${BASE}/banners`,
       adminBase: `${ADMIN_BASE}/banners`,
-      byAdminId: (bannerId: number) => `${ADMIN_BASE}/banners/${bannerId}`
+      byAdminId: (bannerId: number) => `${ADMIN_BASE}/banners/${bannerId}`,
     },
 
     catalog: {
@@ -58,8 +60,10 @@ export function createApiPaths({
     languages: {
       base: `${BASE}/languages`,
       adminBase: `${ADMIN_BASE}/languages`,
-      byAdminIdVisiblity: (id: number) => `${ADMIN_BASE}/languages/${id}/visibility`,
-      byAdminIdDisabledMessage: (id: number) => `${ADMIN_BASE}/languages/${id}/disabled-message`,
+      byAdminIdVisiblity: (id: number) =>
+        `${ADMIN_BASE}/languages/${id}/visibility`,
+      byAdminIdDisabledMessage: (id: number) =>
+        `${ADMIN_BASE}/languages/${id}/disabled-message`,
       byId: (languageId: number) => `${BASE}/languages/${languageId}`,
       byAdminId: (languageId: number) =>
         `${ADMIN_BASE}/languages/${languageId}`,
@@ -100,6 +104,12 @@ export function createApiPaths({
       },
     },
 
+    discussion: {
+      base: `${BASE}/discussion`,
+      byEntityIdAndTopic: (entityId: string, topic: DiscussionTopic) =>
+        `${BASE}/discussion/${entityId}/${topic}`,
+    },
+
     projects: {
       base: `${BASE}/projects`,
       public: `${BASE}/projects/public`,
@@ -108,10 +118,14 @@ export function createApiPaths({
       byIdPublic: (projectId: string) => `${BASE}/projects/public/${projectId}`,
       like: (projectId: string) => `${BASE}/projects/${projectId}/like`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
-      visibility: (projectId: string) => `${BASE}/projects/${projectId}/visibility`,
-      duplicate: (projectId: string) => `${BASE}/projects/${projectId}/duplicate`,
-      basePaginated: (page: number, size: number) => `${BASE}/projects?page=${page}&size=${size}`,
-      publicPaginated: (page: number, size: number) => `${BASE}/projects/public?page=${page}&size=${size}`
+      visibility: (projectId: string) =>
+        `${BASE}/projects/${projectId}/visibility`,
+      duplicate: (projectId: string) =>
+        `${BASE}/projects/${projectId}/duplicate`,
+      basePaginated: (page: number, size: number) =>
+        `${BASE}/projects?page=${page}&size=${size}`,
+      publicPaginated: (page: number, size: number) =>
+        `${BASE}/projects/public?page=${page}&size=${size}`,
     },
 
     runner: {
@@ -147,7 +161,7 @@ export function createApiPaths({
     },
 
     feedback: {
-      base: `${BASE}/feedback`
+      base: `${BASE}/feedback`,
     },
 
     subscriptions: {
