@@ -7,11 +7,21 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
 import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Sparkles } from "lucide-react";
 
-type LessonMenuProps = { trigger: ReactNode };
+type LessonMenuProps = {
+  trigger: ReactNode;
+  onDiscussSelect?: () => void;
+  onAiSelect?: () => void;
+  hideChat?: boolean;
+};
 
-export function LessonMenu({ trigger }: LessonMenuProps) {
+export function LessonMenu({
+  trigger,
+  onDiscussSelect,
+  onAiSelect,
+  hideChat = false,
+}: LessonMenuProps) {
   const { data: preferences } = useSuspenseQuery(qo.preferences());
   const editPreferences = useEditPreferences();
   const { currentExercise } = useLessonExercise();
@@ -49,7 +59,27 @@ export function LessonMenu({ trigger }: LessonMenuProps) {
           </LudoMenu.Row>
         </LudoMenu.Item>
 
-        <LudoMenu.Divider />
+        {!hideChat && (
+          <>
+            <LudoMenu.Divider />
+
+            <LudoMenu.Item
+              dataTestId={`lesson-ai-button`}
+              closeOnSelect={true}
+              onSelect={onAiSelect}
+              className={"hover:bg-ludo-accent-muted/50"}
+            >
+              <LudoMenu.Row className={"cursor-pointer"}>
+                <LudoMenu.Icon>
+                  <Sparkles className="h-4 w-4 text-ludo-white" />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>{"AI"}</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+
+            <LudoMenu.Divider />
+          </>
+        )}
 
         <LudoMenu.Item
           dataTestId={`new-file-button`}
@@ -72,20 +102,25 @@ export function LessonMenu({ trigger }: LessonMenuProps) {
           onOpenChange={setFeedbackOpen}
         />
 
-        <LudoMenu.Divider />
+        {!hideChat && (
+          <>
+            <LudoMenu.Divider />
 
-        <LudoMenu.Item
-          dataTestId={`new-file-button`}
-          closeOnSelect={false}
-          className={"hover:bg-ludo-accent-muted/50"}
-        >
-          <LudoMenu.Row className={"cursor-pointer"}>
-            <LudoMenu.Icon>
-              <MessageCircle className="h-4 w-4 text-ludo-white" />
-            </LudoMenu.Icon>
-            <LudoMenu.Label>{"DISCUSS"}</LudoMenu.Label>
-          </LudoMenu.Row>
-        </LudoMenu.Item>
+            <LudoMenu.Item
+              dataTestId={`new-file-button`}
+              closeOnSelect={true}
+              onSelect={onDiscussSelect}
+              className={"hover:bg-ludo-accent-muted/50"}
+            >
+              <LudoMenu.Row className={"cursor-pointer"}>
+                <LudoMenu.Icon>
+                  <MessageCircle className="h-4 w-4 text-ludo-white" />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>{"DISCUSS"}</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+          </>
+        )}
       </LudoMenu.Content>
     </LudoMenu>
   );
