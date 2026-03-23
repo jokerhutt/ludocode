@@ -1,4 +1,5 @@
-import { DiscussionTopic } from "@ludocode/types";
+import { type DiscussionTopic } from "@ludocode/types";
+
 
 export type ApiConfig = {
   apiPrefix: string;

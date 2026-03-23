@@ -26,7 +26,6 @@ import type {
   FeedbackRequest,
   ChangeProjectVisibilityRequest,
   ProjectLikeResponse,
-  DiscussionTopic,
   CreateDiscussionMessageRequest,
   DiscussionMessage,
   MessageLikeCountResponse,

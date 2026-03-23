@@ -1,4 +1,4 @@
-import { DiscussionTopic } from "./Discussion";
+import { type DiscussionTopic } from "./Discussion";
 
 export type CreateDiscussionMessageRequest = {
     entityId: string;

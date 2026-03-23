@@ -1,4 +1,4 @@
-import { DiscussionMessage } from "./DiscussionMessage";
+import { type DiscussionMessage } from "./DiscussionMessage";
 
 export type Discussion = {
   id: string | null;
