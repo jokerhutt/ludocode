@@ -45,7 +45,7 @@ export function LessonMenu({
         </p>
 
         <LudoMenu.Item
-          dataTestId={`new-file-button`}
+          dataTestId={`lesson-audio-toggle-button`}
           disabled={editPreferences.isPending}
           onSelect={handleAudioToggle}
           closeOnSelect={false}
@@ -82,7 +82,7 @@ export function LessonMenu({
         )}
 
         <LudoMenu.Item
-          dataTestId={`new-file-button`}
+          dataTestId={`exercise-feedback-button`}
           closeOnSelect={false}
           onSelect={() => setFeedbackOpen(true)}
           className={"hover:bg-ludo-accent-muted/50"}
@@ -107,7 +107,7 @@ export function LessonMenu({
             <LudoMenu.Divider />
 
             <LudoMenu.Item
-              dataTestId={`new-file-button`}
+              dataTestId={`exercise-discussion-button`}
               closeOnSelect={true}
               onSelect={onDiscussSelect}
               className={"hover:bg-ludo-accent-muted/50"}
