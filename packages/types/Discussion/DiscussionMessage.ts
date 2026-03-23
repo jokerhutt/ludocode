@@ -3,7 +3,7 @@ export type DiscussionMessage = {
     discussionId: string;
     authorId: string;
     authorName: string;
-    parentId: string;
+    parentId: string | null;
     createdAt: number;
     content: string;
 }
