@@ -1,21 +1,21 @@
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useEffect, useMemo, useState } from "react";
-import { FooterCTAGroup } from "@/features/auth/components/FooterCTAGroup";
 import { MobileTabs } from "@/components/MobileTabs";
+import { RunCodeButton } from "@/features/project/workbench/editor/RunCodeButton.tsx";
 
 export type WorkbenchMobilePane = "files" | "code" | "output";
 
 type WorkbenchMobileTabsProps = {
-  authenticated: boolean;
   mobilePane: WorkbenchMobilePane;
   setMobilePane: (pane: WorkbenchMobilePane) => void;
+  runnerEnabled: boolean;
 };
 
 export function WorkbenchMobileTabs({
-  authenticated,
   mobilePane,
   setMobilePane,
+  runnerEnabled,
 }: WorkbenchMobileTabsProps) {
   const {
     outputInfo: { isRunning, outputLog },
@@ -68,7 +68,9 @@ export function WorkbenchMobileTabs({
           </MobileTabs.Tab>
         </MobileTabs>
       </div>
-      {!authenticated && <FooterCTAGroup source="project_hub_footer" />}
+      <div className="px-4 w-full flex justify-end items-center pb-3 pt-1">
+        <RunCodeButton disabled={!runnerEnabled} asRow />
+      </div>
     </div>
   );
 }

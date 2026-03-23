@@ -15,6 +15,7 @@ import {
   type WorkbenchMobilePane,
 } from "./components/WorkbenchMobileTabs.tsx";
 import { useMobileTabs } from "@/components/MobileTabs";
+import { FooterCTAGroup } from "@/features/auth/components/FooterCTAGroup";
 
 type WorkbenchPageProps = {
   readOnly?: boolean;
@@ -87,6 +88,11 @@ function WorkbenchPageContent({
           "relative flex-col gap-4 items-stretch justify-start min-w-0 lg:flex lg:flex-2",
         )}
       >
+        {!authenticated && (
+          <div className="lg:hidden px-3 pt-3">
+            <FooterCTAGroup source="project_hub_footer" />
+          </div>
+        )}
         <Workbench.Pane.Winbar>
           <LudoTab.Group>
             {current !== null && current !== undefined && (
@@ -97,7 +103,7 @@ function WorkbenchPageContent({
           </LudoTab.Group>
         </Workbench.Pane.Winbar>
         <ProjectEditor readOnly={readOnly} />
-        <RunCodeButton disabled={!runnerEnabled} />
+        <RunCodeButton disabled={!runnerEnabled} className="hidden lg:flex" />
       </Workbench.Pane>
 
       <WorkbenchOutputPane
@@ -108,9 +114,9 @@ function WorkbenchPageContent({
       />
 
       <WorkbenchMobileTabs
-        authenticated={authenticated}
         mobilePane={mobilePane}
         setMobilePane={setMobilePane}
+        runnerEnabled={runnerEnabled}
       />
     </>
   );
