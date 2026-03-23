@@ -29,6 +29,7 @@ import type {
   DiscussionTopic,
   CreateDiscussionMessageRequest,
   DiscussionMessage,
+  MessageLikeCountResponse,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -73,10 +74,18 @@ export const mutations = {
   },
 
   createDiscussionMessage: () => {
-    return mutationOptions<DiscussionMessage, Error, CreateDiscussionMessageRequest>({
+    return mutationOptions<
+      DiscussionMessage,
+      Error,
+      CreateDiscussionMessageRequest
+    >({
       mutationKey: ["createDiscussionMessage"],
       mutationFn: (variables) =>
-        ludoPost<DiscussionMessage, CreateDiscussionMessageRequest>(api.discussion.base, variables, true),
+        ludoPost<DiscussionMessage, CreateDiscussionMessageRequest>(
+          api.discussion.base,
+          variables,
+          true,
+        ),
     });
   },
 
@@ -170,6 +179,22 @@ export const mutations = {
       mutationKey: ["unlikeProject"],
       mutationFn: () =>
         ludoDelete<ProjectLikeResponse>(api.projects.like(pid), true),
+    });
+  },
+
+  likeMessage: (mid: string) => {
+    return mutationOptions<MessageLikeCountResponse, Error, void>({
+      mutationKey: ["likeMessage"],
+      mutationFn: () =>
+        ludoPost<MessageLikeCountResponse>(api.discussion.likeById(mid), null, true),
+    });
+  },
+
+  unlikeMessage: (mid: string) => {
+    return mutationOptions<MessageLikeCountResponse, Error, void>({
+      mutationKey: ["unlikeMessage"],
+      mutationFn: () =>
+        ludoDelete<MessageLikeCountResponse>(api.discussion.likeById(mid), true),
     });
   },
 

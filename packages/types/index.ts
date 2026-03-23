@@ -44,6 +44,7 @@ export * from "./Languages/ToggleLanguageVisibilityRequest"
 export * from "./Discussion/Discussion"
 export * from "./Discussion/DiscussionMessage"
 export * from "./Discussion/CreateDiscussionMessageRequest"
+export * from "./Discussion/MessageLikeCountResponse"
 
 // onboarding
 export * from "./Onboarding/OnboardingCourse";

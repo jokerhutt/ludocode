@@ -7,6 +7,7 @@ import {
   type ProjectLikeResponse,
   type CourseStats,
   type LudoUser,
+  type MessageLikeCountResponse,
 } from "@ludocode/types";
 import { api } from "@/constants/api/api.ts";
 import { makeIdBatcher } from "@ludocode/api/batcherFactory.ts";
@@ -31,6 +32,14 @@ export const projectLikesBatcher = makeIdBatcher<ProjectLikeResponse>({
   name: "projectLike",
   getUrlFn: api.projects.likes,
   idsKey: "projectIds",
+  scheduler: windowScheduler(10),
+  createFn: create,
+});
+
+export const messageLikesBatcher = makeIdBatcher<MessageLikeCountResponse>({
+  name: "messageLike",
+  getUrlFn: api.discussion.likes,
+  idsKey: "messageIds",
   scheduler: windowScheduler(10),
   createFn: create,
 });

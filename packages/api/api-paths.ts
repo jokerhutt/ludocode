@@ -108,6 +108,9 @@ export function createApiPaths({
       base: `${BASE}/discussion`,
       byEntityIdAndTopic: (entityId: string, topic: DiscussionTopic) =>
         `${BASE}/discussion/${entityId}/${topic}`,
+      like: `${BASE}/discussion/messages/like`,
+      likes: (messageIds: string) => `${BASE}/discussion/messages/like?${messageIds}`,
+      likeById: (messageId: string) => `${BASE}/discussion/messages/like${messageId}`
     },
 
     projects: {

@@ -4,6 +4,7 @@ import {
   courseProgressBatcher,
   courseStatsBatcher,
   lessonBatcher,
+  messageLikesBatcher,
   moduleBatcher,
   projectLikesBatcher,
   userBatcher,
@@ -131,6 +132,13 @@ export const qo = {
       retry: false,
     }),
 
+  messageLike: (messageId: string) =>
+    queryOptions<ProjectLikeResponse>({
+      queryKey: qk.messageLike(messageId),
+      queryFn: () => messageLikesBatcher.fetch(messageId),
+      staleTime: 60_000,
+    }),
+
   projectLike: (projectId: string) =>
     queryOptions<ProjectLikeResponse>({
       queryKey: qk.projectsLike(projectId),
@@ -198,12 +206,16 @@ export const qo = {
       staleTime: 60_000,
     }),
 
-  discussion: (entityId: string, topic: DiscussionTopic) => 
-       queryOptions({
+  discussion: (entityId: string, topic: DiscussionTopic) =>
+    queryOptions({
       queryKey: qk.discussion(entityId, topic),
-      queryFn: () => ludoGet<Discussion>(api.discussion.byEntityIdAndTopic(entityId, topic), true),
+      queryFn: () =>
+        ludoGet<Discussion>(
+          api.discussion.byEntityIdAndTopic(entityId, topic),
+          true,
+        ),
       staleTime: 60_000,
-    }), 
+    }),
 
   project: (projectId: string) =>
     queryOptions({
