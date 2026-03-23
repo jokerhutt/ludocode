@@ -1,3 +1,5 @@
+import type { DiscussionTopic } from "@ludocode/types";
+
 export const qk = {
   activeFeatures: () => ["activeFeatures"] as const,
   courses: () => ["courses"] as const,
@@ -24,8 +26,11 @@ export const qk = {
   projectsUser: (userId: string) => ["projects", "user", userId] as const,
 
   projectsLike: (projectId: string) => ["projects", "like", projectId] as const,
+  messageLike: (messageId: string) => ["messages", messageId] as const,
 
   banners: () => ["banners"] as const,
+
+  discussion: (entityId: string, topic: DiscussionTopic) => ["discussion", topic, entityId] as const,
 
   projectsUserPage: (userId: string, page: number, size: number) =>
     ["projects", "user", userId, page, size] as const,

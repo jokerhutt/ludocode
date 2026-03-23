@@ -170,6 +170,8 @@ export function WorkbenchTreePane({
                 <ChatBotWindow
                   promptWrapper={promptWrapper}
                   systemPrompt={PROJECT_SYSTEM_PROMPT}
+                  className="h-112 max-h-[46vh]"
+                  inputClassName="px-2"
                 />
               </ChatBotAccordion>
             </ChatBotProvider>

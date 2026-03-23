@@ -4,6 +4,7 @@ import {
   courseProgressBatcher,
   courseStatsBatcher,
   lessonBatcher,
+  messageLikesBatcher,
   moduleBatcher,
   projectLikesBatcher,
   userBatcher,
@@ -33,7 +34,10 @@ import {
   type ProjectSnapshot,
   type ProjectCardResponseList,
   type ProjectLikeResponse,
+  type MessageLikeCountResponse,
   type LudoBanner,
+  type DiscussionTopic,
+  type Discussion,
 } from "@ludocode/types";
 
 export const qo = {
@@ -129,6 +133,13 @@ export const qo = {
       retry: false,
     }),
 
+  messageLike: (messageId: string) =>
+    queryOptions<MessageLikeCountResponse>({
+      queryKey: qk.messageLike(messageId),
+      queryFn: () => messageLikesBatcher.fetch(messageId),
+      staleTime: 60_000,
+    }),
+
   projectLike: (projectId: string) =>
     queryOptions<ProjectLikeResponse>({
       queryKey: qk.projectsLike(projectId),
@@ -193,6 +204,17 @@ export const qo = {
     queryOptions({
       queryKey: qk.banners(),
       queryFn: () => ludoGet<LudoBanner[]>(api.banner.base, true),
+      staleTime: 60_000,
+    }),
+
+  discussion: (entityId: string, topic: DiscussionTopic) =>
+    queryOptions({
+      queryKey: qk.discussion(entityId, topic),
+      queryFn: () =>
+        ludoGet<Discussion>(
+          api.discussion.byEntityIdAndTopic(entityId, topic),
+          true,
+        ),
       staleTime: 60_000,
     }),
 

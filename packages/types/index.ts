@@ -40,6 +40,12 @@ export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
 export * from "./Languages/ToggleLanguageVisibilityRequest"
 
+// Discussion
+export * from "./Discussion/Discussion"
+export * from "./Discussion/DiscussionMessage"
+export * from "./Discussion/CreateDiscussionMessageRequest"
+export * from "./Discussion/MessageLikeCountResponse"
+
 // onboarding
 export * from "./Onboarding/OnboardingCourse";
 export * from "./Onboarding/OnboardingResponse";

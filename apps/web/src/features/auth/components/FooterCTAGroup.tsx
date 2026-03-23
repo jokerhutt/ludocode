@@ -25,7 +25,7 @@ export function FooterCTAGroup({ source }: FooterCTAGroupProps) {
   };
 
   return (
-    <div className="border-t border-ludo-surface px-3 py-2">
+    <div className="px-3 py-1">
       <div className="flex items-center gap-2">
         <div className="h-8 flex-1 flex items-center justify-center">
           <HeaderNavButton onClick={handleLoginClick}>

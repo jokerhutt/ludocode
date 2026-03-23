@@ -12,26 +12,36 @@ import type { ReactNode } from "react";
 import type { FeedbackType } from "@ludocode/types";
 
 type FeedbackDialogProps = {
-  children: ReactNode;
+  children?: ReactNode;
+  trigger?: ReactNode;
   entityId?: string;
   feedbackType?: FeedbackType;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 export function FeedbackDialog({
   children,
+  trigger,
   entityId,
   feedbackType = "GENERAL",
+  open: controlledOpen,
+  onOpenChange: onControlledOpenChange,
 }: FeedbackDialogProps) {
   const [content, setContent] = useState("");
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
+  const dialogTrigger = trigger ?? children;
 
   const mutation = useMutation({
     ...mutations.submitFeedback(),
     onSuccess: () => {
       setSubmitted(true);
       setTimeout(() => {
-        setOpen(false);
+        handleOpenChange(false);
       }, 1500);
     },
   });
@@ -46,7 +56,11 @@ export function FeedbackDialog({
   };
 
   const handleOpenChange = (next: boolean) => {
-    setOpen(next);
+    if (!isControlled) {
+      setInternalOpen(next);
+    }
+    onControlledOpenChange?.(next);
+
     if (!next) {
       setTimeout(() => {
         setContent("");
@@ -56,7 +70,11 @@ export function FeedbackDialog({
   };
 
   return (
-    <LudoDialog trigger={children} open={open} onOpenChange={handleOpenChange}>
+    <LudoDialog
+      trigger={dialogTrigger}
+      open={open}
+      onOpenChange={handleOpenChange}
+    >
       {submitted ? (
         <>
           <DialogTitle className="text-ludo-white-bright">

@@ -54,7 +54,9 @@ function DialogContent({
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      <DialogPrimitive.Close asChild>
+        <DialogOverlay />
+      </DialogPrimitive.Close>
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(

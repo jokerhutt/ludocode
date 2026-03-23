@@ -8,10 +8,7 @@ import { ExerciseInteraction } from "@/features/lesson/components/ExerciseIntera
 import { useExerciseBodyData } from "@/features/lesson/hooks/normal/useExerciseBodyData";
 import { useExerciseHistory } from "@/features/lesson/hooks/useExerciseHistory.tsx";
 import { hasExerciseOutput } from "@/features/lesson/util/exerciseOutputUtil.ts";
-import { LessonChatbotPanel } from "@/features/lesson/zones/LessonChatbotPanel.tsx";
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/queries/definitions/queries.ts";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo } from "react";
 import { useIsMobile } from "@ludocode/hooks";
@@ -22,7 +19,6 @@ export function ExercisePage() {
   const { submissionHistory } = useLessonSubmission();
   const inputState = useExerciseInputContext();
   const body = useExerciseBodyData(currentExercise, inputState);
-  const { data: credits } = useSuspenseQuery(qo.credits());
   const isMobile = useIsMobile({});
   const { isComplete } = useExerciseHistory({
     currentExercise,
@@ -69,15 +65,6 @@ export function ExercisePage() {
           </motion.div>
         </AnimatePresence>
       )}
-
-      <div className="hidden lg:block lg:col-start-10 lg:col-span-3 h-full min-h-0 overflow-hidden">
-        <LessonChatbotPanel
-          credits={credits}
-          sessionId={currentExercise.id ?? null}
-          currentExercise={currentExercise}
-          inputState={inputState}
-        />
-      </div>
     </>
   );
 }

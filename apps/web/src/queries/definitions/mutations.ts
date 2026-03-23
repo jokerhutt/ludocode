@@ -26,6 +26,9 @@ import type {
   FeedbackRequest,
   ChangeProjectVisibilityRequest,
   ProjectLikeResponse,
+  CreateDiscussionMessageRequest,
+  DiscussionMessage,
+  MessageLikeCountResponse,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -66,6 +69,22 @@ export const mutations = {
       mutationKey: ["submitFeedback"],
       mutationFn: (variables) =>
         ludoPost<void, FeedbackRequest>(api.feedback.base, variables, true),
+    });
+  },
+
+  createDiscussionMessage: () => {
+    return mutationOptions<
+      DiscussionMessage,
+      Error,
+      CreateDiscussionMessageRequest
+    >({
+      mutationKey: ["createDiscussionMessage"],
+      mutationFn: (variables) =>
+        ludoPost<DiscussionMessage, CreateDiscussionMessageRequest>(
+          api.discussion.base,
+          variables,
+          true,
+        ),
     });
   },
 
@@ -159,6 +178,22 @@ export const mutations = {
       mutationKey: ["unlikeProject"],
       mutationFn: () =>
         ludoDelete<ProjectLikeResponse>(api.projects.like(pid), true),
+    });
+  },
+
+  likeMessage: (mid: string) => {
+    return mutationOptions<MessageLikeCountResponse, Error, void>({
+      mutationKey: ["likeMessage"],
+      mutationFn: () =>
+        ludoPost<MessageLikeCountResponse>(api.discussion.likeById(mid), null, true),
+    });
+  },
+
+  unlikeMessage: (mid: string) => {
+    return mutationOptions<MessageLikeCountResponse, Error, void>({
+      mutationKey: ["unlikeMessage"],
+      mutationFn: () =>
+        ludoDelete<MessageLikeCountResponse>(api.discussion.likeById(mid), true),
     });
   },
 

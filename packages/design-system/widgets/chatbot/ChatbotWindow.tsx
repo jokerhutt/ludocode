@@ -7,6 +7,7 @@ import { useChatbot } from "../../../../apps/web/src/features/ai/context/ChatBot
 
 type ChatBotProps = {
   className?: string;
+  inputClassName?: string;
   systemPrompt: string;
   promptWrapper?: () => string | undefined;
 };
@@ -15,6 +16,7 @@ const ChatBotWindow = ({
   systemPrompt,
   promptWrapper,
   className,
+  inputClassName,
 }: ChatBotProps) => {
   const { chat } = useChatbot();
   const { messages, sendMessage } = chat;
@@ -35,7 +37,7 @@ const ChatBotWindow = ({
   return (
     <div
       className={cn(
-        "min-h-0 min-w-0 w-full text-ludo-white-bright mx-auto relative h-90 max-h-90",
+        "relative min-h-0 min-w-0 h-full w-full overflow-hidden text-ludo-white-bright",
         className,
       )}
     >
@@ -44,7 +46,12 @@ const ChatBotWindow = ({
           <ChatBotConversation messages={messages} />
         </div>
 
-        <ChatBotInput handleSubmit={handleSubmit} />
+        <div className="shrink-0 border-t border-ludo-border bg-ludo-background">
+          <ChatBotInput
+            handleSubmit={handleSubmit}
+            className={inputClassName}
+          />
+        </div>
       </div>
     </div>
   );

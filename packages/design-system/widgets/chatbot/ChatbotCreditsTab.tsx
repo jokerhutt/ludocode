@@ -12,31 +12,24 @@ export function ChatbotCreditsTab({
   return (
     <div
       className={cn(
-        "w-full py-2 px-3 text-xs bg-ludo-surface/40 border-b border-white/5 flex items-center justify-between",
+        "mb-2 flex items-center justify-between rounded-md border border-ludo-border bg-ludo-surface px-2 py-1.5 text-xs text-ludo-white-dim",
         className,
       )}
     >
-      <div className="flex items-center gap-2">
-        <span
-          className={cn(
-            "font-medium",
-            empty
-              ? "text-ludo-white-bright/30"
-              : low
-                ? "text-amber-400"
-                : "text-ludo-white-bright/60",
-          )}
-        >
-          {empty
-            ? "No messages"
-            : `${credits} ${credits === 1 ? "message" : "messages"}`}
-        </span>
-      </div>
-      {!empty && (
-        <span className="text-[10px] text-ludo-white-bright/25 tracking-wide uppercase">
-          remaining
-        </span>
-      )}
+      <span
+        className={cn(
+          "font-medium",
+          empty
+            ? "text-ludo-white-bright/30"
+            : low
+              ? "text-amber-400"
+              : "text-ludo-white-bright/75",
+        )}
+      >
+        {empty
+          ? "No messages remaining"
+          : `${credits} ${credits === 1 ? "message" : "messages"} remaining`}
+      </span>
     </div>
   );
 }
