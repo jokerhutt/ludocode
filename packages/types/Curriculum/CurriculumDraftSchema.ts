@@ -7,6 +7,7 @@ const LanguageMetadataSchema = z.object({
   editorId: z.string(),
   pistonId: z.string(),
   runtimeVersion: z.string(),
+  runtime: z.enum(["PISTON", "BROWSER"]),
   extension: z.string(),
   base: z.string(),
   iconName: z.string(),
@@ -140,7 +141,6 @@ export const ExecutableInteractionSchema = z.object({
 });
 
 export const ProjectFileSnapshotSchema = z.object({
-  id: z.string().optional(),
   tempId: z.string().optional(),
   path: z.string().min(1),
   language: LanguageDraftValueSchema,
@@ -151,10 +151,11 @@ export const ProjectSnapshotSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
   projectLanguage: LanguageDraftValueSchema,
+  projectType: z.enum(["WEB", "CODE"]),
   deleteAt: z.string().optional().nullable(),
   updatedAt: z.number().optional(),
   files: z.array(ProjectFileSnapshotSchema).min(1),
-  entryFileId: z.string(),
+  entryFilePath: z.string(),
 });
 
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
