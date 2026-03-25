@@ -6,6 +6,7 @@ export type LanguageMetadata = {
   pistonId: string;
   runtimeVersion: string;
   extension: string;
+  runtime: LanguageRuntime;
   base: string;
   iconName: string;
   initialScript: string;
@@ -13,3 +14,4 @@ export type LanguageMetadata = {
   disabledReason?: string;
 };
 
+export type LanguageRuntime = "PISTON" | "BROWSER";

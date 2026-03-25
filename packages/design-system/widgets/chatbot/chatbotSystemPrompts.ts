@@ -234,12 +234,9 @@ export function buildProjectUserMessage(
   activeFileIdOrTempId: string | null,
 ): string {
   const activeFile =
-    liveFiles.find((f) => (f.id ?? f.tempId) === activeFileIdOrTempId) ??
-    liveFiles[0];
+    liveFiles.find((f) => f.path === activeFileIdOrTempId) ?? liveFiles[0];
 
-  const otherFiles = liveFiles.filter(
-    (f) => (f.id ?? f.tempId) !== activeFileIdOrTempId,
-  );
+  const otherFiles = liveFiles.filter((f) => f.path !== activeFileIdOrTempId);
 
   const otherFileText = otherFiles
     .map(

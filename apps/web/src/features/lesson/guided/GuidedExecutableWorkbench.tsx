@@ -130,7 +130,7 @@ export function GuidedExecutableWorkbench({
     const projectSnapshotAttempt: ProjectSnapshot = {
       ...project,
       files: files.map((file) => ({ ...file })),
-      entryFileId,
+      entryFilePath: entryFileId,
     };
 
     const attempt: ExerciseAttempt = {

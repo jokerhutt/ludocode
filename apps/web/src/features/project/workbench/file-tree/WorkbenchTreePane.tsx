@@ -63,7 +63,7 @@ export function WorkbenchTreePane({
   latestRef.current = { project, files, active: files[current] ?? files[0] };
   const promptWrapper = useCallback(() => {
     const { project, files, active } = latestRef.current;
-    const activeId = active?.id ?? active?.tempId ?? null;
+    const activeId = active?.path ?? null;
     return buildProjectUserMessage(project, files, activeId);
   }, []);
 
@@ -94,7 +94,7 @@ export function WorkbenchTreePane({
           <LudoFileTree
             selectedId={currentFileId}
             onSelect={(id) => {
-              const index = files.findIndex((f) => (f.id ?? f.tempId!) === id);
+              const index = files.findIndex((f) => f.path === id);
               if (index !== -1) {
                 setCurrent(index);
                 onFileSelect?.();
@@ -102,13 +102,13 @@ export function WorkbenchTreePane({
             }}
           >
             {files.map((file) => {
-              const key = file.id ?? file.tempId!;
-              const isEntryFile = key === entryFileId;
+              const key = file.tempId ?? file.path;
+              const isEntryFile = file.path === entryFileId;
               return (
                 <LudoFileTree.Item
                   dataTestId={`tree-file-${file.path}`}
                   key={key}
-                  id={key}
+                  id={file.path}
                   name={file.path}
                   indicator={
                     isEntryFile ? (
@@ -147,7 +147,7 @@ export function WorkbenchTreePane({
                           </div>
                         }
                         itemType="File"
-                        targetId={key}
+                        targetId={file.path}
                         targetName={file.path}
                         renameItem={renameFile}
                         deleteItem={() => deleteFile(file.path)}

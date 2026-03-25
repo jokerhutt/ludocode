@@ -22,7 +22,7 @@ export function useGuidedExerciseReviewState() {
     return {
       ...project,
       files: files.map((file) => ({ ...file })),
-      entryFileId,
+      entryFilePath: entryFileId,
     };
   }, [project, files, entryFileId]);
 

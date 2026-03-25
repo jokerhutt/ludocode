@@ -10,7 +10,11 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select.tsx";
-import { CustomIcon, stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon";
+import {
+  CustomIcon,
+  stringToCustomIcon,
+} from "@ludocode/design-system/primitives/custom-icon";
+import type { ProjectType } from "@ludocode/types";
 
 type CreateProjectDialogProps = {
   open: boolean;
@@ -25,8 +29,13 @@ export function CreateProjectDialog({
   hash,
   children,
 }: CreateProjectDialogProps) {
+  const [projectType, setProjectType] = useState<ProjectType>("CODE");
+  const [projectName, setProjectName] = useState<string>("Untitled project");
+  const [selectedLanguageId, setSelectedLanguageId] = useState<string>("");
+
   const closeModal = () => {
     close();
+    setProjectType("CODE");
     setSelectedLanguageId("");
     setProjectName("Untitled project");
   };
@@ -35,10 +44,22 @@ export function CreateProjectDialog({
 
   const allOptions = useSuspenseQuery(qo.languages()).data;
 
-  const possibleOptions = allOptions.filter((it) => it.enabled === true)
+  const runtimeByType: Record<ProjectType, "PISTON" | "BROWSER"> = {
+    CODE: "PISTON",
+    WEB: "BROWSER",
+  };
 
-  const [projectName, setProjectName] = useState<string>("Untitled project");
-  const [selectedLanguageId, setSelectedLanguageId] = useState<string>("");
+  const possibleOptions = allOptions.filter(
+    (it) => it.enabled === true && it.runtime === runtimeByType[projectType],
+  );
+
+  const selectedLanguageStillValid = possibleOptions.some(
+    (it) => it.languageId.toString() === selectedLanguageId,
+  );
+
+  const selectedLanguageValue = selectedLanguageStillValid
+    ? selectedLanguageId
+    : "";
 
   const submitProject = () => {
     if (isSubmitLoading) return;
@@ -48,6 +69,7 @@ export function CreateProjectDialog({
     createProjectMutation.mutate({
       projectName: projectName,
       projectLanguageId: Number(selectedLanguageId),
+      projectType,
       requestHash: hash,
     });
   };
@@ -69,10 +91,30 @@ export function CreateProjectDialog({
 
       <div className="flex flex-col gap-6 mt-4">
         <LudoSelect
-          
+          variant="dark"
+          title="Project Type"
+          value={projectType}
+          setValue={(next) => {
+            const nextType = next as ProjectType;
+            setProjectType(nextType);
+            setSelectedLanguageId("");
+          }}
+        >
+          <LudoSelectItem
+            value="CODE"
+            dataTestId="select-item-project-type-code"
+          >
+            Code
+          </LudoSelectItem>
+          <LudoSelectItem value="WEB" dataTestId="select-item-project-type-web">
+            Web
+          </LudoSelectItem>
+        </LudoSelect>
+
+        <LudoSelect
           variant="dark"
           title="Language"
-          value={selectedLanguageId}
+          value={selectedLanguageValue}
           setValue={setSelectedLanguageId}
         >
           {possibleOptions.map((lang) => (
@@ -82,7 +124,11 @@ export function CreateProjectDialog({
               dataTestId={`select-item-${lang.slug}`}
             >
               <span className="flex items-center gap-3">
-                <CustomIcon className="h-5 w-5" color="white" iconName={stringToCustomIcon(lang.iconName)}/>
+                <CustomIcon
+                  className="h-5 w-5"
+                  color="white"
+                  iconName={stringToCustomIcon(lang.iconName)}
+                />
                 <span>{lang.name}</span>
               </span>
             </LudoSelectItem>

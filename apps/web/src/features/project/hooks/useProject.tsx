@@ -12,8 +12,7 @@ export function useProject({ project }: Args): UseProjectResponse {
     project.files.map((f) => ({ ...f })),
   );
 
-  const initialEntryId =
-    project.entryFileId ?? project.files[0]?.id ?? project.files[0]?.tempId;
+  const initialEntryId = project.entryFilePath ?? project.files[0]?.path;
 
   if (!initialEntryId) {
     throw new Error("project must have at least one file");
@@ -36,8 +35,7 @@ export function useProject({ project }: Args): UseProjectResponse {
 
         const fileBeingDeleted = prev[idx];
 
-        const fileId = fileBeingDeleted.id ?? fileBeingDeleted.tempId;
-        if (fileId === entryFileId) return prev;
+        if (fileBeingDeleted.path === entryFileId) return prev;
 
         const next = prev.slice();
         next.splice(idx, 1);
@@ -79,12 +77,16 @@ export function useProject({ project }: Args): UseProjectResponse {
 
         const uniqueName = nextName(otherFiles, bare, extension);
 
+        if (oldPath === entryFileId) {
+          setEntryFileId(uniqueName);
+        }
+
         const next = prev.slice();
         next[idx] = { ...file, path: uniqueName };
         return next;
       });
     },
-    [extension],
+    [entryFileId, extension],
   );
 
   const updateContent = useCallback(
@@ -117,8 +119,7 @@ export function useProject({ project }: Args): UseProjectResponse {
     const nextFiles = snapshot.files.map((f) => ({ ...f }));
     if (nextFiles.length === 0) return;
 
-    const nextEntryId =
-      snapshot.entryFileId ?? nextFiles[0]?.id ?? nextFiles[0]?.tempId;
+    const nextEntryId = snapshot.entryFilePath ?? nextFiles[0]?.path;
 
     if (!nextEntryId) return;
 
@@ -127,13 +128,13 @@ export function useProject({ project }: Args): UseProjectResponse {
 
     const nextCurrentIndex = Math.max(
       0,
-      nextFiles.findIndex((f) => (f.id ?? f.tempId ?? "") === nextEntryId),
+      nextFiles.findIndex((f) => f.path === nextEntryId),
     );
     setCurrent(nextCurrentIndex);
   }, []);
 
   const active = files[current];
-  const currentFileId: string | null = active.id ?? null;
+  const currentFileId: string | null = active?.path ?? null;
 
   return {
     project,
