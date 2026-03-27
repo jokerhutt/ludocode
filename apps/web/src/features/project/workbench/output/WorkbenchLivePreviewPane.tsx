@@ -2,10 +2,12 @@ import { WEB_CDN_BASE_URL } from "@/constants/environment/env.ts";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
+import { useState } from "react";
 
 type WorkbenchLivePreviewPaneProps = {
   projectId: string;
   className?: string;
+  refreshVersion?: number;
   hideWinbarOnMobile?: boolean;
 };
 
@@ -17,15 +19,21 @@ function buildPreviewUrl(projectId: string): string {
 
 export function WorkbenchLivePreviewPane({
   projectId,
+  refreshVersion = 0,
   className,
   hideWinbarOnMobile = false,
 }: WorkbenchLivePreviewPaneProps) {
+  const [manualRefreshVersion, setManualRefreshVersion] = useState(0);
   const previewUrl = buildPreviewUrl(projectId);
+  const iframeSrc =
+    previewUrl.length > 0
+      ? `${previewUrl}${previewUrl.includes("?") ? "&" : "?"}autosave=${refreshVersion}&refresh=${manualRefreshVersion}`
+      : "";
 
   return (
     <Workbench.Pane
       className={cn(
-        "grid-rows-[auto_auto_1fr]",
+        "grid-rows-[auto_1fr]",
         "col-span-1 lg:border-l-2 border-l-ludo-surface lg:col-span-3 flex flex-col min-h-0",
         className,
       )}
@@ -33,23 +41,29 @@ export function WorkbenchLivePreviewPane({
       <Workbench.Pane.Winbar
         className={hideWinbarOnMobile ? "hidden lg:block" : undefined}
       >
-        <p className="text-sm font-medium tracking-wide">Live Preview</p>
+        <div className="min-w-0 flex-1 rounded-md border border-white/10 bg-black/20 px-2 py-1">
+          <p className="min-w-0 truncate text-[11px] text-ludo-white-bright/70">
+            {previewUrl || "Missing preview URL configuration"}
+          </p>
+        </div>
+        <div className="ml-2 flex items-center gap-1">
+          <IconButton
+            dataTestId="refresh-live-preview-icon"
+            iconName="ArrowPathIcon"
+            disabled={!previewUrl}
+            onClick={() => setManualRefreshVersion((prev) => prev + 1)}
+          />
+          <IconButton
+            dataTestId="open-live-preview-icon"
+            iconName="ArrowTopRightOnSquareIcon"
+            disabled={!previewUrl}
+            onClick={() => {
+              if (!previewUrl) return;
+              window.open(previewUrl, "_blank", "noopener,noreferrer");
+            }}
+          />
+        </div>
       </Workbench.Pane.Winbar>
-
-      <div className="mx-3 mt-3 mb-2 flex items-center gap-2 rounded-md border border-white/10 bg-black/20 px-2 py-1.5">
-        <p className="min-w-0 flex-1 truncate text-[11px] text-ludo-white-bright/70">
-          {previewUrl || "Missing preview URL configuration"}
-        </p>
-        <IconButton
-          dataTestId="open-live-preview-icon"
-          iconName="ArrowTopRightOnSquareIcon"
-          disabled={!previewUrl}
-          onClick={() => {
-            if (!previewUrl) return;
-            window.open(previewUrl, "_blank", "noopener,noreferrer");
-          }}
-        />
-      </div>
 
       <Workbench.Pane.Content
         dataTestId="project-live-preview"
@@ -58,7 +72,7 @@ export function WorkbenchLivePreviewPane({
         {previewUrl ? (
           <iframe
             title="Project live preview"
-            src={previewUrl}
+            src={iframeSrc}
             className="h-full w-full flex-1 min-h-0 block bg-white border-0"
           />
         ) : (
