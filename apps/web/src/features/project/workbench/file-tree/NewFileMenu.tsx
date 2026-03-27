@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "@/queries/definitions/queries.ts";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
 import {
   CustomIcon,
-  type IconName,
+  stringToCustomIcon,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
 
 type NewFileMenuProps = {
@@ -11,11 +13,16 @@ type NewFileMenuProps = {
   readOnly?: boolean;
 };
 
-export function NewFileMenu({ trigger, readOnly = true}: NewFileMenuProps) {
+export function NewFileMenu({ trigger, readOnly = true }: NewFileMenuProps) {
   const { project, addFile } = useProjectContext();
+  const allLanguages = useSuspenseQuery(qo.languages()).data;
 
-  const iconName = project.projectLanguage.iconName as IconName;
-  const choice = project.projectLanguage.name;
+  const choices =
+    project.projectType === "WEB"
+      ? allLanguages.filter(
+          (it) => it.enabled === true && it.runtime === "BROWSER",
+        )
+      : [project.projectLanguage];
 
   return (
     <LudoMenu>
@@ -26,22 +33,33 @@ export function NewFileMenu({ trigger, readOnly = true}: NewFileMenuProps) {
           New file
         </p>
 
-        <LudoMenu.Item
-          dataTestId={`new-file-button`}
-          disabled={readOnly}
-          onSelect={() => {
-            if (readOnly) return;
-            addFile();
-          }}
-          className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
-        >
-          <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
-            <LudoMenu.Icon>
-              <CustomIcon color="white" className="h-4" iconName={iconName} />
-            </LudoMenu.Icon>
-            <LudoMenu.Label>{choice}</LudoMenu.Label>
-          </LudoMenu.Row>
-        </LudoMenu.Item>
+        {choices.map((lang) => (
+          <LudoMenu.Item
+            key={lang.languageId}
+            dataTestId={
+              lang.languageId === project.projectLanguage.languageId
+                ? "new-file-button"
+                : `new-file-button-${lang.slug}`
+            }
+            disabled={readOnly}
+            onSelect={() => {
+              if (readOnly) return;
+              addFile(lang);
+            }}
+            className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
+          >
+            <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
+              <LudoMenu.Icon>
+                <CustomIcon
+                  color="white"
+                  className="h-4"
+                  iconName={stringToCustomIcon(lang.iconName)}
+                />
+              </LudoMenu.Icon>
+              <LudoMenu.Label>{lang.name}</LudoMenu.Label>
+            </LudoMenu.Row>
+          </LudoMenu.Item>
+        ))}
       </LudoMenu.Content>
     </LudoMenu>
   );
