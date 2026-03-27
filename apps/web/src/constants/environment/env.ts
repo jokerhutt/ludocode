@@ -5,3 +5,4 @@ export const FIREBASE_PROJECT_ID = import.meta.env.VITE_FIREBASE_PROJECT_ID;
 export const API_URL = import.meta.env.VITE_API_URL;
 export const AVATAR_BASE_URL = import.meta.env.VITE_AVATAR_BASE_URL;
 export const ALLOWED_HOSTS = import.meta.env.VITE_ALLOWED_HOSTS;
+export const WEB_CDN_BASE_URL = import.meta.env.VITE_WEB_CDN_BASE_URL;
