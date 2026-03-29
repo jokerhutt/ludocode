@@ -30,7 +30,7 @@ export function useAutoSaveProject({
   const queryClient = useQueryClient();
   const currentPayload = serializeProjectPayload({
     projectId: project.projectId,
-    projectLanguage: project.projectLanguage,
+    projectType: project.projectType,
     projectName: project.projectName,
     files,
     entryFilePath: entryFileId,
@@ -82,7 +82,7 @@ export function useAutoSaveProject({
     const timeoutId = setTimeout(() => {
       mutate({
         projectId,
-        projectLanguage: project.projectLanguage,
+        projectType: project.projectType,
         projectName: project.projectName,
         files: files,
         entryFilePath: entryFileId,
@@ -97,7 +97,7 @@ export function useAutoSaveProject({
     entryFileId,
     files,
     mutate,
-    project.projectLanguage,
+    project.projectType,
     project.projectName,
     projectId,
   ]);
