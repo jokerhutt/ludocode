@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
-import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { Languages, type LanguageKey, type ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
-import type { LanguageMetadata } from "@ludocode/types/Project/LanguageMetadata.ts";
 import { nextName } from "@/features/project/util/filenameUtil.ts";
 
 type Args = {
@@ -20,8 +19,6 @@ export function useProject({ project }: Args): UseProjectResponse {
   }
 
   const [entryFileId, setEntryFileId] = useState(initialEntryId);
-
-  const { projectLanguage } = project;
 
   const [current, setCurrent] = useState(0);
 
@@ -58,7 +55,7 @@ export function useProject({ project }: Args): UseProjectResponse {
         if (idx === -1) return prev;
 
         const file = prev[idx];
-        const extension = file.language.extension;
+        const extension = Languages[file.language].extension
 
         let base = newNameRaw.trim();
         if (!base) return prev;
@@ -102,15 +99,14 @@ export function useProject({ project }: Args): UseProjectResponse {
   );
 
   const addFile = useCallback(
-    (language?: LanguageMetadata) => {
+    (languageName: LanguageKey) => {
       setFiles((fs) => {
-        const fileLanguage = language ?? projectLanguage;
-        const { base, extension } = fileLanguage;
+        const { base, extension } = Languages[languageName];
         const name = nextName(fs, base, extension);
         const file: ProjectFileSnapshot = {
           tempId: crypto.randomUUID(),
           path: `${name}`,
-          language: fileLanguage,
+          language: languageName,
           content: "",
         };
         const next = [...fs, file];
@@ -118,7 +114,7 @@ export function useProject({ project }: Args): UseProjectResponse {
         return next;
       });
     },
-    [projectLanguage],
+    [],
   );
 
   const resetToSnapshot = useCallback((snapshot: ProjectSnapshot) => {
@@ -169,6 +165,6 @@ export type UseProjectResponse = {
   updateContent: (value: string) => void;
   deleteFile: (path: string) => void;
   renameFile: (oldPath: string, newNameRaw: string) => void;
-  addFile: (language?: LanguageMetadata) => void;
+  addFile: (language: LanguageKey) => void;
   resetToSnapshot: (snapshot: ProjectSnapshot) => void;
 };

@@ -8,9 +8,13 @@ export type ProjectCardResponse = {
   updatedAt: number;
   deleteAt?: string;
   visibility: ProjectVisibility;
+  technologies: ProjectCardListResponse[]
+};
+
+export type ProjectCardLanguageResponse = {
   languageName: string;
   languageIconName: string;
-};
+}
 
 export type ProjectCardResponseList = {
   projects: ProjectCardResponse[];

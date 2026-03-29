@@ -1,4 +1,4 @@
-export type LanguageMetadata = {
+export type LegacyLanguageMetadata = {
   languageId: number;
   name: string;
   slug: string;
