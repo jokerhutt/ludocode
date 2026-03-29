@@ -198,7 +198,7 @@ export function GuidedExecutableWorkbench({
   const solution =
     interaction?.type === "EXECUTABLE" ? interaction.solution : "";
   const currentCode = active?.content ?? "";
-  const languageId = active?.language.editorId ?? "plaintext";
+  const languageId = active?.language ?? "plaintext";
   const showSolutionHint = !isComplete && incorrectAttemptCount >= 2;
   const canReset = useMemo(() => {
     return !!resetSnapshot && !isEditorReadOnly && !isRunning;

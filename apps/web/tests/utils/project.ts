@@ -4,27 +4,12 @@ import { expect } from "@playwright/test";
 export async function createProject(page: Page) {
   await expect(page).toHaveURL(/\/projects/);
 
-  const createProjectDialogButton = page.getByTestId(
-    `create-project-dialog-button`,
+  const createProjectPythonButton = page.getByTestId(
+    "create-project-template-python",
   );
 
-  const createProjectSelectTrigger = page.getByTestId(`select-trigger`);
-  const createProjectPythonOption = page.getByTestId(`select-item-python`);
-
-  const createProjectButton = page.getByTestId(`create-project-button`);
-
-  await expect(createProjectDialogButton).toBeVisible();
-
-  await createProjectDialogButton.click();
-
-  await expect(createProjectButton).toBeVisible();
-  await expect(createProjectSelectTrigger).toBeVisible();
-
-  await createProjectSelectTrigger.click();
-  await expect(createProjectPythonOption).toBeVisible();
-  await createProjectPythonOption.click();
-
-  await createProjectButton.click();
+  await expect(createProjectPythonButton).toBeVisible();
+  await createProjectPythonButton.click();
 }
 
 export async function createProjectFile(page: Page) {

@@ -63,7 +63,7 @@ function buildRunnerFiles(
   });
 
   return orderedFiles.map((file) => ({
-    codeLanguage: file.language.pistonId,
+    codeLanguage: file.language,
     name: file.path,
     content: file.content,
   }));

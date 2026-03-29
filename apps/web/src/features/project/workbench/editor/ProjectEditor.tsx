@@ -84,7 +84,7 @@ export function ProjectEditor({
         />
       }
       onMount={handleMount}
-      language={language.editorId}
+      language={language}
       options={{
         ...editorOptions,
         readOnly: readOnly,

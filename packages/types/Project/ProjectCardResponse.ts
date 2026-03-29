@@ -1,3 +1,4 @@
+import { LanguageKey } from "./ProjectFileSnapshot";
 import { type ProjectVisibility } from "./ProjectSnapshot";
 
 export type ProjectCardResponse = {
@@ -8,13 +9,8 @@ export type ProjectCardResponse = {
   updatedAt: number;
   deleteAt?: string;
   visibility: ProjectVisibility;
-  technologies: ProjectCardListResponse[]
+  technologies: LanguageKey[];
 };
-
-export type ProjectCardLanguageResponse = {
-  languageName: string;
-  languageIconName: string;
-}
 
 export type ProjectCardResponseList = {
   projects: ProjectCardResponse[];

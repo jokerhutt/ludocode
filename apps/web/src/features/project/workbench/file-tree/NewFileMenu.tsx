@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/queries/definitions/queries.ts";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import {
-  CustomIcon,
-  stringToCustomIcon,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
+  Languages,
+  type LanguageKey,
+} from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 
 type NewFileMenuProps = {
   trigger: ReactNode;
@@ -14,15 +13,19 @@ type NewFileMenuProps = {
 };
 
 export function NewFileMenu({ trigger, readOnly = true }: NewFileMenuProps) {
-  const { project, addFile } = useProjectContext();
-  const allLanguages = useSuspenseQuery(qo.languages()).data;
+  const { project, files, entryFileId, addFile } = useProjectContext();
 
-  const choices =
+  const entryFile = files.find((file) => file.path === entryFileId) ?? files[0];
+  const entryLanguage = entryFile?.language;
+
+  const choices: LanguageKey[] =
     project.projectType === "WEB"
-      ? allLanguages.filter(
-          (it) => it.enabled === true && it.runtime === "BROWSER",
+      ? (Object.keys(Languages) as LanguageKey[]).filter(
+          (languageKey) => Languages[languageKey].webAllowed === true,
         )
-      : [project.projectLanguage];
+      : entryLanguage
+        ? [entryLanguage]
+        : [];
 
   return (
     <LudoMenu>
@@ -33,33 +36,36 @@ export function NewFileMenu({ trigger, readOnly = true }: NewFileMenuProps) {
           New file
         </p>
 
-        {choices.map((lang) => (
-          <LudoMenu.Item
-            key={lang.languageId}
-            dataTestId={
-              lang.languageId === project.projectLanguage.languageId
-                ? "new-file-button"
-                : `new-file-button-${lang.slug}`
-            }
-            disabled={readOnly}
-            onSelect={() => {
-              if (readOnly) return;
-              addFile(lang);
-            }}
-            className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
-          >
-            <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
-              <LudoMenu.Icon>
-                <CustomIcon
-                  color="white"
-                  className="h-4"
-                  iconName={stringToCustomIcon(lang.iconName)}
-                />
-              </LudoMenu.Icon>
-              <LudoMenu.Label>{lang.name}</LudoMenu.Label>
-            </LudoMenu.Row>
-          </LudoMenu.Item>
-        ))}
+        {choices.map((languageKey, index) => {
+          const language = Languages[languageKey];
+          return (
+            <LudoMenu.Item
+              key={languageKey}
+              dataTestId={
+                index === 0
+                  ? "new-file-button"
+                  : `new-file-button-${languageKey}`
+              }
+              disabled={readOnly}
+              onSelect={() => {
+                if (readOnly) return;
+                addFile(languageKey);
+              }}
+              className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
+            >
+              <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
+                <LudoMenu.Icon>
+                  <CustomIcon
+                    color="white"
+                    className="h-4"
+                    iconName={language.iconName}
+                  />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>{language.name}</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+          );
+        })}
       </LudoMenu.Content>
     </LudoMenu>
   );

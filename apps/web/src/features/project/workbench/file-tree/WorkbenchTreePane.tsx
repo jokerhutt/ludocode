@@ -3,10 +3,7 @@ import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
 import { NewFileMenu } from "./NewFileMenu.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { LudoFileTree } from "@ludocode/design-system/widgets/LudoFileTree.tsx";
-import {
-  CustomIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { FileActionsMenu } from "./FileActionsMenu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { ChatBotProvider } from "@/features/ai/context/ChatBotContext.tsx";
@@ -28,6 +25,7 @@ import {
   TooltipContent,
 } from "@ludocode/external/ui/tooltip.tsx";
 import { useCallback, useRef } from "react";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 
 type WorkbenchTreePaneProps = {
   readOnly?: boolean;
@@ -128,7 +126,7 @@ export function WorkbenchTreePane({
                     <CustomIcon
                       color="white"
                       className="h-4"
-                      iconName={project.projectLanguage.iconName as IconName}
+                      iconName={Languages[file.language].iconName}
                     />
                   }
                   actions={

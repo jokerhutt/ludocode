@@ -1,4 +1,4 @@
-import {type IconName} from "@ludocode/design-system/primitives/custom-icon"
+import { type IconName } from "@ludocode/design-system/primitives/custom-icon";
 
 export type ProjectFileSnapshot = {
   tempId?: string;
@@ -8,6 +8,7 @@ export type ProjectFileSnapshot = {
 };
 
 type LanguageMetadata = {
+  languageId: number;
   name: string;
   extension: string;
   base: string;
@@ -18,8 +19,9 @@ type LanguageMetadata = {
 
 export type LanguageKey = "javascript" | "python" | "html" | "css" | "lua";
 
-export const Languages: Record<string, LanguageMetadata> = {
+export const Languages: Record<LanguageKey, LanguageMetadata> = {
   javascript: {
+    languageId: 1,
     name: "javascript",
     extension: ".js",
     base: "web",
@@ -28,6 +30,7 @@ export const Languages: Record<string, LanguageMetadata> = {
     webAllowed: true,
   },
   python: {
+    languageId: 2,
     name: "python",
     extension: ".py",
     base: "script",
@@ -35,14 +38,26 @@ export const Languages: Record<string, LanguageMetadata> = {
     initialScript: `print("Hello world")`,
   },
   html: {
+    languageId: 3,
     name: "html",
     extension: ".html",
     base: "web",
     iconName: "HTML",
-    initialScript: `<h1>Hello world</h1>`,
+    initialScript: `<!DOCTYPE html>
+<html>
+<head>
+  <title>Ludocode</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello world</h1>
+  <script src="script.js"></script>
+</body>
+</html>`,
     webAllowed: true,
   },
   css: {
+    languageId: 4,
     name: "css",
     extension: ".css",
     base: "web",
@@ -51,6 +66,7 @@ export const Languages: Record<string, LanguageMetadata> = {
     webAllowed: true,
   },
   lua: {
+    languageId: 5,
     name: "lua",
     extension: ".lua",
     base: "script",
