@@ -1,5 +1,5 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useAutoSaveProject } from "@/features/project/hooks/useAutoSaveProject.tsx";
+import { useAutoSaveContext } from "@/features/project/workbench/context/AutoSaveContext.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
@@ -22,33 +22,14 @@ export function ProjectHeader({
   mode = "READONLY",
   authenticated,
 }: ProjectHeaderProps) {
-  const { project, files, entryFileId } = useProjectContext();
+  const { project } = useProjectContext();
   const { projectName } = project;
-  const languageDisabled = project.projectLanguage.enabled === false;
-  const languageDisabledReason =
-    project.projectLanguage.disabledReason?.trim() ||
-    "This language has been disabled, sorry";
   const { banners } = useHeaderBanners({
-    localBanners: languageDisabled
-      ? [
-          {
-            id: "project-language-disabled",
-            text: languageDisabledReason,
-            type: "INCIDENT",
-          },
-        ]
-      : [],
+    localBanners: [],
   });
 
   const isAutoSaveEnabled = mode === "EDIT";
-
-  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
-    enabled: isAutoSaveEnabled,
-    project,
-    files,
-    debounceMs: 1000,
-    entryFileId,
-  });
+  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveContext();
 
   const goToProjectHub = () => {
     router.navigate(ludoNavigation.hub.project.toProjectHub());

@@ -253,12 +253,12 @@ function LessonProjectSnapshotEditor({
             </form.Field>
 
             <form.Field
-              name="projectSnapshot.entryFileId"
+              name="projectSnapshot.entryFilePath"
               children={(field: any) => (
                 <LudoInput
                   value={String(field.state.value ?? "")}
                   setValue={(v: string) => field.handleChange(v)}
-                  placeholder="Entry file id"
+                  placeholder="Entry file path"
                 />
               )}
             />
@@ -270,20 +270,21 @@ function LessonProjectSnapshotEditor({
 }
 
 function createDefaultProjectSnapshot(courseLanguage?: LanguageMetadata) {
-  const tempId = crypto.randomUUID();
+  const path = getDefaultMainFilename(courseLanguage);
 
   return {
     projectId: crypto.randomUUID(),
     projectName: "Guided Project",
     projectLanguage: resolveCourseLanguage(courseLanguage),
+    projectType: "CODE" as const,
     files: [
       {
-        tempId,
-        path: getDefaultMainFilename(courseLanguage),
+        tempId: crypto.randomUUID(),
+        path,
         language: resolveCourseLanguage(courseLanguage),
         content: "",
       },
     ],
-    entryFileId: tempId,
+    entryFilePath: path,
   };
 }

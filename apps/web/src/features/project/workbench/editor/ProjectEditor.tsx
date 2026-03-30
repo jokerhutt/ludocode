@@ -40,9 +40,21 @@ export function ProjectEditor({
   ) {
     editorRef.current = editor;
 
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+      // Intentionally no-op: save is handled by autosave.
+    });
+
     editor.onKeyDown((e) => {
       const isCmdEnter =
         (e.metaKey || e.ctrlKey) && e.keyCode === monaco.KeyCode.Enter;
+      const isCmdSave =
+        (e.metaKey || e.ctrlKey) && e.keyCode === monaco.KeyCode.KeyS;
+
+      if (isCmdSave) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
 
       if (isCmdEnter) {
         e.preventDefault();
@@ -72,7 +84,7 @@ export function ProjectEditor({
         />
       }
       onMount={handleMount}
-      language={language.editorId}
+      language={language}
       options={{
         ...editorOptions,
         readOnly: readOnly,

@@ -19,6 +19,8 @@ export function useMonacoTheme() {
     useMemo(
       () => ({
         minimap: { enabled: false },
+        overviewRulerLanes: 0,
+        hideCursorInOverviewRuler: true,
         fontSize: 16,
         padding: { bottom: 16 },
         scrollBeyondLastLine: false,

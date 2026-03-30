@@ -25,15 +25,15 @@ export function useAutoSaveProject({
   files,
   entryFileId,
   debounceMs = 1000,
-  enabled = true
+  enabled = true,
 }: Args): SaveStatusType {
   const queryClient = useQueryClient();
   const currentPayload = serializeProjectPayload({
     projectId: project.projectId,
-    projectLanguage: project.projectLanguage,
+    projectType: project.projectType,
     projectName: project.projectName,
     files,
-    entryFileId,
+    entryFilePath: entryFileId,
   });
   const latestPayloadRef = useRef<string>(currentPayload);
   const lastSavedPayloadRef = useRef<string>(currentPayload);
@@ -48,7 +48,10 @@ export function useAutoSaveProject({
       const savedPayload = serializeProjectPayload(variables);
       if (savedPayload !== latestPayloadRef.current) return;
 
-      queryClient.setQueryData(qk.project(savedProject.projectId), savedProject);
+      queryClient.setQueryData(
+        qk.project(savedProject.projectId),
+        savedProject,
+      );
       lastSavedPayloadRef.current = savedPayload;
       lastSavedAtRef.current = new Date();
     },
@@ -72,17 +75,17 @@ export function useAutoSaveProject({
     if (!projectId || !enabled) return;
     if (files.length <= 0) return;
 
-    if (!files.some(f => f.id === entryFileId)) return;
+    if (!files.some((f) => f.path === entryFileId)) return;
 
     if (currentPayload === lastSavedPayloadRef.current) return;
 
     const timeoutId = setTimeout(() => {
       mutate({
         projectId,
-        projectLanguage: project.projectLanguage,
+        projectType: project.projectType,
         projectName: project.projectName,
         files: files,
-        entryFileId,
+        entryFilePath: entryFileId,
       });
     }, debounceMs);
 
@@ -94,7 +97,7 @@ export function useAutoSaveProject({
     entryFileId,
     files,
     mutate,
-    project.projectLanguage,
+    project.projectType,
     project.projectName,
     projectId,
   ]);

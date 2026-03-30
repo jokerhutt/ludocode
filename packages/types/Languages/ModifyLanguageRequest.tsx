@@ -1,6 +1,7 @@
 export type ModifyLanguageRequest = {
   name: string;
   slug: string;
+  runtime: "PISTON" | "BROWSER";
   editorId: string;
   pistonId: string;
   runtimeVersion: string;

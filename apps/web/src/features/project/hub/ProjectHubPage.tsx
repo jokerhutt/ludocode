@@ -1,17 +1,18 @@
-import { uuid } from "@tanstack/react-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { ProjectCard } from "@/features/project/hub/components/ProjectCard.tsx";
-import { CreateProjectDialog } from "@/features/project/hub/components/CreateProjectDialog.tsx";
+import { ProjectTemplates } from "@/features/project/hub/components/projectTemplates.ts";
 import { projectHeroContent } from "@/features/project/hub/content.ts";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import { useModal, usePagination } from "@ludocode/hooks";
+import { usePagination } from "@ludocode/hooks";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { Route } from "@/routes/app/_hub/projects.tsx";
-import { PlusIcon } from "lucide-react";
 import type { ProjectCardResponse } from "@ludocode/types";
+import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 
 export function ProjectHubPage() {
   const { page } = Route.useSearch();
@@ -41,12 +42,35 @@ export function ProjectHubPage() {
   const currentProjects = allProjects.length;
 
   const isAtLimit = currentProjects >= maxProjects;
+  const createProjectMutation = useCreateProject();
 
-  const {
-    modalOpen: createProjectOpen,
-    openModal: openCreateProject,
-    closeModal: closeCreateProject,
-  } = useModal();
+  const templateButtons = [
+    { key: "lua", label: "Lua", iconName: Languages.lua.iconName },
+    { key: "python", label: "Python", iconName: Languages.python.iconName },
+    { key: "web", label: "Static website", iconName: "HTML" as const },
+    {
+      key: "javascript",
+      label: "Javascript",
+      iconName: Languages.javascript.iconName,
+    },
+  ] as const;
+
+  const createFromTemplate = (templateKey: keyof typeof ProjectTemplates) => {
+    if (isAtLimit) {
+      if (paymentsFeature) {
+        router.navigate(
+          ludoNavigation.subscription.toSubscriptionComparisonPage(),
+        );
+      }
+      return;
+    }
+
+    const template = ProjectTemplates[templateKey];
+    createProjectMutation.mutate({
+      ...template,
+      requestHash: crypto.randomUUID(),
+    });
+  };
 
   return (
     <>
@@ -54,7 +78,44 @@ export function ProjectHubPage() {
         <div className="col-span-1 hidden lg:block" />
         <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
-            <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-2 sm:gap-3">
+            <div className="flex w-full flex-col gap-3">
+              <div className="flex w-full items-center gap-2 overflow-x-auto pb-1">
+                {templateButtons.map((template) => (
+                  <LudoButton
+                    key={template.key}
+                    data-testid={`create-project-template-${template.key}`}
+                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
+                    variant="default"
+                    shadow={false}
+                    disabled={createProjectMutation.isPending}
+                    onClick={() => createFromTemplate(template.key)}
+                    title={isAtLimit ? "project limit reached" : undefined}
+                  >
+                    <CustomIcon
+                      color="white"
+                      iconName={template.iconName}
+                      className="h-4 w-4"
+                    />
+                    {template.label}
+                  </LudoButton>
+                ))}
+                {isAtLimit && paymentsFeature && (
+                  <LudoButton
+                    data-testid="upgrade-project-limit-button"
+                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold whitespace-nowrap"
+                    variant="alt"
+                    shadow={false}
+                    onClick={() =>
+                      router.navigate(
+                        ludoNavigation.subscription.toSubscriptionComparisonPage(),
+                      )
+                    }
+                  >
+                    Upgrade
+                  </LudoButton>
+                )}
+              </div>
+
               <span
                 data-testid="project-limits"
                 className={`inline-flex h-10 items-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
@@ -65,36 +126,6 @@ export function ProjectHubPage() {
               >
                 {currentProjects}/{maxProjects}
               </span>
-              <CreateProjectDialog
-                hash={uuid()}
-                open={createProjectOpen}
-                close={() => closeCreateProject()}
-              >
-                <LudoButton
-                  data-testid="create-project-dialog-button"
-                  className="h-10 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
-                  variant="alt"
-                  shadow={false}
-                  onClick={() => {
-                    if (isAtLimit) {
-                      if (!paymentsFeature) return;
-                      router.navigate(
-                        ludoNavigation.subscription.toSubscriptionComparisonPage(),
-                      );
-                    } else {
-                      openCreateProject();
-                    }
-                  }}
-                  title={isAtLimit ? "project limit reached" : undefined}
-                >
-                  {!isAtLimit && <PlusIcon className="h-4 w-4" />}
-                  {isAtLimit && paymentsFeature
-                    ? "Upgrade"
-                    : isAtLimit
-                      ? "At Limit"
-                      : "New project"}
-                </LudoButton>
-              </CreateProjectDialog>
             </div>
           </Hero>
 

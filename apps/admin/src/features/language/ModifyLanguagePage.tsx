@@ -35,6 +35,7 @@ export function ModifyLanguagePage({}: LanguagePageProps) {
     currentLanguage: language,
     languageName: formHook.languageName,
     slug: formHook.slug,
+    runtime: formHook.runtime,
     editorId: formHook.editorId,
     pistonId: formHook.pistonId,
     base: formHook.base,

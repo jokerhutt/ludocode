@@ -1,10 +1,7 @@
 import { useModifyProject } from "@/queries/mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
-import {
-  CustomIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { router } from "@/main.tsx";
 import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
@@ -19,6 +16,7 @@ import { useLikeProject } from "@/queries/mutations/useLikeProject";
 import { useUnlikeProject } from "@/queries/mutations/useUnlikeProject";
 import { Copy, Heart } from "lucide-react";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 
 type ProjectCardProps = {
   project: ProjectCardResponse;
@@ -39,13 +37,12 @@ export function ProjectCard({
     updatedAt,
     createdAt,
     visibility,
-    languageIconName,
+    technologies,
     authorId,
   } = project;
 
   const { data: author } = useQuery(qo.user(authorId));
 
-  const iconName = languageIconName as IconName;
   const authorDisplayName = author?.displayName?.trim() || "Anonymous";
 
   const updatedAtTime = updatedAt ? parseToDate(updatedAt) : "-";
@@ -91,7 +88,16 @@ export function ProjectCard({
               />
             </>
           )}
-          <CustomIcon iconName={iconName} color="white" className="h-5 pr-2" />
+          <div className="flex gap-2 justify-end">
+            {technologies.map((tech) => (
+              <CustomIcon
+                key={tech}
+                iconName={Languages[tech].iconName}
+                color="white"
+                className="h-5"
+              />
+            ))}
+          </div>
         </div>
         <div className="flex justify-end gap-2 items-end text-ludo-white ">
           {!!currentUserId && mode !== "OWN" && (

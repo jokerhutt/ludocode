@@ -3,7 +3,10 @@ import type {
   LudoExercise,
   ProjectSnapshot,
 } from "@ludocode/types";
-import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot";
+import {
+  Languages,
+  type ProjectFileSnapshot,
+} from "@ludocode/types/Project/ProjectFileSnapshot";
 
 export type ChatbotMode = "PROJECT" | "INFO" | "CLOZE" | "SELECT";
 
@@ -234,35 +237,36 @@ export function buildProjectUserMessage(
   activeFileIdOrTempId: string | null,
 ): string {
   const activeFile =
-    liveFiles.find((f) => (f.id ?? f.tempId) === activeFileIdOrTempId) ??
-    liveFiles[0];
+    liveFiles.find((f) => f.path === activeFileIdOrTempId) ?? liveFiles[0];
 
-  const otherFiles = liveFiles.filter(
-    (f) => (f.id ?? f.tempId) !== activeFileIdOrTempId,
-  );
+  const otherFiles = liveFiles.filter((f) => f.path !== activeFileIdOrTempId);
 
   const otherFileText = otherFiles
     .map(
       (f) => `
 File: ${f.path}
-\`\`\`${f.language.slug}
+\`\`\`${f.language}
 ${f.content}
 \`\`\`
 `,
     )
     .join("\n");
 
+  const projectLanguageName = activeFile?.language
+    ? Languages[activeFile.language].name
+    : "unknown";
+
   return `
 Project name:
 ${project.projectName}
 
 Language:
-${project.projectLanguage.name}
+${projectLanguageName}
 
 Current file the learner is editing:
 
 File: ${activeFile?.path}
-\`\`\`${activeFile?.language.slug}
+\`\`\`${activeFile?.language ?? "plaintext"}
 ${activeFile?.content}
 \`\`\`
 
@@ -301,6 +305,13 @@ export function buildProjectSystemPrompt(
     })
     .join("\n");
 
+  const entryFile =
+    project.files.find((file) => file.path === project.entryFilePath) ??
+    project.files[0];
+  const projectLanguageName = entryFile
+    ? Languages[entryFile.language].name
+    : "unknown";
+
   return `
 ${PROJECT_SYSTEM_PROMPT}
 
@@ -316,7 +327,7 @@ Project name:
 ${project.projectName}
 
 Language:
-${project.projectLanguage.name}
+${projectLanguageName}
 
 Guide the learner toward completing the exercise while preserving the intent of the instructions.
 `;

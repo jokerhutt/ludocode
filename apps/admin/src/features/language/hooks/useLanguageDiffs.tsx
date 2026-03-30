@@ -4,6 +4,7 @@ import { useMemo } from "react";
 export type LanguageFormField =
   | "name"
   | "slug"
+  | "runtime"
   | "editorId"
   | "pistonId"
   | "base"
@@ -21,6 +22,7 @@ export type LanguageFieldDiff = {
 export function useLanguageDiffs({
   languageName,
   slug,
+  runtime,
   editorId,
   pistonId,
   base,
@@ -31,6 +33,7 @@ export function useLanguageDiffs({
 }: {
   languageName: string;
   slug: string;
+  runtime: string;
   editorId: string;
   pistonId: string;
   base: string;
@@ -45,6 +48,7 @@ export function useLanguageDiffs({
     const current = {
       name: languageName,
       slug,
+      runtime,
       editorId,
       pistonId,
       base,
@@ -56,6 +60,7 @@ export function useLanguageDiffs({
     const original = {
       name: currentLanguage.name,
       slug: currentLanguage.slug,
+      runtime: currentLanguage.runtime,
       editorId: currentLanguage.editorId,
       pistonId: currentLanguage.pistonId,
       base: currentLanguage.base,
@@ -67,6 +72,7 @@ export function useLanguageDiffs({
     const fields: LanguageFormField[] = [
       "name",
       "slug",
+      "runtime",
       "editorId",
       "pistonId",
       "base",
@@ -89,6 +95,7 @@ export function useLanguageDiffs({
   }, [
     languageName,
     slug,
+    runtime,
     editorId,
     pistonId,
     base,

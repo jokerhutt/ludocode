@@ -1,4 +1,8 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import {
+  LudoSelect,
+  LudoSelectItem,
+} from "@ludocode/design-system/primitives/select.tsx";
 import type { UseLanguageFormResponse } from "../hooks/useLanguageForm.tsx";
 import { LanguageEditorIdSelect } from "@/features/language/components/LanguageEditorIdSelect.tsx";
 import { LanguageRuntimeSelect } from "@/features/language/components/LanguageRuntimeSelect.tsx";
@@ -28,6 +32,22 @@ export function LanguageFormInput({ formHook }: LanguageFormInputProps) {
         setValue={formHook.setSlug}
         title="Slug"
       />
+
+      <LudoSelect
+        value={formHook.runtime}
+        setValue={(value) => {
+          const nextRuntime = value as "PISTON" | "BROWSER";
+          formHook.setRuntime(nextRuntime);
+          if (nextRuntime === "BROWSER") {
+            formHook.setPistonId("");
+          }
+        }}
+        title="Runtime Type"
+        error={formHook.errors.runtime}
+      >
+        <LudoSelectItem value="PISTON">PISTON</LudoSelectItem>
+        <LudoSelectItem value="BROWSER">BROWSER</LudoSelectItem>
+      </LudoSelect>
 
       <LanguageEditorIdSelect
         editorLanguages={formHook.editorLanguages}

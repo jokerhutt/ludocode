@@ -1,5 +1,11 @@
+import { ProjectFileSnapshot } from "./ProjectFileSnapshot";
+import { ProjectType } from "./ProjectSnapshot"
+
 export type CreateProjectRequest = {
-    projectName: string,
-    projectLanguageId: number,
+    projectName: string;
+    projectType: ProjectType;
     requestHash: string
+    files: ProjectFileSnapshot[];
+    entryFilePath: string;
+    
 }

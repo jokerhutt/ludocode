@@ -1,21 +1,31 @@
 import type { ReactNode } from "react";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
+import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import {
-  CustomIcon,
-  type IconName,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
+  Languages,
+  type LanguageKey,
+} from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 
 type NewFileMenuProps = {
   trigger: ReactNode;
   readOnly?: boolean;
 };
 
-export function NewFileMenu({ trigger, readOnly = true}: NewFileMenuProps) {
-  const { project, addFile } = useProjectContext();
+export function NewFileMenu({ trigger, readOnly = true }: NewFileMenuProps) {
+  const { project, files, entryFileId, addFile } = useProjectContext();
 
-  const iconName = project.projectLanguage.iconName as IconName;
-  const choice = project.projectLanguage.name;
+  const entryFile = files.find((file) => file.path === entryFileId) ?? files[0];
+  const entryLanguage = entryFile?.language;
+
+  const choices: LanguageKey[] =
+    project.projectType === "WEB"
+      ? (Object.keys(Languages) as LanguageKey[]).filter(
+          (languageKey) => Languages[languageKey].webAllowed === true,
+        )
+      : entryLanguage
+        ? [entryLanguage]
+        : [];
 
   return (
     <LudoMenu>
@@ -26,22 +36,36 @@ export function NewFileMenu({ trigger, readOnly = true}: NewFileMenuProps) {
           New file
         </p>
 
-        <LudoMenu.Item
-          dataTestId={`new-file-button`}
-          disabled={readOnly}
-          onSelect={() => {
-            if (readOnly) return;
-            addFile();
-          }}
-          className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
-        >
-          <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
-            <LudoMenu.Icon>
-              <CustomIcon color="white" className="h-4" iconName={iconName} />
-            </LudoMenu.Icon>
-            <LudoMenu.Label>{choice}</LudoMenu.Label>
-          </LudoMenu.Row>
-        </LudoMenu.Item>
+        {choices.map((languageKey, index) => {
+          const language = Languages[languageKey];
+          return (
+            <LudoMenu.Item
+              key={languageKey}
+              dataTestId={
+                index === 0
+                  ? "new-file-button"
+                  : `new-file-button-${languageKey}`
+              }
+              disabled={readOnly}
+              onSelect={() => {
+                if (readOnly) return;
+                addFile(languageKey);
+              }}
+              className={readOnly ? "" : "hover:bg-ludo-accent-muted/50"}
+            >
+              <LudoMenu.Row className={readOnly ? "" : "cursor-pointer"}>
+                <LudoMenu.Icon>
+                  <CustomIcon
+                    color="white"
+                    className="h-4"
+                    iconName={language.iconName}
+                  />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>{language.name}</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+          );
+        })}
       </LudoMenu.Content>
     </LudoMenu>
   );

@@ -2,8 +2,10 @@ import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor
 import { RunCodeButton } from "@/features/project/workbench/editor/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
+import { useAutoSaveContext } from "@/features/project/workbench/context/AutoSaveContext.tsx";
 import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
 import { WorkbenchOutputPane } from "./output/WorkbenchOutputPane.tsx";
+import { WorkbenchLivePreviewPane } from "./output/WorkbenchLivePreviewPane.tsx";
 import { LudoTab } from "@ludocode/design-system/primitives/tab.tsx";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
 import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
@@ -27,6 +29,8 @@ export function WorkbenchPage({
   authenticated = false,
 }: WorkbenchPageProps) {
   const { project, files, current, entryFileId } = useProjectContext();
+  const { saveSuccessCount } = useAutoSaveContext();
+  const isWebProject = project.projectType === "WEB";
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
   const { activeTab: mobilePane, selectTab: setMobilePane } =
@@ -50,6 +54,9 @@ export function WorkbenchPage({
         entryFileId={entryFileId}
       >
         <WorkbenchPageContent
+          projectId={project.projectId}
+          isWebProject={isWebProject}
+          previewRefreshVersion={saveSuccessCount}
           readOnly={readOnly}
           authenticated={authenticated}
           files={files}
@@ -64,6 +71,9 @@ export function WorkbenchPage({
 }
 
 function WorkbenchPageContent({
+  projectId,
+  isWebProject,
+  previewRefreshVersion,
   readOnly,
   authenticated,
   files,
@@ -72,6 +82,9 @@ function WorkbenchPageContent({
   setMobilePane,
   runnerEnabled,
 }: {
+  projectId: string;
+  isWebProject: boolean;
+  previewRefreshVersion: number;
   readOnly: boolean;
   authenticated: boolean;
   files: { path: string }[];
@@ -103,20 +116,35 @@ function WorkbenchPageContent({
           </LudoTab.Group>
         </Workbench.Pane.Winbar>
         <ProjectEditor readOnly={readOnly} />
-        <RunCodeButton disabled={!runnerEnabled} className="hidden lg:flex" />
+        {!isWebProject && (
+          <RunCodeButton disabled={!runnerEnabled} className="hidden lg:flex" />
+        )}
       </Workbench.Pane>
 
-      <WorkbenchOutputPane
-        className={cn(
-          mobilePane === "output" ? "flex-1" : "hidden",
-          "lg:flex lg:flex-1",
-        )}
-      />
+      {isWebProject ? (
+        <WorkbenchLivePreviewPane
+          projectId={projectId}
+          refreshVersion={previewRefreshVersion}
+          className={cn(
+            mobilePane === "output" ? "flex-1" : "hidden",
+            "lg:flex lg:flex-1",
+          )}
+        />
+      ) : (
+        <WorkbenchOutputPane
+          className={cn(
+            mobilePane === "output" ? "flex-1" : "hidden",
+            "lg:flex lg:flex-1",
+          )}
+        />
+      )}
 
       <WorkbenchMobileTabs
         mobilePane={mobilePane}
         setMobilePane={setMobilePane}
         runnerEnabled={runnerEnabled}
+        outputLabel={isWebProject ? "Live Preview" : "Output"}
+        showRunButton={!isWebProject}
       />
     </>
   );

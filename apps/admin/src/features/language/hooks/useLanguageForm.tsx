@@ -1,6 +1,7 @@
 import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 import {
   languageFormSchema,
+  type LanguageRuntime,
   type LanguageFormInput,
   type LanguageMetadata,
   type PistonRuntime,
@@ -32,6 +33,7 @@ export function useLanguageForm({
     const data = {
       name: languageName,
       slug,
+      runtime,
       editorId,
       pistonId,
       runtimeVersion,
@@ -79,6 +81,7 @@ export function useLanguageForm({
   // -------------------------
 
   const [languageName, setLanguageName] = useState("");
+  const [runtime, setRuntime] = useState<LanguageRuntime>("PISTON");
   const [editorId, setEditorId] = useState("");
   const [pistonId, setPistonId] = useState("");
   const [slug, setSlug] = useState("");
@@ -94,6 +97,7 @@ export function useLanguageForm({
     if (didInitRef.current) return;
 
     setLanguageName(currentLanguage.name);
+    setRuntime(currentLanguage.runtime);
     setEditorId(currentLanguage.editorId);
     setPistonId(currentLanguage.pistonId);
     setSlug(currentLanguage.slug);
@@ -116,16 +120,6 @@ export function useLanguageForm({
     );
   }, [existingUserLanguages, currentLanguage]);
 
-  const usedEditorIds = useMemo(
-    () => new Set(filteredLanguages.map((l) => l.editorId)),
-    [filteredLanguages],
-  );
-
-  const usedPistonIds = useMemo(
-    () => new Set(filteredLanguages.map((l) => l.pistonId)),
-    [filteredLanguages],
-  );
-
   const usedSlugs = useMemo(
     () => new Set(filteredLanguages.map((l) => l.slug)),
     [filteredLanguages],
@@ -137,19 +131,16 @@ export function useLanguageForm({
 
   const editorLanguages = useMemo<MonacoLanguage[]>(() => {
     if (!monaco) return [];
-
-    return monaco.languages
-      .getLanguages()
-      .filter((l) => !usedEditorIds.has(l.id));
-  }, [monaco, usedEditorIds]);
+    return monaco.languages.getLanguages();
+  }, [monaco]);
 
   // -------------------------
   // runtimes
   // -------------------------
 
   const availableRuntimes = useMemo(() => {
-    return runtimes.filter((rt) => !usedPistonIds.has(rt.language));
-  }, [runtimes, usedPistonIds]);
+    return runtimes;
+  }, [runtimes]);
 
   // -------------------------
   // derived extension
@@ -167,10 +158,11 @@ export function useLanguageForm({
   // -------------------------
 
   const runtimeVersion = useMemo(() => {
+    if (runtime !== "PISTON") return "";
     if (!pistonId) return "";
     const rt = runtimes.find((r) => r.language === pistonId);
     return rt?.version ?? "";
-  }, [pistonId, runtimes]);
+  }, [runtime, pistonId, runtimes]);
 
   // -------------------------
   // helpers
@@ -178,6 +170,7 @@ export function useLanguageForm({
 
   const reset = () => {
     setLanguageName("");
+    setRuntime("PISTON");
     setEditorId("");
     setPistonId("");
     setSlug("");
@@ -193,6 +186,7 @@ export function useLanguageForm({
   return {
     // state
     languageName,
+    runtime,
     editorId,
     pistonId,
     slug,
@@ -202,6 +196,7 @@ export function useLanguageForm({
 
     // setters
     setLanguageName,
+    setRuntime,
     setEditorId,
     setPistonId,
     setSlug,

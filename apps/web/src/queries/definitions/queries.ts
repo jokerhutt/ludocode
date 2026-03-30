@@ -28,7 +28,6 @@ import { api } from "@/constants/api/api.ts";
 import {
   type LudoCareer,
   type CourseStats,
-  type LanguageMetadata,
   type PlanOverview,
   type UserSubscription,
   type ProjectSnapshot,
@@ -81,13 +80,6 @@ export const qo = {
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
       staleTime: 60_000,
-    }),
-
-  languages: () =>
-    queryOptions<LanguageMetadata[]>({
-      queryKey: qk.languages(),
-      queryFn: () => ludoGet<LanguageMetadata[]>(api.languages.base, true),
-      staleTime: 60_00,
     }),
 
   credits: () =>

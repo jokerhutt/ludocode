@@ -21,6 +21,7 @@ const FALLBACK_LANGUAGE: LanguageMetadata = {
   editorId: FALLBACK_LANGUAGE_SLUG,
   pistonId: FALLBACK_LANGUAGE_SLUG,
   runtimeVersion: "",
+  runtime: "PISTON",
   extension: FALLBACK_EXTENSION,
   base: FALLBACK_LANGUAGE_SLUG,
   iconName: "",
@@ -117,6 +118,7 @@ function normalizeProjectSnapshotForLessonType(
     return {
       ...projectSnapshot,
       projectLanguage: languageMetadata,
+      projectType: projectSnapshot.projectType ?? "CODE",
       files: normalizedFiles,
     };
   }
@@ -127,9 +129,9 @@ function normalizeProjectSnapshotForLessonType(
   return {
     ...projectSnapshot,
     projectLanguage: languageMetadata,
+    projectType: "CODE",
     files: guidedFiles,
-    entryFileId:
-      firstFile?.id ?? firstFile?.tempId ?? projectSnapshot.entryFileId,
+    entryFilePath: firstFile?.path ?? projectSnapshot.entryFilePath,
   };
 }
 
