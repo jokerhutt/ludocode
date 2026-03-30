@@ -1,5 +1,0 @@
-
-export type LudoCourseSubject = {
-    slug: string;
-    name: string;
-}

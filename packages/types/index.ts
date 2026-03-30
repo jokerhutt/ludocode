@@ -9,7 +9,6 @@ export * from "./Catalog/FlatCourseTree";
 export * from "./Catalog/LudoCourse";
 export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
-export * from "./Catalog/LudoCourseSubject";
 
 
 // banner
@@ -22,8 +21,6 @@ export * from "./Completion/SyncState";
 
 // curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
-export * from "./Curriculum/SubjectDraftSchema";
-export * from "./Curriculum/ChangeSubjectRequest";
 export * from "./Curriculum/CreateCourseSchema";
 
 // Exercise

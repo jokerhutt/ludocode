@@ -5,11 +5,9 @@ import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher.ts";
 import { adminApi } from "@/constants/api/adminApi.ts";
 import {
   type ChangeLanguageRequest,
-  type ChangeSubjectRequest,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
   type LudoBannerSnapshot,
-  type SubjectsDraftSnapshot,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
@@ -124,17 +122,6 @@ export const mutations = {
         ludoDelete<LudoCourse[]>(adminApi.snapshots.byCourse(courseId), true),
     });
   },
-  changeCourseSubject: (courseId: string) => {
-    return mutationOptions<LudoCourse[], Error, ChangeSubjectRequest>({
-      mutationKey: ["changeCourseSubject"],
-      mutationFn: (variables) =>
-        ludoPut<LudoCourse[], ChangeSubjectRequest>(
-          adminApi.snapshots.byCourseCurriculumSubject(courseId),
-          variables,
-          true,
-        ),
-    });
-  },
   changeCourseLanguage: (courseId: string) => {
     return mutationOptions<LudoCourse[], Error, ChangeLanguageRequest>({
       mutationKey: ["changeCourseLanguage"],
@@ -174,31 +161,6 @@ export const mutations = {
       mutationFn: (variables) =>
         ludoPut<LudoCourse[], ChangeCourseTitleRequest>(
           adminApi.snapshots.byCourseCurriculumTitle(courseId),
-          variables,
-          true,
-        ),
-    });
-  },
-  deleteSubject: (subjectid: number) => {
-    return mutationOptions<SubjectsDraftSnapshot[], Error, void>({
-      mutationKey: ["deleteSubject"],
-      mutationFn: () =>
-        ludoDelete<SubjectsDraftSnapshot[]>(
-          adminApi.subjects.byAdminId(subjectid),
-          true,
-        ),
-    });
-  },
-  createSubject: () => {
-    return mutationOptions<
-      SubjectsDraftSnapshot[],
-      Error,
-      SubjectsDraftSnapshot
-    >({
-      mutationKey: ["createSubject"],
-      mutationFn: (variables) =>
-        ludoPost<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(
-          adminApi.subjects.adminBase,
           variables,
           true,
         ),

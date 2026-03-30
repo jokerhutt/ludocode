@@ -134,8 +134,6 @@ export function createApiPaths({
         `${ADMIN_BASE}/snapshots/${courseId}/status`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
-      byCourseCurriculumSubject: (courseId: string) =>
-        `${ADMIN_BASE}/snapshots/${courseId}/subject`,
       byCourseCurriculumLanguage: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/language`,
       byCourseCurriculumIcon: (courseId: string) =>
@@ -143,13 +141,6 @@ export function createApiPaths({
       byCourseCurriculumTitle: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/title`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
-    },
-
-    subjects: {
-      base: `${BASE}/subjects`,
-      adminBase: `${ADMIN_BASE}/subjects`,
-      byId: (subjectId: number) => `${BASE}/subjects/${subjectId}`,
-      byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`,
     },
 
     feedback: {

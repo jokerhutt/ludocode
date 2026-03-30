@@ -17,7 +17,6 @@ import {
 } from "@ludocode/external/ui/select.tsx";
 import {
   getLanguageDisplayName,
-  getLanguageSlug,
   resolveCourseLanguage,
 } from "./language.ts";
 
