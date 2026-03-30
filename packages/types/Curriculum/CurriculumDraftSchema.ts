@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { type LanguageKey, Languages } from "../Project/ProjectFileSnapshot";
 
-const LANGUAGE_KEYS = ["javascript", "python", "html", "css", "lua"] as const;
+const LANGUAGE_KEYS = Object.keys(Languages) as [LanguageKey, ...LanguageKey[]];
 
 // ─── Blocks ────────────────────────────────────────────────────────────
 
