@@ -24,7 +24,7 @@ export function useAutoSaveProject({
   project,
   files,
   entryFileId,
-  debounceMs = 1000,
+  debounceMs = 1500,
   enabled = true,
 }: Args): SaveStatusType {
   const queryClient = useQueryClient();

@@ -77,39 +77,41 @@ export function ProjectCard({
       <div className="flex h-full flex-col items-end justify-between">
         <div className="flex h-full items-start gap-2 justify-end">
           <div className="flex gap-2 justify-end">
-            {mode === "OWN" && (
-              <ProjectVisibilityMenu
-                projectId={projectId}
-                visibility={visibility}
-              />
-            )}
             {technologies.map((tech) => (
               <CustomIcon
                 key={tech}
                 iconName={Languages[tech].iconName}
                 color="white"
-                className="h-5"
+                className="h-4.5"
               />
             ))}
           </div>
         </div>
-        <div className="flex justify-end gap-2 items-end text-ludo-white ">
+        <div className="flex justify-end gap-1 items-end text-ludo-white ">
           {!!currentUserId && mode !== "OWN" && (
-            <ProjectDuplicateButton
-              userId={currentUserId}
-              projectId={projectId}
-            />
+            <>
+              <ProjectDuplicateButton
+                userId={currentUserId}
+                projectId={projectId}
+              />
+              <ProjectLikeButton
+                projectId={projectId}
+                canLike={Boolean(currentUserId)}
+              />
+            </>
           )}
-          <ProjectLikeButton
-            className="pb-1"
-            projectId={projectId}
-            canLike={Boolean(currentUserId)}
-          />
+
           {mode === "OWN" && (
-            <ProjectActionsMenu
-              projectId={projectId}
-              projectTitle={projectTitle}
-            />
+            <>
+              <ProjectVisibilityMenu
+                projectId={projectId}
+                visibility={visibility}
+              />
+              <ProjectActionsMenu
+                projectId={projectId}
+                projectTitle={projectTitle}
+              />
+            </>
           )}
         </div>
       </div>
