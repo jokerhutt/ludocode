@@ -38,7 +38,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
   const { data: courses } = useSuspenseQuery(qo.allCourses());
   const course = courses.find((c) => c.id === courseId);
   const courseName = course?.title ?? "Untitled Course";
-  const courseLanguage = course?.language;
+  const courseLanguage = course?.codeLanguage;
 
   const { data: curriculumSnap } = useSuspenseQuery(
     qo.curriculumSnapshot(courseId),

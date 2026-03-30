@@ -1,5 +1,5 @@
-import { ProjectFileSnapshot } from "./ProjectFileSnapshot";
-import { ProjectType } from "./ProjectSnapshot"
+import { type ProjectFileSnapshot } from "./ProjectFileSnapshot";
+import { type ProjectType } from "./ProjectSnapshot"
 
 export type CreateProjectRequest = {
     projectName: string;

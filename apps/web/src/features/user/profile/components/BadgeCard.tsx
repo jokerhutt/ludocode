@@ -3,7 +3,7 @@ import {
   AnimatedBadge,
   Badge,
 } from "@ludocode/design-system/primitives/badge.tsx";
-import type { CourseStats, LudoCourse } from "@ludocode/types";
+import { type CourseStats, type LudoCourse } from "@ludocode/types";
 import { type IconName } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
@@ -62,7 +62,7 @@ export function BadgeListCard({
           >
             {course.completed ? (
               <div className="relative">
-                <Badge icon={course.language?.iconName as IconName} />
+                <Badge icon={course.courseIcon as IconName} />
               </div>
             ) : (
               <div className="h-10 w-10 bg-ludo-background rounded-lg flex items-center justify-center ring-1 ring-white/5">
