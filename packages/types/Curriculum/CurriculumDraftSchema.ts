@@ -1,23 +1,7 @@
 import { z } from "zod";
+import { type LanguageKey } from "../Project/ProjectFileSnapshot";
 
-const LanguageMetadataSchema = z.object({
-  languageId: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  editorId: z.string(),
-  pistonId: z.string(),
-  runtimeVersion: z.string(),
-  runtime: z.enum(["PISTON", "BROWSER"]),
-  extension: z.string(),
-  base: z.string(),
-  iconName: z.string(),
-  initialScript: z.string(),
-});
-
-const LanguageDraftValueSchema = z.union([
-  z.string().min(1),
-  LanguageMetadataSchema,
-]);
+const LANGUAGE_KEYS = ["javascript", "python", "html", "css", "lua"] as const;
 
 export const curriculumDraftSchema = z.object({
   modules: z.array(
@@ -68,7 +52,7 @@ export const InstructionsBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: z.string().min(1, "language required"),
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string().min(1, "Code content required"),
   output: z.string().nullish(),
 });
@@ -96,7 +80,7 @@ export const InteractionBlankSchema = z.object({
 });
 
 export const InteractionFileSchema = z.object({
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string().min(1),
 });
 
@@ -117,7 +101,7 @@ export const ClozeInteractionSchema = z.object({
 export const ExecutableFileSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "A name is required for the file"),
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string(),
 });
 
@@ -143,14 +127,14 @@ export const ExecutableInteractionSchema = z.object({
 export const ProjectFileSnapshotSchema = z.object({
   tempId: z.string().optional(),
   path: z.string().min(1),
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string(),
 });
 
 export const ProjectSnapshotSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
-  projectLanguage: LanguageDraftValueSchema,
+  projectLanguage: z.enum(LANGUAGE_KEYS),
   projectType: z.enum(["WEB", "CODE"]),
   deleteAt: z.string().optional().nullable(),
   updatedAt: z.number().optional(),

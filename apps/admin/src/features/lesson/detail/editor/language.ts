@@ -2,89 +2,61 @@ import type {
   CurriculumDraftBlock,
   CurriculumDraftInteraction,
   CurriculumDraftLessonForm,
-  LanguageMetadata,
+  LanguageKey,
 } from "@ludocode/types";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
 
-type LanguageLike =
-  | string
-  | Pick<LanguageMetadata, "slug" | "name">
-  | undefined;
+const FALLBACK_LANGUAGE: LanguageKey = "python";
 
-const FALLBACK_LANGUAGE_NAME = "Python";
-const FALLBACK_LANGUAGE_SLUG = "python";
-const FALLBACK_EXTENSION = "py";
-
-const FALLBACK_LANGUAGE: LanguageMetadata = {
-  languageId: -1,
-  name: FALLBACK_LANGUAGE_NAME,
-  slug: FALLBACK_LANGUAGE_SLUG,
-  editorId: FALLBACK_LANGUAGE_SLUG,
-  pistonId: FALLBACK_LANGUAGE_SLUG,
-  runtimeVersion: "",
-  runtime: "PISTON",
-  extension: FALLBACK_EXTENSION,
-  base: FALLBACK_LANGUAGE_SLUG,
-  iconName: "",
-  initialScript: "",
-  enabled: true,
-};
-
-export function getLanguageSlug(language?: LanguageLike): string {
-  if (!language) return FALLBACK_LANGUAGE_SLUG;
-  if (typeof language === "string") {
-    const normalized = language.trim();
-    return normalized.length > 0 ? normalized : FALLBACK_LANGUAGE_SLUG;
-  }
-
-  const normalized = language.slug?.trim();
-  return normalized && normalized.length > 0
-    ? normalized
-    : FALLBACK_LANGUAGE_SLUG;
+export function getLanguageSlug(language?: LanguageKey): LanguageKey {
+  return language ?? FALLBACK_LANGUAGE;
 }
 
-export function getLanguageDisplayName(language?: LanguageLike): string {
-  if (!language) return FALLBACK_LANGUAGE_NAME;
-  return typeof language === "string" ? language : language.name;
+export function getLanguageDisplayName(language?: LanguageKey): string {
+  if (!language) {
+    const metadata = Languages[FALLBACK_LANGUAGE];
+    return metadata?.name ?? FALLBACK_LANGUAGE;
+  }
+  const metadata = Languages[language];
+  return metadata?.name ?? language;
 }
 
 export function resolveCourseLanguage(
-  courseLanguage?: LanguageMetadata,
-): LanguageMetadata {
+  courseLanguage?: LanguageKey,
+): LanguageKey {
   return courseLanguage ?? FALLBACK_LANGUAGE;
 }
 
 export function getCourseLanguageSlug(
-  courseLanguage?: LanguageMetadata,
-): string {
-  return getLanguageSlug(resolveCourseLanguage(courseLanguage));
+  courseLanguage?: LanguageKey,
+): LanguageKey {
+  return getLanguageSlug(courseLanguage);
 }
 
 export function getCourseLanguageExtension(
-  courseLanguage?: LanguageMetadata,
+  courseLanguage?: LanguageKey,
 ): string {
-  const extension = resolveCourseLanguage(courseLanguage)
-    .extension?.trim()
-    .replace(/^\./, "");
-  return extension && extension.length > 0 ? extension : FALLBACK_EXTENSION;
+  const language = resolveCourseLanguage(courseLanguage);
+  const metadata = Languages[language];
+  const extension = metadata?.extension?.trim().replace(/^\./, "") ?? "";
+  return extension.length > 0 ? extension : "py";
 }
 
-export function getDefaultMainFilename(
-  courseLanguage?: LanguageMetadata,
-): string {
+export function getDefaultMainFilename(courseLanguage?: LanguageKey): string {
   return `main.${getCourseLanguageExtension(courseLanguage)}`;
 }
 
 export function applyCourseLanguageToLessonDraft(
   draft: CurriculumDraftLessonForm,
-  courseLanguage?: LanguageMetadata,
+  courseLanguage?: LanguageKey,
 ): CurriculumDraftLessonForm {
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
+  const languageSlug = resolveCourseLanguage(courseLanguage);
 
   const normalizedSnapshot = draft.projectSnapshot
     ? normalizeProjectSnapshotForLessonType(
         draft.projectSnapshot,
         draft.lessonType,
-        languageMetadata,
+        languageSlug,
       )
     : draft.projectSnapshot;
 
@@ -94,11 +66,11 @@ export function applyCourseLanguageToLessonDraft(
     exercises: draft.exercises.map((exercise) => ({
       ...exercise,
       blocks: exercise.blocks.map((block) =>
-        applyLanguageToBlock(block, languageMetadata),
+        applyLanguageToBlock(block, languageSlug),
       ),
       interaction: applyLanguageToInteraction(
         exercise.interaction,
-        languageMetadata,
+        languageSlug,
       ),
     })),
   };
@@ -107,17 +79,17 @@ export function applyCourseLanguageToLessonDraft(
 function normalizeProjectSnapshotForLessonType(
   projectSnapshot: NonNullable<CurriculumDraftLessonForm["projectSnapshot"]>,
   lessonType: CurriculumDraftLessonForm["lessonType"],
-  languageMetadata: LanguageMetadata,
+  languageSlug: LanguageKey,
 ): NonNullable<CurriculumDraftLessonForm["projectSnapshot"]> {
   const normalizedFiles = projectSnapshot.files.map((file) => ({
     ...file,
-    language: languageMetadata,
+    language: languageSlug,
   }));
 
   if (lessonType !== "GUIDED") {
     return {
       ...projectSnapshot,
-      projectLanguage: languageMetadata,
+      projectLanguage: languageSlug,
       projectType: projectSnapshot.projectType ?? "CODE",
       files: normalizedFiles,
     };
@@ -128,7 +100,7 @@ function normalizeProjectSnapshotForLessonType(
 
   return {
     ...projectSnapshot,
-    projectLanguage: languageMetadata,
+    projectLanguage: languageSlug,
     projectType: "CODE",
     files: guidedFiles,
     entryFilePath: firstFile?.path ?? projectSnapshot.entryFilePath,
@@ -137,15 +109,15 @@ function normalizeProjectSnapshotForLessonType(
 
 function applyLanguageToBlock(
   block: CurriculumDraftBlock,
-  languageMetadata: LanguageMetadata,
+  languageSlug: LanguageKey,
 ): CurriculumDraftBlock {
   if (block.type !== "code") return block;
-  return { ...block, language: getLanguageSlug(languageMetadata) };
+  return { ...block, language: languageSlug };
 }
 
 function applyLanguageToInteraction(
   interaction: CurriculumDraftInteraction | null | undefined,
-  languageMetadata: LanguageMetadata,
+  languageSlug: LanguageKey,
 ): CurriculumDraftInteraction | null | undefined {
   if (!interaction) return interaction;
 
@@ -154,7 +126,7 @@ function applyLanguageToInteraction(
       ...interaction,
       file: {
         ...interaction.file,
-        language: languageMetadata,
+        language: languageSlug,
       },
     };
   }

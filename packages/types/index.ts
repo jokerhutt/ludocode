@@ -35,10 +35,7 @@ export * from "./Exercise/LudoExercise";
 export * from "./FeatureFlags/FeatureFlags";
 
 // Languages
-export * from "./Languages/ModifyLanguageRequest";
-export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
-export * from "./Languages/ToggleLanguageVisibilityRequest"
 
 // Discussion
 export * from "./Discussion/Discussion"
@@ -65,7 +62,6 @@ export * from "./Project/RenameProjectRequest";
 export * from "./Project/SaveProjectPayload";
 export * from "./Project/Runner/OutputPacket";
 export * from "./Project/Runner/RunnerResult";
-export * from "./Project/LanguageMetadata";
 export * from "./Project/ProjectCardResponse";
 export * from "./Project/ProjectLikeResponse";
 export * from "./Project/ChangeProjectVisibilityRequest";

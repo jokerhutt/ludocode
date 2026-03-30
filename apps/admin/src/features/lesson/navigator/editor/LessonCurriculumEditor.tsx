@@ -1,7 +1,4 @@
-import type {
-  CurriculumDraftLessonForm,
-  LanguageMetadata,
-} from "@ludocode/types";
+import type { CurriculumDraftLessonForm, LanguageKey } from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { EditorActions } from "@/features/curriculum/navigator/editor/EditorActions.tsx";
 import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
@@ -15,6 +12,7 @@ import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import {
   getDefaultMainFilename,
   resolveCourseLanguage,
+  getLanguageSlug,
 } from "../../detail/editor/language.ts";
 import {
   CurriculumCard,
@@ -35,7 +33,7 @@ export const LessonCurriculumEditor = withForm({
     isSubmitting: false,
     selectedExerciseId: null as string | null,
     onSelectExercise: (() => {}) as (id: string | null) => void,
-    courseLanguage: undefined as LanguageMetadata | undefined,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({
     form,
@@ -110,7 +108,7 @@ function LessonProjectSnapshotEditor({
   courseLanguage,
 }: {
   form: any;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   return (
     <form.Subscribe
@@ -269,19 +267,19 @@ function LessonProjectSnapshotEditor({
   );
 }
 
-function createDefaultProjectSnapshot(courseLanguage?: LanguageMetadata) {
+function createDefaultProjectSnapshot(courseLanguage?: LanguageKey) {
   const path = getDefaultMainFilename(courseLanguage);
 
   return {
     projectId: crypto.randomUUID(),
     projectName: "Guided Project",
-    projectLanguage: resolveCourseLanguage(courseLanguage),
+    projectLanguage: getLanguageSlug(resolveCourseLanguage(courseLanguage)),
     projectType: "CODE" as const,
     files: [
       {
         tempId: crypto.randomUUID(),
         path,
-        language: resolveCourseLanguage(courseLanguage),
+        language: getLanguageSlug(resolveCourseLanguage(courseLanguage)),
         content: "",
       },
     ],

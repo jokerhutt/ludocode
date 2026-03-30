@@ -4,7 +4,8 @@ import {
   IconRegistry,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import type { LanguageMetadata } from "@ludocode/types";
+import type { LanguageKey } from "@ludocode/types";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
 import { ArrowLeftRight } from "lucide-react";
 import { ChangeLanguageDialog } from "./ChangeLanguageDialog.tsx";
 import { ChangeIconDialog } from "./ChangeIconDialog.tsx";
@@ -13,7 +14,7 @@ import { useState } from "react";
 type CurriculumHeroProps = {
   courseId: string;
   courseIcon?: string;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 };
 
 const languageIcons = Object.entries(IconRegistry)
@@ -82,10 +83,12 @@ export function CurriculumHero({
               Language
             </span>
             <span className="text-ludo-white-bright font-semibold">
-              {courseLanguage?.name ?? "No language"}
+              {courseLanguage && Languages[courseLanguage]
+                ? Languages[courseLanguage].name
+                : "No language"}
             </span>
             <span className="text-xs text-ludo-accent-muted">
-              {courseLanguage?.slug ? `/${courseLanguage.slug}` : "-"}
+              {courseLanguage ? `/${courseLanguage}` : "-"}
             </span>
           </div>
 
@@ -94,7 +97,7 @@ export function CurriculumHero({
               open={openLanguageModal}
               close={() => setOpenLanguageModal(false)}
               courseId={courseId}
-              currentLanguageId={courseLanguage.languageId}
+              currentLanguage={courseLanguage}
             >
               <LudoButton
                 onClick={() => setOpenLanguageModal(true)}

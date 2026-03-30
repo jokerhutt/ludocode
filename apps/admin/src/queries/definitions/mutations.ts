@@ -8,12 +8,8 @@ import {
   type ChangeSubjectRequest,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
-  type LanguageDisabledMessageRequest,
-  type LanguageMetadata,
   type LudoBannerSnapshot,
-  type ModifyLanguageRequest,
   type SubjectsDraftSnapshot,
-  type ToggleLanguageVisibilityRequest,
 } from "@ludocode/types";
 import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
 import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
@@ -121,88 +117,11 @@ export const mutations = {
         ),
     });
   },
-  updateLanguage: (languageId: number) => {
-    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
-      mutationKey: ["updateLanguage"],
-      mutationFn: (variables) =>
-        ludoPut<LanguageMetadata[], ModifyLanguageRequest>(
-          adminApi.languages.byAdminId(languageId),
-          variables,
-          true,
-        ),
-    });
-  },
-  deleteLanguage: (languageId: number) => {
-    return mutationOptions<LanguageMetadata[], Error, void>({
-      mutationKey: ["deleteLanguage"],
-      mutationFn: () =>
-        ludoDelete<LanguageMetadata[]>(
-          adminApi.languages.byAdminId(languageId),
-          true,
-        ),
-    });
-  },
-  toggleLanguageVisibility: (id: number) => {
-    return mutationOptions<
-      LanguageMetadata[],
-      Error,
-      ToggleLanguageVisibilityRequest
-    >({
-      mutationKey: ["toggleLanguageVisibility"],
-      mutationFn: (variables) =>
-        ludoPut<LanguageMetadata[], ToggleLanguageVisibilityRequest>(
-          adminApi.languages.byAdminIdVisiblity(id),
-          variables,
-          true,
-        ),
-    });
-  },
-  changeLanguageDisabledMessage: (id: number) => {
-    return mutationOptions<
-      LanguageMetadata[],
-      Error,
-      LanguageDisabledMessageRequest
-    >({
-      mutationKey: ["changeLanguageDisabledMessage"],
-      mutationFn: (variables) =>
-        ludoPut<LanguageMetadata[], LanguageDisabledMessageRequest>(
-          adminApi.languages.byAdminIdDisabledMessage(id),
-          variables,
-          true,
-        ),
-    });
-  },
   deleteCourse: (courseId: string) => {
     return mutationOptions<LudoCourse[], Error, void>({
       mutationKey: ["deleteCourse"],
       mutationFn: () =>
         ludoDelete<LudoCourse[]>(adminApi.snapshots.byCourse(courseId), true),
-    });
-  },
-  createLanguage: () => {
-    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
-      mutationKey: ["createLanguage"],
-      mutationFn: (variables) =>
-        ludoPost<LanguageMetadata[], ModifyLanguageRequest>(
-          adminApi.languages.adminBase,
-          variables,
-          true,
-        ),
-    });
-  },
-  updateSubject: (subjectId: number) => {
-    return mutationOptions<
-      SubjectsDraftSnapshot[],
-      Error,
-      SubjectsDraftSnapshot
-    >({
-      mutationKey: ["updateSubject"],
-      mutationFn: (variables) =>
-        ludoPut<SubjectsDraftSnapshot[], SubjectsDraftSnapshot>(
-          adminApi.subjects.byAdminId(subjectId),
-          variables,
-          true,
-        ),
     });
   },
   changeCourseSubject: (courseId: string) => {

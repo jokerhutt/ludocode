@@ -1,3 +1,3 @@
 export type ChangeLanguageRequest = {
-  languageId: number;
+  languageName: string;
 };

@@ -2,7 +2,7 @@ import { useEffect, useRef, useMemo, useCallback } from "react";
 import type {
   CurriculumDraftInteraction,
   CurriculumDraftLessonForm,
-  LanguageMetadata,
+  LanguageKey,
 } from "@ludocode/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
@@ -25,7 +25,7 @@ type InteractionEditorProps = {
   form: any;
   exerciseIndex: number;
   lessonType: CurriculumDraftLessonForm["lessonType"];
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 };
 
 const DEFAULT_SELECT: CurriculumDraftInteraction = {
@@ -35,7 +35,7 @@ const DEFAULT_SELECT: CurriculumDraftInteraction = {
 };
 
 const createDefaultCloze = (
-  courseLanguage?: LanguageMetadata,
+  courseLanguage?: LanguageKey,
 ): CurriculumDraftInteraction => ({
   type: "CLOZE",
   file: { language: resolveCourseLanguage(courseLanguage), content: "" },
@@ -44,7 +44,7 @@ const createDefaultCloze = (
 });
 
 const createDefaultExecutable = (
-  _courseLanguage?: LanguageMetadata,
+  _courseLanguage?: LanguageKey,
 ): CurriculumDraftInteraction => {
   return {
     type: "EXECUTABLE",
@@ -101,12 +101,11 @@ function InteractionEditorInner({
   exerciseIndex: number;
   interactionField: any;
   lessonType: CurriculumDraftLessonForm["lessonType"];
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   const interaction: CurriculumDraftInteraction | null =
     interactionField.state.value ?? null;
-  const languageMetadata = resolveCourseLanguage(courseLanguage);
-  const languageSlug = getLanguageSlug(languageMetadata);
+  const languageSlug = resolveCourseLanguage(courseLanguage);
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
   useEffect(() => {
@@ -114,11 +113,11 @@ function InteractionEditorInner({
 
     if (
       interaction.type === "CLOZE" &&
-      getLanguageSlug(interaction.file.language) !== languageSlug
+      interaction.file.language !== languageSlug
     ) {
-      form.setFieldValue(`${basePath}.file.language`, languageMetadata);
+      form.setFieldValue(`${basePath}.file.language`, languageSlug);
     }
-  }, [interaction, basePath, form, languageSlug, languageMetadata]);
+  }, [interaction, basePath, form, languageSlug]);
 
   // For GUIDED lessons, auto-set EXECUTABLE if missing
   const isGuided = lessonType === "GUIDED";
@@ -406,7 +405,7 @@ function ClozeInteractionFields({
 }: {
   form: any;
   exerciseIndex: number;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
 
@@ -440,7 +439,7 @@ function ClozeInteractionFieldsInner({
   exerciseIndex: number;
   optionsField: any;
   blanksField: any;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   const basePath = `exercises[${exerciseIndex}].interaction`;
   const languageLabel = getLanguageDisplayName(courseLanguage);

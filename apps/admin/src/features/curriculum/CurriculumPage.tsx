@@ -41,7 +41,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const courseName =
     courses.find((c) => c.id === courseId)?.title ?? "Untitled Course";
 
-  const courseLanguage = courses.find((c) => c.id == courseId)?.language;
+  const courseLanguage = courses.find((c) => c.id == courseId)?.codeLanguage;
 
   const courseIcon = courses.find((c) => c.id === courseId)?.courseIcon;
 
