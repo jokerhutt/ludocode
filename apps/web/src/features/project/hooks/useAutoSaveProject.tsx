@@ -5,6 +5,8 @@ import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
+const inflightProjectSaves = new Set<string>();
+
 type Args = {
   project: ProjectSnapshot;
   files: ProjectFileSnapshot[];
@@ -55,6 +57,9 @@ export function useAutoSaveProject({
       lastSavedPayloadRef.current = savedPayload;
       lastSavedAtRef.current = new Date();
     },
+    onSettled: (_data, _error, variables) => {
+      inflightProjectSaves.delete(variables.projectId);
+    },
   });
   const { mutate } = saveMutation;
 
@@ -79,7 +84,12 @@ export function useAutoSaveProject({
 
     if (currentPayload === lastSavedPayloadRef.current) return;
 
+    if (inflightProjectSaves.has(projectId)) return;
+
     const timeoutId = setTimeout(() => {
+      if (inflightProjectSaves.has(projectId)) return;
+
+      inflightProjectSaves.add(projectId);
       mutate({
         projectId,
         projectType: project.projectType,
