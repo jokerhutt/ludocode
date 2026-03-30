@@ -1,4 +1,4 @@
-import type { CurriculumDraft } from "@ludocode/types";
+import type { CurriculumDraft, LanguageKey } from "@ludocode/types";
 import { EditorModule } from "./EditorModule.tsx";
 import { withForm } from "../../types.ts";
 import { EditorActions } from "./EditorActions.tsx";
@@ -19,8 +19,16 @@ export const CurriculumEditor = withForm({
     onCancel: () => {},
     canSubmit: false,
     isSubmitting: false,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
-  render: function Render({ form, onSave, onCancel, canSubmit, isSubmitting }) {
+  render: function Render({
+    form,
+    onSave,
+    onCancel,
+    canSubmit,
+    isSubmitting,
+    courseLanguage,
+  }) {
     return (
       <CurriculumCard>
         <CurriculumCardHeader>
@@ -43,6 +51,7 @@ export const CurriculumEditor = withForm({
                       onSave={onSave}
                       form={form}
                       moduleIndex={moduleIndex}
+                      courseLanguage={courseLanguage}
                       onMoveUp={() =>
                         modulesField.swapValues(moduleIndex, moduleIndex - 1)
                       }

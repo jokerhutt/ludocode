@@ -12,7 +12,6 @@ import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import {
   getDefaultMainFilename,
   resolveCourseLanguage,
-  getLanguageSlug,
 } from "../../detail/editor/language.ts";
 import {
   CurriculumCard,
@@ -269,17 +268,17 @@ function LessonProjectSnapshotEditor({
 
 function createDefaultProjectSnapshot(courseLanguage?: LanguageKey) {
   const path = getDefaultMainFilename(courseLanguage);
+  const language = resolveCourseLanguage(courseLanguage);
 
   return {
     projectId: crypto.randomUUID(),
     projectName: "Guided Project",
-    projectLanguage: getLanguageSlug(resolveCourseLanguage(courseLanguage)),
     projectType: "CODE" as const,
     files: [
       {
         tempId: crypto.randomUUID(),
         path,
-        language: getLanguageSlug(resolveCourseLanguage(courseLanguage)),
+        language,
         content: "",
       },
     ],

@@ -1,29 +1,6 @@
 import { z } from "zod";
-import { type LanguageKey } from "../Project/ProjectFileSnapshot";
 
 const LANGUAGE_KEYS = ["javascript", "python", "html", "css", "lua"] as const;
-
-export const curriculumDraftSchema = z.object({
-  modules: z.array(
-    z.object({
-      id: z.string(),
-      title: z.string().min(1, "Module title required"),
-      lessons: z.array(
-        z.object({
-          id: z.string(),
-          title: z.string().min(1, "lesson title required"),
-          lessonType: z.enum(["NORMAL", "GUIDED"]),
-        }),
-      ),
-    }),
-  ),
-});
-
-export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
-export type CurriculumDraftModules = CurriculumDraft["modules"];
-export type CurriculumDraftModule = CurriculumDraftModules[number];
-export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
-export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
 // ─── Blocks ────────────────────────────────────────────────────────────
 
@@ -134,13 +111,65 @@ export const ProjectFileSnapshotSchema = z.object({
 export const ProjectSnapshotSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
-  projectLanguage: z.enum(LANGUAGE_KEYS),
   projectType: z.enum(["WEB", "CODE"]),
   deleteAt: z.string().optional().nullable(),
   updatedAt: z.number().optional(),
   files: z.array(ProjectFileSnapshotSchema).min(1),
   entryFilePath: z.string(),
 });
+
+const CurriculumDraftNavigatorLessonSchema = z
+  .object({
+    id: z.string(),
+    title: z.string().min(1, "lesson title required"),
+    lessonType: z.enum(["NORMAL", "GUIDED"]),
+    projectSnapshot: ProjectSnapshotSchema.nullable(),
+  })
+  .superRefine((lesson, ctx) => {
+    if (lesson.lessonType === "GUIDED" && !lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require a projectSnapshot",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (lesson.lessonType === "NORMAL" && lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "projectSnapshot is only allowed in GUIDED lessons",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (
+      lesson.lessonType === "GUIDED" &&
+      lesson.projectSnapshot &&
+      lesson.projectSnapshot.files.length !== 1
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require exactly one project file",
+        path: ["projectSnapshot", "files"],
+      });
+    }
+  });
+
+export const curriculumDraftSchema = z.object({
+  modules: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string().min(1, "Module title required"),
+      lessons: z.array(CurriculumDraftNavigatorLessonSchema),
+    }),
+  ),
+});
+
+export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
+export type CurriculumDraftModules = CurriculumDraft["modules"];
+export type CurriculumDraftModule = CurriculumDraftModules[number];
+export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
+export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
   SelectInteractionSchema,

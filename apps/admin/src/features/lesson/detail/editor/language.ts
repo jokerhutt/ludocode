@@ -89,7 +89,6 @@ function normalizeProjectSnapshotForLessonType(
   if (lessonType !== "GUIDED") {
     return {
       ...projectSnapshot,
-      projectLanguage: languageSlug,
       projectType: projectSnapshot.projectType ?? "CODE",
       files: normalizedFiles,
     };
@@ -100,7 +99,6 @@ function normalizeProjectSnapshotForLessonType(
 
   return {
     ...projectSnapshot,
-    projectLanguage: languageSlug,
     projectType: "CODE",
     files: guidedFiles,
     entryFilePath: firstFile?.path ?? projectSnapshot.entryFilePath,

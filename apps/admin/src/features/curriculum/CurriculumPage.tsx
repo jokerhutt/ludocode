@@ -72,6 +72,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
           id: l.id,
           title: l.title,
           lessonType: l.lessonType ?? "NORMAL",
+          projectSnapshot: l.projectSnapshot ?? null,
         })),
       })),
     } satisfies CurriculumDraft,
@@ -274,6 +275,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                                 id: l.id,
                                 title: l.title,
                                 lessonType: l.lessonType,
+                                projectSnapshot: l.projectSnapshot ?? null,
                               })),
                             })),
                           });
@@ -292,6 +294,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                     onCancel={cancelEditing}
                     canSubmit={canSubmit}
                     isSubmitting={isSubmitting}
+                    courseLanguage={courseLanguage}
                   />
                 )}
               </div>
