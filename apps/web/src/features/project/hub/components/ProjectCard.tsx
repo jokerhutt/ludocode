@@ -76,19 +76,13 @@ export function ProjectCard({
       </div>
       <div className="flex h-full flex-col items-end justify-between">
         <div className="flex h-full items-start gap-2 justify-end">
-          {mode === "OWN" && (
-            <>
+          <div className="flex gap-2 justify-end">
+            {mode === "OWN" && (
               <ProjectVisibilityMenu
                 projectId={projectId}
                 visibility={visibility}
               />
-              <ProjectActionsMenu
-                projectId={projectId}
-                projectTitle={projectTitle}
-              />
-            </>
-          )}
-          <div className="flex gap-2 justify-end">
+            )}
             {technologies.map((tech) => (
               <CustomIcon
                 key={tech}
@@ -107,9 +101,16 @@ export function ProjectCard({
             />
           )}
           <ProjectLikeButton
+            className="pb-1"
             projectId={projectId}
             canLike={Boolean(currentUserId)}
           />
+          {mode === "OWN" && (
+            <ProjectActionsMenu
+              projectId={projectId}
+              projectTitle={projectTitle}
+            />
+          )}
         </div>
       </div>
     </LudoButton>
@@ -183,9 +184,14 @@ function ProjectDuplicateButton({
 type ProjectLikeButtonProps = {
   projectId: string;
   canLike: boolean;
+  className?: string;
 };
 
-function ProjectLikeButton({ projectId, canLike }: ProjectLikeButtonProps) {
+function ProjectLikeButton({
+  projectId,
+  canLike,
+  className,
+}: ProjectLikeButtonProps) {
   const { data: likeState } = useQuery(qo.projectLike(projectId));
   const likeProjectMutation = useLikeProject(projectId);
   const unlikeProjectMutation = useUnlikeProject(projectId);
@@ -213,11 +219,12 @@ function ProjectLikeButton({ projectId, canLike }: ProjectLikeButtonProps) {
     <button
       disabled={!canLike || isPending}
       onClick={handleClick}
-      className={
+      className={cn(
         !canLike || isPending
           ? "hover:cursor-not-allowed"
-          : "hover:cursor-pointer"
-      }
+          : "hover:cursor-pointer",
+        className,
+      )}
     >
       <div className="flex items-end justify-end gap-0.5">
         <Heart

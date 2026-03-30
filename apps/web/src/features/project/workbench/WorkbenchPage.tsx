@@ -143,7 +143,7 @@ function WorkbenchPageContent({
         mobilePane={mobilePane}
         setMobilePane={setMobilePane}
         runnerEnabled={runnerEnabled}
-        outputLabel={isWebProject ? "Live Preview" : "Output"}
+        outputLabel={isWebProject ? "Preview" : "Output"}
         showRunButton={!isWebProject}
       />
     </>
