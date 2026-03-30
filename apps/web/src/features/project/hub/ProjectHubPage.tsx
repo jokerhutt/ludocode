@@ -79,19 +79,20 @@ export function ProjectHubPage() {
         <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
             <div className="flex w-full flex-col gap-3">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex w-full items-center gap-2 overflow-x-auto pb-1">
                 {templateButtons.map((template) => (
                   <LudoButton
                     key={template.key}
                     data-testid={`create-project-template-${template.key}`}
-                    className="h-10 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
-                    variant="alt"
+                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
+                    variant="default"
                     shadow={false}
                     disabled={createProjectMutation.isPending}
                     onClick={() => createFromTemplate(template.key)}
                     title={isAtLimit ? "project limit reached" : undefined}
                   >
                     <CustomIcon
+                      color="white"
                       iconName={template.iconName}
                       className="h-4 w-4"
                     />
@@ -101,7 +102,7 @@ export function ProjectHubPage() {
                 {isAtLimit && paymentsFeature && (
                   <LudoButton
                     data-testid="upgrade-project-limit-button"
-                    className="h-10 px-4 rounded-lg text-sm font-semibold whitespace-nowrap"
+                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold whitespace-nowrap"
                     variant="alt"
                     shadow={false}
                     onClick={() =>
