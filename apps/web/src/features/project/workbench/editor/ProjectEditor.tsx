@@ -41,7 +41,6 @@ export function ProjectEditor({
     editorRef.current = editor;
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-      // Intentionally no-op: save is handled by autosave.
     });
 
     editor.onKeyDown((e) => {
