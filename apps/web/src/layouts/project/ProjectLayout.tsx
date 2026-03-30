@@ -34,7 +34,10 @@ export function ProjectLayout({}: ProjectLayoutProps) {
 
   return (
     <UserPreferencesContext.Provider value={preferences}>
-      <ProjectProvider project={project}>
+      <ProjectProvider
+        key={`${project.projectId}-${project.updatedAt}`}
+        project={project}
+      >
         <AutoSaveProvider enabled={mode === "EDIT"}>
           <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
             <ProjectHeader authenticated={!!currentUser} mode={mode} />

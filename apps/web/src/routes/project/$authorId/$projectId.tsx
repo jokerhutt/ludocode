@@ -1,10 +1,18 @@
 import { qo } from "@/queries/definitions/queries.ts";
+import { qk } from "@/queries/definitions/qk.ts";
 import { ProjectLayout } from "@/layouts/project/ProjectLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { qk } from "@/queries/definitions/qk";
 
 export const Route = createFileRoute("/project/$authorId/$projectId")({
+  beforeLoad: async ({ params, context }) => {
+    const { projectId } = params;
+    await context.queryClient.removeQueries({
+      queryKey: qk.project(projectId),
+    });
+
+    await context.queryClient.ensureQueryData(qo.project(projectId));
+  },
   loader: async ({ params, context }) =>
     projectLoader(params, context.queryClient),
   component: ProjectLayout,
@@ -15,8 +23,7 @@ async function projectLoader(
   queryClient: QueryClient,
 ) {
   const { projectId } = params;
-  await queryClient.invalidateQueries({ queryKey: qk.project(projectId) });
-  const project = await queryClient.ensureQueryData(qo.project(projectId));
+  const project = queryClient.getQueryData(qk.project(projectId));
 
   if (!project) {
     throw notFound();
