@@ -1,6 +1,7 @@
 import { type IconName } from "@ludocode/design-system/primitives/custom-icon";
 
 export type ProjectFileSnapshot = {
+  id?: string;
   tempId?: string;
   path: string;
   language: LanguageKey;

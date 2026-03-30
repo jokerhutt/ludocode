@@ -1,7 +1,4 @@
-import type {
-  CurriculumDraftLessonForm,
-  LanguageMetadata,
-} from "@ludocode/types";
+import type { CurriculumDraftLessonForm, LanguageKey } from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon.tsx";
 import { Trash2 } from "lucide-react";
@@ -27,7 +24,7 @@ export const ExerciseDetailEditor = withForm({
     exerciseIndex: 0,
     onDelete: undefined as undefined | (() => void),
     canDelete: true,
-    courseLanguage: undefined as LanguageMetadata | undefined,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({
     form,

@@ -1,4 +1,4 @@
-import { LanguageKey } from "./ProjectFileSnapshot";
+import { type LanguageKey } from "./ProjectFileSnapshot";
 import { type ProjectVisibility } from "./ProjectSnapshot";
 
 export type ProjectCardResponse = {

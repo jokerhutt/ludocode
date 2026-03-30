@@ -5,5 +5,5 @@ export type CreateCourseRequest = {
   requestHash: string;
   courseType: CourseType;
   courseIcon: string;
-  languageId: number | null;
+  language: string | null;
 };

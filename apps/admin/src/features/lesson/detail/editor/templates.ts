@@ -1,7 +1,7 @@
 import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftBlock,
-  LanguageMetadata,
+  LanguageKey,
 } from "@ludocode/types";
 import { getCourseLanguageSlug } from "./language.ts";
 
@@ -18,7 +18,7 @@ export const createNewExerciseTemplate = (): CurriculumDraftLessonExercise => ({
 });
 
 export const createNewGuidedExerciseTemplate = (
-  _courseLanguage?: LanguageMetadata,
+  _courseLanguage?: LanguageKey,
 ): CurriculumDraftLessonExercise => {
   return {
     exerciseId: crypto.randomUUID(),
@@ -47,7 +47,7 @@ type BlockType = CurriculumDraftBlock["type"];
 
 export const createBlockTemplate = (
   type: BlockType,
-  courseLanguage?: LanguageMetadata,
+  courseLanguage?: LanguageKey,
 ): CurriculumDraftBlock => {
   switch (type) {
     case "header":

@@ -9,7 +9,6 @@ export * from "./Catalog/FlatCourseTree";
 export * from "./Catalog/LudoCourse";
 export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
-export * from "./Catalog/LudoCourseSubject";
 
 
 // banner
@@ -22,8 +21,6 @@ export * from "./Completion/SyncState";
 
 // curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
-export * from "./Curriculum/SubjectDraftSchema";
-export * from "./Curriculum/ChangeSubjectRequest";
 export * from "./Curriculum/CreateCourseSchema";
 
 // Exercise
@@ -35,10 +32,7 @@ export * from "./Exercise/LudoExercise";
 export * from "./FeatureFlags/FeatureFlags";
 
 // Languages
-export * from "./Languages/ModifyLanguageRequest";
-export * from "./Languages/CreateLanguageFormSchema";
 export * from "./Languages/ChangeLanguageRequest";
-export * from "./Languages/ToggleLanguageVisibilityRequest"
 
 // Discussion
 export * from "./Discussion/Discussion"
@@ -65,7 +59,6 @@ export * from "./Project/RenameProjectRequest";
 export * from "./Project/SaveProjectPayload";
 export * from "./Project/Runner/OutputPacket";
 export * from "./Project/Runner/RunnerResult";
-export * from "./Project/LanguageMetadata";
 export * from "./Project/ProjectCardResponse";
 export * from "./Project/ProjectLikeResponse";
 export * from "./Project/ChangeProjectVisibilityRequest";

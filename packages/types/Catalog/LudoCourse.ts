@@ -1,4 +1,4 @@
-import { type LegacyLanguageMetadata } from "../Project/LanguageMetadata";
+import { type LanguageKey } from "../Project/ProjectFileSnapshot";
 
 export type LudoCourse = {
   id: string;
@@ -6,7 +6,7 @@ export type LudoCourse = {
   courseType: CourseType;
   courseStatus?: CourseStatus;
   courseIcon: string;
-  codeLanguage?: string;
+  codeLanguage?: LanguageKey;
   description: string;
 };
 

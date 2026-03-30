@@ -51,7 +51,7 @@ export function CourseCard({ course }: CourseCardProps) {
         <div>
           <span className="opacity-60">Language</span>
           <p className="text-ludo-white-bright font-medium">
-            {course.language?.name ?? "—"}
+            {course.codeLanguage ?? "—"}
           </p>
         </div>
         <div
