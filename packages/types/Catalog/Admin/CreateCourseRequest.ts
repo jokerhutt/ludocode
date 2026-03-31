@@ -1,4 +1,4 @@
-import type { CourseType } from "../Catalog/LudoCourse";
+import type { CourseType } from "../LudoCourse";
 
 export type CreateCourseRequest = {
   courseTitle: string;
