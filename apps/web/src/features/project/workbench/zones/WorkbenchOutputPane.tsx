@@ -1,5 +1,5 @@
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
+import { Workbench } from "@ludocode/design-system/widgets/workbench";
 import {
   LudoLog,
   type OutputTriggerColorVariant,
@@ -7,6 +7,7 @@ import {
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useState } from "react";
+import { testIds } from "@ludocode/util/test-ids";
 
 type WorkbenchOutputPaneProps = {
   successColorVariant?: OutputTriggerColorVariant;
@@ -44,13 +45,16 @@ export function WorkbenchOutputPane({
       >
         <p className="text-sm font-medium tracking-wide">Output</p>
         <IconButton
-          dataTestId="clear-output-icon"
+          dataTestId={testIds.project.clearOutput}
           iconName="TrashIcon"
           onClick={clearOutput}
           disabled={isRunning}
         />
       </Workbench.Pane.Winbar>
-      <Workbench.Pane.Content dataTestId="project-runner" className="gap-0 p-0">
+      <Workbench.Pane.Content
+        dataTestId={testIds.project.runner}
+        className="gap-0 p-0"
+      >
         {outputLog.map((log, logIdx) => {
           const runNumber = logIdx + 1;
           const isActiveRun = logIdx === outputLog.length - 1 && isRunning;
@@ -85,7 +89,7 @@ export function WorkbenchOutputPane({
                       {">"}
                     </span>
                     <input
-                      data-testid="runner-stdin-input"
+                      data-testid={testIds.project.stdinInput}
                       type="text"
                       value={stdinValue}
                       onChange={(event) => setStdinValue(event.target.value)}

@@ -13,6 +13,7 @@ import type { ProjectCardResponse } from "@ludocode/types";
 import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function ProjectHubPage() {
   const { page } = Route.useSearch();
@@ -47,7 +48,7 @@ export function ProjectHubPage() {
   const templateButtons = [
     { key: "lua", label: "Lua", iconName: Languages.lua.iconName },
     { key: "python", label: "Python", iconName: Languages.python.iconName },
-    { key: "web", label: "Static website", iconName: "HTML" as const },
+    { key: "web", label: "Static site", iconName: "HTML" as const },
     {
       key: "javascript",
       label: "Javascript",
@@ -74,17 +75,19 @@ export function ProjectHubPage() {
 
   return (
     <>
-      <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
+      <div className="layout-grid col-span-full scrollable py-6 px-6 lg:px-0">
         <div className="col-span-1 hidden lg:block" />
         <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
-            <div className="flex w-full flex-col gap-3">
-              <div className="flex w-full items-center gap-2 overflow-x-auto pb-1">
+            <div className="flex w-full justify-center flex-col gap-3 text-center">
+              <div className="grid grid-cols-2 lg:flex w-full items-center gap-2 justify-center">
                 {templateButtons.map((template) => (
                   <LudoButton
                     key={template.key}
-                    data-testid={`create-project-template-${template.key}`}
-                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold gap-2 whitespace-nowrap"
+                    data-testid={testIds.projectHub.createTemplate(
+                      template.key,
+                    )}
+                    className="inline-flex h-10 px-1 lg:px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
                     variant="default"
                     shadow={false}
                     disabled={createProjectMutation.isPending}
@@ -101,8 +104,8 @@ export function ProjectHubPage() {
                 ))}
                 {isAtLimit && paymentsFeature && (
                   <LudoButton
-                    data-testid="upgrade-project-limit-button"
-                    className="inline-flex h-10 w-fit shrink-0 px-4 rounded-lg text-sm font-semibold whitespace-nowrap"
+                    data-testid={testIds.projectHub.upgradeLimitButton}
+                    className="inline-flex h-10 px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
                     variant="alt"
                     shadow={false}
                     onClick={() =>
@@ -117,8 +120,8 @@ export function ProjectHubPage() {
               </div>
 
               <span
-                data-testid="project-limits"
-                className={`inline-flex h-10 items-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
+                data-testid={testIds.projectHub.limits}
+                className={`flex w-full lg:w h-10 items-center justify-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
                   isAtLimit
                     ? "border-ludo-danger/30 bg-ludo-danger/10 text-ludo-danger"
                     : "border-ludo-white/15 bg-ludo-white/5 text-ludo-white/85"

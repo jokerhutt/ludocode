@@ -3,6 +3,7 @@ import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function CompletionFooter() {
   const router = useRouter();
@@ -68,7 +69,7 @@ export function CompletionFooter() {
         className={`flex w-full justify-end py-4 px-8 lg:px-0 items-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10`}
       >
         <LudoButton
-          data-testid={`completion-button`}
+          data-testid={testIds.completion.button}
           variant="alt"
           className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
           onClick={() => handleCompletionContinue()}

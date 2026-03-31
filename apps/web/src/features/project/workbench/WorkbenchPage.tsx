@@ -1,14 +1,14 @@
-import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor.tsx";
-import { RunCodeButton } from "@/features/project/workbench/editor/RunCodeButton.tsx";
+import { ProjectEditor } from "@/features/project/workbench/zones/ProjectEditor.tsx";
+import { RunCodeButton } from "@/features/project/workbench/components/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useAutoSaveContext } from "@/features/project/workbench/context/AutoSaveContext.tsx";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
-import { WorkbenchOutputPane } from "./output/WorkbenchOutputPane.tsx";
-import { WorkbenchLivePreviewPane } from "./output/WorkbenchLivePreviewPane.tsx";
+import { Workbench } from "@ludocode/design-system/widgets/workbench.tsx";
+import { WorkbenchOutputPane } from "./zones/WorkbenchOutputPane.tsx";
+import { WorkbenchLivePreviewPane } from "./zones/WorkbenchLivePreviewPane.tsx";
 import { LudoTab } from "@ludocode/design-system/primitives/tab.tsx";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
-import { WorkbenchTreePane } from "./file-tree/WorkbenchTreePane.tsx";
+import { WorkbenchTreePane } from "./zones/WorkbenchTreePane.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useIsMobile } from "@ludocode/hooks";
@@ -143,7 +143,7 @@ function WorkbenchPageContent({
         mobilePane={mobilePane}
         setMobilePane={setMobilePane}
         runnerEnabled={runnerEnabled}
-        outputLabel={isWebProject ? "Live Preview" : "Output"}
+        outputLabel={isWebProject ? "Preview" : "Output"}
         showRunButton={!isWebProject}
       />
     </>

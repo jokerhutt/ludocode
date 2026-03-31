@@ -1,6 +1,6 @@
 import { mutationOptions } from "@tanstack/react-query";
 import { type LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
-import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRequest.ts";
+import { type CreateCourseRequest } from "@ludocode/types/Catalog/Admin/CreateCourseRequest.ts";
 import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher.ts";
 import { adminApi } from "@/constants/api/adminApi.ts";
 import {

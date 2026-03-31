@@ -4,6 +4,7 @@ import { useLessonButton } from "@/features/modules/hooks/useLessonButton.tsx";
 import { PathPopover } from "./PathPopover.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
+import { testIds } from "@ludocode/util/test-ids";
 
 type ModulePathProps = {
   lessons: LudoLesson[];
@@ -94,14 +95,14 @@ function ModulePathButton({
         title={lesson.title}
         state={lessonType}
         isCurrent={isCurrent}
-        dataTestId={`path-button-${lesson.id}`}
+        dataTestId={testIds.path.button(lesson.id)}
         className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
       />
     ) : (
       <LudoPath.Button
         state={lessonType}
         isCurrent={isCurrent}
-        dataTestId={`path-button-${lesson.id}`}
+        dataTestId={testIds.path.button(lesson.id)}
         className="data-[state=open]:translate-y-1 data-[state=open]:shadow-none"
       />
     );

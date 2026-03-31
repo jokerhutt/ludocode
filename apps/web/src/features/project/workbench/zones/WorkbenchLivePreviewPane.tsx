@@ -1,7 +1,7 @@
 import { WEB_CDN_BASE_URL } from "@/constants/environment/env.ts";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
+import { Workbench } from "@ludocode/design-system/widgets/workbench";
 import { useState } from "react";
 
 type WorkbenchLivePreviewPaneProps = {

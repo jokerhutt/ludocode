@@ -1,10 +1,11 @@
 import { Page, expect } from "@playwright/test";
 import { registerUser } from "./auth";
 import { onboardUser } from "./onboard";
+import {testIds} from "@ludocode/util/test-ids.js"
 
 export async function initialiseUser(page: Page) {
   await onboardUser(page);
-  // const freeButton = page.getByTestId("sub-compare-FREE");
+  // const freeButton = page.getByTestId(testIds.subscription.compare("FREE"));
 
   // await expect(page).toHaveURL(/\/app\/subscription\/comparison$/);
 

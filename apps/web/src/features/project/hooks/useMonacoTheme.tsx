@@ -15,6 +15,8 @@ export function useMonacoTheme() {
     });
   };
 
+  const isMobile = useMemo(() => window.innerWidth < 768, []);
+
   const editorOptions: monacoTypes.editor.IStandaloneEditorConstructionOptions =
     useMemo(
       () => ({
@@ -22,7 +24,7 @@ export function useMonacoTheme() {
         overviewRulerLanes: 0,
         hideCursorInOverviewRuler: true,
         fontSize: 16,
-        padding: { bottom: 16 },
+        padding: { bottom: 16, left: isMobile ? 8 : 0 },
         scrollBeyondLastLine: false,
         smoothScrolling: false,
         cursorSurroundingLines: 0,
@@ -31,8 +33,9 @@ export function useMonacoTheme() {
         cursorBlinking: "solid",
         renderLineHighlight: "none",
         renderLineHighlightOnlyWhenFocus: false,
+        lineNumbersMinChars: isMobile ? 3 : 4,
       }),
-      [],
+      [isMobile],
     );
 
   return { beforeMount, editorOptions };

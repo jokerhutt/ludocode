@@ -4,10 +4,9 @@ import { useCompletionContext } from "@/features/completion/context/CompletionCo
 import { CompletionStatsGroup } from "@/features/completion/components/CompletionStatsGroup.tsx";
 import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter.tsx";
 import { BadgeSingleCard } from "@/features/user/profile/components/BadgeCard.tsx";
-import {
-  stringToCustomIcon,
-} from "@ludocode/design-system/primitives/custom-icon.tsx";
+import { stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { useLottie, useTimedLottie } from "@ludocode/hooks";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();
@@ -45,7 +44,10 @@ export function StreakIncreasePage() {
         className="w-full h-80"
       />
       <IncrementingCounter oldCount={oldStreak} newCount={newStreak} />
-      <p data-testid={`streak-complete-text`} className="text-center text-3xl">
+      <p
+        data-testid={testIds.completion.streakText}
+        className="text-center text-3xl"
+      >
         Day Streak!
       </p>
     </>
@@ -61,13 +63,19 @@ export function CourseCompletePage() {
   return (
     <>
       <div className="flex text-center gap-8 flex-col">
-        <h2 data-testid={`course-complete-header`} className="text-3xl">
+        <h2
+          data-testid={testIds.completion.courseCompleteHeader}
+          className="text-3xl"
+        >
           Course Complete!
         </h2>
-        <p data-testid={`course-complete-congratulation`} className="text-lg">
+        <p
+          data-testid={testIds.completion.courseCompleteCongratulation}
+          className="text-lg"
+        >
           Congratulations on completing the {courseName} course!
         </p>
-        <p data-testid={`course-complete-badge-text`}>
+        <p data-testid={testIds.completion.courseCompleteBadgeText}>
           You've earned the {courseName} badge!
         </p>
         <div className="w-full flex items-center justify-center">

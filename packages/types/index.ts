@@ -1,8 +1,5 @@
-// ai
-export * from "./AI/AIMessagePart";
-
 // Builder
-export * from "./Builder/CreateCourseRequest";
+export * from "./Catalog/Admin/CreateCourseRequest";
 
 // Catalog
 export * from "./Catalog/FlatCourseTree";
@@ -10,9 +7,8 @@ export * from "./Catalog/LudoCourse";
 export * from "./Catalog/LudoLesson";
 export * from "./Catalog/LudoModule";
 
-
 // banner
-export * from "./Banner/LudoBanner"
+export * from "./Banner/LudoBanner";
 
 // completion
 export * from "./Completion/LessonCompletionResponse";
@@ -21,7 +17,6 @@ export * from "./Completion/SyncState";
 
 // curriculum
 export * from "./Curriculum/CurriculumDraftSchema";
-export * from "./Curriculum/CreateCourseSchema";
 
 // Exercise
 export * from "./Exercise/ExerciseType";
@@ -32,13 +27,13 @@ export * from "./Exercise/LudoExercise";
 export * from "./FeatureFlags/FeatureFlags";
 
 // Languages
-export * from "./Languages/ChangeLanguageRequest";
+export * from "./Catalog/Admin/ChangeLanguageRequest";
 
 // Discussion
-export * from "./Discussion/Discussion"
-export * from "./Discussion/DiscussionMessage"
-export * from "./Discussion/CreateDiscussionMessageRequest"
-export * from "./Discussion/MessageLikeCountResponse"
+export * from "./Discussion/Discussion";
+export * from "./Discussion/DiscussionMessage";
+export * from "./Discussion/CreateDiscussionMessageRequest";
+export * from "./Discussion/MessageLikeCountResponse";
 
 // onboarding
 export * from "./Onboarding/OnboardingCourse";
@@ -46,9 +41,6 @@ export * from "./Onboarding/OnboardingResponse";
 
 // Feedback
 export * from "./Feedback/FeedbackRequest";
-
-// Piston
-export * from "./Piston/Runtimes";
 
 // project
 export * from "./Project/CreateProjectRequest";
@@ -66,9 +58,6 @@ export * from "./Project/ChangeProjectVisibilityRequest";
 // Preferences
 export * from "./Preferences/LudoCareer";
 export * from "./Preferences/TogglePreferencesRequest";
-
-// Static
-export * from "./Static/DevInfoContent";
 
 // subscription
 export * from "./Subscription/SubscriptionPlan";

@@ -3,6 +3,7 @@ import { OnboardingStageShell } from "@/features/onboarding/zone/OnboardingStage
 import { WideOnboardingOption } from "@/features/onboarding/components/WideOnboardingOption";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { useOnboardingDraftStore } from "@/features/onboarding/store/OnboardingDraft";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function CareerChoiceStep() {
   const { careers } = useOnboardingContext();
@@ -17,7 +18,7 @@ export function CareerChoiceStep() {
       {careers.map((career) => (
         <WideOnboardingOption
           key={career.id}
-          dataTestId={`onb-career-${career.choice}`}
+          dataTestId={testIds.onboarding.career(career.choice)}
           isSelected={career.choice === draft.career}
           onClick={() => setDraft({ career: career.choice })}
         >
@@ -46,7 +47,7 @@ export function CourseChoiceStep() {
       {courses.map((course) => (
         <WideOnboardingOption
           key={course.id}
-          dataTestId={`onb-course-${course.id}`}
+          dataTestId={testIds.onboarding.course(course.id)}
           isSelected={course.id === draft.course}
           onClick={() => setDraft({ course: course.id })}
         >
@@ -69,7 +70,7 @@ export function HasExperienceStep() {
       subtitle="This helps us tailor the content to your skill level."
     >
       <WideOnboardingOption
-        dataTestId="onb-exp-true"
+        dataTestId={testIds.onboarding.experience(true)}
         isSelected={draft.experience === true}
         onClick={() => setDraft({ experience: true })}
       >
@@ -80,7 +81,7 @@ export function HasExperienceStep() {
       </WideOnboardingOption>
 
       <WideOnboardingOption
-        dataTestId="onb-exp-false"
+        dataTestId={testIds.onboarding.experience(false)}
         isSelected={draft.experience === false}
         onClick={() => setDraft({ experience: false })}
       >
@@ -105,7 +106,7 @@ export function UsernameChoiceStep() {
       <div className="col-span-full flex justify-center">
         <div className="w-full max-w-sm">
           <LudoInput
-            dataTestId="username-input"
+            dataTestId={testIds.onboarding.usernameInput}
             value={draft.username ?? ""}
             setValue={(value) => setDraft({ username: value })}
             title="Username"

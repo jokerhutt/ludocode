@@ -2,6 +2,7 @@ import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeR
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useHotkeys } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { testIds } from "@ludocode/util/test-ids";
 
 type RunCodeButtonProps = {
   disabled?: boolean;
@@ -23,7 +24,7 @@ export function RunCodeButton({
 
   return (
     <LudoButton
-      data-testid={`run-code-button`}
+      data-testid={testIds.project.runCodeButton}
       onClick={isRunning ? stopCode : runCode}
       variant={isRunning ? "default" : "alt"}
       disabled={disabled}

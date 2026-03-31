@@ -2,7 +2,7 @@ import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeR
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useEffect, useMemo, useState } from "react";
 import { MobileTabs } from "@/components/MobileTabs";
-import { RunCodeButton } from "@/features/project/workbench/editor/RunCodeButton.tsx";
+import { RunCodeButton } from "@/features/project/workbench/components/RunCodeButton";
 
 export type WorkbenchMobilePane = "files" | "code" | "output";
 

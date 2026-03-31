@@ -8,6 +8,7 @@ import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
 import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
 import { MessageCircle, Sparkles } from "lucide-react";
+import { testIds } from "@ludocode/util/test-ids";
 
 type LessonMenuProps = {
   trigger: ReactNode;
@@ -45,7 +46,7 @@ export function LessonMenu({
         </p>
 
         <LudoMenu.Item
-          dataTestId={`lesson-audio-toggle-button`}
+          dataTestId={testIds.lesson.audioToggleButton}
           disabled={editPreferences.isPending}
           onSelect={handleAudioToggle}
           closeOnSelect={false}
@@ -64,7 +65,7 @@ export function LessonMenu({
             <LudoMenu.Divider />
 
             <LudoMenu.Item
-              dataTestId={`lesson-ai-button`}
+              dataTestId={testIds.lesson.aiButton}
               closeOnSelect={true}
               onSelect={onAiSelect}
               className={"hover:bg-ludo-accent-muted/50"}
@@ -82,7 +83,7 @@ export function LessonMenu({
         )}
 
         <LudoMenu.Item
-          dataTestId={`exercise-feedback-button`}
+          dataTestId={testIds.lesson.feedbackButton}
           closeOnSelect={false}
           onSelect={() => setFeedbackOpen(true)}
           className={"hover:bg-ludo-accent-muted/50"}
@@ -107,7 +108,7 @@ export function LessonMenu({
             <LudoMenu.Divider />
 
             <LudoMenu.Item
-              dataTestId={`exercise-discussion-button`}
+              dataTestId={testIds.lesson.discussionButton}
               closeOnSelect={true}
               onSelect={onDiscussSelect}
               className={"hover:bg-ludo-accent-muted/50"}

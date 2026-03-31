@@ -1,14 +1,17 @@
 import { Page, expect } from "@playwright/test";
 import { registerUser } from "./auth";
+import {testIds} from "@ludocode/util/test-ids.js"
 
 export async function onboardUser(page: Page) {
-  const nameInput = page.getByTestId("username-input");
+  const nameInput = page.getByTestId(testIds.onboarding.usernameInput);
 
-  const careerInput = page.getByTestId("onb-career-DATA");
+  const careerInput = page.getByTestId(testIds.onboarding.career("DATA"));
   const languageInput = page.getByTestId(
-    "onb-course-75975805-3f02-43c2-9106-c990d944dfd2",
+    testIds.onboarding.course("75975805-3f02-43c2-9106-c990d944dfd2"),
   );
-  const experienceInput = page.getByTestId("onb-exp-false");
+  const experienceInput = page.getByTestId(
+    testIds.onboarding.experience(false),
+  );
 
   await registerUser(page);
   await expect(page).toHaveURL(/\/app\/onboarding\/name$/);

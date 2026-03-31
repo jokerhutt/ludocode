@@ -5,7 +5,8 @@ import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { router } from "@/main.tsx";
 import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
-import { FileActionsMenu } from "@/features/project/workbench/file-tree/FileActionsMenu.tsx";
+import { testIds } from "@ludocode/util/test-ids";
+import { FileActionsMenu } from "@/features/project/workbench/components/FileActionsMenu";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
 import { qo } from "@/queries/definitions/queries.ts";
@@ -51,7 +52,7 @@ export function ProjectCard({
 
   return (
     <LudoButton
-      data-testid={`project-hub-card`}
+      data-testid={testIds.projectHub.card}
       clickable={false}
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(authorId, projectId));
@@ -76,6 +77,31 @@ export function ProjectCard({
       </div>
       <div className="flex h-full flex-col items-end justify-between">
         <div className="flex h-full items-start gap-2 justify-end">
+          <div className="flex gap-2 justify-end">
+            {technologies.map((tech) => (
+              <CustomIcon
+                key={tech}
+                iconName={Languages[tech].iconName}
+                color="white"
+                className="h-4.5"
+              />
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-end gap-1 items-end text-ludo-white ">
+          {!!currentUserId && mode !== "OWN" && (
+            <>
+              <ProjectDuplicateButton
+                userId={currentUserId}
+                projectId={projectId}
+              />
+              <ProjectLikeButton
+                projectId={projectId}
+                canLike={Boolean(currentUserId)}
+              />
+            </>
+          )}
+
           {mode === "OWN" && (
             <>
               <ProjectVisibilityMenu
@@ -88,28 +114,6 @@ export function ProjectCard({
               />
             </>
           )}
-          <div className="flex gap-2 justify-end">
-            {technologies.map((tech) => (
-              <CustomIcon
-                key={tech}
-                iconName={Languages[tech].iconName}
-                color="white"
-                className="h-5"
-              />
-            ))}
-          </div>
-        </div>
-        <div className="flex justify-end gap-2 items-end text-ludo-white ">
-          {!!currentUserId && mode !== "OWN" && (
-            <ProjectDuplicateButton
-              userId={currentUserId}
-              projectId={projectId}
-            />
-          )}
-          <ProjectLikeButton
-            projectId={projectId}
-            canLike={Boolean(currentUserId)}
-          />
         </div>
       </div>
     </LudoButton>
@@ -183,9 +187,14 @@ function ProjectDuplicateButton({
 type ProjectLikeButtonProps = {
   projectId: string;
   canLike: boolean;
+  className?: string;
 };
 
-function ProjectLikeButton({ projectId, canLike }: ProjectLikeButtonProps) {
+function ProjectLikeButton({
+  projectId,
+  canLike,
+  className,
+}: ProjectLikeButtonProps) {
   const { data: likeState } = useQuery(qo.projectLike(projectId));
   const likeProjectMutation = useLikeProject(projectId);
   const unlikeProjectMutation = useUnlikeProject(projectId);
@@ -213,11 +222,12 @@ function ProjectLikeButton({ projectId, canLike }: ProjectLikeButtonProps) {
     <button
       disabled={!canLike || isPending}
       onClick={handleClick}
-      className={
+      className={cn(
         !canLike || isPending
           ? "hover:cursor-not-allowed"
-          : "hover:cursor-pointer"
-      }
+          : "hover:cursor-pointer",
+        className,
+      )}
     >
       <div className="flex items-end justify-end gap-0.5">
         <Heart

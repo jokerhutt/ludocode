@@ -5,6 +5,7 @@ import { useHotkeys } from "@ludocode/hooks";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function LessonFooter() {
   const lessonPageRoute = getRouteApi(
@@ -32,7 +33,7 @@ export function LessonFooter() {
         <div className="flex w-1/3 lg:w-auto justify-start h-full lg:h-2/3">
           {canGoBack && (
             <LudoButton
-              data-testid="lesson-back-button"
+              data-testid={testIds.lesson.backButton}
               variant="default"
               className="w-full lg:w-auto lg:px-8 text-lg font-bold h-full "
               onClick={goBack}
@@ -43,14 +44,14 @@ export function LessonFooter() {
         </div>
         <div className="w-full flex justify-end h-full lg:h-2/3">
           <LudoButton
-            data-testid={`lesson-submit-button`}
+            data-testid={testIds.lesson.submitButton}
             variant="alt"
             disabled={!canSubmit}
             className="w-full text-lg font-bold h-full"
             onClick={submit}
           >
             <p
-              data-testid={`lesson-submit-text`}
+              data-testid={testIds.lesson.submitText}
               className="select-none pointer-events-none"
             >
               {text}
