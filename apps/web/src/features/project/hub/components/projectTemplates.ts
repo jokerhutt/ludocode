@@ -20,10 +20,10 @@ export const ProjectTemplates = {
   python: {
     projectName: "Untitled project",
     projectType: "CODE",
-    entryFilePath: "main.py",
+    entryFilePath: "script.py",
     files: [
       {
-        path: "main.py",
+        path: "script.py",
         language: "python",
         content: Languages.python.initialScript,
       },
@@ -33,10 +33,10 @@ export const ProjectTemplates = {
   lua: {
     projectName: "Untitled project",
     projectType: "CODE",
-    entryFilePath: "main.lua",
+    entryFilePath: "script.lua",
     files: [
       {
-        path: "main.lua",
+        path: "script.lua",
         language: "lua",
         content: Languages.lua.initialScript,
       },

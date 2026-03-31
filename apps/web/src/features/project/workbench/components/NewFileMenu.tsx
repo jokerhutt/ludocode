@@ -6,6 +6,7 @@ import {
   Languages,
   type LanguageKey,
 } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { testIds } from "@ludocode/util/test-ids";
 
 type NewFileMenuProps = {
   trigger: ReactNode;
@@ -43,8 +44,8 @@ export function NewFileMenu({ trigger, readOnly = true }: NewFileMenuProps) {
               key={languageKey}
               dataTestId={
                 index === 0
-                  ? "new-file-button"
-                  : `new-file-button-${languageKey}`
+                  ? testIds.project.newFileButton
+                  : testIds.project.newFileButtonLang(languageKey)
               }
               disabled={readOnly}
               onSelect={() => {

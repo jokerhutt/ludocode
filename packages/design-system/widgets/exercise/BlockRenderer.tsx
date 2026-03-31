@@ -1,5 +1,5 @@
 import type { Block } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview";
+import { LudoCodePreview } from "@ludocode/design-system/widgets/ludo-code-preview";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import { type LessonType } from "@ludocode/types";

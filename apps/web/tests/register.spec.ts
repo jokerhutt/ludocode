@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { testIds } from "@ludocode/util/test-ids.js";
 
 test("user can register and reach onboarding", async ({ page }) => {
   page.on("console", (msg) => {
@@ -11,7 +12,7 @@ test("user can register and reach onboarding", async ({ page }) => {
   const email = `pw_${crypto.randomUUID()}@ludocode.test`;
   const password = "2121212121";
 
-  const tosCheckbox = page.getByTestId("register-tos");
+  const tosCheckbox = page.getByTestId(testIds.auth.registerTos);
 
   await page.context().clearCookies();
 

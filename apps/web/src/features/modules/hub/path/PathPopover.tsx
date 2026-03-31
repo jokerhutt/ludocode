@@ -10,6 +10,7 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { LudoPopover } from "@ludocode/design-system/widgets/ludo-popover.tsx";
 import type { LessonStatus, LudoLesson } from "@ludocode/types";
 import { PopoverClose } from "@radix-ui/react-popover";
+import { testIds } from "@ludocode/util/test-ids";
 
 type PathPopoverProps = {
   trigger: ReactElement;
@@ -39,8 +40,18 @@ const popoverConfig: Record<
     icon: RotateCcwIcon,
     disabled: false,
   },
-  COMPLETE: { text: "Master", variant: "default", icon: StarIcon, disabled: false },
-  DEFAULT: { text: "Start", variant: "default", icon: PlayIcon, disabled: false },
+  COMPLETE: {
+    text: "Master",
+    variant: "default",
+    icon: StarIcon,
+    disabled: false,
+  },
+  DEFAULT: {
+    text: "Start",
+    variant: "default",
+    icon: PlayIcon,
+    disabled: false,
+  },
 };
 
 export function PathPopover({
@@ -77,7 +88,7 @@ export function PathPopover({
       {/* Action */}
       <PopoverClose asChild>
         <LudoButton
-          data-testid={`path-popover-button-${lesson.id}`}
+          data-testid={testIds.path.popoverButton(lesson.id)}
           onClick={() => goToLesson()}
           className="h-9 w-full rounded-lg text-sm font-semibold gap-2"
           variant={config.variant}

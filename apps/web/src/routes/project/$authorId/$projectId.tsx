@@ -3,6 +3,7 @@ import { qk } from "@/queries/definitions/qk.ts";
 import { ProjectLayout } from "@/layouts/project/ProjectLayout.tsx";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import type { ProjectSnapshot } from "@ludocode/types";
 
 export const Route = createFileRoute("/project/$authorId/$projectId")({
   beforeLoad: async ({ params, context }) => {
@@ -23,7 +24,7 @@ async function projectLoader(
   queryClient: QueryClient,
 ) {
   const { projectId } = params;
-  const project = queryClient.getQueryData(qk.project(projectId));
+  const project : ProjectSnapshot | undefined = queryClient.getQueryData(qk.project(projectId));
 
   if (!project) {
     throw notFound();

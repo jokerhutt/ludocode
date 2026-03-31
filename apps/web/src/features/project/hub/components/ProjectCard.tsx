@@ -5,7 +5,8 @@ import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { router } from "@/main.tsx";
 import { parseToDate } from "@ludocode/util";
 import { parseToDigitDate } from "@ludocode/util/date/dateUtils.ts";
-import { FileActionsMenu } from "@/features/project/workbench/file-tree/FileActionsMenu.tsx";
+import { testIds } from "@ludocode/util/test-ids";
+import { FileActionsMenu } from "@/features/project/workbench/components/FileActionsMenu";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
 import { qo } from "@/queries/definitions/queries.ts";
@@ -51,7 +52,7 @@ export function ProjectCard({
 
   return (
     <LudoButton
-      data-testid={`project-hub-card`}
+      data-testid={testIds.projectHub.card}
       clickable={false}
       onClick={() => {
         router.navigate(ludoNavigation.project.toProject(authorId, projectId));

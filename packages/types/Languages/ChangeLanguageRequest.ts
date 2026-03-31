@@ -1,4 +1,4 @@
-import { LanguageKey } from "../Project/ProjectFileSnapshot";
+import { type LanguageKey } from "../Project/ProjectFileSnapshot";
 
 export type ChangeLanguageRequest = {
   languageName: LanguageKey;

@@ -3,7 +3,7 @@ import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useLessonEvaluation } from "@/features/lesson/context/useLessonContext.tsx";
 import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
-import { LudoCodePreview } from "@ludocode/design-system/widgets/LudoCodePreview.tsx";
+import { LudoCodePreview } from "@ludocode/design-system/widgets/ludo-code-preview.tsx";
 import { LudoOption } from "@ludocode/design-system/primitives/ludo-option.tsx";
 import type { ReactNode } from "react";
 

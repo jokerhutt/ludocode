@@ -3,6 +3,7 @@ import { useLocation } from "@tanstack/react-router";
 import { useCurrentCourseContext } from "@/features/course/context/CurrentCourseContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useIsMobile } from "@ludocode/hooks";
+import { testIds } from "@ludocode/util/test-ids";
 
 type NavigationIconGroupProps = {
   groupClassName?: string;
@@ -47,7 +48,7 @@ export function NavigationIconGroup({
           <button
             key={navItem.name}
             type="button"
-            data-testid={`nav-button-${dataTestIdPrefix}-${navItem.name}`}
+            data-testid={testIds.nav.button(dataTestIdPrefix, navItem.name)}
             onClick={() => navItem.onClick?.()}
             className={cn(
               isMobile

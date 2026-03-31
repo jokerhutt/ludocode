@@ -1,10 +1,10 @@
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench.tsx";
-import { NewFileMenu } from "./NewFileMenu.tsx";
+import { Workbench } from "@ludocode/design-system/widgets/workbench.tsx";
+import { NewFileMenu } from "../components/NewFileMenu.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
-import { LudoFileTree } from "@ludocode/design-system/widgets/LudoFileTree.tsx";
+import { LudoFileTree } from "@ludocode/design-system/widgets/ludo-file-tree.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import { FileActionsMenu } from "./FileActionsMenu.tsx";
+import { FileActionsMenu } from "../components/FileActionsMenu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { ChatBotProvider } from "@/features/ai/context/ChatBotContext.tsx";
 import { ChatBotAccordion } from "@ludocode/design-system/widgets/chatbot/ChatbotAccordion.tsx";
@@ -26,6 +26,7 @@ import {
 } from "@ludocode/external/ui/tooltip.tsx";
 import { useCallback, useRef } from "react";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { testIds } from "@ludocode/util/test-ids";
 
 type WorkbenchTreePaneProps = {
   readOnly?: boolean;
@@ -70,7 +71,7 @@ export function WorkbenchTreePane({
   return (
     <>
       <Workbench.Pane
-        dataTestId="project-aside-left"
+        dataTestId={testIds.project.asideLeft}
         className={cn(
           "border-r-2 flex-1 border-r-ludo-surface grid-rows-[auto_minmax(0,1fr)_auto]",
           className,
@@ -82,7 +83,7 @@ export function WorkbenchTreePane({
             readOnly={readOnly}
             trigger={
               <IconButton
-                dataTestId="open-file-popover-icon"
+                dataTestId={testIds.project.openFilePopover}
                 iconName="PlusIcon"
               />
             }
@@ -104,7 +105,7 @@ export function WorkbenchTreePane({
               const isEntryFile = file.path === entryFileId;
               return (
                 <LudoFileTree.Item
-                  dataTestId={`tree-file-${file.path}`}
+                  dataTestId={testIds.project.treeFile(file.path)}
                   key={key}
                   id={file.path}
                   name={file.path}

@@ -67,9 +67,6 @@ export * from "./Project/ChangeProjectVisibilityRequest";
 export * from "./Preferences/LudoCareer";
 export * from "./Preferences/TogglePreferencesRequest";
 
-// Static
-export * from "./Static/DevInfoContent";
-
 // subscription
 export * from "./Subscription/SubscriptionPlan";
 export * from "./Subscription/UserSubscription";

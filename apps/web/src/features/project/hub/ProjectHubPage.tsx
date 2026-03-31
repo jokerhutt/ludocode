@@ -13,6 +13,7 @@ import type { ProjectCardResponse } from "@ludocode/types";
 import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { testIds } from "@ludocode/util/test-ids";
 
 export function ProjectHubPage() {
   const { page } = Route.useSearch();
@@ -83,7 +84,9 @@ export function ProjectHubPage() {
                 {templateButtons.map((template) => (
                   <LudoButton
                     key={template.key}
-                    data-testid={`create-project-template-${template.key}`}
+                    data-testid={testIds.projectHub.createTemplate(
+                      template.key,
+                    )}
                     className="inline-flex h-10 px-1 lg:px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
                     variant="default"
                     shadow={false}
@@ -101,7 +104,7 @@ export function ProjectHubPage() {
                 ))}
                 {isAtLimit && paymentsFeature && (
                   <LudoButton
-                    data-testid="upgrade-project-limit-button"
+                    data-testid={testIds.projectHub.upgradeLimitButton}
                     className="inline-flex h-10 px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
                     variant="alt"
                     shadow={false}
@@ -117,7 +120,7 @@ export function ProjectHubPage() {
               </div>
 
               <span
-                data-testid="project-limits"
+                data-testid={testIds.projectHub.limits}
                 className={`flex w-full lg:w h-10 items-center justify-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
                   isAtLimit
                     ? "border-ludo-danger/30 bg-ludo-danger/10 text-ludo-danger"

@@ -12,6 +12,7 @@ import { HeaderNavButton } from "@/layouts/legal/ResourcesLayout";
 import { track } from "@/analytics/track";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { useHeaderBanners } from "@/features/banner/hooks/useHeaderBanners.ts";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
@@ -58,11 +59,7 @@ export function ProjectHeader({
         device="Both"
       >
         <div className="col-span-2 text-ludo-white-bright pl-2 lg:col-span-3 lg:pl-6 flex items-center">
-          {authenticated && (
-            <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
-              <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
-            </HollowSlotButton>
-          )}
+          {authenticated && <IconButton variant="large" onClick={() => goToProjectHub()} iconName="XMarkIcon" />}
         </div>
         <div className="col-span-8 min-w-0 text-ludo-white-bright flex items-center gap-2 justify-center lg:col-span-6 lg:gap-4">
           <h1 className="truncate">{projectName}</h1>

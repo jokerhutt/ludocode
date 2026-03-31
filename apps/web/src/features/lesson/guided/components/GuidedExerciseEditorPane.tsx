@@ -1,8 +1,8 @@
 import { stripFileName } from "@/features/project/util/filenameUtil";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext";
-import { ProjectEditor } from "@/features/project/workbench/editor/ProjectEditor";
+import { ProjectEditor } from "@/features/project/workbench/zones/ProjectEditor";
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench";
+import { Workbench } from "@ludocode/design-system/widgets/workbench";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
 import type { ReactNode } from "react";
 import { cn } from "@ludocode/design-system/cn-utils";

@@ -9,7 +9,7 @@ import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNaviga
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
-import { WorkbenchOutputPane } from "@/features/project/workbench/output/WorkbenchOutputPane.tsx";
+import { WorkbenchOutputPane } from "@/features/project/workbench/zones/WorkbenchOutputPane";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
 import {
   evaluateExecutableTests,
