@@ -1,4 +1,4 @@
-import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { ChevronUpIcon, LayoutListIcon } from "lucide-react";
 
 type FloatingTriggerButtonProps = {
@@ -8,7 +8,7 @@ type FloatingTriggerButtonProps = {
   onClick?: () => void;
 };
 
-export function FloatingTriggerButton({
+export function FloatingMobileTrigger({
   position,
   title,
   onClick,
