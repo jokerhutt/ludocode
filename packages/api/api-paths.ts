@@ -24,9 +24,15 @@ export function createApiPaths({
       completions: `${BASE}/ai/completions`,
     },
 
+    maintenance: {
+      base: `${BASE}/maintenance`
+    },
+
     analytics: {
       base: `${BASE}/analytics`,
     },
+
+
 
     auth: {
       base: `${BASE}/auth`,

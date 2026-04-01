@@ -40,6 +40,13 @@ import {
 } from "@ludocode/types";
 
 export const qo = {
+  maintenance: () =>
+    queryOptions<{ enabled: boolean }>({
+      queryKey: qk.maintenance(),
+      queryFn: () => ludoGet<{ enabled: boolean }>(api.maintenance.base, false),
+      staleTime: 60_000,
+    }),
+
   user: (userId: string) =>
     queryOptions<LudoUser>({
       queryKey: qk.user(userId),
