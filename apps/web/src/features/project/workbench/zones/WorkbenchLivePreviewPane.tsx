@@ -7,25 +7,27 @@ import { testIds } from "@ludocode/util";
 
 type WorkbenchLivePreviewPaneProps = {
     projectId: string;
+    filePath: string;
     className?: string;
     refreshVersion?: number;
     hideWinbarOnMobile?: boolean;
 };
 
-function buildPreviewUrl(projectId: string): string {
+function buildPreviewUrl(projectId: string, filePath: string = "index.html"): string {
     const base = (WEB_CDN_BASE_URL ?? "").trim().replace(/\/+$/, "");
     if (!base || !projectId) return "";
-    return `${base}/${projectId}/index.html`;
+    return `${base}/${projectId}/${filePath}`;
 }
 
 export function WorkbenchLivePreviewPane({
     projectId,
+    filePath,
     refreshVersion = 0,
     className,
     hideWinbarOnMobile = false,
 }: WorkbenchLivePreviewPaneProps) {
     const [manualRefreshVersion, setManualRefreshVersion] = useState(0);
-    const previewUrl = buildPreviewUrl(projectId);
+    const previewUrl = buildPreviewUrl(projectId, filePath);
     const iframeSrc =
         previewUrl.length > 0
             ? `${previewUrl}${previewUrl.includes("?") ? "&" : "?"}autosave=${refreshVersion}&refresh=${manualRefreshVersion}`
