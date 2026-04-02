@@ -1,5 +1,4 @@
-import { Page, expect } from "@playwright/test";
-import { initialiseUser } from "./initialise";
+import { type Page, expect } from "@playwright/test";
 import {testIds} from "@ludocode/util/test-ids.js"
 
 export async function goToLesson(page: Page) {

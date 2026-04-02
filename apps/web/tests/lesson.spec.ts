@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { registerUser } from "./utils/auth";
 import { initialiseUser } from "./utils/initialise";
-import { completeLessonWithMistake, goToLesson } from "./utils/lesson";
+import { goToLesson } from "./utils/lesson";
 import {testIds} from "@ludocode/util/test-ids.js"
 
 test("user can go to lesson", async ({ page }) => {
@@ -26,7 +25,6 @@ test("user can go to lesson", async ({ page }) => {
 
 test("user can go to lesson & complete it", async ({ page }) => {
   await initialiseUser(page);
-  const lessonId = "7eeaaddd-2d87-495e-bd40-24cfd9f06b4b";
   await goToLesson(page);
 
   await expect(page).toHaveURL(

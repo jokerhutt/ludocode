@@ -1,7 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { registerUser } from "./utils/auth";
 import { onboardUser } from "./utils/onboard";
-import {testIds} from "@ludocode/util/test-ids.js"
 
 test("user can register, onboard, & is taken to their desired course", async ({
   page,

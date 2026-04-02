@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { type Page, expect } from "@playwright/test";
 
 export async function registerUser(page: Page) {
   const email = `pw_${crypto.randomUUID()}@ludocode.test`;

@@ -1,7 +1,5 @@
-import { Page, expect } from "@playwright/test";
-import { registerUser } from "./auth";
+import { type Page, expect } from "@playwright/test";
 import { onboardUser } from "./onboard";
-import {testIds} from "@ludocode/util/test-ids.js"
 
 export async function initialiseUser(page: Page) {
   await onboardUser(page);

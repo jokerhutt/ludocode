@@ -43,9 +43,4 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "src",
-    "../../packages/design-system/primitives/badge.tsx",
-    "../../packages/design-system/primitives/FloatingMobileTrigger.tsx"
-  ]
 }

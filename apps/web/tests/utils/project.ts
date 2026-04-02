@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { testIds } from "@ludocode/util/test-ids.js";
 

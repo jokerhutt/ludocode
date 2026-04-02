@@ -4,7 +4,7 @@ import { getRouteApi, useRouter } from "@tanstack/react-router";
 import type { ModuleProgress } from "@/features/modules/hooks/useTreeData.tsx";
 import { useState } from "react";
 import { LudoList } from "@ludocode/design-system/widgets/ludo-list.tsx";
-import { FloatingMobileTrigger } from "../../../../../../../packages/design-system/primitives/FloatingMobileTrigger.tsx";
+import { FloatingMobileTrigger } from "@ludocode/design-system/primitives/FloatingMobileTrigger.tsx";
 import { LudoSlideOver } from "@ludocode/design-system/widgets/ludo-slideover.tsx";
 type MobileModuleSlideOverProps = {
   modules: LudoModule[];

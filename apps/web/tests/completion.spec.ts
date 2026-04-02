@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import { initialiseUser } from "./utils/initialise";
 import {
   completeLessonPerfect,
-  completeLessonWithMistake,
   goToLesson,
 } from "./utils/lesson";
 import {testIds} from "@ludocode/util/test-ids.js"
