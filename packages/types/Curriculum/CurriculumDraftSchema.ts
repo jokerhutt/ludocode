@@ -1,44 +1,7 @@
 import { z } from "zod";
+import { type LanguageKey, Languages } from "../Project/ProjectFileSnapshot";
 
-const LanguageMetadataSchema = z.object({
-  languageId: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  editorId: z.string(),
-  pistonId: z.string(),
-  runtimeVersion: z.string(),
-  extension: z.string(),
-  base: z.string(),
-  iconName: z.string(),
-  initialScript: z.string(),
-});
-
-const LanguageDraftValueSchema = z.union([
-  z.string().min(1),
-  LanguageMetadataSchema,
-]);
-
-export const curriculumDraftSchema = z.object({
-  modules: z.array(
-    z.object({
-      id: z.string(),
-      title: z.string().min(1, "Module title required"),
-      lessons: z.array(
-        z.object({
-          id: z.string(),
-          title: z.string().min(1, "lesson title required"),
-          lessonType: z.enum(["NORMAL", "GUIDED"]),
-        }),
-      ),
-    }),
-  ),
-});
-
-export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
-export type CurriculumDraftModules = CurriculumDraft["modules"];
-export type CurriculumDraftModule = CurriculumDraftModules[number];
-export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
-export type CurriculumDraftLesson = CurriculumDraftLessons[number];
+const LANGUAGE_KEYS = Object.keys(Languages) as [LanguageKey, ...LanguageKey[]];
 
 // ─── Blocks ────────────────────────────────────────────────────────────
 
@@ -67,7 +30,7 @@ export const InstructionsBlockSchema = z.object({
 export const CodeBlockSchema = z.object({
   ...BaseClient,
   type: z.literal("code"),
-  language: z.string().min(1, "language required"),
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string().min(1, "Code content required"),
   output: z.string().nullish(),
 });
@@ -95,7 +58,7 @@ export const InteractionBlankSchema = z.object({
 });
 
 export const InteractionFileSchema = z.object({
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string().min(1),
 });
 
@@ -116,7 +79,7 @@ export const ClozeInteractionSchema = z.object({
 export const ExecutableFileSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "A name is required for the file"),
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string(),
 });
 
@@ -140,22 +103,73 @@ export const ExecutableInteractionSchema = z.object({
 });
 
 export const ProjectFileSnapshotSchema = z.object({
-  id: z.string().optional(),
   tempId: z.string().optional(),
   path: z.string().min(1),
-  language: LanguageDraftValueSchema,
+  language: z.enum(LANGUAGE_KEYS),
   content: z.string(),
 });
 
 export const ProjectSnapshotSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
-  projectLanguage: LanguageDraftValueSchema,
+  projectType: z.enum(["WEB", "CODE"]),
   deleteAt: z.string().optional().nullable(),
-  updatedAt: z.number().optional(),
   files: z.array(ProjectFileSnapshotSchema).min(1),
-  entryFileId: z.string(),
+  entryFilePath: z.string(),
 });
+
+const CurriculumDraftNavigatorLessonSchema = z
+  .object({
+    id: z.string(),
+    title: z.string().min(1, "lesson title required"),
+    lessonType: z.enum(["NORMAL", "GUIDED"]),
+    projectSnapshot: ProjectSnapshotSchema.nullable(),
+  })
+  .superRefine((lesson, ctx) => {
+    if (lesson.lessonType === "GUIDED" && !lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require a projectSnapshot",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (lesson.lessonType === "NORMAL" && lesson.projectSnapshot) {
+      ctx.addIssue({
+        code: "custom",
+        message: "projectSnapshot is only allowed in GUIDED lessons",
+        path: ["projectSnapshot"],
+      });
+    }
+
+    if (
+      lesson.lessonType === "GUIDED" &&
+      lesson.projectSnapshot &&
+      lesson.projectSnapshot.files.length !== 1
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "GUIDED lessons require exactly one project file",
+        path: ["projectSnapshot", "files"],
+      });
+    }
+  });
+
+export const curriculumDraftSchema = z.object({
+  modules: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string().min(1, "Module title required"),
+      lessons: z.array(CurriculumDraftNavigatorLessonSchema),
+    }),
+  ),
+});
+
+export type CurriculumDraft = z.infer<typeof curriculumDraftSchema>;
+export type CurriculumDraftModules = CurriculumDraft["modules"];
+export type CurriculumDraftModule = CurriculumDraftModules[number];
+export type CurriculumDraftLessons = CurriculumDraftModule["lessons"];
+export type CurriculumDraftLesson = CurriculumDraftLessons[number];
 
 export const ExerciseInteractionSchema = z.discriminatedUnion("type", [
   SelectInteractionSchema,

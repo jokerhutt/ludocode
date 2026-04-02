@@ -24,9 +24,15 @@ export function createApiPaths({
       completions: `${BASE}/ai/completions`,
     },
 
+    maintenance: {
+      base: `${BASE}/maintenance`
+    },
+
     analytics: {
       base: `${BASE}/analytics`,
     },
+
+
 
     auth: {
       base: `${BASE}/auth`,
@@ -56,18 +62,6 @@ export function createApiPaths({
 
     features: {
       base: `${BASE}/features`,
-    },
-
-    languages: {
-      base: `${BASE}/languages`,
-      adminBase: `${ADMIN_BASE}/languages`,
-      byAdminIdVisiblity: (id: number) =>
-        `${ADMIN_BASE}/languages/${id}/visibility`,
-      byAdminIdDisabledMessage: (id: number) =>
-        `${ADMIN_BASE}/languages/${id}/disabled-message`,
-      byId: (languageId: number) => `${BASE}/languages/${languageId}`,
-      byAdminId: (languageId: number) =>
-        `${ADMIN_BASE}/languages/${languageId}`,
     },
 
     lessons: {
@@ -146,8 +140,6 @@ export function createApiPaths({
         `${ADMIN_BASE}/snapshots/${courseId}/status`,
       byCourseCurriculum: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/curriculum/${courseId}`,
-      byCourseCurriculumSubject: (courseId: string) =>
-        `${ADMIN_BASE}/snapshots/${courseId}/subject`,
       byCourseCurriculumLanguage: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/language`,
       byCourseCurriculumIcon: (courseId: string) =>
@@ -155,13 +147,6 @@ export function createApiPaths({
       byCourseCurriculumTitle: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/title`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
-    },
-
-    subjects: {
-      base: `${BASE}/subjects`,
-      adminBase: `${ADMIN_BASE}/subjects`,
-      byId: (subjectId: number) => `${BASE}/subjects/${subjectId}`,
-      byAdminId: (subjectId: number) => `${ADMIN_BASE}/subjects/${subjectId}`,
     },
 
     feedback: {

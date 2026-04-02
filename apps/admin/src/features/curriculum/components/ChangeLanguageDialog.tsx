@@ -7,16 +7,16 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/queries/definitions/queries.ts";
 import { useChangeLanguage } from "@/features/curriculum/hooks/useChangeLanguage.tsx";
+import type { LanguageKey } from "@ludocode/types";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
 
 type ChangeLanguageDialogProps = {
   open: boolean;
   close: () => void;
   children: ReactNode;
   courseId: string;
-  currentLanguageId?: number;
+  currentLanguage?: LanguageKey;
 };
 
 export function ChangeLanguageDialog({
@@ -24,32 +24,32 @@ export function ChangeLanguageDialog({
   close,
   children,
   courseId,
-  currentLanguageId,
+  currentLanguage,
 }: ChangeLanguageDialogProps) {
-  const { data: languages } = useSuspenseQuery(qo.languages());
-
   const changeMutation = useChangeLanguage({ courseId });
 
-  const [selectedLanguageId, setSelectedLanguageId] = useState<number>(0);
+  const [selectedLanguage, setSelectedLanguage] = useState<
+    LanguageKey | undefined
+  >();
 
-  const hasChanged = currentLanguageId !== selectedLanguageId;
+  const hasChanged = currentLanguage !== selectedLanguage;
 
   useEffect(() => {
     if (open) {
-      setSelectedLanguageId(currentLanguageId ?? 0);
+      setSelectedLanguage(currentLanguage);
     }
-  }, [open, currentLanguageId]);
+  }, [open, currentLanguage]);
 
   const isLoading = changeMutation.isPending;
 
   const handleSubmit = () => {
-    if (!hasChanged) {
+    if (!hasChanged || !selectedLanguage) {
       close();
       return;
     }
 
     changeMutation.mutate(
-      { languageId: selectedLanguageId },
+      { languageName: selectedLanguage },
       {
         onSuccess: () => {
           close();
@@ -75,26 +75,23 @@ export function ChangeLanguageDialog({
         <LudoSelect
           variant="dark"
           title="Language"
-          value={selectedLanguageId.toString()}
-          setValue={(v) => setSelectedLanguageId(Number(v))}
+          value={selectedLanguage ?? ""}
+          setValue={(v) => setSelectedLanguage(v as LanguageKey)}
         >
-          {languages.map((lang) => (
-            <LudoSelectItem
-              key={lang.languageId}
-              value={lang.languageId.toString()}
-            >
-              <span className="flex items-center gap-2">
-                <span>{lang.name}</span>
-                {lang.slug && (
-                  <span className="text-xs text-ludo-white">/{lang.slug}</span>
-                )}
-              </span>
-            </LudoSelectItem>
-          ))}
+          {(Object.keys(Languages) as LanguageKey[]).map((key) => {
+            const metadata = Languages[key];
+            return (
+              <LudoSelectItem key={key} value={key}>
+                <span className="flex items-center gap-2">
+                  <span>{metadata.name}</span>
+                </span>
+              </LudoSelectItem>
+            );
+          })}
         </LudoSelect>
 
         <LudoButton
-          disabled={isLoading || !selectedLanguageId}
+          disabled={isLoading || !selectedLanguage}
           variant="alt"
           onClick={handleSubmit}
           className="w-full flex justify-center"

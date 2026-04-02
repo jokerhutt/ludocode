@@ -1,12 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { registerUser } from "./utils/auth";
 import { onboardUser } from "./utils/onboard";
 
 test("user can register, onboard, & is taken to their desired course", async ({
   page,
 }) => {
   await onboardUser(page);
-  // const freeButton = page.getByTestId("sub-compare-FREE");
+  // const freeButton = page.getByTestId(testIds.subscription.compare("FREE"));
 
   // await expect(page).toHaveURL(/\/app\/subscription\/comparison$/);
 

@@ -1,45 +1,35 @@
-import { Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { testIds } from "@ludocode/util/test-ids.js";
 
-export async function createProject(page: Page) {
-  await expect(page).toHaveURL(/\/projects/);
+export async function createProject(page: Page, language?: string) {
+    await expect(page).toHaveURL(/\/projects/);
 
-  const createProjectDialogButton = page.getByTestId(
-    `create-project-dialog-button`,
-  );
+    const template = language ?? "python";
 
-  const createProjectSelectTrigger = page.getByTestId(`select-trigger`);
-  const createProjectPythonOption = page.getByTestId(`select-item-python`);
+    const createProjectPythonButton = page.getByTestId(
+        testIds.projectHub.createTemplate(template),
+    );
 
-  const createProjectButton = page.getByTestId(`create-project-button`);
-
-  await expect(createProjectDialogButton).toBeVisible();
-
-  await createProjectDialogButton.click();
-
-  await expect(createProjectButton).toBeVisible();
-  await expect(createProjectSelectTrigger).toBeVisible();
-
-  await createProjectSelectTrigger.click();
-  await expect(createProjectPythonOption).toBeVisible();
-  await createProjectPythonOption.click();
-
-  await createProjectButton.click();
+    await expect(createProjectPythonButton).toBeVisible();
+    await createProjectPythonButton.click();
 }
 
 export async function createProjectFile(page: Page) {
-  const openFilePopoverIcon = page.getByTestId("open-file-popover-icon");
-  const newFileButton = page.getByTestId("new-file-button");
+    const openFilePopoverIcon = page.getByTestId(testIds.project.openFilePopover);
+    const newFileButton = page.getByTestId(testIds.project.newFileButton);
 
-  await expect(openFilePopoverIcon).toBeVisible();
-  await openFilePopoverIcon.click();
+    await expect(openFilePopoverIcon).toBeVisible();
+    await openFilePopoverIcon.click();
 
-  await expect(newFileButton).toBeVisible();
-  await newFileButton.click();
+    await expect(newFileButton).toBeVisible();
+    await newFileButton.click();
 }
 
 export async function runCode(page: Page) {
-  const runCodeButton = page.getByTestId("run-code-button");
-  await expect(runCodeButton).toBeVisible();
-  await runCodeButton.click();
+    const runCodeButton = page
+        .getByTestId(testIds.project.runCodeButton)
+        .and(page.locator(":visible"));
+    await expect(runCodeButton).toBeVisible();
+    await runCodeButton.click();
 }

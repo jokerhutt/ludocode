@@ -1,5 +1,6 @@
 import { type AnswerToken } from "@ludocode/types";
 import { cn } from "../cn-utils";
+import { testIds } from "@ludocode/util/test-ids";
 
 export type OptionStatus = "DEFAULT" | "CORRECT" | "INCORRECT";
 
@@ -66,8 +67,8 @@ export function LudoOption(props: LudoOptionProps) {
       data-testId={
         props.testId ??
         (isWide
-          ? `exercise-option-wide-${content}`
-          : `exercise-option-${content}`)
+          ? testIds.exercise.optionWide(content)
+          : testIds.exercise.option(content))
       }
       onClick={handleClick}
       className={cn(

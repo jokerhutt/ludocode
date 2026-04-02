@@ -1,10 +1,9 @@
-import { Page, expect } from "@playwright/test";
-import { registerUser } from "./auth";
+import { type Page, expect } from "@playwright/test";
 import { onboardUser } from "./onboard";
 
 export async function initialiseUser(page: Page) {
   await onboardUser(page);
-  // const freeButton = page.getByTestId("sub-compare-FREE");
+  // const freeButton = page.getByTestId(testIds.subscription.compare("FREE"));
 
   // await expect(page).toHaveURL(/\/app\/subscription\/comparison$/);
 

@@ -1,4 +1,4 @@
-import type { CurriculumDraft } from "@ludocode/types";
+import type { CurriculumDraft, LanguageKey } from "@ludocode/types";
 import {
   closestCenter,
   DndContext,
@@ -23,8 +23,9 @@ export const SortableLessonContainer = withForm({
   },
   props: {
     moduleIndex: 0,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
-  render: function Render({ form, moduleIndex }) {
+  render: function Render({ form, moduleIndex, courseLanguage }) {
     return (
       <form.Field name={`modules[${moduleIndex}].lessons`} mode="array">
         {(lessonsField) => {
@@ -83,7 +84,9 @@ export const SortableLessonContainer = withForm({
                 <AddCurriculumItemButton
                   text="Add Guided Project"
                   onAdd={() =>
-                    lessonsField.pushValue(createNewGuidedLessonTemplate())
+                    lessonsField.pushValue(
+                      createNewGuidedLessonTemplate(courseLanguage),
+                    )
                   }
                 />
               </div>

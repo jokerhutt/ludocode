@@ -1,6 +1,6 @@
 import { track } from "@/analytics/track";
 import { ludoNavigation } from "@/constants/ludoNavigation";
-import { HeaderNavButton } from "@/layouts/legal/ResourcesLayout";
+import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
 import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LogIn } from "lucide-react";
@@ -28,10 +28,10 @@ export function FooterCTAGroup({ source }: FooterCTAGroupProps) {
     <div className="px-3 py-1">
       <div className="flex items-center gap-2">
         <div className="h-8 flex-1 flex items-center justify-center">
-          <HeaderNavButton onClick={handleLoginClick}>
+          <NavButton onClick={handleLoginClick}>
             <LogIn className="w-4 h-4" />
             <span>Log in</span>
-          </HeaderNavButton>
+          </NavButton>
         </div>
         <LudoButton
           variant="alt"

@@ -2,6 +2,7 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { RotateCcwIcon } from "lucide-react";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { SolutionHintDialog } from "./SolutionHintDialog";
+import { testIds } from "@ludocode/util/test-ids";
 
 type SolutionHint = {
   currentCode: string;
@@ -41,9 +42,9 @@ export function GuidedLessonActions({
       ? "CONTINUE"
       : isIncorrect && !isRunning
         ? "TRY AGAIN"
-      : isRunning
-        ? "STOP"
-        : "SUBMIT";
+        : isRunning
+          ? "STOP"
+          : "SUBMIT";
 
   return (
     <>
@@ -73,7 +74,7 @@ export function GuidedLessonActions({
       <div className="h-10 flex items-center gap-2">
         {solutionHint && <SolutionHintDialog {...solutionHint} />}
         <LudoButton
-          data-testid="guided-run-code-button"
+          data-testid={testIds.guided.runCodeButton}
           onClick={runOrAdvance}
           variant={isRunning ? "default" : "alt"}
           shadow={false}

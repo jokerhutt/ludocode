@@ -9,32 +9,9 @@ import { BookOpen, Github, LogIn } from "lucide-react";
 import { Suspense } from "react";
 import { track } from "@/analytics/track";
 import { useFirebaseAuthEntry } from "@/queries/mutations/useFirebaseAuthEntry";
-import { cn } from "@ludocode/design-system/cn-utils";
+import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
-
-export function HeaderNavButton({
-  onClick,
-  children,
-  className,
-}: {
-  onClick: () => void;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        `flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-ludo-white-dim hover:text-ludo-white-bright hover:bg-white/5 hover:cursor-pointer transition-all duration-150`,
-        className,
-      )}
-    >
-      {children}
-    </button>
-  );
-}
 
 export function ResourcesLayout() {
   const firebaseLogin = useFirebaseAuthEntry();
@@ -68,7 +45,7 @@ export function ResourcesLayout() {
               </button>
             </h1>
             <div className="flex items-center gap-1">
-              <HeaderNavButton
+              <NavButton
                 onClick={() => {
                   track({
                     event: "DOCS_CLICK",
@@ -79,8 +56,8 @@ export function ResourcesLayout() {
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Docs</span>
-              </HeaderNavButton>
-              <HeaderNavButton
+              </NavButton>
+              <NavButton
                 onClick={() => {
                   track({
                     event: "SOURCE_CODE_CLICK",
@@ -91,7 +68,7 @@ export function ResourcesLayout() {
               >
                 <Github className="w-4 h-4" />
                 <span>Source</span>
-              </HeaderNavButton>
+              </NavButton>
               <div className="w-px h-5 bg-ludo-border mx-2 " />
               <div className="flex items-center  gap-2">
                 <LudoButton
@@ -123,13 +100,13 @@ export function ResourcesLayout() {
                 >
                   Register
                 </LudoButton>
-                <HeaderNavButton
+                <NavButton
                   onClick={handleGoogleJoinClick}
                   className="h-8 px-3 py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
                 >
                   <GoogleIcon />
                   <span>Google</span>
-                </HeaderNavButton>
+                </NavButton>
               </div>
             </div>
           </div>
@@ -142,21 +119,21 @@ export function ResourcesLayout() {
               Ludocode
             </h1>
             <div className="flex items-center gap-1">
-              <HeaderNavButton
+              <NavButton
                 onClick={() =>
                   router.navigate(ludoNavigation.resources.toDocs())
                 }
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Docs</span>
-              </HeaderNavButton>
-              <HeaderNavButton
+              </NavButton>
+              <NavButton
                 onClick={handleGoogleJoinClick}
                 className="h-7 px-3 py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
               >
                 <GoogleIcon />
                 <span>Join</span>
-              </HeaderNavButton>
+              </NavButton>
             </div>
           </div>
         </Suspense>

@@ -1,17 +1,16 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useAutoSaveProject } from "@/features/project/hooks/useAutoSaveProject.tsx";
+import { useAutoSaveContext } from "@/features/project/workbench/context/AutoSaveContext.tsx";
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
-import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot.tsx";
-import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStatusIcon.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
 import type { ProjectMode } from "@/layouts/project/ProjectLayout";
 import { HeartIcon, LogIn } from "lucide-react";
-import { HeaderNavButton } from "@/layouts/legal/ResourcesLayout";
+import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
 import { track } from "@/analytics/track";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { useHeaderBanners } from "@/features/banner/hooks/useHeaderBanners.ts";
+import { IconButton } from "@ludocode/design-system/primitives/icon-button";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
@@ -22,33 +21,14 @@ export function ProjectHeader({
   mode = "READONLY",
   authenticated,
 }: ProjectHeaderProps) {
-  const { project, files, entryFileId } = useProjectContext();
+  const { project } = useProjectContext();
   const { projectName } = project;
-  const languageDisabled = project.projectLanguage.enabled === false;
-  const languageDisabledReason =
-    project.projectLanguage.disabledReason?.trim() ||
-    "This language has been disabled, sorry";
   const { banners } = useHeaderBanners({
-    localBanners: languageDisabled
-      ? [
-          {
-            id: "project-language-disabled",
-            text: languageDisabledReason,
-            type: "INCIDENT",
-          },
-        ]
-      : [],
+    localBanners: [],
   });
 
   const isAutoSaveEnabled = mode === "EDIT";
-
-  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
-    enabled: isAutoSaveEnabled,
-    project,
-    files,
-    debounceMs: 1000,
-    entryFileId,
-  });
+  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveContext();
 
   const goToProjectHub = () => {
     router.navigate(ludoNavigation.hub.project.toProjectHub());
@@ -78,9 +58,11 @@ export function ProjectHeader({
       >
         <div className="col-span-2 text-ludo-white-bright pl-2 lg:col-span-3 lg:pl-6 flex items-center">
           {authenticated && (
-            <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
-              <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
-            </HollowSlotButton>
+            <IconButton
+              variant="large"
+              onClick={() => goToProjectHub()}
+              iconName="XMarkIcon"
+            />
           )}
         </div>
         <div className="col-span-8 min-w-0 text-ludo-white-bright flex items-center gap-2 justify-center lg:col-span-6 lg:gap-4">
@@ -99,10 +81,10 @@ export function ProjectHeader({
         <div className="col-span-2 text-ludo-white-bright pr-2 lg:col-span-3 lg:pr-8">
           {!authenticated && (
             <div className="hidden lg:flex justify-end h-full items-center w-full gap-2">
-              <HeaderNavButton onClick={handleLoginClick}>
+              <NavButton onClick={handleLoginClick}>
                 <LogIn className="w-4 h-4" />
                 <span>Log in</span>
-              </HeaderNavButton>
+              </NavButton>
               <LudoButton
                 variant="alt"
                 shadow={false}

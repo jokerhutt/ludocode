@@ -9,7 +9,7 @@ import { useExerciseNavigation } from "@/features/lesson/hooks/useExerciseNaviga
 import { useProjectContext } from "@/features/project/workbench/context/ProjectContext.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck";
-import { WorkbenchOutputPane } from "@/features/project/workbench/output/WorkbenchOutputPane.tsx";
+import { WorkbenchOutputPane } from "@/features/project/workbench/zones/WorkbenchOutputPane";
 import { stripFileName } from "@/features/project/util/filenameUtil.ts";
 import {
   evaluateExecutableTests,
@@ -130,7 +130,7 @@ export function GuidedExecutableWorkbench({
     const projectSnapshotAttempt: ProjectSnapshot = {
       ...project,
       files: files.map((file) => ({ ...file })),
-      entryFileId,
+      entryFilePath: entryFileId,
     };
 
     const attempt: ExerciseAttempt = {
@@ -198,7 +198,7 @@ export function GuidedExecutableWorkbench({
   const solution =
     interaction?.type === "EXECUTABLE" ? interaction.solution : "";
   const currentCode = active?.content ?? "";
-  const languageId = active?.language.editorId ?? "plaintext";
+  const languageId = active?.language ?? "plaintext";
   const showSolutionHint = !isComplete && incorrectAttemptCount >= 2;
   const canReset = useMemo(() => {
     return !!resetSnapshot && !isEditorReadOnly && !isRunning;

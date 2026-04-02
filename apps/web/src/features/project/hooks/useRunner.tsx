@@ -54,8 +54,8 @@ function buildRunnerFiles(
   entryFileId: string,
 ): RunnerFile[] {
   const orderedFiles = [...files].sort((left, right) => {
-    const leftId = left.id ?? left.tempId;
-    const rightId = right.id ?? right.tempId;
+    const leftId = left.path;
+    const rightId = right.path;
 
     if (leftId === entryFileId) return -1;
     if (rightId === entryFileId) return 1;
@@ -63,7 +63,7 @@ function buildRunnerFiles(
   });
 
   return orderedFiles.map((file) => ({
-    codeLanguage: file.language.pistonId,
+    codeLanguage: file.language,
     name: file.path,
     content: file.content,
   }));
@@ -247,32 +247,29 @@ export function useRunner({
     setIsRunning(true);
     setOutputLog((prev) => [...prev, createOutputPacket()]);
     client.run(runnerFiles);
-  }, [
-    createClient,
-    isRunning,
-    project.projectId,
-    entryFileId,
-    disabled,
-  ]);
+  }, [createClient, isRunning, project.projectId, entryFileId, disabled]);
 
-  const sendStdin = useCallback((text: string) => {
-    if (!clientRef.current) {
-      return false;
-    }
+  const sendStdin = useCallback(
+    (text: string) => {
+      if (!clientRef.current) {
+        return false;
+      }
 
-    const echoedInput: PistonDataMessage = {
-      type: "data",
-      stream: "stdout",
-      data: `> ${text}`,
-    };
+      const echoedInput: PistonDataMessage = {
+        type: "data",
+        stream: "stdout",
+        data: `> ${text}`,
+      };
 
-    updateActivePacket((packet) => ({
-      ...packet,
-      messages: [...packet.messages, echoedInput],
-    }));
+      updateActivePacket((packet) => ({
+        ...packet,
+        messages: [...packet.messages, echoedInput],
+      }));
 
-    return clientRef.current.sendStdin(text);
-  }, [updateActivePacket]);
+      return clientRef.current.sendStdin(text);
+    },
+    [updateActivePacket],
+  );
 
   const activePacket = outputLog[outputLog.length - 1];
   const canSendStdin =

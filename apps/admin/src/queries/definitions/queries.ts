@@ -2,13 +2,10 @@ import { queryOptions } from "@tanstack/react-query";
 import { qk } from "@/queries/definitions/qk.ts";
 import { userBatcher } from "@/queries/definitions/batchers.ts";
 import {
-  type PistonRuntime,
-  type LanguageMetadata,
   type LudoCourse,
   type LudoUser,
   type CurriculumDraft,
   type CurriculumDraftLessonForm,
-  type SubjectsDraftSnapshot,
   type ActiveFeaturesResponse,
   type LudoBannerSnapshot,
 } from "@ludocode/types";
@@ -58,29 +55,6 @@ export const qo = {
           true,
         ),
       staleTime: 60_000 * 10,
-    }),
-
-  runtimes: () =>
-    queryOptions({
-      queryKey: qk.runtimes(),
-      queryFn: () =>
-        ludoGet<PistonRuntime[]>(adminApi.external.piston.runtimes, false),
-      staleTime: 60_000 * 10,
-    }),
-
-  languages: () =>
-    queryOptions<LanguageMetadata[]>({
-      queryKey: qk.languages(),
-      queryFn: () => ludoGet<LanguageMetadata[]>(adminApi.languages.base, true),
-      staleTime: 60_00,
-    }),
-
-  allSubjects: () =>
-    queryOptions<SubjectsDraftSnapshot[]>({
-      queryKey: qk.subjects(),
-      queryFn: () =>
-        ludoGet<SubjectsDraftSnapshot[]>(adminApi.subjects.base, true),
-      staleTime: 60_000,
     }),
 
   activeFeatures: () =>

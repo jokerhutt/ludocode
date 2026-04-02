@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 import { initialiseUser } from "./utils/initialise";
 import {
   completeLessonPerfect,
-  completeLessonWithMistake,
   goToLesson,
 } from "./utils/lesson";
+import {testIds} from "@ludocode/util/test-ids.js"
 
 test("user completes lesson for the first time ever, shows completion, streak, & courseComplete", async ({
   page,
@@ -17,10 +17,10 @@ test("user completes lesson for the first time ever, shows completion, streak, &
     /\/completion\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?step=lesson&coins=20&accuracy=1&oldStreak=0&newStreak=1&completionStatus=COURSE_COMPLETE$/,
   );
 
-  const completionButton = page.getByTestId(`completion-button`);
+  const completionButton = page.getByTestId(testIds.completion.button);
 
-  const coins = page.getByTestId(`completion-coins`);
-  const accuracy = page.getByTestId(`completion-accuracy`);
+  const coins = page.getByTestId(testIds.completion.coins);
+  const accuracy = page.getByTestId(testIds.completion.accuracy);
 
   await expect(completionButton).toBeVisible();
 
@@ -34,7 +34,7 @@ test("user completes lesson for the first time ever, shows completion, streak, &
 
   await expect(page).toHaveURL(/step=streak/);
 
-  const streakCompleteText = page.getByTestId(`streak-complete-text`);
+  const streakCompleteText = page.getByTestId(testIds.completion.streakText);
 
   await expect(streakCompleteText).toBeVisible();
   await expect(streakCompleteText).toContainText("Day Streak!");
@@ -45,12 +45,14 @@ test("user completes lesson for the first time ever, shows completion, streak, &
 
   await expect(page).toHaveURL(/step=course/);
 
-  const courseCompleteHeader = page.getByTestId(`course-complete-header`);
+  const courseCompleteHeader = page.getByTestId(
+    testIds.completion.courseCompleteHeader,
+  );
   const courseCompleteCongratulation = page.getByTestId(
-    `course-complete-congratulation`,
+    testIds.completion.courseCompleteCongratulation,
   );
   const courseCompleteBadgeText = page.getByTestId(
-    `course-complete-badge-text`,
+    testIds.completion.courseCompleteBadgeText,
   );
   await expect(courseCompleteHeader).toBeVisible();
   await expect(courseCompleteBadgeText).toBeVisible();

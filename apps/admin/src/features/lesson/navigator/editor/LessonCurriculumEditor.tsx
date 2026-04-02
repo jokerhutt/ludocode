@@ -1,7 +1,4 @@
-import type {
-  CurriculumDraftLessonForm,
-  LanguageMetadata,
-} from "@ludocode/types";
+import type { CurriculumDraftLessonForm, LanguageKey } from "@ludocode/types";
 import { withForm } from "@/features/curriculum/types.ts";
 import { EditorActions } from "@/features/curriculum/navigator/editor/EditorActions.tsx";
 import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
@@ -35,7 +32,7 @@ export const LessonCurriculumEditor = withForm({
     isSubmitting: false,
     selectedExerciseId: null as string | null,
     onSelectExercise: (() => {}) as (id: string | null) => void,
-    courseLanguage: undefined as LanguageMetadata | undefined,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({
     form,
@@ -110,7 +107,7 @@ function LessonProjectSnapshotEditor({
   courseLanguage,
 }: {
   form: any;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   return (
     <form.Subscribe
@@ -253,12 +250,12 @@ function LessonProjectSnapshotEditor({
             </form.Field>
 
             <form.Field
-              name="projectSnapshot.entryFileId"
+              name="projectSnapshot.entryFilePath"
               children={(field: any) => (
                 <LudoInput
                   value={String(field.state.value ?? "")}
                   setValue={(v: string) => field.handleChange(v)}
-                  placeholder="Entry file id"
+                  placeholder="Entry file path"
                 />
               )}
             />
@@ -269,21 +266,22 @@ function LessonProjectSnapshotEditor({
   );
 }
 
-function createDefaultProjectSnapshot(courseLanguage?: LanguageMetadata) {
-  const tempId = crypto.randomUUID();
+function createDefaultProjectSnapshot(courseLanguage?: LanguageKey) {
+  const path = getDefaultMainFilename(courseLanguage);
+  const language = resolveCourseLanguage(courseLanguage);
 
   return {
     projectId: crypto.randomUUID(),
     projectName: "Guided Project",
-    projectLanguage: resolveCourseLanguage(courseLanguage),
+    projectType: "CODE" as const,
     files: [
       {
-        tempId,
-        path: getDefaultMainFilename(courseLanguage),
-        language: resolveCourseLanguage(courseLanguage),
+        tempId: crypto.randomUUID(),
+        path,
+        language,
         content: "",
       },
     ],
-    entryFileId: tempId,
+    entryFilePath: path,
   };
 }

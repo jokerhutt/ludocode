@@ -2,6 +2,7 @@ import { ProjectProvider } from "@/features/project/workbench/context/ProjectCon
 import { WorkbenchPage } from "@/features/project/workbench/WorkbenchPage.tsx";
 import { getRouteApi, useLoaderData } from "@tanstack/react-router";
 import { ProjectHeader } from "@/features/project/workbench/zones/ProjectHeader.tsx";
+import { AutoSaveProvider } from "@/features/project/workbench/context/AutoSaveContext.tsx";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries";
@@ -33,11 +34,19 @@ export function ProjectLayout({}: ProjectLayoutProps) {
 
   return (
     <UserPreferencesContext.Provider value={preferences}>
-      <ProjectProvider project={project}>
-        <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
-          <ProjectHeader authenticated={!!currentUser} mode={mode} />
-          <WorkbenchPage readOnly={isReadOnly} authenticated={!!currentUser} />
-        </MainGridWrapper>
+      <ProjectProvider
+        key={`${project.projectId}-${project.updatedAt}`}
+        project={project}
+      >
+        <AutoSaveProvider enabled={mode === "EDIT"}>
+          <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
+            <ProjectHeader authenticated={!!currentUser} mode={mode} />
+            <WorkbenchPage
+              readOnly={isReadOnly}
+              authenticated={!!currentUser}
+            />
+          </MainGridWrapper>
+        </AutoSaveProvider>
       </ProjectProvider>
     </UserPreferencesContext.Provider>
   );

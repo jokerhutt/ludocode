@@ -8,10 +8,9 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select.tsx";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/queries/definitions/queries.ts";
 import { useCreateCourse } from "@/queries/mutations/useCreateCourse.tsx";
-import { createCourseSchema, type CourseType } from "@ludocode/types";
+import { type CourseType, type LanguageKey } from "@ludocode/types";
+import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
 import {
   CustomIcon,
   IconRegistry,
@@ -29,12 +28,10 @@ const languageIcons = Object.entries(IconRegistry)
   .map(([name]) => name as IconName);
 
 export function CreateCourseDialog({ open, close, children }: Props) {
-  const { data: languages } = useSuspenseQuery(qo.languages());
-
   const createMutation = useCreateCourse();
 
   const [courseTitle, setCourseTitle] = useState("");
-  const [languageId, setLanguageId] = useState<number | undefined>();
+  const [language, setLanguage] = useState<LanguageKey | undefined>();
   const [courseType, setCourseType] = useState<CourseType>("COURSE");
   const [courseIcon, setCourseIcon] = useState<string>("");
   const COURSE_TYPES: CourseType[] = ["COURSE", "SKILL_PATH"];
@@ -44,20 +41,17 @@ export function CreateCourseDialog({ open, close, children }: Props) {
   const isLoading = createMutation.isPending;
   const NONE_VALUE = "__none__";
   const handleCreate = () => {
-    const result = createCourseSchema.safeParse({
-      courseTitle,
-      courseIcon,
-      languageId,
-      courseType,
-    });
+    const errors: Record<string, string> = {};
 
-    if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        const key = issue.path[0] as string;
-        fieldErrors[key] = issue.message;
-      });
-      setErrors(fieldErrors);
+    if (!courseTitle.trim()) {
+      errors.courseTitle = "Title is required";
+    }
+    if (!courseIcon) {
+      errors.courseIcon = "Icon required";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
       return;
     }
 
@@ -65,14 +59,16 @@ export function CreateCourseDialog({ open, close, children }: Props) {
 
     createMutation.mutate(
       {
-        ...result.data,
-        languageId: result.data.languageId ?? null,
+        courseTitle,
+        courseIcon,
+        language: language ?? null,
+        courseType,
         requestHash: crypto.randomUUID(),
       },
       {
         onSuccess: () => {
           setCourseTitle("");
-          setLanguageId(undefined);
+          setLanguage(undefined);
           setCourseType("COURSE");
           close();
         },
@@ -123,18 +119,21 @@ export function CreateCourseDialog({ open, close, children }: Props) {
         <LudoSelect
           variant="dark"
           title="Language (optional)"
-          value={languageId ? languageId.toString() : NONE_VALUE}
+          value={language ?? NONE_VALUE}
           setValue={(v) =>
-            setLanguageId(v === NONE_VALUE ? undefined : Number(v))
+            setLanguage(v === NONE_VALUE ? undefined : (v as LanguageKey))
           }
         >
           <LudoSelectItem value={NONE_VALUE}>None</LudoSelectItem>
 
-          {languages.map((l) => (
-            <LudoSelectItem key={l.languageId} value={l.languageId.toString()}>
-              {l.name}
-            </LudoSelectItem>
-          ))}
+          {(Object.keys(Languages) as LanguageKey[]).map((key) => {
+            const metadata = Languages[key];
+            return (
+              <LudoSelectItem key={key} value={key}>
+                {metadata.name}
+              </LudoSelectItem>
+            );
+          })}
         </LudoSelect>
 
         <LudoSelect

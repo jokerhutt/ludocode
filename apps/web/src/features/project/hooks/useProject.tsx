@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import type { ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
+import { Languages, type LanguageKey, type ProjectFileSnapshot } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import type { ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { nextName } from "@/features/project/util/filenameUtil.ts";
 
@@ -12,17 +12,13 @@ export function useProject({ project }: Args): UseProjectResponse {
     project.files.map((f) => ({ ...f })),
   );
 
-  const initialEntryId =
-    project.entryFileId ?? project.files[0]?.id ?? project.files[0]?.tempId;
+  const initialEntryId = project.entryFilePath ?? project.files[0]?.path;
 
   if (!initialEntryId) {
     throw new Error("project must have at least one file");
   }
 
   const [entryFileId, setEntryFileId] = useState(initialEntryId);
-
-  const { projectLanguage } = project;
-  const { base, extension } = projectLanguage;
 
   const [current, setCurrent] = useState(0);
 
@@ -36,8 +32,7 @@ export function useProject({ project }: Args): UseProjectResponse {
 
         const fileBeingDeleted = prev[idx];
 
-        const fileId = fileBeingDeleted.id ?? fileBeingDeleted.tempId;
-        if (fileId === entryFileId) return prev;
+        if (fileBeingDeleted.path === entryFileId) return prev;
 
         const next = prev.slice();
         next.splice(idx, 1);
@@ -60,6 +55,7 @@ export function useProject({ project }: Args): UseProjectResponse {
         if (idx === -1) return prev;
 
         const file = prev[idx];
+        const extension = Languages[file.language].extension
 
         let base = newNameRaw.trim();
         if (!base) return prev;
@@ -79,12 +75,16 @@ export function useProject({ project }: Args): UseProjectResponse {
 
         const uniqueName = nextName(otherFiles, bare, extension);
 
+        if (oldPath === entryFileId) {
+          setEntryFileId(uniqueName);
+        }
+
         const next = prev.slice();
         next[idx] = { ...file, path: uniqueName };
         return next;
       });
     },
-    [extension],
+    [entryFileId],
   );
 
   const updateContent = useCallback(
@@ -98,27 +98,30 @@ export function useProject({ project }: Args): UseProjectResponse {
     [current],
   );
 
-  const addFile = useCallback(() => {
-    setFiles((fs) => {
-      const name = nextName(fs, base, extension);
-      const file: ProjectFileSnapshot = {
-        tempId: crypto.randomUUID(),
-        path: `${name}`,
-        language: projectLanguage,
-        content: "",
-      };
-      const next = [...fs, file];
-      setCurrent(next.length - 1);
-      return next;
-    });
-  }, [base, extension, projectLanguage]);
+  const addFile = useCallback(
+    (languageName: LanguageKey) => {
+      setFiles((fs) => {
+        const { base, extension } = Languages[languageName];
+        const name = nextName(fs, base, extension);
+        const file: ProjectFileSnapshot = {
+          tempId: crypto.randomUUID(),
+          path: `${name}`,
+          language: languageName,
+          content: "",
+        };
+        const next = [...fs, file];
+        setCurrent(next.length - 1);
+        return next;
+      });
+    },
+    [],
+  );
 
   const resetToSnapshot = useCallback((snapshot: ProjectSnapshot) => {
     const nextFiles = snapshot.files.map((f) => ({ ...f }));
     if (nextFiles.length === 0) return;
 
-    const nextEntryId =
-      snapshot.entryFileId ?? nextFiles[0]?.id ?? nextFiles[0]?.tempId;
+    const nextEntryId = snapshot.entryFilePath ?? nextFiles[0]?.path;
 
     if (!nextEntryId) return;
 
@@ -127,13 +130,13 @@ export function useProject({ project }: Args): UseProjectResponse {
 
     const nextCurrentIndex = Math.max(
       0,
-      nextFiles.findIndex((f) => (f.id ?? f.tempId ?? "") === nextEntryId),
+      nextFiles.findIndex((f) => f.path === nextEntryId),
     );
     setCurrent(nextCurrentIndex);
   }, []);
 
   const active = files[current];
-  const currentFileId: string | null = active.id ?? null;
+  const currentFileId: string | null = active?.path ?? null;
 
   return {
     project,
@@ -162,6 +165,6 @@ export type UseProjectResponse = {
   updateContent: (value: string) => void;
   deleteFile: (path: string) => void;
   renameFile: (oldPath: string, newNameRaw: string) => void;
-  addFile: () => void;
+  addFile: (language: LanguageKey) => void;
   resetToSnapshot: (snapshot: ProjectSnapshot) => void;
 };

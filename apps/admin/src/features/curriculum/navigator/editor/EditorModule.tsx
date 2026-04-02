@@ -1,5 +1,5 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
-import type { CurriculumDraft } from "@ludocode/types";
+import type { CurriculumDraft, LanguageKey } from "@ludocode/types";
 import { withForm } from "../../types.ts";
 
 import { ModuleOrderActions } from "./ModuleOrderActions.tsx";
@@ -17,6 +17,7 @@ export const EditorModule = withForm({
     onMoveDown: () => {},
     onDelete: undefined as undefined | (() => void),
     canDelete: true,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({
     form,
@@ -25,6 +26,7 @@ export const EditorModule = withForm({
     onMoveDown,
     onDelete,
     canDelete,
+    courseLanguage,
   }) {
     const modules = form.state.values.modules;
 
@@ -55,7 +57,11 @@ export const EditorModule = withForm({
           )}
         </div>
 
-        <SortableLessonContainer form={form} moduleIndex={moduleIndex} />
+        <SortableLessonContainer
+          form={form}
+          moduleIndex={moduleIndex}
+          courseLanguage={courseLanguage}
+        />
       </div>
     );
   },

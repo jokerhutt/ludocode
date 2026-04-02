@@ -1,4 +1,4 @@
-import { type LanguageMetadata } from "../Project/LanguageMetadata";
+import { type LanguageKey } from "../Project/ProjectFileSnapshot";
 
 export type LudoCourse = {
   id: string;
@@ -6,10 +6,10 @@ export type LudoCourse = {
   courseType: CourseType;
   courseStatus?: CourseStatus;
   courseIcon: string;
-  language?: LanguageMetadata;
+  codeLanguage?: LanguageKey;
   description: string;
 };
 
 export type CourseType = "COURSE" | "SKILL_PATH";
 
-export type CourseStatus = "DRAFT" | "ARCHIVED" | "PUBLISHED"
+export type CourseStatus = "DRAFT" | "ARCHIVED" | "PUBLISHED";

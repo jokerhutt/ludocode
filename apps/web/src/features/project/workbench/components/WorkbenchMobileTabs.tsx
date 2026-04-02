@@ -2,7 +2,7 @@ import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeR
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useEffect, useMemo, useState } from "react";
 import { MobileTabs } from "@/components/MobileTabs";
-import { RunCodeButton } from "@/features/project/workbench/editor/RunCodeButton.tsx";
+import { RunCodeButton } from "@/features/project/workbench/components/RunCodeButton";
 
 export type WorkbenchMobilePane = "files" | "code" | "output";
 
@@ -10,12 +10,16 @@ type WorkbenchMobileTabsProps = {
   mobilePane: WorkbenchMobilePane;
   setMobilePane: (pane: WorkbenchMobilePane) => void;
   runnerEnabled: boolean;
+  outputLabel?: string;
+  showRunButton?: boolean;
 };
 
 export function WorkbenchMobileTabs({
   mobilePane,
   setMobilePane,
   runnerEnabled,
+  outputLabel = "Output",
+  showRunButton = true,
 }: WorkbenchMobileTabsProps) {
   const {
     outputInfo: { isRunning, outputLog },
@@ -64,13 +68,15 @@ export function WorkbenchMobileTabs({
               ) : null
             }
           >
-            Output
+            {outputLabel}
           </MobileTabs.Tab>
         </MobileTabs>
       </div>
-      <div className="px-4 w-full flex justify-end items-center pb-3 pt-1">
-        <RunCodeButton disabled={!runnerEnabled} asRow />
-      </div>
+      {showRunButton && (
+        <div className="px-4 w-full flex justify-end items-center pb-3 pt-1">
+          <RunCodeButton disabled={!runnerEnabled} asRow />
+        </div>
+      )}
     </div>
   );
 }

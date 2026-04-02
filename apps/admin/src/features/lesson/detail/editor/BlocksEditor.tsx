@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import type {
   CurriculumDraftBlock,
   CurriculumDraftLessonForm,
-  LanguageMetadata,
+  LanguageKey,
 } from "@ludocode/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { Textarea } from "@ludocode/external/ui/textarea.tsx";
@@ -52,7 +52,7 @@ export const BlocksEditor = withForm({
   },
   props: {
     exerciseIndex: 0,
-    courseLanguage: undefined as LanguageMetadata | undefined,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({ form, exerciseIndex, courseLanguage }) {
     const blocksPath = `exercises[${exerciseIndex}].blocks` as const;
@@ -212,7 +212,7 @@ const EditorBlock = withForm({
   props: {
     exerciseIndex: 0,
     blockIndex: 0,
-    courseLanguage: undefined as LanguageMetadata | undefined,
+    courseLanguage: undefined as LanguageKey | undefined,
   },
   render: function Render({ form, exerciseIndex, blockIndex, courseLanguage }) {
     const blockType =
@@ -371,7 +371,7 @@ function CodeBlockEditor({
   form: any;
   exerciseIndex: number;
   blockIndex: number;
-  courseLanguage?: LanguageMetadata;
+  courseLanguage?: LanguageKey;
 }) {
   const languageSlug = getCourseLanguageSlug(courseLanguage);
   const languagePath = `exercises[${exerciseIndex}].blocks[${blockIndex}].language`;

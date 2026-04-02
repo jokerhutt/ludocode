@@ -5,6 +5,7 @@ import { FeatureRow } from "./FeatureRow";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { Feature, PlanOverview, SubscriptionPlan } from "@ludocode/types";
 import { useStripeCheckout } from "@/queries/mutations/useStripeCheckout";
+import { testIds } from "@ludocode/util/test-ids";
 
 type SubscriptionOverviewCardProps = {
   plan: PlanOverview;
@@ -178,7 +179,7 @@ function SubscriptionOverviewButton({
 
   return (
     <LudoButton
-      data-testid={`sub-compare-${plan.tier}`}
+      data-testid={testIds.subscription.compare(plan.tier)}
       shadow
       disabled={disabled}
       variant={buttonVariant}

@@ -28,7 +28,6 @@ import { api } from "@/constants/api/api.ts";
 import {
   type LudoCareer,
   type CourseStats,
-  type LanguageMetadata,
   type PlanOverview,
   type UserSubscription,
   type ProjectSnapshot,
@@ -41,6 +40,13 @@ import {
 } from "@ludocode/types";
 
 export const qo = {
+  maintenance: () =>
+    queryOptions<{ enabled: boolean }>({
+      queryKey: qk.maintenance(),
+      queryFn: () => ludoGet<{ enabled: boolean }>(api.maintenance.base, false),
+      staleTime: 60_000,
+    }),
+
   user: (userId: string) =>
     queryOptions<LudoUser>({
       queryKey: qk.user(userId),
@@ -81,13 +87,6 @@ export const qo = {
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
       staleTime: 60_000,
-    }),
-
-  languages: () =>
-    queryOptions<LanguageMetadata[]>({
-      queryKey: qk.languages(),
-      queryFn: () => ludoGet<LanguageMetadata[]>(api.languages.base, true),
-      staleTime: 60_00,
     }),
 
   credits: () =>

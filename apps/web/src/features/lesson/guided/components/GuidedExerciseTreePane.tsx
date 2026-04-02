@@ -1,8 +1,9 @@
 import { BlockRenderer } from "@ludocode/design-system/widgets/exercise/BlockRenderer";
-import { Workbench } from "@ludocode/design-system/widgets/Workbench";
+import { Workbench } from "@ludocode/design-system/widgets/workbench";
 import type { LudoExercise } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { useIsMobile } from "@ludocode/hooks";
+import { testIds } from "@ludocode/util/test-ids";
 
 type GuidedExerciseTreePaneProps = {
   showBlockOutput?: boolean;
@@ -23,7 +24,7 @@ export function GuidedExerciseTreePane({
 
   return (
     <Workbench.Pane
-      dataTestId="guided-project-aside-left"
+      dataTestId={testIds.guided.asideLeft}
       className={cn("lg:border-r-2 border-r-ludo-surface", className)}
     >
       <Workbench.Pane.Winbar className="hidden lg:block">
@@ -31,7 +32,6 @@ export function GuidedExerciseTreePane({
       </Workbench.Pane.Winbar>
       <Workbench.Pane.Content>
         <div className="w-full px-2 pb-4 overflow-y-auto scrollbar-ludo-accent">
-
           {instructionBlocks.length > 0 && (
             <section className="mt-2 w-full rounded-xl border border-ludo-border bg-ludo-surface/40 p-4 lg:p-5">
               <div className="mb-4 flex items-center justify-between gap-3 border-b border-ludo-border/60 pb-3">

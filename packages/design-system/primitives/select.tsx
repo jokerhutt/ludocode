@@ -1,6 +1,7 @@
 import * as Select from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "../cn-utils";
+import { testIds } from "@ludocode/util/test-ids";
 
 type LudoSelectProps = {
   value: string;
@@ -35,7 +36,7 @@ export function LudoSelect({
 
       <Select.Root value={value} onValueChange={setValue}>
         <Select.Trigger
-          data-testid="select-trigger"
+          data-testid={testIds.select.trigger}
           className={cn(
             "h-12 w-full rounded-md px-3",
             "text-ludo-white-bright",
@@ -85,7 +86,12 @@ type LudoSelectItemProps = {
   dataTestId?: string;
 };
 
-export function LudoSelectItem({ value, children, className, dataTestId}: LudoSelectItemProps) {
+export function LudoSelectItem({
+  value,
+  children,
+  className,
+  dataTestId,
+}: LudoSelectItemProps) {
   return (
     <Select.Item
       value={value}
@@ -95,7 +101,7 @@ export function LudoSelectItem({ value, children, className, dataTestId}: LudoSe
         "text-ludo-white-bright outline-none",
         "data-[highlighted]:bg-ludo-accent-muted/20",
         "data-[state=checked]:bg-ludo-accent-muted/30",
-        className
+        className,
       )}
     >
       <Select.ItemIndicator className="absolute left-2">
