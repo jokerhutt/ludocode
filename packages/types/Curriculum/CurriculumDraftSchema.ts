@@ -114,7 +114,6 @@ export const ProjectSnapshotSchema = z.object({
   projectName: z.string(),
   projectType: z.enum(["WEB", "CODE"]),
   deleteAt: z.string().optional().nullable(),
-  updatedAt: z.number().optional(),
   files: z.array(ProjectFileSnapshotSchema).min(1),
   entryFilePath: z.string(),
 });
