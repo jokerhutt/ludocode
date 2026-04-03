@@ -17,6 +17,7 @@ type GuidedLessonActionsProps = {
   canReset: boolean;
   onReset: () => void;
   isRunning: boolean;
+  runOnly: () => void;
   runOrAdvance: () => void;
   runnerEnabled: boolean;
   isComplete: boolean;
@@ -31,17 +32,19 @@ export function GuidedLessonActions({
   onReset,
   isRunning,
   runnerEnabled,
+  runOnly,
   runOrAdvance,
   isComplete,
   isIncorrect,
   solutionHint,
 }: GuidedLessonActionsProps) {
-  const runButtonDisabled = !isComplete && !isRunning && !runnerEnabled;
-  const actionLabel =
+  const submitDisabled = !isComplete && !isRunning && !runnerEnabled;
+  const runDisabled = isRunning || !runnerEnabled || isComplete;
+  const submitLabel =
     isComplete && !isRunning
       ? "CONTINUE"
       : isIncorrect && !isRunning
-        ? "TRY AGAIN"
+        ? "RETRY"
         : isRunning
           ? "STOP"
           : "SUBMIT";
@@ -66,22 +69,33 @@ export function GuidedLessonActions({
           shadow={false}
           disabled={!canReset}
           onClick={onReset}
-          className="h-10 px-4"
+          className="h-10 px-4 hidden lg:flex"
         >
           <RotateCcwIcon className="h-4 w-4" />
         </LudoButton>
       </div>
       <div className="h-10 flex items-center gap-2">
-        {solutionHint && <SolutionHintDialog {...solutionHint} />}
+        <div className="hidden lg:block">
+          {solutionHint && <SolutionHintDialog {...solutionHint} />}
+        </div>
+        <LudoButton
+          onClick={runOnly}
+          variant="default"
+          shadow={false}
+          disabled={runDisabled}
+          className={cn("h-10 py-0.5 lg:px-4 min-w-20 lg:min-w-24")}
+        >
+          RUN
+        </LudoButton>
         <LudoButton
           data-testid={testIds.guided.runCodeButton}
           onClick={runOrAdvance}
           variant={isRunning ? "default" : "alt"}
           shadow={false}
-          disabled={runButtonDisabled}
+          disabled={submitDisabled}
           className={cn("h-10 py-0.5 lg:px-4 min-w-24 lg:min-w-34")}
         >
-          {actionLabel}
+          {submitLabel}
         </LudoButton>
       </div>
     </>

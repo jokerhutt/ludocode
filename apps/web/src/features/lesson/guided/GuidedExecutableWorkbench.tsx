@@ -160,6 +160,17 @@ export function GuidedExecutableWorkbench({
     tests,
   ]);
 
+  const runOnly = useCallback(() => {
+    if (!runnerFeature.enabled) return;
+
+    if (isRunning) {
+      stopCode();
+      return;
+    }
+
+    runCode();
+  }, [isRunning, runCode, runnerFeature.enabled, stopCode]);
+
   const runOrAdvance = useCallback(() => {
     if (isComplete) {
       continueToNextExercise();
@@ -248,6 +259,18 @@ export function GuidedExecutableWorkbench({
         incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={dismissIncorrectFeedback}
         isEditorReadOnly={isEditorReadOnly}
+        canReset={canReset}
+        onReset={onReset}
+        solutionHint={
+          showSolutionHint
+            ? {
+                currentCode,
+                solution,
+                languageId,
+                onApplySolution: () => updateContent(solution),
+              }
+            : null
+        }
         className={cn(
           mobilePane === "code" ? "flex-2" : "hidden",
           "transform-none transition-none animate-none",
@@ -259,6 +282,7 @@ export function GuidedExecutableWorkbench({
           onGoBack={onGoBack}
           canReset={canReset}
           onReset={onReset}
+          runOnly={runOnly}
           runOrAdvance={runOrAdvance}
           runnerEnabled={runnerFeature.enabled == true}
           isComplete={isComplete}
@@ -303,6 +327,7 @@ export function GuidedExecutableWorkbench({
             onGoBack={onGoBack}
             canReset={canReset}
             onReset={onReset}
+            runOnly={runOnly}
             runOrAdvance={runOrAdvance}
             runnerEnabled={runnerFeature.enabled == true}
             isComplete={isComplete}

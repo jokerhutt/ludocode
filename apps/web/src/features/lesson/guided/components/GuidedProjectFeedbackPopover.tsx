@@ -17,11 +17,11 @@ export function GuidedProjectFeedbackPopover({
   return (
     <div
       className={cn(
-        "absolute z-10 bottom-30 lg:bottom-22 right-10 min-w-56 max-w-80 rounded-md border bg-ludo-background px-3 py-2",
+        "absolute z-10 bottom-4 lg:bottom-22 left-4 lg:right-10 lg:left-auto min-w-56 max-w-80 rounded-md border bg-ludo-background px-3 py-2",
         showCorrectFeedback ? "border-ludo-correct" : "border-ludo-incorrect",
       )}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex justify-between items-center gap-3">
         <p className="text-sm text-ludo-white-bright">
           {showCorrectFeedback
             ? "Great work!"
