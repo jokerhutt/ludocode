@@ -3,7 +3,7 @@
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Running the project](#running-the-project-locally)
+2. [Quick Start](#quick-start)
 3. [Features](#core-features)
 4. [Screenshots](#screenshots)
 5. [Naming & Trademark](#naming--trademark)
@@ -15,17 +15,17 @@ This repository contains the frontend code for Ludocode, an open source code lea
 
 The project is written using React, Typescript, Tailwind CSS, ShadCN UI, and Tanstack query, form, & router. On the backend, the project uses Kotlin & PostgreSQL.
 
-## Running the project locally
+## Quick Start
 
-### Running the backend
+### Prerequisites
 
-#### Requirements
+- [Docker](https://docs.docker.com/get-docker/)
+- [Node.js 22+](https://nodejs.org/)
 
-Docker
+### 1. Start the backend
 
-```
+```bash
 git clone git@github.com:jokerhutt/ludocode-backend.git
-
 cd ludocode-backend
 cp .env.example .env
 
@@ -33,14 +33,23 @@ docker compose -f docker-compose.db.yml up -d
 docker compose -f docker-compose.ludocode.yml up -d --build ludocode-backend
 ```
 
-### Running the frontend
+### 2. Start the frontend
 
+```bash
+git clone git@github.com:jokerhutt/ludocode.git
+cd ludocode
+npm install
+
+# Web app (http://localhost:5173)
+cd apps/web && cp .env.example .env && npm run dev &
+
+# Admin app (http://localhost:5174)
+cd ../admin && cp .env.example .env && npm run dev
 ```
 
+The API is available at `http://localhost:8080` with a pre-seeded demo user and course.
 
-```
-
-This project is made so that you can run it locally without needing to provide any credentials. For setup instructions on running the project locally & enabling features, see the web docs: https://ludocode.dev/docs
+For enabling OAuth, AI, code execution, and other features, see the [full documentation](https://ludocode.dev/docs).
 
 ## Core Features
 
