@@ -4,10 +4,10 @@
 
 1. [Overview](#overview)
 2. [Running the project](#running-the-project-locally)
-3. [Features](#features)
+3. [Features](#core-features)
 4. [Screenshots](#screenshots)
-4. [Attributions](#attributions)
 5. [Naming & Trademark](#naming--trademark)
+6. [Attributions](#attributions)
 
 ## Overview
 
@@ -22,40 +22,49 @@ This project is made so that you can run it locally without needing to provide a
 ## Core Features
 
 ### 📘 Interactive Lessons
+
 - Interactive exercises with multiple formats
 - In-editor guided lessons with sandboxed code execution & output validation
 - Ability to have multiple courses & lessons
 - Streaks, points, & progress tracking
 
-### 💻 Code Execution & Editor
+### 💻 Code Execution, Hosted Sites, & Editor
+
 - In-browser WebSocket-based code editor with multiple languages
+- In-browser editor supporting web projects with iframe preview and shareable URL
 - Configurable code execution engine for backend execution
 - Device-aware "Desktop Only" guard for editor-heavy pages
 
 ### 📚 Course Creation & Management
+
 - Create & modify courses via WYSIWYG editor while preserving user progress
 - Create courses using YAML with a defined schema
 - Ability to archive published courses
 
 ### ✨ AI Integration
+
 - Configurable, context-aware AI assistant in lessons & projects
 
 ### 🌐 Social
+
 - Share, like, & duplicate projects
 - User profiles
 
 ### 🔐 Authentication
+
 - Firebase authentication (email, Google, GitHub)
 - Optional demo-mode authentication (no Firebase required)
 - Account deletion & logout
 
 ### 📢 Platform Features
+
 - Animations with Framer Motion & Lottie
 - Configurable banner system
 - Onboarding flows for new users
 - Responsive UI for desktop & mobile
 
 ### ⚙️ Architecture
+
 - Cached server state via TanStack Query
 - Batched fetching using batshit
 - Form handling with Zod & TanStack Form
@@ -63,18 +72,23 @@ This project is made so that you can run it locally without needing to provide a
 ## Screenshots
 
 ### Learn page
+
 ![alt text](docs/media/learn-preview.png)
 
 ### Exercise
+
 ![alt text](docs/media/exercise-preview.png)
 
 ### Code Editor
+
 ![alt text](docs/media/code-editor-preview.png)
 
 ### Course Editor
+
 ![alt text](docs/media/course-editor-preview.png)
 
 ### Exercise Editor
+
 ![alt text](docs/media/exericse-editor-preview.png)
 
 ## Naming & Trademark
