@@ -76,7 +76,7 @@ export function GuidedExerciseEditorPane({
             type="button"
             disabled={!canReset}
             onClick={onReset}
-            className="h-8 w-8 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            className="h-10 w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors disabled:opacity-40 disabled:pointer-events-none"
             title="Reset code"
           >
             <RotateCcwIcon className="h-4 w-4" />

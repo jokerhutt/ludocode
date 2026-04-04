@@ -37,7 +37,7 @@ export function SolutionHintDialog({
       trigger={
         <button
           type="button"
-          className="h-10 hover:cursor-pointer w-16 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors"
+          className="h-10 hover:cursor-pointer w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors"
           title="View reference solution"
         >
           <LightbulbIcon className="h-5 w-5" />

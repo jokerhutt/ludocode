@@ -81,6 +81,12 @@ export function GuidedExecutableWorkbench({
     }
   }, [currentExercise.id, isMobile]);
 
+  useEffect(() => {
+    if (isMobile && isRunning) {
+      setMobilePane("output");
+    }
+  }, [isMobile, isRunning, setMobilePane]);
+
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
     [currentExercise, project],
