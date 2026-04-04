@@ -24,11 +24,11 @@ This documentation covers project setup, feature configuration, and the key syst
 <Tabs
   tabs={[
     {
-      label: "1 — Backend",
+      label: "Setup",
       content: (
         <div className="text-sm text-ludo-white space-y-4">
 
-          <p>Clone the backend repository and start the API and database with Docker.</p>
+          <p className="font-semibold text-ludo-white-bright">1. Clone the backend repository and start the API and database with Docker.</p>
 
           <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode-backend.git
 
@@ -38,48 +38,24 @@ cp .env.example .env
 docker compose -f docker-compose.db.yml up -d
 docker compose -f docker-compose.ludocode.yml up -d --build ludocode-backend`}</CodeBlock>
 
+          <p className="font-semibold text-ludo-white-bright">2. Setup of the frontend</p>
+
+          <CodeBlock language="bash">{`
+
+git clone git@github.com:jokerhutt/ludocode.git && \\
+cd ludocode && \\
+npm install && \\
+cd apps/web && cp .env.example .env && npm run dev & \\
+cd ../admin && cp .env.example .env && npm run dev`}</CodeBlock>
+
           <p>
             The API will be available at <code>http://localhost:8080</code> with a pre-seeded demo user and course.
           </p>
 
-        </div>
-      ),
-    },
-    {
-      label: "2 — Web App",
-      content: (
-        <div className="text-sm text-ludo-white space-y-4">
-
-          <p>Clone the frontend monorepo and start the web application.</p>
-
-          <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode.git
-
-cd ludocode
-npm install
-cd apps/web
-cp .env.example .env
-npm run dev`}</CodeBlock>
-
           <p>
             The web app will be available at <code>http://localhost:5173</code>.
           </p>
-
-        </div>
-      ),
-    },
-    {
-      label: "3 — Admin App",
-      content: (
-        <div className="text-sm text-ludo-white space-y-4">
-
-          <p>From the same monorepo, start the admin application.</p>
-
-          <CodeBlock language="bash">{`cd apps/admin
-
-cp .env.example .env
-npm run dev`}</CodeBlock>
-
-          <p>
+                <p>
             The admin app will be available at <code>http://localhost:5174</code>.
           </p>
 

@@ -17,6 +17,29 @@ The project is written using React, Typescript, Tailwind CSS, ShadCN UI, and Tan
 
 ## Running the project locally
 
+### Running the backend
+
+#### Requirements
+
+Docker
+
+```
+git clone git@github.com:jokerhutt/ludocode-backend.git
+
+cd ludocode-backend
+cp .env.example .env
+
+docker compose -f docker-compose.db.yml up -d
+docker compose -f docker-compose.ludocode.yml up -d --build ludocode-backend
+```
+
+### Running the frontend
+
+```
+
+
+```
+
 This project is made so that you can run it locally without needing to provide any credentials. For setup instructions on running the project locally & enabling features, see the web docs: https://ludocode.dev/docs
 
 ## Core Features
