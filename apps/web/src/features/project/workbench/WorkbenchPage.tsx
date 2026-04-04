@@ -56,6 +56,7 @@ export function WorkbenchPage({
         <WorkbenchPageContent
           projectId={project.projectId}
           isWebProject={isWebProject}
+          entryFilePath={project.entryFilePath}
           previewRefreshVersion={saveSuccessCount}
           readOnly={readOnly}
           authenticated={authenticated}
@@ -72,6 +73,7 @@ export function WorkbenchPage({
 
 function WorkbenchPageContent({
   projectId,
+  entryFilePath,
   isWebProject,
   previewRefreshVersion,
   readOnly,
@@ -83,6 +85,7 @@ function WorkbenchPageContent({
   runnerEnabled,
 }: {
   projectId: string;
+  entryFilePath: string;
   isWebProject: boolean;
   previewRefreshVersion: number;
   readOnly: boolean;
@@ -123,6 +126,7 @@ function WorkbenchPageContent({
 
       {isWebProject ? (
         <WorkbenchLivePreviewPane
+          filePath={entryFilePath}
           projectId={projectId}
           refreshVersion={previewRefreshVersion}
           className={cn(

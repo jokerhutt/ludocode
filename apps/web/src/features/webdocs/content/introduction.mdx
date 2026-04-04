@@ -21,14 +21,19 @@ This documentation covers project setup, feature configuration, and the key syst
 
 ## Quick Setup
 
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Node.js 22+](https://nodejs.org/)
+
 <Tabs
   tabs={[
     {
-      label: "1 — Backend",
+      label: "Setup",
       content: (
         <div className="text-sm text-ludo-white space-y-4">
 
-          <p>Clone the backend repository and start the API and database with Docker.</p>
+          <p className="font-semibold text-ludo-white-bright">1. Clone the backend and start the API &amp; database with Docker.</p>
 
           <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode-backend.git
 
@@ -38,46 +43,28 @@ cp .env.example .env
 docker compose -f docker-compose.db.yml up -d
 docker compose -f docker-compose.ludocode.yml up -d --build ludocode-backend`}</CodeBlock>
 
-          <p>
-            The API will be available at <code>http://localhost:8080</code> with a pre-seeded demo user and course.
-          </p>
-
-        </div>
-      ),
-    },
-    {
-      label: "2 — Web App",
-      content: (
-        <div className="text-sm text-ludo-white space-y-4">
-
-          <p>Clone the frontend monorepo and start the web application.</p>
+          <p className="font-semibold text-ludo-white-bright">2. Clone the frontend, install dependencies, and start both apps.</p>
 
           <CodeBlock language="bash">{`git clone git@github.com:jokerhutt/ludocode.git
 
 cd ludocode
 npm install
-cd apps/web
-cp .env.example .env
-npm run dev`}</CodeBlock>
+
+# Web app
+
+cd apps/web && cp .env.example .env && npm run dev &
+
+# Admin app
+
+cd ../admin && cp .env.example .env && npm run dev`}</CodeBlock>
+
+          <p>
+            The API will be available at <code>http://localhost:8080</code> with a pre-seeded demo user and course.
+          </p>
 
           <p>
             The web app will be available at <code>http://localhost:5173</code>.
           </p>
-
-        </div>
-      ),
-    },
-    {
-      label: "3 — Admin App",
-      content: (
-        <div className="text-sm text-ludo-white space-y-4">
-
-          <p>From the same monorepo, start the admin application.</p>
-
-          <CodeBlock language="bash">{`cd apps/admin
-
-cp .env.example .env
-npm run dev`}</CodeBlock>
 
           <p>
             The admin app will be available at <code>http://localhost:5174</code>.
@@ -97,27 +84,11 @@ npm run dev`}</CodeBlock>
 
 ### Running E2E Tests
 
-<CodeBlock language="bash">{`npx playwright test`}</CodeBlock>
+<CodeBlock language="bash">{`
+# Make sure you have a fresh backend running in dev mode
+npx playwright test`}</CodeBlock>
 
----
-
-## Tech Stack
-
-| Layer        | Technology      | Purpose                                  |
-| ------------ | --------------- | ---------------------------------------- |
-| Framework    | React 19        | UI rendering                             |
-| Routing      | TanStack Router | File-based, type-safe routing            |
-| Server State | TanStack Query  | Data fetching, caching, mutations        |
-| Forms        | TanStack Form   | Type-safe form state (admin app)         |
-| Styling      | Tailwind CSS v4 | Utility-first CSS with design tokens     |
-| Editor       | Monaco Editor   | Code editing in projects & admin         |
-| Validation   | Zod             | Schema validation for all data contracts |
-| Build        | Vite 7          | Dev server & production bundling         |
-| Auth         | Firebase Auth   | Google, GitHub, Email/Password login     |
-| Payments     | Stripe          | Subscription checkout & management       |
-| AI           | Vercel AI SDK   | Chatbot streaming & AI components        |
-| Animation    | Motion + Lottie | UI transitions & celebration effects     |
-| DnD          | dnd-kit         | Drag-and-drop in admin builder           |
-| Testing      | Playwright      | End-to-end browser testing               |
+### Running Backend Tests
+<CodeBlock language="bash">{" #Make sure you have your docker engine running & Java 21 \n./mvnw clean test -Dapi.version=1.44 -Dtest='*IT' "}</CodeBlock>
 
 ---

@@ -81,6 +81,12 @@ export function GuidedExecutableWorkbench({
     }
   }, [currentExercise.id, isMobile]);
 
+  useEffect(() => {
+    if (isMobile && isRunning) {
+      setMobilePane("output");
+    }
+  }, [isMobile, isRunning, setMobilePane]);
+
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
     [currentExercise, project],
@@ -159,6 +165,17 @@ export function GuidedExecutableWorkbench({
     submitAttempt,
     tests,
   ]);
+
+  const runOnly = useCallback(() => {
+    if (!runnerFeature.enabled) return;
+
+    if (isRunning) {
+      stopCode();
+      return;
+    }
+
+    runCode();
+  }, [isRunning, runCode, runnerFeature.enabled, stopCode]);
 
   const runOrAdvance = useCallback(() => {
     if (isComplete) {
@@ -248,6 +265,18 @@ export function GuidedExecutableWorkbench({
         incorrectFeedbackMessage={incorrectFeedbackMessage}
         onDismissIncorrectFeedback={dismissIncorrectFeedback}
         isEditorReadOnly={isEditorReadOnly}
+        canReset={canReset}
+        onReset={onReset}
+        solutionHint={
+          showSolutionHint
+            ? {
+                currentCode,
+                solution,
+                languageId,
+                onApplySolution: () => updateContent(solution),
+              }
+            : null
+        }
         className={cn(
           mobilePane === "code" ? "flex-2" : "hidden",
           "transform-none transition-none animate-none",
@@ -259,6 +288,7 @@ export function GuidedExecutableWorkbench({
           onGoBack={onGoBack}
           canReset={canReset}
           onReset={onReset}
+          runOnly={runOnly}
           runOrAdvance={runOrAdvance}
           runnerEnabled={runnerFeature.enabled == true}
           isComplete={isComplete}
@@ -286,15 +316,41 @@ export function GuidedExecutableWorkbench({
         )}
       />
 
-      <div className="lg:hidden px-4 py-2 border-t border-ludo-surface">
-        <MobileTabs
-          value={mobilePane}
-          onValueChange={(value) => setMobilePane(value as GuidedMobilePane)}
-        >
-          <MobileTabs.Tab value="instructions">Instructions</MobileTabs.Tab>
-          <MobileTabs.Tab value="code">Code</MobileTabs.Tab>
-          <MobileTabs.Tab value="output">Output</MobileTabs.Tab>
-        </MobileTabs>
+      <div className="lg:hidden border-t border-ludo-surface">
+        <div className="px-4 py-2">
+          <MobileTabs
+            value={mobilePane}
+            onValueChange={(value) => setMobilePane(value as GuidedMobilePane)}
+          >
+            <MobileTabs.Tab value="instructions">Instructions</MobileTabs.Tab>
+            <MobileTabs.Tab value="code">Code</MobileTabs.Tab>
+            <MobileTabs.Tab value="output">Output</MobileTabs.Tab>
+          </MobileTabs>
+        </div>
+        <div className="px-4 w-full flex items-center justify-between gap-2 pb-3 pt-1">
+          <GuidedLessonActions
+            canGoBack={canGoBack}
+            onGoBack={onGoBack}
+            canReset={canReset}
+            onReset={onReset}
+            runOnly={runOnly}
+            runOrAdvance={runOrAdvance}
+            runnerEnabled={runnerFeature.enabled == true}
+            isComplete={isComplete}
+            isIncorrect={isIncorrect}
+            isRunning={isRunning}
+            solutionHint={
+              showSolutionHint
+                ? {
+                    currentCode,
+                    solution,
+                    languageId,
+                    onApplySolution: () => updateContent(solution),
+                  }
+                : null
+            }
+          />
+        </div>
       </div>
     </div>
   );

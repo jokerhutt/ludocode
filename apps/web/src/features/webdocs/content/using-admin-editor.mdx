@@ -3,7 +3,7 @@ title: Editing Courses
 slug: admin-app-editor
 section: Getting Started
 order: 2
-description: A guide to the admin app, course editor, and custom language icons.
+description: A guide to the admin app & course editor.
 ---
 
 ## Overview
@@ -151,10 +151,10 @@ run().catch(console.error);`}</CodeBlock>
 ]}
 />
 
-## Video example of creating a Javascript course
+## Video example of creating a Lua course
 
 <video controls className="rounded-lg w-full my-6">
-  <source src="/Video/create-course-example.mp4" type="video/mp4" />
+  <source src="/video/create-course-showcase.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
@@ -178,110 +178,8 @@ All ordering is explicit and controlled in the editor.
 
 ## Editing Courses
 
-Course editing is draft-based.
+Course editing is snapshot based. The backend sends the current snapshot, and the frontend sends backa a new one.
 
-All structural changes are made in a draft version of the course. This includes:
+When you publish a course, it can no longer be deleted. However, you can archive it. If archived, users already enrolled can still complete lessons in the course, but it will be invisible to new users.
 
-- Reordering modules
-- Reordering lessons
-- Adding or removing exercises
-- Changing exercise interaction types
-- Updating metadata
-
-When you publish, the backend creates a new snapshot of the current draft.  
-The web app always reads from the latest published snapshot.
-
-Draft changes are isolated until explicitly published.
-
----
-
-## Adding Languages
-
-Courses must belong to a **Language**.
-
-If the language you need does not exist, create it first in the admin app.
-
-### Adding a Language
-
-1. Open the **Admin App**
-2. Navigate to **Languages**
-3. Click **Create Language**
-4. Provide:
-   - Name
-   - Slug
-   - Description (optional)
-   - Icon name (must match an entry in `IconRegistry`)
-5. Save
-
-The new language will now be available when creating or editing courses.
-
----
-
-### Custom Language Icons
-
-If you add a new language and want it to display a custom icon, you must register it in the design system.
-
-Icons are defined in:
-
-`packages/design-system/primitives/custom-icon.tsx`
-
----
-
-#### 1. Create the Icon Component
-
-Follow the existing pattern:
-
-```tsx
-export function JavascriptIcon({ className, color }: IconProps): JSX.Element {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 128 128"
-    >
-      <path fill={color ?? "#F0DB4F"} d="M1.408 1.408h125.184v125.185H1.408z" />
-      <path
-        fill={color ? "your-background-color-here" : "#323330"}
-        d="M116.347 96.736c-..."
-      />
-    </svg>
-  );
-}
-```
-
-Guidelines:
-
-- Always accept `className` and `color`.
-- Use `color ?? "#HEX"` for single-color fills.
-- For multi-path icons, use `color ? "your-background-color-here" : "#HEX"` where needed.
-- Avoid hardcoding fills unless intentional.
-
----
-
-#### 2. Register the Icon
-
-Add it to `IconRegistry` in the same file:
-
-```ts
-export const IconRegistry = {
-  Python: { component: PythonIcon, category: "language" },
-  Swift: { component: SwiftIcon, category: "language" },
-
-  Javascript: { component: JavascriptIcon, category: "language" },
-} as const satisfies Record<string, IconDefinition>;
-```
-
-Important:
-
-- The key (`Javascript`) must match the icon name used in the admin app.
-- Set `category: "language"`.
-
----
-
-#### 3. Use It in the Admin App
-
-When creating or editing a language:
-
-- Set **Icon Name** to `Javascript` (or your chosen key).
-
-If the key does not match exactly, the icon will not render.
+Editing is made in such a way that if you edit a lesson, the users progress for that lesson is preserved. 

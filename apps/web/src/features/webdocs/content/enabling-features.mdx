@@ -8,7 +8,7 @@ description: Enabling optional features such as authentication, AI, and code exe
 
 ## Optional Feature Configuration
 
-Without additional configuration, Ludocode runs with authentication, AI, and code execution disabled. The sections below explain how to enable each feature.
+Without additional configuration, Ludocode runs with authentication, AI, web projects, and code execution disabled. The sections below explain how to enable each feature.
 
 <Tabs
   tabs={[
@@ -199,6 +199,36 @@ PISTON_ENABLED=true
 
         </div>
 
+      ),
+    },
+
+        {
+      label: "Web Projects",
+      content: (
+        <div className="text-sm text-ludo-white space-y-5">
+
+          <p className="font-semibold text-ludo-white-bright">1. Get the url</p>
+          <p>Get the url for where your projects are stored. For S3 this would look something like:
+          </p>
+
+          <CodeBlock language={"TXT"}>{`https://your-bucket.s3.us-east-1.amazonaws.com`}
+
+          </CodeBlock>
+
+          <p className="font-semibold text-ludo-white-bright">2. Set the endpoint path</p>
+          <CodeBlock language={"BASH"}>{`VITE_WEB_CDN_BASE_URL=https://your-bucket.s3.us-east-1.amazonaws.com`}
+            </CodeBlock>
+
+
+          <Tip variant="info" title="If you want to make it public">
+            Make sure you have set your storage bucket permissions to allow public read. Take care to not expose entire directories.
+          </Tip>
+
+          <Tip variant="warning" title="Caching & Hot Reload">
+            If the hot reload feature is not working, make sure to disable caching when serving the static content.
+            </Tip>
+
+        </div>
       ),
     },
 

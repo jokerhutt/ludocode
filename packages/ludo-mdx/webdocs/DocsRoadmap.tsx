@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-type MilestoneStatus = "shipped" | "in-progress" | "planned";
+type MilestoneStatus = "complete" | "in-progress" | "planned";
 
 type RoadmapMilestone = {
   date: string;
@@ -10,6 +10,7 @@ type RoadmapMilestone = {
   status: MilestoneStatus;
   summary: string;
   items: string[];
+  pr?: string;
 };
 
 type DocsRoadmapProps = {
@@ -23,8 +24,8 @@ const statusConfig: Record<
   MilestoneStatus,
   { label: string; dot: string; badge: string; line: string }
 > = {
-  shipped: {
-    label: "Shipped",
+  complete: {
+    label: "Complete",
     dot: "bg-emerald-400",
     badge: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
     line: "bg-emerald-500/25",
@@ -78,6 +79,27 @@ function MilestoneNode({
           >
             {cfg.label}
           </span>
+          {milestone.pr && (
+            <a
+              href={milestone.pr}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[10px] font-semibold text-ludo-accent-muted hover:text-ludo-white transition-colors"
+              title="View pull request"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                width="11"
+                height="11"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z" />
+              </svg>
+              PR
+            </a>
+          )}
         </div>
 
         <h3 className="text-sm font-bold text-ludo-white-bright mb-1 leading-snug">
@@ -112,7 +134,7 @@ export function DocsRoadmap({ milestones, children }: DocsRoadmapProps) {
     <section className="mt-2 mb-6">
       {/* Legend */}
       <div className="flex flex-wrap gap-4 mb-5 text-[11px]">
-        {(["shipped", "in-progress", "planned"] as const).map((s) => (
+        {(["complete", "in-progress", "planned"] as const).map((s) => (
           <div key={s} className="flex items-center gap-1.5">
             <span
               className={`inline-block w-2 h-2 rounded-full ${statusConfig[s].dot}`}

@@ -27,6 +27,12 @@ export function WorkbenchMobileTabs({
   const [hasUnreadOutput, setHasUnreadOutput] = useState(false);
 
   useEffect(() => {
+    if (isRunning) {
+      setMobilePane("output");
+    }
+  }, [isRunning, setMobilePane]);
+
+  useEffect(() => {
     if (isRunning || outputLog.length > 0) {
       setHasUnreadOutput(true);
     }
