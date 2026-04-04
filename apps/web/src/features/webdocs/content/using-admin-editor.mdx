@@ -151,10 +151,10 @@ run().catch(console.error);`}</CodeBlock>
 ]}
 />
 
-## Video example of creating a Javascript course
+## Video example of creating a Lua course
 
 <video controls className="rounded-lg w-full my-6">
-  <source src="/Video/create-course-example.mp4" type="video/mp4" />
+  <source src="/video/create-course-showcase.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
@@ -178,17 +178,8 @@ All ordering is explicit and controlled in the editor.
 
 ## Editing Courses
 
-Course editing is draft-based.
+Course editing is snapshot based. The backend sends the current snapshot, and the frontend sends backa a new one.
 
-All structural changes are made in a draft version of the course. This includes:
+When you publish a course, it can no longer be deleted. However, you can archive it. If archived, users already enrolled can still complete lessons in the course, but it will be invisible to new users.
 
-- Reordering modules
-- Reordering lessons
-- Adding or removing exercises
-- Changing exercise interaction types
-- Updating metadata
-
-When you publish, the backend creates a new snapshot of the current draft.  
-The web app always reads from the latest published snapshot.
-
-Draft changes are isolated until explicitly published.
+Editing is made in such a way that if you edit a lesson, the users progress for that lesson is preserved. 
