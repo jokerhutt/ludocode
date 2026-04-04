@@ -38,16 +38,14 @@ export function GuidedLessonActions({
   isIncorrect,
   solutionHint,
 }: GuidedLessonActionsProps) {
-  const submitDisabled = !isComplete && !isRunning && !runnerEnabled;
-  const runDisabled = isRunning || !runnerEnabled || isComplete;
+  const submitDisabled = isRunning || (!isComplete && !runnerEnabled);
+  const runDisabled = !runnerEnabled || isComplete;
   const submitLabel =
     isComplete && !isRunning
       ? "CONTINUE"
       : isIncorrect && !isRunning
         ? "RETRY"
-        : isRunning
-          ? "STOP"
-          : "SUBMIT";
+        : "SUBMIT";
 
   return (
     <>
@@ -80,12 +78,12 @@ export function GuidedLessonActions({
         </div>
         <LudoButton
           onClick={runOnly}
-          variant="default"
+          variant={isRunning ? "default" : "alt"}
           shadow={false}
           disabled={runDisabled}
           className={cn("h-10 py-0.5 lg:px-4 min-w-20 lg:min-w-24")}
         >
-          RUN
+          {isRunning ? "STOP" : "RUN"}
         </LudoButton>
         <LudoButton
           data-testid={testIds.guided.runCodeButton}
