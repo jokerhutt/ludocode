@@ -4,8 +4,17 @@ import { ProjectEditor } from "@/features/project/workbench/zones/ProjectEditor"
 import { LudoTab } from "@ludocode/design-system/primitives/tab";
 import { Workbench } from "@ludocode/design-system/widgets/workbench";
 import { GuidedProjectFeedbackPopover } from "./GuidedProjectFeedbackPopover";
+import { SolutionHintDialog } from "./SolutionHintDialog";
 import type { ReactNode } from "react";
 import { cn } from "@ludocode/design-system/cn-utils";
+import { RotateCcwIcon } from "lucide-react";
+
+type SolutionHint = {
+  currentCode: string;
+  solution: string;
+  languageId: string;
+  onApplySolution: () => void;
+};
 
 type GuidedExerciseEditorPaneProps = {
   runOrAdvance: () => void;
@@ -14,6 +23,9 @@ type GuidedExerciseEditorPaneProps = {
   incorrectFeedbackMessage: string | null;
   onDismissIncorrectFeedback: () => void;
   isEditorReadOnly: boolean;
+  canReset: boolean;
+  onReset: () => void;
+  solutionHint?: SolutionHint | null;
   children: ReactNode;
   className?: string;
 };
@@ -25,6 +37,9 @@ export function GuidedExerciseEditorPane({
   incorrectFeedbackMessage,
   onDismissIncorrectFeedback,
   isEditorReadOnly,
+  canReset,
+  onReset,
+  solutionHint,
   children,
   className,
 }: GuidedExerciseEditorPaneProps) {
@@ -55,6 +70,18 @@ export function GuidedExerciseEditorPane({
             );
           })}
         </LudoTab.Group>
+        <div className="flex items-center gap-2 lg:hidden ml-auto">
+          {solutionHint && <SolutionHintDialog {...solutionHint} />}
+          <button
+            type="button"
+            disabled={!canReset}
+            onClick={onReset}
+            className="h-10 w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            title="Reset code"
+          >
+            <RotateCcwIcon className="h-4 w-4" />
+          </button>
+        </div>
       </Workbench.Pane.Winbar>
 
       <ProjectEditor
@@ -71,7 +98,7 @@ export function GuidedExerciseEditorPane({
         />
       )}
 
-      <div className="absolute bottom-16 lg:bottom-10 w-full px-6 lg:px-10 z-10 flex items-center justify-between gap-2">
+      <div className="absolute bottom-16 lg:bottom-10 w-full px-6 lg:px-10 z-10 hidden lg:flex items-center justify-between gap-2">
         {children}
       </div>
     </Workbench.Pane>

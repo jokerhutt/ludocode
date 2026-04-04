@@ -12,6 +12,7 @@ type FileActionsMenuProps = {
   renameItem: (oldPath: string, newPath: string) => void;
   deleteItem: () => void;
   canDelete?: boolean;
+  canRename?: boolean;
 };
 
 export function FileActionsMenu({
@@ -22,30 +23,33 @@ export function FileActionsMenu({
   itemType,
   deleteItem,
   canDelete = true,
+  canRename = true,
 }: FileActionsMenuProps) {
   return (
     <LudoMenu>
       <LudoMenu.Trigger>{trigger}</LudoMenu.Trigger>
 
-      <LudoMenu.Content align="end">
-        <RenameDialog
-          itemCategory={itemType}
-          key={`rename-${targetId}`}
-          itemName={targetName}
-          onSubmit={renameItem}
-        >
-          <LudoMenu.Item closeOnSelect={false}>
-            <LudoMenu.Row>
-              <LudoMenu.Icon>
-                <HeroIcon
-                  iconName="PencilIcon"
-                  className="h-4 text-ludo-white-bright/70"
-                />
-              </LudoMenu.Icon>
-              <LudoMenu.Label>Rename</LudoMenu.Label>
-            </LudoMenu.Row>
-          </LudoMenu.Item>
-        </RenameDialog>
+      <LudoMenu.Content  align="end">
+        {canRename && (
+          <RenameDialog
+            itemCategory={itemType}
+            key={`rename-${targetId}`}
+            itemName={targetName}
+            onSubmit={renameItem}
+          >
+            <LudoMenu.Item closeOnSelect={false}>
+              <LudoMenu.Row>
+                <LudoMenu.Icon>
+                  <HeroIcon
+                    iconName="PencilIcon"
+                    className="h-4 text-ludo-white-bright/70"
+                  />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>Rename</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+          </RenameDialog>
+        )}
 
         {canDelete && (
           <>
