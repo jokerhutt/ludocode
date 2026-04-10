@@ -8,6 +8,7 @@ import {
   type CourseStats,
   type LudoUser,
   type MessageLikeCountResponse,
+  type UserXp,
 } from "@ludocode/types";
 import { api } from "@/constants/api/api.ts";
 import { makeIdBatcher } from "@ludocode/api/batcherFactory.ts";
@@ -75,3 +76,11 @@ export const userCoinsBatcher = makeIdBatcher<UserCoins>({
   scheduler: windowScheduler(10),
   createFn: create,
 });
+
+export const userXpBatcher = makeIdBatcher<UserXp>({
+  name: "userXp",
+  getUrlFn: api.progress.xp.byUserIds,
+  idsKey: "userIds",
+  scheduler: windowScheduler(10),
+  createFn: create
+})

@@ -34,6 +34,7 @@ export type CompletionSearch = {
   step: "lesson" | "streak" | "course";
   coins: number;
   accuracy: number;
+  xpGained: number;
   oldStreak: number;
   newStreak: number;
   completionStatus: LessonCompletionStatus;

@@ -10,7 +10,7 @@ import { testIds } from "@ludocode/util/test-ids";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();
-  const { coins, accuracy } = search;
+  const { coins, accuracy, xpGained } = search;
 
   const trophyAnimation = useLottie("/animation/LC_TROPHY.json");
 
@@ -23,7 +23,7 @@ export function LessonCompletionPage() {
         className="w-full h-80"
       />
       <h2 className="text-center text-2xl">Lesson Complete!</h2>
-      <CompletionStatsGroup userStats={{ coins, accuracy }} />
+      <CompletionStatsGroup userStats={{ coins, accuracy, xpGained }} />
     </>
   );
 }
