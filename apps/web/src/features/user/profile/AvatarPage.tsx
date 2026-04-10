@@ -38,7 +38,7 @@ export function AvatarPage() {
           <p className="text-xs uppercase tracking-widest text-ludo-white/70 font-semibold mb-4">
             Choose Avatar
           </p>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 lg:grid-cols-6 2xl:grid-cols-12 gap-3">
             {avatarIndices.map((index) => {
               const isSelected = index === selectedIndex;
               const src = getUserAvatar(AVATAR_VERSION, index);
