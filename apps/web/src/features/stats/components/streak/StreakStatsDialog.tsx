@@ -8,7 +8,6 @@ import type {
   DailyGoalMet,
   UserStreak,
 } from "@ludocode/types/User/UserStreak.ts";
-import { WeeklyStreakGroup } from "@/features/stats/components/streak/WeeklyStreakGroup.tsx";
 import { DialogWrapper } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
 import { FireIcon } from "@heroicons/react/24/solid";
 import { ActivityGraph } from "@ludocode/design-system/widgets/activity-graph";

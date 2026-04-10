@@ -132,3 +132,32 @@ const GraphCell = forwardRef<
     />
   );
 });
+
+type MiniActivityGraphProps = {
+  cells: ActivityGraphCell[];
+  color?: CellColor;
+  className?: string;
+};
+
+export function MiniActivityGraph({
+  cells,
+  color = "royal-blue",
+  className,
+}: MiniActivityGraphProps) {
+  const colorToken =
+    color === "orange" ? "bg-orange-400/80" : "bg-ludo-accent/80";
+
+  return (
+    <div className={cn("grid grid-cols-7 gap-0.5", className)}>
+      {cells.map((cell, idx) => (
+        <div
+          key={idx}
+          className={cn(
+            "aspect-square w-full rounded-sm",
+            cell.active ? colorToken : "bg-white/6",
+          )}
+        />
+      ))}
+    </div>
+  );
+}
