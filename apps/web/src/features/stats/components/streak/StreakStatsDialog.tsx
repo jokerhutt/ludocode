@@ -11,6 +11,7 @@ import type {
 import { WeeklyStreakGroup } from "@/features/stats/components/streak/WeeklyStreakGroup.tsx";
 import { DialogWrapper } from "@ludocode/design-system/widgets/ludo-dialog.tsx";
 import { FireIcon } from "@heroicons/react/24/solid";
+import { ActivityGraph } from "@ludocode/design-system/widgets/activity-graph";
 
 type StreakStatsDialogProps = {
   children: ReactNode;
@@ -26,6 +27,12 @@ export function StreakStatsDialog({
   pastWeekStreak,
 }: StreakStatsDialogProps) {
   const { current, best } = streak;
+
+  const cells = pastWeekStreak.map((day) => ({
+    active: day.met,
+    date: day.date,
+    count: day.met ? 1 : 0,
+  }));
 
   return (
     <Dialog>
@@ -59,7 +66,7 @@ export function StreakStatsDialog({
           </div>
         </div>
 
-        <WeeklyStreakGroup history={pastWeekStreak} />
+        <ActivityGraph cells={cells} color="orange"/>
 
         <p className="text-ludo-white-bright/30 text-xs text-center">
           Complete a lesson each day to keep your streak alive!
