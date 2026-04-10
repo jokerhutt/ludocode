@@ -32,8 +32,6 @@ export function createApiPaths({
       base: `${BASE}/analytics`,
     },
 
-
-
     auth: {
       base: `${BASE}/auth`,
       firebase: `${BASE}/auth/firebase`,
@@ -170,7 +168,7 @@ export function createApiPaths({
       base: `${BASE}/users`,
       byIds: (userIds: string) => `${BASE}/users?${userIds}`,
       me: `${BASE}/users/me`,
-      avatar: `${BASE}/users/avatar`,
+      avatar: `${BASE}/users/me/avatar`,
     },
 
     external: {
