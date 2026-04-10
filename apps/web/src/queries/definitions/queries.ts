@@ -125,7 +125,7 @@ export const qo = {
     queryOptions<DailyXpHistoryResponse[]>({
       queryKey: qk.xpHistory(),
       queryFn: () =>
-        ludoGet<DailyXpHistoryResponse[]>(api.progress.xp.history(4), true),
+        ludoGet<DailyXpHistoryResponse[]>(api.progress.xp.history(7), true),
       staleTime: 60_000,
     }),
 

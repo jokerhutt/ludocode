@@ -82,8 +82,8 @@ export function createApiPaths({
       xp: {
         base: `${BASE}/progress/xp`,
         byUserIds: (userIds: string) => `${BASE}/progress/xp?${userIds}`,
-        history: (weeks: number = 1) =>
-          `${BASE}/progress/xp?mode=weekly&weeks=${weeks}`,
+        history: (days: number = 7) =>
+          `${BASE}/progress/xp/history?days=${days}`,
       },
       courses: {
         base: `${BASE}/progress/courses`,
