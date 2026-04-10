@@ -1,4 +1,4 @@
-import { AVATAR_BASE_URL } from "@/constants/environment/env.ts";
+import { AVATAR_BASE_PATH as AVATAR_BASE_PATH } from "@/constants/environment/env.ts";
 
 export const getUserAvatar = (version: string, index: number) =>
-  `${AVATAR_BASE_URL}/avatars/${version}/${index}.png`;
+  `${AVATAR_BASE_PATH}/${version}/${index}.png`;

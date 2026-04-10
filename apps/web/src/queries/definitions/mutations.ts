@@ -16,19 +16,20 @@ import {
 } from "@ludocode/api/fetcher.ts";
 import { api } from "@/constants/api/api.ts";
 import { logout } from "@/constants/api/logout.ts";
-import type {
-  TogglePreferencesRequest,
-  UserPreferences,
-  EditProfileRequest,
-  LudoUser,
-  UserSubscription,
-  ConfirmRequest,
-  FeedbackRequest,
-  ChangeProjectVisibilityRequest,
-  ProjectLikeResponse,
-  CreateDiscussionMessageRequest,
-  DiscussionMessage,
-  MessageLikeCountResponse,
+import {
+  type TogglePreferencesRequest,
+  type UserPreferences,
+  type EditProfileRequest,
+  type LudoUser,
+  type UserSubscription,
+  type ConfirmRequest,
+  type FeedbackRequest,
+  type ChangeProjectVisibilityRequest,
+  type ProjectLikeResponse,
+  type CreateDiscussionMessageRequest,
+  type DiscussionMessage,
+  type MessageLikeCountResponse,
+  type AvatarInfo,
 } from "@ludocode/types";
 
 export interface ChangeCourseVariables {
@@ -219,6 +220,18 @@ export const mutations = {
           true,
         ),
     });
+  },
+
+  changeAvatar: () => {
+    return mutationOptions<LudoUser, Error, AvatarInfo>({
+      mutationKey: ["changeAvatar"],
+      mutationFn: (variables) =>
+        ludoPut<LudoUser, AvatarInfo>(
+          api.users.avatar,
+          variables,
+          true
+        )
+    })
   },
 
   editProfile: () => {

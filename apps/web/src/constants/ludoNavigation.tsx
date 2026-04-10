@@ -11,6 +11,7 @@ import { Route as projectHubRoute } from "@/routes/app/_hub/projects.tsx";
 import { Route as moduleHubRoute } from "@/routes/app/_hub/learn/$courseId/$moduleId.tsx";
 import { Route as profileRoute } from "@/routes/app/_hub/profile/$userId/index.tsx";
 import { Route as accountSettingsRoute } from "@/routes/app/_hub/profile/$userId/settings.tsx";
+import {Route as avatarRoute} from "@/routes/app/_hub/profile/$userId/avatar.tsx"
 
 // LESSON PAGE
 import { Route as lessonPageRoute } from "@/routes/app/lesson/$courseId/$moduleId/$lessonId";
@@ -90,6 +91,10 @@ export const ludoNavigation = {
       toSettings: (userId: string) => ({
         to: accountSettingsRoute.to,
         params: { userId },
+      }),
+      toAvatar: (userId: string) => ({
+        to: avatarRoute.to,
+        params: {userId}
       }),
       toDocs: (slug?: string) => ({
         to: docsRoute.to,
