@@ -24,7 +24,7 @@ export function ProfilePage({}: ProfilePageProps) {
 
   return (
     <div className="col-span-full lg:px-4 relative pt-6 lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
-      <UserCard user={user} />
+      <UserCard editable={true} user={user} />
       <div className="w-full flex pb-6 flex-col gap-4">
         <ProfileCardContainer header="STATS">
           <UserStatsGroup />

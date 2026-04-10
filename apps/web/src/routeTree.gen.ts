@@ -40,6 +40,7 @@ import { Route as AppHubProfileUserIdRouteImport } from './routes/app/_hub/profi
 import { Route as AppHubProfileUserIdIndexRouteImport } from './routes/app/_hub/profile/$userId/index'
 import { Route as AppCompletionCourseIdModuleIdLessonIdRouteImport } from './routes/app/completion/$courseId/$moduleId/$lessonId'
 import { Route as AppHubProfileUserIdSettingsRouteImport } from './routes/app/_hub/profile/$userId/settings'
+import { Route as AppHubProfileUserIdAvatarRouteImport } from './routes/app/_hub/profile/$userId/avatar'
 import { Route as AppHubLearnCourseIdModuleIdRouteImport } from './routes/app/_hub/learn/$courseId/$moduleId'
 import { Route as AppLessonCourseIdModuleIdLessonIdRouteRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/route'
 import { Route as AppLessonCourseIdModuleIdLessonIdIndexRouteImport } from './routes/app/lesson/$courseId/$moduleId/$lessonId/index'
@@ -203,6 +204,12 @@ const AppHubProfileUserIdSettingsRoute =
     path: '/settings',
     getParentRoute: () => AppHubProfileUserIdRoute,
   } as any)
+const AppHubProfileUserIdAvatarRoute =
+  AppHubProfileUserIdAvatarRouteImport.update({
+    id: '/avatar',
+    path: '/avatar',
+    getParentRoute: () => AppHubProfileUserIdRoute,
+  } as any)
 const AppHubLearnCourseIdModuleIdRoute =
   AppHubLearnCourseIdModuleIdRouteImport.update({
     id: '/learn/$courseId/$moduleId',
@@ -250,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/app/community': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/profile/$userId/avatar': typeof AppHubProfileUserIdAvatarRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
   '/app/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
@@ -280,6 +288,7 @@ export interface FileRoutesByTo {
   '/app/subscription/comparison': typeof AppSubscriptionSubscribedguardComparisonRoute
   '/app/community': typeof AppHubCommunityIndexRoute
   '/app/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/profile/$userId/avatar': typeof AppHubProfileUserIdAvatarRoute
   '/app/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
   '/app/profile/$userId': typeof AppHubProfileUserIdIndexRoute
@@ -317,6 +326,7 @@ export interface FileRoutesById {
   '/app/_hub/community/': typeof AppHubCommunityIndexRoute
   '/app/lesson/$courseId/$moduleId/$lessonId': typeof AppLessonCourseIdModuleIdLessonIdRouteRouteWithChildren
   '/app/_hub/learn/$courseId/$moduleId': typeof AppHubLearnCourseIdModuleIdRoute
+  '/app/_hub/profile/$userId/avatar': typeof AppHubProfileUserIdAvatarRoute
   '/app/_hub/profile/$userId/settings': typeof AppHubProfileUserIdSettingsRoute
   '/app/completion/$courseId/$moduleId/$lessonId': typeof AppCompletionCourseIdModuleIdLessonIdRoute
   '/app/_hub/profile/$userId/': typeof AppHubProfileUserIdIndexRoute
@@ -352,6 +362,7 @@ export interface FileRouteTypes {
     | '/app/community'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
     | '/app/learn/$courseId/$moduleId'
+    | '/app/profile/$userId/avatar'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
     | '/app/profile/$userId/'
@@ -382,6 +393,7 @@ export interface FileRouteTypes {
     | '/app/subscription/comparison'
     | '/app/community'
     | '/app/learn/$courseId/$moduleId'
+    | '/app/profile/$userId/avatar'
     | '/app/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
     | '/app/profile/$userId'
@@ -418,6 +430,7 @@ export interface FileRouteTypes {
     | '/app/_hub/community/'
     | '/app/lesson/$courseId/$moduleId/$lessonId'
     | '/app/_hub/learn/$courseId/$moduleId'
+    | '/app/_hub/profile/$userId/avatar'
     | '/app/_hub/profile/$userId/settings'
     | '/app/completion/$courseId/$moduleId/$lessonId'
     | '/app/_hub/profile/$userId/'
@@ -650,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHubProfileUserIdSettingsRouteImport
       parentRoute: typeof AppHubProfileUserIdRoute
     }
+    '/app/_hub/profile/$userId/avatar': {
+      id: '/app/_hub/profile/$userId/avatar'
+      path: '/avatar'
+      fullPath: '/app/profile/$userId/avatar'
+      preLoaderRoute: typeof AppHubProfileUserIdAvatarRouteImport
+      parentRoute: typeof AppHubProfileUserIdRoute
+    }
     '/app/_hub/learn/$courseId/$moduleId': {
       id: '/app/_hub/learn/$courseId/$moduleId'
       path: '/learn/$courseId/$moduleId'
@@ -704,11 +724,13 @@ const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
 )
 
 interface AppHubProfileUserIdRouteChildren {
+  AppHubProfileUserIdAvatarRoute: typeof AppHubProfileUserIdAvatarRoute
   AppHubProfileUserIdSettingsRoute: typeof AppHubProfileUserIdSettingsRoute
   AppHubProfileUserIdIndexRoute: typeof AppHubProfileUserIdIndexRoute
 }
 
 const AppHubProfileUserIdRouteChildren: AppHubProfileUserIdRouteChildren = {
+  AppHubProfileUserIdAvatarRoute: AppHubProfileUserIdAvatarRoute,
   AppHubProfileUserIdSettingsRoute: AppHubProfileUserIdSettingsRoute,
   AppHubProfileUserIdIndexRoute: AppHubProfileUserIdIndexRoute,
 }
