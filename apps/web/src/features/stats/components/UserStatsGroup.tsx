@@ -6,6 +6,7 @@ import { CoinsDialog } from "./coins/CoinsDialog.tsx";
 import { StreakStatsDialog } from "./streak/StreakStatsDialog.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
+import { MiniActivityGraph } from "@ludocode/design-system/widgets/activity-graph";
 
 export function UserStatsGroup() {
   const statsContext = useStatsContext();
@@ -13,14 +14,25 @@ export function UserStatsGroup() {
   const { coins, userStreak } = statsContext;
   const { current } = userStreak;
 
+  const streakCells = pastWeekStreak.map((day) => ({
+    active: day.met,
+    date: day.date,
+    count: day.met ? 1 : 0,
+  }));
+
   return (
     <div className="w-full flex justify-between gap-4">
-      <StreakStatsDialog
-        streak={userStreak}
-        pastWeekStreak={pastWeekStreak}
-      >
+      <StreakStatsDialog streak={userStreak} pastWeekStreak={pastWeekStreak}>
         <div className="w-full flex">
-          <StatsCard text="Day Streak" score={current}>
+          <StatsCard
+            text="Day Streak"
+            score={current}
+            graph={
+              streakCells.length ? (
+                <MiniActivityGraph cells={streakCells} color="orange" />
+              ) : undefined
+            }
+          >
             <FireIcon className="h-6 text-orange-400" />
           </StatsCard>
         </div>

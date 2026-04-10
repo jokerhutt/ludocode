@@ -1,10 +1,10 @@
 export type UserStreak = {
-    current: number;
-    best: number;
-    lastMet?: string;
-}
+  current: number;
+  best: number;
+  lastMet?: string;
+};
 
 export type DailyGoalMet = {
-    date: string;
-    met: boolean;
-}
+  date: number[];
+  met: boolean;
+};

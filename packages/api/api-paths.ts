@@ -93,7 +93,7 @@ export function createApiPaths({
       },
       streak: {
         base: `${BASE}/progress/streak`,
-        weekly: `${BASE}/progress/streak?mode=weekly`,
+        history: (weeks: number = 1) => `${BASE}/progress/streak?mode=weekly&weeks=${weeks}`,
       },
     },
 

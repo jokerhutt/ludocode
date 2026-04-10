@@ -99,7 +99,7 @@ export const qo = {
   streakPastWeek: () =>
     queryOptions<DailyGoalMet[]>({
       queryKey: qk.streakPastWeek(),
-      queryFn: () => ludoGet<DailyGoalMet[]>(api.progress.streak.weekly, true),
+      queryFn: () => ludoGet<DailyGoalMet[]>(api.progress.streak.history(4), true),
       staleTime: 60_000,
     }),
 
