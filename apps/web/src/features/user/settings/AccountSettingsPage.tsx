@@ -7,14 +7,12 @@ import { Avatar } from "@ludocode/design-system/primitives/avatar.tsx";
 import { getUserAvatar } from "@/constants/avatars/avatars.ts";
 import { parseToDate } from "@ludocode/util";
 import { SubscriptionStatusCard } from "../../subscription/shared/components/SubscriptionStatusCard.tsx";
-import { Pencil } from "lucide-react";
-import { router } from "@/main.tsx";
-import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
+import { EditAvatarButton } from "../components/EditAvatarButton.tsx";
 
 export function AccountSettingsPage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: preferences } = useSuspenseQuery(qo.preferences());
-  const { avatarIndex, avatarVersion, createdAt } = user;
+  const { avatarIndex, avatarVersion, createdAt, id } = user;
   const joinTime = parseToDate(createdAt);
   const userPfpSrc = getUserAvatar(avatarVersion, avatarIndex);
 
@@ -31,14 +29,7 @@ export function AccountSettingsPage() {
     <div className="col-span-full lg:px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <div className="w-full flex gap-4 py-6 items-center">
         <div className="relative">
-          <button
-            onClick={() =>
-              router.navigate(ludoNavigation.hub.profile.toAvatar(user.id))
-            }
-            className="absolute hover:bg-ludo-white-bright hover:text-black hover:cursor-pointer z-10 bottom-0 rounded-md flex justify-center items-center right-0 h-8 w-8 bg-ludo-accent"
-          >
-            <Pencil className="h-4 w-4" />
-          </button>
+          <EditAvatarButton userId={id} className="absolute bottom-0 right-0"/>
           <div className="absolute -inset-1.5 rounded-full bg-ludo-surface-hover blur-md" />
           <Avatar className="h-20 w-20 relative" src={userPfpSrc} />
         </div>
