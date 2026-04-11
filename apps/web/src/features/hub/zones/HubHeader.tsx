@@ -1,6 +1,5 @@
 import { NavigationIconGroup } from "@/features/hub/components/NavigationIconGroup.tsx";
 import { StatsGroup } from "@/features/stats/components/StatsGroup.tsx";
-import { SubscriptionBadge } from "@/features/subscription/shared/components/SubscriptionBadge.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { Suspense } from "react";
 import { useSubscriptionContext } from "../../subscription/context/SubscriptionContext.tsx";
