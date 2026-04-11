@@ -16,6 +16,10 @@ export const testUser: LoginUserResponse = {
     current: 0,
     best: 0,
   },
+  userXp: {
+    id: testUserId,
+    xp: 0
+  },
   userCoins: {
     id: testUserId,
     coins: 0,
