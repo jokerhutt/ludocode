@@ -1,92 +1,147 @@
 import { type Page, expect } from "@playwright/test";
-import {testIds} from "@ludocode/util/test-ids.js"
+import { testIds } from "@ludocode/util/test-ids.js";
+import type { LudoExercise } from "@ludocode/types";
+import {
+  interceptExercises,
+  navigateToLesson,
+  type CourseContext,
+  getAllLessons,
+  getModuleForLesson,
+} from "./course";
 
-export async function goToLesson(page: Page) {
-  const lessonId = "7eeaaddd-2d87-495e-bd40-24cfd9f06b4b";
-  const pathButton = page.getByTestId(testIds.path.button(lessonId));
-  const pathPopoverButton = page.getByTestId(
-    testIds.path.popoverButton(lessonId),
-  );
+async function solveExercise(page: Page, exercise: LudoExercise) {
+  const submitButton = page.getByTestId(testIds.lesson.submitButton);
+  const submitButtonText = page.getByTestId(testIds.lesson.submitText);
 
-  await expect(pathButton).toBeVisible();
-  await pathButton.click();
+  if (!exercise.interaction) {
+    // INFO exercise — just click submit to continue
+    await expect(submitButton).toBeVisible();
+    await submitButton.click();
+    return;
+  }
 
-  await expect(pathPopoverButton).toBeVisible();
+  if (exercise.interaction.type === "CLOZE") {
+    const { blanks } = exercise.interaction;
+    for (const blank of blanks) {
+      const correctAnswer = blank.correctOptions[0];
+      const option = page.getByTestId(testIds.exercise.option(correctAnswer));
+      await expect(option).toBeVisible();
+      await option.click();
+    }
+    await submitButton.click();
+    await expect(submitButtonText).toContainText("CONTINUE");
+    await submitButton.click();
+    return;
+  }
 
-  await pathPopoverButton.click();
+  if (exercise.interaction.type === "SELECT") {
+    const correctAnswer = exercise.interaction.correctValue;
+    const option = page.getByTestId(testIds.exercise.optionWide(correctAnswer));
+    await expect(option).toBeVisible();
+    await option.click();
+    await submitButton.click();
+    await expect(submitButtonText).toContainText("CONTINUE");
+    await submitButton.click();
+    return;
+  }
 
-  await expect(page).toHaveURL(
-    /\/lesson\/.*7eeaaddd-2d87-495e-bd40-24cfd9f06b4b.*/,
+  // EXECUTABLE
+  throw new Error(
+    `Unsupported exercise interaction type: ${exercise.interaction.type}`,
   );
 }
 
-export async function completeLessonWithMistake(page: Page) {
-  await expect(page).toHaveURL(
-    /\/lesson\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?exercise=1$/,
-  );
-
-  const submitButton = page.getByTestId(testIds.lesson.submitButton);
-  await expect(submitButton).toBeVisible();
-  await submitButton.click();
-
-  await expect(page).toHaveURL(
-    /\/lesson\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?exercise=2$/,
-  );
-  const submitButtonText = page.getByTestId(testIds.lesson.submitText);
-
-  const secondExerciseCorrectOption = page.getByTestId(
-    testIds.exercise.option("+"),
-  );
-  const secondExerciseDistractor = page.getByTestId(
-    testIds.exercise.option("="),
-  );
-  await expect(secondExerciseDistractor).toBeVisible();
-  await expect(secondExerciseCorrectOption).toBeVisible();
-  await secondExerciseDistractor.click();
-  await submitButton.click();
-  await expect(submitButtonText).toContainText("TRY AGAIN");
-  await expect(page).toHaveURL(
-    /\/lesson\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?exercise=2$/,
-  );
-  await submitButton.click();
-
-  await expect(submitButtonText).toContainText("CHECK");
-
-  await secondExerciseCorrectOption.click();
-  await submitButton.click();
-  await expect(submitButtonText).toContainText("CONTINUE");
-  await submitButton.click();
-
-  await expect(page).toHaveURL(/\/sync\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b/);
+export async function goToLesson(page: Page, lessonId: string) {
+  const exercisesPromise = interceptExercises(page);
+  await navigateToLesson(page, lessonId);
+  return exercisesPromise;
 }
 
-export async function completeLessonPerfect(page: Page) {
-  await expect(page).toHaveURL(
-    /\/lesson\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?exercise=1$/,
+export async function completeLessonPerfect(
+  page: Page,
+  exercises: LudoExercise[],
+) {
+  const normalExercises = exercises.filter(
+    (e) => !e.interaction || e.interaction.type !== "EXECUTABLE",
   );
 
-  const submitButton = page.getByTestId(testIds.lesson.submitButton);
-  await expect(submitButton).toBeVisible();
-  await submitButton.click();
+  for (const exercise of normalExercises) {
+    await solveExercise(page, exercise);
+  }
 
-  await expect(page).toHaveURL(
-    /\/lesson\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?exercise=2$/,
+  await expect(page).toHaveURL(/\/sync\//);
+}
+
+export async function completeLessonWithMistake(
+  page: Page,
+  exercises: LudoExercise[],
+) {
+  const normalExercises = exercises.filter(
+    (e) => !e.interaction || e.interaction.type !== "EXECUTABLE",
   );
 
-  const submitButtonText = page.getByTestId(testIds.lesson.submitText);
+  let madeFirstMistake = false;
 
-  const secondExerciseCorrectOption = page.getByTestId(
-    testIds.exercise.option("+"),
-  );
-  const secondExerciseDistractor = page.getByTestId(
-    testIds.exercise.option("="),
-  );
-  await expect(secondExerciseDistractor).toBeVisible();
-  await expect(secondExerciseCorrectOption).toBeVisible();
-  await secondExerciseCorrectOption.click();
-  await submitButton.click();
-  await expect(submitButtonText).toContainText("CONTINUE");
-  await submitButton.click();
+  for (const exercise of normalExercises) {
+    const submitButton = page.getByTestId(testIds.lesson.submitButton);
+    const submitButtonText = page.getByTestId(testIds.lesson.submitText);
 
-  await expect(page).toHaveURL(/\/sync\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b/);
+    if (!madeFirstMistake && exercise.interaction) {
+      madeFirstMistake = true;
+
+      if (exercise.interaction.type === "CLOZE") {
+        const correctAnswer = exercise.interaction.blanks[0].correctOptions[0];
+        const wrongOption = exercise.interaction.options.find(
+          (o) => o !== correctAnswer,
+        );
+        if (wrongOption) {
+          const option = page.getByTestId(testIds.exercise.option(wrongOption));
+          await expect(option).toBeVisible();
+          await option.click();
+          await submitButton.click();
+          await expect(submitButtonText).toContainText("TRY AGAIN");
+          await submitButton.click();
+          await expect(submitButtonText).toContainText("CHECK");
+        }
+      } else if (exercise.interaction.type === "SELECT") {
+        const correctAnswer = exercise.interaction.correctValue;
+        const wrongOption = exercise.interaction.items.find(
+          (i) => i !== correctAnswer,
+        );
+        if (wrongOption) {
+          const option = page.getByTestId(
+            testIds.exercise.optionWide(wrongOption),
+          );
+          await expect(option).toBeVisible();
+          await option.click();
+          await submitButton.click();
+          await expect(submitButtonText).toContainText("TRY AGAIN");
+          await submitButton.click();
+          await expect(submitButtonText).toContainText("CHECK");
+        }
+      }
+    }
+
+    await solveExercise(page, exercise);
+  }
+
+  await expect(page).toHaveURL(/\/sync\//);
+}
+
+export async function completeCourse(page: Page, ctx: CourseContext) {
+  const lessons = getAllLessons(ctx);
+
+  for (const lesson of lessons) {
+    const exercises = await goToLesson(page, lesson.id);
+    await completeLessonPerfect(page, exercises);
+
+    await expect(page).toHaveURL(/\/completion\//);
+
+    const completionButton = page.getByTestId(testIds.completion.button);
+    while (!(await page.url().includes("/learn/"))) {
+      await expect(completionButton).toBeVisible();
+      await completionButton.click();
+      await page.waitForURL(/\/(learn|completion)\//);
+    }
+  }
 }
