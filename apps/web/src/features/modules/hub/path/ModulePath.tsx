@@ -55,6 +55,7 @@ export function ModulePath({
         <LudoPath.Row className="mt-10" index={normalLessonCount}>
           <LudoPath.NextButton
             title={nextModuleTitle}
+            dataTestId={testIds.module.nextButton}
             onClick={() =>
               router.navigate(
                 ludoNavigation.hub.module.toModule(courseId, nextModuleId),

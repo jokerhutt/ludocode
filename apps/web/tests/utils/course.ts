@@ -1,57 +1,57 @@
 import { type Page, expect } from "@playwright/test";
 import { testIds } from "@ludocode/util/test-ids.js";
-import type { LudoExercise } from "@ludocode/types";
+import type { LudoExercise, LudoLesson } from "@ludocode/types";
 
-// ── Types mirrored from FlatCourseTree ──────────────────────
 type FlatLesson = { id: string; orderIndex: number };
 type FlatModule = { id: string; orderIndex: number; lessons: FlatLesson[] };
 type FlatCourseTree = { courseId: string; modules: FlatModule[] };
 
-// ── Course context captured via API interception ────────────
 export type CourseContext = {
   courseId: string;
   modules: FlatModule[];
+  lessonDetails: LudoLesson[];
 };
 
-/**
- * Intercepts the course-tree API call to capture the course structure
- * (courseId, modules, lessons) dynamically.
- *
- * Must be called **before** navigating to the learn page.
- */
 export async function interceptCourseTree(page: Page): Promise<CourseContext> {
+  const ctx: CourseContext = {
+    courseId: "",
+    modules: [],
+    lessonDetails: [],
+  };
+
   return new Promise<CourseContext>((resolve) => {
     page.route("**/api/v1/catalog/courses/*/tree", async (route) => {
       const response = await route.fetch();
       const tree: FlatCourseTree = await response.json();
-      resolve({
-        courseId: tree.courseId,
-        modules: tree.modules.sort((a, b) => a.orderIndex - b.orderIndex),
-      });
+      ctx.courseId = tree.courseId;
+      ctx.modules = tree.modules.sort((a, b) => a.orderIndex - b.orderIndex);
+
+      const allLessonIds = ctx.modules.flatMap((m) =>
+        m.lessons.map((l) => l.id),
+      );
+      if (allLessonIds.length > 0) {
+        const baseUrl = new URL(route.request().url()).origin;
+        const resp = await page.request.get(
+          `${baseUrl}/api/v1/lessons?lessonIds=${allLessonIds.join(",")}`,
+        );
+        ctx.lessonDetails = await resp.json();
+      }
+
+      resolve(ctx);
       await route.fulfill({ response });
     });
   });
 }
 
-/**
- * Returns all lessons across all modules, sorted by module then lesson order.
- */
 export function getAllLessons(ctx: CourseContext): FlatLesson[] {
   return ctx.modules.flatMap((m) =>
     [...m.lessons].sort((a, b) => a.orderIndex - b.orderIndex),
   );
 }
-
-/**
- * Returns the first module in the course tree.
- */
 export function getFirstModule(ctx: CourseContext): FlatModule {
   return ctx.modules[0];
 }
 
-/**
- * Returns the module that contains the given lesson.
- */
 export function getModuleForLesson(
   ctx: CourseContext,
   lessonId: string,
@@ -61,14 +61,26 @@ export function getModuleForLesson(
   return mod;
 }
 
-// ── Exercise data captured via API interception ─────────────
+export function getFirstGuidedLesson(ctx: CourseContext): FlatLesson {
+  const guidedDetail = ctx.lessonDetails.find((l) => l.lessonType === "GUIDED");
+  if (!guidedDetail) throw new Error("No guided lesson found in course");
 
-/**
- * Intercepts the exercises API call for a lesson and returns the exercises.
- *
- * Must be called **before** navigating to the lesson page.
- * Resolves when the API response is captured.
- */
+  const flat = getAllLessons(ctx).find((l) => l.id === guidedDetail.id);
+  if (!flat)
+    throw new Error(`Guided lesson ${guidedDetail.id} not in course tree`);
+  return flat;
+}
+
+export function getFirstNormalLesson(ctx: CourseContext): FlatLesson {
+  const normalDetail = ctx.lessonDetails.find((l) => l.lessonType === "NORMAL");
+  if (!normalDetail) throw new Error("No normal lesson found in course");
+
+  const flat = getAllLessons(ctx).find((l) => l.id === normalDetail.id);
+  if (!flat)
+    throw new Error(`Normal lesson ${normalDetail.id} not in course tree`);
+  return flat;
+}
+
 export function interceptExercises(page: Page): Promise<LudoExercise[]> {
   return new Promise<LudoExercise[]>((resolve) => {
     page.route("**/api/v1/lessons/*/exercises", async (route) => {
@@ -80,10 +92,6 @@ export function interceptExercises(page: Page): Promise<LudoExercise[]> {
   });
 }
 
-/**
- * Navigates to a lesson from the learn/module page by clicking
- * the path button and popover button.
- */
 export async function navigateToLesson(page: Page, lessonId: string) {
   const pathButton = page.getByTestId(testIds.path.button(lessonId));
   const pathPopoverButton = page.getByTestId(
@@ -94,6 +102,16 @@ export async function navigateToLesson(page: Page, lessonId: string) {
   await pathButton.click();
   await expect(pathPopoverButton).toBeVisible();
   await pathPopoverButton.click();
+}
 
-  await expect(page).toHaveURL(new RegExp(`/lesson/.*${lessonId}`));
+export async function navigateToModule(page: Page, moduleId: string) {
+  const moduleItem = page.getByTestId(testIds.module.item(moduleId)).first();
+  await expect(moduleItem).toBeVisible();
+  await moduleItem.click();
+
+  await page.waitForURL(new RegExp(`/learn/[^/]+/${moduleId}$`));
+}
+
+export function getModuleLessons(mod: FlatModule): FlatLesson[] {
+  return [...mod.lessons].sort((a, b) => a.orderIndex - b.orderIndex);
 }
