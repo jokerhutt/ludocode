@@ -28,10 +28,10 @@ export function StatsCard({
             <p className="text-xl font-semibold tabular-nums">{score}</p>
           )}
         </div>
-        <p className="text-sm text-ludo-white/70">{text}</p>
+        <p className="text-sm text-left text-ludo-white/70">{text}</p>
       </div>
       {graph && (
-        <div className="hidden lg:block w-24 shrink-0 pointer-events-none select-none ml-3">
+        <div className="w-24 h-12 shrink-0 pointer-events-none select-none ml-3">
           {graph}
         </div>
       )}

@@ -43,6 +43,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
       qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
       qc.invalidateQueries({ queryKey: qk.courseProgress(courseId) });
       qc.invalidateQueries({ queryKey: qk.courseStats(newCourseProgress.id) });
+      qc.invalidateQueries({queryKey: qk.xpHistory()})
 
       const { coins } = newCoins;
       const { current } = newStreak;

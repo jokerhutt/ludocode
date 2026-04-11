@@ -1,7 +1,5 @@
 import { useStatsContext } from "@/features/stats/context/StatsContext.tsx";
-import { CommitIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { FireIcon } from "@heroicons/react/24/solid";
-import { CoinsDialog } from "@/features/stats/components/coins/CoinsDialog.tsx";
 import { StreakStatsDialog } from "@/features/stats/components/streak/StreakStatsDialog.tsx";
 import { useQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
@@ -16,28 +14,11 @@ export function StatsGroup({
   buttonClassName,
 }: StatsGroupProps) {
   const { data: pastWeekStreak } = useQuery(qo.streakPastWeek());
-  const { coins, userStreak, userXp } = useStatsContext();
+  const { userStreak, userXp } = useStatsContext();
   const { current } = userStreak;
 
   return (
     <div className={cn("flex items-center gap-1.5", groupClassName)}>
-      <CoinsDialog coins={coins}>
-        <button
-          type="button"
-          className={cn(
-            "flex items-center gap-1.5 px-2 py-1.5 rounded-full transition-all",
-            "bg-ludo-surface-dim hover:bg-ludo-surface hover:cursor-pointer",
-            "border border-transparent hover:border-white/30",
-            buttonClassName,
-          )}
-        >
-          <CommitIcon className="h-4 w-4 text-ludo-white-bright" />
-          <span className="text-ludo-white-bright text-sm font-semibold tabular-nums">
-            {coins}
-          </span>
-        </button>
-      </CoinsDialog>
-
       <XpDialog>
         <button
           type="button"
