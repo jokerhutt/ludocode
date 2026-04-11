@@ -52,9 +52,9 @@ export function CompletionLayout() {
         <MainContentWrapper>
           <div className="col-span-full grid grid-cols-12 h-full">
             <div className="text-ludo-white-bright col-start-2 col-end-12 lg:col-start-5 lg:col-end-9 flex flex-col gap-4 justify-center min-w-0">
-              {step === "streak" && <LessonCompletionPage />}
+              {step === "lesson" && <LessonCompletionPage />}
 
-              {step === "lesson" && <StreakIncreasePage />}
+              {step === "streak" && <StreakIncreasePage />}
 
               {step === "course" && <CourseCompletePage />}
             </div>
