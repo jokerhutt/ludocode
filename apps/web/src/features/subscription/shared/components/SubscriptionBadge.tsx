@@ -1,4 +1,5 @@
 import { cn } from "@ludocode/design-system/cn-utils.ts";
+import { LudoHeader } from "@ludocode/design-system/zones/ludo-header";
 import type { SubscriptionPlan } from "@ludocode/types";
 
 const tierStyles: Record<
@@ -31,20 +32,7 @@ type SubscriptionBadgeProps = {
 };
 
 export function SubscriptionBadge({ tier, className }: SubscriptionBadgeProps) {
-  const style = tierStyles[tier];
 
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-md px-2.5 py-1",
-        "text-xs font-bold tracking-wider select-none",
-        style.bg,
-        style.text,
-        style.glow,
-        className,
-      )}
-    >
-      {style.label}
-    </div>
-  );
+
+
 }
