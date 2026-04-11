@@ -22,8 +22,10 @@ export function LessonCompletionPage() {
         autoplay
         className="w-full h-80"
       />
-      <h2 className="text-center text-2xl">Lesson Complete!</h2>
-      <CompletionStatsGroup userStats={{ coins, accuracy, xpGained }} />
+      <h2 className="text-center text-2xl font-bold">Lesson Complete!</h2>
+      <div className="flex justify-center">
+        <CompletionStatsGroup userStats={{ coins, accuracy, xpGained }} />
+      </div>
     </>
   );
 }
