@@ -1,17 +1,12 @@
 import { type Page, expect } from "@playwright/test";
 import { onboardUser } from "./onboard";
+import { interceptCourseTree, type CourseContext } from "./course";
 
-export async function initialiseUser(page: Page) {
+export async function initialiseUser(page: Page): Promise<CourseContext> {
+  const courseTreePromise = interceptCourseTree(page);
   await onboardUser(page);
-  // const freeButton = page.getByTestId(testIds.subscription.compare("FREE"));
 
-  // await expect(page).toHaveURL(/\/app\/subscription\/comparison$/);
+  await expect(page).toHaveURL(/\/app\/learn\/[^/]+\/[^/]+$/);
 
-  // await expect(freeButton).toBeVisible();
-
-  // await freeButton.click();
-
-  await expect(page).toHaveURL(
-    /\/app\/learn\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f$/,
-  );
+  return courseTreePromise;
 }

@@ -37,6 +37,7 @@ type ItemProps = {
   isActive?: boolean;
   isComplete?: boolean;
   progress?: ProgressSummaryProps;
+  dataTestId?: string;
 };
 
 function Item({
@@ -46,11 +47,13 @@ function Item({
   onClick,
   isActive,
   isComplete,
+  dataTestId,
 }: ItemProps) {
   const Component = onClick ? "button" : "div";
 
   return (
     <Component
+      data-testid={dataTestId}
       {...(onClick && { type: "button", onClick })}
       className={cn(
         "w-full flex relative items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150",
