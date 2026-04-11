@@ -1,16 +1,15 @@
-import streakAnimationData from "../../../public/animation/STR_INCREASE.json";
 import Lottie from "lottie-react";
 import { useCompletionContext } from "@/features/completion/context/CompletionContext.tsx";
 import { CompletionStatsGroup } from "@/features/completion/components/CompletionStatsGroup.tsx";
 import { IncrementingCounter } from "@ludocode/design-system/primitives/incrementing-counter.tsx";
 import { BadgeSingleCard } from "@/features/user/profile/components/BadgeCard.tsx";
 import { stringToCustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import { useLottie, useTimedLottie } from "@ludocode/hooks";
+import { useLottie } from "@ludocode/hooks";
 import { testIds } from "@ludocode/util/test-ids";
 
 export function LessonCompletionPage() {
   const { search } = useCompletionContext();
-  const { coins, accuracy } = search;
+  const { coins, accuracy, xpGained } = search;
 
   const trophyAnimation = useLottie("/animation/LC_TROPHY.json");
 
@@ -22,8 +21,10 @@ export function LessonCompletionPage() {
         autoplay
         className="w-full h-80"
       />
-      <h2 className="text-center text-2xl">Lesson Complete!</h2>
-      <CompletionStatsGroup userStats={{ coins, accuracy }} />
+      <h2 className="text-center text-2xl font-bold">Lesson Complete!</h2>
+      <div className="flex justify-center">
+        <CompletionStatsGroup userStats={{ coins, accuracy, xpGained }} />
+      </div>
     </>
   );
 }
@@ -32,13 +33,12 @@ export function StreakIncreasePage() {
   const { search } = useCompletionContext();
   const { oldStreak, newStreak } = search;
 
-  const { lottieRef } = useTimedLottie({ minusFrames: 20 });
+  const streakAnimation = useLottie("/animation/STR_FLAME.json");
 
   return (
     <>
       <Lottie
-        lottieRef={lottieRef}
-        animationData={streakAnimationData}
+        animationData={streakAnimation}
         autoPlay={false}
         loop={false}
         className="w-full h-80"

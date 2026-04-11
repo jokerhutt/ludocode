@@ -57,6 +57,7 @@ export const testIds = {
         button: "completion-button",
         coins: "completion-coins",
         accuracy: "completion-accuracy",
+        xp: "completion-xp",
         streakText: "streak-complete-text",
         courseCompleteHeader: "course-complete-header",
         courseCompleteCongratulation: "course-complete-congratulation",

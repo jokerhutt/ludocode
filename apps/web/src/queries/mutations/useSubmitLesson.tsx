@@ -24,6 +24,8 @@ export function useSubmitLesson({ oldStreak }: Args) {
         newCoins,
         newStreak,
         newCourseProgress,
+        newXp,
+        xpGained,
         updatedCompletedLesson,
         accuracy,
       } = payload.content;
@@ -37,9 +39,11 @@ export function useSubmitLesson({ oldStreak }: Args) {
       qc.setQueryData(qk.lesson(lessonId), updatedCompletedLesson);
       qc.setQueryData(qk.userCoins(newCoins.id), newCoins);
       qc.setQueryData(qk.streak(newCoins.id), newStreak);
+      qc.setQueryData(qk.xp(newXp.id), newXp);
       qc.invalidateQueries({ queryKey: qk.streakPastWeek() });
       qc.invalidateQueries({ queryKey: qk.courseProgress(courseId) });
       qc.invalidateQueries({ queryKey: qk.courseStats(newCourseProgress.id) });
+      qc.invalidateQueries({queryKey: qk.xpHistory()})
 
       const { coins } = newCoins;
       const { current } = newStreak;
@@ -51,6 +55,7 @@ export function useSubmitLesson({ oldStreak }: Args) {
           lessonId,
           coins,
           accuracy,
+          xpGained,
           oldStreak,
           current,
           completionStatus,

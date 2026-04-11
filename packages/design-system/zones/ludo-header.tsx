@@ -188,6 +188,34 @@ function Banner({ text, id, banners }: BannerProps) {
   return <DismissibleBanner text={text} id={id} type="INCIDENT" />;
 }
 
+function Badge({
+  label,
+  style,
+  className
+}: {
+  label: string;
+  style: "disabled" | "enabled";
+  className?: string;
+}) {
+  const theme =
+    style == "disabled"
+      ? "bg-ludo-surface text-ludo-accent-muted"
+      : "bg-gradient-to-r from-ludo-accent to-ludo-progress text-ludo-white-bright shadow-[0_0_8px_rgba(106,124,255,0.4)]";
+
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-center rounded-md px-2.5 py-1",
+        "text-xs font-bold tracking-wider select-none",
+        theme,
+        className
+      )}
+    >
+      {label}
+    </div>
+  );
+}
+
 export function useRouterBar() {
   const { status } = useRouterState();
   const [barState, setBarState] = useState<BarState>("idle");
@@ -208,4 +236,5 @@ export const LudoHeader = Object.assign(LudoHeaderRoot, {
   Shell,
   Bar,
   Banner,
+  Badge
 });

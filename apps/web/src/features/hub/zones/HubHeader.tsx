@@ -1,6 +1,5 @@
 import { NavigationIconGroup } from "@/features/hub/components/NavigationIconGroup.tsx";
 import { StatsGroup } from "@/features/stats/components/StatsGroup.tsx";
-import { SubscriptionBadge } from "@/features/subscription/shared/components/SubscriptionBadge.tsx";
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { Suspense } from "react";
 import { useSubscriptionContext } from "../../subscription/context/SubscriptionContext.tsx";
@@ -46,7 +45,7 @@ export function HubHeader({ title }: HubHeaderProps) {
             <NavigationIconGroup groupClassName="hidden lg:flex" />
             <div className="flex justify-end gap-4 items-center">
               <StatsGroup groupClassName="gap-0 lg:gap-4" />
-              <SubscriptionBadge className="hidden md:flex" tier={plan} />
+              <LudoHeader.Badge className="hidden lg:flex" label="BETA" style="enabled"/>
               <HubDrawer
                 user={user}
                 plan={plan}

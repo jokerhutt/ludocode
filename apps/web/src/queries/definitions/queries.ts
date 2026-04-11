@@ -9,6 +9,7 @@ import {
   projectLikesBatcher,
   userBatcher,
   userCoinsBatcher,
+  userXpBatcher,
 } from "@/queries/definitions/batchers.ts";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
@@ -37,6 +38,8 @@ import {
   type LudoBanner,
   type DiscussionTopic,
   type Discussion,
+  type UserXp,
+  type DailyXpHistoryResponse,
 } from "@ludocode/types";
 
 export const qo = {
@@ -99,7 +102,8 @@ export const qo = {
   streakPastWeek: () =>
     queryOptions<DailyGoalMet[]>({
       queryKey: qk.streakPastWeek(),
-      queryFn: () => ludoGet<DailyGoalMet[]>(api.progress.streak.history(4), true),
+      queryFn: () =>
+        ludoGet<DailyGoalMet[]>(api.progress.streak.history(4), true),
       staleTime: 60_000,
     }),
 
@@ -107,6 +111,21 @@ export const qo = {
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
       queryFn: () => ludoGet<UserStreak>(api.progress.streak.base, true),
+      staleTime: 60_000,
+    }),
+
+  xp: (userId: string) =>
+    queryOptions<UserXp>({
+      queryKey: qk.xp(userId),
+      queryFn: () => userXpBatcher.fetch(userId),
+      staleTime: 60_000,
+    }),
+
+  xpHistory: () =>
+    queryOptions<DailyXpHistoryResponse[]>({
+      queryKey: qk.xpHistory(),
+      queryFn: () =>
+        ludoGet<DailyXpHistoryResponse[]>(api.progress.xp.history(7), true),
       staleTime: 60_000,
     }),
 

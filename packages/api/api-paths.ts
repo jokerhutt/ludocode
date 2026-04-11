@@ -1,6 +1,5 @@
 import { type DiscussionTopic } from "@ludocode/types";
 
-
 export type ApiConfig = {
   apiPrefix: string;
   apiUrl: string;
@@ -25,7 +24,7 @@ export function createApiPaths({
     },
 
     maintenance: {
-      base: `${BASE}/maintenance`
+      base: `${BASE}/maintenance`,
     },
 
     analytics: {
@@ -80,6 +79,12 @@ export function createApiPaths({
       completion: {
         base: `${BASE}/progress/completion`,
       },
+      xp: {
+        base: `${BASE}/progress/xp`,
+        byUserIds: (userIds: string) => `${BASE}/progress/xp?${userIds}`,
+        history: (days: number = 7) =>
+          `${BASE}/progress/xp/history?days=${days}`,
+      },
       courses: {
         base: `${BASE}/progress/courses`,
         byIds: (courseIds: string) => `${BASE}/progress/courses?${courseIds}`,
@@ -93,7 +98,8 @@ export function createApiPaths({
       },
       streak: {
         base: `${BASE}/progress/streak`,
-        history: (weeks: number = 1) => `${BASE}/progress/streak?mode=weekly&weeks=${weeks}`,
+        history: (weeks: number = 1) =>
+          `${BASE}/progress/streak?mode=weekly&weeks=${weeks}`,
       },
     },
 
@@ -102,8 +108,10 @@ export function createApiPaths({
       byEntityIdAndTopic: (entityId: string, topic: DiscussionTopic) =>
         `${BASE}/discussion/${entityId}/${topic}`,
       like: `${BASE}/discussion/messages/like`,
-      likes: (messageIds: string) => `${BASE}/discussion/messages/like?${messageIds}`,
-      likeById: (messageId: string) => `${BASE}/discussion/messages/${messageId}/like`
+      likes: (messageIds: string) =>
+        `${BASE}/discussion/messages/like?${messageIds}`,
+      likeById: (messageId: string) =>
+        `${BASE}/discussion/messages/${messageId}/like`,
     },
 
     projects: {

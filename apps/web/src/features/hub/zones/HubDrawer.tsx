@@ -6,7 +6,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@ludocode/external/ui/drawer.tsx";
-import { SubscriptionBadge } from "@/features/subscription/shared/components/SubscriptionBadge.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
 import {
@@ -34,7 +33,7 @@ type ProfileDrawerProps = {
   plan: SubscriptionPlan;
 };
 
-export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
+export function HubDrawer({ trigger, user }: ProfileDrawerProps) {
   const { data: authMode } = useSuspenseQuery(qo.activeFeatures());
 
   return (
@@ -46,7 +45,6 @@ export function HubDrawer({ trigger, user, plan }: ProfileDrawerProps) {
           <div className="flex items-center justify-between">
             <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-ludo-white-bright">
               Account
-              <SubscriptionBadge className="mt-1" tier={plan} />
             </DrawerTitle>
             <DrawerClose asChild>
               <button
