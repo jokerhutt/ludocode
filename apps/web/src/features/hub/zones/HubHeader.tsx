@@ -45,7 +45,7 @@ export function HubHeader({ title }: HubHeaderProps) {
             <NavigationIconGroup groupClassName="hidden lg:flex" />
             <div className="flex justify-end gap-4 items-center">
               <StatsGroup groupClassName="gap-0 lg:gap-4" />
-              <LudoHeader.Badge label="BETA" style="enabled"/>
+              <LudoHeader.Badge className="hidden lg:flex" label="BETA" style="enabled"/>
               <HubDrawer
                 user={user}
                 plan={plan}

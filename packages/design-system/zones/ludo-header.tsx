@@ -191,9 +191,11 @@ function Banner({ text, id, banners }: BannerProps) {
 function Badge({
   label,
   style,
+  className
 }: {
   label: string;
   style: "disabled" | "enabled";
+  className?: string;
 }) {
   const theme =
     style == "disabled"
@@ -205,7 +207,8 @@ function Badge({
       className={cn(
         "flex items-center justify-center rounded-md px-2.5 py-1",
         "text-xs font-bold tracking-wider select-none",
-        theme
+        theme,
+        className
       )}
     >
       {label}
