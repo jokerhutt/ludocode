@@ -1,11 +1,11 @@
 import type { LessonStats } from "@ludocode/types/Completion/LessonStats.ts";
 import { testIds } from "@ludocode/util/test-ids";
-import { ZapIcon, TargetIcon, CircleDollarSignIcon } from "lucide-react";
+import { ZapIcon, TargetIcon } from "lucide-react";
 
 type CompletionStatsRowProps = { userStats: LessonStats };
 
 export function CompletionStatsGroup({ userStats }: CompletionStatsRowProps) {
-  const { accuracy, xpGained, coins } = userStats;
+  const { accuracy, xpGained } = userStats;
   const scaledAccuracy = accuracy * 100;
 
   const formattedAccuracy = Number.isInteger(scaledAccuracy)
