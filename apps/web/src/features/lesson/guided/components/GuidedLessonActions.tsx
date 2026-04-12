@@ -93,7 +93,9 @@ export function GuidedLessonActions({
           disabled={submitDisabled}
           className={cn("h-10 py-0.5 lg:px-4 min-w-24 lg:min-w-34")}
         >
-          {submitLabel}
+          <span data-testid={testIds.guided.runCodeButtonText}>
+            {submitLabel}
+          </span>
         </LudoButton>
       </div>
     </>

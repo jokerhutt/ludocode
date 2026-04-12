@@ -1,5 +1,6 @@
 import { cn } from "@ludocode/design-system/cn-utils";
 import { X } from "lucide-react";
+import { testIds } from "@ludocode/util/test-ids";
 
 type GuidedProjectFeedbackPopoverProps = {
   incorrectFeedbackMessage: string | null;
@@ -16,6 +17,11 @@ export function GuidedProjectFeedbackPopover({
 }: GuidedProjectFeedbackPopoverProps) {
   return (
     <div
+      data-testid={
+        showCorrectFeedback
+          ? testIds.guided.feedbackCorrect
+          : testIds.guided.feedbackIncorrect
+      }
       className={cn(
         "absolute z-10 bottom-4 lg:bottom-22 left-4 lg:right-10 lg:left-auto min-w-56 max-w-80 rounded-md border bg-ludo-background px-3 py-2",
         showCorrectFeedback ? "border-ludo-correct" : "border-ludo-incorrect",

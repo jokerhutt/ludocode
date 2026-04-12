@@ -73,6 +73,7 @@ export * from "./User/LoginUserResponse";
 export * from "./User/LudoStats";
 export * from "./User/LudoUser";
 export * from "./User/UserCoins";
+export * from "./User/UserXp";
 export * from "./User/UserPreferences";
 export * from "./User/UserStreak";
 export * from "./User/AvatarInfo";

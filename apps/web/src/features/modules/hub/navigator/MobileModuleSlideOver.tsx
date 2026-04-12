@@ -6,6 +6,7 @@ import { useState } from "react";
 import { LudoList } from "@ludocode/design-system/widgets/ludo-list.tsx";
 import { FloatingMobileTrigger } from "@ludocode/design-system/primitives/FloatingMobileTrigger.tsx";
 import { LudoSlideOver } from "@ludocode/design-system/widgets/ludo-slideover.tsx";
+import { testIds } from "@ludocode/util/test-ids";
 type MobileModuleSlideOverProps = {
   modules: LudoModule[];
   courseId: string;
@@ -79,6 +80,7 @@ export function MobileModuleSlideOver({
                     position={module.orderIndex}
                     title={module.title}
                     isComplete={isComplete}
+                    dataTestId={testIds.module.item(module.id)}
                   />
                 );
               })}

@@ -3,6 +3,7 @@ import type { ModuleProgress } from "@/features/modules/hooks/useTreeData.tsx";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
 import { LudoList } from "@ludocode/design-system/widgets/ludo-list.tsx";
 import { ChangeCourseButton } from "./ChangeCourseButton.tsx";
+import { testIds } from "@ludocode/util/test-ids";
 
 type ModuleNavigatorProps = {
   modules: LudoModule[];
@@ -48,6 +49,7 @@ export function ModuleNavigator({
                 }}
                 isActive={isActive}
                 onClick={() => selectModule(module.id)}
+                dataTestId={testIds.module.item(module.id)}
               />
             );
           })}
@@ -55,7 +57,7 @@ export function ModuleNavigator({
       </div>
 
       <div className="pt-2">
-        <ChangeCourseButton/>
+        <ChangeCourseButton />
       </div>
     </LudoList>
   );

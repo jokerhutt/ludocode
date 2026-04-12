@@ -14,16 +14,17 @@ async function hubLoader(queryClient: QueryClient) {
   const userStreak = await queryClient.ensureQueryData(
     qo.streak(currentUser.id)
   );
+  const userXp = await queryClient.ensureQueryData(qo.xp(currentUser.id))
 
   const currentCourseId = await queryClient.ensureQueryData(qo.currentCourseId())
   await queryClient.ensureQueryData(qo.courseProgress(currentCourseId))
 
 
 
-  if (!userStats || !userStreak || !currentUser) {
+  if (!userStats || !userStreak || !currentUser || !userXp) {
     throw redirect({to: "/auth/register", replace: true});
   }
 
-  return { userStats, userStreak };
+  return { userStats, userStreak, userXp };
 }
 

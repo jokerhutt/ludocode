@@ -20,6 +20,8 @@ export function HubLayout() {
   const currentUserId = currentUser.id;
   const { data: coinPacket } = useSuspenseQuery(qo.coins(currentUserId));
   const { data: streakPacket } = useSuspenseQuery(qo.streak(currentUserId));
+  const { data: xpPacket } = useSuspenseQuery(qo.xp(currentUserId));
+  const {xp} = xpPacket;
 
   const { data: subscription } = useSuspenseQuery(qo.subscription());
 
@@ -32,7 +34,7 @@ export function HubLayout() {
 
   return (
     <CurrentCourseContext.Provider value={courseProgress}>
-      <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket }}>
+      <StatsContext.Provider value={{ coins: coins, userStreak: streakPacket, userXp: xp }}>
         <SubscriptionContext.Provider value={subscription}>
           <MainGridWrapper gridRows={"SITE"}>
             <HubHeader title={title} />

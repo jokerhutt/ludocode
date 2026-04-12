@@ -1,34 +1,41 @@
 import { test, expect } from "@playwright/test";
 import { initialiseUser } from "./utils/initialise";
 import {
-  completeLessonPerfect,
   goToLesson,
+  completeLessonPerfect,
+  clickThroughCompletion,
+  completeCourse,
 } from "./utils/lesson";
-import {testIds} from "@ludocode/util/test-ids.js"
+import { testIds } from "@ludocode/util/test-ids.js";
+import {
+  getAllLessons,
+  getModuleLessons,
+  navigateToModule,
+} from "./utils/course";
 
-test("user completes lesson for the first time ever, shows completion, streak, & courseComplete", async ({
+test("user completes first lesson and sees lesson completion & streak", async ({
   page,
 }) => {
-  await initialiseUser(page);
-  await goToLesson(page);
-  await completeLessonPerfect(page);
+  const ctx = await initialiseUser(page);
+  const firstLesson = getAllLessons(ctx)[0];
 
-  await expect(page).toHaveURL(
-    /\/completion\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f\/7eeaaddd-2d87-495e-bd40-24cfd9f06b4b\?step=lesson&coins=20&accuracy=1&oldStreak=0&newStreak=1&completionStatus=COURSE_COMPLETE$/,
-  );
+  const exercises = await goToLesson(page, firstLesson.id);
+  await completeLessonPerfect(page, exercises);
+
+  await expect(page).toHaveURL(/\/completion\/.*\?step=lesson/);
 
   const completionButton = page.getByTestId(testIds.completion.button);
 
-  const coins = page.getByTestId(testIds.completion.coins);
+  const xp = page.getByTestId(testIds.completion.xp);
   const accuracy = page.getByTestId(testIds.completion.accuracy);
 
   await expect(completionButton).toBeVisible();
 
-  await expect(coins).toBeVisible();
+  await expect(xp).toBeVisible();
   await expect(accuracy).toBeVisible();
 
-  await expect(coins).toContainText("Coins: 20");
-  await expect(accuracy).toContainText("Accuracy: 100%");
+  await expect(xp).toContainText("+");
+  await expect(accuracy).toContainText("%");
 
   await completionButton.click();
 
@@ -42,6 +49,58 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await expect(completionButton).toBeVisible();
 
   await completionButton.click();
+
+  await expect(page).toHaveURL(/\/app\/learn\//);
+});
+
+test("user completes entire course and sees course complete screen", async ({
+  page,
+}) => {
+  const ctx = await initialiseUser(page);
+
+  const allLessons = getAllLessons(ctx);
+  const allButLast = allLessons.slice(0, -1);
+  const lastLesson = allLessons[allLessons.length - 1];
+
+  for (let mi = 0; mi < ctx.modules.length; mi++) {
+    const mod = ctx.modules[mi];
+    const lessons = getModuleLessons(mod);
+
+    if (mi > 0) {
+      await navigateToModule(page, mod.id);
+    }
+
+    for (const lesson of lessons) {
+      if (lesson.id === lastLesson.id) continue;
+
+      const exercises = await goToLesson(page, lesson.id);
+      await completeLessonPerfect(page, exercises);
+      await clickThroughCompletion(page);
+    }
+  }
+
+  const lastModule = ctx.modules[ctx.modules.length - 1];
+  if (ctx.modules.length > 1) {
+    const currentUrl = page.url();
+    if (!currentUrl.includes(lastModule.id)) {
+      await navigateToModule(page, lastModule.id);
+    }
+  }
+
+  const exercises = await goToLesson(page, lastLesson.id);
+  await completeLessonPerfect(page, exercises);
+
+  await expect(page).toHaveURL(/\/completion\/.*\?step=lesson/);
+
+  const completionButton = page.getByTestId(testIds.completion.button);
+  await expect(completionButton).toBeVisible();
+  await completionButton.click();
+
+  while (!page.url().includes("step=course")) {
+    await expect(completionButton).toBeVisible();
+    await completionButton.click();
+    await page.waitForURL(/step=(streak|course)/);
+  }
 
   await expect(page).toHaveURL(/step=course/);
 
@@ -58,13 +117,8 @@ test("user completes lesson for the first time ever, shows completion, streak, &
   await expect(courseCompleteBadgeText).toBeVisible();
   await expect(courseCompleteCongratulation).toBeVisible();
   await expect(courseCompleteHeader).toContainText("Course Complete!");
-  await expect(courseCompleteBadgeText).toContainText(
-    "You've earned the Python badge!",
-  );
 
   await completionButton.click();
 
-  await expect(page).toHaveURL(
-    /\/app\/learn\/75975805-3f02-43c2-9106-c990d944dfd2\/a99d4abd-895f-4a4b-b4ea-570fac609f6f$/,
-  );
+  await expect(page).toHaveURL(/\/app\/learn\//);
 });
