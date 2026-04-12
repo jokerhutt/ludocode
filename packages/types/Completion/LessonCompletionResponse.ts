@@ -2,7 +2,7 @@ import type { LudoLesson } from "../Catalog/LudoLesson.ts";
 import type { CourseProgress } from "../User/CourseProgress.ts";
 import type { UserStreak } from "../User/UserStreak.ts";
 import type { UserCoins } from "../User/UserCoins.ts";
-import type { UserXp } from "../User/UserXp.js";
+import type { UserXp } from "../User/UserXp.ts";
 
 export type LessonCompletionStatus = "OK" | "COURSE_COMPLETE" | "DUPLICATE";
 
