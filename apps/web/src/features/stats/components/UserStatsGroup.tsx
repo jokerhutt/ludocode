@@ -42,7 +42,7 @@ export function UserStatsGroup() {
       <XpDialog>
         <div className="flex flex-2">
           <StatsCard
-            text="Xp"
+            text="XP"
             score={userXp}
             graph={
               <div className="w-full h-full">
