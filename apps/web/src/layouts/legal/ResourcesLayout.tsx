@@ -118,8 +118,9 @@ export function ResourcesLayout() {
             >
               Ludocode
             </h1>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-3 lg:gap-1">
               <NavButton
+                className="flex flex-row gap-2"
                 onClick={() =>
                   router.navigate(ludoNavigation.resources.toDocs())
                 }
@@ -129,7 +130,7 @@ export function ResourcesLayout() {
               </NavButton>
               <NavButton
                 onClick={handleGoogleJoinClick}
-                className="h-7 px-3 py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
+                className="h-7 px-3 flex flex-row rounded-md py-0 justify-center bg-ludo-white text-black hover:text-ludo-white-bright hover:bg-transparent"
               >
                 <GoogleIcon />
                 <span>Join</span>
