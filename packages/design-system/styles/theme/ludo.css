@@ -35,6 +35,21 @@
   --color-ludo-danger: #d06060;
   --color-ludo-danger-hover: oklch(80.8% 0.114 19.571);
 
+  /* == SUCCESS == */
+
+  --color-ludo-success: #34d399;
+
+  --color-ludo-success-alt: #10b981;
+  --color-ludo-success-alt-dim: color-mix(
+    in srgb,
+    var(--color-ludo-success) 40%,
+    transparent
+  );
+
+  /* == AMBER == */
+  --color-ludo-amber: #f59e0b;
+  --color-ludo-amber-alt: #fbbf24;
+
   /* == WHITE == */
 
   --color-ludo-white-bright: #ffffff;

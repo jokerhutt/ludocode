@@ -26,9 +26,10 @@ const statusConfig: Record<
 > = {
   complete: {
     label: "Complete",
-    dot: "bg-emerald-400",
-    badge: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-    line: "bg-emerald-500/25",
+    dot: "bg-ludo-success",
+    badge:
+      "bg-ludo-success-alt/15 text-ludo-success border-ludo-success-alt/30",
+    line: "bg-ludo-success-alt/25",
   },
   "in-progress": {
     label: "In Progress",

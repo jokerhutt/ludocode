@@ -8,7 +8,8 @@ const statusConfig: Record<CourseStatus, { label: string; className: string }> =
     },
     PUBLISHED: {
       label: "Published",
-      className: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+      className:
+        "bg-ludo-success-alt/20 text-ludo-success-alt border-ludo-success-alt-dim",
     },
     ARCHIVED: {
       label: "Archived",

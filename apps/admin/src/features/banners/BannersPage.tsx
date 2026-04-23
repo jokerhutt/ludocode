@@ -21,14 +21,15 @@ const typeClassMap: Record<
   { badge: string; card: string; dot: string }
 > = {
   MAINTENANCE: {
-    badge: "bg-amber-500/15 text-amber-300 border border-amber-500/30",
-    card: "border-amber-500/30",
-    dot: "bg-amber-400",
+    badge: "bg-ludo-amber/15 text-amber-300 border border-ludo-amber/30",
+    card: "border-ludo-amber/30",
+    dot: "bg-ludo-amber-alt",
   },
   FEATURE: {
-    badge: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
-    card: "border-emerald-500/30",
-    dot: "bg-emerald-400",
+    badge:
+      "bg-ludo-success-alt/15 text-ludo-success-alt border border-ludo-success-alt/30",
+    card: "border-ludo-success-alt/30",
+    dot: "bg-ludo-success",
   },
   INCIDENT: {
     badge: "bg-red-500/15 text-red-300 border border-red-500/30",

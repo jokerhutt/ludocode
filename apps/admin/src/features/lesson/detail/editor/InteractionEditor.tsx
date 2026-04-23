@@ -15,10 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ludocode/external/ui/select.tsx";
-import {
-  getLanguageDisplayName,
-  resolveCourseLanguage,
-} from "./language.ts";
+import { getLanguageDisplayName, resolveCourseLanguage } from "./language.ts";
 
 type InteractionEditorProps = {
   form: any;
@@ -168,13 +165,14 @@ function InteractionEditorInner({
               value="SELECT"
               className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
             >
-              <span className="text-amber-400">Select</span> — Multiple choice
+              <span className="text-ludo-amber-alt">Select</span> — Multiple
+              choice
             </SelectItem>
             <SelectItem
               value="CLOZE"
               className="text-ludo-white-bright hover:bg-ludo-background cursor-pointer"
             >
-              <span className="text-emerald-400">Cloze</span> — Fill in blanks
+              <span className="text-ludo-success">Cloze</span> — Fill in blanks
             </SelectItem>
           </SelectContent>
         </Select>
@@ -190,10 +188,10 @@ function InteractionEditorInner({
           <span
             className={
               interaction.type === "SELECT"
-                ? "text-amber-400"
+                ? "text-ludo-amber-alt"
                 : interaction.type === "EXECUTABLE"
                   ? "text-orange-400"
-                  : "text-emerald-400"
+                  : "text-ludo-success"
             }
           >
             {interaction.type}
@@ -312,7 +310,7 @@ function SelectInteractionFieldsInner({
 
       {/* Correct value selector */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-xs text-emerald-400">Correct answer</p>
+        <p className="text-xs text-ludo-success">Correct answer</p>
         <Select
           value={correctIsValid ? correctValue : ""}
           onValueChange={(v) =>
@@ -352,15 +350,15 @@ function SelectInteractionFieldsInner({
             <div
               className={`w-5 h-5 shrink-0 rounded-full flex items-center justify-center ${
                 items[itemIndex] === correctValue && correctIsValid
-                  ? "bg-emerald-500/20"
-                  : "bg-amber-500/20"
+                  ? "bg-ludo-success-alt/20"
+                  : "bg-ludo-amber/20"
               }`}
             >
               <span
                 className={`text-[10px] ${
                   items[itemIndex] === correctValue && correctIsValid
-                    ? "text-emerald-400"
-                    : "text-amber-400"
+                    ? "text-ludo-success"
+                    : "text-ludo-amber-alt"
                 }`}
               >
                 {itemIndex + 1}
@@ -520,7 +518,7 @@ function ClozeInteractionFieldsInner({
     <div className="flex flex-col gap-3 bg-ludo-surface rounded-lg p-3">
       {/* File */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-xs text-emerald-400">File</p>
+        <p className="text-xs text-ludo-success">File</p>
         <p className="text-xs text-ludo-white/60">Language: {languageLabel}</p>
         <form.Field
           name={`${basePath}.file.content`}
@@ -537,7 +535,7 @@ function ClozeInteractionFieldsInner({
           )}
         />
         <p className="text-xs text-ludo-white/60">
-          <span className="text-emerald-400 font-medium">{gapCount}</span> gap
+          <span className="text-ludo-success font-medium">{gapCount}</span> gap
           {gapCount !== 1 ? "s" : ""} detected
         </p>
         <form.Field
@@ -558,13 +556,13 @@ function ClozeInteractionFieldsInner({
       {/* Blanks — one per gap, user types the correct answer */}
       {gapCount > 0 && (
         <div className="flex flex-col gap-1.5">
-          <p className="text-xs text-emerald-400">
+          <p className="text-xs text-ludo-success">
             Correct answers ({gapCount})
           </p>
           {blanks.map((_blank, blankIndex: number) => (
             <div key={blankIndex} className="flex items-center gap-2">
-              <div className="w-5 h-5 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <span className="text-[10px] text-emerald-400">
+              <div className="w-5 h-5 shrink-0 rounded-full bg-ludo-success-alt/20 flex items-center justify-center">
+                <span className="text-[10px] text-ludo-success">
                   {blankIndex + 1}
                 </span>
               </div>
