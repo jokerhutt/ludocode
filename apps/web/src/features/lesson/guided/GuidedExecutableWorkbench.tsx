@@ -25,7 +25,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
 import { GuidedLessonActions } from "./components/GuidedLessonActions";
-import { MobileTabs, useMobileTabs } from "@/components/MobileTabs";
+import { MobileTabs, useMobileTabs } from "@ludocode/design-system/primitives/mobile-tabs"
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
