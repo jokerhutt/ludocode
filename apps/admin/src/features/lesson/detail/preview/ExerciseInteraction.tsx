@@ -16,7 +16,7 @@ function StaticOption({ content, isCorrect, layout }: StaticOptionProps) {
         className={cn(
           "py-2 code px-4 border-3 rounded-xl",
           isCorrect
-            ? "border-emerald-500/40 text-emerald-400"
+            ? "border-ludo-success-alt-dim text-ludo-success"
             : "border-ludo-surface-dim text-ludo-white-bright",
         )}
       >
@@ -30,7 +30,7 @@ function StaticOption({ content, isCorrect, layout }: StaticOptionProps) {
       className={cn(
         "w-full border-2 px-6 py-2 rounded-lg",
         isCorrect
-          ? "border-emerald-500/40 bg-emerald-500/5"
+          ? "border-ludo-success-alt-dim bg-ludo-success-alt/5"
           : "border-ludo-surface bg-ludo-surface",
       )}
     >
@@ -146,7 +146,7 @@ export function ExerciseInteraction({
                 {test.type}
               </span>
               <span className="text-xs text-ludo-white/60">&rarr;</span>
-              <span className="text-xs text-emerald-400 font-mono">
+              <span className="text-xs text-ludo-success font-mono">
                 {test.expected || "(empty)"}
               </span>
             </div>

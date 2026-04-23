@@ -1,7 +1,7 @@
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useEffect, useMemo, useState } from "react";
-import { MobileTabs } from "@ludocode/design-system/primitives/mobile-tabs"
+import { MobileTabs } from "@ludocode/design-system/primitives/mobile-tabs";
 import { RunCodeButton } from "@/features/project/workbench/components/RunCodeButton";
 
 export type WorkbenchMobilePane = "files" | "code" | "output";
@@ -45,10 +45,10 @@ export function WorkbenchMobileTabs({
   }, [mobilePane]);
 
   const outputDotClassName = useMemo(() => {
-    if (isRunning) return "bg-amber-400";
+    if (isRunning) return "bg-ludo-amber-alt";
     const latest = outputLog[outputLog.length - 1];
     if (!latest) return "bg-ludo-white/70";
-    if (latest.status === 0) return "bg-emerald-400";
+    if (latest.status === 0) return "bg-ludo-success";
     return "bg-rose-500";
   }, [isRunning, outputLog]);
 

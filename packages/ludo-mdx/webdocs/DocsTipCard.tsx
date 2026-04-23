@@ -20,9 +20,9 @@ const variantConfig: Record<
   },
   warning: {
     icon: "⚠️",
-    borderColor: "border-l-amber-500",
-    bgColor: "bg-amber-500/5",
-    titleColor: "text-amber-400",
+    borderColor: "border-l-ludo-amber",
+    bgColor: "bg-ludo-amber/5",
+    titleColor: "text-ludo-amber-alt",
   },
   info: {
     icon: "ℹ️",

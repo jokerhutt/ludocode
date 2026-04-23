@@ -22,7 +22,7 @@ export function ChatbotCreditsTab({
           empty
             ? "text-ludo-white-bright/30"
             : low
-              ? "text-amber-400"
+              ? "text-ludo-amber-alt"
               : "text-ludo-white-bright/75",
         )}
       >

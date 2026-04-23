@@ -104,8 +104,8 @@ export function WorkbenchTreePane({
               const key = file.tempId ?? file.path;
               const isEntryFile = file.path === entryFileId;
 
-              const canDelete = canDeleteFiles && !isEntryFile
-              const canRename = !isEntryFile
+              const canDelete = canDeleteFiles && !isEntryFile;
+              const canRename = !isEntryFile;
 
               return (
                 <LudoFileTree.Item
@@ -118,7 +118,7 @@ export function WorkbenchTreePane({
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <span className="flex mr-1 items-center">
-                            <Play className="h-3 w-3 fill-amber-400 text-amber-400" />
+                            <Play className="h-3 w-3 fill-ludo-amber-alt text-ludo-amber-alt" />
                           </span>
                         </TooltipTrigger>
                         <TooltipContent side="top" sideOffset={6}>
@@ -135,7 +135,8 @@ export function WorkbenchTreePane({
                     />
                   }
                   actions={
-                    !readOnly && (canDelete || canRename) && (
+                    !readOnly &&
+                    (canDelete || canRename) && (
                       <FileActionsMenu
                         canRename={!isEntryFile}
                         canDelete={canDeleteFiles && !isEntryFile}

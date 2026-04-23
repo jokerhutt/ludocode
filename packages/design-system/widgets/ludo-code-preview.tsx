@@ -228,14 +228,8 @@ function Gutter() {
 }
 
 function Body({ withGaps = false }: { withGaps?: boolean }) {
-  const {
-    parts,
-    responses,
-    typing,
-    handleChange,
-    refs,
-    focusPrev,
-  } = usePreview();
+  const { parts, responses, typing, handleChange, refs, focusPrev } =
+    usePreview();
 
   const tokens = useMemo(() => {
     const result: { type: "text" | "gap"; value?: string; index?: number }[] =
@@ -437,7 +431,7 @@ function MobileSwipeOutput({
                   <Header title="output" />
 
                   <div className="bg-ludo-background py-6 sm:py-8 min-h-30 sm:min-h-40 px-5">
-                    <pre className="font-mono text-sm text-emerald-300 whitespace-pre-wrap wrap-break-word leading-relaxed">
+                    <pre className="font-mono text-sm text-ludo-success-alt whitespace-pre-wrap wrap-break-word leading-relaxed">
                       {output}
                     </pre>
                   </div>
@@ -466,7 +460,7 @@ function MobileSwipeOutput({
               onClick={() => goTo(1)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                page === 1 ? "w-4 bg-emerald-400/60" : "w-1.5 bg-white/15",
+                page === 1 ? "w-4 bg-ludo-success/60" : "w-1.5 bg-white/15",
               )}
             />
           </>
@@ -556,7 +550,7 @@ function Output({
                 <Header title="output" />
 
                 <div className="bg-ludo-background/95 py-6 sm:py-8 min-h-30 sm:min-h-40 px-5">
-                  <pre className="font-mono text-sm text-emerald-300 whitespace-pre-wrap wrap-break-word leading-relaxed">
+                  <pre className="font-mono text-sm text-ludo-success-alt whitespace-pre-wrap wrap-break-word leading-relaxed">
                     {output}
                   </pre>
                 </div>

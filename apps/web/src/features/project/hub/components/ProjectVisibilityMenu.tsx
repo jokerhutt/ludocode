@@ -20,13 +20,13 @@ const visibilityStyles: Record<
     label: "Public",
     Icon: Globe2,
     buttonClassName:
-      "border-emerald-400/20 bg-emerald-400/10 text-emerald-300 hover:bg-emerald-400/15",
+      "border-ludo-success/20 bg-ludo-success/10 text-ludo-success-alt hover:bg-ludo-success/15",
   },
   UNLISTED: {
     label: "Unlisted",
     Icon: Link2,
     buttonClassName:
-      "border-amber-400/20 bg-amber-400/10 text-amber-300 hover:bg-amber-400/15",
+      "border-ludo-amber-alt/20 bg-ludo-amber-alt/10 text-amber-300 hover:bg-ludo-amber-alt/15",
   },
   PRIVATE: {
     label: "Private",

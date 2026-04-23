@@ -12,7 +12,7 @@ export function FeatureRow({
   return (
     <div className="flex items-center gap-2.5 py-1.5">
       {included ? (
-        <CheckIcon className="h-4 w-4 shrink-0 text-emerald-400" />
+        <CheckIcon className="h-4 w-4 shrink-0 text-ludo-success" />
       ) : (
         <XMarkIcon className="h-4 w-4 shrink-0 text-ludo-white-bright/20" />
       )}

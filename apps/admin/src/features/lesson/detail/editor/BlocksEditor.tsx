@@ -40,7 +40,7 @@ const blockTypeLabel: Record<BlockType, string> = {
 const blockTypeColor: Record<BlockType, string> = {
   header: "text-blue-400",
   paragraph: "text-ludo-white",
-  code: "text-emerald-400",
+  code: "text-ludo-success",
   media: "text-purple-400",
   instructions: "text-orange-400",
 };
@@ -386,7 +386,7 @@ function CodeBlockEditor({
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-xs text-emerald-400">Language: {languageSlug}</p>
+      <p className="text-xs text-ludo-success">Language: {languageSlug}</p>
       <form.Field
         name={`exercises[${exerciseIndex}].blocks[${blockIndex}].content`}
         children={(field: any) => (

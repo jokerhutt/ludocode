@@ -12,12 +12,9 @@ import { WorkbenchTreePane } from "./zones/WorkbenchTreePane.tsx";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useIsMobile } from "@ludocode/hooks";
-import {
-  WorkbenchMobileTabs,
-  type WorkbenchMobilePane,
-} from "./components/WorkbenchMobileTabs.tsx";
-import { useMobileTabs } from "@/components/MobileTabs";
+import { useMobileTabs } from "@ludocode/design-system/primitives/mobile-tabs";
 import { FooterCTAGroup } from "@/features/auth/components/FooterCTAGroup";
+import { WorkbenchMobileTabs, type WorkbenchMobilePane } from "./components/WorkbenchMobileTabs.tsx";
 
 type WorkbenchPageProps = {
   readOnly?: boolean;

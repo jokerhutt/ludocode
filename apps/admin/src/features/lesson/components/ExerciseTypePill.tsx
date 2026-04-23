@@ -8,11 +8,11 @@ const config: Record<ExerciseType, { label: string; className: string }> = {
   },
   CLOZE: {
     label: "Cloze",
-    className: "bg-emerald-500/20 text-emerald-400",
+    className: "bg-ludo-success-alt/20 text-ludo-success",
   },
   SELECT: {
     label: "Select",
-    className: "bg-amber-500/20 text-amber-400",
+    className: "bg-ludo-amber/20 text-ludo-amber-alt",
   },
   EXECUTABLE: {
     label: "Exec",

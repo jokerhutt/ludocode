@@ -57,7 +57,7 @@ function Root({
   );
 }
 
-export type OutputTriggerColorVariant = "default" | "alt"
+export type OutputTriggerColorVariant = "default" | "alt";
 
 type TriggerProps = {
   position?: number;
@@ -69,7 +69,7 @@ function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
   if (!collapsible) return null;
   const successColor =
     successColorVariant === "default"
-      ? "text-emerald-400"
+      ? "text-ludo-success"
       : "text-ludo-accent-muted";
   const statusColor =
     status === "error"
@@ -96,14 +96,11 @@ function Trigger({ position, successColorVariant = "default" }: TriggerProps) {
       ) : status === "pending" ? (
         <LoaderCircleIcon className="w-3.5 h-3.5 text-amber-300 shrink-0 animate-spin" />
       ) : (
-        <CheckCircle2Icon className={cn("w-3.5 h-3.5 shrink-0", successColor)} />
+        <CheckCircle2Icon
+          className={cn("w-3.5 h-3.5 shrink-0", successColor)}
+        />
       )}
-      <span
-        className={cn(
-          "text-xs font-medium",
-          statusColor,
-        )}
-      >
+      <span className={cn("text-xs font-medium", statusColor)}>
         Run #{position}
       </span>
       <span className="ml-auto grid w-24 text-right text-[10px] text-ludo-white-bright/25">
