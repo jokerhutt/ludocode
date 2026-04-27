@@ -40,6 +40,15 @@ export function RegistrationPage() {
                   Sign in here
                 </span>{" "}
               </p>
+              <p>
+                Just curious?{" "}
+                <span
+                  onClick={() => router.navigate(ludoNavigation.auth.guest())}
+                  className="hover:cursor-pointer font-bold underline"
+                >
+                  Use a guest account
+                </span>{" "}
+              </p>
               {/* <p>
                 Forgot your password?{" "}
                 <span className="font-bold underline">Reset your password</span>
