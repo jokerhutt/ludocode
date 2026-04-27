@@ -29,6 +29,21 @@ export function LandingHero() {
           Get Started
         </LudoButton>
         <LudoButton
+          variant="alt"
+          className="flex-1 h-full"
+          onClick={() => {
+            track({
+              event: "SIGNUP_CLICK",
+              properties: { source: "landing_cta_guest" },
+            });
+            router.navigate(ludoNavigation.auth.guest(false));
+          }}
+        >
+          Try as Guest
+        </LudoButton>
+      </div>
+      <div className="flex gap-4 mt-4 h-10 w-full">
+        <LudoButton
           variant="default"
           className="flex-1 h-full"
           onClick={() => {

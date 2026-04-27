@@ -57,6 +57,7 @@ export const ludoNavigation = {
       to: authRegisterRoute.to,
       replace: replace,
     }),
+    guest: (replace = true) => ({ to: "/auth/guest", replace: replace }),
   },
 
   app: {

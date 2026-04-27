@@ -34,6 +34,7 @@ export function createApiPaths({
     auth: {
       base: `${BASE}/auth`,
       firebase: `${BASE}/auth/firebase`,
+      guest: `${BASE}/auth/guest`,
       checkAdmin: `${ADMIN_BASE}/auth/check`,
       me: `${BASE}/auth/me`,
       logout: `${BASE}/auth/logout`,
