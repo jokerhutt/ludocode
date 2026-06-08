@@ -7,6 +7,7 @@ import {
   GraduationCapIcon,
   FolderCodeIcon,
   UsersRoundIcon,
+  TrophyIcon,
 } from "lucide-react";
 
 export type NavIcon = {
@@ -52,6 +53,18 @@ export const getNavIcons = (courseId: string, moduleId: string): NavIcon[] => [
         properties: { source: "hub_header", destination: "projects_hub" },
       });
       router.navigate(ludoNavigation.hub.project.toProjectHub());
+    },
+  },
+  {
+    name: "Leaderboard",
+    icon: TrophyIcon,
+    path: "/app/leaderboard",
+    onClick: () => {
+      track({
+        event: "NAVIGATION_CLICK",
+        properties: { source: "hub_header", destination: "leaderboard_hub" },
+      });
+      router.navigate(ludoNavigation.hub.leaderboard.toLeaderboardHub());
     },
   },
   {
