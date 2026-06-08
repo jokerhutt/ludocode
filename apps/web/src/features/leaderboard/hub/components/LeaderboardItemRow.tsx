@@ -23,13 +23,13 @@ export function LeaderboardItemRow({
   return (
     <div
       className={cn(
-        "w-full text-lg text-ludo-white h-16 py-1 px-4 rounded-xl border border-ludo-border items-center grid grid-cols-[0.5fr_0.75fr_3fr_1fr]",
+        "w-full text-lg text-ludo-white h-16 py-1 px-4 rounded-xl border border-ludo-border items-center grid grid-cols-[0.5fr_0.75fr_minmax(0,3fr)_1fr]",
         isUser && "bg-ludo-surface-hover",
       )}
     >
       <p>{position}</p>
       <Avatar className="h-10 w-10" src={avatarSrc} />
-      <p>{username}</p>
+      <p className="min-w-0 truncate">{username}</p>
       <p className="text-right">{points}</p>
     </div>
   );

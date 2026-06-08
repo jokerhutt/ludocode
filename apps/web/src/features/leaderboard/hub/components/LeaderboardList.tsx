@@ -4,7 +4,7 @@ type LeaderboardListProps = {children: ReactNode};
 
 export function LeaderboardList({children}: LeaderboardListProps) {
   return (
-        <div className="w-full h-full flex flex-col gap-4">
+        <div className="scrollable flex-1 w-full flex flex-col gap-4 [scrollbar-gutter:stable]">
             {children}
         </div>
   );
