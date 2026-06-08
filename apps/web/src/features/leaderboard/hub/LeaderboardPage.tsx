@@ -4,16 +4,16 @@ import { LeaderboardPodium } from "./components/LeaderboardPodium";
 
 type LeaderboardPageProps = {};
 
-const mockUsers = [1, 2, 3, 4, 5];
+const mockUsers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export function LeaderboardPage({}: LeaderboardPageProps) {
   return (
-    <div className="layout-grid text-ludo-white col-span-full scrollable py-6 px-8 lg:px-0">
+    <div className="layout-grid col-span-full h-full min-h-0 overflow-hidden px-8 py-6 text-ludo-white lg:px-0">
       <div className="col-span-1 hidden lg:block" />
-      <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
-        <div className="w-full h-30">
+      <div className="col-span-full flex min-h-0 min-w-0 flex-col justify-start gap-6 overflow-hidden lg:col-span-10">
+        {/* <div className="w-full h-20">
 
-        </div>
+        </div> */}
         <LeaderboardPodium />
         <LeaderboardList>
           {mockUsers.map((user) => (
