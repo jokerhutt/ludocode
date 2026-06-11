@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type LeaderboardListProps = {children: ReactNode};
+type LeaderboardListProps = {children: ReactNode;};
 
 export function LeaderboardList({children}: LeaderboardListProps) {
   return (
