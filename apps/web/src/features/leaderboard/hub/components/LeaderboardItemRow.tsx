@@ -1,12 +1,12 @@
 import { getUserAvatar } from "@/constants/avatars/avatars";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
-import type { LudoUser } from "@ludocode/types";
 
 type LeaderboardItemRowProps = {
   position: number;
   username: string;
-  avatar: string;
+  avatarIndex: number;
+  avatarVersion: string;
   points: number;
   isUser: boolean;
 };
@@ -14,11 +14,12 @@ type LeaderboardItemRowProps = {
 export function LeaderboardItemRow({
   position,
   username,
-  avatar,
+  avatarIndex,
+  avatarVersion,
   points,
   isUser,
 }: LeaderboardItemRowProps) {
-  const avatarSrc = getUserAvatar("v1", 1);
+  const avatarSrc = getUserAvatar(avatarVersion, avatarIndex);
 
   return (
     <div

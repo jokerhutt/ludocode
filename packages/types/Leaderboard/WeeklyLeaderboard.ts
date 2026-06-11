@@ -1,4 +1,4 @@
-import { LeaderboardUser } from "./LeaderboardUser";
+import type { LeaderboardUser } from "./LeaderboardUser";
 
 export type WeeklyLeaderboard = {
   startDate: number;
