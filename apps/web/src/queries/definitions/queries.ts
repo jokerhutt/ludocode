@@ -40,6 +40,7 @@ import {
   type Discussion,
   type UserXp,
   type DailyXpHistoryResponse,
+  type WeeklyLeaderboard,
 } from "@ludocode/types";
 
 export const qo = {
@@ -89,6 +90,13 @@ export const qo = {
     queryOptions<LudoLesson>({
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
+      staleTime: 60_000,
+    }),
+
+  weeklyLeaderboard: () =>
+    queryOptions<WeeklyLeaderboard>({
+      queryKey: qk.weeklyLeaderboard(),
+      queryFn: () => ludoGet<WeeklyLeaderboard>(api.leaderboard.base, true),
       staleTime: 60_000,
     }),
 

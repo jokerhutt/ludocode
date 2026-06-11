@@ -18,6 +18,7 @@ export const qk = {
   plans: () => ["plans"] as const,
   languages: () => ["languages"] as const,
   lesson: (lessonId: string) => ["lesson", lessonId] as const,
+  weeklyLeaderboard: () => ["weeklyLeaderboard"] as const,
   exercises: (lessonId: string) => ["exercises", lessonId] as const,
   preferences: () => ["preferences"] as const,
   communityProjects: () => ["communityProjects"] as const,
