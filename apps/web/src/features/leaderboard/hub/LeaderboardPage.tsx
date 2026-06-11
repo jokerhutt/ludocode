@@ -9,6 +9,8 @@ import { useCurrentCourseContext } from "@/features/course/context/CurrentCourse
 import { useSuspenseDataArray } from "@/queries/util/useSuspenseDataArray";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
+import type { LudoUser } from "@ludocode/types";
+import { useLogout } from "@/queries/mutations/useLogout";
 
 type LeaderboardPageProps = {};
 
@@ -24,7 +26,7 @@ export function LeaderboardPage({}: LeaderboardPageProps) {
   ];
 
   if (!leaderboard.userQualifies) {
-    return <NotQualifiedForLeaderboardPage />;
+    return <NotQualifiedForLeaderboardPage currentUser={currentUser} />;
   }
 
   return (
@@ -56,7 +58,11 @@ export function LeaderboardPage({}: LeaderboardPageProps) {
   );
 }
 
-function NotQualifiedForLeaderboardPage() {
+function NotQualifiedForLeaderboardPage({
+  currentUser,
+}: {
+  currentUser: LudoUser;
+}) {
   const { courseId, moduleId } = useCurrentCourseContext();
   const { data: tree } = useSuspenseQuery(qo.courseTree(courseId));
   const module = tree.modules.find((module) => module.id === moduleId);
@@ -64,6 +70,31 @@ function NotQualifiedForLeaderboardPage() {
     module?.lessons.map((lesson) => qo.lesson(lesson.id)) ?? [],
   );
   const currentLessonId = lessons.find((lesson) => !lesson.isCompleted)?.id;
+
+  const title = currentUser.isGuest
+    ? "Create an account to qualify"
+    : "Earn XP to qualify";
+  const subtitle = currentUser.isGuest
+    ? "The leaderboard is only available to registered users."
+    : "Complete a lesson and collect XP this week. Once you have earned some XP, your ranking will appear here.";
+
+  const actionButtonText = currentUser.isGuest
+    ? "Join Ludocode"
+    : "Start Lesson";
+
+  const logoutMutation = useLogout();
+
+  const onActionButtonClick = () => {
+    if (currentUser.isGuest) {
+      if (logoutMutation.isPending) return;
+      logoutMutation.mutate();
+    } else {
+      if (!currentLessonId) return;
+      router.navigate(
+        ludoNavigation.lesson.start(courseId, moduleId, currentLessonId),
+      );
+    }
+  };
 
   return (
     <div className="layout-grid col-span-full h-full min-h-0 overflow-y-auto px-6 py-6 text-ludo-white lg:px-0">
@@ -83,11 +114,10 @@ function NotQualifiedForLeaderboardPage() {
                 Leaderboard locked
               </p>
               <h1 className="text-2xl font-bold text-ludo-white-bright lg:text-3xl">
-                Earn XP to qualify
+                {title}
               </h1>
               <p className="mx-auto max-w-md text-sm leading-relaxed text-ludo-white-bright/70 lg:text-base">
-                Complete a lesson and collect XP this week. Once you have earned
-                some XP, your ranking will appear here.
+                {subtitle}
               </p>
             </div>
           </div>
@@ -98,19 +128,10 @@ function NotQualifiedForLeaderboardPage() {
               variant="alt"
               type="button"
               disabled={!currentLessonId}
-              onClick={() => {
-                if (!currentLessonId) return;
-                router.navigate(
-                  ludoNavigation.lesson.start(
-                    courseId,
-                    moduleId,
-                    currentLessonId,
-                  ),
-                );
-              }}
+              onClick={() => onActionButtonClick()}
             >
               <Play className="size-4 fill-current" />
-              Start lesson
+              {actionButtonText}
             </LudoButton>
           </div>
         </div>
