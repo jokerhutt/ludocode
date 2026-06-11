@@ -72,6 +72,10 @@ export function createApiPaths({
         `${ADMIN_BASE}/lessons/${lessonId}`,
     },
 
+    leaderboard: {
+      base: `${BASE}/leaderboard`
+    },
+
     progress: {
       coins: {
         base: `${BASE}/progress/coins`,

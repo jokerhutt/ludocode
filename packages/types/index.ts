@@ -23,6 +23,10 @@ export * from "./Exercise/ExerciseType";
 export * from "./Exercise/LessonSubmissions";
 export * from "./Exercise/LudoExercise";
 
+// Leaderboard
+export * from "./Leaderboard/LeaderboardUser"
+export * from "./Leaderboard/WeeklyLeaderboard"
+
 // Feature Flags
 export * from "./FeatureFlags/FeatureFlags";
 
