@@ -40,11 +40,12 @@ export function LeaderboardPage({}: LeaderboardPageProps) {
         <LeaderboardList>
           {leaderboardUsers.map((user) => (
             <LeaderboardItemRow
+              key={user.userId}
               position={user.rank}
               username={user.displayName}
               avatarIndex={user.avatarIndex}
               avatarVersion={user.avatarVersion}
-              isUser={user.userId == currentUser.id}
+              isUser={user.userId === currentUser.id}
               points={user.xp}
             />
           ))}
@@ -124,7 +125,11 @@ function NotQualifiedForLeaderboardPage({
               className="h-12 px-5 text-base font-semibold"
               variant="alt"
               type="button"
-              disabled={!currentLessonId}
+              disabled={
+                currentUser.isGuest
+                  ? logoutMutation.isPending
+                  : !currentLessonId
+              }
               onClick={() => onActionButtonClick()}
             >
               <Play className="size-4 fill-current" />

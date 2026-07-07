@@ -41,7 +41,7 @@ type PodiumPlayerProps = {
 
 function PodiumPlayer({ currentUserId, user, rank }: PodiumPlayerProps) {
   const avatarSrc = user?.avatarIndex
-    ? getUserAvatar("v1", rank)
+    ? getUserAvatar(user.avatarVersion, user.avatarIndex)
     : "/avatars/nouser.png";
   const displayName = user?.displayName ?? "Unclaimed";
   const points = user?.xp ? user.xp.toString() : "--";
