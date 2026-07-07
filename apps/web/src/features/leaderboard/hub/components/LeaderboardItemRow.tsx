@@ -29,7 +29,7 @@ export function LeaderboardItemRow({
       )}
     >
       <p>{position}</p>
-      <Avatar className="h-10 w-10" src={avatarSrc} />
+      <Avatar className="h-10 w-10 lg:h-10 lg:w-10" src={avatarSrc} />
       <p className="min-w-0 truncate">{username}</p>
       <p className="text-right">{points}</p>
     </div>
