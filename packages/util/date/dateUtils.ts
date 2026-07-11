@@ -12,6 +12,14 @@ export const formatShortDate = (date: Date) => {
   return dayjs(date).format("MMM D, YYYY");
 };
 
+export const formatShortDateRange = (startDate: Date, endDate: Date) => {
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).formatRange(startDate, endDate);
+};
+
 export const toDate = (
   timestamp: number,
   MILLISECOND_TIMESTAMP_THRESHOLD: number = 1_000_000_000_000,
