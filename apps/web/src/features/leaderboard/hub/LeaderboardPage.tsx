@@ -11,10 +11,9 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
 import type { LudoUser } from "@ludocode/types";
 import { useLogout } from "@/queries/mutations/useLogout";
+import { LeaderboardPeriodHeader } from "./components/LeaderboardPeriodHeader";
 
-type LeaderboardPageProps = {};
-
-export function LeaderboardPage({}: LeaderboardPageProps) {
+export function LeaderboardPage() {
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { data: leaderboard } = useSuspenseQuery(qo.weeklyLeaderboard());
   const leaderboardUsers = leaderboard.leaderboardUsers;
@@ -30,9 +29,13 @@ export function LeaderboardPage({}: LeaderboardPageProps) {
   }
 
   return (
-    <div className="layout-grid grid-rows-1 col-span-full h-full min-h-0 overflow-hidden px-8 py-6 text-ludo-white lg:px-0">
+    <div className="layout-grid grid-rows-1 col-span-full h-full min-h-0 overflow-hidden px-4 py-3 text-ludo-white sm:px-8 lg:px-0 lg:py-6">
       <div className="col-span-1 hidden lg:block" />
-      <div className="col-span-full mx-auto flex min-h-0 min-w-0 w-full max-w-2xl flex-col justify-start gap-6 overflow-hidden lg:col-span-10">
+      <div className="col-span-full mx-auto flex min-h-0 min-w-0 w-full max-w-2xl flex-col justify-start gap-3 overflow-hidden lg:col-span-10 lg:gap-6">
+        <LeaderboardPeriodHeader
+          startDate={leaderboard.startDate}
+          endDate={leaderboard.endDate}
+        />
         <LeaderboardPodium
           currentUserId={currentUser.id}
           topUsers={podiumUsers}

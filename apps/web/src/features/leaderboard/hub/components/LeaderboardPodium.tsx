@@ -9,15 +9,15 @@ type LeaderboardPodiumProps = {
 };
 
 const podiumHeights = {
-  1: "h-24",
-  2: "h-20",
-  3: "h-16",
+  1: "h-16 lg:h-24",
+  2: "h-14 lg:h-20",
+  3: "h-12 lg:h-16",
 };
 
 const podiumRankNumberSize = {
-  1: "text-4xl",
-  2: "text-3xl",
-  3: "text-[1.75rem]",
+  1: "text-2xl lg:text-4xl",
+  2: "text-xl lg:text-3xl",
+  3: "text-lg lg:text-[1.75rem]",
 };
 
 export function LeaderboardPodium({
@@ -25,7 +25,7 @@ export function LeaderboardPodium({
   topUsers,
 }: LeaderboardPodiumProps) {
   return (
-    <div className="flex w-full items-end gap-2">
+    <div className="flex w-full items-end gap-1.5 lg:gap-2">
       <PodiumPlayer currentUserId={currentUserId} user={topUsers[0]} rank={2} />
       <PodiumPlayer currentUserId={currentUserId} user={topUsers[1]} rank={1} />
       <PodiumPlayer currentUserId={currentUserId} user={topUsers[2]} rank={3} />
@@ -49,12 +49,14 @@ function PodiumPlayer({ currentUserId, user, rank }: PodiumPlayerProps) {
   const ownStyle = currentUserId == user?.userId ? "bg-ludo-accent" : ""
 
   return (
-    <div className="flex-1 min-w-0 flex flex-col gap-2">
-      <div className="flex min-w-0 items-center flex-col gap-2">
-        <Avatar className="h-13 w-13 lg:h-13 lg:w-13" src={avatarSrc} />
+    <div className="flex min-w-0 flex-1 flex-col gap-1 lg:gap-2">
+      <div className="flex min-w-0 flex-col items-center gap-1 lg:gap-2">
+        <Avatar className="size-10 lg:size-13" src={avatarSrc} />
         <div className="w-full flex flex-col min-w-0 items-center">
-          <p className="w-full truncate text-center">{displayName}</p>
-          <p className="font-bold text-xl">{points} XP</p>
+          <p className="w-full truncate text-center text-xs lg:text-base">
+            {displayName}
+          </p>
+          <p className="text-sm font-bold lg:text-xl">{points} XP</p>
         </div>
       </div>
       <div
