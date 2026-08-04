@@ -81,7 +81,9 @@ function NotQualifiedForLeaderboardPage({
 
   const actionButtonText = currentUser.isGuest
     ? "Join Ludocode"
-    : "Start Lesson";
+    : currentLessonId
+      ? "Start Lesson"
+      : "Go to Module";
 
   const logoutMutation = useLogout();
 
@@ -90,9 +92,10 @@ function NotQualifiedForLeaderboardPage({
       if (logoutMutation.isPending) return;
       logoutMutation.mutate();
     } else {
-      if (!currentLessonId) return;
       router.navigate(
-        ludoNavigation.lesson.start(courseId, moduleId, currentLessonId),
+        currentLessonId
+          ? ludoNavigation.lesson.start(courseId, moduleId, currentLessonId)
+          : ludoNavigation.hub.module.toModule(courseId, moduleId),
       );
     }
   };
@@ -128,11 +131,7 @@ function NotQualifiedForLeaderboardPage({
               className="h-12 px-5 text-base font-semibold"
               variant="alt"
               type="button"
-              disabled={
-                currentUser.isGuest
-                  ? logoutMutation.isPending
-                  : !currentLessonId
-              }
+              disabled={currentUser.isGuest && logoutMutation.isPending}
               onClick={() => onActionButtonClick()}
             >
               <Play className="size-4 fill-current" />
