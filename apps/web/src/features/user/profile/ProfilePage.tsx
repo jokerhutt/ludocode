@@ -6,9 +6,7 @@ import { UserStatsGroup } from "../../stats/components/UserStatsGroup.tsx";
 import { BadgeListCard } from "./components/BadgeCard.tsx";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
 
-type ProfilePageProps = {};
-
-export function ProfilePage({}: ProfilePageProps) {
+export function ProfilePage() {
   const { data: user } = useSuspenseQuery(qo.currentUser());
   const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
 

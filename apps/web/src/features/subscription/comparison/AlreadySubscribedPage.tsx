@@ -5,9 +5,7 @@ import { router } from "@/main.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-type AlreadySubscribedPageProps = {};
-
-export function AlreadySubscribedPage({}: AlreadySubscribedPageProps) {
+export function AlreadySubscribedPage() {
   const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
   const { data: currentCourseProgress } = useSuspenseQuery(
     qo.courseProgress(currentCourseId),

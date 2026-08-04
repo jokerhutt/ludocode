@@ -9,11 +9,9 @@ import { qo } from "@/queries/definitions/queries";
 import { UserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import type { UserPreferences } from "@ludocode/types";
 
-type ProjectLayoutProps = {};
-
 export type ProjectMode = "EDIT" | "READONLY";
 
-export function ProjectLayout({}: ProjectLayoutProps) {
+export function ProjectLayout() {
   const routeApi = getRouteApi("/project/$authorId/$projectId");
   const { project } = useLoaderData({ from: routeApi.id });
   const { data: currentUser } = useQuery(qo.currentUser());

@@ -3,9 +3,7 @@ import { FooterShell } from "@ludocode/design-system/zones/footer-shell.tsx";
 import { useOnboardingContext } from "@/features/onboarding/context/OnboardingContext.tsx";
 import { stepOrder } from "@/features/onboarding/steps/OnboardingSteps.ts";
 
-type OnboardingFooterProps = {};
-
-export function OnboardingFooter({}: OnboardingFooterProps) {
+export function OnboardingFooter() {
   const { flow: hook } = useOnboardingContext();
   const { canAdvance, next, position } = hook;
 
