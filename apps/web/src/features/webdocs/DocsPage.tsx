@@ -7,6 +7,12 @@ import {
   type TocHeading,
 } from "@ludocode/ludo-mdx/webdocs/DocsScrollSpyTOC.tsx";
 import { Route } from "@/routes/_resources/docs/index.tsx";
+import { DocsShowcaseVideo } from "./components/DocsShowcaseVideo.tsx";
+
+const docsMdxComponents = {
+  ...mdxComponents,
+  ShowcaseVideo: DocsShowcaseVideo,
+};
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];
@@ -135,7 +141,7 @@ export function DocsPage() {
         </div>
 
         {/* MDX content */}
-        <Component components={mdxComponents} />
+        <Component components={docsMdxComponents} />
 
         {/* Bottom spacer */}
         <div className="h-24" />
