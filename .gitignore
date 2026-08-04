@@ -31,6 +31,8 @@ dist-ssr
 
 !.env.example
 
+/planning/
+
 # Local Netlify folder
 .netlify
 apps/web/ludocode-frontend.web-workspace.code-workspace

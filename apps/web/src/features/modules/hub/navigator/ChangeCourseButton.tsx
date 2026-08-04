@@ -3,9 +3,7 @@ import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { RefreshCcw } from "lucide-react";
 
-type ChangeCourseButtonProps = {};
-
-export function ChangeCourseButton({}: ChangeCourseButtonProps) {
+export function ChangeCourseButton() {
   return (
     <LudoButton
       variant="default"

@@ -1,8 +1,6 @@
 import { Outlet } from "@tanstack/react-router";
 
-type LegalLayoutProps = {};
-
-export function LegalLayout({}: LegalLayoutProps) {
+export function LegalLayout() {
   return (
     <>
       <div className="col-span-3" />

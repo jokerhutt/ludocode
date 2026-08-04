@@ -5,13 +5,10 @@ import { SentryRouteErrorComponent } from "@/features/error/SentryRouteErrorComp
 import { MaintenancePage } from "@/features/maintenance/MaintenancePage.tsx";
 import { qo } from "@/queries/definitions/queries.ts";
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   beforeLoad: async ({ context }) => {
-    await sleep(300);
     const maintenance = await context.queryClient
       .ensureQueryData(qo.maintenance())
       .catch(() => ({ enabled: false }));

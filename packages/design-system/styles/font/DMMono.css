@@ -1,41 +1,59 @@
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-Light.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-Light.woff2") format("woff2"),
+    url("/fonts/DMMono-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-LightItalic.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-LightItalic.woff2") format("woff2"),
+    url("/fonts/DMMono-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-Regular.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-Regular.woff2") format("woff2"),
+    url("/fonts/DMMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-Italic.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-Italic.woff2") format("woff2"),
+    url("/fonts/DMMono-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-Medium.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-Medium.woff2") format("woff2"),
+    url("/fonts/DMMono-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMMono";
-  src: url("/fonts/DMMono-MediumItalic.ttf") format("truetype");
+  src:
+    url("/fonts/DMMono-MediumItalic.woff2") format("woff2"),
+    url("/fonts/DMMono-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
+  font-display: swap;
 }

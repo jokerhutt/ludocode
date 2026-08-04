@@ -1,8 +1,6 @@
 import { useLogout } from "@/queries/mutations/useLogout.tsx";
 
-type LogoutButtonProps = {};
-
-export function LogoutButton({}: LogoutButtonProps) {
+export function LogoutButton() {
   const logoutMutation = useLogout();
 
   const handleLogout = () => {
