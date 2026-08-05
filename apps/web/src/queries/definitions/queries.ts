@@ -55,7 +55,7 @@ export const qo = {
     queryOptions<LudoUser>({
       queryKey: qk.user(userId),
       queryFn: () => userBatcher.fetch(userId),
-      staleTime: 60_00,
+      staleTime: 60_000,
     }),
 
   courseProgress: (courseId: string) =>
@@ -177,7 +177,7 @@ export const qo = {
     queryOptions<LudoModule>({
       queryKey: qk.module(moduleId),
       queryFn: () => moduleBatcher.fetch(moduleId),
-      staleTime: 60_000,
+      staleTime: 10 * 60_000,
     }),
 
   currentUser: () =>
@@ -192,14 +192,14 @@ export const qo = {
     queryOptions({
       queryKey: qk.courses(),
       queryFn: () => ludoGet<LudoCourse[]>(api.catalog.courses),
-      staleTime: 60_000,
+      staleTime: 10 * 60_000,
     }),
 
   allCareers: () =>
     queryOptions({
       queryKey: qk.careers(),
       queryFn: () => ludoGet<LudoCareer[]>(api.preferences.careers),
-      staleTime: 60_000,
+      staleTime: 10 * 60_000,
     }),
 
   userProjects: (userId: string, page: number, size: number) =>
@@ -271,7 +271,7 @@ export const qo = {
       queryKey: qk.exercises(lessonId),
       queryFn: () =>
         ludoGet<LudoExercise[]>(api.lessons.lessonExercises(lessonId)),
-      staleTime: 60_000,
+      staleTime: 10 * 60_000,
     }),
 
   courseTree: (courseId: string) =>
@@ -279,6 +279,6 @@ export const qo = {
       queryKey: qk.courseTree(courseId),
       queryFn: () =>
         ludoGet<FlatCourseTree>(api.catalog.courseTree(courseId), true),
-      staleTime: 5 * 60_000,
+      staleTime: 10 * 60_000,
     }),
 };
