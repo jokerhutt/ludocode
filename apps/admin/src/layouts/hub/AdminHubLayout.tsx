@@ -17,7 +17,7 @@ export function AdminHubLayout() {
       <Suspense fallback={<div />}>
         <Outlet />
       </Suspense>
-      <FooterShell className="lg:hidden border-t border-t-ludo-background">
+      <FooterShell className="lg:hidden border-t border-t-ludo-background"/>
     </MainGridWrapper>
   );
 }

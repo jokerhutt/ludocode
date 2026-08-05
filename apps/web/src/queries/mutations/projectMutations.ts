@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "@/queries/definitions/mutations.ts";
 import { qk } from "@/queries/definitions/qk.ts";
 import { useCallback } from "react";
-import type { ProjectLikeResponse } from "@ludocode/types";
+import { useToggleLike } from "@/queries/mutations/useToggleLike.ts";
 
 export function useCreateProject(closeModal?: () => void) {
   const qc = useQueryClient();
@@ -98,47 +98,21 @@ export function useDuplicateProject(
 }
 
 export function useLikeProject(projectId: string) {
-  const qc = useQueryClient();
-
-  return useMutation({
-    ...mutations.likeProject(projectId),
-    onSuccess: (likeResponse) => {
-      qc.setQueryData<ProjectLikeResponse>(
-        qk.projectsLike(projectId),
-        (prevLikeState) => {
-          if (likeResponse) return likeResponse;
-
-          return {
-            id: prevLikeState?.id ?? projectId,
-            count: (prevLikeState?.count ?? 0) + 1,
-            likedByMe: true,
-          };
-        },
-      );
-      qc.invalidateQueries({ queryKey: qk.projectsCommunity() });
-    },
+  return useToggleLike({
+    id: projectId,
+    liked: true,
+    queryKey: qk.projectsLike(projectId),
+    options: mutations.likeProject(projectId),
+    invalidateKeys: [qk.projectsCommunity()],
   });
 }
 
 export function useUnlikeProject(projectId: string) {
-  const qc = useQueryClient();
-
-  return useMutation({
-    ...mutations.unlikeProject(projectId),
-    onSuccess: (likeResponse) => {
-      qc.setQueryData<ProjectLikeResponse>(
-        qk.projectsLike(projectId),
-        (prevLikeState) => {
-          if (likeResponse) return likeResponse;
-
-          return {
-            id: prevLikeState?.id ?? projectId,
-            count: Math.max(0, (prevLikeState?.count ?? 0) - 1),
-            likedByMe: false,
-          };
-        },
-      );
-      qc.invalidateQueries({ queryKey: qk.projectsCommunity() });
-    },
+  return useToggleLike({
+    id: projectId,
+    liked: false,
+    queryKey: qk.projectsLike(projectId),
+    options: mutations.unlikeProject(projectId),
+    invalidateKeys: [qk.projectsCommunity()],
   });
 }
