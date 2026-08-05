@@ -16,14 +16,10 @@ import { useMobileTabs } from "@ludocode/design-system/primitives/mobile-tabs";
 import { FooterCTAGroup } from "@/features/auth/components/FooterCTAGroup";
 import { WorkbenchMobileTabs, type WorkbenchMobilePane } from "./components/WorkbenchMobileTabs.tsx";
 import { PaneResizeHandle } from "./components/PaneResizeHandle.tsx";
-import { useState } from "react";
-
-const DESKTOP_BREAKPOINT = 1024;
-const LEFT_PANE = { min: 240, maxFraction: 0.34 };
-const RIGHT_PANE = { min: 320, maxFraction: 0.42 };
-
-const paneWidthStyle = (width: number | null, isDesktop: boolean) =>
-  width !== null && isDesktop ? { width, flex: "0 0 auto" } : undefined;
+import {
+  useResizableSidePanes,
+  type SidePane,
+} from "@/features/project/hooks/useResizableSidePanes.tsx";
 
 type WorkbenchPageProps = {
   readOnly?: boolean;
@@ -39,9 +35,7 @@ export function WorkbenchPage({
   const isWebProject = project.projectType === "WEB";
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
-  const isDesktop = !useIsMobile({ mobileBreakpoint: DESKTOP_BREAKPOINT });
-  const [leftWidth, setLeftWidth] = useState<number | null>(null);
-  const [rightWidth, setRightWidth] = useState<number | null>(null);
+  const { isDesktop, left, right } = useResizableSidePanes();
   const { activeTab: mobilePane, selectTab: setMobilePane } =
     useMobileTabs<WorkbenchMobilePane>("code");
 
@@ -51,21 +45,14 @@ export function WorkbenchPage({
         showAi={!isMobile}
         readOnly={readOnly}
         className={cn(mobilePane === "files" ? "flex-1" : "hidden", "lg:grid")}
-        style={paneWidthStyle(leftWidth, isDesktop)}
+        style={left.style}
         onFileSelect={() => {
           if (!isMobile) return;
           setMobilePane("code");
         }}
       />
       {isDesktop && (
-        <PaneResizeHandle
-          pane="left"
-          label="Resize files panel"
-          width={leftWidth}
-          onResize={setLeftWidth}
-          min={LEFT_PANE.min}
-          maxFraction={LEFT_PANE.maxFraction}
-        />
+        <PaneResizeHandle {...left.handleProps} label="Resize files panel" />
       )}
       <CodeRunnerProvider
         project={project}
@@ -86,8 +73,7 @@ export function WorkbenchPage({
           setMobilePane={setMobilePane}
           runnerEnabled={runnerFeature.enabled === true}
           isDesktop={isDesktop}
-          rightWidth={rightWidth}
-          setRightWidth={setRightWidth}
+          rightPane={right}
         />
       </CodeRunnerProvider>
     </div>
@@ -107,8 +93,7 @@ function WorkbenchPageContent({
   setMobilePane,
   runnerEnabled,
   isDesktop,
-  rightWidth,
-  setRightWidth,
+  rightPane,
 }: {
   projectId: string;
   entryFilePath: string;
@@ -122,8 +107,7 @@ function WorkbenchPageContent({
   setMobilePane: (pane: WorkbenchMobilePane) => void;
   runnerEnabled: boolean;
   isDesktop: boolean;
-  rightWidth: number | null;
-  setRightWidth: (width: number) => void;
+  rightPane: SidePane;
 }) {
   return (
     <>
@@ -155,12 +139,8 @@ function WorkbenchPageContent({
 
       {isDesktop && (
         <PaneResizeHandle
-          pane="right"
+          {...rightPane.handleProps}
           label={isWebProject ? "Resize preview panel" : "Resize output panel"}
-          width={rightWidth}
-          onResize={setRightWidth}
-          min={RIGHT_PANE.min}
-          maxFraction={RIGHT_PANE.maxFraction}
         />
       )}
 
@@ -173,7 +153,7 @@ function WorkbenchPageContent({
             mobilePane === "output" ? "flex-1" : "hidden",
             "lg:flex lg:flex-1",
           )}
-          style={paneWidthStyle(rightWidth, isDesktop)}
+          style={rightPane.style}
         />
       ) : (
         <WorkbenchOutputPane
@@ -181,7 +161,7 @@ function WorkbenchPageContent({
             mobilePane === "output" ? "flex-1" : "hidden",
             "lg:flex lg:flex-1",
           )}
-          style={paneWidthStyle(rightWidth, isDesktop)}
+          style={rightPane.style}
         />
       )}
 

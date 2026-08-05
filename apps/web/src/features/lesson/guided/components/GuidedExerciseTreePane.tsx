@@ -4,18 +4,21 @@ import type { LudoExercise } from "@ludocode/types";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { useIsMobile } from "@ludocode/hooks";
 import { testIds } from "@ludocode/util/test-ids";
+import type { CSSProperties } from "react";
 
 type GuidedExerciseTreePaneProps = {
   showBlockOutput?: boolean;
   currentExercise: LudoExercise;
   systemPrompt: string;
   className?: string;
+  style?: CSSProperties;
 };
 
 export function GuidedExerciseTreePane({
   showBlockOutput = true,
   currentExercise,
   className,
+  style,
 }: GuidedExerciseTreePaneProps) {
   const isMobile = useIsMobile({});
   const instructionBlocks = currentExercise.blocks.filter(
@@ -25,6 +28,7 @@ export function GuidedExerciseTreePane({
   return (
     <Workbench.Pane
       dataTestId={testIds.guided.asideLeft}
+      style={style}
       className={cn("lg:border-r-2 border-r-ludo-surface", className)}
     >
       <Workbench.Pane.Winbar className="hidden lg:block">
