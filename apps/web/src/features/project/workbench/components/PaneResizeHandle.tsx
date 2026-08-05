@@ -1,4 +1,10 @@
-import { useLayoutEffect, useRef, useState, type PointerEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+} from "react";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 type PaneResizeHandleProps = {
@@ -38,9 +44,9 @@ export function PaneResizeHandle({
 
   const clamp = (value: number) => {
     const row = handleRef.current?.parentElement?.clientWidth ?? 0;
-    const start = initialWidth.current ?? value;
-    const low = Math.min(min, start);
-    const high = row > 0 ? Math.max(low, start, row * maxFraction) : Infinity;
+    if (row <= 0) return value;
+    const high = row * maxFraction;
+    const low = Math.min(min, initialWidth.current ?? value, high);
     return Math.min(high, Math.max(low, value));
   };
 
@@ -52,6 +58,25 @@ export function PaneResizeHandle({
     onResize(measured);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
+  const widthRef = useRef(width);
+  widthRef.current = width;
+
+  useEffect(() => {
+    const row = handleRef.current?.parentElement;
+    if (!row) return;
+
+    const observer = new ResizeObserver(() => {
+      const current = widthRef.current;
+      if (current === null || dragStart.current) return;
+      const next = clamp(current);
+      if (Math.abs(next - current) > 0.5) onResize(next);
+    });
+
+    observer.observe(row);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [min, maxFraction]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     event.preventDefault();
