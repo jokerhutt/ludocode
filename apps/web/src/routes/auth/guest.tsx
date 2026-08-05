@@ -1,4 +1,4 @@
-import { loginAsGuest } from "@/queries/mutations/guestLogin.ts";
+import { loginAsGuest } from "@/queries/mutations/session";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/auth/guest")({

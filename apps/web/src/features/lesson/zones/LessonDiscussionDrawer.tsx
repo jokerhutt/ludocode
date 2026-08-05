@@ -5,12 +5,10 @@ import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { MessageCircle, Heart } from "lucide-react";
 import { useLessonExercise } from "@/features/lesson/context/useLessonContext.tsx";
 import { qo } from "@/queries/definitions/queries.ts";
-import { useCreateDiscussionMessage } from "@/queries/mutations/useCreateDiscussionMessage.tsx";
-import { useLikeMessage } from "@/queries/mutations/useLikeMessage.tsx";
-import { useUnlikeMessage } from "@/queries/mutations/useUnlikeMessage.tsx";
 import { cn } from "@ludocode/design-system/cn-utils";
 import type { DiscussionMessage } from "@ludocode/types";
 import { LessonChatPanelFrame } from "./LessonChatPanelFrame";
+import { useCreateDiscussionMessage, useLikeMessage, useUnlikeMessage } from "@/queries/mutations/messageMutations";
 
 type LessonDiscussionDrawerProps = {
   open: boolean;

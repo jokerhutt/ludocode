@@ -2,9 +2,9 @@ import type { LudoCourse } from "@ludocode/types";
 import { CourseCard } from "../components/CourseCard.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { ShadowLessButton } from "@ludocode/design-system/primitives/shadowless-button.tsx";
-import { useCreateYamlCourse } from "@/queries/mutations/useCreateYamlCourse.tsx";
 import { useRef, useState } from "react";
 import { CreateCourseDialog } from "../components/CreateCourseDialog.tsx";
+import { useCreateYamlCourse } from "@/queries/mutations/curriculumMutations.ts";
 
 type CoursesPaneProps = { className?: string; courses: LudoCourse[] };
 

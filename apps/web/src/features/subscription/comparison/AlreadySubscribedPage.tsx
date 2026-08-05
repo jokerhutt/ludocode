@@ -1,6 +1,6 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { qo } from "@/queries/definitions/queries.ts";
-import { useStripeManage } from "@/queries/mutations/useStripeManage.tsx";
+import { useStripeManage } from "@/queries/mutations/billingMutations";
 import { router } from "@/main.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";

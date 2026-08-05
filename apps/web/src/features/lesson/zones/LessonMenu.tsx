@@ -2,13 +2,13 @@ import { useState, type ReactNode } from "react";
 import { FeedbackDialog } from "@/features/feedback/FeedbackDialog.tsx";
 import { useLessonExercise } from "@/features/lesson/context/useLessonContext.tsx";
 import { qo } from "@/queries/definitions/queries";
-import { useEditPreferences } from "@/queries/mutations/useEditPreferences";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
 import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
 import { MessageCircle, Sparkles } from "lucide-react";
 import { testIds } from "@ludocode/util/test-ids";
+import { useEditPreferences } from "@/queries/mutations/userMutations";
 
 type LessonMenuProps = {
   trigger: ReactNode;

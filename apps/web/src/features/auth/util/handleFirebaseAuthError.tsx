@@ -1,6 +1,6 @@
 import type { FirebaseError } from "firebase/app";
-import type { EmailLoginMode } from "@/queries/mutations/useFirebaseEmailAuth.tsx";
 import { errorToast } from "@ludocode/design-system/primitives/toast.tsx";
+import type { EmailLoginMode } from "@/queries/mutations/authMutations";
 
 export function handleFirebaseAuthError(
   error: FirebaseError,

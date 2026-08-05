@@ -1,6 +1,6 @@
+import { useDeleteCourse } from "@/queries/mutations/courseMutations";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 import { TrashIcon } from "lucide-react";
-import { useDeleteCourse } from "../hooks/useDeleteCourse";
 
 type DeleteCourseButtonProps = { courseId: string; courseName: string };
 
@@ -8,7 +8,6 @@ export function DeleteCourseButton({
   courseId,
   courseName,
 }: DeleteCourseButtonProps) {
-
   const deleteCourseMutation = useDeleteCourse({
     courseId: courseId,
   });

@@ -10,8 +10,8 @@ import { useSuspenseDataArray } from "@/queries/util/useSuspenseDataArray";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { router } from "@/main";
 import type { LudoUser } from "@ludocode/types";
-import { useLogout } from "@/queries/mutations/useLogout";
 import { LeaderboardPeriodHeader } from "./components/LeaderboardPeriodHeader";
+import { useLogout } from "@/queries/mutations/authMutations";
 
 export function LeaderboardPage() {
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());

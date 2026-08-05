@@ -1,4 +1,4 @@
-import { useChangeCourse } from "@/queries/mutations/useChangeCourse.tsx";
+import { useChangeCourse } from "@/queries/mutations/userMutations";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";

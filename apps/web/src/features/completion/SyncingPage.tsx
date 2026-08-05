@@ -1,6 +1,6 @@
 import { getRouteApi, useLocation, useRouter } from "@tanstack/react-router";
 import type { SyncState } from "@ludocode/types/Completion/SyncState.ts";
-import { useSubmitLesson } from "@/queries/mutations/useSubmitLesson.tsx";
+import { useSubmitLesson } from "@/queries/mutations/progressMutations";
 import { useEffect, useRef } from "react";
 import { PropagateLoader } from "react-spinners";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";

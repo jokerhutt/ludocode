@@ -1,4 +1,4 @@
-import { useLogout } from "@/queries/mutations/useLogout.tsx";
+import { useLogout } from "@/queries/mutations/authMutations";
 
 export function LogoutButton() {
   const logoutMutation = useLogout();

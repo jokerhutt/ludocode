@@ -1,4 +1,3 @@
-import { useSubmitOnboarding } from "@/queries/mutations/useSubmitOnboarding.tsx";
 import type {
   OnboardingSubmission,
   StageKey,
@@ -8,6 +7,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useCallback } from "react";
 import { useOnboardingDraftStore } from "@/features/onboarding/store/OnboardingDraft";
 import { canAdvanceStage } from "@/features/onboarding/util/validators";
+import { useSubmitOnboarding } from "@/queries/mutations/progressMutations";
 
 type Args = { stage: StageKey };
 

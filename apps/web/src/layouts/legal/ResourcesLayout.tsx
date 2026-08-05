@@ -8,8 +8,8 @@ import { Outlet } from "@tanstack/react-router";
 import { BookOpen, Github, LogIn } from "lucide-react";
 import { Suspense } from "react";
 import { track } from "@/analytics/track";
-import { useFirebaseAuthEntry } from "@/queries/mutations/useFirebaseAuthEntry";
 import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
+import { useFirebaseAuthEntry } from "@/queries/mutations/authMutations";
 
 const GITHUB_URL = "https://github.com/jokerhutt/ludocode";
 

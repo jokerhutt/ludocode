@@ -9,8 +9,7 @@ import {
   type CurriculumDraftLesson,
 } from "@ludocode/types";
 import { useAppForm } from "./types";
-import { useUpdateCourse } from "@/queries/mutations/useUpdateCourse";
-import { useUpdateYamlCourse } from "@/queries/mutations/useUpdateYamlCourse";
+import { useUpdateCourse, useUpdateYamlCourse } from "@/queries/mutations/curriculumMutations";
 import { CurriculumPreview } from "@/features/curriculum/navigator/preview/CurriculumPreview.tsx";
 import { CurriculumEditor } from "@/features/curriculum/navigator/editor/CurriculumEditor.tsx";
 import { LessonDetailPreview } from "@/features/curriculum/detail/preview/LessonDetailPreview.tsx";
@@ -18,12 +17,10 @@ import { CurriculumBreadcrumbs } from "@/features/curriculum/components/Curricul
 import { router } from "@/main";
 import { adminNavigation } from "@/constants/adminNavigation";
 import { adminApi } from "@/constants/api/adminApi";
-import { useChangeCourseStatus } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
-import { useDeleteCourse } from "@/features/courses-hub/hooks/useDeleteCourse";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 import { RenameDialog } from "@ludocode/design-system/templates/dialog/rename-dialog";
 import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge.tsx";
-import { useChangeCourseTitle } from "@/features/curriculum/hooks/useChangeCourseTitle";
+import { useChangeCourseStatus, useChangeCourseTitle, useDeleteCourse } from "@/queries/mutations/courseMutations";
 import type { CourseStatus } from "@ludocode/types";
 import { Archive, Globe, Pencil, TrashIcon } from "lucide-react";
 

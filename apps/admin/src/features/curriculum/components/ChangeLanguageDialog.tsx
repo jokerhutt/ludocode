@@ -7,9 +7,9 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select.tsx";
-import { useChangeLanguage } from "@/features/curriculum/hooks/useChangeLanguage.tsx";
 import type { LanguageKey } from "@ludocode/types";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
+import { useChangeLanguage } from "@/queries/mutations/courseMutations";
 
 type ChangeLanguageDialogProps = {
   open: boolean;

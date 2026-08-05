@@ -10,10 +10,10 @@ import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { Route } from "@/routes/app/_hub/projects.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
-import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import { testIds } from "@ludocode/util/test-ids";
+import { useCreateProject } from "@/queries/mutations/projectMutations";
 
 export function ProjectHubPage() {
   const { page } = Route.useSearch();

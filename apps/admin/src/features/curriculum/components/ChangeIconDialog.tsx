@@ -12,7 +12,7 @@ import {
   IconRegistry,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import { useChangeCourseIcon } from "@/features/curriculum/hooks/useChangeIcon.tsx";
+import { useChangeCourseIcon } from "@/queries/mutations/courseMutations";
 
 const languageIcons = Object.entries(IconRegistry)
   .filter(([_, def]) => def.category === "language")

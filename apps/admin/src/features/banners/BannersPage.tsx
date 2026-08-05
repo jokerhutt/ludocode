@@ -1,5 +1,4 @@
-import { useCreateBanner } from "@/queries/mutations/useCreateBanner";
-import { useDeleteBanner } from "@/queries/mutations/useDeleteBanner";
+import { useCreateBanner, useDeleteBanner } from "@/queries/mutations/bannerMutations";
 import { qo } from "@/queries/definitions/queries";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
