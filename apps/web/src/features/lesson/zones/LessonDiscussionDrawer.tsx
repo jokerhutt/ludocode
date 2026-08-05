@@ -9,6 +9,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import type { DiscussionMessage } from "@ludocode/types";
 import { LessonChatPanelFrame } from "./LessonChatPanelFrame";
 import { useCreateDiscussionMessage, useLikeMessage, useUnlikeMessage } from "@/queries/mutations/messageMutations";
+import { toDate } from "@ludocode/util/date/dateUtils";
 
 type LessonDiscussionDrawerProps = {
   open: boolean;
@@ -78,7 +79,6 @@ export function LessonDiscussionDrawer({
       title="Exercise Discussion"
       Icon={MessageCircle}
       animated={animated}
-      desktopPanelClassName="top-14 right-11 bottom-26 h-auto"
     >
       <div className="flex h-full min-h-0 flex-col px-4 py-3">
         <div className="min-h-0 flex-1 overflow-y-auto pr-1">
@@ -319,8 +319,7 @@ function shortAuthor(authorName: string): string {
 }
 
 function formatTimestamp(timestamp: number): string {
-  const normalized =
-    timestamp > 1_000_000_000_000 ? timestamp : timestamp * 1000;
+  const normalized = toDate(timestamp)
   return new Date(normalized).toLocaleString([], {
     month: "short",
     day: "numeric",

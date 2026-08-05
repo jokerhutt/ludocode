@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { XIcon } from "lucide-react";
 import { SubscriptionOverviewCard } from "@/features/subscription/comparison/components/SubscriptionOverviewCard";
 import { router } from "@/main";
@@ -25,7 +26,7 @@ export function SubscriptionComparisonPage() {
 
   return (
     <div className="w-full h-full grid grid-cols-12">
-      <div className="col-span-1 h-full" />
+      <Gutter className="h-full" />
       <div className="flex flex-col items-center min-h-0 overflow-y-auto pb-6 col-span-10 relative gap-8">
         <div className="absolute hover:cursor-pointer top-1 right-0">
           <XIcon
@@ -51,7 +52,7 @@ export function SubscriptionComparisonPage() {
           ))}
         </div>
       </div>
-      <div className="col-span-1 h-full" />
+      <Gutter className="h-full" />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { qo } from "@/queries/definitions/queries";
 import { router } from "@/main";
@@ -21,7 +22,7 @@ export function CheckoutAbortedPage() {
 
   return (
     <div className="w-full h-full grid grid-cols-12">
-      <div className="col-span-1" />
+      <Gutter />
       <div className="col-span-10 flex flex-col items-center justify-center text-center gap-8 py-20">
         <div className="flex flex-col gap-3 items-center">
           <h1 className="text-2xl lg:text-3xl font-bold text-ludo-white-bright">
@@ -56,7 +57,7 @@ export function CheckoutAbortedPage() {
           </LudoButton>
         </div>
       </div>
-      <div className="col-span-1" />
+      <Gutter />
     </div>
   );
 }

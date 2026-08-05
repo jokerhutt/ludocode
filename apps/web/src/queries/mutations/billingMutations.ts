@@ -1,21 +1,19 @@
 import { api } from "@/constants/api/api.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ludoPost } from "@ludocode/api/fetcher.ts";
 import { mutations } from "../definitions/mutations";
 import type { UserSubscription } from "@ludocode/types";
 import { qk } from "../definitions/qk";
 
+type StripeRedirectResponse = { url: string };
+
 export function useStripeManage() {
   async function openManagePortal() {
-    const res = await fetch(api.subscriptions.manage, {
-      method: "POST",
-      credentials: "include",
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to create billing portal session");
-    }
-
-    const { url } = await res.json();
+    const { url } = await ludoPost<StripeRedirectResponse>(
+      api.subscriptions.manage,
+      null,
+      true,
+    );
 
     window.location.href = url;
   }
@@ -25,18 +23,10 @@ export function useStripeManage() {
 
 export function useStripeCheckout() {
   async function startCheckout(planCode: string) {
-    const res = await fetch(api.subscriptions.checkout, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planCode }),
-      credentials: "include",
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to create checkout session");
-    }
-
-    const { url } = await res.json();
+    const { url } = await ludoPost<
+      StripeRedirectResponse,
+      { planCode: string }
+    >(api.subscriptions.checkout, { planCode }, true);
 
     window.location.href = url;
   }

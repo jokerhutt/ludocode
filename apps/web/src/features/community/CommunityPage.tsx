@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { qo } from "@/queries/definitions/queries.ts";
 import { Route } from "@/routes/app/_hub/community/index";
 import { router } from "@/main.tsx";
@@ -33,7 +34,7 @@ export function CommunityPage() {
 
   return (
     <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
       <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
         <Hero
           title="Community Projects"
@@ -86,7 +87,7 @@ export function CommunityPage() {
           </div>
         )}
       </div>
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
     </div>
   );
 }

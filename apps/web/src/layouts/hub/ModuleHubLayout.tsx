@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { useTreeData } from "@/features/modules/hooks/useTreeData";
 import { ModulePage } from "@/features/modules/hub/ModulePage.tsx";
 import { MobileModuleSlideOver } from "@/features/modules/hub/navigator/MobileModuleSlideOver.tsx";
@@ -21,7 +22,7 @@ export function ModuleHubLayout() {
 
   return (
     <div className="layout-grid overflow-y-auto [scrollbar-gutter:stable] lg:grid-rows-1 grid-rows-[1fr] bg-ludo-background">
-      <aside className="col-span-1" />
+      <Gutter />
       <ModulePage
         className="col-span-10"
         lessons={lessons}
@@ -29,7 +30,7 @@ export function ModuleHubLayout() {
         modules={modules}
         moduleProgress={moduleProgress}
       />
-      <aside className="col-span-1" />
+      <Gutter />
       <MobileModuleSlideOver
         modules={modules}
         courseId={courseId}

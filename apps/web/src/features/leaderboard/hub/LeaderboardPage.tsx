@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { LeaderboardItemRow } from "./components/LeaderboardItemRow";
 import { LeaderboardList } from "./components/LeaderboardList";
@@ -30,7 +31,7 @@ export function LeaderboardPage() {
 
   return (
     <div className="layout-grid grid-rows-1 col-span-full h-full min-h-0 overflow-hidden px-4 py-3 text-ludo-white sm:px-8 lg:px-0 lg:py-6">
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
       <div className="col-span-full mx-auto flex min-h-0 min-w-0 w-full max-w-2xl flex-col justify-start gap-3 overflow-hidden lg:col-span-10 lg:gap-6">
         <LeaderboardPeriodHeader
           startDate={leaderboard.startDate}
@@ -54,7 +55,7 @@ export function LeaderboardPage() {
           ))}
         </LeaderboardList>
       </div>
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
     </div>
   );
 }
@@ -102,7 +103,7 @@ function NotQualifiedForLeaderboardPage({
 
   return (
     <div className="layout-grid col-span-full h-full min-h-0 overflow-y-auto px-6 py-6 text-ludo-white lg:px-0">
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
       <div className="col-span-full flex min-h-full min-w-0 items-center justify-center lg:col-span-10">
         <div className="flex w-full max-w-4xl flex-col items-center gap-7 rounded-xl border border-ludo-border bg-ludo-surface-dim px-5 py-8 text-center shadow-[0_18px_50px_rgba(0,0,0,0.18)] lg:px-10 lg:py-10">
           <div className="flex w-full max-w-xl flex-col items-center gap-4">
@@ -140,7 +141,7 @@ function NotQualifiedForLeaderboardPage({
           </div>
         </div>
       </div>
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
     </div>
   );
 }
