@@ -92,7 +92,7 @@ export function WorkbenchTreePane({
             }
           />
         </Workbench.Pane.Winbar>
-        <Workbench.Pane.Content>
+        <Workbench.Pane.Content className="lg:pr-4">
           <LudoFileTree
             selectedId={currentFileId}
             onSelect={(id) => {
