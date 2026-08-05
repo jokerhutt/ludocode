@@ -21,16 +21,27 @@ export function useChangeCourse() {
 
       qc.setQueryData(
         qk.courseProgress(newCourseProgress.courseId),
-        newCourseProgress
+        newCourseProgress,
       );
       qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId);
       qc.setQueryData(qk.enrolled(), newEnrolled);
       router.navigate(
         ludoNavigation.hub.module.toModule(
           newCourseProgress.courseId,
-          newCourseProgress.moduleId
-        )
+          newCourseProgress.moduleId,
+        ),
       );
+    },
+  });
+}
+
+export function useEditPreferences() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.editPreferences(),
+    onSuccess: (payload) => {
+      qc.setQueryData(qk.preferences(), payload);
     },
   });
 }

@@ -8,7 +8,6 @@ import {
   LudoSelect,
   LudoSelectItem,
 } from "@ludocode/design-system/primitives/select.tsx";
-import { useCreateCourse } from "@/queries/mutations/useCreateCourse.tsx";
 import { type CourseType, type LanguageKey } from "@ludocode/types";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot";
 import {
@@ -16,6 +15,7 @@ import {
   IconRegistry,
   type IconName,
 } from "@ludocode/design-system/primitives/custom-icon";
+import { useCreateCourse } from "@/queries/mutations/courseMutations";
 
 type Props = {
   open: boolean;

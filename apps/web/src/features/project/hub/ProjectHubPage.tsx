@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { ProjectCard } from "@/features/project/hub/components/ProjectCard.tsx";
@@ -10,10 +11,10 @@ import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { Route } from "@/routes/app/_hub/projects.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
-import { useCreateProject } from "@/queries/mutations/useCreateProject.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import { testIds } from "@ludocode/util/test-ids";
+import { useCreateProject } from "@/queries/mutations/projectMutations";
 
 export function ProjectHubPage() {
   const { page } = Route.useSearch();
@@ -76,7 +77,7 @@ export function ProjectHubPage() {
   return (
     <>
       <div className="layout-grid col-span-full scrollable py-6 px-6 lg:px-0">
-        <div className="col-span-1 hidden lg:block" />
+        <Gutter desktopOnly />
         <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
           <Hero {...projectHeroContent}>
             <div className="flex w-full justify-center flex-col gap-3 text-center">
@@ -166,7 +167,7 @@ export function ProjectHubPage() {
             </div>
           )}
         </div>
-        <div className="col-span-1" />
+        <Gutter />
       </div>
     </>
   );

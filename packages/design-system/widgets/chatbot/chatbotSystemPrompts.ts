@@ -1,5 +1,4 @@
 import type {
-  AnswerToken,
   LudoExercise,
   ProjectSnapshot,
 } from "@ludocode/types";
@@ -9,25 +8,6 @@ import {
 } from "@ludocode/types/Project/ProjectFileSnapshot";
 
 export type ChatbotMode = "PROJECT" | "INFO" | "CLOZE" | "SELECT";
-
-export const CLOZE_SYSTEM_PROMPT = `
-You are Ludocode, a helpful and friendly coding tutor assisting with "Fill in the gaps" programming exercises.
-
-Follow these rules strictly:
-
-- Do NOT reveal the correct answer unless the user explicitly asks for the solution.
-- Avoid filler phrases or introductions.
-- Do not say things like "The solution is correct because..." or "The solution is incorrect because...".
-- If the solution is incorrect, identify the mistake clearly and suggest what concept the learner should reconsider.
-- If the solution is correct, provide a short insight about the concept involved.
-- Responses must be brief (1–3 sentences).
-- You may include ONE short code block if necessary.
-- The missing parts of the code are called "gap". Never reference them as "[GAP]".
-
-The learner is completing a code exercise where parts of the code are missing.
-
-Your role is to guide learning without giving away answers.
-`;
 
 export function buildClozeSystemPrompt(exercise: LudoExercise) {
   if (!exercise.interaction || exercise.interaction.type !== "CLOZE") {
@@ -81,35 +61,6 @@ Expected output of the program:
 \`\`\`
 ${output ?? ""}
 \`\`\`
-`;
-}
-
-export function buildClozeUserMessage(
-  exercise: LudoExercise,
-  inputs: AnswerToken[],
-  question?: string,
-): string {
-  if (!exercise.interaction || exercise.interaction.type !== "CLOZE") {
-    throw new Error("Exercise is not CLOZE");
-  }
-
-  const { file } = exercise.interaction;
-
-  const chosen = inputs
-    .map((t, i) => (t.value ? `${i + 1}. ${t.value}` : `${i + 1}. (empty)`))
-    .join("\n");
-
-  return `
-This is my current code attempt:
-
-\`\`\`${file.language}
-${file.content.replace(/___/g, "[GAP]")}
-\`\`\`
-
-Chosen options for the gaps in order:
-${chosen}
-
-${question ?? ""}
 `;
 }
 
@@ -193,25 +144,6 @@ Possible answers:
 \`\`\`
 ${items.map((i, idx) => `${idx + 1}. ${i}`).join("\n")}
 \`\`\`
-`;
-}
-
-export function buildSelectUserMessage(
-  exercise: LudoExercise,
-  selectedOption?: string,
-  question?: string,
-): string {
-  if (!exercise.interaction || exercise.interaction.type !== "SELECT") {
-    throw new Error("Exercise is not SELECT");
-  }
-
-  const chosen = selectedOption ? selectedOption : "(no option selected yet)";
-
-  return `
-Selected answer:
-${chosen}
-
-${question ?? ""}
 `;
 }
 

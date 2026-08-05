@@ -2,6 +2,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutations } from "@/queries/definitions/mutations.ts";
 import { qk } from "@/queries/definitions/qk.ts";
 import { useCallback } from "react";
+import { useToggleLike } from "@/queries/mutations/useToggleLike.ts";
+
+export function useCreateProject(closeModal?: () => void) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.createProject(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      closeModal?.();
+    },
+  });
+}
 
 export function useRenameProject(pid: string) {
   const qc = useQueryClient();
@@ -59,4 +72,47 @@ export function useModifyProject(projectId: string) {
     handleRenameProject,
     handleDeleteProject,
   };
+}
+
+interface UseDuplicateProjectOptions {
+  onSuccess?: (newProjectId: string) => void | Promise<void>;
+}
+
+export function useDuplicateProject(
+  pid: string,
+  options?: UseDuplicateProjectOptions,
+) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.duplicateProject(pid),
+    onSuccess: async (newProjectId) => {
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: qk.projects() }),
+        qc.invalidateQueries({ queryKey: qk.project(pid) }),
+      ]);
+
+      await options?.onSuccess?.(newProjectId);
+    },
+  });
+}
+
+export function useLikeProject(projectId: string) {
+  return useToggleLike({
+    id: projectId,
+    liked: true,
+    queryKey: qk.projectsLike(projectId),
+    options: mutations.likeProject(projectId),
+    invalidateKeys: [qk.projectsCommunity()],
+  });
+}
+
+export function useUnlikeProject(projectId: string) {
+  return useToggleLike({
+    id: projectId,
+    liked: false,
+    queryKey: qk.projectsLike(projectId),
+    options: mutations.unlikeProject(projectId),
+    invalidateKeys: [qk.projectsCommunity()],
+  });
 }

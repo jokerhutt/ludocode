@@ -1,4 +1,4 @@
-import { useModifyProject } from "@/queries/mutations/useModifyProject.tsx";
+import { useDuplicateProject, useLikeProject, useModifyProject, useUnlikeProject } from "@/queries/mutations/projectMutations";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
@@ -12,9 +12,6 @@ import type { ProjectCardResponse } from "@ludocode/types";
 import { qo } from "@/queries/definitions/queries.ts";
 import { useQuery } from "@tanstack/react-query";
 import { ProjectVisibilityMenu } from "./ProjectVisibilityMenu";
-import { useDuplicateProject } from "@/queries/mutations/useDuplicateProject";
-import { useLikeProject } from "@/queries/mutations/useLikeProject";
-import { useUnlikeProject } from "@/queries/mutations/useUnlikeProject";
 import { Copy, Heart } from "lucide-react";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";

@@ -2,9 +2,9 @@ import { adminNavigation } from "@/constants/adminNavigation.tsx";
 import { router } from "@/main.tsx";
 import type { CourseStatus, LudoCourse } from "@ludocode/types";
 import { DeleteCourseButton } from "./DeleteCourseButton";
-import { useChangeCourseStatus } from "../hooks/useToggleCourseVisibility";
 import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge";
 import { Archive, Globe } from "lucide-react";
+import { useChangeCourseStatus } from "@/queries/mutations/courseMutations";
 
 type CourseCardProps = {
   course: LudoCourse;

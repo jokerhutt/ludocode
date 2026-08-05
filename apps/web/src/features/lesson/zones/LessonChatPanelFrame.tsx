@@ -24,7 +24,7 @@ export function LessonChatPanelFrame({
   children,
   animated = true,
   keepMounted = false,
-  desktopPanelClassName,
+  desktopPanelClassName = "top-14 right-11 bottom-26 h-auto",
   mobilePanelClassName,
 }: LessonChatPanelFrameProps) {
   const isMobile = useIsMobile({});

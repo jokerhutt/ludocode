@@ -20,3 +20,19 @@ export function useCreateBanner() {
     },
   });
 }
+
+type DeleteBannerArgs = {
+  bannerId: number;
+};
+
+export function useDeleteBanner({ bannerId }: DeleteBannerArgs) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.deleteBanner(bannerId),
+    onSuccess: async (payload: LudoBannerSnapshot[]) => {
+      qc.setQueryData(qk.banners(), payload);
+      await qc.invalidateQueries({ queryKey: qk.banners() });
+    },
+  });
+}

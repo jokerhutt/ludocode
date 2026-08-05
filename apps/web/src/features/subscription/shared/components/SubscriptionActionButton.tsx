@@ -1,5 +1,5 @@
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
-import { useStripeManage } from "@/queries/mutations/useStripeManage.tsx";
+import { useStripeManage } from "@/queries/mutations/billingMutations";
 import { router } from "@/main.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import type { SubscriptionPlan } from "@ludocode/types";

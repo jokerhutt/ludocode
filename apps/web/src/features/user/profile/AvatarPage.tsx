@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getUserAvatar } from "@/constants/avatars/avatars";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { qo } from "@/queries/definitions/queries";
-import { useChangeAvatar } from "@/queries/mutations/useChangeAvatar";
+import { useChangeAvatar } from "@/queries/mutations/avatarMutations";
 import { Avatar } from "@ludocode/design-system/primitives/avatar";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { cn } from "@ludocode/design-system/cn-utils";

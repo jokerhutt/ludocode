@@ -1,4 +1,4 @@
-import type { AuthProviderMode } from "@/queries/mutations/useFirebaseAuthEntry.tsx";
+import type { AuthProviderMode } from "@/queries/mutations/authMutations";
 import {
   GithubIcon,
   GoogleIcon,

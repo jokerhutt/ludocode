@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { mutations } from "../definitions/mutations";
-import { qk } from "../definitions/qk";
+import { mutations } from "@/queries/definitions/mutations.ts";
+import { qk } from "@/queries/definitions/qk.ts";
 import type { Discussion, DiscussionTopic } from "@ludocode/types";
+import { useToggleLike } from "@/queries/mutations/useToggleLike.ts";
 
 export function useCreateDiscussionMessage(
   entityId: string,
@@ -22,5 +23,23 @@ export function useCreateDiscussionMessage(
         };
       });
     },
+  });
+}
+
+export function useLikeMessage(messageId: string) {
+  return useToggleLike({
+    id: messageId,
+    liked: true,
+    queryKey: qk.messageLike(messageId),
+    options: mutations.likeMessage(messageId),
+  });
+}
+
+export function useUnlikeMessage(messageId: string) {
+  return useToggleLike({
+    id: messageId,
+    liked: false,
+    queryKey: qk.messageLike(messageId),
+    options: mutations.unlikeMessage(messageId),
   });
 }

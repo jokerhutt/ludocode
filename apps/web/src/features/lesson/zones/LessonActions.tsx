@@ -1,11 +1,11 @@
 import { qo } from "@/queries/definitions/queries";
-import { useEditPreferences } from "@/queries/mutations/useEditPreferences";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useLessonExercise } from "../context/useLessonContext";
 import { useState } from "react";
 import { ExerciseFeedbackIcon } from "../components/ExerciseFeedbackIcon";
 import { AudioToggleIcon } from "../components/AudioToggleIcon";
 import { FeedbackDialog } from "@/features/feedback/FeedbackDialog";
+import { useEditPreferences } from "@/queries/mutations/userMutations";
 
 export function LessonActionsDesktop() {
   const { data: preferences } = useSuspenseQuery(qo.preferences());

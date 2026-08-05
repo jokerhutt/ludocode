@@ -1,4 +1,5 @@
-import { useChangeCourse } from "@/queries/mutations/useChangeCourse.tsx";
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
+import { useChangeCourse } from "@/queries/mutations/userMutations";
 import { CourseCard } from "@/features/course/hub/components/CourseCard.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import { Hero } from "@ludocode/design-system/zones/hero.tsx";
@@ -18,7 +19,7 @@ export function CoursePage() {
 
   return (
     <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
       <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
         <Hero
           title="Catalog"
@@ -37,7 +38,7 @@ export function CoursePage() {
           ))}
         </div>
       </div>
-      <div className="col-span-1 hidden lg:block" />
+      <Gutter desktopOnly />
     </div>
   );
 }

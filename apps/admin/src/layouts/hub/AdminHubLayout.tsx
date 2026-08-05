@@ -5,7 +5,7 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { MainGridWrapper } from "@ludocode/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { Suspense } from "react";
 import { AdminHubHeader } from "./AdminHubHeader";
-import { AdminHubFooter } from "./AdminHubFooter";
+import { FooterShell } from "@ludocode/design-system/zones/footer-shell";
 
 
 export function AdminHubLayout() {
@@ -17,7 +17,7 @@ export function AdminHubLayout() {
       <Suspense fallback={<div />}>
         <Outlet />
       </Suspense>
-      <AdminHubFooter />
+      <FooterShell className="lg:hidden border-t border-t-ludo-background"/>
     </MainGridWrapper>
   );
 }

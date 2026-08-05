@@ -1,4 +1,4 @@
-import { useChangeProjectVisibility } from "@/queries/mutations/useModifyProject";
+import { useChangeProjectVisibility } from "@/queries/mutations/projectMutations";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu";
 import type { ProjectVisibility } from "@ludocode/types";
 import { Globe2, Link2, LockKeyhole, type LucideIcon } from "lucide-react";

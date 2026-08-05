@@ -13,7 +13,6 @@ import { ExerciseDetailPreview } from "@/features/lesson/detail/preview/Exercise
 import { LessonCurriculumEditor } from "@/features/lesson/navigator/editor/LessonCurriculumEditor.tsx";
 import { ExerciseDetailEditor } from "@/features/lesson/detail/editor/ExerciseDetailEditor.tsx";
 import { CurriculumBreadcrumbs } from "@/features/curriculum/components/CurriculumBreadcrumbs.tsx";
-import { useUpdateLesson } from "@/queries/mutations/useUpdateLesson.tsx";
 import { applyCourseLanguageToLessonDraft } from "@/features/lesson/detail/editor/language.ts";
 import { Bell } from "lucide-react";
 import {
@@ -23,6 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@ludocode/external/ui/dialog.tsx";
+import { useUpdateLesson } from "@/queries/mutations/curriculumMutations";
 
 type LessonCurriculumPageProps = {};
 

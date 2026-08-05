@@ -1,4 +1,4 @@
-import { useDeleteAccount } from "@/queries/mutations/useDeleteAccount.tsx";
+import { useDeleteAccount } from "@/queries/mutations/authMutations";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
 import type { DestructiveActionConfirmation } from "@ludocode/design-system/templates/dialog/WarningDialog.tsx";
 
@@ -25,7 +25,6 @@ export function DeleteAccountButton({ username }: DeleteAccountButtonProps) {
       targetName="your account"
       destructiveConfirmation={confirmation}
       onClick={() => handleDeleteAccount()}
-      
     >
       <button
         type="button"

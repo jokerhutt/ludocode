@@ -45,7 +45,6 @@ export function LessonAiDrawer({
         title="AI Chat"
         Icon={Sparkles}
         animated={animated}
-        desktopPanelClassName="top-14 right-11 bottom-26 h-auto"
       >
         <div className="h-full w-full px-4 py-3">
           <ChatBotWindow

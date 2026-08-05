@@ -1,13 +1,13 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import { Checkbox } from "@ludocode/external/ui/checkbox.tsx";
 import { useState } from "react";
-import type { EmailLoginMode } from "@/queries/mutations/useFirebaseEmailAuth.tsx";
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import validator from "validator";
 import { errorToast } from "@ludocode/design-system/primitives/toast.tsx";
 import { testIds } from "@ludocode/util/test-ids";
+import type { EmailLoginMode } from "@/queries/mutations/authMutations";
 
 type EmailAuthFormProps = {
   mode: EmailLoginMode;

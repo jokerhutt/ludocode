@@ -4,8 +4,8 @@ import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import { FeatureRow } from "./FeatureRow";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import type { Feature, PlanOverview, SubscriptionPlan } from "@ludocode/types";
-import { useStripeCheckout } from "@/queries/mutations/useStripeCheckout";
 import { testIds } from "@ludocode/util/test-ids";
+import { useStripeCheckout } from "@/queries/mutations/billingMutations";
 
 type SubscriptionOverviewCardProps = {
   plan: PlanOverview;

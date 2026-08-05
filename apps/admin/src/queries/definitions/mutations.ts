@@ -9,10 +9,8 @@ import {
   type CurriculumDraftLessonForm,
   type LudoBannerSnapshot,
 } from "@ludocode/types";
-import type { ChangeCourseIconRequest } from "@/features/curriculum/hooks/useChangeIcon";
-import type { ChangeCourseStatusRequest } from "@/features/courses-hub/hooks/useToggleCourseVisibility";
-import type { ChangeCourseTitleRequest } from "@/features/curriculum/hooks/useChangeCourseTitle";
-import type { CreateBannerRequest } from "../mutations/useCreateBanner";
+import type { ChangeCourseIconRequest, ChangeCourseStatusRequest, ChangeCourseTitleRequest } from "@/queries/mutations/courseMutations";
+import type { CreateBannerRequest } from "../mutations/bannerMutations";
 
 export const mutations = {
   createCourse: () => {

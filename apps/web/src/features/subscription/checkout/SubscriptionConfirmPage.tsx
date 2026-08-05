@@ -1,3 +1,4 @@
+import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { qo } from "@/queries/definitions/queries";
 import { router } from "@/main";
@@ -27,7 +28,7 @@ export function SubscriptionConfirmPage() {
 
   return (
     <div className="w-full h-full grid grid-cols-12">
-      <div className="col-span-1" />
+      <Gutter />
 
       <div className="col-span-10 flex flex-col items-center justify-center relative px-4">
         <motion.div
@@ -84,7 +85,7 @@ export function SubscriptionConfirmPage() {
         </motion.div>
       </div>
 
-      <div className="col-span-1" />
+      <Gutter />
     </div>
   );
 }

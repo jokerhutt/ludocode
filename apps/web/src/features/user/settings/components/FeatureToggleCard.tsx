@@ -1,6 +1,6 @@
 import { BotIcon, Volume2Icon } from "lucide-react";
 import { StatsCard } from "../../../stats/components/StatsCard.tsx";
-import { useEditPreferences } from "@/queries/mutations/useEditPreferences.tsx";
+import { useEditPreferences } from "@/queries/mutations/userMutations.ts";
 
 type FeatureToggleGroupProps = {
   audioEnabled: boolean;
