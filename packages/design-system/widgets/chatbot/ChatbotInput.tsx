@@ -1,6 +1,5 @@
 import { CopyIcon } from "lucide-react";
 import { cn } from "@ludocode/design-system/cn-utils";
-import { type PromptInputMessage } from "@ludocode/external/ai-elements/prompt-input";
 import { useState, type KeyboardEvent } from "react";
 import {
   MessageAction,
@@ -10,6 +9,12 @@ import { ChatbotCreditsTab } from "./ChatbotCreditsTab";
 import { useChatbot } from "../../../../apps/web/src/features/ai/context/ChatBotContext";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import type { FileUIPart } from "ai";
+
+export type PromptInputMessage = {
+  text: string;
+  files: FileUIPart[];
+};
 
 type ChatBotInputProps = {
   handleSubmit: (message: PromptInputMessage) => void;

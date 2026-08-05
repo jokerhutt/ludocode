@@ -1,7 +1,6 @@
 import { cn } from "@ludocode/design-system/cn-utils.js";
-import type { PromptInputMessage } from "../../../external/ai-elements/prompt-input.tsx";
 import { ChatBotConversation } from "./ChatbotConversation";
-import { ChatBotInput } from "./ChatbotInput";
+import { ChatBotInput, type PromptInputMessage } from "./ChatbotInput";
 import { useAutoScrollDown } from "@ludocode/hooks";
 import { useChatbot } from "../../../../apps/web/src/features/ai/context/ChatBotContext.js";
 
