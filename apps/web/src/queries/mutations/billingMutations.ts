@@ -38,7 +38,6 @@ export function useStripeCheckout() {
 
     const { url } = await res.json();
 
-    console.log(url);
     window.location.href = url;
   }
 

@@ -2,9 +2,8 @@ import { getAdminNavIcons } from "@/constants/adminNavIcons";
 import { useLocation } from "@tanstack/react-router";
 import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
 
-type AdminNavigationIconGroupProps = {};
 
-export function AdminNavigationIconGroup({}: AdminNavigationIconGroupProps) {
+export function AdminNavigationIconGroup() {
   const icons = getAdminNavIcons();
 
   const location = useLocation();
