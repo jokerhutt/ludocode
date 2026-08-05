@@ -6,18 +6,20 @@ import {
 } from "@ludocode/design-system/widgets/ludo-log.tsx";
 import { useCodeRunnerContext } from "@/features/project/workbench/context/CodeRunnerContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { testIds } from "@ludocode/util/test-ids";
 
 type WorkbenchOutputPaneProps = {
   successColorVariant?: OutputTriggerColorVariant;
   className?: string;
+  style?: CSSProperties;
   hideWinbarOnMobile?: boolean;
 };
 
 export function WorkbenchOutputPane({
   successColorVariant = "default",
   className,
+  style,
   hideWinbarOnMobile = false,
 }: WorkbenchOutputPaneProps) {
   const { outputInfo, sendStdin } = useCodeRunnerContext();
@@ -34,6 +36,7 @@ export function WorkbenchOutputPane({
 
   return (
     <Workbench.Pane
+      style={style}
       className={cn(
         "grid-rows-[auto_1fr_auto]",
         "col-span-1 lg:border-l-2 border-l-ludo-surface lg:col-span-3 flex flex-col",

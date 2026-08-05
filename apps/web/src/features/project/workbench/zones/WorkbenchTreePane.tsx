@@ -24,13 +24,14 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@ludocode/external/ui/tooltip.tsx";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, type CSSProperties } from "react";
 import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import { testIds } from "@ludocode/util/test-ids";
 
 type WorkbenchTreePaneProps = {
   readOnly?: boolean;
   className?: string;
+  style?: CSSProperties;
   showAi?: boolean;
   onFileSelect?: () => void;
 };
@@ -38,6 +39,7 @@ type WorkbenchTreePaneProps = {
 export function WorkbenchTreePane({
   readOnly,
   className,
+  style,
   showAi,
   onFileSelect,
 }: WorkbenchTreePaneProps) {
@@ -72,6 +74,7 @@ export function WorkbenchTreePane({
     <>
       <Workbench.Pane
         dataTestId={testIds.project.asideLeft}
+        style={style}
         className={cn(
           "border-r-2 flex-1 border-r-ludo-surface grid-rows-[auto_minmax(0,1fr)_auto]",
           className,
@@ -89,7 +92,7 @@ export function WorkbenchTreePane({
             }
           />
         </Workbench.Pane.Winbar>
-        <Workbench.Pane.Content>
+        <Workbench.Pane.Content className="lg:pr-4">
           <LudoFileTree
             selectedId={currentFileId}
             onSelect={(id) => {

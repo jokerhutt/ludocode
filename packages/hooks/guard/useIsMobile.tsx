@@ -7,7 +7,11 @@ export function useIsMobile({
 }: {
   mobileBreakpoint?: number;
 }) {
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(`(max-width: ${mobileBreakpoint - 1}px)`).matches,
+  );
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${mobileBreakpoint - 1}px)`);

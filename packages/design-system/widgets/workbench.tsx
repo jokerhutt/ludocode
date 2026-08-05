@@ -1,5 +1,5 @@
 import { cn } from "@ludocode/design-system/cn-utils";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type WorkbenchProps = {
   children?: ReactNode;
@@ -16,12 +16,19 @@ type WorkbenchPaneProps = {
   children: ReactNode;
   className?: string;
   dataTestId?: string;
+  style?: CSSProperties;
 };
 
-export function Pane({ children, className, dataTestId }: WorkbenchPaneProps) {
+export function Pane({
+  children,
+  className,
+  dataTestId,
+  style,
+}: WorkbenchPaneProps) {
   return (
     <div
       data-testid={dataTestId}
+      style={style}
       className={cn(
         "flex-1 min-w-0 w-full min-h-0 bg-ludo-background grid grid-rows-[auto_1fr] lg:col-span-3",
         className,

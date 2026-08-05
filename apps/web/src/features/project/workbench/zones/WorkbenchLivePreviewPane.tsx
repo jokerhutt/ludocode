@@ -2,13 +2,14 @@ import { WEB_CDN_BASE_URL } from "@/constants/environment/env.ts";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { Workbench } from "@ludocode/design-system/widgets/workbench";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { testIds } from "@ludocode/util";
 
 type WorkbenchLivePreviewPaneProps = {
     projectId: string;
     filePath: string;
     className?: string;
+    style?: CSSProperties;
     refreshVersion?: number;
     hideWinbarOnMobile?: boolean;
 };
@@ -24,6 +25,7 @@ export function WorkbenchLivePreviewPane({
     filePath,
     refreshVersion = 0,
     className,
+    style,
     hideWinbarOnMobile = false,
 }: WorkbenchLivePreviewPaneProps) {
     const [manualRefreshVersion, setManualRefreshVersion] = useState(0);
@@ -35,6 +37,7 @@ export function WorkbenchLivePreviewPane({
 
     return (
         <Workbench.Pane
+            style={style}
             className={cn(
                 "grid-rows-[auto_1fr]",
                 "col-span-1 lg:border-l-2 border-l-ludo-surface lg:col-span-3 flex flex-col min-h-0",

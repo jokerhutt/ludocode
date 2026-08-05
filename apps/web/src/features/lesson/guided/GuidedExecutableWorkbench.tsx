@@ -26,6 +26,8 @@ import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbo
 import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
 import { GuidedLessonActions } from "./components/GuidedLessonActions";
 import { MobileTabs, useMobileTabs } from "@ludocode/design-system/primitives/mobile-tabs"
+import { PaneResizeHandle } from "@/features/project/workbench/components/PaneResizeHandle";
+import { useResizableSidePanes } from "@/features/project/hooks/useResizableSidePanes";
 
 type GuidedMobilePane = "instructions" | "code" | "output";
 
@@ -62,6 +64,7 @@ export function GuidedExecutableWorkbench({
   const { runCode, stopCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
   const isMobile = useIsMobile({});
+  const { isDesktop, left, right } = useResizableSidePanes();
   const { isRunning, outputLog } = outputInfo;
 
   const [awaitingValidation, setAwaitingValidation] = useState(false);
@@ -256,7 +259,15 @@ export function GuidedExecutableWorkbench({
           "transform-none transition-none animate-none",
           "lg:flex lg:flex-col lg:flex-1",
         )}
+        style={left.style}
       />
+
+      {isDesktop && (
+        <PaneResizeHandle
+          {...left.handleProps}
+          label="Resize instructions panel"
+        />
+      )}
 
       <GuidedExerciseEditorPane
         runOrAdvance={runOrAdvance}
@@ -307,6 +318,10 @@ export function GuidedExecutableWorkbench({
         />
       </GuidedExerciseEditorPane>
 
+      {isDesktop && (
+        <PaneResizeHandle {...right.handleProps} label="Resize output panel" />
+      )}
+
       <WorkbenchOutputPane
         successColorVariant="alt"
         className={cn(
@@ -314,6 +329,7 @@ export function GuidedExecutableWorkbench({
           "transform-none transition-none animate-none",
           "lg:flex lg:flex-1",
         )}
+        style={right.style}
       />
 
       <div className="lg:hidden border-t border-ludo-surface">
