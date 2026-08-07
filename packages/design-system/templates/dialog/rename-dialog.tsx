@@ -21,6 +21,9 @@ export function RenameDialog({
   const [textBuffer, setTextBuffer] = useState<string>(itemName);
   const [open, setOpen] = useState(false);
 
+  const trimmed = textBuffer.trim();
+  const isBlank = trimmed.length === 0;
+
   return (
     <LudoDialog
       asChild={false}
@@ -39,7 +42,10 @@ export function RenameDialog({
       <LudoButton
         variant="alt"
         className="w-full h-10"
+        disabled={isBlank}
+        clickable={!isBlank}
         onClick={() => {
+          if (isBlank) return;
           onSubmit(oldPath, textBuffer);
           setOpen(false);
         }}

@@ -21,6 +21,9 @@ export function DescriptionDialog({
   const [textBuffer, setTextBuffer] = useState<string>(itemDescription);
   const [open, setOpen] = useState(false);
 
+  const trimmed = textBuffer.trim();
+  const isBlank = trimmed.length === 0;
+
   return (
     <LudoDialog
       asChild={false}
@@ -41,8 +44,11 @@ export function DescriptionDialog({
       <LudoButton
         variant="alt"
         className="w-full h-10"
+        disabled={isBlank}
+        clickable={!isBlank}
         onClick={() => {
-          onSubmit(oldDescription, textBuffer.trim());
+          if (isBlank) return;
+          onSubmit(oldDescription, trimmed);
           setOpen(false);
         }}
       >
