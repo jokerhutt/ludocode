@@ -46,7 +46,7 @@ function PodiumPlayer({ currentUserId, user, rank }: PodiumPlayerProps) {
   const displayName = user?.displayName ?? "Unclaimed";
   const points = user?.xp ? user.xp.toString() : "--";
 
-  const ownStyle = currentUserId == user?.userId ? "bg-ludo-accent" : ""
+  const ownStyle = currentUserId == user?.userId ? "bg-ludo-accent" : "";
 
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-1 lg:gap-2">
@@ -63,7 +63,7 @@ function PodiumPlayer({ currentUserId, user, rank }: PodiumPlayerProps) {
         className={cn(
           "flex flex-col items-center justify-center rounded-t-xl bg-ludo-surface",
           podiumHeights[rank],
-          ownStyle
+          ownStyle,
         )}
       >
         <p
