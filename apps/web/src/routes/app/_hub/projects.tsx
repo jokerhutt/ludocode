@@ -1,4 +1,5 @@
 import { ProjectHubPage } from "@/features/project/hub/ProjectHubPage.tsx";
+import { PROJECT_PAGE_SIZE } from "@/features/project/hub/content.ts";
 import { qo } from "@/queries/definitions/queries.ts";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -16,6 +17,15 @@ export const Route = createFileRoute("/app/_hub/projects")({
 });
 
 async function projectHubLoader(queryClient: QueryClient, page: number) {
-  const currentUser = await queryClient.ensureQueryData(qo.currentUser())
-  await queryClient.ensureQueryData(qo.userProjects(currentUser.id, page, 10));
+  const currentUser = await queryClient.ensureQueryData(qo.currentUser());
+  const packet = await queryClient.ensureQueryData(
+    qo.userProjects(currentUser.id, page, PROJECT_PAGE_SIZE),
+  );
+
+  const lastPage = Math.max(0, packet.totalPages - 1);
+  if (lastPage !== page) {
+    await queryClient.ensureQueryData(
+      qo.userProjects(currentUser.id, lastPage, PROJECT_PAGE_SIZE),
+    );
+  }
 }

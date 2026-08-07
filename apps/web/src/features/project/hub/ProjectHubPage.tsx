@@ -1,5 +1,5 @@
 import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { ProjectCard } from "@/features/project/hub/components/ProjectCard.tsx";
 import {
@@ -8,7 +8,10 @@ import {
   type TemplateKey,
 } from "@/features/project/hub/components/ProjectLauncher.tsx";
 import { ProjectTemplates } from "@/features/project/hub/components/projectTemplates.ts";
-import { projectMastheadContent } from "@/features/project/hub/content.ts";
+import {
+  PROJECT_PAGE_SIZE,
+  projectMastheadContent,
+} from "@/features/project/hub/content.ts";
 import {
   PageMasthead,
   SectionHeading,
@@ -39,17 +42,24 @@ export function ProjectHubPage() {
   });
   const { data: currentUser } = useSuspenseQuery(qo.currentUser());
   const { data: projectsPacket } = useSuspenseQuery(
-    qo.userProjects(currentUser.id, currentPage, 10),
+    qo.userProjects(currentUser.id, currentPage, PROJECT_PAGE_SIZE),
   );
   const allProjects = projectsPacket.projects;
+
+  const lastPageIndex = Math.max(0, projectsPacket.totalPages - 1);
+  const { data: lastPagePacket } = useQuery(
+    qo.userProjects(currentUser.id, lastPageIndex, PROJECT_PAGE_SIZE),
+  );
+  const totalProjects = lastPagePacket
+    ? lastPageIndex * PROJECT_PAGE_SIZE + lastPagePacket.projects.length
+    : currentPage * PROJECT_PAGE_SIZE + allProjects.length;
 
   const paymentsFeature = useSuspenseQuery(qo.activeFeatures()).data
     .paymentsEnabled;
 
   const { maxProjects } = useSuspenseQuery(qo.subscription()).data;
-  const currentProjects = allProjects.length;
 
-  const isAtLimit = currentProjects >= maxProjects;
+  const isAtLimit = totalProjects >= maxProjects;
   const createProjectMutation = useCreateProject();
 
   const toUpgrade = () =>
@@ -76,7 +86,7 @@ export function ProjectHubPage() {
       <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0 pb-6">
         <PageMasthead {...projectMastheadContent}>
           <ProjectQuota
-            used={currentProjects}
+            used={totalProjects}
             max={maxProjects}
             isAtLimit={isAtLimit}
           />

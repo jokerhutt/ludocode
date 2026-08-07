@@ -1,7 +1,10 @@
 import type { PageMastheadProps } from "@ludocode/design-system/zones/page-masthead.tsx";
 
+export const PROJECT_PAGE_SIZE = 10;
+
 export const projectMastheadContent: Omit<PageMastheadProps, "children"> = {
   eyebrow: "Your workbench",
   title: "Projects",
-  subtitle: "Spin up a project, build something, then share it when you're ready",
+  subtitle:
+    "Spin up a project, build something, then share it when you're ready",
 };
