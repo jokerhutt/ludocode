@@ -41,7 +41,13 @@ function Root({
     <FileTreeContext.Provider
       value={{ selectedId, onSelect, rename, deleteItem, readOnly }}
     >
-      <div className="flex flex-col gap-1">{children}</div>
+      <div className="relative flex flex-col gap-0.5 pl-3">
+        <span
+          aria-hidden
+          className="absolute left-0 top-[1.125rem] bottom-[1.125rem] w-0.5 rounded-full bg-ludo-surface"
+        />
+        {children}
+      </div>
     </FileTreeContext.Provider>
   );
 }
@@ -59,26 +65,46 @@ function Item({ id, name, icon, actions, indicator, dataTestId }: ItemProps) {
   const { selectedId, onSelect } = useFileTree();
   const isSelected = selectedId === id;
 
+  const dotIndex = name.lastIndexOf(".");
+  const baseName = dotIndex > 0 ? name.slice(0, dotIndex) : name;
+  const extension = dotIndex > 0 ? name.slice(dotIndex) : "";
+
   return (
     <button
       data-testid={dataTestId}
       onClick={() => onSelect?.(id)}
       className={cn(
-        "flex w-full hover:cursor-pointer justify-between px-2 py-1 rounded-lg items-center",
+        "group relative flex h-9 w-full min-w-0 items-center justify-between gap-2 overflow-hidden rounded-lg pl-3 pr-2 transition-colors hover:cursor-pointer",
         isSelected
-          ? "bg-ludo-accent-muted/70"
-          : "hover:bg-ludo-accent-muted/50",
+          ? "bg-ludo-surface text-ludo-white-bright"
+          : "text-ludo-white hover:bg-ludo-surface/60",
       )}
     >
-      <div className="flex gap-3 items-center">
-        {icon}
-        <span className="text-sm">{name}</span>
-      </div>
+      {isSelected && (
+        <span
+          aria-hidden
+          className="absolute bottom-1 left-0 top-1 w-0.5 rounded-full bg-ludo-accent-muted"
+        />
+      )}
 
-      <div className="flex items-center gap-1">
+      <span className="flex min-w-0 items-center gap-2.5">
+        {icon}
+        <span className="min-w-0 truncate text-sm">
+          {baseName}
+          {extension && (
+            <span
+              className={isSelected ? "text-ludo-white" : "text-ludo-white-dim"}
+            >
+              {extension}
+            </span>
+          )}
+        </span>
+      </span>
+
+      <span className="flex shrink-0 items-center gap-1">
         {indicator}
         {actions}
-      </div>
+      </span>
     </button>
   );
 }
