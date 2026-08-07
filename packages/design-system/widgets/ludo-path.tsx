@@ -4,7 +4,7 @@ import { type LessonStatus } from "@ludocode/types";
 import { LudoButton } from "../primitives/ludo-button";
 import { CompletionRibbon } from "../primitives/ribbon";
 import { LockIcon } from "../primitives/custom-icon";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, PlayIcon, StarIcon } from "lucide-react";
 
 type LudoPathProps = { children: ReactNode; className?: string };
 
@@ -43,6 +43,43 @@ function Row({ children, index, className, fullSpan = false }: RowProps) {
     </div>
   );
 }
+
+function CurrentRing() {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "absolute pointer-events-none rounded-[14px] border-2 border-ludo-accent-muted",
+        "-top-1.5 -left-1.5 -right-1.5 -bottom-[13px]",
+        "group-data-[state=open]:-bottom-1.5",
+      )}
+    />
+  );
+}
+
+const pathIcon =
+  "h-10 w-10 shrink-0 transition-[filter] duration-100 group-data-[state=open]:drop-shadow-none";
+
+const raisedIcon =
+  "drop-shadow-[0_2px_0_color-mix(in_srgb,var(--color-ludo-surface)_55%,black)]";
+
+const carvedIcon =
+  "drop-shadow-[0_1px_0_color-mix(in_srgb,var(--color-ludo-surface)_80%,white)]";
+
+function PathStateIcon({ state }: { state: LessonStatus }) {
+  if (state === "LOCKED") {
+    return <LockIcon className={cn(pathIcon, carvedIcon, "text-ludo-background")} />;
+  }
+
+  const Icon = state === "DEFAULT" ? PlayIcon : StarIcon;
+
+  return (
+    <Icon
+      className={cn(pathIcon, raisedIcon, "fill-current text-ludo-accent-muted")}
+    />
+  );
+}
+
 type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   state: LessonStatus;
   dataTestId?: string;
@@ -51,21 +88,23 @@ type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 
 const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
   ({ dataTestId, state, isCurrent, className, ...props }, ref) => {
-    const isLocked = state === "LOCKED";
-
     return (
       <LudoButton
         data-testid={dataTestId}
         ref={ref}
         selected={isCurrent}
         clickable={false}
-        className={cn("relative w-20 hover:cursor-pointer h-20", className)}
+        className={cn(
+          "group relative w-20 hover:cursor-pointer h-20",
+          className,
+        )}
         {...props}
       >
         <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
           <CompletionRibbon lessonState={state} />
         </div>
-        {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
+        {isCurrent && <CurrentRing />}
+        <PathStateIcon state={state} />
       </LudoButton>
     );
   },
@@ -80,7 +119,6 @@ type GuidedButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 
 const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
   ({ dataTestId, state, title, isCurrent, className, ...props }, ref) => {
-
     return (
       <LudoButton
         data-testid={dataTestId}
@@ -88,7 +126,7 @@ const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
         selected={isCurrent}
         clickable={false}
         className={cn(
-          "relative w-full flex justify-center items-center hover:cursor-pointer my-4 h-20 p-3",
+          "group relative w-full flex justify-center items-center hover:cursor-pointer my-4 h-20 p-3",
           className,
         )}
         {...props}
@@ -97,10 +135,11 @@ const GuidedButton = React.forwardRef<HTMLButtonElement, GuidedButtonProps>(
           <CompletionRibbon lessonState={state} />
         </div>
 
+        {isCurrent && <CurrentRing />}
+
         <p className="text-ludo-accent-muted text-sm text-center font-semibold uppercase tracking-widest">
           GUIDED PROJECT
         </p>
-
       </LudoButton>
     );
   },
