@@ -24,11 +24,16 @@ export function DescriptionDialog({
   const trimmed = textBuffer.trim();
   const isBlank = trimmed.length === 0;
 
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen) setTextBuffer(itemDescription);
+    setOpen(nextOpen);
+  };
+
   return (
     <LudoDialog
       asChild={false}
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={handleOpenChange}
       trigger={children}
     >
       <DialogTitle className="text-ludo-white-bright">
