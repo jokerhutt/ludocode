@@ -8,6 +8,7 @@ import type { OnboardingSubmission } from "@ludocode/types/Onboarding/Onboarding
 import { type ProjectSnapshot } from "@ludocode/types/Project/ProjectSnapshot.ts";
 import { type CreateProjectRequest } from "@ludocode/types/Project/CreateProjectRequest.ts";
 import type { RenameProjectRequest } from "@ludocode/types/Project/RenameProjectRequest.ts";
+import type { ChangeProjectDescriptionRequest } from "@ludocode/types/Project/ChangeProjectDescriptionRequest.ts";
 import {
   ludoPut,
   ludoPatch,
@@ -142,6 +143,18 @@ export const mutations = {
     });
   },
 
+  changeProjectDescription: () => {
+    return mutationOptions<void, Error, ChangeProjectDescriptionRequest>({
+      mutationKey: ["changeProjectDescription"],
+      mutationFn: (variables) =>
+        ludoPatch<void, ChangeProjectDescriptionRequest>(
+          api.projects.description(variables.targetId),
+          variables,
+          true,
+        ),
+    });
+  },
+
   changeProjectVisibility: (pid: string) => {
     return mutationOptions<void, Error, ChangeProjectVisibilityRequest>({
       mutationKey: ["changeProjectVisibility"],
@@ -186,7 +199,11 @@ export const mutations = {
     return mutationOptions<MessageLikeCountResponse, Error, void>({
       mutationKey: ["likeMessage"],
       mutationFn: () =>
-        ludoPost<MessageLikeCountResponse>(api.discussion.likeById(mid), null, true),
+        ludoPost<MessageLikeCountResponse>(
+          api.discussion.likeById(mid),
+          null,
+          true,
+        ),
     });
   },
 
@@ -194,7 +211,10 @@ export const mutations = {
     return mutationOptions<MessageLikeCountResponse, Error, void>({
       mutationKey: ["unlikeMessage"],
       mutationFn: () =>
-        ludoDelete<MessageLikeCountResponse>(api.discussion.likeById(mid), true),
+        ludoDelete<MessageLikeCountResponse>(
+          api.discussion.likeById(mid),
+          true,
+        ),
     });
   },
 
@@ -226,12 +246,8 @@ export const mutations = {
     return mutationOptions<LudoUser, Error, AvatarInfo>({
       mutationKey: ["changeAvatar"],
       mutationFn: (variables) =>
-        ludoPut<LudoUser, AvatarInfo>(
-          api.users.avatar,
-          variables,
-          true
-        )
-    })
+        ludoPut<LudoUser, AvatarInfo>(api.users.avatar, variables, true),
+    });
   },
 
   editProfile: () => {

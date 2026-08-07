@@ -78,8 +78,8 @@ function OwnProjectCard({
   const {
     projectId,
     projectTitle,
+    description,
     updatedAt,
-    createdAt,
     visibility,
     technologies,
     authorId,
@@ -113,6 +113,7 @@ function OwnProjectCard({
           <ProjectActionsMenu
             projectId={projectId}
             projectTitle={projectTitle}
+            projectDescription={description}
           />
         </div>
       </div>
@@ -123,8 +124,21 @@ function OwnProjectCard({
         onClick={() => openProject(authorId, projectId)}
         className="flex flex-1 flex-col gap-2 p-4 text-left hover:cursor-pointer"
       >
-        <MetaRow label="Updated" value={parseToDate(updatedAt)} />
-        <MetaRow label="Created" value={parseToDate(createdAt)} />
+        {description ? (
+          <p className="line-clamp-2 text-xs leading-relaxed text-ludo-white">
+            {description}
+          </p>
+        ) : (
+          <p className="text-xs italic leading-relaxed text-ludo-white-disabled">
+            No description yet
+          </p>
+        )}
+
+        <MetaRow
+          className="mt-auto"
+          label="Updated"
+          value={parseToDate(updatedAt)}
+        />
 
         {deleteAt && (
           <p className="text-xs leading-tight text-ludo-danger">
@@ -132,7 +146,7 @@ function OwnProjectCard({
           </p>
         )}
 
-        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+        <div className="flex items-center justify-between gap-2">
           <TechnologyIcons project={project} />
           <span className="flex items-center gap-1.5 text-xs font-semibold text-ludo-accent-muted">
             Open
@@ -144,9 +158,17 @@ function OwnProjectCard({
   );
 }
 
-function MetaRow({ label, value }: { label: string; value: string }) {
+function MetaRow({
+  label,
+  value,
+  className,
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) {
   return (
-    <div className="flex items-baseline justify-between gap-2">
+    <div className={cn("flex items-baseline justify-between gap-2", className)}>
       <span className="text-[10px] uppercase tracking-widest text-ludo-white-dim">
         {label}
       </span>
@@ -162,7 +184,7 @@ function CommunityProjectCard({
   project: ProjectCardResponse;
   currentUserId?: string;
 }) {
-  const { projectId, projectTitle, createdAt, authorId } = project;
+  const { projectId, projectTitle, description, createdAt, authorId } = project;
 
   const { data: author } = useQuery(qo.user(authorId));
   const authorDisplayName = author?.displayName?.trim() || "Anonymous";
@@ -194,9 +216,14 @@ function CommunityProjectCard({
           </div>
         </div>
 
-        <p className="mt-auto truncate text-lg font-bold leading-tight text-ludo-white-bright">
-          {projectTitle}
-        </p>
+        <div className="flex flex-col gap-1">
+          <p className="truncate text-lg font-bold leading-tight text-ludo-white-bright">
+            {projectTitle}
+          </p>
+          <p className="line-clamp-2 text-xs leading-relaxed text-ludo-white">
+            {description || "No description"}
+          </p>
+        </div>
       </button>
 
       <div
@@ -223,12 +250,17 @@ function CommunityProjectCard({
 function ProjectActionsMenu({
   projectId,
   projectTitle,
+  projectDescription,
 }: {
   projectId: string;
   projectTitle: string;
+  projectDescription: string;
 }) {
-  const { handleRenameProject, handleDeleteProject } =
-    useModifyProject(projectId);
+  const {
+    handleRenameProject,
+    handleChangeProjectDescription,
+    handleDeleteProject,
+  } = useModifyProject(projectId);
   return (
     <FileActionsMenu
       trigger={
@@ -247,7 +279,9 @@ function ProjectActionsMenu({
       itemType={"project"}
       targetId={projectId}
       targetName={projectTitle}
+      targetDescription={projectDescription}
       renameItem={handleRenameProject}
+      describeItem={handleChangeProjectDescription}
       deleteItem={handleDeleteProject}
     />
   );

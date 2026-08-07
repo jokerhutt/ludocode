@@ -2,30 +2,30 @@ import { useState, type ReactNode } from "react";
 import { DialogTitle } from "@ludocode/external/ui/dialog";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
-import { Input } from "@ludocode/external/ui/input";
+import { Textarea } from "@ludocode/external/ui/textarea";
 
-type RenameDialogProps = {
-  itemName: string;
-  onSubmit: (oldPath: string, newPath: string) => void;
+type DescriptionDialogProps = {
+  itemDescription: string;
+  onSubmit: (oldDescription: string, newDescription: string) => void;
   children: ReactNode;
   itemCategory: string;
 };
 
-export function RenameDialog({
-  itemName,
+export function DescriptionDialog({
+  itemDescription,
   children,
   itemCategory,
   onSubmit,
-}: RenameDialogProps) {
-  const oldPath = itemName;
-  const [textBuffer, setTextBuffer] = useState<string>(itemName);
+}: DescriptionDialogProps) {
+  const oldDescription = itemDescription;
+  const [textBuffer, setTextBuffer] = useState<string>(itemDescription);
   const [open, setOpen] = useState(false);
 
   const trimmed = textBuffer.trim();
   const isBlank = trimmed.length === 0;
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (nextOpen) setTextBuffer(itemName);
+    if (nextOpen) setTextBuffer(itemDescription);
     setOpen(nextOpen);
   };
 
@@ -37,11 +37,13 @@ export function RenameDialog({
       trigger={children}
     >
       <DialogTitle className="text-ludo-white-bright">
-        Rename {itemCategory}
+        Describe {itemCategory}
       </DialogTitle>
-      <Input
-        className="text-ludo-white"
+      <Textarea
+        className="min-h-24 resize-none text-ludo-white"
         value={textBuffer}
+        maxLength={280}
+        placeholder={`What is this ${itemCategory} about?`}
         onChange={(e) => setTextBuffer(e.target.value)}
       />
       <LudoButton
@@ -51,7 +53,7 @@ export function RenameDialog({
         clickable={!isBlank}
         onClick={() => {
           if (isBlank) return;
-          onSubmit(oldPath, textBuffer);
+          onSubmit(oldDescription, trimmed);
           setOpen(false);
         }}
       >

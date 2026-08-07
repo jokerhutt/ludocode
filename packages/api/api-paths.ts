@@ -127,6 +127,7 @@ export function createApiPaths({
       byIdPublic: (projectId: string) => `${BASE}/projects/public/${projectId}`,
       like: (projectId: string) => `${BASE}/projects/${projectId}/like`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
+      description: (projectId: string) => `${BASE}/projects/${projectId}/description`,
       visibility: (projectId: string) =>
         `${BASE}/projects/${projectId}/visibility`,
       duplicate: (projectId: string) =>
