@@ -3,6 +3,7 @@ import { useChangeCourse } from "@/queries/mutations/userMutations";
 import { CatalogCourseCard } from "@/features/course/hub/components/CatalogCourseCard.tsx";
 import { CatalogHeader } from "@/features/course/hub/components/CatalogHeader.tsx";
 import { FeaturedCourseCard } from "@/features/course/hub/components/FeaturedCourseCard.tsx";
+import { SectionHeading } from "@ludocode/design-system/zones/page-masthead.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import type { LudoCourse } from "@ludocode/types";
 import { qo } from "@/queries/definitions/queries.ts";
@@ -44,12 +45,9 @@ export function CoursePage() {
 
         {otherCourses.length > 0 && (
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <h2 className="shrink-0 text-xs font-semibold uppercase tracking-widest text-ludo-white-dim">
-                {currentCourse ? "More courses" : "All courses"}
-              </h2>
-              <div className="h-px flex-1 bg-ludo-surface" />
-            </div>
+            <SectionHeading
+              label={currentCourse ? "More courses" : "All courses"}
+            />
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
               {otherCourses.map((course: LudoCourse) => (

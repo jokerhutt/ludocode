@@ -2,17 +2,24 @@ import { Gutter } from "@ludocode/design-system/layouts/grid/gutter";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/queries/definitions/queries.ts";
 import { ProjectCard } from "@/features/project/hub/components/ProjectCard.tsx";
+import {
+  ProjectLauncher,
+  ProjectQuota,
+  type TemplateKey,
+} from "@/features/project/hub/components/ProjectLauncher.tsx";
 import { ProjectTemplates } from "@/features/project/hub/components/projectTemplates.ts";
-import { projectHeroContent } from "@/features/project/hub/content.ts";
-import { Hero } from "@ludocode/design-system/zones/hero.tsx";
+import { projectMastheadContent } from "@/features/project/hub/content.ts";
+import {
+  PageMasthead,
+  SectionHeading,
+} from "@ludocode/design-system/zones/page-masthead.tsx";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import { PaginationBar } from "@/features/hub/components/PaginationBar.tsx";
 import { usePagination } from "@ludocode/hooks";
 import { router } from "@/main.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { Route } from "@/routes/app/_hub/projects.tsx";
 import type { ProjectCardResponse } from "@ludocode/types";
-import { CustomIcon } from "@ludocode/design-system/primitives/custom-icon.tsx";
-import { Languages } from "@ludocode/types/Project/ProjectFileSnapshot.ts";
 import { testIds } from "@ludocode/util/test-ids";
 import { useCreateProject } from "@/queries/mutations/projectMutations";
 
@@ -35,7 +42,6 @@ export function ProjectHubPage() {
     qo.userProjects(currentUser.id, currentPage, 10),
   );
   const allProjects = projectsPacket.projects;
-  const isFirstPage = currentPage === 0;
 
   const paymentsFeature = useSuspenseQuery(qo.activeFeatures()).data
     .paymentsEnabled;
@@ -46,23 +52,13 @@ export function ProjectHubPage() {
   const isAtLimit = currentProjects >= maxProjects;
   const createProjectMutation = useCreateProject();
 
-  const templateButtons = [
-    { key: "lua", label: "Lua", iconName: Languages.lua.iconName },
-    { key: "python", label: "Python", iconName: Languages.python.iconName },
-    { key: "web", label: "Static site", iconName: "HTML" as const },
-    {
-      key: "javascript",
-      label: "Javascript",
-      iconName: Languages.javascript.iconName,
-    },
-  ] as const;
+  const toUpgrade = () =>
+    router.navigate(ludoNavigation.subscription.toSubscriptionComparisonPage());
 
-  const createFromTemplate = (templateKey: keyof typeof ProjectTemplates) => {
+  const createFromTemplate = (templateKey: TemplateKey) => {
     if (isAtLimit) {
       if (paymentsFeature) {
-        router.navigate(
-          ludoNavigation.subscription.toSubscriptionComparisonPage(),
-        );
+        toUpgrade();
       }
       return;
     }
@@ -75,100 +71,80 @@ export function ProjectHubPage() {
   };
 
   return (
-    <>
-      <div className="layout-grid col-span-full scrollable py-6 px-6 lg:px-0">
-        <Gutter desktopOnly />
-        <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
-          <Hero {...projectHeroContent}>
-            <div className="flex w-full justify-center flex-col gap-3 text-center">
-              <div className="grid grid-cols-2 lg:flex w-full items-center gap-2 justify-center">
-                {templateButtons.map((template) => (
-                  <LudoButton
-                    key={template.key}
-                    data-testid={testIds.projectHub.createTemplate(
-                      template.key,
-                    )}
-                    className="inline-flex h-10 px-1 lg:px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
-                    variant="default"
-                    shadow={false}
-                    disabled={createProjectMutation.isPending}
-                    onClick={() => createFromTemplate(template.key)}
-                    title={isAtLimit ? "project limit reached" : undefined}
-                  >
-                    <CustomIcon
-                      color="white"
-                      iconName={template.iconName}
-                      className="h-4 w-4"
-                    />
-                    {template.label}
-                  </LudoButton>
-                ))}
-                {isAtLimit && paymentsFeature && (
-                  <LudoButton
-                    data-testid={testIds.projectHub.upgradeLimitButton}
-                    className="inline-flex h-10 px-4 rounded-lg text-sm font-semibold gap-2 w-full lg:w-fit lg:shrink-0 lg:whitespace-nowrap"
-                    variant="alt"
-                    shadow={false}
-                    onClick={() =>
-                      router.navigate(
-                        ludoNavigation.subscription.toSubscriptionComparisonPage(),
-                      )
-                    }
-                  >
-                    Upgrade
-                  </LudoButton>
-                )}
-              </div>
+    <div className="layout-grid col-span-full scrollable py-6 px-6 lg:px-0">
+      <Gutter desktopOnly />
+      <div className="relative col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0 pb-6">
+        <PageMasthead {...projectMastheadContent}>
+          <ProjectQuota
+            used={currentProjects}
+            max={maxProjects}
+            isAtLimit={isAtLimit}
+          />
+        </PageMasthead>
 
-              <span
-                data-testid={testIds.projectHub.limits}
-                className={`flex w-full lg:w h-10 items-center justify-center rounded-lg border px-3 text-xs font-semibold tabular-nums ${
-                  isAtLimit
-                    ? "border-ludo-danger/30 bg-ludo-danger/10 text-ludo-danger"
-                    : "border-ludo-white/15 bg-ludo-white/5 text-ludo-white/85"
-                }`}
+        <div className="flex flex-col gap-4">
+          <SectionHeading label="New project">
+            {isAtLimit && paymentsFeature && (
+              <LudoButton
+                data-testid={testIds.projectHub.upgradeLimitButton}
+                className="h-8 w-fit shrink-0 px-4 text-xs font-semibold"
+                variant="alt"
+                shadow={false}
+                onClick={toUpgrade}
               >
-                {currentProjects}/{maxProjects}
-              </span>
-            </div>
-          </Hero>
+                Upgrade
+              </LudoButton>
+            )}
+          </SectionHeading>
 
-          <div className="grid lg:grid-cols-3 gap-8 min-h-50">
-            {allProjects.map((project: ProjectCardResponse) => (
-              <ProjectCard
-                currentUserId={currentUser.id}
-                key={project.projectId}
-                project={project}
-                mode={"OWN"}
-              />
-            ))}
-          </div>
-          {projectsPacket.totalPages > 1 && (
-            <div className="flex items-center justify-end gap-3">
-              <LudoButton
-                className="h-9 px-4 w-fit text-sm"
-                clickable={!isFirstPage}
-                disabled={isFirstPage}
-                onClick={() => prev()}
-              >
-                Previous
-              </LudoButton>
-              <span className="text-xs font-medium tabular-nums text-ludo-white">
-                Page {currentPage + 1}
-              </span>
-              <LudoButton
-                className="h-9 px-4 w-fit text-sm"
-                clickable={projectsPacket.hasNext}
-                disabled={!projectsPacket.hasNext}
-                onClick={() => next(projectsPacket.hasNext)}
-              >
-                Next
-              </LudoButton>
+          <ProjectLauncher
+            isAtLimit={isAtLimit}
+            isPending={createProjectMutation.isPending}
+            onCreate={createFromTemplate}
+          />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <SectionHeading label="Saved projects" />
+
+          {allProjects.length === 0 ? (
+            <EmptyProjects />
+          ) : (
+            <div className="grid gap-6 lg:grid-cols-3">
+              {allProjects.map((project: ProjectCardResponse) => (
+                <ProjectCard
+                  currentUserId={currentUser.id}
+                  key={project.projectId}
+                  project={project}
+                  mode={"OWN"}
+                />
+              ))}
             </div>
           )}
         </div>
-        <Gutter />
+
+        <PaginationBar
+          page={currentPage}
+          totalPages={projectsPacket.totalPages}
+          hasNext={projectsPacket.hasNext}
+          onPrev={() => prev()}
+          onNext={() => next(projectsPacket.hasNext)}
+        />
       </div>
-    </>
+      <Gutter />
+    </div>
+  );
+}
+
+function EmptyProjects() {
+  return (
+    <div className="flex min-h-44 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-ludo-surface p-8 text-center">
+      <p className="text-sm font-semibold text-ludo-white-bright">
+        Nothing on the bench yet
+      </p>
+      <p className="max-w-xs text-xs leading-relaxed text-ludo-white-dim">
+        Pick a stack above and your first project lands right here.
+      </p>
+    </div>
   );
 }

@@ -3,8 +3,11 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { Route } from "@/routes/app/_hub/community/index";
 import { router } from "@/main.tsx";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { Hero } from "@ludocode/design-system/zones/hero.tsx";
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
+import {
+  PageMasthead,
+  SectionHeading,
+} from "@ludocode/design-system/zones/page-masthead.tsx";
+import { PaginationBar } from "@/features/hub/components/PaginationBar.tsx";
 import { usePagination } from "@ludocode/hooks";
 import type { ProjectCardResponse } from "@ludocode/types";
 import { ProjectCard } from "../project/hub/components/ProjectCard";
@@ -30,64 +33,59 @@ export function CommunityPage() {
   const { data: currentUser } = useQuery(qo.currentUser());
   const currentUserId = currentUser?.id;
   const publicProjects = projectsPacket.projects;
-  const isFirstPage = currentPage === 0;
 
   return (
     <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
       <Gutter desktopOnly />
-      <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0">
-        <Hero
-          title="Community Projects"
-          subtitle="Browse and explore projects shared by the Ludocode community"
+      <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0 pb-6">
+        <PageMasthead
+          eyebrow="Built by learners"
+          title="Community"
+          subtitle="Look through what everyone else is making, try it out, and make your own copy to try out your own ideas"
         />
 
         {publicProjects.length === 0 ? (
-          <div className="rounded-xl bg-ludo-surface-dim border border-ludo-background p-8 text-center">
-            <h2 className="text-xl font-bold text-ludo-white-bright">
-              No public projects yet
-            </h2>
-            <p className="mt-2 text-sm text-ludo-white-bright/70">
-              There isn&apos;t any shared project yet. Check back soon.
-            </p>
-          </div>
+          <EmptyCommunity />
         ) : (
-          <div className="grid lg:grid-cols-3 gap-8 min-h-[200px]">
-            {publicProjects.map((project: ProjectCardResponse) => (
-              <ProjectCard
-                key={project.projectId}
-                project={project}
-                mode="COMMUNITY"
-                currentUserId={currentUserId}
-              />
-            ))}
+          <div className="flex flex-col gap-4">
+            <SectionHeading label="Recently shared" />
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {publicProjects.map((project: ProjectCardResponse) => (
+                <ProjectCard
+                  key={project.projectId}
+                  project={project}
+                  mode="COMMUNITY"
+                  currentUserId={currentUserId}
+                />
+              ))}
+            </div>
           </div>
         )}
 
-        {projectsPacket.totalPages > 1 && (
-          <div className="flex items-center justify-end gap-3">
-            <LudoButton
-              className="h-9 px-4 w-fit text-sm"
-              clickable={!isFirstPage}
-              disabled={isFirstPage}
-              onClick={() => prev()}
-            >
-              Previous
-            </LudoButton>
-            <span className="text-xs font-medium tabular-nums text-ludo-white">
-              Page {currentPage + 1}
-            </span>
-            <LudoButton
-              className="h-9 px-4 w-fit text-sm"
-              clickable={projectsPacket.hasNext}
-              disabled={!projectsPacket.hasNext}
-              onClick={() => next(projectsPacket.hasNext)}
-            >
-              Next
-            </LudoButton>
-          </div>
-        )}
+        <PaginationBar
+          page={currentPage}
+          totalPages={projectsPacket.totalPages}
+          hasNext={projectsPacket.hasNext}
+          onPrev={() => prev()}
+          onNext={() => next(projectsPacket.hasNext)}
+        />
       </div>
       <Gutter desktopOnly />
+    </div>
+  );
+}
+
+function EmptyCommunity() {
+  return (
+    <div className="flex min-h-44 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-ludo-surface p-8 text-center">
+      <p className="text-sm font-semibold text-ludo-white-bright">
+        No public projects yet
+      </p>
+      <p className="max-w-xs text-xs leading-relaxed text-ludo-white-dim">
+        Nobody has shared anything so far. Publish one of yours and it shows up
+        here.
+      </p>
     </div>
   );
 }

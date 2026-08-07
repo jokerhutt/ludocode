@@ -1,6 +1,7 @@
-import type { HeroContentProps } from "@ludocode/design-system/zones/hero.tsx";
+import type { PageMastheadProps } from "@ludocode/design-system/zones/page-masthead.tsx";
 
-export const projectHeroContent: HeroContentProps = {
-  title: "My Projects",
-  subtitle: "Here you can create & share your own projects!",
+export const projectMastheadContent: Omit<PageMastheadProps, "children"> = {
+  eyebrow: "Your workbench",
+  title: "Projects",
+  subtitle: "Spin up a project, build something, then share it if you like",
 };
