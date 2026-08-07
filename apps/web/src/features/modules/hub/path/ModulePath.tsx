@@ -1,4 +1,7 @@
-import { LudoPath } from "@ludocode/design-system/widgets/ludo-path.tsx";
+import {
+  LudoPath,
+  type PathRail,
+} from "@ludocode/design-system/widgets/ludo-path.tsx";
 import type { LudoLesson } from "@ludocode/types";
 import {
   getLessonStatus,
@@ -27,29 +30,51 @@ export function ModulePath({
   nextModuleId,
   nextModuleTitle,
 }: ModulePathProps) {
+  const isReached = (lesson: LudoLesson) =>
+    lesson.isCompleted || lesson.id === currentLessonId;
+
+  const moduleComplete = lessons.every((lesson) => lesson.isCompleted);
+
   let normalLessonCount = 0;
-  const lessonRows = lessons.map((lesson) => {
+  const lessonRows = lessons.map((lesson, lessonIndex) => {
     const isGuided = lesson.lessonType === "GUIDED";
     const rowIndex = normalLessonCount;
     if (!isGuided) {
       normalLessonCount += 1;
     }
 
+    const nextLesson = lessons[lessonIndex + 1];
+
+    const railAbove: PathRail =
+      lessonIndex === 0 ? "none" : isReached(lesson) ? "lit" : "dim";
+
+    const railBelow: PathRail = nextLesson
+      ? isReached(nextLesson)
+        ? "lit"
+        : "dim"
+      : nextModuleId
+        ? moduleComplete
+          ? "lit"
+          : "dim"
+        : "none";
+
     return {
       lesson,
       rowIndex,
       isGuided,
+      railAbove,
+      railBelow,
     };
   });
 
   return (
     <LudoPath className="pb-6">
-      {lessonRows.map(({ lesson, rowIndex, isGuided }) => (
+      {lessonRows.map(({ lesson, rowIndex, isGuided, ...rail }) => (
         <LudoPath.Row
           key={lesson.id}
           index={rowIndex}
           fullSpan={isGuided}
-          isCurrent={currentLessonId === lesson.id}
+          {...rail}
           label={
             <LudoPath.Label
               step={rowIndex + 1}
@@ -68,7 +93,12 @@ export function ModulePath({
         </LudoPath.Row>
       ))}
       {nextModuleId && (
-        <LudoPath.Row className="mt-6" index={normalLessonCount} fullSpan>
+        <LudoPath.Row
+          className="mt-6"
+          index={normalLessonCount}
+          fullSpan
+          railAbove={moduleComplete ? "lit" : "dim"}
+        >
           <LudoPath.NextButton
             title={nextModuleTitle}
             dataTestId={testIds.module.nextButton}

@@ -16,14 +16,12 @@ function LudoPathRoot({ children, className }: LudoPathProps) {
         className,
       )}
     >
-      <span
-        aria-hidden
-        className="absolute inset-y-4 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-ludo-surface"
-      />
       {children}
     </div>
   );
 }
+
+export type PathRail = "none" | "dim" | "lit";
 
 type RowProps = {
   children: ReactNode;
@@ -31,8 +29,12 @@ type RowProps = {
   className?: string;
   fullSpan?: boolean;
   label?: ReactNode;
-  isCurrent?: boolean;
+  railAbove?: PathRail;
+  railBelow?: PathRail;
 };
+
+const railColor = (state: PathRail) =>
+  state === "lit" ? "bg-ludo-accent-muted" : "bg-ludo-surface";
 
 function Row({
   children,
@@ -40,8 +42,32 @@ function Row({
   className,
   fullSpan = false,
   label,
-  isCurrent = false,
+  railAbove = "none",
+  railBelow = "none",
 }: RowProps) {
+  const rail = (
+    <>
+      {railAbove !== "none" && (
+        <span
+          aria-hidden
+          className={cn(
+            "absolute left-1/2 -top-3 h-[calc(50%+0.75rem)] w-0.5 -translate-x-1/2 rounded-full",
+            railColor(railAbove),
+          )}
+        />
+      )}
+      {railBelow !== "none" && (
+        <span
+          aria-hidden
+          className={cn(
+            "absolute left-1/2 top-1/2 -bottom-3 w-0.5 -translate-x-1/2 rounded-full",
+            railColor(railBelow),
+          )}
+        />
+      )}
+    </>
+  );
+
   if (fullSpan) {
     return (
       <div
@@ -50,12 +76,16 @@ function Row({
           className,
         )}
       >
+        {rail}
         {children}
       </div>
     );
   }
 
   const nodeOnRight = index % 2 === 0;
+
+  const stubState: PathRail =
+    railAbove === "lit" || railBelow === "lit" ? "lit" : "dim";
 
   const node = (
     <div
@@ -68,7 +98,7 @@ function Row({
         aria-hidden
         className={cn(
           "absolute top-1/2 h-0.5 w-2 -translate-y-1/2",
-          isCurrent ? "bg-ludo-accent-muted" : "bg-ludo-surface",
+          railColor(stubState),
           nodeOnRight ? "left-0" : "right-0",
         )}
       />
@@ -94,6 +124,7 @@ function Row({
         className,
       )}
     >
+      {rail}
       {nodeOnRight ? side : node}
       {nodeOnRight ? node : side}
     </div>
