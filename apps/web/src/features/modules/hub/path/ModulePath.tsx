@@ -94,12 +94,12 @@ export function ModulePath({
       ))}
       {nextModuleId && (
         <LudoPath.Row
-          className="mt-6"
           index={normalLessonCount}
           fullSpan
           railAbove={moduleComplete ? "lit" : "dim"}
         >
           <LudoPath.NextButton
+            className="mt-6"
             title={nextModuleTitle}
             dataTestId={testIds.module.nextButton}
             onClick={() =>

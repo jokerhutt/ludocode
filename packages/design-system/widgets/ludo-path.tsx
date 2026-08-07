@@ -12,7 +12,7 @@ function LudoPathRoot({ children, className }: LudoPathProps) {
   return (
     <div
       className={cn(
-        "relative w-full max-w-72 lg:max-w-80 flex flex-col gap-4 lg:gap-6 items-center min-w-0",
+        "relative w-full max-w-72 lg:max-w-80 flex flex-col items-center min-w-0",
         className,
       )}
     >
@@ -51,7 +51,7 @@ function Row({
         <span
           aria-hidden
           className={cn(
-            "absolute left-1/2 -top-3 h-[calc(50%+0.75rem)] w-0.5 -translate-x-1/2 rounded-full",
+            "absolute left-1/2 top-0 h-1/2 w-0.5 -translate-x-1/2",
             railColor(railAbove),
           )}
         />
@@ -60,7 +60,7 @@ function Row({
         <span
           aria-hidden
           className={cn(
-            "absolute left-1/2 top-1/2 -bottom-3 w-0.5 -translate-x-1/2 rounded-full",
+            "absolute left-1/2 top-1/2 bottom-0 w-0.5 -translate-x-1/2",
             railColor(railBelow),
           )}
         />
@@ -72,7 +72,7 @@ function Row({
     return (
       <div
         className={cn(
-          "relative z-10 w-full min-w-0 flex items-center justify-center",
+          "relative z-10 w-full min-w-0 flex items-center justify-center py-2 lg:py-3",
           className,
         )}
       >
@@ -120,7 +120,7 @@ function Row({
   return (
     <div
       className={cn(
-        "relative z-10 w-full min-w-0 flex items-center",
+        "relative z-10 w-full min-w-0 flex items-center py-2 lg:py-3",
         className,
       )}
     >
