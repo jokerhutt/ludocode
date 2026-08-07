@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { LudoMenu } from "@ludocode/design-system/widgets/ludo-menu.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { RenameDialog } from "@ludocode/design-system/templates/dialog/rename-dialog.tsx";
+import { DescriptionDialog } from "@ludocode/design-system/templates/dialog/description-dialog.tsx";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog.tsx";
 
 type FileActionsMenuProps = {
@@ -13,6 +14,8 @@ type FileActionsMenuProps = {
   deleteItem: () => void;
   canDelete?: boolean;
   canRename?: boolean;
+  targetDescription?: string;
+  describeItem?: (oldDescription: string, newDescription: string) => void;
 };
 
 export function FileActionsMenu({
@@ -24,12 +27,14 @@ export function FileActionsMenu({
   deleteItem,
   canDelete = true,
   canRename = true,
+  targetDescription,
+  describeItem,
 }: FileActionsMenuProps) {
   return (
     <LudoMenu>
       <LudoMenu.Trigger>{trigger}</LudoMenu.Trigger>
 
-      <LudoMenu.Content  align="end">
+      <LudoMenu.Content align="end">
         {canRename && (
           <RenameDialog
             itemCategory={itemType}
@@ -49,6 +54,27 @@ export function FileActionsMenu({
               </LudoMenu.Row>
             </LudoMenu.Item>
           </RenameDialog>
+        )}
+
+        {describeItem && (
+          <DescriptionDialog
+            itemCategory={itemType}
+            key={`describe-${targetId}`}
+            itemDescription={targetDescription ?? ""}
+            onSubmit={describeItem}
+          >
+            <LudoMenu.Item closeOnSelect={false}>
+              <LudoMenu.Row>
+                <LudoMenu.Icon>
+                  <HeroIcon
+                    iconName="DocumentTextIcon"
+                    className="h-4 text-ludo-white-bright/70"
+                  />
+                </LudoMenu.Icon>
+                <LudoMenu.Label>Describe</LudoMenu.Label>
+              </LudoMenu.Row>
+            </LudoMenu.Item>
+          </DescriptionDialog>
         )}
 
         {canDelete && (

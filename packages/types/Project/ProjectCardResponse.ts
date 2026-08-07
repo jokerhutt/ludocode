@@ -10,6 +10,7 @@ export type ProjectCardResponse = {
   deleteAt?: string;
   visibility: ProjectVisibility;
   technologies: LanguageKey[];
+  description: string;
 };
 
 export type ProjectCardResponseList = {

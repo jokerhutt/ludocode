@@ -28,6 +28,18 @@ export function useRenameProject(pid: string) {
   });
 }
 
+export function useChangeProjectDescription(pid: string) {
+  const qc = useQueryClient();
+
+  return useMutation({
+    ...mutations.changeProjectDescription(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects() });
+      qc.invalidateQueries({ queryKey: qk.project(pid) });
+    },
+  });
+}
+
 export function useChangeProjectVisibility(pid: string) {
   const qc = useQueryClient();
 
@@ -55,6 +67,7 @@ export function useDeleteProject(pid: string) {
 export function useModifyProject(projectId: string) {
   const renameProjectMutation = useRenameProject(projectId);
   const deleteProjectMutation = useDeleteProject(projectId);
+  const changeDescriptionMutation = useChangeProjectDescription(projectId);
 
   const handleRenameProject = useCallback(
     (oldName: string, newName: string) => {
@@ -64,12 +77,24 @@ export function useModifyProject(projectId: string) {
     [projectId, renameProjectMutation],
   );
 
+  const handleChangeProjectDescription = useCallback(
+    (oldDescription: string, newDescription: string) => {
+      if (oldDescription === newDescription) return;
+      changeDescriptionMutation.mutate({
+        targetId: projectId,
+        newDescription: newDescription,
+      });
+    },
+    [projectId, changeDescriptionMutation],
+  );
+
   const handleDeleteProject = useCallback(() => {
     deleteProjectMutation.mutate();
   }, [deleteProjectMutation]);
 
   return {
     handleRenameProject,
+    handleChangeProjectDescription,
     handleDeleteProject,
   };
 }
