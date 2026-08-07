@@ -238,7 +238,10 @@ function ProjectActionsMenu({
             "hover:cursor-pointer rounded-full hover:text-ludo-accent-muted"
           }
         >
-          <HeroIcon className={"h-5 text-ludo-white"} iconName="EllipsisVerticalIcon" />
+          <HeroIcon
+            className={"h-5 text-ludo-white"}
+            iconName="EllipsisVerticalIcon"
+          />
         </div>
       }
       itemType={"project"}
@@ -267,6 +270,7 @@ function ProjectCopyButton({ projectId, userId }: ProjectRemixButtonProps) {
   return (
     <button
       type="button"
+      disabled={duplicateMutation.isPending}
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
