@@ -4,7 +4,7 @@ import { type LessonStatus } from "@ludocode/types";
 import { LudoButton } from "../primitives/ludo-button";
 import { CompletionRibbon } from "../primitives/ribbon";
 import { LockIcon } from "../primitives/custom-icon";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, PlayIcon, StarIcon } from "lucide-react";
 
 type LudoPathProps = { children: ReactNode; className?: string };
 
@@ -57,6 +57,29 @@ function CurrentRing() {
   );
 }
 
+const pathIcon =
+  "h-10 w-10 shrink-0 transition-[filter] duration-100 group-data-[state=open]:drop-shadow-none";
+
+const raisedIcon =
+  "drop-shadow-[0_2px_0_color-mix(in_srgb,var(--color-ludo-surface)_55%,black)]";
+
+const carvedIcon =
+  "drop-shadow-[0_1px_0_color-mix(in_srgb,var(--color-ludo-surface)_80%,white)]";
+
+function PathStateIcon({ state }: { state: LessonStatus }) {
+  if (state === "LOCKED") {
+    return <LockIcon className={cn(pathIcon, carvedIcon, "text-ludo-background")} />;
+  }
+
+  const Icon = state === "DEFAULT" ? PlayIcon : StarIcon;
+
+  return (
+    <Icon
+      className={cn(pathIcon, raisedIcon, "fill-current text-ludo-accent-muted")}
+    />
+  );
+}
+
 type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   state: LessonStatus;
   dataTestId?: string;
@@ -65,8 +88,6 @@ type PathButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 
 const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
   ({ dataTestId, state, isCurrent, className, ...props }, ref) => {
-    const isLocked = state === "LOCKED";
-
     return (
       <LudoButton
         data-testid={dataTestId}
@@ -83,7 +104,7 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
           <CompletionRibbon lessonState={state} />
         </div>
         {isCurrent && <CurrentRing />}
-        {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
+        <PathStateIcon state={state} />
       </LudoButton>
     );
   },
