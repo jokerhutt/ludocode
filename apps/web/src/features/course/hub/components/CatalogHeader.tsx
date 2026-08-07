@@ -5,7 +5,7 @@ export function CatalogHeader() {
     <PageMasthead
       eyebrow="Course library"
       title="Catalog"
-      subtitle="Browse all available courses and pick your next adventure"
+      subtitle="Browse all available courses and pick your next course"
     />
   );
 }

@@ -39,9 +39,9 @@ export function CommunityPage() {
       <Gutter desktopOnly />
       <div className="col-span-full lg:col-span-10 flex flex-col gap-6 justify-start min-w-0 pb-6">
         <PageMasthead
-          eyebrow="Built by learners"
+          eyebrow="Community creations"
           title="Community"
-          subtitle="Look through what everyone else is making, try it out, and make your own copy to try out your own ideas"
+          subtitle="See what others have built, try it out, or make your own version"
         />
 
         {publicProjects.length === 0 ? (
