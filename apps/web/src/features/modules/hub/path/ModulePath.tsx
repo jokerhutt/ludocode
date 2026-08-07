@@ -1,6 +1,9 @@
 import { LudoPath } from "@ludocode/design-system/widgets/ludo-path.tsx";
 import type { LudoLesson } from "@ludocode/types";
-import { useLessonButton } from "@/features/modules/hooks/useLessonButton.tsx";
+import {
+  getLessonStatus,
+  useLessonButton,
+} from "@/features/modules/hooks/useLessonButton.tsx";
 import { PathPopover } from "./PathPopover.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
@@ -42,7 +45,20 @@ export function ModulePath({
   return (
     <LudoPath className="pb-6">
       {lessonRows.map(({ lesson, rowIndex, isGuided }) => (
-        <LudoPath.Row key={lesson.id} index={rowIndex} fullSpan={isGuided}>
+        <LudoPath.Row
+          key={lesson.id}
+          index={rowIndex}
+          fullSpan={isGuided}
+          isCurrent={currentLessonId === lesson.id}
+          label={
+            <LudoPath.Label
+              step={rowIndex + 1}
+              title={lesson.title}
+              state={getLessonStatus(lesson, currentLessonId === lesson.id)}
+              isCurrent={currentLessonId === lesson.id}
+            />
+          }
+        >
           <ModulePathButton
             lesson={lesson}
             courseId={courseId}
@@ -52,7 +68,7 @@ export function ModulePath({
         </LudoPath.Row>
       ))}
       {nextModuleId && (
-        <LudoPath.Row className="mt-10" index={normalLessonCount}>
+        <LudoPath.Row className="mt-6" index={normalLessonCount} fullSpan>
           <LudoPath.NextButton
             title={nextModuleTitle}
             dataTestId={testIds.module.nextButton}
