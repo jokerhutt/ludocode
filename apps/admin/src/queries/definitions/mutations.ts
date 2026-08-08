@@ -9,7 +9,12 @@ import {
   type CurriculumDraftLessonForm,
   type LudoBannerSnapshot,
 } from "@ludocode/types";
-import type { ChangeCourseIconRequest, ChangeCourseStatusRequest, ChangeCourseTitleRequest } from "@/queries/mutations/courseMutations";
+import type {
+  ChangeCourseDescriptionRequest,
+  ChangeCourseIconRequest,
+  ChangeCourseStatusRequest,
+  ChangeCourseTitleRequest,
+} from "@/queries/mutations/courseMutations";
 import type { CreateBannerRequest } from "../mutations/bannerMutations";
 
 export const mutations = {
@@ -163,5 +168,18 @@ export const mutations = {
           true,
         ),
     });
+  },
+  changeCourseDescription: (courseId: string) => {
+    return mutationOptions<LudoCourse[], Error, ChangeCourseDescriptionRequest>(
+      {
+        mutationKey: ["changeCourseDescription"],
+        mutationFn: (variables) =>
+          ludoPut<LudoCourse[], ChangeCourseDescriptionRequest>(
+            adminApi.snapshots.byCourseCurriculumDescription(courseId),
+            variables,
+            true,
+          ),
+      },
+    );
   },
 };

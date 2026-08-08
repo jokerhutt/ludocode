@@ -7,7 +7,7 @@ export type LudoCourse = {
   courseStatus?: CourseStatus;
   courseIcon: string;
   codeLanguage?: LanguageKey;
-  description: string;
+  description?: string;
 };
 
 export type CourseType = "COURSE" | "SKILL_PATH";

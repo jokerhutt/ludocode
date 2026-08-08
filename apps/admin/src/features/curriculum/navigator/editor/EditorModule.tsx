@@ -1,4 +1,5 @@
 import { LudoInput } from "@ludocode/design-system/primitives/input.tsx";
+import { Textarea } from "@ludocode/external/ui/textarea.tsx";
 import type { CurriculumDraft, LanguageKey } from "@ludocode/types";
 import { withForm } from "../../types.ts";
 
@@ -55,6 +56,24 @@ export const EditorModule = withForm({
               disabled={!canDelete}
             />
           )}
+        </div>
+
+        <div className="border-b-3 border-b-ludo-border px-4 py-3">
+          <form.Field
+            name={`modules[${moduleIndex}].description`}
+            children={(field) => (
+              <Textarea
+                value={field.state.value ?? ""}
+                onChange={(e) =>
+                  field.handleChange(
+                    e.target.value.length ? e.target.value : null,
+                  )
+                }
+                placeholder="Module description shown to learners..."
+                className="bg-ludo-background border-transparent text-ludo-white-bright placeholder:text-ludoGray focus:ring-0 focus-visible:ring-0 min-h-16 resize-none"
+              />
+            )}
+          />
         </div>
 
         <SortableLessonContainer

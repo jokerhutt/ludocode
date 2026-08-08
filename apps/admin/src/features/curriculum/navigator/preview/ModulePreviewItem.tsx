@@ -6,6 +6,7 @@ import { LessonPreviewItem } from "./LessonPreviewItem.tsx";
 
 type ModulePreviewItemProps = {
   title: string;
+  description?: string | null;
   lessons: CurriculumDraftLessons;
   onLessonClick: (lesson: CurriculumDraftLesson) => void;
   onLessonNavigate?: (lesson: CurriculumDraftLesson) => void;
@@ -14,6 +15,7 @@ type ModulePreviewItemProps = {
 
 export function ModulePreviewItem({
   title,
+  description,
   lessons,
   onLessonClick,
   onLessonNavigate,
@@ -22,6 +24,9 @@ export function ModulePreviewItem({
   return (
     <div className="flex flex-col">
       <p>{title}</p>
+      {description && (
+        <p className="text-ludo-white-dim text-xs mt-1">{description}</p>
+      )}
       <div className="w-full flex flex-col gap-2 p-4">
         {lessons.map((lesson) => (
           <LessonPreviewItem

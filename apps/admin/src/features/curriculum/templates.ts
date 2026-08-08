@@ -12,6 +12,7 @@ import {
 export const createNewModuleTemplate = (): CurriculumDraftModule => ({
   id: crypto.randomUUID(),
   title: "Untitled Module",
+  description: null,
   lessons: [createNewLessonTemplate()],
 });
 

@@ -86,6 +86,7 @@ export function CurriculumPreview({
             onLessonClick={onLessonClick}
             onLessonNavigate={onLessonNavigate}
             title={module.title}
+            description={module.description}
             lessons={module.lessons}
           />
         ))}
