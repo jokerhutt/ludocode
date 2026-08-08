@@ -8,6 +8,8 @@ import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
 import { ModulePath } from "./path/ModulePath.tsx";
 import { ModulePathHeader } from "./path/ModulePathHeader.tsx";
+import { ModuleOverview } from "./overview/ModuleOverview.tsx";
+import { MobileModuleInfo } from "./overview/MobileModuleInfo.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 type ModulePageProps = {
@@ -50,13 +52,36 @@ export function ModulePage({
   return (
     <div
       className={cn(
-        "py-6 gap-12 lg:gap-20 2xl:gap-40 flex justify-center lg:justify-end",
+        "py-6 gap-12 lg:gap-20 flex justify-center lg:justify-end 2xl:justify-center",
         className,
       )}
     >
-      <div className="w-72 lg:w-80 max-w-full flex flex-col gap-4 lg:gap-6 items-center lg:px-0 min-w-0">
+      {currentModule && (
+        <MobileModuleInfo
+          moduleTitle={currentModule.title}
+          moduleIndex={i + 1}
+          moduleCount={modules.length}
+          completedLessons={completedLessons}
+          totalLessons={lessons.length}
+        />
+      )}
+      <div className="hidden 2xl:block w-90 shrink-0">
+        {currentModule && (
+          <div className="sticky top-6 pb-6">
+            <ModuleOverview
+              moduleTitle={currentModule.title}
+              moduleIndex={i + 1}
+              moduleCount={modules.length}
+              completedLessons={completedLessons}
+              totalLessons={lessons.length}
+            />
+          </div>
+        )}
+      </div>
+      <div className="w-72 lg:w-80 max-w-full flex flex-col gap-4 lg:gap-6 items-center min-w-0">
         {currentModule && (
           <ModulePathHeader
+            className="2xl:hidden"
             moduleTitle={currentModule.title}
             moduleIndex={i + 1}
             moduleCount={modules.length}
@@ -74,7 +99,7 @@ export function ModulePage({
           moduleId={moduleId}
         />
       </div>
-      <div className="hidden lg:block w-90  2xl:w-140 min-w-72 max-w-90 2xl:max-w-140">
+      <div className="hidden lg:block w-90 shrink-0">
         <div className="sticky pb-6 top-6">
           <ModuleNavigator
             currentModuleId={moduleId}
