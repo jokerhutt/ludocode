@@ -24,67 +24,64 @@ export function useProject({ project }: Args): UseProjectResponse {
 
   const deleteFile = useCallback(
     (path: string) => {
+      if (files.length <= 1) return;
+
+      const idx = files.findIndex((f) => f.path === path);
+      if (idx === -1) return;
+
+      if (files[idx].path === entryFileId) return;
+
       setFiles((prev) => {
-        if (prev.length <= 1) return prev;
-
-        const idx = prev.findIndex((f) => f.path === path);
-        if (idx === -1) return prev;
-
-        const fileBeingDeleted = prev[idx];
-
-        if (fileBeingDeleted.path === entryFileId) return prev;
-
         const next = prev.slice();
         next.splice(idx, 1);
-
-        setCurrent((cur) => {
-          if (cur < idx) return cur;
-          return Math.max(0, cur - 1);
-        });
-
         return next;
       });
+
+      setCurrent((cur) => {
+        if (cur < idx) return cur;
+        return Math.max(0, cur - 1);
+      });
     },
-    [entryFileId],
+    [entryFileId, files],
   );
 
   const renameFile = useCallback(
     (oldPath: string, newNameRaw: string) => {
+      const idx = files.findIndex((f) => f.path === oldPath);
+      if (idx === -1) return;
+
+      const file = files[idx];
+      const extension = Languages[file.language].extension
+
+      let base = newNameRaw.trim();
+      if (!base) return;
+
+      base = base.split("/").pop()!.split("\\").pop()!;
+
+      let finalName = base;
+      if (!finalName.endsWith(extension)) {
+        finalName = `${finalName}${extension}`;
+      }
+
+      const otherFiles = files.filter((_, i) => i !== idx);
+
+      const bare = finalName.endsWith(extension)
+        ? finalName.slice(0, -extension.length)
+        : finalName;
+
+      const uniqueName = nextName(otherFiles, bare, extension);
+
       setFiles((prev) => {
-        const idx = prev.findIndex((f) => f.path === oldPath);
-        if (idx === -1) return prev;
-
-        const file = prev[idx];
-        const extension = Languages[file.language].extension
-
-        let base = newNameRaw.trim();
-        if (!base) return prev;
-
-        base = base.split("/").pop()!.split("\\").pop()!;
-
-        let finalName = base;
-        if (!finalName.endsWith(extension)) {
-          finalName = `${finalName}${extension}`;
-        }
-
-        const otherFiles = prev.filter((_, i) => i !== idx);
-
-        const bare = finalName.endsWith(extension)
-          ? finalName.slice(0, -extension.length)
-          : finalName;
-
-        const uniqueName = nextName(otherFiles, bare, extension);
-
-        if (oldPath === entryFileId) {
-          setEntryFileId(uniqueName);
-        }
-
         const next = prev.slice();
-        next[idx] = { ...file, path: uniqueName };
+        next[idx] = { ...next[idx], path: uniqueName };
         return next;
       });
+
+      if (oldPath === entryFileId) {
+        setEntryFileId(uniqueName);
+      }
     },
-    [entryFileId],
+    [entryFileId, files],
   );
 
   const updateContent = useCallback(
@@ -100,21 +97,19 @@ export function useProject({ project }: Args): UseProjectResponse {
 
   const addFile = useCallback(
     (languageName: LanguageKey) => {
-      setFiles((fs) => {
-        const { base, extension } = Languages[languageName];
-        const name = nextName(fs, base, extension);
-        const file: ProjectFileSnapshot = {
-          tempId: crypto.randomUUID(),
-          path: `${name}`,
-          language: languageName,
-          content: "",
-        };
-        const next = [...fs, file];
-        setCurrent(next.length - 1);
-        return next;
-      });
+      const { base, extension } = Languages[languageName];
+      const name = nextName(files, base, extension);
+      const file: ProjectFileSnapshot = {
+        tempId: crypto.randomUUID(),
+        path: name,
+        language: languageName,
+        content: "",
+      };
+
+      setFiles((fs) => [...fs, file]);
+      setCurrent(files.length);
     },
-    [],
+    [files],
   );
 
   const resetToSnapshot = useCallback((snapshot: ProjectSnapshot) => {
