@@ -101,27 +101,23 @@ For enabling OAuth, AI, code execution, and other features, see the [full docume
 - Batched fetching using batshit
 - Form handling with Zod & TanStack Form
 
-## Screenshots
+## Previews
 
-### Learn page
+### Paths
 
-![alt text](docs/media/learn-preview.png)
+<img width="3024" height="1604" alt="ludocode dev_app_learn_312277a6-64bd-4fa4-bbf6-9aeea88a59ec_0b83682e-b3e4-46f0-b794-2b15002805c0" src="https://github.com/user-attachments/assets/d5e71000-8723-4b72-a4e9-a0f8afd50bf5" />
 
-### Exercise
+### Lessons
 
-![alt text](docs/media/exercise-preview.png)
+<img width="3024" height="1604" alt="ludocode dev_app_courses (1)" src="https://github.com/user-attachments/assets/6128a4ea-2cc2-4d99-9c51-8cd7b9681086" />
 
-### Code Editor
+### Guided Projects
 
-![alt text](docs/media/code-editor-preview.png)
+<img width="3024" height="1604" alt="ludocode dev_app_courses (3)" src="https://github.com/user-attachments/assets/85fe4b0f-1e57-4dad-9114-42119bc5371f" />
 
-### Course Editor
+### Web Editor
 
-![alt text](docs/media/course-editor-preview.png)
-
-### Exercise Editor
-
-![alt text](docs/media/exericse-editor-preview.png)
+<img width="3024" height="1604" alt="ludocode dev_app_courses" src="https://github.com/user-attachments/assets/d2a4d2c0-e0e3-49f8-8f37-af33af754c84" />
 
 ## Naming & Trademark
 
