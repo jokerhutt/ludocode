@@ -52,7 +52,7 @@ export function ModulePage({
   return (
     <div
       className={cn(
-        "py-6 gap-12 lg:gap-20 flex justify-center lg:justify-end 2xl:justify-center",
+        "py-6 gap-12 lg:gap-20 xl:gap-12 2xl:gap-16 flex justify-center lg:justify-end xl:justify-center",
         className,
       )}
     >
@@ -66,7 +66,7 @@ export function ModulePage({
           totalLessons={lessons.length}
         />
       )}
-      <div className="hidden 2xl:block w-90 shrink-0">
+      <div className="hidden xl:block w-64 2xl:w-80 shrink-0">
         {currentModule && (
           <div className="sticky top-6 pb-6">
             <ModuleOverview
@@ -83,7 +83,7 @@ export function ModulePage({
       <div className="w-72 lg:w-80 max-w-full flex flex-col gap-4 lg:gap-6 items-center min-w-0">
         {currentModule && (
           <ModulePathHeader
-            className="2xl:hidden"
+            className="xl:hidden"
             moduleTitle={currentModule.title}
             moduleIndex={i + 1}
             moduleCount={modules.length}
