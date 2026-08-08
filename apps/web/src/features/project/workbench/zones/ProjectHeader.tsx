@@ -5,12 +5,13 @@ import { SaveStatusIcon } from "@/features/project/workbench/components/SaveStat
 import { LudoHeader } from "@ludocode/design-system/zones/ludo-header.tsx";
 import { router } from "@/main.tsx";
 import type { ProjectMode } from "@/layouts/project/ProjectLayout";
-import { HeartIcon, LogIn } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { NavButton } from "@ludocode/design-system/primitives/NavButton.tsx";
 import { track } from "@/analytics/track";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { useHeaderBanners } from "@/features/banner/hooks/useHeaderBanners.ts";
 import { IconButton } from "@ludocode/design-system/primitives/icon-button";
+import { ProjectLikeButton } from "@/features/project/components/ProjectLikeButton.tsx";
 
 type ProjectHeaderProps = {
   mode?: ProjectMode;
@@ -22,7 +23,7 @@ export function ProjectHeader({
   authenticated,
 }: ProjectHeaderProps) {
   const { project } = useProjectContext();
-  const { projectName } = project;
+  const { projectName, projectId } = project;
   const { banners } = useHeaderBanners({
     localBanners: [],
   });
@@ -75,7 +76,12 @@ export function ProjectHeader({
               lastSavedAt={lastSavedAt}
             />
           ) : (
-            authenticated && mode == "READONLY" && <HeartIcon className="h-4" />
+            mode == "READONLY" && (
+              <ProjectLikeButton
+                projectId={projectId}
+                canLike={Boolean(authenticated)}
+              />
+            )
           )}
         </div>
         <div className="col-span-2 text-ludo-white-bright pr-2 lg:col-span-3 lg:pr-8">
