@@ -13,6 +13,15 @@ type Args = {
   isCurrent: boolean;
 };
 
+export function getLessonStatus(
+  lesson: LudoLesson,
+  isCurrent: boolean,
+): LessonStatus {
+  if (isCurrent) return "DEFAULT";
+  if (lesson.isCompleted) return "MASTERED";
+  return "LOCKED";
+}
+
 export function useLessonButton({
   lesson,
   courseId,
@@ -20,16 +29,9 @@ export function useLessonButton({
   isCurrent,
 }: Args) {
   const router = useRouter();
-  const isCompleted = lesson.isCompleted;
   const isLocked = !lesson.isCompleted && !isCurrent;
 
-  const lessonType: LessonStatus = isCurrent
-    ? "DEFAULT"
-    : isCompleted
-      ? "MASTERED"
-      : isLocked
-        ? "LOCKED"
-        : "DEFAULT";
+  const lessonType = getLessonStatus(lesson, isCurrent);
 
   const goToLesson = () => {
     if (isLocked) return;

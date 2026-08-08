@@ -25,7 +25,7 @@ export const Languages: Record<LanguageKey, LanguageMetadata> = {
     languageId: 1,
     name: "javascript",
     extension: ".js",
-    base: "web",
+    base: "script",
     iconName: "Javascript",
     initialScript: `console.log("Hello world");`,
     webAllowed: true,
@@ -42,7 +42,7 @@ export const Languages: Record<LanguageKey, LanguageMetadata> = {
     languageId: 3,
     name: "html",
     extension: ".html",
-    base: "web",
+    base: "page",
     iconName: "HTML",
     initialScript: `<!DOCTYPE html>
 <html>
@@ -61,7 +61,7 @@ export const Languages: Record<LanguageKey, LanguageMetadata> = {
     languageId: 4,
     name: "css",
     extension: ".css",
-    base: "web",
+    base: "style",
     iconName: "CSS",
     initialScript: `body { margin: 0; }`,
     webAllowed: true,

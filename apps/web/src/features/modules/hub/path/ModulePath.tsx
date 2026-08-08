@@ -1,6 +1,12 @@
-import { LudoPath } from "@ludocode/design-system/widgets/ludo-path.tsx";
+import {
+  LudoPath,
+  type PathRail,
+} from "@ludocode/design-system/widgets/ludo-path.tsx";
 import type { LudoLesson } from "@ludocode/types";
-import { useLessonButton } from "@/features/modules/hooks/useLessonButton.tsx";
+import {
+  getLessonStatus,
+  useLessonButton,
+} from "@/features/modules/hooks/useLessonButton.tsx";
 import { PathPopover } from "./PathPopover.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { router } from "@/main.tsx";
@@ -24,25 +30,60 @@ export function ModulePath({
   nextModuleId,
   nextModuleTitle,
 }: ModulePathProps) {
+  const isReached = (lesson: LudoLesson) =>
+    lesson.isCompleted || lesson.id === currentLessonId;
+
+  const moduleComplete = lessons.every((lesson) => lesson.isCompleted);
+
   let normalLessonCount = 0;
-  const lessonRows = lessons.map((lesson) => {
+  const lessonRows = lessons.map((lesson, lessonIndex) => {
     const isGuided = lesson.lessonType === "GUIDED";
     const rowIndex = normalLessonCount;
     if (!isGuided) {
       normalLessonCount += 1;
     }
 
+    const nextLesson = lessons[lessonIndex + 1];
+
+    const railAbove: PathRail =
+      lessonIndex === 0 ? "none" : isReached(lesson) ? "lit" : "dim";
+
+    const railBelow: PathRail = nextLesson
+      ? isReached(nextLesson)
+        ? "lit"
+        : "dim"
+      : nextModuleId
+        ? moduleComplete
+          ? "lit"
+          : "dim"
+        : "none";
+
     return {
       lesson,
       rowIndex,
       isGuided,
+      railAbove,
+      railBelow,
     };
   });
 
   return (
     <LudoPath className="pb-6">
-      {lessonRows.map(({ lesson, rowIndex, isGuided }) => (
-        <LudoPath.Row key={lesson.id} index={rowIndex} fullSpan={isGuided}>
+      {lessonRows.map(({ lesson, rowIndex, isGuided, ...rail }) => (
+        <LudoPath.Row
+          key={lesson.id}
+          index={rowIndex}
+          fullSpan={isGuided}
+          {...rail}
+          label={
+            <LudoPath.Label
+              step={rowIndex + 1}
+              title={lesson.title}
+              state={getLessonStatus(lesson, currentLessonId === lesson.id)}
+              isCurrent={currentLessonId === lesson.id}
+            />
+          }
+        >
           <ModulePathButton
             lesson={lesson}
             courseId={courseId}
@@ -52,8 +93,13 @@ export function ModulePath({
         </LudoPath.Row>
       ))}
       {nextModuleId && (
-        <LudoPath.Row className="mt-10" index={normalLessonCount}>
+        <LudoPath.Row
+          index={normalLessonCount}
+          fullSpan
+          railAbove={moduleComplete ? "lit" : "dim"}
+        >
           <LudoPath.NextButton
+            className="mt-6"
             title={nextModuleTitle}
             dataTestId={testIds.module.nextButton}
             onClick={() =>

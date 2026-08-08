@@ -18,7 +18,6 @@ import { qo } from "@/queries/definitions/queries.ts";
 import { useUserPreferencesContext } from "@/features/user/context/useUserPreferenceContext.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 import { useFeatureEnabledCheck } from "@/features/auth/hooks/useFeatureEnabledCheck.tsx";
-import { Play } from "lucide-react";
 import {
   Tooltip,
   TooltipTrigger,
@@ -120,8 +119,8 @@ export function WorkbenchTreePane({
                     isEntryFile ? (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="flex mr-1 items-center">
-                            <Play className="h-3 w-3 fill-ludo-amber-alt text-ludo-amber-alt" />
+                          <span className="mr-1 rounded-full border border-ludo-border px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-ludo-white-dim">
+                            entry
                           </span>
                         </TooltipTrigger>
                         <TooltipContent side="top" sideOffset={6}>
@@ -146,7 +145,7 @@ export function WorkbenchTreePane({
                         trigger={
                           <div
                             onClick={(e) => e.stopPropagation()}
-                            className="p-1 rounded-full hover:bg-ludo-accent-muted"
+                            className="rounded-md p-1 text-ludo-white-dim hover:bg-ludo-background hover:text-ludo-white-bright"
                           >
                             <HeroIcon
                               iconName="EllipsisVerticalIcon"

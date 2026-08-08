@@ -7,6 +7,7 @@ import { ModuleNavigator } from "./navigator/ModuleNavigator.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { getRouteApi, useRouter } from "@tanstack/react-router";
 import { ModulePath } from "./path/ModulePath.tsx";
+import { ModulePathHeader } from "./path/ModulePathHeader.tsx";
 import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 type ModulePageProps = {
@@ -24,13 +25,13 @@ export function ModulePage({
   moduleProgress,
   className,
 }: ModulePageProps) {
-  if (!course) return null;
-
-  const { id: courseId, title: courseTitle } = course;
-
   const routeApi = getRouteApi("/app/_hub/learn/$courseId/$moduleId");
   const router = useRouter();
   const { moduleId } = routeApi.useParams();
+
+  if (!course) return null;
+
+  const { id: courseId, title: courseTitle } = course;
 
   const selectModule = (selectedModuleId: string) => {
     if (moduleId === selectedModuleId) return;
@@ -43,6 +44,8 @@ export function ModulePage({
 
   const i = modules.findIndex((m) => m.id === moduleId);
   const nextModule = i >= 0 ? modules[i + 1] : undefined;
+  const currentModule = i >= 0 ? modules[i] : undefined;
+  const completedLessons = lessons.filter((l) => l.isCompleted).length;
 
   return (
     <div
@@ -51,7 +54,16 @@ export function ModulePage({
         className,
       )}
     >
-      <div className="w-60 flex flex-col lg:gap-8 items-center lg:px-0 min-w-0">
+      <div className="w-72 lg:w-80 max-w-full flex flex-col gap-4 lg:gap-6 items-center lg:px-0 min-w-0">
+        {currentModule && (
+          <ModulePathHeader
+            moduleTitle={currentModule.title}
+            moduleIndex={i + 1}
+            moduleCount={modules.length}
+            completedLessons={completedLessons}
+            totalLessons={lessons.length}
+          />
+        )}
         <ModulePath
           modulesLength={modules.length}
           lessons={lessons}

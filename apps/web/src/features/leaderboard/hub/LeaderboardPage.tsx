@@ -105,7 +105,7 @@ function NotQualifiedForLeaderboardPage({
     <div className="layout-grid col-span-full h-full min-h-0 overflow-y-auto px-6 py-6 text-ludo-white lg:px-0">
       <Gutter desktopOnly />
       <div className="col-span-full flex min-h-full min-w-0 items-center justify-center lg:col-span-10">
-        <div className="flex w-full max-w-4xl flex-col items-center gap-7 rounded-xl border border-ludo-border bg-ludo-surface-dim px-5 py-8 text-center shadow-[0_18px_50px_rgba(0,0,0,0.18)] lg:px-10 lg:py-10">
+        <div className="flex w-full max-w-4xl flex-col items-center gap-7 rounded-xl border border-ludo-border bg-ludo-surface-dim px-5 py-8 text-center shadow-[0_7px_0_#262E57] lg:px-10 lg:py-10">
           <div className="flex w-full max-w-xl flex-col items-center gap-4">
             <div className="relative flex h-24 w-24 items-center justify-center rounded-xl border border-ludo-white/10 bg-ludo-surface">
               <Trophy className="size-11 text-ludo-accent-muted" />
