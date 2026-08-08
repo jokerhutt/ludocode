@@ -65,6 +65,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
       modules: curriculumSnap.modules.map((m) => ({
         id: m.id,
         title: m.title,
+        description: m.description ?? null,
         lessons: m.lessons.map((l) => ({
           id: l.id,
           title: l.title,
@@ -268,6 +269,7 @@ export function CurriculumPage({}: CurriculumPageProps) {
                             modules: freshSnap.modules.map((m) => ({
                               id: m.id,
                               title: m.title,
+                              description: m.description ?? null,
                               lessons: m.lessons.map((l) => ({
                                 id: l.id,
                                 title: l.title,
