@@ -6,28 +6,39 @@ import { FeaturedCourseCard } from "@/features/course/hub/components/FeaturedCou
 import { SectionHeading } from "@ludocode/design-system/zones/page-masthead.tsx";
 import { useLoaderData } from "@tanstack/react-router";
 import type { LudoCourse } from "@ludocode/types";
-import { qo } from "@/queries/definitions/queries.ts";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { router } from "@/main";
+import { useCurrentCourseContext } from "../context/CurrentCourseContext";
 
 export function CoursePage() {
   const { availableCourses, enrolled } = useLoaderData({
     from: "/app/_hub/courses",
   });
   const changeCourseMutation = useChangeCourse();
-  const { data: currentCourseId } = useSuspenseQuery(qo.currentCourseId());
+
+  const courseProgress = useCurrentCourseContext();
 
   const enrolledSet = new Set<string>(enrolled);
 
   const currentCourse = availableCourses.find(
-    (course: LudoCourse) => course.id === currentCourseId,
+    (course: LudoCourse) => course.id === courseProgress.courseId,
   );
   const otherCourses = availableCourses.filter(
-    (course: LudoCourse) => course.id !== currentCourseId,
+    (course: LudoCourse) => course.id !== courseProgress.courseId,
   );
 
   const handleSelectCourse = (courseId: string) => {
     if (changeCourseMutation.isPending) return;
-    changeCourseMutation.mutate({ newCourseId: courseId });
+    if (courseProgress.courseId === courseId) {
+      router.navigate(
+        ludoNavigation.hub.module.toModule(
+          courseProgress.courseId,
+          courseProgress.moduleId,
+        ),
+      );
+    } else {
+      changeCourseMutation.mutate({ newCourseId: courseId });
+    }
   };
 
   return (
