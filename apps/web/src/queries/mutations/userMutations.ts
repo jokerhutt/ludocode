@@ -11,7 +11,7 @@ export function useChangeCourse() {
 
   return useMutation({
     ...mutations.changeCourse(),
-    onSuccess: (payload: ChangeCourseType) => {
+    onSuccess: async (payload: ChangeCourseType) => {
       const newCourseProgress = payload.courseProgress;
       const newEnrolled = payload.enrolled;
 
@@ -23,14 +23,18 @@ export function useChangeCourse() {
         qk.courseProgress(newCourseProgress.courseId),
         newCourseProgress,
       );
-      qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId);
-      qc.setQueryData(qk.enrolled(), newEnrolled);
-      router.navigate(
-        ludoNavigation.hub.module.toModule(
-          newCourseProgress.courseId,
-          newCourseProgress.moduleId,
-        ),
-      );
+
+      try {
+        await router.navigate(
+          ludoNavigation.hub.module.toModule(
+            newCourseProgress.courseId,
+            newCourseProgress.moduleId,
+          ),
+        );
+      } finally {
+        qc.setQueryData(qk.currentCourseId(), newCourseProgress.courseId);
+        qc.setQueryData(qk.enrolled(), newEnrolled);
+      }
     },
   });
 }

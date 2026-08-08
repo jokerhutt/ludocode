@@ -73,7 +73,7 @@ export function createApiPaths({
     },
 
     leaderboard: {
-      base: `${BASE}/leaderboard`
+      base: `${BASE}/leaderboard`,
     },
 
     progress: {
@@ -127,7 +127,8 @@ export function createApiPaths({
       byIdPublic: (projectId: string) => `${BASE}/projects/public/${projectId}`,
       like: (projectId: string) => `${BASE}/projects/${projectId}/like`,
       name: (projectId: string) => `${BASE}/projects/${projectId}/name`,
-      description: (projectId: string) => `${BASE}/projects/${projectId}/description`,
+      description: (projectId: string) =>
+        `${BASE}/projects/${projectId}/description`,
       visibility: (projectId: string) =>
         `${BASE}/projects/${projectId}/visibility`,
       duplicate: (projectId: string) =>
@@ -158,6 +159,8 @@ export function createApiPaths({
         `${ADMIN_BASE}/snapshots/${courseId}/icon`,
       byCourseCurriculumTitle: (courseId: string) =>
         `${ADMIN_BASE}/snapshots/${courseId}/title`,
+      byCourseCurriculumDescription: (courseId: string) =>
+        `${ADMIN_BASE}/snapshots/${courseId}/description`,
       byCourse: (courseId: string) => `${ADMIN_BASE}/snapshots/${courseId}`,
     },
 

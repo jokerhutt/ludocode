@@ -22,6 +22,26 @@ export function useChangeCourseTitle({ courseId }: ChangeCourseTitleArgs) {
   });
 }
 
+type ChangeCourseDescriptionArgs = {
+  courseId: string;
+};
+
+export type ChangeCourseDescriptionRequest = {
+  description: string;
+};
+
+export function useChangeCourseDescription({
+  courseId,
+}: ChangeCourseDescriptionArgs) {
+  const qc = useQueryClient();
+  return useMutation({
+    ...mutations.changeCourseDescription(courseId),
+    onSuccess: (payload: LudoCourse[]) => {
+      qc.setQueryData(qk.courses(), payload);
+    },
+  });
+}
+
 type ChangeCourseIconArgs = {
   courseId: string;
 };

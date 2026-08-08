@@ -160,6 +160,7 @@ export const curriculumDraftSchema = z.object({
     z.object({
       id: z.string(),
       title: z.string().min(1, "Module title required"),
+      description: z.string().nullable(),
       lessons: z.array(CurriculumDraftNavigatorLessonSchema),
     }),
   ),

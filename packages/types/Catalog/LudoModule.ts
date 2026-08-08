@@ -3,4 +3,5 @@ export type LudoModule = {
     title: string;
     courseId: string;
     orderIndex: number;
+    description?: string;
 }
