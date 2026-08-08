@@ -61,6 +61,7 @@ export function ModulePage({
           moduleTitle={currentModule.title}
           moduleIndex={i + 1}
           moduleCount={modules.length}
+          description={currentModule.description}
           completedLessons={completedLessons}
           totalLessons={lessons.length}
         />
@@ -72,6 +73,7 @@ export function ModulePage({
               moduleTitle={currentModule.title}
               moduleIndex={i + 1}
               moduleCount={modules.length}
+              description={currentModule.description}
               completedLessons={completedLessons}
               totalLessons={lessons.length}
             />

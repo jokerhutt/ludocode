@@ -1,25 +1,26 @@
 import { ProgressSummary } from "@ludocode/design-system/primitives/progress-summary.tsx";
 
-const MOCK_MODULE_DESCRIPTION =
-  "Work through the lessons in order to pick up the ideas this module is built on, then put them together in a guided project. Each step unlocks the next one, so you can always drop in where you left off.";
-
 type ModuleOverviewBodyProps = {
+  description?: string | null;
   completedLessons: number;
   totalLessons: number;
 };
 
 export function ModuleOverviewBody({
+  description,
   completedLessons,
   totalLessons,
 }: ModuleOverviewBodyProps) {
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-sm leading-relaxed text-ludo-white-dim">
-        {MOCK_MODULE_DESCRIPTION}
-      </p>
+      {description && (
+        <p className="text-sm leading-relaxed text-ludo-white-dim">
+          {description}
+        </p>
+      )}
 
       <div className="flex flex-col gap-2">
-        <div className="h-px w-full bg-ludo-surface" />
+        {description && <div className="h-px w-full bg-ludo-surface" />}
         <ProgressSummary
           className="w-full"
           variant="col"
@@ -43,6 +44,7 @@ export function ModuleOverview({
   moduleTitle,
   moduleIndex,
   moduleCount,
+  description,
   completedLessons,
   totalLessons,
 }: ModuleOverviewProps) {
@@ -58,6 +60,7 @@ export function ModuleOverview({
       </div>
 
       <ModuleOverviewBody
+        description={description}
         completedLessons={completedLessons}
         totalLessons={totalLessons}
       />

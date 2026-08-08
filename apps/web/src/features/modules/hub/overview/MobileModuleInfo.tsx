@@ -8,6 +8,7 @@ type MobileModuleInfoProps = {
   moduleTitle: string;
   moduleIndex: number;
   moduleCount: number;
+  description?: string | null;
   completedLessons: number;
   totalLessons: number;
 };
@@ -16,10 +17,13 @@ export function MobileModuleInfo({
   moduleTitle,
   moduleIndex,
   moduleCount,
+  description,
   completedLessons,
   totalLessons,
 }: MobileModuleInfoProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  if (!description) return null;
 
   return (
     <>
@@ -45,6 +49,7 @@ export function MobileModuleInfo({
 
         <LudoSlideOver.Content>
           <ModuleOverviewBody
+            description={description}
             completedLessons={completedLessons}
             totalLessons={totalLessons}
           />
