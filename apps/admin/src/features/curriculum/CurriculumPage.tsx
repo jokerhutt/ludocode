@@ -9,7 +9,10 @@ import {
   type CurriculumDraftLesson,
 } from "@ludocode/types";
 import { useAppForm } from "./types";
-import { useUpdateCourse, useUpdateYamlCourse } from "@/queries/mutations/curriculumMutations";
+import {
+  useUpdateCourse,
+  useUpdateYamlCourse,
+} from "@/queries/mutations/curriculumMutations";
 import { CurriculumPreview } from "@/features/curriculum/navigator/preview/CurriculumPreview.tsx";
 import { CurriculumEditor } from "@/features/curriculum/navigator/editor/CurriculumEditor.tsx";
 import { LessonDetailPreview } from "@/features/curriculum/detail/preview/LessonDetailPreview.tsx";
@@ -19,10 +22,16 @@ import { adminNavigation } from "@/constants/adminNavigation";
 import { adminApi } from "@/constants/api/adminApi";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 import { RenameDialog } from "@ludocode/design-system/templates/dialog/rename-dialog";
+import { DescriptionDialog } from "@ludocode/design-system/templates/dialog/description-dialog";
 import { CourseStatusBadge } from "@/features/curriculum/components/CourseStatusBadge.tsx";
-import { useChangeCourseStatus, useChangeCourseTitle, useDeleteCourse } from "@/queries/mutations/courseMutations";
+import {
+  useChangeCourseDescription,
+  useChangeCourseStatus,
+  useChangeCourseTitle,
+  useDeleteCourse,
+} from "@/queries/mutations/courseMutations";
 import type { CourseStatus } from "@ludocode/types";
-import { Archive, Globe, Pencil, TrashIcon } from "lucide-react";
+import { AlignLeft, Archive, Globe, Pencil, TrashIcon } from "lucide-react";
 
 type CurriculumPageProps = {};
 
@@ -40,6 +49,8 @@ export function CurriculumPage({}: CurriculumPageProps) {
 
   const courseLanguage = courses.find((c) => c.id == courseId)?.codeLanguage;
 
+  const courseDescription = courses.find((c) => c.id === courseId)?.description;
+
   const courseIcon = courses.find((c) => c.id === courseId)?.courseIcon;
 
   const courseStatus: CourseStatus =
@@ -48,6 +59,9 @@ export function CurriculumPage({}: CurriculumPageProps) {
   const changeCourseStatus = useChangeCourseStatus({ courseId });
   const deleteCourseMutation = useDeleteCourse({ courseId });
   const changeCourseTitleMutation = useChangeCourseTitle({ courseId });
+  const changeCourseDescriptionMutation = useChangeCourseDescription({
+    courseId,
+  });
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -149,6 +163,12 @@ export function CurriculumPage({}: CurriculumPageProps) {
               <CourseStatusBadge status={courseStatus} />
             </div>
 
+            {courseDescription && (
+              <p className="text-ludo-white-dim max-w-2xl text-sm">
+                {courseDescription}
+              </p>
+            )}
+
             <div className="flex items-center gap-3">
               <RenameDialog
                 itemName={courseName}
@@ -165,6 +185,24 @@ export function CurriculumPage({}: CurriculumPageProps) {
                   Rename
                 </button>
               </RenameDialog>
+
+              <DescriptionDialog
+                itemDescription={courseDescription ?? ""}
+                itemCategory="Course"
+                onSubmit={(_old, newDescription) => {
+                  changeCourseDescriptionMutation.mutate({
+                    description: newDescription,
+                  });
+                }}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-2 rounded-md border border-ludo-accent-muted/40 bg-transparent px-4 py-2 text-sm font-medium text-ludo-white transition hover:bg-ludo-surface disabled:opacity-50"
+                >
+                  <AlignLeft className="h-4 w-4" />
+                  {courseDescription ? "Edit description" : "Add description"}
+                </button>
+              </DescriptionDialog>
 
               {courseStatus === "DRAFT" && (
                 <>
