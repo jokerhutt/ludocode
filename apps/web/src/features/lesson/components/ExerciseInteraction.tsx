@@ -5,7 +5,7 @@ import type { AnswerToken } from "@ludocode/types";
 import { useIsMobile } from "@ludocode/hooks";
 import { LudoCodePreview } from "@ludocode/design-system/widgets/ludo-code-preview.tsx";
 import { LudoOption } from "@ludocode/design-system/primitives/ludo-option.tsx";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 export type OptionLayout = "ROW" | "COLUMN";
 export type SelectionMode = "APPEND" | "REPLACE";
@@ -56,6 +56,26 @@ export function ExerciseInteraction({
   const optionsLayout: OptionLayout =
     exerciseType == "CLOZE" ? "ROW" : "COLUMN";
 
+  useEffect(() => {
+    if (optionsLayout !== "COLUMN") return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.target instanceof HTMLElement &&
+        event.target.closest("input, textarea, [contenteditable]")
+      )
+        return;
+
+      const option = options[Number(event.key) - 1];
+      if (!option) return;
+
+      replaceAnswerAt(0, { id: option.id, value: option.content });
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [optionsLayout, options, replaceAnswerAt]);
+
   return (
     <div
       className={cn("flex flex-col w-full items-center justify-start gap-8")}
@@ -89,7 +109,7 @@ export function ExerciseInteraction({
       )}
 
       <OptionListWrapper className="lg:max-w-xl max-w-xl" type={optionsLayout}>
-        {options.map((option) => {
+        {options.map((option, idx) => {
           const isSelected =
             currentExerciseInputs.find((t) => t.id === option.id) != null;
 
@@ -100,6 +120,7 @@ export function ExerciseInteraction({
                 variant="pill"
                 enabled={!isSelected}
                 content={option.content}
+                index={idx}
                 isSelected={isSelected}
                 onSelect={() =>
                   handleSelect({ id: option.id, value: option.content })
@@ -117,6 +138,7 @@ export function ExerciseInteraction({
                 isComplete ? "CORRECT" : isIncorrect ? "INCORRECT" : "DEFAULT"
               }
               option={option}
+              index={idx}
               userSelections={currentExerciseInputs}
               setAnswerAt={replaceAnswerAt}
             />
