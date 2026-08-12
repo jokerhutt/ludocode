@@ -40,7 +40,7 @@
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --border: #22273e;
+  --border: #1a1f33;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -76,7 +76,7 @@
 
 .chatbot-content pre {
   padding: 12px;
-  background: #22273e !important;
+  background: #1a1f33 !important;
   border: 1px solid #2a304f !important;
   border-radius: 0px !important;
   white-space: pre-wrap !important;
