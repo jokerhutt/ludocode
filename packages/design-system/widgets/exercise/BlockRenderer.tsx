@@ -46,7 +46,14 @@ export function BlockRenderer({
   switch (block.type) {
     case "header":
       return (
-        <h2 className="text-ludo-white-bright text-center text-lg sm:text-xl lg:max-w-xl font-semibold leading-snug">
+        <h2
+          className={cn(
+            "text-ludo-white-bright font-semibold leading-snug",
+            lessonType == "NORMAL"
+              ? "text-center text-lg sm:text-xl lg:max-w-xl"
+              : "w-full text-start text-base sm:text-lg",
+          )}
+        >
           <ReactMarkdown components={headerComponents}>
             {block.content}
           </ReactMarkdown>
@@ -87,18 +94,23 @@ export function BlockRenderer({
       return <ExerciseMedia media={block.src} />;
     case "instructions":
       return (
-        <div className="flex flex-col gap-2 w-full lg:max-w-xl">
+        <ol className="flex flex-col gap-2 w-full lg:max-w-xl">
           {block.instructions.map((step, idx) => (
-            <div key={idx} className="flex w-full items-start gap-2">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center text-ludo-white-bright">
-                <span className="h-1 w-1 rounded-full bg-current" />
+            <li
+              key={idx}
+              className="flex w-full items-start gap-3 rounded-lg bg-ludo-background/50 px-3 py-2.5"
+            >
+              <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-ludo-surface text-[11px] font-bold tabular-nums text-ludo-accent-muted">
+                {idx + 1}
               </span>
-              <p className="min-w-0 flex-1 text-left text-sm leading-relaxed text-ludo-white">
-                {step}
-              </p>
-            </div>
+              <div className="min-w-0 flex-1 text-left text-sm leading-relaxed text-ludo-white-bright/90">
+                <ReactMarkdown components={paragraphComponents}>
+                  {step}
+                </ReactMarkdown>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       );
     default:
       return null;

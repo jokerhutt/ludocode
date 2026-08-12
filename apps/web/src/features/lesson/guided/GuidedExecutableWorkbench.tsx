@@ -1,5 +1,5 @@
 import { getRouteApi } from "@tanstack/react-router";
-import { useHotkeys, useIsMobile } from "@ludocode/hooks";
+import { useHotkeys } from "@ludocode/hooks";
 import {
   useLessonEvaluation,
   useLessonExercise,
@@ -25,6 +25,7 @@ import { cn } from "@ludocode/design-system/cn-utils";
 import { buildProjectSystemPrompt } from "@ludocode/design-system/widgets/chatbot/chatbotSystemPrompts";
 import { useGuidedExercise } from "@/features/lesson/guided/context/useGuidedExerciseContext.tsx";
 import { GuidedLessonActions } from "./components/GuidedLessonActions";
+import { GuidedProjectFeedbackPopover } from "./components/GuidedProjectFeedbackPopover";
 import { MobileTabs, useMobileTabs } from "@ludocode/design-system/primitives/mobile-tabs"
 import { PaneResizeHandle } from "@/features/project/workbench/components/PaneResizeHandle";
 import { useResizableSidePanes } from "@/features/project/hooks/useResizableSidePanes";
@@ -63,7 +64,6 @@ export function GuidedExecutableWorkbench({
   } = useProjectContext();
   const { runCode, stopCode, outputInfo } = useCodeRunnerContext();
   const runnerFeature = useFeatureEnabledCheck({ feature: "isPistonEnabled" });
-  const isMobile = useIsMobile({});
   const { isDesktop, left, right } = useResizableSidePanes();
   const { isRunning, outputLog } = outputInfo;
 
@@ -79,16 +79,16 @@ export function GuidedExecutableWorkbench({
   }, [currentExercise.id]);
 
   useEffect(() => {
-    if (isMobile) {
+    if (!isDesktop) {
       setMobilePane("instructions");
     }
-  }, [currentExercise.id, isMobile]);
+  }, [currentExercise.id, isDesktop]);
 
   useEffect(() => {
-    if (isMobile && isRunning) {
+    if (!isDesktop && isRunning) {
       setMobilePane("output");
     }
-  }, [isMobile, isRunning, setMobilePane]);
+  }, [isDesktop, isRunning, setMobilePane]);
 
   const systemPrompt = useMemo(
     () => buildProjectSystemPrompt(currentExercise, project),
@@ -254,6 +254,7 @@ export function GuidedExecutableWorkbench({
         currentExercise={currentExercise}
         showBlockOutput={showBlockOutput}
         systemPrompt={systemPrompt}
+        isComplete={isComplete}
         className={cn(
           mobilePane === "instructions" ? "flex-1" : "hidden",
           "transform-none transition-none animate-none",
@@ -278,6 +279,7 @@ export function GuidedExecutableWorkbench({
         isEditorReadOnly={isEditorReadOnly}
         canReset={canReset}
         onReset={onReset}
+        showFeedback={isDesktop}
         solutionHint={
           showSolutionHint
             ? {
@@ -332,7 +334,16 @@ export function GuidedExecutableWorkbench({
         style={right.style}
       />
 
-      <div className="lg:hidden border-t border-ludo-surface">
+      <div className="lg:hidden border-t border-ludo-surface bg-ludo-background">
+        {!isDesktop && (
+          <GuidedProjectFeedbackPopover
+            layout="inline"
+            showCorrectFeedback={isComplete}
+            showIncorrectFeedback={isIncorrect}
+            incorrectFeedbackMessage={incorrectFeedbackMessage}
+            onDismissIncorrectFeedback={dismissIncorrectFeedback}
+          />
+        )}
         <div className="px-4 py-2">
           <MobileTabs
             value={mobilePane}
@@ -343,7 +354,7 @@ export function GuidedExecutableWorkbench({
             <MobileTabs.Tab value="output">Output</MobileTabs.Tab>
           </MobileTabs>
         </div>
-        <div className="px-4 w-full flex items-center justify-between gap-2 pb-3 pt-1">
+        <div className="px-4 w-full flex items-center gap-3 pb-4 pt-1">
           <GuidedLessonActions
             canGoBack={canGoBack}
             onGoBack={onGoBack}

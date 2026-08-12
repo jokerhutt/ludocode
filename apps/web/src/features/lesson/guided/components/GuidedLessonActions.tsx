@@ -1,5 +1,11 @@
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
-import { RotateCcwIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  PlayIcon,
+  RotateCcwIcon,
+  SquareIcon,
+} from "lucide-react";
 import { cn } from "@ludocode/design-system/cn-utils";
 import { SolutionHintDialog } from "./SolutionHintDialog";
 import { testIds } from "@ludocode/util/test-ids";
@@ -47,18 +53,22 @@ export function GuidedLessonActions({
         ? "RETRY"
         : "SUBMIT";
 
+  const SubmitIcon = isComplete && !isRunning ? ArrowRightIcon : null;
+
   return (
     <>
-      <div className="flex gap-4 items-center h-10">
+      <div className="flex gap-2 items-center">
         <LudoButton
           type="button"
           variant="default"
           shadow={false}
           disabled={!canGoBack}
           onClick={onGoBack}
-          className="h-10 px-4"
+          aria-label="Previous exercise"
+          className="h-11 lg:h-10 w-11 lg:w-auto lg:px-4 lg:gap-2 text-sm font-bold"
         >
-          BACK
+          <ChevronLeftIcon className="h-4 w-4" strokeWidth={2.5} />
+          <span className="hidden lg:inline">BACK</span>
         </LudoButton>
 
         <LudoButton
@@ -67,35 +77,47 @@ export function GuidedLessonActions({
           shadow={false}
           disabled={!canReset}
           onClick={onReset}
-          className="h-10 px-4 hidden lg:flex"
+          aria-label="Reset code"
+          className="h-10 w-10 px-0 hidden lg:flex"
         >
           <RotateCcwIcon className="h-4 w-4" />
         </LudoButton>
       </div>
-      <div className="h-10 flex items-center gap-2">
+
+      <div className="flex flex-1 items-center justify-end gap-2 lg:flex-none">
         <div className="hidden lg:block">
           {solutionHint && <SolutionHintDialog {...solutionHint} />}
         </div>
+
         <LudoButton
           onClick={runOnly}
-          variant={isRunning ? "default" : "alt"}
-          shadow={false}
+          variant="default"
           disabled={runDisabled}
-          className={cn("h-10 py-0.5 lg:px-4 min-w-20 lg:min-w-24")}
+          className={cn(
+            "h-11 lg:h-10 w-auto px-4 lg:px-5 gap-2 text-sm font-bold",
+          )}
         >
-          {isRunning ? "STOP" : "RUN"}
+          {isRunning ? (
+            <SquareIcon className="h-3.5 w-3.5 fill-current" />
+          ) : (
+            <PlayIcon className="h-3.5 w-3.5 fill-current" />
+          )}
+          <span>{isRunning ? "STOP" : "RUN"}</span>
         </LudoButton>
+
         <LudoButton
           data-testid={testIds.guided.runCodeButton}
           onClick={runOrAdvance}
-          variant={isRunning ? "default" : "alt"}
-          shadow={false}
+          variant="alt"
           disabled={submitDisabled}
-          className={cn("h-10 py-0.5 lg:px-4 min-w-24 lg:min-w-34")}
+          className={cn(
+            "h-11 lg:h-10 flex-1 lg:flex-none min-w-28 lg:min-w-36 lg:w-auto px-4 lg:px-5 gap-2 text-sm font-bold",
+          )}
         >
           <span data-testid={testIds.guided.runCodeButtonText}>
             {submitLabel}
           </span>
+          {SubmitIcon && <SubmitIcon className="h-4 w-4" strokeWidth={2.5} />}
         </LudoButton>
       </div>
     </>
