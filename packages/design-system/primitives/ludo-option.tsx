@@ -15,6 +15,7 @@ type PillProps = BaseProps & {
   content: string;
   isSelected: boolean;
   onSelect: () => void;
+  index: number;
   testId?: string;
 };
 
@@ -23,6 +24,7 @@ type WideSingleSelectProps = BaseProps & {
   option: { id: string; content: string };
   userSelections: AnswerToken[];
   setAnswerAt: (index: number, value: AnswerToken) => void;
+  index: number;
   testId?: string;
 };
 
@@ -72,8 +74,8 @@ export function LudoOption(props: LudoOptionProps) {
       }
       onClick={handleClick}
       className={cn(
-        "py-2.5 px-5 code rounded-xl lg:transition-all lg:active:translate-y-[3px] lg:duration-100 transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation select-none",
-        isWide && "w-full",
+        "relative py-2.5 px-5 code rounded-xl lg:transition-all lg:active:translate-y-[3px] lg:duration-100 transition-[transform] duration-100 transform-gpu will-change-transform touch-action-manipulation select-none",
+        isWide && "w-full px-12",
         "hover:cursor-pointer active:shadow-none",
         isSelected
           ? isWide
@@ -85,6 +87,11 @@ export function LudoOption(props: LudoOptionProps) {
         isWide ? "text-center text-ludo-white-bright" : "text-md",
       )}
     >
+      {isWide && (
+        <span className="absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-md bg-white/8 text-[11px] text-ludo-white-dim">
+          {props.index + 1}
+        </span>
+      )}
       {content}
     </button>
   );
