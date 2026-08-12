@@ -44,7 +44,12 @@ function MobileTabsRoot({
 
   return (
     <MobileTabsContext.Provider value={contextValue}>
-      <div className={cn("flex items-center justify-between gap-2", className)}>
+      <div
+        className={cn(
+          "flex items-center justify-between gap-1 rounded-lg bg-ludo-surface/25 p-1",
+          className,
+        )}
+      >
         {children}
       </div>
     </MobileTabsContext.Provider>
@@ -55,7 +60,7 @@ function MobileTabsTab({
   value,
   className,
   activeClassName = "bg-ludo-surface text-ludo-white-bright",
-  inactiveClassName = "bg-transparent text-ludo-white/90",
+  inactiveClassName = "bg-transparent text-ludo-white/80 hover:text-ludo-white-bright",
   badge,
   children,
 }: MobileTabsTabProps) {
@@ -71,7 +76,7 @@ function MobileTabsTab({
       type="button"
       onClick={() => ctx.onValueChange(value)}
       className={cn(
-        "relative h-8 rounded-md px-3 flex-1 text-sm font-semibold",
+        "relative h-8 rounded-md px-3 flex-1 text-sm font-semibold transition-colors",
         isActive ? activeClassName : inactiveClassName,
         className,
       )}

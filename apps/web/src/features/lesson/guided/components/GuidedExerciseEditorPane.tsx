@@ -25,6 +25,7 @@ type GuidedExerciseEditorPaneProps = {
   isEditorReadOnly: boolean;
   canReset: boolean;
   onReset: () => void;
+  showFeedback: boolean;
   solutionHint?: SolutionHint | null;
   children: ReactNode;
   className?: string;
@@ -39,14 +40,15 @@ export function GuidedExerciseEditorPane({
   isEditorReadOnly,
   canReset,
   onReset,
+  showFeedback,
   solutionHint,
   children,
   className,
 }: GuidedExerciseEditorPaneProps) {
   const { files, current, setCurrent } = useProjectContext();
 
-  const showCorrectFeedback = isComplete;
-  const showIncorrectFeedback = isIncorrect;
+  const showCorrectFeedback = showFeedback && isComplete;
+  const showIncorrectFeedback = showFeedback && isIncorrect;
 
   return (
     <Workbench.Pane
@@ -71,12 +73,15 @@ export function GuidedExerciseEditorPane({
           })}
         </LudoTab.Group>
         <div className="flex items-center gap-2 lg:hidden ml-auto">
-          {solutionHint && <SolutionHintDialog {...solutionHint} />}
+          {solutionHint && (
+            <SolutionHintDialog {...solutionHint} triggerClassName="h-9 w-9" />
+          )}
           <button
             type="button"
             disabled={!canReset}
             onClick={onReset}
-            className="h-10 w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            className="h-9 w-9 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            aria-label="Reset code"
             title="Reset code"
           >
             <RotateCcwIcon className="h-4 w-4" />
@@ -89,16 +94,14 @@ export function GuidedExerciseEditorPane({
         readOnly={isEditorReadOnly}
       />
 
-      {(showCorrectFeedback || showIncorrectFeedback) && (
-        <GuidedProjectFeedbackPopover
-          showCorrectFeedback={showCorrectFeedback}
-          showIncorrectFeedback={showIncorrectFeedback}
-          incorrectFeedbackMessage={incorrectFeedbackMessage}
-          onDismissIncorrectFeedback={onDismissIncorrectFeedback}
-        />
-      )}
+      <GuidedProjectFeedbackPopover
+        showCorrectFeedback={showCorrectFeedback}
+        showIncorrectFeedback={showIncorrectFeedback}
+        incorrectFeedbackMessage={incorrectFeedbackMessage}
+        onDismissIncorrectFeedback={onDismissIncorrectFeedback}
+      />
 
-      <div className="absolute bottom-16 lg:bottom-10 w-full px-6 lg:px-10 z-10 hidden lg:flex items-center justify-between gap-2">
+      <div className="absolute bottom-16 lg:bottom-10 w-full px-6 lg:px-10 z-10 hidden lg:flex items-center justify-between gap-3">
         {children}
       </div>
     </Workbench.Pane>

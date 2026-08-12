@@ -21,11 +21,11 @@ body {
     @apply border-border outline-ring/50;
   }
   html {
-    background: #22273e;
+    background: #1a1f33;
   }
   body {
-    @apply text-foreground;
-    background: #22273e;
+    background: #1a1f33;
+    color: var(--color-ludo-white);
     overscroll-behavior: none;
     height: 100%;
     overflow: hidden;

@@ -1,4 +1,5 @@
 import { DiffEditor } from "@monaco-editor/react";
+import { cn } from "@ludocode/design-system/cn-utils";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoDialog } from "@ludocode/design-system/widgets/ludo-dialog";
 import { DialogTitle } from "@ludocode/external/ui/dialog";
@@ -12,6 +13,7 @@ type SolutionHintDialogProps = {
   solution: string;
   languageId: string;
   onApplySolution: () => void;
+  triggerClassName?: string;
 };
 
 export function SolutionHintDialog({
@@ -19,6 +21,7 @@ export function SolutionHintDialog({
   solution,
   languageId,
   onApplySolution,
+  triggerClassName,
 }: SolutionHintDialogProps) {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile({});
@@ -37,10 +40,14 @@ export function SolutionHintDialog({
       trigger={
         <button
           type="button"
-          className="h-10 hover:cursor-pointer w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-white-bright transition-colors"
+          className={cn(
+            "h-10 hover:cursor-pointer w-10 flex items-center justify-center rounded-md bg-ludo-surface hover:bg-ludo-surface-hover text-ludo-amber-alt transition-colors",
+            triggerClassName,
+          )}
+          aria-label="View reference solution"
           title="View reference solution"
         >
-          <LightbulbIcon className="h-5 w-5" />
+          <LightbulbIcon className="h-4.5 w-4.5" />
         </button>
       }
     >

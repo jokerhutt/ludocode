@@ -9,8 +9,8 @@ export function useMonacoTheme() {
       inherit: true,
       rules: [],
       colors: {
-        "editor.background": "#22273E",
-        "editorGutter.background": "#22273E",
+        "editor.background": "#1A1F33",
+        "editorGutter.background": "#1A1F33",
       },
     });
   };
