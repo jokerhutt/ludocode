@@ -20,16 +20,15 @@ export function LudoPopover({
       <PopoverContent
         align={"center"}
         side="bottom"
+        sideOffset={10}
+        collisionPadding={16}
         className={cn(
-          "rounded-xl relative mx-10 flex justify-between pt-3 min-w-80 flex-row mt-2 bg-ludo-background border-2 border-ludo-accent",
+          "relative flex w-72 flex-col rounded-xl p-3",
+          "bg-ludo-surface border border-white/10 shadow-lg shadow-black/30",
           className,
         )}
       >
-        <PopoverArrow
-          className="fill-ludo-surface stroke-ludo-accent"
-          width={12}
-          height={6}
-        />
+        <PopoverArrow className="fill-ludo-surface" width={14} height={7} />
         {children}
       </PopoverContent>
     </Popover>
