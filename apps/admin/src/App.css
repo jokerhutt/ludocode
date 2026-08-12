@@ -24,8 +24,8 @@ body {
     background: #1a1f33;
   }
   body {
-    @apply text-foreground;
     background: #1a1f33;
+    color: var(--color-ludo-white);
     overscroll-behavior: none;
     height: 100%;
     overflow: hidden;

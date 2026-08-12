@@ -29,11 +29,10 @@ body {
     overscroll-behavior: none;
   }
   body {
-    @apply text-foreground;
     background: #1a1f33;
+    color: var(--color-ludo-white);
     height: 100%;
     overflow: hidden;
-    @apply bg-background text-foreground;
   }
 }
 
